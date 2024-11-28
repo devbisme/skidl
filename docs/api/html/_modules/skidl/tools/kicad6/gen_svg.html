@@ -1,0 +1,604 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.tools.kicad6.gen_svg &#8212; SKiDL 2.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../../../../_static/documentation_options.js?v=51b770b3"></script>
+    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../../../../"><img src="../../../../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad6.gen_svg</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skidl.tools.kicad6.gen_svg</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Functions for generating SVG.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+
+<span class="kn">from</span> <span class="nn">skidl.geometry</span> <span class="kn">import</span> <span class="n">Tx</span><span class="p">,</span> <span class="n">Point</span><span class="p">,</span> <span class="n">BBox</span><span class="p">,</span> <span class="n">tx_flip_y</span>
+<span class="kn">from</span> <span class="nn">skidl.utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span>
+
+
+<span class="k">def</span> <span class="nf">draw_cmd_to_dict</span><span class="p">(</span><span class="n">symbol</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert a list of symbols from a KICAD part definition into a</span>
+<span class="sd">    dictionary for easier access to properties.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">symbol</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="n">symbol</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">is_named_present</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">item_names</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+        <span class="c1"># If the object is a list, recursively convert to dict</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">item_name</span><span class="p">,</span> <span class="n">item_dict</span> <span class="o">=</span> <span class="n">draw_cmd_to_dict</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="n">is_named_present</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># If the object is unnamed, put it in the &quot;misc&quot; list</span>
+        <span class="c1"># [&quot;key&quot;, item1, item2, [&quot;xy&quot;, 0, 0]] -&gt; &quot;key&quot;: {&quot;misc&quot;:[item1, item2], &quot;xy&quot;:[0,0]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">item_name</span> <span class="o">=</span> <span class="s2">&quot;misc&quot;</span>
+            <span class="n">item_dict</span> <span class="o">=</span> <span class="n">item</span>
+
+        <span class="c1"># Multiple items with the same key (e.g. (&quot;xy&quot; 0 0) (&quot;xy&quot; 1 0))</span>
+        <span class="c1"># get put into a list {&quot;xy&quot;: [[0,0],[1,0]]}</span>
+        <span class="k">if</span> <span class="n">item_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">item_names</span><span class="p">:</span>
+            <span class="n">item_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">item_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+            <span class="n">d</span><span class="p">[</span><span class="n">item_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">item_dict</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">d</span><span class="p">[</span><span class="n">item_name</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item_dict</span><span class="p">)</span>
+
+    <span class="c1"># if a list has only one item, remove it from the list</span>
+    <span class="k">for</span> <span class="n">item_name</span> <span class="ow">in</span> <span class="n">item_names</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">item_name</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">d</span><span class="p">[</span><span class="n">item_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">item_name</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_named_present</span><span class="p">:</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;misc&quot;</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">name</span><span class="p">,</span> <span class="n">d</span>
+
+
+<span class="k">def</span> <span class="nf">bbox_to_svg</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="n">stroke_wid</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="s2">&quot;&lt;rect&quot;</span><span class="p">,</span>
+            <span class="s1">&#39;x=&quot;</span><span class="si">{bbox.min.x:.3f}</span><span class="s1">&quot; y=&quot;</span><span class="si">{bbox.min.y:.3f}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;width=&quot;</span><span class="si">{bbox.w:.3f}</span><span class="s1">&quot; height=&quot;</span><span class="si">{bbox.h:.3f}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;style=&quot;stroke-width:</span><span class="si">{stroke_wid:.3f}</span><span class="s1">; stroke:#606060&quot;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;class=&quot;$cell_id symbol&quot;&#39;</span><span class="p">,</span>
+            <span class="s2">&quot;/&gt;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+
+
+<span class="k">def</span> <span class="nf">draw_cmd_to_svg</span><span class="p">(</span><span class="n">draw_cmd</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="n">net_stubs</span><span class="p">,</span> <span class="n">max_stub_len</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert symbol drawing command into SVG string and an associated bounding box.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        draw_cmd (str): Contains textual information about the shape to be drawn.</span>
+<span class="sd">        tx (Tx): Transformation matrix to be applied to the shape.</span>
+<span class="sd">        part (Part): Part object that the drawing command belongs to (used to get pin information.)</span>
+<span class="sd">        net_stubs (list): List of Net objects whose names will be connected to part symbol pins as connection stubs.</span>
+<span class="sd">        max_stub_len (int): Maximum length of a net stub name.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        shape_svg (str): SVG command for the shape.</span>
+<span class="sd">        shape_bbox (BBox): Bounding box for the shape.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Use this when determining width of a text string based on its number of characters.</span>
+    <span class="n">char_sz_fudge_factor</span> <span class="o">=</span> <span class="mf">0.6</span>
+
+    <span class="n">tx_scale</span> <span class="o">=</span> <span class="n">tx</span><span class="o">.</span><span class="n">scale</span>  <span class="c1"># Compute this only once.</span>
+
+    <span class="k">def</span> <span class="nf">points_to_str</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="p">):</span>
+        <span class="n">pt2str</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">pt</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{pt.x:.3f}</span><span class="s2">,</span><span class="si">{pt.y:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pt</span><span class="o">=</span><span class="n">pt</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">pt2str</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span> <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="n">points</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">pin_side</span><span class="p">(</span><span class="n">vec</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine the side of the symbol based on the pin&#39;s direction vector.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">vec</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">vec</span><span class="o">.</span><span class="n">y</span> <span class="ow">and</span> <span class="n">vec</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="o">-</span><span class="n">vec</span><span class="o">.</span><span class="n">y</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;left&quot;</span>
+        <span class="k">elif</span> <span class="n">vec</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">vec</span><span class="o">.</span><span class="n">y</span> <span class="ow">and</span> <span class="n">vec</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="o">-</span><span class="n">vec</span><span class="o">.</span><span class="n">y</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;top&quot;</span>
+        <span class="k">elif</span> <span class="n">vec</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">vec</span><span class="o">.</span><span class="n">y</span> <span class="ow">and</span> <span class="n">vec</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">vec</span><span class="o">.</span><span class="n">y</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;right&quot;</span>
+        <span class="k">elif</span> <span class="n">vec</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">vec</span><span class="o">.</span><span class="n">y</span> <span class="ow">and</span> <span class="n">vec</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">vec</span><span class="o">.</span><span class="n">y</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;bottom&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Impossible pin orientation.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">pin_text_to_svg</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">pin_attr</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="n">pt</span><span class="p">,</span> <span class="n">char_wid</span><span class="p">):</span>
+        <span class="n">spc</span> <span class="o">=</span> <span class="s2">&quot;&amp;#8201;&amp;#8201;&quot;</span>  <span class="c1"># Whitespaces for padding around pin text.</span>
+        <span class="n">svg_template</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;left&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;pin_name&quot;</span><span class="p">:</span> <span class="s1">&#39;&lt;text class=&quot;pin_name_text&quot; x=&quot;</span><span class="si">{x:.3f}</span><span class="s1">&quot; y=&quot;</span><span class="si">{y:.3f}</span><span class="s1">&quot; transform=&quot;rotate(0 </span><span class="si">{x:.3f}</span><span class="s1"> </span><span class="si">{y:.3f}</span><span class="s1">)&quot; style=&quot;font-size:</span><span class="si">{char_wid:.3f}</span><span class="s1">&quot; dominant-baseline=&quot;central&quot; text-anchor=&quot;start&quot;&gt;</span><span class="si">{spc}{text}</span><span class="s1">&lt;/text&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+                <span class="s2">&quot;pin_num&quot;</span><span class="p">:</span> <span class="s1">&#39;&lt;text class=&quot;pin_num_text&quot;  x=&quot;</span><span class="si">{x:.3f}</span><span class="s1">&quot; y=&quot;</span><span class="si">{y:.3f}</span><span class="s1">&quot; transform=&quot;rotate(0 </span><span class="si">{x:.3f}</span><span class="s1"> </span><span class="si">{y:.3f}</span><span class="s1">)&quot; style=&quot;font-size:</span><span class="si">{char_wid:.3f}</span><span class="s1">&quot; dominant-baseline=&quot;&quot;        text-anchor=&quot;end&quot;&gt;</span><span class="si">{text}{spc}</span><span class="s1">&lt;/text&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+                <span class="s2">&quot;net_name&quot;</span><span class="p">:</span> <span class="s1">&#39;&lt;text class=&quot;net_name_text&quot; x=&quot;</span><span class="si">{x:.3f}</span><span class="s1">&quot; y=&quot;</span><span class="si">{y:.3f}</span><span class="s1">&quot; transform=&quot;rotate(0 </span><span class="si">{x:.3f}</span><span class="s1"> </span><span class="si">{y:.3f}</span><span class="s1">)&quot; style=&quot;font-size:</span><span class="si">{char_wid:.3f}</span><span class="s1">&quot; dominant-baseline=&quot;central&quot; text-anchor=&quot;end&quot;&gt;</span><span class="si">{text}{spc}</span><span class="s1">&lt;/text&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;right&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;pin_name&quot;</span><span class="p">:</span> <span class="s1">&#39;&lt;text class=&quot;pin_name_text&quot; x=&quot;</span><span class="si">{x:.3f}</span><span class="s1">&quot; y=&quot;</span><span class="si">{y:.3f}</span><span class="s1">&quot; transform=&quot;rotate(0 </span><span class="si">{x:.3f}</span><span class="s1"> </span><span class="si">{y:.3f}</span><span class="s1">)&quot; style=&quot;font-size:</span><span class="si">{char_wid:.3f}</span><span class="s1">&quot; dominant-baseline=&quot;central&quot; text-anchor=&quot;end&quot;&gt;</span><span class="si">{text}{spc}</span><span class="s1">&lt;/text&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+                <span class="s2">&quot;pin_num&quot;</span><span class="p">:</span> <span class="s1">&#39;&lt;text class=&quot;pin_num_text&quot;  x=&quot;</span><span class="si">{x:.3f}</span><span class="s1">&quot; y=&quot;</span><span class="si">{y:.3f}</span><span class="s1">&quot; transform=&quot;rotate(0 </span><span class="si">{x:.3f}</span><span class="s1"> </span><span class="si">{y:.3f}</span><span class="s1">)&quot; style=&quot;font-size:</span><span class="si">{char_wid:.3f}</span><span class="s1">&quot; dominant-baseline=&quot;&quot;        text-anchor=&quot;start&quot;&gt;</span><span class="si">{spc}{text}</span><span class="s1">&lt;/text&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+                <span class="s2">&quot;net_name&quot;</span><span class="p">:</span> <span class="s1">&#39;&lt;text class=&quot;net_name_text&quot; x=&quot;</span><span class="si">{x:.3f}</span><span class="s1">&quot; y=&quot;</span><span class="si">{y:.3f}</span><span class="s1">&quot; transform=&quot;rotate(0 </span><span class="si">{x:.3f}</span><span class="s1"> </span><span class="si">{y:.3f}</span><span class="s1">)&quot; style=&quot;font-size:</span><span class="si">{char_wid:.3f}</span><span class="s1">&quot; dominant-baseline=&quot;central&quot; text-anchor=&quot;start&quot;&gt;</span><span class="si">{spc}{text}</span><span class="s1">&lt;/text&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;top&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;pin_name&quot;</span><span class="p">:</span> <span class="s1">&#39;&lt;text class=&quot;pin_name_text&quot; x=&quot;</span><span class="si">{x:.3f}</span><span class="s1">&quot; y=&quot;</span><span class="si">{y:.3f}</span><span class="s1">&quot; transform=&quot;rotate(-90 </span><span class="si">{x:.3f}</span><span class="s1"> </span><span class="si">{y:.3f}</span><span class="s1">)&quot; style=&quot;font-size:</span><span class="si">{char_wid:.3f}</span><span class="s1">&quot; dominant-baseline=&quot;central&quot; text-anchor=&quot;end&quot;&gt;</span><span class="si">{text}{spc}</span><span class="s1">&lt;/text&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+                <span class="s2">&quot;pin_num&quot;</span><span class="p">:</span> <span class="s1">&#39;&lt;text class=&quot;pin_num_text&quot;  x=&quot;</span><span class="si">{x:.3f}</span><span class="s1">&quot; y=&quot;</span><span class="si">{y:.3f}</span><span class="s1">&quot; transform=&quot;rotate(-90 </span><span class="si">{x:.3f}</span><span class="s1"> </span><span class="si">{y:.3f}</span><span class="s1">)&quot; style=&quot;font-size:</span><span class="si">{char_wid:.3f}</span><span class="s1">&quot; dominant-baseline=&quot;&quot;        text-anchor=&quot;start&quot;&gt;</span><span class="si">{spc}{text}</span><span class="s1">&lt;/text&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+                <span class="s2">&quot;net_name&quot;</span><span class="p">:</span> <span class="s1">&#39;&lt;text class=&quot;net_name_text&quot; x=&quot;</span><span class="si">{x:.3f}</span><span class="s1">&quot; y=&quot;</span><span class="si">{y:.3f}</span><span class="s1">&quot; transform=&quot;rotate(-90 </span><span class="si">{x:.3f}</span><span class="s1"> </span><span class="si">{y:.3f}</span><span class="s1">)&quot; style=&quot;font-size:</span><span class="si">{char_wid:.3f}</span><span class="s1">&quot; dominant-baseline=&quot;central&quot; text-anchor=&quot;start&quot;&gt;</span><span class="si">{spc}{text}</span><span class="s1">&lt;/text&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;bottom&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;pin_name&quot;</span><span class="p">:</span> <span class="s1">&#39;&lt;text class=&quot;pin_name_text&quot; x=&quot;</span><span class="si">{x:.3f}</span><span class="s1">&quot; y=&quot;</span><span class="si">{y:.3f}</span><span class="s1">&quot; transform=&quot;rotate(-90 </span><span class="si">{x:.3f}</span><span class="s1"> </span><span class="si">{y:.3f}</span><span class="s1">)&quot; style=&quot;font-size:</span><span class="si">{char_wid:.3f}</span><span class="s1">&quot; dominant-baseline=&quot;central&quot; text-anchor=&quot;start&quot;&gt;</span><span class="si">{spc}{text}</span><span class="s1">&lt;/text&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+                <span class="s2">&quot;pin_num&quot;</span><span class="p">:</span> <span class="s1">&#39;&lt;text class=&quot;pin_num_text&quot;  x=&quot;</span><span class="si">{x:.3f}</span><span class="s1">&quot; y=&quot;</span><span class="si">{y:.3f}</span><span class="s1">&quot; transform=&quot;rotate(-90 </span><span class="si">{x:.3f}</span><span class="s1"> </span><span class="si">{y:.3f}</span><span class="s1">)&quot; style=&quot;font-size:</span><span class="si">{char_wid:.3f}</span><span class="s1">&quot; dominant-baseline=&quot;&quot;        text-anchor=&quot;end&quot;&gt;</span><span class="si">{text}{spc}</span><span class="s1">&lt;/text&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+                <span class="s2">&quot;net_name&quot;</span><span class="p">:</span> <span class="s1">&#39;&lt;text class=&quot;net_name_text&quot; x=&quot;</span><span class="si">{x:.3f}</span><span class="s1">&quot; y=&quot;</span><span class="si">{y:.3f}</span><span class="s1">&quot; transform=&quot;rotate(-90 </span><span class="si">{x:.3f}</span><span class="s1"> </span><span class="si">{y:.3f}</span><span class="s1">)&quot; style=&quot;font-size:</span><span class="si">{char_wid:.3f}</span><span class="s1">&quot; dominant-baseline=&quot;central&quot; text-anchor=&quot;end&quot;&gt;</span><span class="si">{text}{spc}</span><span class="s1">&lt;/text&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">svg_template</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="n">pin_attr</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">pt</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">pt</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">char_wid</span><span class="o">=</span><span class="n">char_wid</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">spc</span><span class="o">=</span><span class="n">spc</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">text_to_svg</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="n">pt</span><span class="p">,</span> <span class="n">char_wid</span><span class="p">,</span> <span class="n">class_</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+        <span class="n">svg_template</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;right&quot;</span><span class="p">:</span> <span class="s1">&#39;&lt;text class=&quot;</span><span class="si">{class_}</span><span class="s1">&quot; x=&quot;</span><span class="si">{x:.3f}</span><span class="s1">&quot; y=&quot;</span><span class="si">{y:.3f}</span><span class="s1">&quot; transform=&quot;rotate(0 </span><span class="si">{x:.3f}</span><span class="s1"> </span><span class="si">{y:.3f}</span><span class="s1">)&quot;   style=&quot;font-size:</span><span class="si">{char_wid:.3f}</span><span class="s1">&quot; dominant-baseline=&quot;central&quot; text-anchor=&quot;end&quot;   </span><span class="si">{attr}</span><span class="s1">&gt;</span><span class="si">{text}</span><span class="s1">&lt;/text&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s2">&quot;left&quot;</span><span class="p">:</span> <span class="s1">&#39;&lt;text class=&quot;</span><span class="si">{class_}</span><span class="s1">&quot; x=&quot;</span><span class="si">{x:.3f}</span><span class="s1">&quot; y=&quot;</span><span class="si">{y:.3f}</span><span class="s1">&quot; transform=&quot;rotate(0 </span><span class="si">{x:.3f}</span><span class="s1"> </span><span class="si">{y:.3f}</span><span class="s1">)&quot;   style=&quot;font-size:</span><span class="si">{char_wid:.3f}</span><span class="s1">&quot; dominant-baseline=&quot;central&quot; text-anchor=&quot;start&quot; </span><span class="si">{attr}</span><span class="s1">&gt;</span><span class="si">{text}</span><span class="s1">&lt;/text&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s2">&quot;bottom&quot;</span><span class="p">:</span> <span class="s1">&#39;&lt;text class=&quot;</span><span class="si">{class_}</span><span class="s1">&quot; x=&quot;</span><span class="si">{x:.3f}</span><span class="s1">&quot; y=&quot;</span><span class="si">{y:.3f}</span><span class="s1">&quot; transform=&quot;rotate(-90 </span><span class="si">{x:.3f}</span><span class="s1"> </span><span class="si">{y:.3f}</span><span class="s1">)&quot; style=&quot;font-size:</span><span class="si">{char_wid:.3f}</span><span class="s1">&quot; dominant-baseline=&quot;central&quot; text-anchor=&quot;start&quot; </span><span class="si">{attr}</span><span class="s1">&gt;</span><span class="si">{text}</span><span class="s1">&lt;/text&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s2">&quot;top&quot;</span><span class="p">:</span> <span class="s1">&#39;&lt;text class=&quot;</span><span class="si">{class_}</span><span class="s1">&quot; x=&quot;</span><span class="si">{x:.3f}</span><span class="s1">&quot; y=&quot;</span><span class="si">{y:.3f}</span><span class="s1">&quot; transform=&quot;rotate(-90 </span><span class="si">{x:.3f}</span><span class="s1"> </span><span class="si">{y:.3f}</span><span class="s1">)&quot; style=&quot;font-size:</span><span class="si">{char_wid:.3f}</span><span class="s1">&quot; dominant-baseline=&quot;central&quot; text-anchor=&quot;end&quot;   </span><span class="si">{attr}</span><span class="s1">&gt;</span><span class="si">{text}</span><span class="s1">&lt;/text&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">svg_template</span><span class="p">[</span><span class="n">side</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">pt</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">pt</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">char_wid</span><span class="o">=</span><span class="n">char_wid</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="n">class_</span><span class="p">,</span> <span class="n">attr</span><span class="o">=</span><span class="n">attr</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">text_bbox</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="nb">dir</span><span class="p">,</span> <span class="n">char_wid</span><span class="p">,</span> <span class="n">char_hgt</span><span class="p">):</span>
+        <span class="n">char_wid</span> <span class="o">*=</span> <span class="n">char_sz_fudge_factor</span>  <span class="c1"># Fudge-factor to make bbox turn out right.</span>
+        <span class="n">char_hgt</span> <span class="o">*=</span> <span class="n">char_sz_fudge_factor</span>  <span class="c1"># Fudge-factor to make bbox turn out right.</span>
+        <span class="n">ortho_dir</span> <span class="o">=</span> <span class="nb">dir</span> <span class="o">*</span> <span class="n">Tx</span><span class="p">()</span><span class="o">.</span><span class="n">rot</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="n">start</span> <span class="o">-</span> <span class="n">ortho_dir</span> <span class="o">*</span> <span class="n">char_hgt</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">p2</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">ortho_dir</span> <span class="o">*</span> <span class="n">char_hgt</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">p3</span> <span class="o">=</span> <span class="n">p1</span> <span class="o">+</span> <span class="nb">dir</span> <span class="o">*</span> <span class="n">char_wid</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">p4</span> <span class="o">=</span> <span class="n">p2</span> <span class="o">+</span> <span class="nb">dir</span> <span class="o">*</span> <span class="n">char_wid</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">BBox</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p4</span><span class="p">)</span>
+
+    <span class="n">shape_type</span><span class="p">,</span> <span class="n">shape</span> <span class="o">=</span> <span class="n">draw_cmd_to_dict</span><span class="p">(</span><span class="n">draw_cmd</span><span class="p">)</span>
+
+    <span class="n">default_stroke_width</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+    <span class="n">default_stroke</span> <span class="o">=</span> <span class="s2">&quot;#000&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="s2">&quot;stroke&quot;</span> <span class="ow">in</span> <span class="n">shape</span><span class="p">:</span>
+        <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;stroke&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="s2">&quot;type&quot;</span> <span class="ow">in</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;stroke&quot;</span><span class="p">]:</span>
+        <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;stroke&quot;</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="s2">&quot;width&quot;</span> <span class="ow">in</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;stroke&quot;</span><span class="p">]:</span>
+        <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;stroke&quot;</span><span class="p">][</span><span class="s2">&quot;width&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="s2">&quot;fill&quot;</span> <span class="ow">in</span> <span class="n">shape</span><span class="p">:</span>
+        <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;fill&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="s2">&quot;type&quot;</span> <span class="ow">in</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;fill&quot;</span><span class="p">]:</span>
+        <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;fill&quot;</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="s2">&quot;justify&quot;</span> <span class="ow">in</span> <span class="n">shape</span><span class="p">:</span>
+        <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;justify&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;right&quot;</span>
+
+    <span class="k">if</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;stroke&quot;</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;default&quot;</span><span class="p">:</span>
+        <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;stroke&quot;</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;#000&quot;</span>
+    <span class="k">if</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;stroke&quot;</span><span class="p">][</span><span class="s2">&quot;width&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;stroke&quot;</span><span class="p">][</span><span class="s2">&quot;width&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+    <span class="k">if</span> <span class="n">shape_type</span> <span class="o">==</span> <span class="s2">&quot;polyline&quot;</span><span class="p">:</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="o">*</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="n">tx</span> <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;pts&quot;</span><span class="p">][</span><span class="s2">&quot;xy&quot;</span><span class="p">]]</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="p">)</span>
+        <span class="n">points_str</span> <span class="o">=</span> <span class="n">points_to_str</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="p">)</span>
+        <span class="n">stroke</span> <span class="o">=</span> <span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="s2">&quot;stroke&quot;</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">],)</span>
+        <span class="n">stroke_width</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="s2">&quot;stroke&quot;</span><span class="p">][</span><span class="s2">&quot;width&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">tx_scale</span><span class="p">)</span>
+        <span class="n">fill</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;fill&quot;</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">]</span>
+        <span class="n">svg</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="s2">&quot;&lt;polyline&quot;</span><span class="p">,</span>
+                <span class="s1">&#39;points=&quot;</span><span class="si">{points_str}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;style=&quot;stroke-width:</span><span class="si">{stroke_width:.3f}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;class=&quot;$cell_id symbol </span><span class="si">{fill}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                <span class="s2">&quot;/&gt;&quot;</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+
+    <span class="k">elif</span> <span class="n">shape_type</span> <span class="o">==</span> <span class="s2">&quot;circle&quot;</span><span class="p">:</span>
+        <span class="n">ctr</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">*</span><span class="n">shape</span><span class="p">[</span><span class="s2">&quot;center&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">tx</span>
+        <span class="n">radius</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="s2">&quot;radius&quot;</span><span class="p">],</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;radius&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">tx_scale</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">radius</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">(</span><span class="n">ctr</span> <span class="o">+</span> <span class="n">radius</span><span class="p">,</span> <span class="n">ctr</span> <span class="o">-</span> <span class="n">radius</span><span class="p">)</span>
+        <span class="n">stroke</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;stroke&quot;</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">]</span>
+        <span class="n">stroke_width</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="s2">&quot;stroke&quot;</span><span class="p">][</span><span class="s2">&quot;width&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">tx_scale</span><span class="p">)</span>
+        <span class="n">fill</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;fill&quot;</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">]</span>
+        <span class="n">svg</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="s2">&quot;&lt;circle&quot;</span><span class="p">,</span>
+                <span class="s1">&#39;cx=&quot;</span><span class="si">{ctr.x:.3f}</span><span class="s1">&quot; cy=&quot;</span><span class="si">{ctr.y:.3f}</span><span class="s1">&quot; r=&quot;</span><span class="si">{r:.3f}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;style=&quot;stroke-width:</span><span class="si">{stroke_width:.3f}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;class=&quot;$cell_id symbol </span><span class="si">{fill}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                <span class="s2">&quot;/&gt;&quot;</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+
+    <span class="k">elif</span> <span class="n">shape_type</span> <span class="o">==</span> <span class="s2">&quot;rectangle&quot;</span><span class="p">:</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">*</span><span class="n">shape</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">tx</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">*</span><span class="n">shape</span><span class="p">[</span><span class="s2">&quot;end&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">tx</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+        <span class="n">stroke</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;stroke&quot;</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">]</span>
+        <span class="n">stroke_width</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="s2">&quot;stroke&quot;</span><span class="p">][</span><span class="s2">&quot;width&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">tx_scale</span><span class="p">)</span>
+        <span class="n">fill</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;fill&quot;</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">]</span>
+        <span class="n">svg</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="s2">&quot;&lt;rect&quot;</span><span class="p">,</span>
+                <span class="s1">&#39;x=&quot;</span><span class="si">{bbox.min.x:.3f}</span><span class="s1">&quot; y=&quot;</span><span class="si">{bbox.min.y:.3f}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;width=&quot;</span><span class="si">{bbox.w:.3f}</span><span class="s1">&quot; height=&quot;</span><span class="si">{bbox.h:.3f}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;style=&quot;stroke-width:</span><span class="si">{stroke_width:.3f}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;class=&quot;$cell_id symbol </span><span class="si">{fill}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                <span class="s2">&quot;/&gt;&quot;</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+
+    <span class="k">elif</span> <span class="n">shape_type</span> <span class="o">==</span> <span class="s2">&quot;arc&quot;</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">*</span><span class="n">shape</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">tx</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">*</span><span class="n">shape</span><span class="p">[</span><span class="s2">&quot;end&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">tx</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">*</span><span class="n">shape</span><span class="p">[</span><span class="s2">&quot;mid&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">tx</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+
+        <span class="n">A</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+
+        <span class="n">angle</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">acos</span><span class="p">((</span><span class="n">A</span> <span class="o">*</span> <span class="n">A</span> <span class="o">+</span> <span class="n">B</span> <span class="o">*</span> <span class="n">B</span> <span class="o">-</span> <span class="n">C</span> <span class="o">*</span> <span class="n">C</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">B</span><span class="p">))</span>
+        <span class="n">K</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">B</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">B</span> <span class="o">*</span> <span class="n">C</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">/</span> <span class="n">K</span>
+
+        <span class="n">large_arc</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">&gt;</span> <span class="n">angle</span><span class="p">)</span>
+        <span class="n">sweep</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">b</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">a</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">a</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">a</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">a</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">stroke</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;stroke&quot;</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">]</span>
+        <span class="n">stroke_width</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="s2">&quot;stroke&quot;</span><span class="p">][</span><span class="s2">&quot;width&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">tx_scale</span><span class="p">)</span>
+        <span class="n">fill</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;fill&quot;</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">]</span>
+        <span class="n">svg</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="s2">&quot;&lt;path&quot;</span><span class="p">,</span>
+                <span class="s1">&#39;d=&quot;M </span><span class="si">{a.x:.3f}</span><span class="s1"> </span><span class="si">{a.y:.3f}</span><span class="s1"> A </span><span class="si">{r:.3f}</span><span class="s1"> </span><span class="si">{r:.3f}</span><span class="s1"> 0 </span><span class="si">{large_arc}</span><span class="s1"> </span><span class="si">{sweep}</span><span class="s1"> </span><span class="si">{b.x:.3f}</span><span class="s1"> </span><span class="si">{b.y:.3f}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;style=&quot;stroke-width:</span><span class="si">{stroke_width:.3f}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;class=&quot;$cell_id symbol </span><span class="si">{fill}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                <span class="s2">&quot;/&gt;&quot;</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+
+    <span class="k">elif</span> <span class="n">shape_type</span> <span class="o">==</span> <span class="s2">&quot;property&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">&quot;hide&quot;</span> <span class="ow">in</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;effects&quot;</span><span class="p">]:</span>
+            <span class="n">svg</span><span class="p">,</span> <span class="n">bbox</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">BBox</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;misc&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;reference&quot;</span><span class="p">:</span>
+                <span class="n">class_</span> <span class="o">=</span> <span class="s2">&quot;part_ref_text&quot;</span>
+                <span class="n">attr</span> <span class="o">=</span> <span class="s1">&#39;s:attribute=&quot;ref&quot;&#39;</span>
+            <span class="k">elif</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;misc&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span>
+                <span class="n">class_</span> <span class="o">=</span> <span class="s2">&quot;part_name_text&quot;</span>
+                <span class="n">attr</span> <span class="o">=</span> <span class="s1">&#39;s:attribute=&quot;value&quot;&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="s2">&quot;Unknown property </span><span class="si">{symbol[1]}</span><span class="s2"> is not hidden.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+                <span class="p">)</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">*</span><span class="n">shape</span><span class="p">[</span><span class="s2">&quot;at&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+            <span class="n">rotation</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;at&quot;</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">justify</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;effects&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;justify&quot;</span><span class="p">,</span> <span class="n">shape</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;justify&quot;</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="p">)</span>
+            <span class="nb">dir</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;right&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;left&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)}[</span><span class="n">justify</span><span class="p">]</span> <span class="o">*</span> <span class="n">Tx</span><span class="p">()</span><span class="o">.</span><span class="n">rot</span><span class="p">(</span>
+                <span class="n">rotation</span>
+            <span class="p">)</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">dir</span>
+            <span class="n">start</span> <span class="o">*=</span> <span class="n">tx</span>
+            <span class="n">end</span> <span class="o">*=</span> <span class="n">tx</span>
+            <span class="n">side</span> <span class="o">=</span> <span class="n">pin_side</span><span class="p">(</span><span class="nb">dir</span> <span class="o">*</span> <span class="n">tx</span><span class="o">.</span><span class="n">no_translate</span><span class="p">())</span>
+            <span class="n">char_wid</span><span class="p">,</span> <span class="n">char_hgt</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;effects&quot;</span><span class="p">][</span><span class="s2">&quot;font&quot;</span><span class="p">][</span><span class="s2">&quot;size&quot;</span><span class="p">][:]</span>
+            <span class="n">char_wid</span> <span class="o">*=</span> <span class="n">tx_scale</span>
+            <span class="n">char_hgt</span> <span class="o">*=</span> <span class="n">tx_scale</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;misc&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">svg</span> <span class="o">=</span> <span class="n">text_to_svg</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">char_wid</span><span class="p">,</span> <span class="n">class_</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+            <span class="n">bbox</span> <span class="o">=</span> <span class="n">text_bbox</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span><span class="o">.</span><span class="n">norm</span><span class="p">,</span> <span class="n">char_wid</span><span class="p">,</span> <span class="n">char_hgt</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">shape_type</span> <span class="o">==</span> <span class="s2">&quot;pin&quot;</span><span class="p">:</span>
+        <span class="n">num_char_wid</span><span class="p">,</span> <span class="n">num_char_hgt</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">][</span><span class="s2">&quot;effects&quot;</span><span class="p">][</span><span class="s2">&quot;font&quot;</span><span class="p">][</span><span class="s2">&quot;size&quot;</span><span class="p">][:]</span>
+        <span class="n">name_char_wid</span><span class="p">,</span> <span class="n">name_char_hgt</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">][</span><span class="s2">&quot;effects&quot;</span><span class="p">][</span><span class="s2">&quot;font&quot;</span><span class="p">][</span><span class="s2">&quot;size&quot;</span><span class="p">][:]</span>
+        <span class="n">net_name_char_wid</span><span class="p">,</span> <span class="n">net_name_char_hgt</span> <span class="o">=</span> <span class="n">name_char_wid</span><span class="p">,</span> <span class="n">name_char_hgt</span>
+
+        <span class="c1"># Get the pin object associated with this drawing command.</span>
+        <span class="n">pin_name</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">][</span><span class="s2">&quot;misc&quot;</span><span class="p">]</span>
+        <span class="n">pin_num</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">][</span><span class="s2">&quot;misc&quot;</span><span class="p">]</span>
+        <span class="n">pin</span> <span class="o">=</span> <span class="n">part</span><span class="p">[</span><span class="n">pin_num</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">net</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">NC</span><span class="p">]:</span>
+            <span class="c1"># Unconnected pins remain at the length of the default symbol pin.</span>
+            <span class="n">extension</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">elif</span> <span class="n">pin</span><span class="o">.</span><span class="n">net</span> <span class="ow">in</span> <span class="n">net_stubs</span><span class="p">:</span>
+            <span class="c1"># Don&#39;t extend the pin since the net name for the stub will be</span>
+            <span class="c1"># connected directly to the pin.</span>
+            <span class="n">extension</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># The pin is connected to a non-stub (routed) net.</span>
+            <span class="c1"># Extend the pin to the edge of the symbol bounding box so it</span>
+            <span class="c1"># can be routed to.</span>
+            <span class="n">extension</span> <span class="o">=</span> <span class="n">net_name_char_wid</span> <span class="o">*</span> <span class="n">max_stub_len</span> <span class="o">*</span> <span class="n">char_sz_fudge_factor</span>
+
+        <span class="n">start</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">*</span><span class="n">shape</span><span class="p">[</span><span class="s2">&quot;at&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">rotation</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;at&quot;</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;length&quot;</span><span class="p">]</span>
+        <span class="nb">dir</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">Tx</span><span class="p">()</span><span class="o">.</span><span class="n">rot</span><span class="p">(</span><span class="n">rotation</span><span class="p">)</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">dir</span> <span class="o">*</span> <span class="n">length</span>
+        <span class="n">start</span> <span class="o">-=</span> <span class="nb">dir</span> <span class="o">*</span> <span class="n">extension</span>
+        <span class="n">end</span> <span class="o">*=</span> <span class="n">tx</span>
+        <span class="n">start</span> <span class="o">*=</span> <span class="n">tx</span>
+        <span class="n">side</span> <span class="o">=</span> <span class="n">pin_side</span><span class="p">(</span><span class="nb">dir</span> <span class="o">*</span> <span class="n">tx</span><span class="o">.</span><span class="n">no_translate</span><span class="p">())</span>
+
+        <span class="c1"># Bounding box for the pin.</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+
+        <span class="n">num_char_wid</span> <span class="o">*=</span> <span class="n">tx_scale</span>
+        <span class="n">num_char_hgt</span> <span class="o">*=</span> <span class="n">tx_scale</span>
+        <span class="n">name_char_wid</span> <span class="o">*=</span> <span class="n">tx_scale</span>
+        <span class="n">name_char_hgt</span> <span class="o">*=</span> <span class="n">tx_scale</span>
+        <span class="n">net_name_char_hgt</span> <span class="o">*=</span> <span class="n">tx_scale</span>
+        <span class="n">net_name_char_wid</span> <span class="o">*=</span> <span class="n">tx_scale</span>
+
+        <span class="c1"># Now add bounding boxes for the pin number, name, and net name.</span>
+        <span class="n">bbox</span> <span class="o">+=</span> <span class="n">text_bbox</span><span class="p">(</span>
+            <span class="n">pin_num</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span><span class="o">.</span><span class="n">norm</span><span class="p">,</span> <span class="n">num_char_wid</span><span class="p">,</span> <span class="n">num_char_hgt</span>
+        <span class="p">)</span>
+        <span class="n">bbox</span> <span class="o">+=</span> <span class="n">text_bbox</span><span class="p">(</span>
+            <span class="n">pin_name</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span><span class="o">.</span><span class="n">norm</span><span class="p">,</span> <span class="n">name_char_wid</span><span class="p">,</span> <span class="n">name_char_hgt</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">net</span> <span class="ow">in</span> <span class="n">net_stubs</span><span class="p">:</span>
+            <span class="n">bbox</span> <span class="o">+=</span> <span class="n">text_bbox</span><span class="p">(</span>
+                <span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="n">start</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">start</span> <span class="o">-</span> <span class="n">end</span><span class="p">)</span><span class="o">.</span><span class="n">norm</span><span class="p">,</span>
+                <span class="n">net_name_char_wid</span><span class="p">,</span>
+                <span class="n">net_name_char_hgt</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="n">stroke</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;stroke&quot;</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">]</span>
+        <span class="n">stroke_width</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="s2">&quot;stroke&quot;</span><span class="p">][</span><span class="s2">&quot;width&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">tx_scale</span><span class="p">)</span>
+        <span class="n">fill</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;fill&quot;</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">]</span>
+        <span class="n">circle_stroke_width</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">stroke_width</span>
+
+        <span class="n">points_str</span> <span class="o">=</span> <span class="n">points_to_str</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+        <span class="n">pin_svg</span> <span class="o">=</span> <span class="s1">&#39;&lt;polyline points=&quot;</span><span class="si">{points_str}</span><span class="s1">&quot; style=&quot;stroke-width:</span><span class="si">{stroke_width:.3f}</span><span class="s1">&quot; class=&quot;$cell_id symbol </span><span class="si">{fill}</span><span class="s1">&quot; /&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="o">**</span><span class="nb">locals</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="c1"># pin_circle_svg = &#39;&lt;circle cx=&quot;{start.x:.3f}&quot; cy=&quot;{start.y:.3f}&quot; r=&quot;{circle_stroke_width:.3f}&quot; style=&quot;stroke-width:{circle_stroke_width:.3f}&quot; class=&quot;$cell_id symbol {fill}&quot; /&gt;\n&#39;.format(**locals())</span>
+        <span class="n">pin_circle_svg</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">pin_num_svg</span> <span class="o">=</span> <span class="n">pin_text_to_svg</span><span class="p">(</span><span class="n">pin_num</span><span class="p">,</span> <span class="s2">&quot;pin_num&quot;</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">num_char_wid</span><span class="p">)</span>
+        <span class="n">pin_name_svg</span> <span class="o">=</span> <span class="n">pin_text_to_svg</span><span class="p">(</span><span class="n">pin_name</span><span class="p">,</span> <span class="s2">&quot;pin_name&quot;</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">name_char_wid</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">net</span> <span class="ow">in</span> <span class="n">net_stubs</span><span class="p">:</span>
+            <span class="n">net_name_svg</span> <span class="o">=</span> <span class="n">pin_text_to_svg</span><span class="p">(</span>
+                <span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;net_name&quot;</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">net_name_char_wid</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">net_name_svg</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">connection_svg</span> <span class="o">=</span> <span class="s1">&#39;&lt;g s:x=&quot;</span><span class="si">{start.x:.3f}</span><span class="s1">&quot; s:y=&quot;</span><span class="si">{start.y:.3f}</span><span class="s1">&quot; s:pid=&quot;</span><span class="si">{pin_num}</span><span class="s1">&quot; s:position=&quot;</span><span class="si">{side}</span><span class="s1">&quot;/&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="o">**</span><span class="nb">locals</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">svg</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">pin_svg</span><span class="p">,</span>
+                <span class="n">pin_circle_svg</span><span class="p">,</span>
+                <span class="n">pin_num_svg</span><span class="p">,</span>
+                <span class="n">pin_name_svg</span><span class="p">,</span>
+                <span class="n">net_name_svg</span><span class="p">,</span>
+                <span class="n">connection_svg</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">shape_type</span> <span class="o">==</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span>
+        <span class="n">class_</span> <span class="o">=</span> <span class="s2">&quot;text&quot;</span>
+        <span class="n">attr</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">*</span><span class="n">shape</span><span class="p">[</span><span class="s2">&quot;at&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">rotation</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;at&quot;</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+        <span class="nb">dir</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;right&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;left&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)}[</span>
+            <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;justify&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="p">]</span> <span class="o">*</span> <span class="n">Tx</span><span class="p">()</span><span class="o">.</span><span class="n">rot</span><span class="p">(</span><span class="n">rotation</span><span class="p">)</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">dir</span>
+        <span class="n">start</span> <span class="o">*=</span> <span class="n">tx</span>
+        <span class="n">end</span> <span class="o">*=</span> <span class="n">tx</span>
+        <span class="n">side</span> <span class="o">=</span> <span class="n">pin_side</span><span class="p">(</span><span class="nb">dir</span> <span class="o">*</span> <span class="n">tx</span><span class="o">.</span><span class="n">no_translate</span><span class="p">())</span>
+        <span class="n">char_wid</span><span class="p">,</span> <span class="n">char_hgt</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;effects&quot;</span><span class="p">][</span><span class="s2">&quot;font&quot;</span><span class="p">][</span><span class="s2">&quot;size&quot;</span><span class="p">][:]</span>
+        <span class="n">char_wid</span> <span class="o">*=</span> <span class="n">tx_scale</span>
+        <span class="n">char_hgt</span> <span class="o">*=</span> <span class="n">tx_scale</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="s2">&quot;misc&quot;</span><span class="p">]</span>
+        <span class="n">svg</span> <span class="o">=</span> <span class="n">text_to_svg</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">char_wid</span><span class="p">,</span> <span class="n">class_</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">text_bbox</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span><span class="o">.</span><span class="n">norm</span><span class="p">,</span> <span class="n">char_wid</span><span class="p">,</span> <span class="n">char_hgt</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unrecognized shape type: </span><span class="si">{shape_type}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">()))</span>
+
+    <span class="k">return</span> <span class="n">svg</span><span class="p">,</span> <span class="n">bbox</span>
+
+
+<div class="viewcode-block" id="gen_svg_comp">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad6.gen_svg.html#skidl.tools.kicad6.gen_svg.gen_svg_comp">[docs]</a>
+<span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">gen_svg_comp</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">symtx</span><span class="p">,</span> <span class="n">net_stubs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate SVG for this component.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        part: Part object for which an SVG symbol will be created.</span>
+<span class="sd">        net_stubs: List of Net objects whose names will be connected to</span>
+<span class="sd">            part symbol pins as connection stubs.</span>
+<span class="sd">        symtx: String such as &quot;HR&quot; that indicates symbol mirroring/rotation.</span>
+
+<span class="sd">    Returns: SVG for the part symbol.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Create transformation matrix for the symbol from symtx, flip Y axis, and scale.</span>
+    <span class="n">px</span> <span class="o">=</span> <span class="mi">96</span>  <span class="c1"># Pixels per inch. SVG uses pixels.</span>
+    <span class="n">mm</span> <span class="o">=</span> <span class="mf">25.4</span>  <span class="c1"># Millimeters per inch. KiCad uses millimeters.</span>
+    <span class="n">scale</span> <span class="o">=</span> <span class="n">px</span> <span class="o">/</span> <span class="n">mm</span>  <span class="c1"># Scale for converting KiCad units (mm) to SVG units (pixels).</span>
+    <span class="n">scale</span> <span class="o">*=</span> <span class="mf">2.54</span>  <span class="c1"># Adjustment for matching symbol sizes with netlistsvg&#39;s I/O ports.</span>
+    <span class="n">tx</span> <span class="o">=</span> <span class="n">Tx</span><span class="o">.</span><span class="n">from_symtx</span><span class="p">(</span><span class="n">symtx</span><span class="p">)</span> <span class="o">*</span> <span class="n">tx_flip_y</span> <span class="o">*</span> <span class="n">scale</span>
+
+    <span class="c1"># Get maximum length of net stub name if any are needed for this part symbol.</span>
+    <span class="n">net_stubs</span> <span class="o">=</span> <span class="n">net_stubs</span> <span class="ow">or</span> <span class="p">[]</span>  <span class="c1"># Empty list of stub nets if argument is None.</span>
+    <span class="n">max_stub_len</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># If no net stubs are needed, this stays at zero.</span>
+    <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">pin</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
+            <span class="c1"># Don&#39;t let names for no-connect nets affect maximum stub length.</span>
+            <span class="k">if</span> <span class="n">net</span> <span class="ow">in</span> <span class="p">[</span><span class="n">NC</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">net_stubs</span><span class="p">:</span>
+                <span class="n">max_stub_len</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">),</span> <span class="n">max_stub_len</span><span class="p">)</span>
+
+    <span class="c1"># Assemble and name the SVGs for all the part units.</span>
+    <span class="n">svg</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+
+        <span class="c1"># First, compute the bounding box of the part symbol.</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">draw_cmds</span><span class="p">[</span><span class="n">unit</span><span class="o">.</span><span class="n">num</span><span class="p">]:</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">bb</span> <span class="o">=</span> <span class="n">draw_cmd_to_svg</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="n">net_stubs</span><span class="p">,</span> <span class="n">max_stub_len</span><span class="p">)</span>
+            <span class="n">bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bb</span><span class="p">)</span>
+
+        <span class="c1"># Add translation to the transformation matrix so the part&#39;s bounding box</span>
+        <span class="c1"># starts at (0,0). (netlistsvg seems to malfunction, otherwise.)</span>
+        <span class="n">trans_tx</span> <span class="o">=</span> <span class="n">tx</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="o">-</span><span class="n">bbox</span><span class="o">.</span><span class="n">min</span><span class="p">)</span>
+
+        <span class="c1"># Finally, recalculate the part symbol with the added translation.</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">()</span>
+        <span class="n">unit_svg</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">draw_cmds</span><span class="p">[</span><span class="n">unit</span><span class="o">.</span><span class="n">num</span><span class="p">]:</span>
+            <span class="n">s</span><span class="p">,</span> <span class="n">bb</span> <span class="o">=</span> <span class="n">draw_cmd_to_svg</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">trans_tx</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="n">net_stubs</span><span class="p">,</span> <span class="n">max_stub_len</span><span class="p">)</span>
+            <span class="n">bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bb</span><span class="p">)</span>
+            <span class="n">unit_svg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+        <span class="c1"># Assign part unit name.</span>
+        <span class="k">if</span> <span class="n">max_stub_len</span><span class="p">:</span>
+            <span class="c1"># If net stubs are attached to symbol, then it&#39;s only to be used</span>
+            <span class="c1"># for a specific part. Therefore, tag the symbol name with the unique</span>
+            <span class="c1"># part reference so it will only be used by this part.</span>
+            <span class="n">symbol_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{part.name}</span><span class="s2">_</span><span class="si">{part.ref}</span><span class="s2">_</span><span class="si">{unit.num}</span><span class="s2">_</span><span class="si">{symtx}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># No net stubs means this symbol can be used for any part that</span>
+            <span class="c1"># also has no net stubs, so don&#39;t tag it with a specific part reference.</span>
+            <span class="n">symbol_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{part.name}</span><span class="s2">_</span><span class="si">{unit.num}</span><span class="s2">_</span><span class="si">{symtx}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+
+        <span class="c1"># Begin SVG for part unit. Translate it so the bbox.min is at (0,0).</span>
+        <span class="n">translate</span> <span class="o">=</span> <span class="o">-</span><span class="n">bbox</span><span class="o">.</span><span class="n">min</span>
+        <span class="n">svg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="s2">&quot;&lt;g&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;s:type=&quot;</span><span class="si">{symbol_name}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;s:width=&quot;</span><span class="si">{bbox.w:.3f}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;s:height=&quot;</span><span class="si">{bbox.h:.3f}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;transform=&quot;translate(</span><span class="si">{translate.x:.3f}</span><span class="s1"> </span><span class="si">{translate.y:.3f}</span><span class="s1">)&quot;&#39;</span><span class="p">,</span>
+                    <span class="s2">&quot;&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="p">]</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Add part alias.</span>
+        <span class="n">svg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&lt;s:alias val=&quot;</span><span class="si">{symbol_name}</span><span class="s1">&quot;/&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">()))</span>
+
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">unit_svg</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;text&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+                <span class="n">svg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">unit_svg</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;text&quot;</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+                <span class="n">svg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+        <span class="c1"># Place a visible bounding-box around symbol for trouble-shooting.</span>
+        <span class="n">show_bbox</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">bbox_stroke_width</span> <span class="o">=</span> <span class="n">scale</span> <span class="o">*</span> <span class="mf">0.1</span>
+        <span class="k">if</span> <span class="n">show_bbox</span><span class="p">:</span>
+            <span class="n">svg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bbox_to_svg</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="n">bbox_stroke_width</span><span class="p">))</span>
+
+        <span class="c1"># Finish SVG for part unit.</span>
+        <span class="n">svg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&lt;/g&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">svg</span><span class="p">)</span></div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad6.gen_svg</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2024, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    </div>
+  </body>
+</html>

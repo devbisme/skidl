@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.utilities &#8212; SKiDL 1.2.2 documentation</title>
+    <title>skidl.utilities &#8212; SKiDL 2.0.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=fd7cadf9"></script>
+    <script src="../../_static/documentation_options.js?v=51b770b3"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.utilities</a></li> 
       </ul>
@@ -52,29 +52,17 @@
 <span class="sd">Utility functions used by the rest of SKiDL.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
-    <span class="n">absolute_import</span><span class="p">,</span>
-    <span class="n">division</span><span class="p">,</span>
-    <span class="n">print_function</span><span class="p">,</span>
-    <span class="n">unicode_literals</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
-    <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="k">pass</span>
-
-
 <span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">os.path</span>
+<span class="kn">import</span> <span class="nn">platform</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
 <span class="kn">import</span> <span class="nn">urllib.parse</span>
 <span class="kn">import</span> <span class="nn">urllib.request</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">chr</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">open</span><span class="p">,</span> <span class="nb">range</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">super</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;INDEX_SEPARATOR&quot;</span><span class="p">,</span> <span class="s2">&quot;export_to_all&quot;</span><span class="p">]</span>
@@ -101,6 +89,22 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">mod</span><span class="o">.</span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">fn</span></div>
+
+
+
+<div class="viewcode-block" id="detect_os">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.detect_os">[docs]</a>
+<span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">detect_os</span><span class="p">():</span>
+    <span class="n">os_name</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">os_name</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Windows&quot;</span>
+    <span class="k">elif</span> <span class="n">os_name</span> <span class="o">==</span> <span class="s2">&quot;Linux&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Linux&quot;</span>
+    <span class="k">elif</span> <span class="n">os_name</span> <span class="o">==</span> <span class="s2">&quot;Darwin&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;MacOS&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unknown type of operating system!&quot;</span><span class="p">)</span></div>
 
 
 
@@ -136,6 +140,23 @@
         <span class="k">return</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">traced_fn</span></div>
+
+
+
+<div class="viewcode-block" id="consistent_hash">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.consistent_hash">[docs]</a>
+<span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">consistent_hash</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a hash value for a text string.&quot;&quot;&quot;</span>
+
+    <span class="c1"># Create a SHA-256 hash object</span>
+    <span class="n">hash_object</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">()</span>
+    
+    <span class="c1"># Update the hash object with the bytes of the text</span>
+    <span class="n">hash_object</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+    
+    <span class="c1"># Get the hexadecimal representation of the hash</span>
+    <span class="k">return</span> <span class="n">hash_object</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()[:</span><span class="mi">16</span><span class="p">]</span></div>
 
 
 
@@ -181,17 +202,8 @@
 
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">s</span>
-
-    <span class="c1"># Remove quotes if string already has them.</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">rmv_quotes</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[\s()]&quot;</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span>
-        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="n">s</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span>
-
-    <span class="k">return</span> <span class="n">s</span></div>
+    
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
 
 
@@ -885,8 +897,12 @@
 
 
 
+<div class="viewcode-block" id="is_url">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.is_url">[docs]</a>
+<span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">is_url</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlparse</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">scheme</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;http&quot;</span><span class="p">,</span> <span class="s2">&quot;https&quot;</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlparse</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">scheme</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;http&quot;</span><span class="p">,</span> <span class="s2">&quot;https&quot;</span><span class="p">}</span></div>
+
 
 
 <div class="viewcode-block" id="find_and_open_file">
@@ -901,7 +917,7 @@
 <span class="sd">    Args:</span>
 <span class="sd">        filename: Base file name (e.g., &quot;my_file&quot;).</span>
 <span class="sd">        paths: List of paths to search for the file.</span>
-<span class="sd">        ext: The extension for the file (e.g., &quot;.txt&quot;).</span>
+<span class="sd">        ext: The extension for the file (e.g., &quot;.txt&quot;) or a list of extensions.</span>
 <span class="sd">        allow_failure: If false, failure to find file raises and exception.</span>
 <span class="sd">        exclude_binary: If true, skip files that contain binary data.</span>
 <span class="sd">        descend: If 0, don&#39;t search lower-level directories. If positive, search</span>
@@ -937,10 +953,6 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">exts</span> <span class="o">=</span> <span class="n">to_list</span><span class="p">(</span><span class="n">ext</span><span class="p">)</span>
 
-    <span class="c1"># Create the regular expression for matching against the filename.</span>
-    <span class="c1"># exts = [re.escape(ext) for ext in exts]</span>
-    <span class="n">match_name</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">exts</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;)$&quot;</span>
-
     <span class="c1"># Search through the directory paths for a file whose name matches the regular expression.</span>
     <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">is_url</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
@@ -952,6 +964,10 @@
                     <span class="c1"># File failed, so keep searching.</span>
                     <span class="k">pass</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Create the regular expression for matching against the filename.</span>
+            <span class="c1"># exts = [re.escape(ext) for ext in exts]</span>
+            <span class="n">match_name</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">exts</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;)$&quot;</span>
+
             <span class="c1"># Search through the files in a particular directory path.</span>
             <span class="n">descent_ctr</span> <span class="o">=</span> <span class="n">descend</span>  <span class="c1"># Controls the descent through the path.</span>
             <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirnames</span><span class="p">,</span> <span class="n">filenames</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
@@ -991,7 +1007,7 @@
 <span class="sd">    Args:</span>
 <span class="sd">        filename: Base file name (e.g., &quot;my_file&quot;).</span>
 <span class="sd">        paths: List of paths to search for the file.</span>
-<span class="sd">        ext: The extension for the file (e.g., &quot;.txt&quot;).</span>
+<span class="sd">        ext: The extension for the file (e.g., &quot;.txt&quot;) or a list of extensions.</span>
 <span class="sd">        allow_failure: If false, failure to find file raises and exception.</span>
 <span class="sd">        exclude_binary: If true, skip files that contain binary data.</span>
 <span class="sd">        descend: If 0, don&#39;t search lower-level directories. If positive, search</span>
@@ -1001,6 +1017,7 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        File contents and file name or None, None if file could not be opened.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span> <span class="o">=</span> <span class="n">find_and_open_file</span><span class="p">(</span>
         <span class="n">filename</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span> <span class="n">ext</span><span class="p">,</span> <span class="n">allow_failure</span><span class="p">,</span> <span class="n">exclude_binary</span><span class="p">,</span> <span class="n">descend</span>
     <span class="p">)</span>
@@ -1014,6 +1031,37 @@
             <span class="k">pass</span>
         <span class="k">return</span> <span class="n">contents</span><span class="p">,</span> <span class="n">fn</span>
     <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span></div>
+
+
+
+<div class="viewcode-block" id="get_abs_filename">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.get_abs_filename">[docs]</a>
+<span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">get_abs_filename</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">paths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_failure</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">descend</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Search for a file in list of paths, and return its absolute file name.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        filename: Base file name (e.g., &quot;my_file&quot;).</span>
+<span class="sd">        paths: List of paths to search for the file.</span>
+<span class="sd">        ext: The extension for the file (e.g., &quot;.txt&quot;).</span>
+<span class="sd">        allow_failure: If false, failure to find file raises and exception.</span>
+<span class="sd">        descend: If 0, don&#39;t search lower-level directories. If positive, search</span>
+<span class="sd">                 that many levels down for the file. If negative, descend into</span>
+<span class="sd">                 subdirectories withcurrent_level limit.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        File name if file exists, otherwise None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span> <span class="o">=</span> <span class="n">find_and_open_file</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span> <span class="n">ext</span><span class="p">,</span> <span class="n">allow_failure</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">descend</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">fp</span><span class="p">:</span>
+        <span class="c1"># Found it, so close file pointer and return file name.</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">fn</span>
+
+    <span class="c1"># No file found, so return None.</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
 
 
 
@@ -1080,7 +1128,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.utilities</a></li> 
       </ul>

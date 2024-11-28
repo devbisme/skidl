@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.circuit &#8212; SKiDL 1.2.2 documentation</title>
+    <title>skidl.circuit &#8212; SKiDL 2.0.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=fd7cadf9"></script>
+    <script src="../../_static/documentation_options.js?v=51b770b3"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.circuit</a></li> 
       </ul>
@@ -52,19 +52,8 @@
 <span class="sd">Handles complete circuits made of parts and nets.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
-    <span class="n">absolute_import</span><span class="p">,</span>
-    <span class="n">division</span><span class="p">,</span>
-    <span class="n">print_function</span><span class="p">,</span>
-    <span class="n">unicode_literals</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="kn">import</span> <span class="nn">functools</span>
 <span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">range</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">super</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">deque</span>
 
 <span class="kn">import</span> <span class="nn">graphviz</span>
@@ -84,11 +73,12 @@
 <span class="kn">from</span> <span class="nn">.net</span> <span class="kn">import</span> <span class="n">NCNet</span><span class="p">,</span> <span class="n">Net</span>
 <span class="kn">from</span> <span class="nn">.part</span> <span class="kn">import</span> <span class="n">Part</span><span class="p">,</span> <span class="n">PartUnit</span>
 <span class="kn">from</span> <span class="nn">.pckg_info</span> <span class="kn">import</span> <span class="n">__version__</span>
-<span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">Pin</span>
+<span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">pin_types</span>
 <span class="kn">from</span> <span class="nn">.schlib</span> <span class="kn">import</span> <span class="n">SchLib</span>
 <span class="kn">from</span> <span class="nn">.scriptinfo</span> <span class="kn">import</span> <span class="n">get_script_name</span><span class="p">,</span> <span class="n">get_skidl_trace</span>
 <span class="kn">from</span> <span class="nn">.skidlbaseobj</span> <span class="kn">import</span> <span class="n">SkidlBaseObject</span>
 <span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">detect_os</span><span class="p">,</span>
     <span class="n">expand_buses</span><span class="p">,</span>
     <span class="n">export_to_all</span><span class="p">,</span>
     <span class="n">flatten</span><span class="p">,</span>
@@ -441,64 +431,10 @@
                 <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Circuit.add_packages">
-<a class="viewcode-back" href="../../rst_output/skidl.circuit.html#skidl.circuit.Circuit.add_packages">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_packages</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">packages</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">package</span> <span class="ow">in</span> <span class="n">packages</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">package</span><span class="o">.</span><span class="n">circuit</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">package</span><span class="o">.</span><span class="n">is_movable</span><span class="p">():</span>
-
-                    <span class="c1"># Add the package to this circuit.</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">packages</span><span class="o">.</span><span class="n">appendleft</span><span class="p">(</span><span class="n">package</span><span class="p">)</span>
-                    <span class="n">package</span><span class="o">.</span><span class="n">circuit</span> <span class="o">=</span> <span class="bp">self</span>
-                    <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">package</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                        <span class="k">try</span><span class="p">:</span>
-                            <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">is_movable</span><span class="p">():</span>
-                                <span class="n">obj</span><span class="o">.</span><span class="n">circuit</span> <span class="o">=</span> <span class="bp">self</span>
-                        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-                            <span class="k">pass</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
-                    <span class="ne">ValueError</span><span class="p">,</span>
-                    <span class="s2">&quot;Can&#39;t add the same package to more than one circuit.&quot;</span><span class="p">,</span>
-                <span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="Circuit.rmv_packages">
-<a class="viewcode-back" href="../../rst_output/skidl.circuit.html#skidl.circuit.Circuit.rmv_packages">[docs]</a>
-    <span class="k">def</span> <span class="nf">rmv_packages</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">packages</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">package</span> <span class="ow">in</span> <span class="n">packages</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">package</span><span class="o">.</span><span class="n">is_movable</span><span class="p">():</span>
-                <span class="k">if</span> <span class="n">package</span><span class="o">.</span><span class="n">circuit</span> <span class="o">==</span> <span class="bp">self</span> <span class="ow">and</span> <span class="n">package</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">packages</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">packages</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">package</span><span class="p">)</span>
-                    <span class="n">package</span><span class="o">.</span><span class="n">circuit</span> <span class="o">=</span> <span class="kc">None</span>
-                    <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">package</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                        <span class="k">try</span><span class="p">:</span>
-                            <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">is_movable</span><span class="p">():</span>
-                                <span class="n">obj</span><span class="o">.</span><span class="n">circuit</span> <span class="o">=</span> <span class="kc">None</span>
-                        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-                            <span class="k">pass</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">active_logger</span><span class="o">.</span><span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                        <span class="s2">&quot;Removing non-existent package </span><span class="si">{}</span><span class="s2"> from this circuit.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                            <span class="n">package</span><span class="o">.</span><span class="n">name</span>
-                        <span class="p">)</span>
-                    <span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
-                    <span class="ne">ValueError</span><span class="p">,</span>
-                    <span class="s2">&quot;Can&#39;t remove unmovable package </span><span class="si">{}</span><span class="s2"> from this circuit.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                        <span class="n">package</span><span class="o">.</span><span class="n">name</span>
-                    <span class="p">),</span>
-                <span class="p">)</span></div>
-
-
 <div class="viewcode-block" id="Circuit.add_stuff">
 <a class="viewcode-back" href="../../rst_output/skidl.circuit.html#skidl.circuit.Circuit.add_stuff">[docs]</a>
     <span class="k">def</span> <span class="nf">add_stuff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">stuff</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add Parts, Nets, Buses, and Interfaces to the circuit.&quot;&quot;&quot;</span>
-
-        <span class="kn">from</span> <span class="nn">.package</span> <span class="kn">import</span> <span class="n">Package</span>
 
         <span class="k">for</span> <span class="n">thing</span> <span class="ow">in</span> <span class="n">flatten</span><span class="p">(</span><span class="n">stuff</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">thing</span><span class="p">,</span> <span class="n">Part</span><span class="p">):</span>
@@ -507,8 +443,6 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">add_nets</span><span class="p">(</span><span class="n">thing</span><span class="p">)</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">thing</span><span class="p">,</span> <span class="n">Bus</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">add_buses</span><span class="p">(</span><span class="n">thing</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">thing</span><span class="p">,</span> <span class="n">Package</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add_packages</span><span class="p">(</span><span class="n">thing</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">ValueError</span><span class="p">,</span>
@@ -521,8 +455,6 @@
 <a class="viewcode-back" href="../../rst_output/skidl.circuit.html#skidl.circuit.Circuit.rmv_stuff">[docs]</a>
     <span class="k">def</span> <span class="nf">rmv_stuff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">stuff</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove Parts, Nets, Buses, and Interfaces from the circuit.&quot;&quot;&quot;</span>
-
-        <span class="kn">from</span> <span class="nn">.package</span> <span class="kn">import</span> <span class="n">Package</span>
 
         <span class="k">for</span> <span class="n">thing</span> <span class="ow">in</span> <span class="n">flatten</span><span class="p">(</span><span class="n">stuff</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">thing</span><span class="p">,</span> <span class="n">Part</span><span class="p">):</span>
@@ -563,29 +495,6 @@
                 <span class="c1"># so it is also distinct.</span>
                 <span class="n">distinct_nets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">distinct_nets</span></div>
-
-
-<div class="viewcode-block" id="Circuit.instantiate_packages">
-<a class="viewcode-back" href="../../rst_output/skidl.circuit.html#skidl.circuit.Circuit.instantiate_packages">[docs]</a>
-    <span class="k">def</span> <span class="nf">instantiate_packages</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run the package executables to instantiate their circuitry.&quot;&quot;&quot;</span>
-
-        <span class="c1"># Set default_circuit to this circuit and instantiate the packages.</span>
-        <span class="k">with</span> <span class="bp">self</span><span class="p">:</span>
-            <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">packages</span><span class="p">:</span>
-                <span class="n">package</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">packages</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-
-                <span class="c1"># If there are still ProtoNets attached to the package at this point,</span>
-                <span class="c1"># just replace them with Nets. This will allow any internal connections</span>
-                <span class="c1"># inside the package to be reflected on the package I/O pins.</span>
-                <span class="c1"># **THIS WILL PROBABLY FAIL IF THE INTERNAL CONNECTIONS ARE BUSES.**</span>
-                <span class="c1"># DISABLE THIS FOR NOW...</span>
-                <span class="c1"># for k, v in package.items():</span>
-                <span class="c1">#     if isinstance(v, ProtoNet):</span>
-                <span class="c1">#         package[k] = Net()</span>
-
-                <span class="c1"># Call the function to instantiate the package with its arguments.</span>
-                <span class="n">package</span><span class="o">.</span><span class="n">subcircuit</span><span class="p">(</span><span class="o">**</span><span class="n">package</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Circuit.merge_net_names">
@@ -1040,19 +949,19 @@
                     <span class="k">pass</span>
 
         <span class="n">pin_dir_tbl</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">INPUT</span><span class="p">:</span> <span class="s2">&quot;input&quot;</span><span class="p">,</span>
-            <span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">:</span> <span class="s2">&quot;output&quot;</span><span class="p">,</span>
-            <span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">BIDIR</span><span class="p">:</span> <span class="s2">&quot;output&quot;</span><span class="p">,</span>
-            <span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">:</span> <span class="s2">&quot;output&quot;</span><span class="p">,</span>
-            <span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">:</span> <span class="s2">&quot;input&quot;</span><span class="p">,</span>
-            <span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PULLUP</span><span class="p">:</span> <span class="s2">&quot;output&quot;</span><span class="p">,</span>
-            <span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PULLDN</span><span class="p">:</span> <span class="s2">&quot;output&quot;</span><span class="p">,</span>
-            <span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">:</span> <span class="s2">&quot;input&quot;</span><span class="p">,</span>
-            <span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWRIN</span><span class="p">:</span> <span class="s2">&quot;input&quot;</span><span class="p">,</span>
-            <span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">:</span> <span class="s2">&quot;output&quot;</span><span class="p">,</span>
-            <span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OPENCOLL</span><span class="p">:</span> <span class="s2">&quot;output&quot;</span><span class="p">,</span>
-            <span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OPENEMIT</span><span class="p">:</span> <span class="s2">&quot;output&quot;</span><span class="p">,</span>
-            <span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">:</span> <span class="s2">&quot;nc&quot;</span><span class="p">,</span>
+            <span class="n">pin_types</span><span class="o">.</span><span class="n">INPUT</span><span class="p">:</span> <span class="s2">&quot;input&quot;</span><span class="p">,</span>
+            <span class="n">pin_types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">:</span> <span class="s2">&quot;output&quot;</span><span class="p">,</span>
+            <span class="n">pin_types</span><span class="o">.</span><span class="n">BIDIR</span><span class="p">:</span> <span class="s2">&quot;output&quot;</span><span class="p">,</span>
+            <span class="n">pin_types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">:</span> <span class="s2">&quot;output&quot;</span><span class="p">,</span>
+            <span class="n">pin_types</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">:</span> <span class="s2">&quot;input&quot;</span><span class="p">,</span>
+            <span class="n">pin_types</span><span class="o">.</span><span class="n">PULLUP</span><span class="p">:</span> <span class="s2">&quot;output&quot;</span><span class="p">,</span>
+            <span class="n">pin_types</span><span class="o">.</span><span class="n">PULLDN</span><span class="p">:</span> <span class="s2">&quot;output&quot;</span><span class="p">,</span>
+            <span class="n">pin_types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">:</span> <span class="s2">&quot;input&quot;</span><span class="p">,</span>
+            <span class="n">pin_types</span><span class="o">.</span><span class="n">PWRIN</span><span class="p">:</span> <span class="s2">&quot;input&quot;</span><span class="p">,</span>
+            <span class="n">pin_types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">:</span> <span class="s2">&quot;output&quot;</span><span class="p">,</span>
+            <span class="n">pin_types</span><span class="o">.</span><span class="n">OPENCOLL</span><span class="p">:</span> <span class="s2">&quot;output&quot;</span><span class="p">,</span>
+            <span class="n">pin_types</span><span class="o">.</span><span class="n">OPENEMIT</span><span class="p">:</span> <span class="s2">&quot;output&quot;</span><span class="p">,</span>
+            <span class="n">pin_types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">:</span> <span class="s2">&quot;nc&quot;</span><span class="p">,</span>
         <span class="p">}</span>
 
         <span class="n">cells</span> <span class="o">=</span> <span class="p">{}</span>
@@ -1153,10 +1062,16 @@
                     <span class="p">)</span>
                 <span class="p">)</span>
 
-            <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
-                <span class="p">[</span><span class="s2">&quot;netlistsvg&quot;</span><span class="p">,</span> <span class="n">json_file</span><span class="p">,</span> <span class="s2">&quot;--skin&quot;</span><span class="p">,</span> <span class="n">skin_file</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="n">svg_file</span><span class="p">],</span>
-                <span class="n">shell</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">detect_os</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
+                <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
+                    <span class="p">[</span><span class="s2">&quot;netlistsvg.cmd&quot;</span><span class="p">,</span> <span class="n">json_file</span><span class="p">,</span> <span class="s2">&quot;--skin&quot;</span><span class="p">,</span> <span class="n">skin_file</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="n">svg_file</span><span class="p">],</span>
+                    <span class="n">shell</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
+                    <span class="p">[</span><span class="s2">&quot;netlistsvg&quot;</span><span class="p">,</span> <span class="n">json_file</span><span class="p">,</span> <span class="s2">&quot;--skin&quot;</span><span class="p">,</span> <span class="n">skin_file</span><span class="p">,</span> <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="n">svg_file</span><span class="p">],</span>
+                    <span class="n">shell</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="p">)</span>
 
         <span class="n">active_logger</span><span class="o">.</span><span class="n">report_summary</span><span class="p">(</span><span class="s2">&quot;generating SVG&quot;</span><span class="p">)</span>
 
@@ -1362,7 +1277,6 @@
     <span class="k">def</span> <span class="nf">_preprocess</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Prepare the circuit for generating a netlist, PCB, etc.&quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">instantiate_packages</span><span class="p">()</span>
         <span class="c1"># self._cull_unconnected_parts()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">merge_nets</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_for_empty_footprints</span><span class="p">()</span>
@@ -1409,7 +1323,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.circuit</a></li> 
       </ul>

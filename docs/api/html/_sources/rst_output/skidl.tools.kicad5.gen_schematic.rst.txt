@@ -1,0 +1,7 @@
+skidl.tools.kicad5.gen\_schematic module
+========================================
+
+.. automodule:: skidl.tools.kicad5.gen_schematic
+   :members:
+   :undoc-members:
+   :show-inheritance:

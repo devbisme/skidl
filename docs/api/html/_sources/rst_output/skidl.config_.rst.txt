@@ -1,0 +1,7 @@
+skidl.config\_ module
+=====================
+
+.. automodule:: skidl.config_
+   :members:
+   :undoc-members:
+   :show-inheritance:

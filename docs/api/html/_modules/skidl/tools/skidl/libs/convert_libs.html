@@ -1,0 +1,131 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.tools.skidl.libs.convert_libs &#8212; SKiDL 2.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../../../../../_static/documentation_options.js?v=51b770b3"></script>
+    <script src="../../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../../../../../"><img src="../../../../../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.tools.skidl.libs.convert_libs</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skidl.tools.skidl.libs.convert_libs</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This script creates SKiDL versions of KiCad part libraries.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">os.path</span>
+
+<span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="n">SKIDL</span><span class="p">,</span> <span class="n">SchLib</span><span class="p">,</span> <span class="n">lib_search_paths</span><span class="p">,</span> <span class="n">get_default_tool</span>
+<span class="kn">from</span> <span class="nn">skidl.tools</span> <span class="kn">import</span> <span class="n">lib_suffixes</span>
+
+<span class="n">tool</span> <span class="o">=</span> <span class="n">get_default_tool</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="convert_libs">
+<a class="viewcode-back" href="../../../../../rst_output/skidl.tools.skidl.libs.convert_libs.html#skidl.tools.skidl.libs.convert_libs.convert_libs">[docs]</a>
+<span class="k">def</span> <span class="nf">convert_libs</span><span class="p">(</span><span class="n">from_dir</span><span class="p">,</span> <span class="n">to_dir</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert KiCad libs to SKiDL versions.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        from_dir (str): Directory containing the KiCad libraries.</span>
+<span class="sd">        to_dir (str): Directory where the SKiDL libraries should be stored.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">lib_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">from_dir</span><span class="p">)</span> <span class="k">if</span> <span class="n">l</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">lib_suffixes</span><span class="p">[</span><span class="n">tool</span><span class="p">][</span><span class="mi">0</span><span class="p">])]</span>
+    <span class="k">for</span> <span class="n">lib_file</span> <span class="ow">in</span> <span class="n">lib_files</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">lib_file</span><span class="p">)</span>
+        <span class="n">basename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">lib_file</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">lib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">from_dir</span><span class="p">,</span> <span class="n">lib_file</span><span class="p">),</span> <span class="n">tool</span><span class="o">=</span><span class="n">tool</span><span class="p">,</span> <span class="n">use_pickle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">lib</span><span class="o">.</span><span class="n">export</span><span class="p">(</span>
+            <span class="n">libname</span><span class="o">=</span><span class="n">basename</span><span class="p">,</span>
+            <span class="n">file_</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">to_dir</span><span class="p">,</span> <span class="n">basename</span> <span class="o">+</span> <span class="n">lib_suffixes</span><span class="p">[</span><span class="n">SKIDL</span><span class="p">]),</span>
+            <span class="n">addtl_part_attrs</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;search_text&quot;</span><span class="p">,),</span>
+        <span class="p">)</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">lib_dir</span> <span class="ow">in</span> <span class="n">lib_search_paths</span><span class="p">[</span><span class="n">tool</span><span class="p">]:</span>
+        <span class="n">convert_libs</span><span class="p">(</span><span class="n">lib_dir</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.tools.skidl.libs.convert_libs</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2024, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    </div>
+  </body>
+</html>

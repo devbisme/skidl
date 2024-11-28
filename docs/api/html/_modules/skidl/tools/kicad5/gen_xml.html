@@ -1,0 +1,205 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.tools.kicad5.gen_xml &#8212; SKiDL 2.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../../../../_static/documentation_options.js?v=51b770b3"></script>
+    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../../../../"><img src="../../../../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad5.gen_xml</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skidl.tools.kicad5.gen_xml</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Generate KiCad 5 XML.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os.path</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">skidl.pckg_info</span> <span class="kn">import</span> <span class="n">__version__</span>
+<span class="kn">from</span> <span class="nn">skidl.scriptinfo</span> <span class="kn">import</span> <span class="n">scriptinfo</span>
+<span class="kn">from</span> <span class="nn">skidl.utilities</span> <span class="kn">import</span> <span class="n">add_quotes</span><span class="p">,</span> <span class="n">export_to_all</span>
+<span class="kn">from</span> <span class="nn">skidl.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
+<span class="kn">from</span> <span class="nn">skidl.part</span> <span class="kn">import</span> <span class="n">LIBRARY</span>
+
+
+<span class="k">def</span> <span class="nf">gen_xml_comp</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate the XML describing a component.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        part (Part): Part object.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: String containing the XML for the part.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ref</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">ref</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">add_quotes</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">value_to_str</span><span class="p">())</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">footprint</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">footprint</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="s2">&quot;No footprint for </span><span class="si">{part}</span><span class="s2">/</span><span class="si">{ref}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">part</span><span class="o">=</span><span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">footprint</span> <span class="o">=</span> <span class="s2">&quot;No Footprint&quot;</span>
+
+    <span class="n">lib_filename</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="s2">&quot;filename&quot;</span><span class="p">,</span> <span class="s2">&quot;NO_LIB&quot;</span><span class="p">)</span>
+    <span class="n">part_name</span> <span class="o">=</span> <span class="n">add_quotes</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="n">fields</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">fld_name</span><span class="p">,</span> <span class="n">fld_value</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">fld_value</span> <span class="o">=</span> <span class="n">add_quotes</span><span class="p">(</span><span class="n">fld_value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">fld_value</span><span class="p">:</span>
+            <span class="n">fld_name</span> <span class="o">=</span> <span class="n">add_quotes</span><span class="p">(</span><span class="n">fld_name</span><span class="p">)</span>
+            <span class="n">fields</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">        (field (name </span><span class="si">{fld_name}</span><span class="s2">) </span><span class="si">{fld_value}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="o">**</span><span class="nb">locals</span><span class="p">()</span>
+            <span class="p">)</span>
+    <span class="k">if</span> <span class="n">fields</span><span class="p">:</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="s2">&quot;      &lt;fields&gt;&quot;</span> <span class="o">+</span> <span class="n">fields</span>
+        <span class="n">fields</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">      &lt;/fields&gt;</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+    <span class="n">template</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s1">&#39;    &lt;comp ref=&quot;</span><span class="si">{ref}</span><span class="s1">&quot;&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="o">+</span> <span class="s2">&quot;      &lt;value&gt;</span><span class="si">{value}</span><span class="s2">&lt;/value&gt;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="o">+</span> <span class="s2">&quot;      &lt;footprint&gt;</span><span class="si">{footprint}</span><span class="s2">&lt;/footprint&gt;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="o">+</span> <span class="s2">&quot;</span><span class="si">{fields}</span><span class="s2">&quot;</span>
+        <span class="o">+</span> <span class="s1">&#39;      &lt;libsource lib=&quot;</span><span class="si">{lib_filename}</span><span class="s1">&quot; part=&quot;</span><span class="si">{part_name}</span><span class="s1">&quot;/&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="o">+</span> <span class="s2">&quot;    &lt;/comp&gt;&quot;</span>
+    <span class="p">)</span>
+    <span class="n">txt</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">txt</span>
+
+
+<span class="k">def</span> <span class="nf">gen_xml_net</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">code</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">name</span>
+    <span class="n">txt</span> <span class="o">=</span> <span class="s1">&#39;    &lt;net code=&quot;</span><span class="si">{code}</span><span class="s1">&quot; name=&quot;</span><span class="si">{name}</span><span class="s1">&quot;&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
+        <span class="n">part_ref</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">ref</span>
+        <span class="n">pin_num</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">num</span>
+        <span class="n">txt</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">      &lt;node ref=&quot;</span><span class="si">{part_ref}</span><span class="s1">&quot; pin=&quot;</span><span class="si">{pin_num}</span><span class="s1">&quot;/&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+    <span class="n">txt</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">    &lt;/net&gt;&quot;</span>
+    <span class="k">return</span> <span class="n">txt</span>
+
+
+<div class="viewcode-block" id="gen_xml">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad5.gen_xml.html#skidl.tools.kicad5.gen_xml.gen_xml">[docs]</a>
+<span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">gen_xml</span><span class="p">(</span><span class="n">circuit</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate the XML describing a circuit.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        circuit (Circuit): Circuit object.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: String containing the XML for the circuit.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">scr_dict</span> <span class="o">=</span> <span class="n">scriptinfo</span><span class="p">()</span>
+    <span class="n">src_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">scr_dict</span><span class="p">[</span><span class="s2">&quot;dir&quot;</span><span class="p">],</span> <span class="n">scr_dict</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">])</span>
+    <span class="n">date</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%m/</span><span class="si">%d</span><span class="s2">/%Y %I:%M %p&quot;</span><span class="p">)</span>
+    <span class="n">tool</span> <span class="o">=</span> <span class="s2">&quot;SKiDL (&quot;</span> <span class="o">+</span> <span class="n">__version__</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s1">&#39;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="o">+</span> <span class="s1">&#39;&lt;export version=&quot;D&quot;&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="o">+</span> <span class="s2">&quot;  &lt;design&gt;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="o">+</span> <span class="s2">&quot;    &lt;source&gt;</span><span class="si">{src_file}</span><span class="s2">&lt;/source&gt;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="o">+</span> <span class="s2">&quot;    &lt;date&gt;</span><span class="si">{date}</span><span class="s2">&lt;/date&gt;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="o">+</span> <span class="s2">&quot;    &lt;tool&gt;</span><span class="si">{tool}</span><span class="s2">&lt;/tool&gt;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="o">+</span> <span class="s2">&quot;  &lt;/design&gt;</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+    <span class="n">netlist</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+    <span class="n">netlist</span> <span class="o">+=</span> <span class="s2">&quot;  &lt;components&gt;&quot;</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+        <span class="n">netlist</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">gen_xml_comp</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="n">netlist</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  &lt;/components&gt;</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="n">netlist</span> <span class="o">+=</span> <span class="s2">&quot;  &lt;nets&gt;&quot;</span>
+    <span class="k">for</span> <span class="n">code</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">circuit</span><span class="o">.</span><span class="n">get_nets</span><span class="p">()):</span>
+        <span class="n">n</span><span class="o">.</span><span class="n">code</span> <span class="o">=</span> <span class="n">code</span>
+        <span class="n">netlist</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">gen_xml_net</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">netlist</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  &lt;/nets&gt;</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="n">netlist</span> <span class="o">+=</span> <span class="s2">&quot;&lt;/export&gt;</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="k">return</span> <span class="n">netlist</span></div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad5.gen_xml</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2024, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    </div>
+  </body>
+</html>

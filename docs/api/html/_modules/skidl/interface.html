@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.interface &#8212; SKiDL 1.2.2 documentation</title>
+    <title>skidl.interface &#8212; SKiDL 2.0.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=fd7cadf9"></script>
+    <script src="../../_static/documentation_options.js?v=51b770b3"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.interface</a></li> 
       </ul>
@@ -52,27 +52,11 @@
 <span class="sd">Handles interfaces for subsystems with complicated I/O.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
-    <span class="n">absolute_import</span><span class="p">,</span>
-    <span class="n">division</span><span class="p">,</span>
-    <span class="n">print_function</span><span class="p">,</span>
-    <span class="n">unicode_literals</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">super</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
-    <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="k">pass</span>
-
 <span class="kn">from</span> <span class="nn">.alias</span> <span class="kn">import</span> <span class="n">Alias</span>
 <span class="kn">from</span> <span class="nn">.bus</span> <span class="kn">import</span> <span class="n">Bus</span>
 <span class="kn">from</span> <span class="nn">.net</span> <span class="kn">import</span> <span class="n">Net</span>
 <span class="kn">from</span> <span class="nn">.netpinlist</span> <span class="kn">import</span> <span class="n">NetPinList</span>
 <span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">Pin</span>
-<span class="kn">from</span> <span class="nn">.protonet</span> <span class="kn">import</span> <span class="n">ProtoNet</span>
 <span class="kn">from</span> <span class="nn">.skidlbaseobj</span> <span class="kn">import</span> <span class="n">SkidlBaseObject</span>
 <span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">expand_indices</span><span class="p">,</span>
@@ -81,7 +65,7 @@
     <span class="n">from_iadd</span><span class="p">,</span>
     <span class="n">list_or_scalar</span><span class="p">,</span>
     <span class="n">rmv_iadd</span><span class="p">,</span>
-    <span class="n">to_list</span><span class="p">,</span>
+    <span class="n">set_iadd</span><span class="p">,</span>
 <span class="p">)</span>
 
 
@@ -101,50 +85,58 @@
     <span class="n">erc_list</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="c1"># dict is used instead of super() throughout because using super()</span>
-        <span class="c1"># caused the tests to run forever under Python 2.7.18.</span>
-        <span class="nb">dict</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="nb">dict</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;match_pin_regex&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># By default, buses are unbundled into individual nets.</span>
+        <span class="n">unbundle</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;unbundle&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">unexpio</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+        <span class="c1"># Start with a standard dictionary of objects.</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="s2">&quot;match_pin_regex&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">ProtoNet</span><span class="p">):</span>
-                <span class="c1"># Store the ProtoNet directly in the Interface.</span>
-                <span class="c1"># It will get promoted to a Net when it gets connected to something.</span>
-                <span class="n">v</span><span class="o">.</span><span class="n">aliases</span> <span class="o">+=</span> <span class="n">k</span>
-                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="n">Pin</span><span class="p">,</span> <span class="n">Net</span><span class="p">)):</span>
-                <span class="n">cct</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">circuit</span>
-                <span class="n">n</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="n">circuit</span><span class="o">=</span><span class="n">cct</span><span class="p">)</span>
-                <span class="n">n</span><span class="o">.</span><span class="n">aliases</span> <span class="o">+=</span> <span class="n">k</span>
-                <span class="n">n</span> <span class="o">+=</span> <span class="n">v</span>
-                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="n">Bus</span><span class="p">,</span> <span class="n">NetPinList</span><span class="p">)):</span>
-                <span class="n">cct</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">circuit</span>
-                <span class="n">b</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="n">circuit</span><span class="o">=</span><span class="n">cct</span><span class="p">)</span>
-                <span class="n">b</span><span class="o">.</span><span class="n">aliases</span> <span class="o">+=</span> <span class="n">k</span>
-                <span class="n">b</span> <span class="o">+=</span> <span class="n">v</span>
-                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)):</span>
-                    <span class="n">n</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="n">circuit</span><span class="o">=</span><span class="n">cct</span><span class="p">)</span>
-                    <span class="n">n</span><span class="o">.</span><span class="n">aliases</span> <span class="o">+=</span> <span class="n">k</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-                    <span class="n">n</span> <span class="o">+=</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-                    <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">n</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">SkidlBaseObject</span><span class="p">):</span>
-                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="n">Pin</span><span class="p">,</span> <span class="n">Net</span><span class="p">,</span> <span class="n">Bus</span><span class="p">,</span> <span class="n">NetPinList</span><span class="p">,</span> <span class="n">SkidlBaseObject</span><span class="p">)):</span>
+                <span class="c1"># Add SKiDL-type objects.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">unbundle</span><span class="o">=</span><span class="n">unbundle</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="nb">dict</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+                <span class="c1"># Add standard Python objects.</span>
+                <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="nb">dict</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">ProtoNet</span><span class="p">):</span>
-            <span class="c1"># If the retrieved attribute is a ProtoNet, record where it came from.</span>
-            <span class="n">value</span><span class="o">.</span><span class="n">intfc_key</span> <span class="o">=</span> <span class="n">key</span>
-            <span class="n">value</span><span class="o">.</span><span class="n">intfc</span> <span class="o">=</span> <span class="bp">self</span>
-        <span class="k">return</span> <span class="n">value</span>
-
-    <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">unbundle</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets attribute and also a dict entry with a key using the attribute name.&quot;&quot;&quot;</span>
-        <span class="nb">dict</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-        <span class="nb">dict</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+        <span class="c1"># Create net-like objects for pin-like objects.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">NetPinList</span><span class="p">):</span>
+            <span class="c1"># Convert NetPinList into a Bus.</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Pin</span><span class="p">):</span>
+            <span class="c1"># Convert Pin into a Net.</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
+            <span class="n">n</span> <span class="o">+=</span> <span class="n">value</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">n</span>
+
+        <span class="c1"># Assign the key as an alias to any net-like object.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="n">Bus</span><span class="p">)):</span>
+            <span class="n">value</span><span class="o">.</span><span class="n">aliases</span> <span class="o">+=</span> <span class="n">key</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">unexpio</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="c1"># Add the value to the dictionary and as an attribute.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">SkidlBaseObject</span><span class="p">):</span>
+            <span class="c1"># Only SKiDL-type objects get added as dictionary items.</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+        <span class="c1"># If enabled, expand a bus and add its individual nets.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Bus</span><span class="p">)</span> <span class="ow">and</span> <span class="n">unbundle</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+                <span class="n">n</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="n">circuit</span><span class="o">=</span><span class="n">v</span><span class="o">.</span><span class="n">circuit</span><span class="p">)</span>
+                <span class="n">n</span><span class="o">.</span><span class="n">aliases</span> <span class="o">+=</span> <span class="n">key</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="n">n</span> <span class="o">+=</span> <span class="n">v</span>
+                <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">key</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">n</span><span class="p">)</span>
+                <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">key</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">n</span><span class="p">)</span>
+                <span class="c1"># self.setattr(self, key + str(i), n)</span>
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">io_ids</span><span class="p">,</span> <span class="o">**</span><span class="n">criteria</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -186,7 +178,7 @@
         <span class="n">min_pin</span><span class="p">,</span> <span class="n">max_pin</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
 
         <span class="c1"># Get I/O entries.</span>
-        <span class="n">io_types</span> <span class="o">=</span> <span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="n">ProtoNet</span><span class="p">,</span> <span class="n">Pin</span><span class="p">,</span> <span class="n">NetPinList</span><span class="p">,</span> <span class="n">Bus</span><span class="p">)</span>
+        <span class="n">io_types</span> <span class="o">=</span> <span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="n">Pin</span><span class="p">,</span> <span class="n">NetPinList</span><span class="p">,</span> <span class="n">Bus</span><span class="p">)</span>
         <span class="n">ios</span> <span class="o">=</span> <span class="p">[</span><span class="n">io</span> <span class="k">for</span> <span class="n">io</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">io</span><span class="p">,</span> <span class="n">io_types</span><span class="p">)]</span>
 
         <span class="c1"># Use this for looking up the dict key using the id of a given I/O.</span>
@@ -204,20 +196,12 @@
                 <span class="k">pass</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># Add exact match to the list of selected I/Os and go to the next ID.</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">io</span><span class="p">,</span> <span class="n">ProtoNet</span><span class="p">):</span>
-                    <span class="c1"># Store key for this ProtoNet I/O so we&#39;ll know where to update it later.</span>
-                    <span class="n">io</span><span class="o">.</span><span class="n">intfc</span> <span class="o">=</span> <span class="bp">self</span>
-                    <span class="n">io</span><span class="o">.</span><span class="n">intfc_key</span> <span class="o">=</span> <span class="n">io_id</span>
                 <span class="n">selected_ios</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">io</span><span class="p">)</span>
                 <span class="k">continue</span>
 
             <span class="c1"># Check I/O aliases for an exact match with the current ID.</span>
             <span class="n">tmp_ios</span> <span class="o">=</span> <span class="n">filter_list</span><span class="p">(</span><span class="n">ios</span><span class="p">,</span> <span class="n">aliases</span><span class="o">=</span><span class="n">io_id</span><span class="p">,</span> <span class="n">do_str_match</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">criteria</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">io</span> <span class="ow">in</span> <span class="n">tmp_ios</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">io</span><span class="p">,</span> <span class="n">ProtoNet</span><span class="p">):</span>
-                    <span class="c1"># Store key for this ProtoNet I/O so we&#39;ll know where to update it later.</span>
-                    <span class="n">io</span><span class="o">.</span><span class="n">intfc</span> <span class="o">=</span> <span class="bp">self</span>
-                    <span class="n">io</span><span class="o">.</span><span class="n">intfc_key</span> <span class="o">=</span> <span class="n">id_to_key</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">io</span><span class="p">)]</span>
                 <span class="n">selected_ios</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">io</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">tmp_ios</span><span class="p">:</span>
                 <span class="c1"># Found exact match between alias and ID, so done with this ID and go to next ID.</span>
@@ -230,10 +214,6 @@
             <span class="c1"># OK, ID doesn&#39;t exactly match an I/O name or alias. Does it match as a regex?</span>
             <span class="n">tmp_ios</span> <span class="o">=</span> <span class="n">filter_list</span><span class="p">(</span><span class="n">ios</span><span class="p">,</span> <span class="n">aliases</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">io_id</span><span class="p">),</span> <span class="o">**</span><span class="n">criteria</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">io</span> <span class="ow">in</span> <span class="n">tmp_ios</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">io</span><span class="p">,</span> <span class="n">ProtoNet</span><span class="p">):</span>
-                    <span class="c1"># Store key for this ProtoNet I/O so we&#39;ll know where to update it later.</span>
-                    <span class="n">io</span><span class="o">.</span><span class="n">intfc</span> <span class="o">=</span> <span class="bp">self</span>
-                    <span class="n">io</span><span class="o">.</span><span class="n">intfc_key</span> <span class="o">=</span> <span class="n">id_to_key</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">io</span><span class="p">)]</span>
                 <span class="n">selected_ios</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">io</span><span class="p">)</span>
 
         <span class="c1"># Return list of I/Os that were selected by the IDs.</span>
@@ -244,19 +224,46 @@
         <span class="k">if</span> <span class="n">from_iadd</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
             <span class="c1"># The += flag in the values are no longer needed.</span>
             <span class="n">rmv_iadd</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-            <span class="c1"># If interface items are being changed as a result of += operator...</span>
-            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">to_list</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
-                <span class="c1"># Look for interface key name attached to each value.</span>
-                <span class="c1"># Only ProtoNets should have them because they need to be</span>
-                <span class="c1"># changed to a Net or Bus once they are connected to something.</span>
-                <span class="n">key</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="s2">&quot;intfc_key&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">key</span><span class="p">:</span>
-                    <span class="c1"># Set the ProtoNet in the interface entry with key to its new Net or Bus value.</span>
-                    <span class="nb">dict</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-                    <span class="nb">dict</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># This is for a straight assignment of value to key.</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_intfc</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Connects the nets/buses of this interface to the nets/buses of another interface.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            other_intfc: The interface to connect to this one.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">other_intfc</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Interface.connect">
+<a class="viewcode-back" href="../../rst_output/skidl.interface.html#skidl.interface.Interface.connect">[docs]</a>
+    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_intfc</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Connects the nets/buses of this interface to the nets/buses of another interface.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            other_intfc: The interface to connect to this one.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The updated interface with the new connections.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">            Connections between interfaces can also be made using the += operator.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Connect the nets/buses of this interface to the nets/buses of the other interface.</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">unexpio</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="n">Bus</span><span class="p">,</span> <span class="n">Pin</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">other_intfc</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+=</span> <span class="n">other_intfc</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+
+        <span class="c1"># Set the flag to indicate this result came from the += operator.</span>
+        <span class="n">set_iadd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span></div>
+</div>
 
 </pre></div>
 
@@ -289,7 +296,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.interface</a></li> 
       </ul>

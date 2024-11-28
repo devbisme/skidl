@@ -1,0 +1,7 @@
+skidl.tools.kicad6.lib module
+=============================
+
+.. automodule:: skidl.tools.kicad6.lib
+   :members:
+   :undoc-members:
+   :show-inheritance:

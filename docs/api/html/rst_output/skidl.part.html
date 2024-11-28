@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.part module &#8212; SKiDL 1.2.2 documentation</title>
+    <title>skidl.part module &#8212; SKiDL 2.0.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=fd7cadf9"></script>
+    <script src="../_static/documentation_options.js?v=51b770b3"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.part module</a></li> 
       </ul>
     </div>  
@@ -183,8 +183,19 @@ connections.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.Part.export">
-<span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.export"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.export" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addtl_part_attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#Part.export"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.Part.export" title="Link to this definition">¶</a></dt>
 <dd><p>Return a string to recreate a Part object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>addtl_part_attrs</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – List of additional part attribute names to include in export.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>String that can be evaluated to rebuild the Part object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
@@ -466,6 +477,12 @@ pin must have in order to be selected.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="skidl.part.PartUnit.export">
+<span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#PartUnit.export"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.PartUnit.export" title="Link to this definition">¶</a></dt>
+<dd><p>Return a string describing the PartUnit for exporting purposes.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="skidl.part.PartUnit.grab_pins">
 <span class="sig-name descname"><span class="pre">grab_pins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part.html#PartUnit.grab_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part.PartUnit.grab_pins" title="Link to this definition">¶</a></dt>
 <dd><p>Grab pin from Part and assign to PartUnit.</p>
@@ -565,6 +582,7 @@ for particular types of parts (such as using an 0805 footprint for a resistor).<
 </li>
 <li><a class="reference internal" href="#skidl.part.PartUnit"><code class="docutils literal notranslate"><span class="pre">PartUnit</span></code></a><ul>
 <li><a class="reference internal" href="#skidl.part.PartUnit.add_pins_from_parent"><code class="docutils literal notranslate"><span class="pre">PartUnit.add_pins_from_parent()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part.PartUnit.export"><code class="docutils literal notranslate"><span class="pre">PartUnit.export()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.part.PartUnit.grab_pins"><code class="docutils literal notranslate"><span class="pre">PartUnit.grab_pins()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.part.PartUnit.ref"><code class="docutils literal notranslate"><span class="pre">PartUnit.ref</span></code></a></li>
 <li><a class="reference internal" href="#skidl.part.PartUnit.release_pins"><code class="docutils literal notranslate"><span class="pre">PartUnit.release_pins()</span></code></a></li>
@@ -607,7 +625,7 @@ for particular types of parts (such as using an 0805 footprint for a resistor).<
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.part module</a></li> 
       </ul>
     </div>

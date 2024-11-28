@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.schlib &#8212; SKiDL 1.2.2 documentation</title>
+    <title>skidl.schlib &#8212; SKiDL 2.0.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=fd7cadf9"></script>
+    <script src="../../_static/documentation_options.js?v=51b770b3"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.schlib</a></li> 
       </ul>
@@ -52,34 +52,22 @@
 <span class="sd">Handles schematic libraries for various ECAD tools.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
-    <span class="n">absolute_import</span><span class="p">,</span>
-    <span class="n">division</span><span class="p">,</span>
-    <span class="n">print_function</span><span class="p">,</span>
-    <span class="n">unicode_literals</span><span class="p">,</span>
-<span class="p">)</span>
-
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">object</span><span class="p">,</span> <span class="nb">str</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
-    <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="k">pass</span>
 
 <span class="kn">from</span> <span class="nn">.alias</span> <span class="kn">import</span> <span class="n">Alias</span>
 <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
 <span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">consistent_hash</span><span class="p">,</span>
     <span class="n">cnvt_to_var_name</span><span class="p">,</span>
     <span class="n">export_to_all</span><span class="p">,</span>
     <span class="n">filter_list</span><span class="p">,</span>
     <span class="n">flatten</span><span class="p">,</span>
+    <span class="n">is_url</span><span class="p">,</span>
     <span class="n">list_or_scalar</span><span class="p">,</span>
     <span class="n">opened</span><span class="p">,</span>
+    <span class="n">get_abs_filename</span><span class="p">,</span>
     <span class="n">norecurse</span><span class="p">,</span>
 <span class="p">)</span>
-
 
 
 <div class="viewcode-block" id="SchLib">
@@ -97,6 +85,8 @@
 <span class="sd">        filename: The name of the library file.</span>
 <span class="sd">        tool: The format of the library file (e.g., KICAD).</span>
 <span class="sd">        lib_section: The section of the library to access (for SPICE, only).</span>
+<span class="sd">        use_cache: If true, use a cache of libraries to speed up loading.</span>
+<span class="sd">        use_pickle: If true, pickle the library for faster loading next time.</span>
 
 <span class="sd">    Keyword Args:</span>
 <span class="sd">        attribs: Key/value pairs of attributes to add to the library.</span>
@@ -104,17 +94,26 @@
 
     <span class="c1"># Keep a dict of filenames and their associated SchLib object</span>
     <span class="c1"># for fast loading of libraries.</span>
-    <span class="c1"># TODO: Find a way to retain the cache between invocations of SKiDL and only update new changed libraries.</span>
     <span class="n">_cache</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lib_section</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">lib_section</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">use_cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">use_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">attribs</span>
+    <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Load the parts from a library file.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
+        <span class="kn">import</span> <span class="nn">os</span>
+        <span class="kn">import</span> <span class="nn">pickle</span>
         <span class="kn">import</span> <span class="nn">skidl</span>
 
-        <span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="n">tool_modules</span>
+        <span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="n">tool_modules</span><span class="p">,</span> <span class="n">lib_suffixes</span>
 
         <span class="n">tool</span> <span class="o">=</span> <span class="n">tool</span> <span class="ow">or</span> <span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">tool</span>
 
@@ -125,34 +124,86 @@
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">attribs</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
 
-        <span class="c1"># If no filename, create an empty library.</span>
+        <span class="c1"># If no filename, just create an empty library and exit.</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span><span class="p">:</span>
-            <span class="k">pass</span>
+            <span class="k">return</span>
 
-        <span class="c1"># Load this SchLib with an existing SchLib object if the file name</span>
+        <span class="c1"># Get the absolute path for the part library file.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">paths</span> <span class="o">=</span> <span class="n">skidl</span><span class="o">.</span><span class="n">lib_search_paths</span><span class="p">[</span><span class="n">tool</span><span class="p">]</span>
+            <span class="n">exts</span> <span class="o">=</span> <span class="n">lib_suffixes</span><span class="p">[</span><span class="n">tool</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="c1"># OK, unknown tool...</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
+                <span class="ne">ValueError</span><span class="p">,</span>
+                <span class="s2">&quot;Unsupported ECAD tool library: </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tool</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="n">abs_filename</span> <span class="o">=</span> <span class="n">get_abs_filename</span><span class="p">(</span>
+            <span class="n">filename</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span> <span class="n">exts</span><span class="p">,</span> <span class="n">allow_failure</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">descend</span><span class="o">=-</span><span class="mi">1</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Don&#39;t pickle files stored in remote repos because it&#39;s difficult to</span>
+        <span class="c1"># get their modification times to compare against the local pickled library</span>
+        <span class="c1"># to see which is fresher. So remote libs are never pickled.</span>
+        <span class="c1"># TODO: Allow pickling of remote part libraries.</span>
+        <span class="n">use_pickle</span> <span class="o">=</span> <span class="n">use_pickle</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_url</span><span class="p">(</span><span class="n">abs_filename</span><span class="p">)</span>
+
+        <span class="c1"># Get a unique hash to reference the part library file.</span>
+        <span class="n">abs_fn_hash</span> <span class="o">=</span> <span class="n">consistent_hash</span><span class="p">(</span><span class="n">abs_filename</span><span class="p">)</span>
+
+        <span class="c1"># Create the absolute file name of the pickle file for storing this part library.</span>
+        <span class="c1"># The pickle file name is based on the library name, the tool name, and the hash.</span>
+        <span class="c1"># It is stored in a directory specified in the SKIDL configuration file.</span>
+        <span class="n">lib_name</span><span class="p">,</span> <span class="n">lib_ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">abs_filename</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">lib_pickle_abs_fn</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">pickle_dir</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">lib_name</span><span class="p">,</span> <span class="n">tool</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">abs_fn_hash</span><span class="p">)))</span>
+        <span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.pkl&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Load this SchLib with an existing SchLib object if the file name hash</span>
         <span class="c1"># matches one in the cache.</span>
-        <span class="k">elif</span> <span class="n">filename</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">lib_pickle_abs_fn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">lib_pickle_abs_fn</span><span class="p">]</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
 
-        <span class="c1"># Otherwise, load from a schematic library file.</span>
+        <span class="c1"># Load this Schlib from the pickle file if it exists and it&#39;s more recent</span>
+        <span class="c1"># than the original part library file.</span>
+        <span class="k">elif</span> <span class="p">(</span>
+            <span class="n">use_pickle</span>
+            <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">lib_pickle_abs_fn</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getmtime</span><span class="p">(</span><span class="n">lib_pickle_abs_fn</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getmtime</span><span class="p">(</span><span class="n">abs_filename</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">lib_pickle_abs_fn</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+            <span class="c1"># Cache a reference to the library.</span>
+            <span class="k">if</span> <span class="n">use_cache</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">lib_pickle_abs_fn</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span>
+
+        <span class="c1"># Otherwise, load from a schematic part library file.</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">tool</span> <span class="ow">in</span> <span class="n">tool_modules</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                <span class="c1"># Use the tool name to find the function for loading the library.</span>
-                <span class="n">tool_modules</span><span class="p">[</span><span class="n">tool</span><span class="p">]</span><span class="o">.</span><span class="n">load_sch_lib</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="p">,</span>
-                    <span class="n">filename</span><span class="p">,</span>
-                    <span class="n">skidl</span><span class="o">.</span><span class="n">lib_search_paths</span><span class="p">[</span><span class="n">tool</span><span class="p">],</span>
-                    <span class="n">lib_section</span><span class="o">=</span><span class="n">lib_section</span><span class="p">,</span>
-                <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
-                <span class="c1"># Cache a reference to the library.</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># OK, that didn&#39;t work so well...</span>
-                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
-                    <span class="ne">ValueError</span><span class="p">,</span>
-                    <span class="s2">&quot;Unsupported ECAD tool library: </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tool</span><span class="p">),</span>
-                <span class="p">)</span>
+            <span class="c1"># Use the tool name to find the function for loading the library.</span>
+            <span class="n">tool_modules</span><span class="p">[</span><span class="n">tool</span><span class="p">]</span><span class="o">.</span><span class="n">load_sch_lib</span><span class="p">(</span>
+                <span class="bp">self</span><span class="p">,</span>
+                <span class="n">abs_filename</span><span class="p">,</span>
+                <span class="c1"># skidl.lib_search_paths[tool],</span>
+                <span class="n">lib_section</span><span class="o">=</span><span class="n">lib_section</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
+            <span class="c1"># Cache a reference to the library.</span>
+            <span class="k">if</span> <span class="n">use_cache</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">lib_pickle_abs_fn</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span>
+            <span class="c1"># Pickle the library for future use.</span>
+            <span class="k">if</span> <span class="n">use_pickle</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">pickle_dir</span><span class="p">):</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">pickle_dir</span><span class="p">)</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">lib_pickle_abs_fn</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                        <span class="k">pass</span>
+                <span class="c1"># Delete the pickled lib if its size if zero (i.e., a pickling error occurred).</span>
+                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">lib_pickle_abs_fn</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">lib_pickle_abs_fn</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="c1"># Delete the file</span>
+                        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">lib_pickle_abs_fn</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of the part names in this library as a string.&quot;&quot;&quot;</span>
@@ -291,7 +342,7 @@
 
 <div class="viewcode-block" id="SchLib.export">
 <a class="viewcode-back" href="../../rst_output/skidl.schlib.html#skidl.schlib.SchLib.export">[docs]</a>
-    <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">libname</span><span class="p">,</span> <span class="n">file_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">libname</span><span class="p">,</span> <span class="n">file_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">addtl_part_attrs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Export a library into a file.</span>
 
@@ -303,6 +354,7 @@
 <span class="sd">                suffix appended.</span>
 <span class="sd">            tool: The CAD tool library format to be used. Currently, this can</span>
 <span class="sd">                only be SKIDL.</span>
+<span class="sd">            addtl_part_attrs (list): List of additional part attribute names to include in export.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">def</span> <span class="nf">prettify</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
@@ -321,8 +373,11 @@
 
         <span class="n">export_str</span> <span class="o">=</span> <span class="s2">&quot;from collections import defaultdict</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="n">export_str</span> <span class="o">+=</span> <span class="s2">&quot;from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+        <span class="n">export_str</span> <span class="o">+=</span> <span class="s2">&quot;from skidl.pin import pin_types</span><span class="se">\n\n</span><span class="s2">&quot;</span>
         <span class="n">export_str</span> <span class="o">+=</span> <span class="s2">&quot;SKIDL_lib_version = &#39;0.0.1&#39;</span><span class="se">\n\n</span><span class="s2">&quot;</span>
-        <span class="n">part_export_str</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">export</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="p">])</span>
+        <span class="n">part_export_str</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">addtl_part_attrs</span><span class="o">=</span><span class="n">addtl_part_attrs</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="p">]</span>
+        <span class="p">)</span>
         <span class="n">export_str</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> = SchLib(tool=SKIDL).add_parts(*[</span><span class="si">{}</span><span class="s2">])&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="n">cnvt_to_var_name</span><span class="p">(</span><span class="n">libname</span><span class="p">),</span> <span class="n">part_export_str</span>
         <span class="p">)</span>
@@ -344,9 +399,10 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">backup_lib</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="c1"># The backup library is a SKiDL lib stored as a Python module.</span>
-            <span class="n">exec</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">backup_lib_file_name</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+            <span class="n">glb_vars</span><span class="p">,</span> <span class="n">loc_vars</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">locals</span><span class="p">()</span>
+            <span class="n">exec</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">backup_lib_file_name</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">glb_vars</span><span class="p">,</span> <span class="n">loc_vars</span><span class="p">)</span>
             <span class="c1"># Copy the backup library in the local storage to the global storage.</span>
-            <span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">backup_lib</span> <span class="o">=</span> <span class="nb">locals</span><span class="p">()[</span><span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">backup_lib_name</span><span class="p">]</span>
+            <span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">backup_lib</span> <span class="o">=</span> <span class="n">loc_vars</span><span class="p">[</span><span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">backup_lib_name</span><span class="p">]</span>
 
         <span class="k">except</span> <span class="p">(</span><span class="ne">FileNotFoundError</span><span class="p">,</span> <span class="ne">ImportError</span><span class="p">,</span> <span class="ne">NameError</span><span class="p">,</span> <span class="ne">IOError</span><span class="p">):</span>
             <span class="k">pass</span>
@@ -383,7 +439,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.schlib</a></li> 
       </ul>

@@ -1,0 +1,7 @@
+skidl.tools.kicad5.gen\_netlist module
+======================================
+
+.. automodule:: skidl.tools.kicad5.gen_netlist
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.netpinlist &#8212; SKiDL 1.2.2 documentation</title>
+    <title>skidl.netpinlist &#8212; SKiDL 2.0.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=fd7cadf9"></script>
+    <script src="../../_static/documentation_options.js?v=51b770b3"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.netpinlist</a></li> 
       </ul>
@@ -52,29 +52,12 @@
 <span class="sd">Specialized list for handling nets, pins, and buses.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
-    <span class="n">absolute_import</span><span class="p">,</span>
-    <span class="n">division</span><span class="p">,</span>
-    <span class="n">print_function</span><span class="p">,</span>
-    <span class="n">unicode_literals</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">range</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
-    <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="k">pass</span>
-
 <span class="kn">from</span> <span class="nn">.alias</span> <span class="kn">import</span> <span class="n">Alias</span>
 <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
 <span class="kn">from</span> <span class="nn">.net</span> <span class="kn">import</span> <span class="n">Net</span>
 <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
 <span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">Pin</span>
-<span class="kn">from</span> <span class="nn">.protonet</span> <span class="kn">import</span> <span class="n">ProtoNet</span>
 <span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="n">expand_buses</span><span class="p">,</span> <span class="n">export_to_all</span><span class="p">,</span> <span class="n">flatten</span><span class="p">,</span> <span class="n">set_iadd</span>
-
 
 
 <div class="viewcode-block" id="NetPinList">
@@ -112,7 +95,7 @@
 
         <span class="c1"># Check the stuff you want to connect to see if it&#39;s the right kind.</span>
         <span class="n">nets_pins_b</span> <span class="o">=</span> <span class="n">expand_buses</span><span class="p">(</span><span class="n">flatten</span><span class="p">(</span><span class="n">nets_pins_buses</span><span class="p">))</span>
-        <span class="n">allowed_types</span> <span class="o">=</span> <span class="p">(</span><span class="n">Pin</span><span class="p">,</span> <span class="n">Net</span><span class="p">,</span> <span class="n">ProtoNet</span><span class="p">)</span>
+        <span class="n">allowed_types</span> <span class="o">=</span> <span class="p">(</span><span class="n">Pin</span><span class="p">,</span> <span class="n">Net</span><span class="p">)</span>
         <span class="n">illegal</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span> <span class="k">for</span> <span class="n">np</span> <span class="ow">in</span> <span class="n">nets_pins_b</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">np</span><span class="p">,</span> <span class="n">allowed_types</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">np</span> <span class="ow">in</span> <span class="n">illegal</span><span class="p">:</span>
             <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
@@ -143,26 +126,9 @@
         <span class="k">assert</span> <span class="n">len_a</span> <span class="o">==</span> <span class="n">len_b</span>
 
         <span class="k">for</span> <span class="n">npa</span><span class="p">,</span> <span class="n">npb</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">nets_pins_a</span><span class="p">,</span> <span class="n">nets_pins_b</span><span class="p">):</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">npb</span><span class="p">,</span> <span class="n">ProtoNet</span><span class="p">):</span>
-                <span class="c1"># npb is a ProtoNet so it will get replaced by a real Net by the += op.</span>
-                <span class="c1"># Should the new Net replace the equivalent ProtoNet in nets_pins_buses?</span>
-                <span class="c1"># It doesn&#39;t appear to be necessary since all tests pass, but be aware</span>
-                <span class="c1"># of this issue.</span>
-                <span class="n">npb</span> <span class="o">+=</span> <span class="n">npa</span>
-            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">npa</span><span class="p">,</span> <span class="n">ProtoNet</span><span class="p">):</span>
-                <span class="c1"># npa is a ProtoNet so it will get replaced by a real Net by the += op.</span>
-                <span class="c1"># Therefore, find the equivalent ProtoNet in self and replace it with the</span>
-                <span class="c1"># new Net.</span>
-                <span class="n">id_npa</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="n">npa</span><span class="p">)</span>
-                <span class="n">npa</span> <span class="o">+=</span> <span class="n">npb</span>
-                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)):</span>
-                    <span class="k">if</span> <span class="n">id_npa</span> <span class="o">==</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span>
-                        <span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">npa</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># Just regular attachment of nets and/or pins which updates the existing</span>
-                <span class="c1"># objects within the self and nets_pins_buses lists.</span>
-                <span class="n">npa</span> <span class="o">+=</span> <span class="n">npb</span>
-                <span class="k">pass</span>
+            <span class="c1"># Attachment of nets and/or pins which updates the existing</span>
+            <span class="c1"># objects within the self and nets_pins_buses lists.</span>
+            <span class="n">npa</span> <span class="o">+=</span> <span class="n">npb</span>
 
         <span class="c1"># Set the flag to indicate this result came from the += operator.</span>
         <span class="n">set_iadd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
@@ -271,7 +237,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.netpinlist</a></li> 
       </ul>

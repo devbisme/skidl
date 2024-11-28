@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.schematics.debug_draw module &#8212; SKiDL 1.2.2 documentation</title>
+    <title>skidl.schematics.debug_draw module &#8212; SKiDL 2.0.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=fd7cadf9"></script>
+    <script src="../_static/documentation_options.js?v=51b770b3"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.schematics.debug_draw module</a></li> 
       </ul>
     </div>  
@@ -53,9 +53,9 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>bbox</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.BBox" title="skidl.schematics.geometry.BBox"><em>BBox</em></a>) – Bounding box for the box.</p></li>
+<li><p><strong>bbox</strong> (<a class="reference internal" href="skidl.geometry.html#skidl.geometry.BBox" title="skidl.geometry.BBox"><em>BBox</em></a>) – Bounding box for the box.</p></li>
 <li><p><strong>scr</strong> (<em>PyGame screen</em>) – Screen object for PyGame drawing.</p></li>
-<li><p><strong>tx</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.Tx" title="skidl.schematics.geometry.Tx"><em>Tx</em></a>) – Transformation matrix from real to screen coords.</p></li>
+<li><p><strong>tx</strong> (<a class="reference internal" href="skidl.geometry.html#skidl.geometry.Tx" title="skidl.geometry.Tx"><em>Tx</em></a>) – Transformation matrix from real to screen coords.</p></li>
 <li><p><strong>color</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>, </em><em>optional</em>) – Box color. Defaults to (192, 255, 192).</p></li>
 </ul>
 </dd>
@@ -92,9 +92,9 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>pt</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.Point" title="skidl.schematics.geometry.Point"><em>Point</em></a>) – A point with (x,y) coords.</p></li>
+<li><p><strong>pt</strong> (<a class="reference internal" href="skidl.geometry.html#skidl.geometry.Point" title="skidl.geometry.Point"><em>Point</em></a>) – A point with (x,y) coords.</p></li>
 <li><p><strong>scr</strong> (<em>PyGame screen</em>) – Screen object for PyGame drawing.</p></li>
-<li><p><strong>tx</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.Tx" title="skidl.schematics.geometry.Tx"><em>Tx</em></a>) – Transformation matrix from real to screen coords.</p></li>
+<li><p><strong>tx</strong> (<a class="reference internal" href="skidl.geometry.html#skidl.geometry.Tx" title="skidl.geometry.Tx"><em>Tx</em></a>) – Transformation matrix from real to screen coords.</p></li>
 <li><p><strong>color</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>, </em><em>optional</em>) – Segment color. Defaults to (192, 255, 192).</p></li>
 <li><p><strong>dot_Radius</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Endpoint dot radius. Defaults to 3.</p></li>
 </ul>
@@ -112,7 +112,7 @@
 <li><p><strong>part</strong> (<a class="reference internal" href="skidl.part.html#skidl.part.Part" title="skidl.part.Part"><em>Part</em></a>) – The part affected by the force.</p></li>
 <li><p><strong>force</strong> (<em>Vector</em>) – The force vector.</p></li>
 <li><p><strong>scr</strong> (<em>PyGame screen</em>) – Screen object for PyGame drawing.</p></li>
-<li><p><strong>tx</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.Tx" title="skidl.schematics.geometry.Tx"><em>Tx</em></a>) – Transformation matrix from real to screen coords.</p></li>
+<li><p><strong>tx</strong> (<a class="reference internal" href="skidl.geometry.html#skidl.geometry.Tx" title="skidl.geometry.Tx"><em>Tx</em></a>) – Transformation matrix from real to screen coords.</p></li>
 <li><p><strong>font</strong> (<em>PyGame font</em>) – Font for rendering text.</p></li>
 <li><p><strong>color</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>, </em><em>optional</em>) – Segment color. Defaults to (0,0,0).</p></li>
 </ul>
@@ -130,7 +130,7 @@
 <li><p><strong>net</strong> (<a class="reference internal" href="skidl.net.html#skidl.net.Net" title="skidl.net.Net"><em>Net</em></a>) – Net of conmnected terminals.</p></li>
 <li><p><strong>parts</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – List of parts to which net will be drawn.</p></li>
 <li><p><strong>scr</strong> (<em>PyGame screen</em>) – Screen object for PyGame drawing.</p></li>
-<li><p><strong>tx</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.Tx" title="skidl.schematics.geometry.Tx"><em>Tx</em></a>) – Transformation matrix from real to screen coords.</p></li>
+<li><p><strong>tx</strong> (<a class="reference internal" href="skidl.geometry.html#skidl.geometry.Tx" title="skidl.geometry.Tx"><em>Tx</em></a>) – Transformation matrix from real to screen coords.</p></li>
 <li><p><strong>font</strong> (<em>PyGame font</em>) – Font for rendering text.</p></li>
 <li><p><strong>color</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>, </em><em>optional</em>) – Segment color. Defaults to (0,0,0).</p></li>
 <li><p><strong>thickness</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Thickness of net line. Defaults to 2.</p></li>
@@ -149,7 +149,7 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>part</strong> (<a class="reference internal" href="skidl.part.html#skidl.part.Part" title="skidl.part.Part"><em>Part</em></a>) – Part to draw.</p></li>
 <li><p><strong>scr</strong> (<em>PyGame screen</em>) – Screen object for PyGame drawing.</p></li>
-<li><p><strong>tx</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.Tx" title="skidl.schematics.geometry.Tx"><em>Tx</em></a>) – Transformation matrix from real to screen coords.</p></li>
+<li><p><strong>tx</strong> (<a class="reference internal" href="skidl.geometry.html#skidl.geometry.Tx" title="skidl.geometry.Tx"><em>Tx</em></a>) – Transformation matrix from real to screen coords.</p></li>
 <li><p><strong>font</strong> (<em>PyGame font</em>) – Font for rendering text.</p></li>
 </ul>
 </dd>
@@ -172,7 +172,7 @@
 <li><p><strong>parts</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – List of Part objects.</p></li>
 <li><p><strong>nets</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – List of Net objects.</p></li>
 <li><p><strong>scr</strong> (<em>PyGame screen</em>) – Screen object for PyGame drawing.</p></li>
-<li><p><strong>tx</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.Tx" title="skidl.schematics.geometry.Tx"><em>Tx</em></a>) – Transformation matrix from real to screen coords.</p></li>
+<li><p><strong>tx</strong> (<a class="reference internal" href="skidl.geometry.html#skidl.geometry.Tx" title="skidl.geometry.Tx"><em>Tx</em></a>) – Transformation matrix from real to screen coords.</p></li>
 <li><p><strong>font</strong> (<em>PyGame font</em>) – Font for rendering text.</p></li>
 </ul>
 </dd>
@@ -193,7 +193,7 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>node</strong> (<a class="reference internal" href="skidl.schematics.node.html#skidl.schematics.node.Node" title="skidl.schematics.node.Node"><em>Node</em></a>) – Hierarchical node.</p></li>
-<li><p><strong>bbox</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.BBox" title="skidl.schematics.geometry.BBox"><em>BBox</em></a>) – Bounding box of drawing area.</p></li>
+<li><p><strong>bbox</strong> (<a class="reference internal" href="skidl.geometry.html#skidl.geometry.BBox" title="skidl.geometry.BBox"><em>BBox</em></a>) – Bounding box of drawing area.</p></li>
 <li><p><strong>node</strong> – The Node being routed.</p></li>
 <li><p><strong>parts</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – List of Parts.</p></li>
 <li><p><strong>other_stuff</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – Other stuff with a draw() method.</p></li>
@@ -210,9 +210,9 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>seg</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.Segment" title="skidl.schematics.geometry.Segment"><em>Segment</em></a><em>, </em><em>Interval</em><em>, </em><em>NetInterval</em>) – An object with two endpoints.</p></li>
+<li><p><strong>seg</strong> (<a class="reference internal" href="skidl.geometry.html#skidl.geometry.Segment" title="skidl.geometry.Segment"><em>Segment</em></a><em>, </em><em>Interval</em><em>, </em><em>NetInterval</em>) – An object with two endpoints.</p></li>
 <li><p><strong>scr</strong> (<em>PyGame screen</em>) – Screen object for PyGame drawing.</p></li>
-<li><p><strong>tx</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.Tx" title="skidl.schematics.geometry.Tx"><em>Tx</em></a>) – Transformation matrix from real to screen coords.</p></li>
+<li><p><strong>tx</strong> (<a class="reference internal" href="skidl.geometry.html#skidl.geometry.Tx" title="skidl.geometry.Tx"><em>Tx</em></a>) – Transformation matrix from real to screen coords.</p></li>
 <li><p><strong>color</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>, </em><em>optional</em>) – Segment color. Defaults to (192, 255, 192).</p></li>
 <li><p><strong>seg_thickness</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Segment line thickness. Defaults to 5.</p></li>
 <li><p><strong>dot_Radius</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Endpoint dot radius. Defaults to 3.</p></li>
@@ -248,9 +248,9 @@ font: PyGame font for rendering text.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>txt</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Text string to be rendered.</p></li>
-<li><p><strong>pt</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.Point" title="skidl.schematics.geometry.Point"><em>Point</em></a>) – Real or screen coord for start of rendered text.</p></li>
+<li><p><strong>pt</strong> (<a class="reference internal" href="skidl.geometry.html#skidl.geometry.Point" title="skidl.geometry.Point"><em>Point</em></a>) – Real or screen coord for start of rendered text.</p></li>
 <li><p><strong>scr</strong> (<em>PyGame screen</em>) – Screen object for PyGame drawing.</p></li>
-<li><p><strong>tx</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.Tx" title="skidl.schematics.geometry.Tx"><em>Tx</em></a>) – Transformation matrix from real to screen coords.</p></li>
+<li><p><strong>tx</strong> (<a class="reference internal" href="skidl.geometry.html#skidl.geometry.Tx" title="skidl.geometry.Tx"><em>Tx</em></a>) – Transformation matrix from real to screen coords.</p></li>
 <li><p><strong>font</strong> (<em>PyGame font</em>) – Font for rendering text.</p></li>
 <li><p><strong>color</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>, </em><em>optional</em>) – Segment color. Defaults to (100,100,100).</p></li>
 <li><p><strong>real</strong> (<em>Boolean</em>) – If true, transform real pt to screen coords. Otherwise, pt is screen coords.</p></li>
@@ -321,7 +321,7 @@ font: PyGame font for rendering text.</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.schematics.debug_draw module</a></li> 
       </ul>
     </div>

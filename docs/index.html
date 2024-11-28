@@ -91,11 +91,10 @@ create a finished circuit board.</p>
 <li><a href="#part-fields">Part Fields</a></li>
 <li><a href="#hierarchy">Hierarchy</a><ul>
 <li><a href="#subcircuits">Subcircuits</a></li>
-<li><a href="#packages">Packages</a></li>
+<li><a href="#interfaces">Interfaces</a></li>
 <li><a href="#groups">Groups</a></li>
 </ul>
 </li>
-<li><a href="#interfaces">Interfaces</a></li>
 <li><a href="#libraries">Libraries</a></li>
 <li><a href="#doodads">Doodads</a><ul>
 <li><a href="#no-connects">No Connects</a></li>
@@ -105,6 +104,7 @@ create a finished circuit board.</p>
 <li><a href="#customizable-erc-using-erc_assert">Customizable ERC Using <code>erc_assert()</code></a></li>
 <li><a href="#handling-empty-footprints">Handling Empty Footprints</a></li>
 <li><a href="#tags">Tags</a></li>
+<li><a href="#configuration-file">Configuration File</a></li>
 </ul>
 </li>
 <li><a href="#going-really-deep">Going Really Deep</a></li>
@@ -122,7 +122,7 @@ electronic circuits and components using Python.
 The resulting Python program performs electrical rules checking
 for common mistakes and outputs a netlist that serves as input to
 a PCB layout tool.</p>
-<p>First, let's look at a "normal" design flow in <a href="https://kicad-pcb.org">KiCad</a>:</p>
+<p>First, let's look at a "normal" design flow in <a href="https://kicad.org">KiCad</a>:</p>
 <p><img alt="Schematic-based PCB design flow" src="images/schematic-process-flow.png"></p>
 <p>Here, you start off in a <em>schematic editor</em> (for KiCad, that's Eeschema) and
 draw a schematic. From that, Eeschema generates
@@ -225,9 +225,11 @@ do the PCB layout:</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>skidl
 </code></pre></div>
 
-<p>To give SKiDL some part libraries to work with,
-you'll also need to install <a href="http://kicad.org/">KiCad</a>.
-Then, you'll need to set an environment variable so SKiDL can find the libraries.
+<p>While it's not entirely necessary, you may install some part libraries
+for SKiDL to play with.
+Some possible options are to do a full install of <a href="http://kicad.org/">KiCad</a> or
+to install only the <a href="https://gitlab.com/kicad/libraries/kicad-symbols">KiCad libraries</a>.</p>
+<p>Then, you'll need to set an environment variable so SKiDL can find the libraries.
 For Windows, do this:</p>
 <div class="highlight"><pre><span></span><code>set KICAD_SYMBOL_DIR=C:\Program Files\KiCad\share\kicad\kicad-symbols
 </code></pre></div>
@@ -1333,13 +1335,70 @@ The ratio of the voltage divider could be set with a parameter:</p>
 <span class="n">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">,</span> <span class="n">ratio</span><span class="o">=</span><span class="mf">0.33</span><span class="p">)</span>
 </code></pre></div>
 
-<h3 id="packages">Packages</h3>
-<p>The <code>@subcircuit</code> decorator lets you create a hierarchical circuit where the
+<h3 id="interfaces">Interfaces</h3>
+<p>Passing nets between hierarchically-organized subcircuit modules can lead to long
+lists of arguments.
+To make the code easier to write and understand, SKiDL supports <em>interfaces</em>
+which are simply dictionaries that encapsulate a number of <code>Bus</code>, <code>Net</code>, or <code>Pin</code> objects.
+For example, here is an interface for a memory:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mem_intfc</span> <span class="o">=</span> <span class="n">Interface</span><span class="p">(</span>
+  <span class="n">rd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;MEM_RD#&#39;</span><span class="p">),</span>
+  <span class="n">wr</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;MEM_WR#&#39;</span><span class="p">),</span>
+  <span class="n">addr</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;MEM_ADDR&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+  <span class="n">data</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;MEM_DATA&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p>This interface can be passed to a RAM module and a microcontroller that uses it:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mem_module</span><span class="p">(</span><span class="n">mem_intfc</span><span class="p">)</span>
+<span class="n">uc_module</span><span class="p">(</span><span class="n">clk</span><span class="p">,</span> <span class="n">mem_intfc</span><span class="p">,</span> <span class="n">io_intfc</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Inside the <code>mem_module</code>, the interface signals are connected to a RAM chip:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@subcircuit</span>
+<span class="k">def</span> <span class="nf">mem_module</span><span class="p">(</span><span class="n">intfc</span><span class="p">):</span>
+  <span class="n">ram</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Memory_RAM&#39;</span><span class="p">,</span> <span class="s1">&#39;AS6C1616&#39;</span><span class="p">)</span>
+  <span class="n">ram</span><span class="p">[</span><span class="s1">&#39;A[0:19]&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">intfc</span><span class="o">.</span><span class="n">addr</span>
+  <span class="n">ram</span><span class="p">[</span><span class="s1">&#39;DQ[0:15]&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">intfc</span><span class="o">.</span><span class="n">data</span>
+  <span class="n">ram</span><span class="p">[</span><span class="s1">&#39;WE#&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">intfc</span><span class="o">.</span><span class="n">wr</span>
+  <span class="n">ram</span><span class="p">[</span><span class="s1">&#39;OE#&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">intfc</span><span class="p">[</span><span class="s1">&#39;rd&#39;</span><span class="p">]</span>  <span class="c1"># Interface members are also accessible using []&#39;s.</span>
+  <span class="o">...</span>
+</code></pre></div>
+
+<p>A similar set of statements is used to make connections to the microcontroller inside the <code>uc_module</code>
+with the <code>mem_intfc</code> argument.</p>
+<p>Instead of defining an interface external to the subcircuit modules, you can also
+have a module return an interface that can be passed to other modules.
+Here's an example of the <code>mem_module</code> that returns an interface:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@subcircuit</span>
+<span class="k">def</span> <span class="nf">mem_module</span><span class="p">():</span>
+  <span class="n">ram</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Memory_RAM&#39;</span><span class="p">,</span> <span class="s1">&#39;AS6C1616&#39;</span><span class="p">)</span>
+  <span class="n">mem_intfc</span> <span class="o">=</span> <span class="n">Interface</span><span class="p">(</span>
+    <span class="n">rd</span> <span class="o">=</span> <span class="n">ram</span><span class="p">[</span><span class="s1">&#39;OE#&#39;</span><span class="p">],</span>
+    <span class="n">wr</span> <span class="o">=</span> <span class="n">ram</span><span class="p">[</span><span class="s1">&#39;WE#&#39;</span><span class="p">],</span>
+    <span class="n">addr</span> <span class="o">=</span> <span class="n">ram</span><span class="p">[</span><span class="s1">&#39;A[0:19]&#39;</span><span class="p">],</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">ram</span><span class="p">[</span><span class="s1">&#39;DQ[0:15]&#39;</span><span class="p">]</span>
+  <span class="p">)</span>
+  <span class="o">...</span>
+  <span class="k">return</span> <span class="n">mem_intfc</span>
+</code></pre></div>
+
+<p>Then this interface can be passed to the <code>uc_module</code> to connect the memory and microcontroller:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mem_intfc</span> <span class="o">=</span> <span class="n">mem_module</span><span class="p">()</span>
+<span class="n">uc_module</span><span class="p">(</span><span class="n">clk</span><span class="p">,</span> <span class="n">mem_intfc</span><span class="p">,</span> <span class="n">io_intfc</span><span class="p">)</span>
+</code></pre></div>
+
+<!--
+### Packages
+
+The `@subcircuit` decorator lets you create a hierarchical circuit where the
 subcircuits are instantiated using function calls with arguments.
-The <code>@package</code> decorator is an alternative that <em>packages</em> a subcircuit into
+The `@package` decorator is an alternative that *packages* a subcircuit into
 a part-like object with its own input and output pins that can be connected
 to other components.
-In essence, you've encapsulated a subcircuit into its own package with I/O pins.</p>
+In essence, you've encapsulated a subcircuit into its own package with I/O pins.
+
+
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
@@ -1363,7 +1422,11 @@ In essence, you've encapsulated a subcircuit into its own package with I/O pins.
 <span class="n">generate_netlist</span><span class="p">(</span><span class="n">file_</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
 </code></pre></div>
 
-<p>Subcircuits defined with <code>@package</code> are also customizable via parameters:</p>
+
+
+Subcircuits defined with `@package` are also customizable via parameters:
+
+
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
@@ -1388,6 +1451,9 @@ In essence, you've encapsulated a subcircuit into its own package with I/O pins.
 
 <span class="n">generate_netlist</span><span class="p">(</span><span class="n">file_</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
 </code></pre></div>
+
+
+-->
 
 <h3 id="groups">Groups</h3>
 <p>If you want to inject some hierarchy in your design but don't want
@@ -1415,37 +1481,6 @@ C1 top.A0
 L1 top.A0.B0
 </code></pre></div>
 
-<h2 id="interfaces">Interfaces</h2>
-<p>Passing nets between hierarchically-organized modules can lead to long
-lists of arguments.
-To make the code easier to write and understand, SKiDL supports <em>interfaces</em>
-which are simply dictionaries that encapsulate a number of <code>Bus</code>, <code>Net</code>, or <code>Pin</code> objects.
-For example, here is an interface for a memory:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mem_intfc</span> <span class="o">=</span> <span class="n">Interface</span><span class="p">(</span>
-  <span class="n">rd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;MEM_RD#&#39;</span><span class="p">),</span>
-  <span class="n">wr</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;MEM_WR#&#39;</span><span class="p">),</span>
-  <span class="n">addr</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;MEM_ADDR&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
-  <span class="n">data</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;MEM_DATA&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
-<span class="p">)</span>
-</code></pre></div>
-
-<p>Then this interface can be passed to a module that implements a RAM memory
-and a microcontroller that uses it:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mem_module</span><span class="p">(</span><span class="n">mem_intfc</span><span class="p">)</span>
-<span class="n">uc_module</span><span class="p">(</span><span class="n">clk</span><span class="p">,</span> <span class="n">mem_intfc</span><span class="p">,</span> <span class="n">io_intfc</span><span class="p">)</span>
-</code></pre></div>
-
-<p>Inside the <code>mem_module</code>, the interface signals are connected to a RAM chip:</p>
-<div class="highlight"><pre><span></span><code><span class="nd">@subcircuit</span>
-<span class="k">def</span> <span class="nf">mem_module</span><span class="p">(</span><span class="n">intfc</span><span class="p">):</span>
-  <span class="n">ram</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Memory_RAM&#39;</span><span class="p">,</span> <span class="s1">&#39;AS6C1616&#39;</span><span class="p">)</span>
-  <span class="n">ram</span><span class="p">[</span><span class="s1">&#39;A[0:19]&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">intfc</span><span class="o">.</span><span class="n">addr</span>
-  <span class="n">ram</span><span class="p">[</span><span class="s1">&#39;DQ[0:15]&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">intfc</span><span class="o">.</span><span class="n">data</span>
-  <span class="n">ram</span><span class="p">[</span><span class="s1">&#39;WE#&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">intfc</span><span class="o">.</span><span class="n">wr</span>
-  <span class="n">ram</span><span class="p">[</span><span class="s1">&#39;OE#&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">intfc</span><span class="p">[</span><span class="s1">&#39;rd&#39;</span><span class="p">]</span>  <span class="c1"># Interface members are also accessible using []&#39;s.</span>
-  <span class="o">...</span>
-</code></pre></div>
-
 <h2 id="libraries">Libraries</h2>
 <p>As you've already seen, SKiDL gets its parts from <em>part libraries</em>.
 By default, SKiDL finds the libraries provided by KiCad (using the <code>KICAD_SYMBOL_DIR</code>
@@ -1456,7 +1491,7 @@ environment variable), so if that's all you need then you're all set.</p>
 <li><code>KICAD6</code>: Schematic part libraries for KiCad version 6.</li>
 <li><code>KICAD7</code>: Schematic part libraries for KiCad version 7.</li>
 <li><code>KICAD8</code>: Schematic part libraries for KiCad version 8.</li>
-<li><code>KICAD</code>: Generic KiCad schematic part libraries that currently mirrors <code>KICAD5</code>.</li>
+<li><code>KICAD</code>: Generic KiCad schematic part libraries that currently mirrors <code>KICAD8</code>.</li>
 <li><code>SKIDL</code>: Schematic parts stored as SKiDL/Python modules.</li>
 </ul>
 <p>You may set the default library format you want to use in your SKiDL script like so:</p>
@@ -1475,6 +1510,21 @@ URL in the list of libraries:</p>
 <div class="highlight"><pre><span></span><code><span class="n">lib_search_paths</span><span class="p">[</span><span class="n">KICAD</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master&#39;</span><span class="p">)</span>
 </code></pre></div>
 
+<p>You can also bypass <code>lib_search_paths</code> and access a part library directly by
+specifying the full path or URL to the library file:</p>
+<div class="highlight"><pre><span></span><code><span class="n">resistor</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;C:</span><span class="se">\\</span><span class="s1">my</span><span class="se">\\</span><span class="s1">kicad</span><span class="se">\\</span><span class="s1">libs</span><span class="se">\\</span><span class="s1">my_lib.kicad_sym&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Opening large libraries can cause a significant delay as the part descriptions are parsed
+into the internal <code>SchLib</code> data structure.
+To speed up the process, libraries are cached after parsing so subsequent accesses
+during a session will be fast.</p>
+<p>SKiDL will also <a href="https://docs.python.org/3/library/pickle.html">pickle</a> any local libraries
+(but not those in online repositories) to disk so they can be reloaded quickly in future sessions.
+If the original library file is modified, SKiDL will re-parse it and update the pickled file.
+By default, pickled library files are stored in the <code>lib_pickle_dir</code> subdirectory of the current directory.
+You can change the location of the pickled library files by setting the <code>pickle_dir</code> entry in
+the <a href="#configuration-file">configuration file</a>.</p>
 <p>You can convert a KiCad library into the SKiDL format by exporting it:</p>
 <div class="highlight"><pre><span></span><code><span class="n">kicad_lib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="n">KICAD</span><span class="p">)</span>       <span class="c1"># Open a KiCad library.</span>
 <span class="n">kicad_lib</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="s1">&#39;my_skidl_lib&#39;</span><span class="p">)</span>               <span class="c1"># Export it into a file in SKiDL format.</span>
@@ -1564,48 +1614,60 @@ Here are the most common attributes you'll want to set:</p>
 </thead>
 <tbody>
 <tr>
-<td>Pin.INPUT</td>
+<td>INPUT</td>
 <td>Input pin.</td>
 </tr>
 <tr>
-<td>Pin.OUTPUT</td>
+<td>OUTPUT</td>
 <td>Output pin.</td>
 </tr>
 <tr>
-<td>Pin.BIDIR</td>
+<td>BIDIR</td>
 <td>Bidirectional in/out pin.</td>
 </tr>
 <tr>
-<td>Pin.TRISTATE</td>
+<td>TRISTATE</td>
 <td>Output pin that goes into a high-impedance state when disabled.</td>
 </tr>
 <tr>
-<td>Pin.PASSIVE</td>
+<td>PASSIVE</td>
 <td>Pin on a passive component (like a resistor).</td>
 </tr>
 <tr>
-<td>Pin.UNSPEC</td>
+<td>UNSPEC</td>
 <td>Pin with an unspecified function.</td>
 </tr>
 <tr>
-<td>Pin.PWRIN</td>
+<td>PWRIN</td>
 <td>Power input pin (either voltage supply or ground).</td>
 </tr>
 <tr>
-<td>Pin.PWROUT</td>
+<td>PWROUT</td>
 <td>Power output pin (like the output of a voltage regulator).</td>
 </tr>
 <tr>
-<td>Pin.OPENCOLL</td>
+<td>OPENCOLL</td>
 <td>Open-collector pin (pulls to ground but not to positive rail).</td>
 </tr>
 <tr>
-<td>Pin.OPENEMIT</td>
+<td>OPENEMIT</td>
 <td>Open-emitter pin (pulls to positive rail but not to ground).</td>
 </tr>
 <tr>
-<td>Pin.NOCONNECT</td>
+<td>PULLUP</td>
+<td>Pin with a pull-up resistor.</td>
+</tr>
+<tr>
+<td>PULLDOWN</td>
+<td>Pin with a pull-down resistor.</td>
+</tr>
+<tr>
+<td>NOCONNECT</td>
 <td>A pin that should be left unconnected.</td>
+</tr>
+<tr>
+<td>FREE</td>
+<td>A pin that is free to be used for any function.</td>
 </tr>
 </tbody>
 </table>
@@ -1893,6 +1955,63 @@ the automatically-assigned references of the resistors will change.
 The resulting netlist can be imported into layout editors like KiCad's PCBNEW using the
 timestamps (instead of part references) and will remain consistent with the PCB
 wiring traces.</p>
+<h3 id="configuration-file">Configuration File</h3>
+<p>SKiDL's configuration file lets you override the default settings.
+You can store the current settings by running the following command:</p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="kn">from</span><span class="w"> </span><span class="nn">skidl</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="o">*</span>
+<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>The <code>.skidlcfg</code> JSON file with the SKiDL settings will be created in the current directory:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;cfg_file_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;.skidlcfg&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;kicad8&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;pickle_dir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;./lib_pickle_dir&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;lib_search_paths&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;kicad8&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;/usr/share/kicad/symbols&quot;</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;spice&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="s2">&quot;.&quot;</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;kicad7&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;/usr/share/kicad/symbols&quot;</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;kicad6&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;/usr/share/kicad/symbols&quot;</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;skidl&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;/home/devb/projects/KiCad/tools/skidl/src/skidl/tools/skidl/libs&quot;</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;kicad5&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;/usr/share/kicad/library&quot;</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;backup_lib_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;__init___lib&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;backup_lib_file_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;__init___lib_sklib.py&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;query_backup_lib&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;backup_lib&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;footprint_search_paths&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;kicad8&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/home/devb/.config/kicad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;spice&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;kicad7&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/home/devb/.config/kicad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;kicad6&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/home/devb/.config/kicad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;skidl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;kicad5&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/home/devb/.config/kicad&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>You can modify any of the settings in this file to reflect your preferences.
+Then store it in your home directory to use it as the default configuration
+for all your SKiDL projects.
+Or store it in a directory where you're working on a specific project to
+have it only apply to that project.</p>
 <h1 id="going-really-deep">Going Really Deep</h1>
 <p>If all you need to do is design the circuitry for a PCB, then you probably know
 all the SKiDL you need to know.

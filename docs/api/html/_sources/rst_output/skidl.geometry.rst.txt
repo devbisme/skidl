@@ -1,0 +1,7 @@
+skidl.geometry module
+=====================
+
+.. automodule:: skidl.geometry
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,694 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.tools.kicad5.lib &#8212; SKiDL 2.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../../../../_static/documentation_options.js?v=51b770b3"></script>
+    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../../../../"><img src="../../../../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad5.lib</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skidl.tools.kicad5.lib</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Parsing of Kicad 5 libraries.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">from</span> <span class="nn">skidl.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
+<span class="kn">from</span> <span class="nn">skidl.part</span> <span class="kn">import</span> <span class="n">LIBRARY</span>
+<span class="kn">from</span> <span class="nn">skidl.pin</span> <span class="kn">import</span> <span class="n">pin_types</span>
+<span class="kn">from</span> <span class="nn">skidl.utilities</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">export_to_all</span><span class="p">,</span>
+    <span class="n">find_and_read_file</span><span class="p">,</span>
+    <span class="n">find_and_open_file</span><span class="p">,</span>
+    <span class="n">num_to_chars</span><span class="p">,</span>
+    <span class="n">rmv_quotes</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.draw_objs</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;lib_suffix&quot;</span><span class="p">]</span>
+
+
+<span class="n">lib_suffix</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;.lib&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="default_lib_paths">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad5.lib.html#skidl.tools.kicad5.lib.default_lib_paths">[docs]</a>
+<span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">default_lib_paths</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return default list of directories to search for part libraries.&quot;&quot;&quot;</span>
+
+    <span class="c1"># Start search for part libraries in the current directory.</span>
+    <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;.&quot;</span><span class="p">]</span>
+
+    <span class="c1"># Add the location of the default KiCad part libraries.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;KICAD_SYMBOL_DIR&quot;</span><span class="p">])</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="s2">&quot;KICAD_SYMBOL_DIR environment variable is missing, so the default KiCad symbol libraries won&#39;t be searched.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">paths</span></div>
+
+
+
+<div class="viewcode-block" id="get_fp_lib_tbl_dir">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad5.lib.html#skidl.tools.kicad5.lib.get_fp_lib_tbl_dir">[docs]</a>
+<span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">get_fp_lib_tbl_dir</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the path to where the global fp-lib-table file is found.&quot;&quot;&quot;</span>
+
+    <span class="n">paths</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;$HOME/.config/kicad&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;~/.config/kicad&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;%APPDATA%/kicad&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;$HOME/Library/Preferences/kicad&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;~/Library/Preferences/kicad&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expandvars</span><span class="p">(</span><span class="n">path</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">lexists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">path</span>
+    <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="load_sch_lib">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad5.lib.html#skidl.tools.kicad5.lib.load_sch_lib">[docs]</a>
+<span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">load_sch_lib</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lib_search_paths_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lib_section</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load the parts from a KiCad schematic library file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        lib (SchLib): SKiDL library object.</span>
+<span class="sd">        filename (str): The name of the KiCad schematic library file.</span>
+<span class="sd">        lib_search_paths_ (list): List of paths with KiCad symbol libraries.</span>
+<span class="sd">        lib_section: Only used for SPICE simulations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="n">Part</span><span class="p">,</span> <span class="n">KICAD5</span>
+    <span class="kn">from</span> <span class="nn">skidl.tools</span> <span class="kn">import</span> <span class="n">lib_suffixes</span>
+
+    <span class="c1"># Try to open the file using allowable suffixes for the versions of KiCAD.</span>
+    <span class="n">suffixes</span> <span class="o">=</span> <span class="n">lib_suffixes</span><span class="p">[</span><span class="n">KICAD5</span><span class="p">]</span>
+    <span class="n">base</span><span class="p">,</span> <span class="n">suffix</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">suffix</span><span class="p">:</span>
+        <span class="c1"># If an explicit file extension was given, use it instead of tool lib default extensions.</span>
+        <span class="n">suffixes</span> <span class="o">=</span> <span class="p">[</span><span class="n">suffix</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">suffix</span> <span class="ow">in</span> <span class="n">suffixes</span><span class="p">:</span>
+        <span class="c1"># Allow file open failure so multiple suffixes can be tried without error messages.</span>
+        <span class="n">f</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">find_and_open_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="p">,</span> <span class="n">lib_search_paths_</span><span class="p">,</span> <span class="n">suffix</span><span class="p">,</span> <span class="n">allow_failure</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">f</span><span class="p">:</span>
+            <span class="c1"># Break from the loop once a library file is successfully opened.</span>
+            <span class="k">break</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
+            <span class="s2">&quot;Unable to open KiCad Schematic Library File </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="n">lib_txt</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">lib_txt</span> <span class="o">=</span> <span class="n">lib_txt</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;latin_1&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="c1"># File contents were already decoded.</span>
+        <span class="k">pass</span>
+
+    <span class="n">part_defns</span> <span class="o">=</span> <span class="n">lib_txt</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">DEF &quot;</span><span class="p">)</span>
+
+    <span class="c1"># Check the file header to make sure it&#39;s a KiCad library.</span>
+    <span class="n">header</span> <span class="o">=</span> <span class="n">part_defns</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Stuff before first DEF is the header.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">header</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;EESchema-LIBRARY&quot;</span><span class="p">):</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
+            <span class="ne">RuntimeError</span><span class="p">,</span>
+            <span class="s2">&quot;The file </span><span class="si">{}</span><span class="s2"> is not a KiCad Schematic Library File.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Process each part.</span>
+    <span class="k">for</span> <span class="n">part_defn</span> <span class="ow">in</span> <span class="n">part_defns</span><span class="p">:</span>
+
+        <span class="n">part_defn</span> <span class="o">=</span> <span class="n">part_defn</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">part_defn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;DEF &quot;</span> <span class="o">+</span> <span class="n">part_defn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Add DEF back onto first line.</span>
+
+        <span class="c1"># Remove comments.</span>
+        <span class="c1"># part_defn = re.sub(&quot;(\n?)([^#]*?)#[^#]*?\n&quot;, r&quot;\1\2&quot;, part_defn)</span>
+        <span class="n">part_defn</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">part_defn</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">)]</span>
+
+        <span class="c1"># Get part name.</span>
+        <span class="n">part_name</span> <span class="o">=</span> <span class="n">part_defn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># Get part aliases between &quot;ALIAS &quot; and newline.</span>
+        <span class="n">aliases</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">part_defn</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;ALIAS &quot;</span><span class="p">):</span>
+                <span class="n">aliases</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span>
+                <span class="k">break</span>
+
+        <span class="c1"># Create the Part object and add it to the part list. Be sure to</span>
+        <span class="c1"># indicate that the Part object is being added to a library</span>
+        <span class="c1"># and not to a schematic netlist.</span>
+        <span class="c1"># Also, add null attributes in case a DCM file is not</span>
+        <span class="c1"># available for this part.</span>
+        <span class="n">lib</span><span class="o">.</span><span class="n">add_parts</span><span class="p">(</span>
+            <span class="n">Part</span><span class="p">(</span>
+                <span class="n">part_defn</span><span class="o">=</span><span class="n">part_defn</span><span class="p">,</span>
+                <span class="n">tool</span><span class="o">=</span><span class="n">KICAD5</span><span class="p">,</span>
+                <span class="n">dest</span><span class="o">=</span><span class="n">LIBRARY</span><span class="p">,</span>
+                <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">part_name</span><span class="p">,</span>
+                <span class="n">aliases</span><span class="o">=</span><span class="n">aliases</span><span class="p">,</span>
+                <span class="n">keywords</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="n">datasheet</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="n">search_text</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Now add information from any associated DCM file.</span>
+    <span class="n">base_fn</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Strip any extension.</span>
+    <span class="n">dcm_txt</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">find_and_read_file</span><span class="p">(</span>
+        <span class="n">base_fn</span><span class="p">,</span> <span class="n">lib_search_paths_</span><span class="p">,</span> <span class="s2">&quot;.dcm&quot;</span><span class="p">,</span> <span class="n">allow_failure</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">dcm_txt</span><span class="p">:</span>
+        <span class="n">part_desc</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">dcm_txt</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span>
+            <span class="c1"># for line in f.read().split(&quot;\n&quot;):</span>
+
+            <span class="c1"># Skip over comments.</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">):</span>
+                <span class="k">pass</span>
+
+            <span class="c1"># Look for the start of a part description.</span>
+            <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;$CMP&quot;</span><span class="p">):</span>
+                <span class="n">part_desc</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="c1"># If gathering the part description has begun, then continue adding lines.</span>
+            <span class="k">elif</span> <span class="n">part_desc</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;D&quot;</span><span class="p">):</span>
+                    <span class="n">part_desc</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:])</span>
+                <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;K&quot;</span><span class="p">):</span>
+                    <span class="n">part_desc</span><span class="p">[</span><span class="s2">&quot;keywords&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:])</span>
+                <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;F&quot;</span><span class="p">):</span>
+                    <span class="n">part_desc</span><span class="p">[</span><span class="s2">&quot;datasheet&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:])</span>
+                <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;$ENDCMP&quot;</span><span class="p">):</span>
+                    <span class="c1"># Part description complete, so store it in the part(s) with matching name.</span>
+                    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">lib</span><span class="o">.</span><span class="n">get_parts_quick</span><span class="p">(</span><span class="n">part_desc</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]):</span>
+                        <span class="n">part</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">part_desc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                        <span class="n">part</span><span class="o">.</span><span class="n">keywords</span> <span class="o">=</span> <span class="n">part_desc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;keywords&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                        <span class="n">part</span><span class="o">.</span><span class="n">datasheet</span> <span class="o">=</span> <span class="n">part_desc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;datasheet&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                    <span class="n">part_desc</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">pass</span>
+
+    <span class="c1"># Create text string to be used when searching for parts.</span>
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">lib</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+        <span class="n">search_text_pieces</span> <span class="o">=</span> <span class="p">[</span><span class="n">part</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">description</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">keywords</span><span class="p">]</span>
+        <span class="n">search_text_pieces</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">aliases</span><span class="p">)</span>  <span class="c1"># aliases also includes part name.</span>
+        <span class="c1"># Join the various text pieces by newlines so the ^ and $ special characters</span>
+        <span class="c1"># can be used to detect the start and end of a piece of text during RE searches.</span>
+        <span class="n">part</span><span class="o">.</span><span class="n">search_text</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">search_text_pieces</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="parse_lib_part">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad5.lib.html#skidl.tools.kicad5.lib.parse_lib_part">[docs]</a>
+<span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">parse_lib_part</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">partial_parse</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a Part using a part definition from a KiCad schematic library.</span>
+
+<span class="sd">    This method was written based on the code from</span>
+<span class="sd">    https://github.com/KiCad/kicad-library-utils/tree/master/schlib.</span>
+<span class="sd">    It&#39;s covered by GPL3.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        partial_parse: If true, scan the part definition until the</span>
+<span class="sd">            name and aliases are found. The rest of the definition</span>
+<span class="sd">            will be parsed if the part is actually used.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="n">Pin</span>
+
+    <span class="n">_DEF_KEYS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;reference&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;unused&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;text_offset&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;draw_pinnumber&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;draw_pinname&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;unit_count&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;units_locked&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;option_flag&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="n">_F0_KEYS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;reference&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;posx&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;posy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;text_size&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;text_orient&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;visibility&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;htext_justify&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;vtext_justify&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="n">_FN_KEYS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;posx&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;posy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;text_size&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;text_orient&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;visibility&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;htext_justify&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;vtext_justify&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fieldname&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="n">_ARC_KEYS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;posx&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;posy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;radius&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;start_angle&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;end_angle&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;unit&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;convert&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;thickness&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fill&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;startx&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;starty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;endx&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;endy&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="n">_CIRCLE_KEYS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;posx&quot;</span><span class="p">,</span> <span class="s2">&quot;posy&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">,</span> <span class="s2">&quot;unit&quot;</span><span class="p">,</span> <span class="s2">&quot;convert&quot;</span><span class="p">,</span> <span class="s2">&quot;thickness&quot;</span><span class="p">,</span> <span class="s2">&quot;fill&quot;</span><span class="p">]</span>
+    <span class="n">_POLY_KEYS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;point_count&quot;</span><span class="p">,</span> <span class="s2">&quot;unit&quot;</span><span class="p">,</span> <span class="s2">&quot;convert&quot;</span><span class="p">,</span> <span class="s2">&quot;thickness&quot;</span><span class="p">,</span> <span class="s2">&quot;points&quot;</span><span class="p">,</span> <span class="s2">&quot;fill&quot;</span><span class="p">]</span>
+    <span class="n">_RECT_KEYS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;startx&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;starty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;endx&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;endy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;unit&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;convert&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;thickness&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fill&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="n">_TEXT_KEYS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;direction&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;posx&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;posy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;text_size&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;text_type&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;unit&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;convert&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;italic&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;bold&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hjustify&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;vjustify&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="n">_PIN_KEYS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;num&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;posx&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;posy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;length&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;direction&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;name_text_size&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;num_text_size&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;unit&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;convert&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;electrical_type&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pin_type&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="n">_DRAW_KEYS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;arcs&quot;</span><span class="p">:</span> <span class="n">_ARC_KEYS</span><span class="p">,</span>
+        <span class="s2">&quot;circles&quot;</span><span class="p">:</span> <span class="n">_CIRCLE_KEYS</span><span class="p">,</span>
+        <span class="s2">&quot;polylines&quot;</span><span class="p">:</span> <span class="n">_POLY_KEYS</span><span class="p">,</span>
+        <span class="s2">&quot;rectangles&quot;</span><span class="p">:</span> <span class="n">_RECT_KEYS</span><span class="p">,</span>
+        <span class="s2">&quot;texts&quot;</span><span class="p">:</span> <span class="n">_TEXT_KEYS</span><span class="p">,</span>
+        <span class="s2">&quot;pins&quot;</span><span class="p">:</span> <span class="n">_PIN_KEYS</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">_DRAW_ELEMS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;arcs&quot;</span><span class="p">:</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;circles&quot;</span><span class="p">:</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;polylines&quot;</span><span class="p">:</span> <span class="s2">&quot;P&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rectangles&quot;</span><span class="p">:</span> <span class="s2">&quot;S&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;texts&quot;</span><span class="p">:</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pins&quot;</span><span class="p">:</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">_KEYS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;DEF&quot;</span><span class="p">:</span> <span class="n">_DEF_KEYS</span><span class="p">,</span>
+        <span class="s2">&quot;F0&quot;</span><span class="p">:</span> <span class="n">_F0_KEYS</span><span class="p">,</span>
+        <span class="s2">&quot;F&quot;</span><span class="p">:</span> <span class="n">_FN_KEYS</span><span class="p">,</span>
+        <span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="n">_ARC_KEYS</span><span class="p">,</span>
+        <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="n">_CIRCLE_KEYS</span><span class="p">,</span>
+        <span class="s2">&quot;P&quot;</span><span class="p">:</span> <span class="n">_POLY_KEYS</span><span class="p">,</span>
+        <span class="s2">&quot;S&quot;</span><span class="p">:</span> <span class="n">_RECT_KEYS</span><span class="p">,</span>
+        <span class="s2">&quot;T&quot;</span><span class="p">:</span> <span class="n">_TEXT_KEYS</span><span class="p">,</span>
+        <span class="s2">&quot;X&quot;</span><span class="p">:</span> <span class="n">_PIN_KEYS</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">numberize</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;If possible, convert a string into a number.&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">return</span> <span class="n">v</span>  <span class="c1"># Unable to convert to number. Return string.</span>
+
+    <span class="c1"># Return if there&#39;s nothing to do (i.e., part has already been parsed).</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">part</span><span class="o">.</span><span class="n">part_defn</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="n">part</span><span class="o">.</span><span class="n">aliases</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Part aliases.</span>
+    <span class="n">part</span><span class="o">.</span><span class="n">fplist</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Footprint list.</span>
+    <span class="n">part</span><span class="o">.</span><span class="n">draw</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Drawing commands for symbol, including pins.</span>
+
+    <span class="n">building_fplist</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># True when working on footprint list in defn.</span>
+    <span class="n">building_draw</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># True when gathering part drawing from defn.</span>
+
+    <span class="n">pins</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Dict of symbol pins to check for duplicates.</span>
+
+    <span class="c1"># Regular expression for non-quoted and quoted text pieces.</span>
+    <span class="n">unqu</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;[^\s&quot;]+&#39;</span>  <span class="c1"># Word without spaces or double-quotes.</span>
+    <span class="n">qu</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(?&lt;!</span><span class="se">\\</span><span class="s1">)&quot;.*?(?&lt;!</span><span class="se">\\</span><span class="s1">)&quot;&#39;</span>  <span class="c1"># Quoted string, possibly with escaped quotes.</span>
+    <span class="n">srch</span> <span class="o">=</span> <span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">unqu</span> <span class="o">+</span> <span class="n">qu</span><span class="p">,</span> <span class="n">qu</span><span class="p">,</span> <span class="n">unqu</span><span class="p">])</span>
+    <span class="n">srch</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">srch</span><span class="p">)</span>
+
+    <span class="c1"># Go through the part definition line-by-line.</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">part_defn</span><span class="p">:</span>
+
+        <span class="c1"># Split the line into words.</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Extract all the non-quoted and quoted text pieces, accounting for escaped quotes.</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">srch</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>  <span class="c1"># Replace line with list of pieces of line.</span>
+
+        <span class="c1"># The first word indicates the type of part definition data that will follow.</span>
+        <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">_KEYS</span><span class="p">:</span>
+            <span class="c1"># Get the keywords for the current part definition data.</span>
+            <span class="n">key_list</span> <span class="o">=</span> <span class="n">_KEYS</span><span class="p">[</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+            <span class="c1"># Make a list of the values in the part data associated with each key.</span>
+            <span class="c1"># Use an empty string for any missing values so every key will be</span>
+            <span class="c1"># associated with something.</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;&quot;</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">key_list</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))]</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">rmv_quotes</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">]</span>  <span class="c1"># Remove any quotes from values.</span>
+
+        <span class="c1"># Create a dictionary of part definition keywords and values.</span>
+        <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;DEF&quot;</span><span class="p">:</span>
+            <span class="n">part</span><span class="o">.</span><span class="n">definition</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">_DEF_KEYS</span><span class="p">,</span> <span class="n">values</span><span class="p">)))</span>
+            <span class="n">part</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">definition</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+
+            <span class="c1"># To handle libraries quickly, just get the name and</span>
+            <span class="c1"># aliases and parse the rest of the part definition later.</span>
+            <span class="k">if</span> <span class="n">partial_parse</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">part</span><span class="o">.</span><span class="n">aliases</span><span class="p">:</span>
+                    <span class="c1"># Name found, aliases already found so we&#39;re done.</span>
+                    <span class="k">return</span>
+                <span class="c1"># Name found so scan defn to see if aliases are present.</span>
+                <span class="c1"># (The majority of parts don&#39;t have aliases.)</span>
+                <span class="k">for</span> <span class="n">ln</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">part_defn</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^\s*ALIAS\s&quot;</span><span class="p">,</span> <span class="n">ln</span><span class="p">):</span>
+                        <span class="c1"># Found aliases, so store them.</span>
+                        <span class="n">part</span><span class="o">.</span><span class="n">aliases</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">srch</span><span class="p">,</span> <span class="n">ln</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
+                        <span class="k">return</span>
+                <span class="k">return</span>
+
+            <span class="c1"># Add DEF field to list of things to draw.</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">numberize</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">]</span>
+            <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DrawDef</span><span class="p">(</span><span class="o">*</span><span class="n">values</span><span class="p">))</span>
+
+        <span class="c1"># End the parsing of the part definition.</span>
+        <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ENDDEF&quot;</span><span class="p">:</span>
+            <span class="k">break</span>
+
+        <span class="c1"># Create a dictionary of F0 part field keywords and values.</span>
+        <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;F0&quot;</span><span class="p">:</span>
+            <span class="n">field_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">_F0_KEYS</span><span class="p">,</span> <span class="n">values</span><span class="p">)))</span>
+            <span class="c1"># Add the field name and its value as an attribute to the part.</span>
+            <span class="n">part</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s2">&quot;F0&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">field_dict</span><span class="p">[</span><span class="s2">&quot;reference&quot;</span><span class="p">]</span>
+            <span class="c1"># Add F0 field to list of things to draw.</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">numberize</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">]</span>
+            <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DrawF0</span><span class="p">(</span><span class="o">*</span><span class="n">values</span><span class="p">))</span>
+
+        <span class="c1"># Create a dictionary of the other part field keywords and values.</span>
+        <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;F&quot;</span><span class="p">:</span>
+            <span class="c1"># Make a list of field values with empty strings for missing fields.</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;&quot;</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">_FN_KEYS</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))]</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">rmv_quotes</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">]</span>  <span class="c1"># Remove any quotes from values.</span>
+            <span class="n">field_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">_FN_KEYS</span><span class="p">,</span> <span class="n">values</span><span class="p">)))</span>
+            <span class="c1"># If no field name at end of line, use the field identifier F1, F2, ...</span>
+            <span class="n">field_dict</span><span class="p">[</span><span class="s2">&quot;fieldname&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">field_dict</span><span class="p">[</span><span class="s2">&quot;fieldname&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="c1"># Add the field name and its value as an attribute to the part.</span>
+            <span class="n">part</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">field_dict</span><span class="p">[</span><span class="s2">&quot;fieldname&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">field_dict</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+            <span class="c1"># Add F1 field to list of things to draw.</span>
+            <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;F1&quot;</span><span class="p">:</span>
+                <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">numberize</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">]</span>
+                <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DrawF1</span><span class="p">(</span><span class="o">*</span><span class="n">values</span><span class="p">))</span>
+
+        <span class="c1"># Create a list of part aliases.</span>
+        <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ALIAS&quot;</span><span class="p">:</span>
+            <span class="n">part</span><span class="o">.</span><span class="n">aliases</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+        <span class="c1"># Start the list of part footprints.</span>
+        <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;$FPLIST&quot;</span><span class="p">:</span>
+            <span class="n">building_fplist</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># End the list of part footprints.</span>
+        <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;$ENDFPLIST&quot;</span><span class="p">:</span>
+            <span class="n">building_fplist</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Start gathering the drawing primitives for the part symbol.</span>
+        <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;DRAW&quot;</span><span class="p">:</span>
+            <span class="n">building_draw</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># End the gathering of drawing primitives.</span>
+        <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ENDDRAW&quot;</span><span class="p">:</span>
+            <span class="n">building_draw</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Every other line is either a footprint or a drawing primitive.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># If the footprint list is being built, then add this line to it.</span>
+            <span class="k">if</span> <span class="n">building_fplist</span><span class="p">:</span>
+                <span class="n">part</span><span class="o">.</span><span class="n">fplist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+                <span class="p">)</span>  <span class="c1"># Remove begin &amp; end whitespace.</span>
+
+            <span class="c1"># Else if the drawing primitives are being gathered, process the</span>
+            <span class="c1"># current line to see what type of primitive is in play.</span>
+            <span class="k">elif</span> <span class="n">building_draw</span><span class="p">:</span>
+
+                <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">numberize</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">]</span>
+
+                <span class="c1"># Gather arcs.</span>
+                <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;A&quot;</span><span class="p">:</span>
+                    <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DrawArc</span><span class="p">(</span><span class="o">*</span><span class="n">values</span><span class="p">))</span>
+
+                <span class="c1"># Gather circles.</span>
+                <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span>
+                    <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DrawCircle</span><span class="p">(</span><span class="o">*</span><span class="n">values</span><span class="p">))</span>
+
+                <span class="c1"># Gather polygons.</span>
+                <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;P&quot;</span><span class="p">:</span>
+                    <span class="n">n_points</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">points</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="mi">4</span> <span class="p">:</span> <span class="mi">4</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n_points</span><span class="p">)]</span>
+                    <span class="n">values</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">points</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">&gt;</span> <span class="p">(</span><span class="mi">5</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)):</span>
+                        <span class="n">values</span> <span class="o">+=</span> <span class="p">[</span><span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">values</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">]</span>
+                    <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DrawPoly</span><span class="p">(</span><span class="o">*</span><span class="n">values</span><span class="p">))</span>
+
+                <span class="c1"># Gather rectangles.</span>
+                <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;S&quot;</span><span class="p">:</span>
+                    <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DrawRect</span><span class="p">(</span><span class="o">*</span><span class="n">values</span><span class="p">))</span>
+
+                <span class="c1"># Gather text.</span>
+                <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;T&quot;</span><span class="p">:</span>
+                    <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DrawText</span><span class="p">(</span><span class="o">*</span><span class="n">values</span><span class="p">))</span>
+
+                <span class="c1"># Gather the pin symbols. This is what we really want since</span>
+                <span class="c1"># this defines the names, numbers and attributes of the</span>
+                <span class="c1"># pins associated with the part.</span>
+                <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;X&quot;</span><span class="p">:</span>
+                    <span class="c1"># Get the information for this pin.</span>
+                    <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span>
+                        <span class="mi">1</span><span class="p">:</span><span class="mi">3</span>
+                    <span class="p">]</span>  <span class="c1"># Restore pin num &amp; name in case they were made into integers.</span>
+                    <span class="n">pin</span> <span class="o">=</span> <span class="n">DrawPin</span><span class="p">(</span><span class="o">*</span><span class="n">values</span><span class="p">)</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="c1"># See if the pin number already exists for this part.</span>
+                        <span class="n">rpt_pin</span> <span class="o">=</span> <span class="n">pins</span><span class="p">[</span><span class="n">pin</span><span class="o">.</span><span class="n">num</span><span class="p">]</span>
+                    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                        <span class="c1"># No, this pin number is unique (so far), so store it</span>
+                        <span class="c1"># using the pin number as the dict key.</span>
+                        <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
+                        <span class="n">pins</span><span class="p">[</span><span class="n">pin</span><span class="o">.</span><span class="n">num</span><span class="p">]</span> <span class="o">=</span> <span class="n">pin</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># Uh, oh: Repeated pin number! Check to see if the</span>
+                        <span class="c1"># duplicated pins have the same I/O type and unit num.</span>
+                        <span class="k">if</span> <span class="p">(</span>
+                            <span class="n">pin</span><span class="o">.</span><span class="n">electrical_type</span> <span class="o">!=</span> <span class="n">rpt_pin</span><span class="o">.</span><span class="n">electrical_type</span>
+                            <span class="ow">or</span> <span class="n">pin</span><span class="o">.</span><span class="n">unit</span> <span class="o">!=</span> <span class="n">rpt_pin</span><span class="o">.</span><span class="n">unit</span>
+                        <span class="p">):</span>
+                            <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                                <span class="s2">&quot;Non-identical pins with the same number (</span><span class="si">{}</span><span class="s2">) in symbol drawing </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                                    <span class="n">pin</span><span class="o">.</span><span class="n">num</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">name</span>
+                                <span class="p">)</span>
+                            <span class="p">)</span>
+
+                <span class="c1"># Found something unknown in the drawing section.</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Found something strange in </span><span class="si">{}</span><span class="s2"> symbol drawing: </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">line</span>
+                    <span class="p">)</span>
+                    <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+            <span class="c1"># Found something unknown outside the footprint list or drawing section.</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Found something strange in </span><span class="si">{}</span><span class="s2"> symbol definition: </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">line</span>
+                <span class="p">)</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="c1"># Define some shortcuts to part information.</span>
+    <span class="n">part</span><span class="o">.</span><span class="n">num_units</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">definition</span><span class="p">[</span><span class="s2">&quot;unit_count&quot;</span><span class="p">])</span>  <span class="c1"># # of units within the part.</span>
+    <span class="n">part</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">definition</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>  <span class="c1"># Part name (e.g., &#39;LM324&#39;).</span>
+    <span class="n">part</span><span class="o">.</span><span class="n">ref_prefix</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">definition</span><span class="p">[</span><span class="s2">&quot;reference&quot;</span><span class="p">]</span>  <span class="c1"># Part ref prefix (e.g., &#39;R&#39;).</span>
+
+    <span class="c1"># Clear the part reference field directly. Don&#39;t use the setter function</span>
+    <span class="c1"># since it will try to generate and assign a unique part reference if</span>
+    <span class="c1"># passed a value of None.</span>
+    <span class="n">part</span><span class="o">.</span><span class="n">_ref</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># Make a Pin object from the information in the KiCad pin data fields.</span>
+    <span class="k">def</span> <span class="nf">kicad_pin_to_pin</span><span class="p">(</span><span class="n">kicad_pin</span><span class="p">):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">()</span>  <span class="c1"># Create a blank pin.</span>
+
+        <span class="c1"># Place the KiCad pin name, number and function fields to the Pin object.</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">kicad_pin</span><span class="o">.</span><span class="n">num</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">kicad_pin</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">kicad_pin</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">kicad_pin</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="n">kicad_pin</span><span class="o">.</span><span class="n">orientation</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">unit</span> <span class="o">=</span> <span class="n">kicad_pin</span><span class="o">.</span><span class="n">unit</span>
+
+        <span class="n">pin_type_translation</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;I&quot;</span><span class="p">:</span> <span class="n">pin_types</span><span class="o">.</span><span class="n">INPUT</span><span class="p">,</span>
+            <span class="s2">&quot;O&quot;</span><span class="p">:</span> <span class="n">pin_types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">,</span>
+            <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="n">pin_types</span><span class="o">.</span><span class="n">BIDIR</span><span class="p">,</span>
+            <span class="s2">&quot;T&quot;</span><span class="p">:</span> <span class="n">pin_types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">,</span>
+            <span class="s2">&quot;P&quot;</span><span class="p">:</span> <span class="n">pin_types</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">,</span>
+            <span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="n">pin_types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">,</span>
+            <span class="s2">&quot;W&quot;</span><span class="p">:</span> <span class="n">pin_types</span><span class="o">.</span><span class="n">PWRIN</span><span class="p">,</span>
+            <span class="s2">&quot;w&quot;</span><span class="p">:</span> <span class="n">pin_types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">,</span>
+            <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="n">pin_types</span><span class="o">.</span><span class="n">OPENCOLL</span><span class="p">,</span>
+            <span class="s2">&quot;E&quot;</span><span class="p">:</span> <span class="n">pin_types</span><span class="o">.</span><span class="n">OPENEMIT</span><span class="p">,</span>
+            <span class="s2">&quot;N&quot;</span><span class="p">:</span> <span class="n">pin_types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">func</span> <span class="o">=</span> <span class="n">pin_type_translation</span><span class="p">[</span><span class="n">kicad_pin</span><span class="o">.</span><span class="n">electrical_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span>
+
+        <span class="k">return</span> <span class="n">p</span>
+
+    <span class="n">part</span><span class="o">.</span><span class="n">pins</span> <span class="o">=</span> <span class="p">[</span><span class="n">kicad_pin_to_pin</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pins</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+
+    <span class="c1"># Make sure all the pins have a valid reference to this part.</span>
+    <span class="n">part</span><span class="o">.</span><span class="n">associate_pins</span><span class="p">()</span>
+
+    <span class="c1"># Create part units if there are more than 1.</span>
+    <span class="k">if</span> <span class="n">part</span><span class="o">.</span><span class="n">num_units</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">num_units</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">part</span><span class="o">.</span><span class="n">make_unit</span><span class="p">(</span><span class="s2">&quot;u&quot;</span> <span class="o">+</span> <span class="n">num_to_chars</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">unit</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="c1"># Part definition has been parsed, so clear it out. This prevents a</span>
+    <span class="c1"># part from being parsed more than once.</span>
+    <span class="n">part</span><span class="o">.</span><span class="n">part_defn</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad5.lib</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2024, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    </div>
+  </body>
+</html>
