@@ -9,6 +9,11 @@ ______________________
 - No longer compatible with Python 2.
 - `@package` decorator removed.
 - Additional `Part`` attributes can be specified when exporting libraries.
+- Added `unexpio` dict to `Interface` objects for accessing I/O without buses expanded into individual nets.
+- Added connect() and __iadd__() methods to interconnect `Interface` objects. 
+- Part libraries are pickled when first loaded for faster access on subsequent accesses.
+  The directory for storing the pickled library files is specified in the SKiDL configuration file.
+- The `KICAD` tool identifier now points to `KICAD8`.
 
 
 1.2.2 (2024-07-13)
