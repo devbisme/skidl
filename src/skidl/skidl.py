@@ -29,6 +29,7 @@ __all__ = [
     "backup_parts",
     "empty_footprint_handler",
     "POWER",
+    "KICAD",
 ]
 
 try:
@@ -45,7 +46,8 @@ except NameError:
 ###############################################################################
 
 # Get SKiDL configuration and set global search paths.
-config = SkidlConfig(KICAD8) # Sets default tool.
+KICAD = KICAD8 # Reference to the latest version of KiCad.
+config = SkidlConfig(KICAD) # Sets default tool.
 lib_search_paths = config.lib_search_paths
 footprint_search_paths = config.footprint_search_paths
 

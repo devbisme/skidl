@@ -61,6 +61,7 @@ from .skidl import (
     reset,
     get_default_tool,
     set_default_tool,
+    KICAD, # References the latest version of KiCad.
 )
 from .utilities import Rgx
 from . import scripts  # Necessary to get access to netlist_to_skidl_main.
