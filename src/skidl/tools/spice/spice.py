@@ -288,6 +288,8 @@ def gen_netlist(self, **kwargs):
     lib_paths = set()  # Paths to the library files that have been used.
     lib_ids = set()  # A lib_id is a tuple of the path to the lib file and a section.
 
+    self.merge_nets()  # Merge multi-segment nets or else the SPICE netlist will be malformed.
+
     for part in self.parts:
         try:
             pyspice = part.pyspice

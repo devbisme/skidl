@@ -412,7 +412,15 @@ class Circuit(SkidlBaseObject):
                 net.merge_names()
 
     def merge_nets(self):
-        """Merge multi-segment nets into a single net."""
+        """
+        Merge multi-segment nets into a single net.
+
+        Note: Multi-segment nets had to be merged or else tests to detect the
+            same net would fail in routing.py when generating schematics.
+            But as a result of merging, net variables can become invalid because of new merging.
+            Therefore, only do this when generating schematics so other generate_*() functions
+            will not be affected.
+        """
 
         merged_nets = set()
         for net in self.nets:
@@ -990,6 +998,7 @@ class Circuit(SkidlBaseObject):
             skidl.empty_footprint_handler = _empty_footprint_handler
 
         self._preprocess()
+        self.merge_nets() # Merge nets or schematic routing will fail.
 
         tool = kwargs.pop("tool", skidl.config.tool)
 
@@ -1149,7 +1158,6 @@ class Circuit(SkidlBaseObject):
         """Prepare the circuit for generating a netlist, PCB, etc."""
 
         # self._cull_unconnected_parts()
-        self.merge_nets()
         self._check_for_empty_footprints()
 
     @property
