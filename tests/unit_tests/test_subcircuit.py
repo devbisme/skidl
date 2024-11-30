@@ -12,6 +12,7 @@ from skidl import (
     Part,
     generate_netlist,
     generate_xml,
+    generate_svg,
     subcircuit,
 )
 
@@ -54,6 +55,17 @@ def test_subcircuit_1():
     ERC()  # Run electrical rules check.
     generate_netlist()  # Generate the netlist.
     generate_xml()  # Generate the XML.
+
+    # Test to make sure generating netlists and xml do not change the circuit.
+    ntlst1 = generate_netlist()
+    ntlst2 = generate_netlist()
+    assert ntlst1==ntlst2
+    xml1 = generate_xml()
+    xml2 = generate_xml()
+    assert xml1==xml2
+    svg1 = generate_svg()
+    svg2 = generate_svg()
+    assert svg1==svg2
 
 
 def test_subcircuit_2():
@@ -115,6 +127,17 @@ def test_subcircuit_2():
     generate_netlist()  # Generate the netlist.
     generate_xml()  # Generate the XML.
 
+    # Test to make sure generating netlists and xml do not change the circuit.
+    ntlst1 = generate_netlist()
+    ntlst2 = generate_netlist()
+    assert ntlst1==ntlst2
+    xml1 = generate_xml()
+    xml2 = generate_xml()
+    assert xml1==xml2
+    svg1 = generate_svg()
+    svg2 = generate_svg()
+    assert svg1==svg2
+
 
 class Resistor(Part):
     def __init__(
@@ -162,6 +185,17 @@ def test_hierarchical_names_1():
     ERC()  # Run electrical rules check.
     generate_netlist()  # Generate the netlist.
     generate_xml()  # Generate the XML.
+
+    # Test to make sure generating netlists and xml do not change the circuit.
+    ntlst1 = generate_netlist()
+    ntlst2 = generate_netlist()
+    assert ntlst1==ntlst2
+    xml1 = generate_xml()
+    xml2 = generate_xml()
+    assert xml1==xml2
+    svg1 = generate_svg()
+    svg2 = generate_svg()
+    assert svg1==svg2
 
 
 def test_hierarchical_names_2():

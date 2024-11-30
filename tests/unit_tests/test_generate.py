@@ -79,22 +79,34 @@ def flat_circuit():
 def test_gen_flat_svg():
     """Test generating SVG for flat circuit."""
     flat_circuit()
-    generate_svg()
+    # Test to see if generating the SVG twice produces the same result.
+    svg1 = generate_svg()
+    svg2 = generate_svg()
+    assert svg1 == svg2
 
 def test_gen_flat_netlist():
     """Test generating netlist for flat circuit."""
     flat_circuit()
-    generate_netlist()
+    # Test to see if generating the netlist twice produces the same result.
+    ntlst1 = generate_netlist()
+    ntlst2 = generate_netlist()
+    assert ntlst1 == ntlst2
 
 def test_gen_flat_xml():
     """Test generating XML for flat circuit."""
     flat_circuit()
-    generate_xml()
+    # Test to see if generating the XML twice produces the same result.
+    xml1 = generate_xml()
+    xml2 = generate_xml()
+    assert xml1 == xml2
 
 def test_gen_flat_graph():
     """Test generating graph for flat circuit."""
     flat_circuit()
-    generate_graph()
+    # Test to see if generating the DOT graph twice produces the same result.
+    grph1 = generate_graph()
+    grph2 = generate_graph()
+    assert grph1.source == grph2.source
 
 @subcircuit
 def hier_circuit():
@@ -142,22 +154,34 @@ def hier_circuit():
 def test_gen_hier_svg():
     """Test generating SVG for hierarchical circuit."""
     hier_circuit()
-    generate_svg()
+    # Test to see if generating the SVG twice produces the same result.
+    svg1 = generate_svg()
+    svg2 = generate_svg()
+    assert svg1 == svg2
 
 def test_gen_hier_netlist():
     """Test generating netlist for hierarchical circuit."""
     hier_circuit()
-    generate_netlist()
+    # Test to see if generating the netlist twice produces the same result.
+    ntlst1 = generate_netlist()
+    ntlst2 = generate_netlist()
+    assert ntlst1 == ntlst2
 
 def test_gen_hier_xml():
     """Test generating XML for hierarchical circuit."""
     hier_circuit()
-    generate_xml()
+    # Test to see if generating the XML twice produces the same result.
+    xml1 = generate_xml()
+    xml2 = generate_xml()
+    assert xml1 == xml2
 
 def test_gen_hier_graph():
     """Test generating graph for hierarchical circuit."""
     hier_circuit()
-    generate_graph()
+    # Test to see if generating the DOT graph twice produces the same result.
+    grph1 = generate_graph()
+    grph2 = generate_graph()
+    assert grph1.source == grph2.source
 
 def test_gen_pcb():
     """Test generating PCB."""
