@@ -700,10 +700,11 @@ def gen_schematic(
     """
 
     import skidl
+    from skidl.logger import active_logger
     from skidl.tools import tool_modules
     from skidl.schematics.node import Node
 
-    active_logger.warning("Schematic generation is not implemented for KiCad version 8.")
+    active_logger.warning("Schematic generation is not implemented for KiCad version 7.")
     return
 
     tool = options.get("tool", skidl.config.tool)

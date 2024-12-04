@@ -700,6 +700,7 @@ def gen_schematic(
     """
 
     import skidl
+    from skidl.logger import active_logger
     from skidl.tools import tool_modules
     from skidl.schematics.node import Node
 
