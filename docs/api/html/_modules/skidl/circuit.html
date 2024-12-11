@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.circuit &#8212; SKiDL 2.0.0 documentation</title>
+    <title>skidl.circuit &#8212; SKiDL 2.0.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=51b770b3"></script>
+    <script src="../../_static/documentation_options.js?v=f5cff4aa"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.circuit</a></li> 
       </ul>
@@ -510,7 +510,15 @@
 <div class="viewcode-block" id="Circuit.merge_nets">
 <a class="viewcode-back" href="../../rst_output/skidl.circuit.html#skidl.circuit.Circuit.merge_nets">[docs]</a>
     <span class="k">def</span> <span class="nf">merge_nets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Merge multi-segment nets into a single net.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Merge multi-segment nets into a single net.</span>
+
+<span class="sd">        Note: Multi-segment nets had to be merged or else tests to detect the</span>
+<span class="sd">            same net would fail in routing.py when generating schematics.</span>
+<span class="sd">            But as a result of merging, net variables can become invalid because of new merging.</span>
+<span class="sd">            Therefore, only do this when generating schematics so other generate_*() functions</span>
+<span class="sd">            will not be affected.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">merged_nets</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
@@ -1112,6 +1120,7 @@
             <span class="n">skidl</span><span class="o">.</span><span class="n">empty_footprint_handler</span> <span class="o">=</span> <span class="n">_empty_footprint_handler</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">merge_nets</span><span class="p">()</span> <span class="c1"># Merge nets or schematic routing will fail.</span>
 
         <span class="n">tool</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;tool&quot;</span><span class="p">,</span> <span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">tool</span><span class="p">)</span>
 
@@ -1278,7 +1287,6 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Prepare the circuit for generating a netlist, PCB, etc.&quot;&quot;&quot;</span>
 
         <span class="c1"># self._cull_unconnected_parts()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">merge_nets</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_for_empty_footprints</span><span class="p">()</span>
 
     <span class="nd">@property</span>
@@ -1323,7 +1331,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.circuit</a></li> 
       </ul>

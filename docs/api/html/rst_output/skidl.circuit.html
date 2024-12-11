@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.circuit module &#8212; SKiDL 2.0.0 documentation</title>
+    <title>skidl.circuit module &#8212; SKiDL 2.0.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=51b770b3"></script>
+    <script src="../_static/documentation_options.js?v=f5cff4aa"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.circuit module</a></li> 
       </ul>
     </div>  
@@ -339,6 +339,13 @@ containing a file name, or None.</p></li>
 <dt class="sig sig-object py" id="skidl.circuit.Circuit.merge_nets">
 <span class="sig-name descname"><span class="pre">merge_nets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/circuit.html#Circuit.merge_nets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.circuit.Circuit.merge_nets" title="Link to this definition">¶</a></dt>
 <dd><p>Merge multi-segment nets into a single net.</p>
+<dl class="simple">
+<dt>Note: Multi-segment nets had to be merged or else tests to detect the</dt><dd><p>same net would fail in routing.py when generating schematics.
+But as a result of merging, net variables can become invalid because of new merging.
+Therefore, only do this when generating schematics so other generate_*() functions
+will not be affected.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -478,7 +485,7 @@ containing a file name, or None.</p></li>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.circuit module</a></li> 
       </ul>
     </div>

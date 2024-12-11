@@ -4,10 +4,10 @@ History
 -------
 
 
-2.0.1 (2024-12-04)
+2.0.1 (2024-12-11)
 ______________________
 - Fixed #233: Imported `active_logger` into generate_schematic.py of KiCad 6, 7, 8.
-- Fix: Removed merging of multi-segment nets when generating netlists, XML, SVG, DOT because it removes pins from existing net references. Only merge for schematic generation or SPICE simulation.
+- Fixed #235: Removed merging of multi-segment nets when generating netlists, XML, SVG, DOT because it removes pins from existing net references. Only merge for schematic generation or SPICE simulation.
 
 
 2.0.0 (2024-11-27)

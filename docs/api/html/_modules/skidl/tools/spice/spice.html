@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.tools.spice.spice &#8212; SKiDL 2.0.0 documentation</title>
+    <title>skidl.tools.spice.spice &#8212; SKiDL 2.0.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../../../_static/documentation_options.js?v=51b770b3"></script>
+    <script src="../../../../_static/documentation_options.js?v=f5cff4aa"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.spice.spice</a></li> 
       </ul>
@@ -350,6 +350,8 @@
     <span class="n">model_paths</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>  <span class="c1"># Paths to the model files that have been used.</span>
     <span class="n">lib_paths</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>  <span class="c1"># Paths to the library files that have been used.</span>
     <span class="n">lib_ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>  <span class="c1"># A lib_id is a tuple of the path to the lib file and a section.</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">merge_nets</span><span class="p">()</span>  <span class="c1"># Merge multi-segment nets or else the SPICE netlist will be malformed.</span>
 
     <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
@@ -786,7 +788,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.spice.spice</a></li> 
       </ul>
