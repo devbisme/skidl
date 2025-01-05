@@ -59,6 +59,7 @@ from .skidl import (
     generate_xml,
     lib_search_paths,
     get_circuit_info,
+    analyze_with_llm,
     no_files,
     reset,
     get_default_tool,

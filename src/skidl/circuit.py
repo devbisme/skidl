@@ -1268,3 +1268,116 @@ class Circuit(SkidlBaseObject):
             f.write(circuit_text)
         
         return circuit_text
+
+    def analyze_with_llm(self, api_key=None, output_file="circuit_llm_analysis.txt"):
+        """
+        Analyze the circuit using LLM (Large Language Model) through the SkidlCircuitAnalyzer.
+        
+        This method performs a comprehensive analysis of the circuit using an LLM,
+        focusing on design review, power distribution, signal paths, component selection,
+        safety, and best practices.
+        
+        Args:
+            api_key (str, optional): Anthropic API key. If None, will try to use ANTHROPIC_API_KEY 
+                                    environment variable. Defaults to None.
+            output_file (str, optional): File to save the analysis results. 
+                                    Defaults to "circuit_llm_analysis.txt".
+        
+        Returns:
+            dict: Analysis results containing:
+                - success (bool): Whether analysis was successful
+                - analysis (str): The detailed analysis text if successful
+                - error (str): Error message if analysis failed
+        """
+        from datetime import datetime
+        import time
+        from .circuit_analyzer import SkidlCircuitAnalyzer
+        
+        print("\n=== Starting Circuit Analysis with LLM ===")
+        start_time = time.time()
+        
+        # First get the circuit description
+        print("\nGenerating circuit description...")
+        circuit_description = self.get_circuit_info()
+        print(f"Circuit description generated ({len(circuit_description)} characters)")
+        
+        # Initialize the analyzer
+        print("\nInitializing SkidlCircuitAnalyzer...")
+        try:
+            analyzer = SkidlCircuitAnalyzer(api_key=api_key)
+            print("Analyzer initialized successfully")
+        except Exception as e:
+            print(f"Error initializing analyzer: {e}")
+            raise
+        
+        # Perform the analysis
+        try:
+            # Create message and get response
+            print("\nGenerating analysis prompt...")
+            prompt = analyzer._generate_analysis_prompt(circuit_description)
+            prompt_tokens = len(prompt.split())  # Rough token count estimate
+            print(f"Prompt generated ({prompt_tokens} estimated tokens)")
+            print("\nPrompt preview (first 200 chars):")
+            print(f"{prompt[:200]}...")
+            
+            print("\nSending request to Claude API...")
+            request_start = time.time()
+            print("Waiting for response...")
+            
+            response = analyzer.client.messages.create(
+                model="claude-3-sonnet-20240229",
+                max_tokens=4000,
+                messages=[{
+                    "role": "user",
+                    "content": prompt
+                }]
+            )
+            
+            request_time = time.time() - request_start
+            print(f"\nResponse received in {request_time:.2f} seconds")
+
+            # Parse response
+            print("\nProcessing response...")
+            analysis_text = response.content[0].text
+            analysis_tokens = len(analysis_text.split())  # Rough token count estimate
+            
+            print(f"Response length: {len(analysis_text)} characters")
+            print(f"Estimated response tokens: {analysis_tokens}")
+            
+            analysis_results = {
+                "success": True,
+                "analysis": analysis_text,
+                "timestamp": int(datetime.now().timestamp()),
+                "request_time_seconds": request_time,
+                "prompt_tokens": prompt_tokens,
+                "response_tokens": analysis_tokens
+            }
+            
+            # Save results to file
+            if output_file:
+                print(f"\nSaving analysis to {output_file}...")
+                with open(output_file, "w") as f:
+                    f.write(analysis_results["analysis"])
+                print("Analysis saved successfully")
+                    
+            total_time = time.time() - start_time
+            print(f"\n=== Analysis completed in {total_time:.2f} seconds ===")
+            return analysis_results
+            
+        except Exception as e:
+            print(f"\nERROR: Analysis failed: {str(e)}")
+            error_results = {
+                "success": False,
+                "error": str(e),
+                "timestamp": int(datetime.now().timestamp())
+            }
+            
+            # Save error to file
+            if output_file:
+                print(f"\nSaving error message to {output_file}...")
+                with open(output_file, "w") as f:
+                    f.write(f"Analysis failed: {error_results['error']}")
+                print("Error message saved")
+                    
+            print("\n=== Analysis failed ===")
+            return error_results

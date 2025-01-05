@@ -90,3 +90,4 @@ complete_circuit()
 
 # Get circuit info
 circuit_description = get_circuit_info()
+analyze_with_llm()

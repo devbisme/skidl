@@ -26,6 +26,7 @@ __all__ = [
     "generate_svg",
     "generate_graph",
     "get_circuit_info",
+    "analyze_with_llm",
     "reset",
     "backup_parts",
     "empty_footprint_handler",
@@ -71,6 +72,7 @@ reset = default_circuit.reset
 backup_parts = default_circuit.backup_parts
 no_files = default_circuit.no_files
 get_circuit_info = default_circuit.get_circuit_info
+analyze_with_llm = default_circuit.analyze_with_llm
 
 empty_footprint_handler = default_empty_footprint_handler
 
