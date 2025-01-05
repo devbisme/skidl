@@ -13,6 +13,8 @@ class SkidlCircuitAnalyzer:
         provider: str = "anthropic",
         api_key: Optional[str] = None,
         model: Optional[str] = None,
+        custom_prompt: Optional[str] = None,
+        analysis_flags: Optional[Dict[str, bool]] = None,
         **kwargs
     ):
         """
@@ -22,106 +24,126 @@ class SkidlCircuitAnalyzer:
             provider: LLM provider to use ("anthropic", "openai", or "openrouter")
             api_key: API key for the chosen provider
             model: Specific model to use (provider-dependent)
+            custom_prompt: Optional custom prompt to append to the base analysis prompt
+            analysis_flags: Dictionary to enable/disable specific analysis sections
             **kwargs: Additional provider-specific configuration
         """
         self.provider = get_provider(provider, api_key)
         self.model = model
+        self.custom_prompt = custom_prompt
+        self.analysis_flags = analysis_flags or {
+            "design_review": True,
+            "power_analysis": True,
+            "signal_integrity": True,
+            "component_analysis": True,
+            "reliability_safety": True,
+            "manufacturing": True,
+            "compliance": True,
+            "documentation": True,
+            "practical_implementation": True
+        }
         self.config = kwargs
         
     def _generate_analysis_prompt(self, circuit_description: str) -> str:
         """Generate structured prompt for circuit analysis."""
-        prompt = f"""
-Please analyze this electronic circuit design as an expert electronics engineer.
-Provide an extremely detailed technical analysis with specific calculations, thorough explanations, 
-and comprehensive recommendations. Focus on practical improvements for reliability, safety, and performance.
-
-Circuit Description:
-{circuit_description}
-
-Please provide an extensive analysis covering each of these areas in great detail:
-
+        
+        # Base prompt sections
+        sections = {
+            "design_review": """
 1. Comprehensive Design Architecture Review:
-- Evaluate the overall hierarchical structure and design patterns used
-- Assess modularity, reusability, and maintainability of each block
-- Analyze interface definitions and protocols between blocks
+- Evaluate overall hierarchical structure and design patterns
+- Assess modularity, reusability, and maintainability
+- Analyze interface definitions and protocols
 - Review signal flow and control paths
-- Evaluate design scalability and future expansion capabilities
-- Identify potential bottlenecks in the architecture
+- Evaluate design scalability
+- Identify potential bottlenecks
+- CHECK FOR MISSING INFORMATION: Document any undefined pin functions, missing part values, or unclear connections
+- DESIGN COMPLETENESS: Verify all necessary subsystems are present for intended functionality""",
 
+            "power_analysis": """
 2. In-depth Power Distribution Analysis:
-- Map complete power distribution network from input to all loads
-- Analyze voltage regulation performance including:
-  * Load regulation calculations
-  * Line regulation performance
+- Map complete power distribution network
+- Calculate voltage drops and power dissipation
+- Verify power supply requirements and ratings
+- MISSING SPECIFICATIONS CHECK: Flag any components missing voltage ratings or power specifications
+- Analyze voltage regulation performance:
+  * Load/line regulation calculations
   * Transient response characteristics
-  * PSRR at various frequencies
-- Evaluate decoupling network design:
-  * Capacitor selection and placement
-  * Resonant frequency considerations
-  * ESR/ESL impacts
-- Calculate voltage drops across power planes and traces
-- Review protection mechanisms:
-  * Overvoltage protection
-  * Overcurrent protection
-  * Reverse polarity protection
-  * Inrush current limiting
-- Perform power budget analysis including:
-  * Worst-case power consumption
-  * Thermal implications
-  * Efficiency calculations
-  * Power sequencing requirements
+  * PSRR analysis
+  * Thermal considerations
+- Protection mechanisms analysis:
+  * Overvoltage/undervoltage
+  * Overcurrent/short circuit
+  * Reverse polarity
+  * Inrush current
+- Power sequencing requirements
+- Efficiency calculations
+- EMI/EMC considerations for power distribution""",
 
+            "signal_integrity": """
 3. Detailed Signal Integrity Analysis:
 - Analyze all critical signal paths:
   * Rise/fall time calculations
   * Propagation delay estimation
-  * Loading effects analysis
-  * Reflection analysis for high-speed signals
+  * Loading effects
+  * Cross-talk potential
+- MISSING SPECIFICATIONS CHECK: Identify signals missing timing requirements or voltage levels
 - Evaluate noise susceptibility:
   * Common-mode noise rejection
   * Power supply noise coupling
   * Ground bounce effects
-  * Cross-talk between signals
-- Review signal termination strategies
 - Calculate signal margins and timing budgets
 - Assess impedance matching requirements
+- Review termination strategies""",
 
+            "component_analysis": """
 4. Extensive Component Analysis:
-- Detailed review of each component:
-  * Electrical specifications
-  * Thermal characteristics
+- CRITICAL MISSING INFORMATION CHECK:
+  * Flag missing part numbers
+  * Identify components lacking tolerance specifications
+  * Note missing temperature ratings
+  * Check for undefined footprints
+- Detailed component review:
+  * Voltage/current ratings
+  * Operating temperature range
   * Reliability metrics (MTBF)
   * Cost considerations
   * Availability and lifecycle status
-- Footprint and package analysis:
-  * Thermal considerations
-  * Assembly requirements
-  * Reliability implications
-- Component derating analysis:
-  * Voltage derating
-  * Current derating
-  * Temperature derating
 - Alternative component recommendations
+- Verify component compatibility:
+  * Voltage levels
+  * Logic families
+  * Load capabilities
+- Second-source availability
+- End-of-life status check
+- Cost optimization opportunities""",
 
+            "reliability_safety": """
 5. Comprehensive Reliability and Safety Analysis:
-- Detailed FMEA (Failure Mode and Effects Analysis):
-  * Component-level failure modes
-  * System-level failure impacts
-  * Criticality assessment
-  * Mitigation strategies
-- Safety compliance review:
-  * Isolation requirements
-  * Clearance and creepage distances
-  * Protection against electrical hazards
-  * Thermal safety considerations
+- CRITICAL SAFETY CHECKS:
+  * Identify missing safety-related specifications
+  * Flag undefined isolation requirements
+  * Note missing environmental ratings
+- Detailed FMEA (Failure Mode and Effects Analysis)
 - Environmental considerations:
   * Temperature range analysis
   * Humidity effects
   * Vibration resistance
-  * EMI/EMC compliance
+  * Protection rating requirements
+- Safety compliance review:
+  * Isolation requirements
+  * Clearance and creepage distances
+  * Protection against electrical hazards
+  * Thermal safety
 - Reliability calculations and predictions
+- Risk assessment matrix""",
 
+            "manufacturing": """
 6. Manufacturing and Testing Considerations:
+- MISSING MANUFACTURING INFORMATION CHECK:
+  * Flag undefined assembly requirements
+  * Identify missing test specifications
+  * Note unclear calibration requirements
 - DFM (Design for Manufacturing) analysis:
   * Component placement optimization
   * Assembly process requirements
@@ -132,40 +154,101 @@ Please provide an extensive analysis covering each of these areas in great detai
   * In-circuit test requirements
   * Boundary scan capabilities
   * Built-in self-test features
-- Production cost optimization suggestions
+- Production cost optimization
 - Quality control recommendations
+- Yield optimization strategies""",
 
-7. Detailed Technical Recommendations:
-- Prioritized list of critical improvements needed
-- Specific component value optimization calculations
-- Alternative design approaches with trade-off analysis
-- Performance enhancement suggestions with quantitative benefits
-- Reliability improvement recommendations
-- Cost reduction opportunities
-- Maintenance and serviceability improvements
-
-8. Compliance and Standards Review:
-- Industry standard compliance analysis
-- Regulatory requirements review
-- Design guideline conformance
-- Best practices comparison
+            "compliance": """
+7. Regulatory and Standards Compliance:
+- MISSING COMPLIANCE INFORMATION CHECK:
+  * Flag undefined safety requirements
+  * Identify missing environmental compliance needs
+  * Note unclear certification requirements
+- Industry standard compliance analysis:
+  * Safety standards (UL, CE, etc.)
+  * EMC requirements
+  * Environmental regulations (RoHS, REACH)
+  * Industry-specific standards
 - Documentation requirements
 - Certification considerations
+- Testing requirements for compliance
+- Required safety margins""",
 
-For each section, provide:
-- Detailed technical analysis
-- Specific calculations where applicable
-- Quantitative assessments
-- Priority rankings for issues found
-- Concrete improvement recommendations
-- Cost-benefit analysis of suggested changes
-- Risk assessment of identified issues
+            "practical_implementation": """
+8. Practical Implementation Review:
+- MISSING PRACTICAL INFORMATION CHECK:
+  * Flag undefined mounting requirements
+  * Identify missing connector specifications
+  * Note unclear cooling requirements
+- Installation considerations:
+  * Mounting requirements
+  * Cooling needs
+  * Connector accessibility
+  * Service access
+- Field maintenance requirements:
+  * Calibration needs
+  * Preventive maintenance
+  * Repair accessibility
+- Operating environment considerations:
+  * Temperature extremes
+  * Humidity ranges
+  * Dust/water protection
+  * Vibration resistance""",
 
-Use industry standard terminology and provide specific technical details throughout the analysis.
-Reference relevant standards, typical values, and best practices where applicable.
-Support all recommendations with technical reasoning and specific benefits.
+            "documentation": """
+9. Documentation and Specifications:
+- MISSING DOCUMENTATION CHECK:
+  * Flag undefined operating parameters
+  * Identify missing interface specifications
+  * Note unclear performance requirements
+- Required documentation:
+  * Design specifications
+  * Interface control documents
+  * Test procedures
+  * User manuals
+  * Service documentation
+- Design history and decisions
+- Change control requirements
+- Version control needs"""
+        }
+
+        # Build the prompt based on enabled analysis flags
+        enabled_sections = []
+        for section, content in sections.items():
+            if self.analysis_flags.get(section, True):
+                enabled_sections.append(content)
+
+        base_prompt = f"""
+As an expert electronics engineer, please provide a detailed professional analysis of this circuit design.
+Focus on practical implementation considerations, safety requirements, and manufacturing readiness.
+Flag any missing critical information that would be needed for professional implementation.
+
+Circuit Description:
+{circuit_description}
+
+{'\n'.join(enabled_sections)}
+
+For each section:
+- Provide detailed technical analysis with specific calculations where applicable
+- Flag any missing critical information needed for professional implementation
+- Include specific recommendations with justification
+- Prioritize issues found (Critical/High/Medium/Low)
+- Include relevant industry standards and best practices
+- Provide specific action items to address identified issues
+
+Presentation format for each issue:
+SEVERITY: (Critical/High/Medium/Low)
+DESCRIPTION: Clear description of the issue
+IMPACT: Potential consequences
+RECOMMENDATION: Specific action items
+STANDARDS: Relevant industry standards or best practices
 """
-        return prompt
+
+        # Append custom prompt if provided
+        if self.custom_prompt:
+            base_prompt += f"\n\nAdditional Analysis Requirements:\n{self.custom_prompt}"
+
+        return base_prompt
 
     def analyze_circuit(
         self, 
@@ -229,7 +312,8 @@ Support all recommendations with technical reasoning and specific benefits.
                 "request_time_seconds": request_time,
                 "prompt_tokens": prompt_tokens,
                 "response_tokens": analysis_tokens,
-                "total_time_seconds": time.time() - start_time
+                "total_time_seconds": time.time() - start_time,
+                "enabled_analyses": [k for k, v in self.analysis_flags.items() if v]
             }
             
             if verbose:

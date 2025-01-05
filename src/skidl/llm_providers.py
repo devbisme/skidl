@@ -7,6 +7,7 @@ import anthropic
 from openai import OpenAI
 from anthropic import Anthropic
 import requests
+from datetime import datetime
 
 class LLMProvider(ABC):
     """Abstract base class for LLM providers."""
@@ -38,7 +39,7 @@ class AnthropicProvider(LLMProvider):
         try:
             # Use the specified model or default to claude-3-sonnet
             model = kwargs.get('model') or "claude-3-sonnet-20240229"
-            max_tokens = kwargs.get('max_tokens', 8000)
+            max_tokens = kwargs.get('max_tokens', 12000)  # Increased from 8000
             
             response = self.client.messages.create(
                 model=model,
@@ -49,8 +50,6 @@ class AnthropicProvider(LLMProvider):
                 }]
             )
             
-            # Use current timestamp since Anthropic response doesn't include it
-            from datetime import datetime
             return {
                 "success": True,
                 "analysis": response.content[0].text,

@@ -97,7 +97,14 @@ circuit_description = get_circuit_info()
 analyzer = SkidlCircuitAnalyzer(
     provider="anthropic",
     api_key=os.getenv("ANTHROPIC_API_KEY"),
-    model="claude-3-sonnet-20240229"
+    model="claude-3-sonnet-20240229",
+    custom_prompt="Additional specific requirements...",
+    analysis_flags={
+        "design_review": True,
+        "power_analysis": False,  # Disable sections you don't need
+        "signal_integrity": True,
+        # ... other flags
+    }
 )
 
 # # Using OpenAI
