@@ -61,6 +61,7 @@ from .skidl import (
     lib_search_paths,
     get_circuit_info,
     analyze_with_llm,
+    analyze_subcircuits_with_llm,
     no_files,
     reset,
     get_default_tool,

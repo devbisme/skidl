@@ -1269,6 +1269,157 @@ class Circuit(SkidlBaseObject):
         
         return circuit_text
 
+    def analyze_subcircuits_with_llm(self, api_key=None, output_file="subcircuits_analysis.txt"):
+        """
+        Analyze each subcircuit separately using LLM (Large Language Model).
+        
+        This method performs a detailed analysis of each subcircuit in the hierarchy,
+        providing insights into the design, functionality, and potential issues of each
+        subcircuit independently.
+        
+        Args:
+            api_key (str, optional): Anthropic API key. If None, will try to use ANTHROPIC_API_KEY 
+                                    environment variable. Defaults to None.
+            output_file (str, optional): File to save the analysis results. 
+                                    Defaults to "subcircuits_analysis.txt".
+        
+        Returns:
+            dict: Analysis results containing:
+                - success (bool): Whether analysis was successful
+                - subcircuits (dict): Dictionary of subcircuit analyses keyed by hierarchy
+                - error (str): Error message if analysis failed
+        """
+        from datetime import datetime
+        import time
+        from .circuit_analyzer import SkidlCircuitAnalyzer
+        
+        print("\n=== Starting Subcircuits Analysis with LLM ===")
+        start_time = time.time()
+        
+        # Initialize the analyzer
+        try:
+            analyzer = SkidlCircuitAnalyzer(api_key=api_key)
+            print("Analyzer initialized successfully")
+        except Exception as e:
+            print(f"Error initializing analyzer: {e}")
+            raise
+            
+        # Collect all hierarchies
+        hierarchies = set()
+        for part in self.parts:
+            hierarchies.add(part.hierarchy)
+            
+        # Analyze each subcircuit
+        subcircuit_analyses = {}
+        total_tokens = 0
+        
+        for hier in sorted(hierarchies):
+            print(f"\n--- Analyzing subcircuit: {hier} ---")
+            
+            # Create a temporary subcircuit description
+            subcircuit_info = []
+            subcircuit_info.append(f"Subcircuit Description: {hier}")
+            subcircuit_info.append("=" * 40)
+            
+            # Group parts for this hierarchy
+            hier_parts = [p for p in self.parts if p.hierarchy == hier]
+            
+            # Get nets connected to this hierarchy
+            hier_nets = set()
+            for part in hier_parts:
+                for pin in part.pins:
+                    if pin.net:
+                        hier_nets.add(pin.net)
+                        
+            # Build subcircuit description
+            subcircuit_info.append(f"Parts in {hier}:")
+            for part in sorted(hier_parts, key=lambda p: p.ref):
+                subcircuit_info.append(f"  Part: {part.ref}")
+                subcircuit_info.append(f"    Name: {part.name}")
+                subcircuit_info.append(f"    Value: {part.value}")
+                subcircuit_info.append(f"    Pins:")
+                for pin in part.pins:
+                    net_name = pin.net.name if pin.net else "unconnected"
+                    subcircuit_info.append(f"      {pin.num}/{pin.name}: {net_name}")
+                    
+            subcircuit_info.append(f"\nNets in {hier}:")
+            for net in sorted(hier_nets, key=lambda n: n.name):
+                subcircuit_info.append(f"  Net: {net.name}")
+                subcircuit_info.append("    Connections:")
+                for pin in net.pins:
+                    if pin.part.hierarchy == hier:
+                        subcircuit_info.append(f"      {pin.part.ref}.{pin.num}/{pin.name}")
+                        
+            subcircuit_description = "\n".join(subcircuit_info)
+            
+            # Analyze this subcircuit
+            try:
+                print(f"Generating analysis prompt for {hier}...")
+                prompt = analyzer._generate_analysis_prompt(subcircuit_description)
+                prompt_tokens = len(prompt.split())
+                print(f"Prompt generated ({prompt_tokens} estimated tokens)")
+                
+                print("Sending request to Claude API...")
+                request_start = time.time()
+                
+                analysis_result = analyzer.provider.generate_analysis(
+                    prompt,
+                    model="claude-3-sonnet-20240229",
+                    max_tokens=4000
+                )
+                
+                request_time = time.time() - request_start
+                print(f"Response received in {request_time:.2f} seconds")
+                
+                if not analysis_result["success"]:
+                    raise Exception(analysis_result["error"])
+                    
+                analysis_text = analysis_result["analysis"]
+                analysis_tokens = len(analysis_text.split())
+                total_tokens += prompt_tokens + analysis_tokens
+                
+                subcircuit_analyses[hier] = {
+                    "success": True,
+                    "analysis": analysis_text,
+                    "timestamp": int(datetime.now().timestamp()),
+                    "request_time_seconds": request_time,
+                    "prompt_tokens": prompt_tokens,
+                    "response_tokens": analysis_tokens
+                }
+                
+            except Exception as e:
+                print(f"Error analyzing subcircuit {hier}: {str(e)}")
+                subcircuit_analyses[hier] = {
+                    "success": False,
+                    "error": str(e),
+                    "timestamp": int(datetime.now().timestamp())
+                }
+                
+        # Save consolidated results
+        if output_file:
+            print(f"\nSaving consolidated analysis to {output_file}...")
+            with open(output_file, "w") as f:
+                f.write("=== Subcircuits Analysis ===\n\n")
+                for hier, analysis in subcircuit_analyses.items():
+                    f.write(f"\n{'='*20} {hier} {'='*20}\n")
+                    if analysis["success"]:
+                        f.write(analysis["analysis"])
+                    else:
+                        f.write(f"Analysis failed: {analysis['error']}")
+                    f.write("\n")
+            print("Analysis saved successfully")
+            
+        total_time = time.time() - start_time
+        print(f"\n=== Subcircuits analysis completed in {total_time:.2f} seconds ===")
+        print(f"Total tokens used: {total_tokens}")
+        
+        return {
+            "success": True,
+            "subcircuits": subcircuit_analyses,
+            "total_time_seconds": total_time,
+            "total_tokens": total_tokens
+        }
+
     def analyze_with_llm(self, api_key=None, output_file="circuit_llm_analysis.txt"):
         """
         Analyze the circuit using LLM (Large Language Model) through the SkidlCircuitAnalyzer.
@@ -1324,21 +1475,21 @@ class Circuit(SkidlBaseObject):
             request_start = time.time()
             print("Waiting for response...")
             
-            response = analyzer.client.messages.create(
+            analysis_result = analyzer.provider.generate_analysis(
+                prompt,
                 model="claude-3-sonnet-20240229",
-                max_tokens=4000,
-                messages=[{
-                    "role": "user",
-                    "content": prompt
-                }]
+                max_tokens=4000
             )
             
             request_time = time.time() - request_start
             print(f"\nResponse received in {request_time:.2f} seconds")
 
+            if not analysis_result["success"]:
+                raise Exception(analysis_result["error"])
+
             # Parse response
             print("\nProcessing response...")
-            analysis_text = response.content[0].text
+            analysis_text = analysis_result["analysis"]
             analysis_tokens = len(analysis_text.split())  # Rough token count estimate
             
             print(f"Response length: {len(analysis_text)} characters")

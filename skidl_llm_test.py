@@ -89,39 +89,24 @@ def complete_circuit():
 # Create the complete circuit
 complete_circuit()
 
-# Get circuit info
-circuit_description = get_circuit_info()
-
-
-# Using Anthropic Claude (original behavior)
-analyzer = SkidlCircuitAnalyzer(
-    provider="anthropic",
+# Analyze each subcircuit separately using the new function
+results = default_circuit.analyze_subcircuits_with_llm(
     api_key=os.getenv("ANTHROPIC_API_KEY"),
-    model="claude-3-sonnet-20240229",
-    custom_prompt="Additional specific requirements...",
-    analysis_flags={
-        "design_review": True,
-        "power_analysis": False,  # Disable sections you don't need
-        "signal_integrity": True,
-        # ... other flags
-    }
+    output_file="subcircuits_analysis.txt"
 )
 
-# # Using OpenAI
-# analyzer = SkidlCircuitAnalyzer(
-#     provider="openai",
-#     api_key="your_openai_key",
-#     model="gpt-4-turbo-preview"  # optional
-# )
-
-# # Using OpenRouter
-# analyzer = SkidlCircuitAnalyzer(
-#     provider="openrouter",
-#     api_key="your_openrouter_key",
-#     model="anthropic/claude-3-opus-20240229",  # optional
-#     referer="your_domain",  # required for OpenRouter
-#     title="Your App Name"   # optional
-# )
-
-# Analyze circuit with any provider
-results = analyzer.analyze_circuit(circuit_description)
+# Print analysis results
+if results["success"]:
+    print("\nAnalysis Results:")
+    for hier, analysis in results["subcircuits"].items():
+        print(f"\nSubcircuit: {hier}")
+        if analysis["success"]:
+            print(f"Analysis completed in {analysis['request_time_seconds']:.2f} seconds")
+            print(f"Tokens used: {analysis['prompt_tokens'] + analysis['response_tokens']}")
+        else:
+            print(f"Analysis failed: {analysis['error']}")
+            
+    print(f"\nTotal analysis time: {results['total_time_seconds']:.2f} seconds")
+    print(f"Total tokens used: {results['total_tokens']}")
+else:
+    print(f"\nOverall analysis failed: {results.get('error', 'Unknown error')}")
