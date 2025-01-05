@@ -13,10 +13,11 @@ class SkidlCircuitAnalyzer:
         analysis_flags: Optional[Dict[str, bool]] = None,
         **kwargs
     ):
-        """Initialize with same parameters as original"""
+        """Initialize the circuit analyzer with conversation threading support"""
         self.provider = get_provider(provider, api_key)
         self.model = model
         self.custom_prompt = custom_prompt
+        self.conversation_history: List[Dict[str, str]] = []
         self.analysis_flags = analysis_flags or {
             "system_overview": True,
             "subcircuit_analysis": True,
@@ -228,17 +229,14 @@ Analyze each subcircuit individually before assessing system-level interactions.
         
         # Build base prompt
         base_prompt = f"""
-You are an expert electronics engineer conducting a thorough professional analysis of a circuit design.
-Your goal is to provide actionable insights and identify potential issues before implementation.
-
-{self._generate_system_requirements_prompt()}
+You are an expert electronics engineer. Analyze the following circuit design immediately and provide actionable insights. Do not acknowledge the request or promise to analyze - proceed directly with your analysis.
 
 Circuit Description:
 {circuit_description}
 
-{self._generate_subcircuit_analysis_prompt()}
-
 ANALYSIS METHODOLOGY:
+1. Begin analysis immediately with available information
+2. After completing analysis, identify any critical missing information needed for deeper insights
 1. Begin with subcircuit identification and individual analysis
 2. Analyze interactions between subcircuits
 3. Evaluate system-level performance and integration
@@ -255,6 +253,7 @@ REQUIRED ANALYSIS SECTIONS:"""
         base_prompt += """
 
 For each analysis section:
+1. Analyze with available information first
 1. Start with critical missing information identification
 2. Provide detailed technical analysis with calculations
 3. Include specific numerical criteria and measurements
@@ -297,7 +296,8 @@ Output Format:
 7. Required Action Items (prioritized)
 8. Additional Information Needed
 
-Remember to:
+IMPORTANT INSTRUCTIONS:
+- Start analysis immediately - do not acknowledge the request or state that you will analyze
 - Be specific and quantitative where possible
 - Include calculations and methodology
 - Reference specific standards
@@ -305,7 +305,9 @@ Remember to:
 - Consider practical implementation
 - Evaluate cost implications
 - Assess manufacturing feasibility
-- Consider maintenance requirements"""
+- Consider maintenance requirements
+
+After completing your analysis, if additional information would enable deeper insights, list specific questions in a separate section titled 'Additional Information Needed' at the end."""
 
         # Append custom prompt if provided
         if self.custom_prompt:
@@ -318,7 +320,8 @@ Remember to:
         self, 
         circuit_description: str,
         output_file: Optional[str] = "circuit_llm_analysis.txt",
-        verbose: bool = True
+        verbose: bool = True,
+        continue_conversation: bool = False
     ) -> Dict:
         """
         Perform LLM analysis of the circuit.
@@ -327,6 +330,7 @@ Remember to:
             circuit_description: Description of the circuit to analyze
             output_file: File to save the analysis results (None to skip saving)
             verbose: Whether to print progress messages
+            continue_conversation: Whether to continue previous conversation thread
         
         Returns:
             Dictionary containing analysis results and metadata
@@ -355,11 +359,32 @@ Remember to:
             
             # Generate analysis
             request_start = time.time()
+            
+            # If continuing conversation, append previous messages
+            if continue_conversation and self.conversation_history:
+                prompt = f"""Previous conversation:
+{chr(10).join(msg['content'] for msg in self.conversation_history)}
+
+New circuit description:
+{circuit_description}
+
+Continue the analysis based on the new information."""
+            
             analysis_result = self.provider.generate_analysis(
                 prompt,
                 model=self.model,
                 **self.config
             )
+            
+            # Update conversation history
+            self.conversation_history.append({
+                "role": "user",
+                "content": circuit_description
+            })
+            self.conversation_history.append({
+                "role": "assistant", 
+                "content": analysis_result["analysis"]
+            })
             
             request_time = time.time() - request_start
             
