@@ -1170,3 +1170,100 @@ class Circuit(SkidlBaseObject):
         """Don't output any files if stop is True."""
         self._no_files = stop
         stop_log_file_output(stop)
+
+
+    def get_circuit_info(self, filename="circuit_description.txt"):
+        """
+        Save circuit information to a text file and return the description as a string.
+        Shows hierarchical structure of the circuit with consolidated parts and connections.
+        """
+        circuit_info = []
+        circuit_info.append("Circuit Description:")
+        circuit_info.append("=" * 40)
+        circuit_info.append(f"Circuit Name: {self.name}")
+        circuit_info.append(f"Top Level Hierarchy: {self.hierarchy}")
+        circuit_info.append("\nHierarchy Details:")
+        circuit_info.append("-" * 40)
+
+        # Collect all hierarchies
+        hierarchies = set()
+        for part in self.parts:
+            hierarchies.add(part.hierarchy)
+
+        # Group parts by hierarchy
+        hierarchy_parts = {}
+        for part in self.parts:
+            if part.hierarchy not in hierarchy_parts:
+                hierarchy_parts[part.hierarchy] = []
+            hierarchy_parts[part.hierarchy].append(part)
+
+        # Get nets and group by hierarchy
+        distinct_nets = self.get_nets()
+        net_hierarchies = {}
+        for net in distinct_nets:
+            net_hier_connections = {}
+            for pin in net.pins:
+                hier = pin.part.hierarchy
+                if hier not in net_hier_connections:
+                    net_hier_connections[hier] = []
+                net_hier_connections[hier].append(pin)
+            
+            for hier in net_hier_connections:
+                if hier not in net_hierarchies:
+                    net_hierarchies[hier] = []
+                net_hierarchies[hier].append((net, net_hier_connections))
+
+        # Print consolidated information for each hierarchy level
+        first_hierarchy = True
+        for hier in sorted(hierarchies):
+            if not first_hierarchy:
+                circuit_info.append("_" * 53)  # Separator line between hierarchies
+            else:
+                first_hierarchy = False
+                
+            circuit_info.append(f"Hierarchy Level: {hier}")
+            
+            # Parts in this hierarchy
+            if hier in hierarchy_parts:
+                circuit_info.append("Parts:")
+                for part in sorted(hierarchy_parts[hier], key=lambda p: p.ref):
+                    circuit_info.append(f"  Part: {part.ref}")
+                    circuit_info.append(f"    Name: {part.name}")
+                    circuit_info.append(f"    Value: {part.value}")
+                    circuit_info.append(f"    Footprint: {part.footprint}")
+                    circuit_info.append("    Pins:")
+                    for pin in part.pins:
+                        net_name = pin.net.name if pin.net else "unconnected"
+                        circuit_info.append(f"      {pin.num}/{pin.name}: {net_name}")
+
+            # Nets connected to this hierarchy
+            if hier in net_hierarchies:
+                circuit_info.append("  Nets:")
+                for net, hier_connections in sorted(net_hierarchies[hier], key=lambda x: x[0].name):
+                    circuit_info.append(f"    Net: {net.name}")
+                    # Local connections
+                    local_pins = hier_connections[hier]
+                    circuit_info.append("      Local Connections:")
+                    for pin in sorted(local_pins, key=lambda p: p.part.ref):
+                        circuit_info.append(f"        {pin.part.ref}.{pin.num}/{pin.name}")
+                    
+                    # Cross-hierarchy connections
+                    other_hierarchies = set(hier_connections.keys()) - {hier}
+                    if other_hierarchies:
+                        circuit_info.append("      Connected to Other Hierarchies:")
+                        for other_hier in sorted(other_hierarchies):
+                            circuit_info.append(f"        {other_hier}:")
+                            for pin in sorted(hier_connections[other_hier], key=lambda p: p.part.ref):
+                                circuit_info.append(f"          {pin.part.ref}.{pin.num}/{pin.name}")
+
+        # Add end marker
+        circuit_info.append("=" * 15 + " END CIRCUIT " + "=" * 15)
+        
+        # Combine into final string
+        circuit_text = "\n".join(circuit_info)
+        
+        # Save to file
+        with open(filename, 'w') as f:
+            f.write(circuit_text)
+        
+        return circuit_text

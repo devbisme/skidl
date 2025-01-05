@@ -57,6 +57,7 @@ from .skidl import (
     generate_svg,
     generate_xml,
     lib_search_paths,
+    get_circuit_info,
     no_files,
     reset,
     get_default_tool,
