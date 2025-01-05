@@ -24,12 +24,32 @@ TARGET_FILES = [
     'src/skidl/circuit.py',
     'src/skidl/llm_providers.py',
     'src/skidl/circuit_analyzer.py',
-    'skidl_test.py',
+    'skidl_llm_test.py',
+    'circuit_llm_analysis.txt'
 ]
 
 # Message to add at the start of the output file
 INTRO_MESSAGE = """
-Help me develop code for implementing the LLM analysis of the circuit.
+
+This file contains the code snippets needed for the LLM chat completion task for the SKiDL library.
+The code snippets are collected from various files in the SKiDL source code repository.
+
+The following files are included in this collection:
+- src/skidl/circuit.py: Main circuit class definition.
+- src/skidl/llm_providers.py: LLM provider classes for SKiDL.
+- src/skidl/circuit_analyzer.py: Circuit analysis functions.
+- skidl_llm_test.py: Test script for LLM chat completion.
+- circuit_llm_analysis.txt: Output file from LLM analysis.
+
+The current response generated is ok, but it can use a lot of work.  Please help me add more to the prompt, logic, and response to make it better.
+The response shoudl always be specific and actionable with numbers and math to back it up.  For example, for a low pass filter we should calculate the 
+cutoff frequency and the order of the filter.  For a voltage divider we should calculate the output voltage and the current through the resistors.
+
+Please help me make the response more specific and actionable with numbers and math to back it up.  The response should be as detailed as possible.
+
+The LLM should call out all components in the circuit that need for information about them (voltage ratings, power ratings, etc.) and ask for that information to be defined.
+
+We might need logic to send one query per subcircuit or component in the circuit.  Please send one query per subcircuit or component in the circuit, instead of sending all circuits at once.
 """
 
 #==============================================================================
