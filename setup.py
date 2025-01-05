@@ -35,6 +35,7 @@ requirements = [
     #'PySpice; python_version >= "3.0"',
     "graphviz",
     "deprecation",
+    "anthropic >= 0.18.0",
 ]
 
 test_requirements = [

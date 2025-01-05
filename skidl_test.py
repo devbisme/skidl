@@ -1,4 +1,5 @@
 from skidl import *
+import os
 
 @subcircuit
 def rc_filter(inp, outp, gnd):
@@ -90,4 +91,30 @@ complete_circuit()
 
 # Get circuit info
 circuit_description = get_circuit_info()
-analyze_with_llm()
+
+
+# Using Anthropic Claude (original behavior)
+analyzer = SkidlCircuitAnalyzer(
+    provider="anthropic",
+    api_key=os.getenv("ANTHROPIC_API_KEY"),
+    model="claude-3-sonnet-20240229"
+)
+
+# # Using OpenAI
+# analyzer = SkidlCircuitAnalyzer(
+#     provider="openai",
+#     api_key="your_openai_key",
+#     model="gpt-4-turbo-preview"  # optional
+# )
+
+# # Using OpenRouter
+# analyzer = SkidlCircuitAnalyzer(
+#     provider="openrouter",
+#     api_key="your_openrouter_key",
+#     model="anthropic/claude-3-opus-20240229",  # optional
+#     referer="your_domain",  # required for OpenRouter
+#     title="Your App Name"   # optional
+# )
+
+# Analyze circuit with any provider
+results = analyzer.analyze_circuit(circuit_description)
