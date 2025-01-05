@@ -1177,6 +1177,7 @@ class Circuit(SkidlBaseObject):
         Save circuit information to a text file and return the description as a string.
         Shows hierarchical structure of the circuit with consolidated parts and connections.
         """
+        from .circuit_analyzer import SkidlCircuitAnalyzer
         circuit_info = []
         circuit_info.append("Circuit Description:")
         circuit_info.append("=" * 40)
