@@ -102,7 +102,8 @@ if results["success"]:
         print(f"\nSubcircuit: {hier}")
         if analysis["success"]:
             print(f"Analysis completed in {analysis['request_time_seconds']:.2f} seconds")
-            print(f"Tokens used: {analysis['prompt_tokens'] + analysis['response_tokens']}")
+            tokens = analysis.get('prompt_tokens', 0) + analysis.get('response_tokens', 0)
+            print(f"Tokens used: {tokens}")
         else:
             print(f"Analysis failed: {analysis['error']}")
             

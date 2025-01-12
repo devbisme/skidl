@@ -105,7 +105,7 @@ class LLMInterface:
             "model": self.model,
             "messages": messages,
             "temperature": 0.7,
-            "max_tokens": 4096,
+            "max_tokens": 8000,
             "headers": {  # OpenRouter-specific headers in the request body
                 "HTTP-Referer": "https://github.com/devbisme/skidl",
                 "X-Title": "SKiDL Circuit Analyzer"
