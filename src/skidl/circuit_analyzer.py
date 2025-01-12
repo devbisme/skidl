@@ -63,7 +63,7 @@ class SkidlCircuitAnalyzer:
         self.custom_prompt = custom_prompt
         
         # Validate analysis flags against available sections
-        from .analysis_prompts import ANALYSIS_SECTIONS
+        from .prompts import ANALYSIS_SECTIONS
         self.analysis_flags = analysis_flags or {
             section: True for section in ANALYSIS_SECTIONS.keys()
         }
