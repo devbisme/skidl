@@ -1332,14 +1332,29 @@ class Circuit(SkidlBaseObject):
         
         # Save consolidated results if requested
         if output_file:
+            consolidated_text = ["=== Subcircuits Analysis ===\n"]
+            
+            for hier, analysis in results["subcircuits"].items():
+                consolidated_text.append(f"\n{'='*20} {hier} {'='*20}\n")
+                if analysis.get("success", False):
+                    # Include the actual analysis text
+                    analysis_text = analysis.get("analysis", "No analysis available")
+                    consolidated_text.append(analysis_text)
+                    
+                    # Include token usage info
+                    token_info = (
+                        f"\nTokens used: {analysis.get('total_tokens', 0)} "
+                        f"(Prompt: {analysis.get('prompt_tokens', 0)}, "
+                        f"Completion: {analysis.get('completion_tokens', 0)})"
+                    )
+                    consolidated_text.append(token_info)
+                else:
+                    consolidated_text.append(
+                        f"Analysis failed: {analysis.get('error', 'Unknown error')}"
+                    )
+                consolidated_text.append("\n")
+            
             with open(output_file, "w") as f:
-                f.write("=== Subcircuits Analysis ===\n\n")
-                for hier, analysis in results["subcircuits"].items():
-                    f.write(f"\n{'='*20} {hier} {'='*20}\n")
-                    if analysis.get("success", False):
-                        f.write(analysis["analysis"])
-                    else:
-                        f.write(f"Analysis failed: {analysis.get('error', 'Unknown error')}")
-                    f.write("\n")
+                f.write("\n".join(consolidated_text))
         
         return results
