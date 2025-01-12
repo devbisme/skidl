@@ -192,6 +192,17 @@ class Circuit(SkidlBaseObject):
         self.hierarchy = self.hierarchy + HIER_SEP + name + str(tag)
         self.add_hierarchical_name(self.hierarchy)
 
+        # Store subcircuit docstring if available
+        import inspect
+        frame = inspect.currentframe()
+        try:
+            # Go up 2 frames to get to the subcircuit function
+            subcircuit_func = frame.f_back.f_back.f_locals.get('f')
+            if subcircuit_func and subcircuit_func.__doc__:
+                self.subcircuit_docs[self.hierarchy] = subcircuit_func.__doc__.strip()
+        finally:
+            del frame  # Avoid reference cycles
+
         # Setup some globals needed in this context.
         builtins.default_circuit = self
         builtins.NC = self.NC  # pylint: disable=undefined-variable
@@ -1260,17 +1271,6 @@ class Circuit(SkidlBaseObject):
             
         return "\n".join(circuit_info)
 
-    def analyze_with_llm(self, api_key=None, output_file="circuit_llm_analysis.txt"):
-        """
-        Analyze the circuit using LLM, starting from top level and including all subcircuits.
-        """
-        return self._analyze_with_llm(
-            hierarchy=self.hierarchy,
-            depth=None,  # Analyze all levels
-            api_key=api_key,
-            output_file=output_file
-        )
-
     def analyze_with_llm(self, hierarchy=None, depth=None, api_key=None, output_file="circuit_llm_analysis.txt"):
         """
         Analyze the circuit using LLM.
@@ -1296,6 +1296,20 @@ class Circuit(SkidlBaseObject):
     def analyze_subcircuits_with_llm(self, api_key=None, output_file="subcircuits_analysis.txt"):
         """
         Analyze each subcircuit separately using LLM.
+        
+        This method analyzes each subcircuit individually with depth=1 to focus on
+        the specific functionality of that subcircuit level.
+        
+        Args:
+            api_key: API key for the LLM service
+            output_file: File to save consolidated analysis results
+            
+        Returns:
+            Dictionary containing:
+                - success: Overall success status
+                - subcircuits: Dict of analysis results for each subcircuit
+                - total_time_seconds: Total analysis time
+                - total_tokens: Total tokens used
         """
         results = {
             "success": True,
@@ -1315,7 +1329,7 @@ class Circuit(SkidlBaseObject):
             # Analyze just this level with depth=1
             sub_results = self.analyze_with_llm(
                 hierarchy=hier,
-                depth=1,
+                depth=1,  # Focus on just this subcircuit level
                 api_key=api_key,
                 output_file=None  # Don't write individual files
             )

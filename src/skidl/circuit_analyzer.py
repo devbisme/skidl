@@ -1,146 +1,17 @@
-"""Module for circuit analysis using LLMs."""
+"""Module for circuit analysis using LLMs through OpenRouter."""
 
 from typing import Dict, Optional
 from datetime import datetime
 import time
 import os
-import json
 import requests
-from typing import Dict, Any, List, Optional, Union
-
-class LLMInterface:
-    """
-    A flexible interface for interacting with various LLM providers.
-    Supports custom prompts, logging, and different response formats.
-    """
-    
-    def __init__(self,
-                 provider: str = "openrouter",
-                 model: str = None,
-                 api_key: str = None,
-                 base_url: str = None,
-                 logging_enabled: bool = True,
-                 max_length: int = 8000,
-                 **kwargs):
-        """
-        Initialize LLM Interface
-        """
-        self.provider = provider.lower()
-        self.model = model or self._get_default_model()
-        # Support both OPENROUTER_API_KEY and ANTHROPIC_API_KEY for backward compatibility
-        self.api_key = api_key or os.getenv("OPENROUTER_API_KEY") or os.getenv("ANTHROPIC_API_KEY")
-        self.base_url = base_url or self._get_default_base_url()
-        self.max_length = max_length
-        self.kwargs = kwargs
-
-    def _get_default_model(self) -> str:
-        """Get default model based on provider"""
-        defaults = {
-            "openrouter": "anthropic/claude-3.5-haiku",
-            "ollama": "llama3.2",
-            "anthropic": "claude-3-opus-20240229"
-        }
-        return defaults.get(self.provider, "")
-
-    def _get_default_base_url(self) -> str:
-        """Get default base URL based on provider"""
-        defaults = {
-            "openrouter": "https://openrouter.ai/api/v1",
-            "ollama": "http://localhost:11434",
-            "anthropic": "https://api.anthropic.com/v1"
-        }
-        return defaults.get(self.provider, "")
-
-    def process(self,
-                messages: List[Dict[str, str]],
-                options: Optional[Dict[str, Any]] = None,
-                **kwargs) -> Dict[str, Any]:
-        """Process a request through the LLM"""
-        if not messages:
-            raise ValueError("Messages list cannot be empty")
-            
-        # Apply content length limit if specified
-        if self.max_length:
-            messages = self._truncate_messages(messages)
-            
-        # Merge options with instance kwargs
-        request_options = {**self.kwargs, **(options or {}), **kwargs}
-        
-        # Process based on provider
-        processor = getattr(self, f"_process_{self.provider}", None)
-        if not processor:
-            raise ValueError(f"Unsupported provider: {self.provider}")
-            
-        try:
-            return processor(messages, request_options)
-        except Exception as e:
-            raise
-
-    def _truncate_messages(self, messages: List[Dict[str, str]]) -> List[Dict[str, str]]:
-        """Truncate message content to max_length"""
-        truncated = []
-        for msg in messages:
-            content = msg.get('content', '')
-            if len(content) > self.max_length:
-                msg = dict(msg)
-                msg['content'] = content[:self.max_length] + "..."
-            truncated.append(msg)
-        return truncated
-
-    def _process_openrouter(self, 
-                           messages: List[Dict[str, str]], 
-                           options: Dict[str, Any]) -> Dict[str, Any]:
-        """Process request through OpenRouter"""
-        if not self.api_key:
-            raise ValueError("API key required for OpenRouter")
-            
-        headers = {
-            "Authorization": f"Bearer {self.api_key}",
-            "HTTP-Referer": "https://github.com/devbisme/skidl",  # Required
-            "X-Title": "SKiDL Circuit Analyzer",  # Optional, shown in OpenRouter dashboard
-            "Content-Type": "application/json"
-        }
-        
-        data = {
-            "model": self.model,
-            "messages": messages,
-            "temperature": 0.7,
-            "max_tokens": 8000,
-            "headers": {  # OpenRouter-specific headers in the request body
-                "HTTP-Referer": "https://github.com/devbisme/skidl",
-                "X-Title": "SKiDL Circuit Analyzer"
-            }
-        }
-        
-        url = f"{self.base_url}/chat/completions"
-        response = requests.post(
-            url,
-            headers=headers,
-            json=data,
-            timeout=30  # Add timeout to prevent hanging
-        )
-        response.raise_for_status()
-        return response.json()
-
-    def quick_prompt(self,
-                    content: str,
-                    system_prompt: Optional[str] = None,
-                    temperature: float = 0.7) -> str:
-        """Simplified interface for quick prompts"""
-        messages = []
-        if system_prompt:
-            messages.append({"role": "system", "content": system_prompt})
-        messages.append({"role": "user", "content": content})
-        
-        response = self.process(messages, {"temperature": temperature})
-        return response['choices'][0]['message']['content']
 
 class SkidlCircuitAnalyzer:
-    """Circuit analyzer using Large Language Models."""
+    """Circuit analyzer using Large Language Models through OpenRouter."""
     
     def __init__(
         self,
-        model: str = "anthropic/claude-3.5-haiku",
+        model: str = "anthropic/claude-3-haiku",
         api_key: Optional[str] = None,
         custom_prompt: Optional[str] = None,
         analysis_flags: Optional[Dict[str, bool]] = None,
@@ -150,18 +21,22 @@ class SkidlCircuitAnalyzer:
         Initialize the circuit analyzer.
 
         Args:
-            model: Name of the LLM model to use
-            api_key: API key for the LLM service
+            model: Name of the OpenRouter model to use
+            api_key: OpenRouter API key (or set OPENROUTER_API_KEY env var)
             custom_prompt: Additional custom prompt template to append
             analysis_flags: Dict of analysis sections to enable/disable
             **kwargs: Additional configuration options
         """
-        self.llm = LLMInterface(
-            provider="openrouter",
-            model=model,
-            api_key=api_key,
-            **kwargs
-        )
+        # Check for OPENROUTER_API_KEY environment variable
+        self.api_key = api_key or os.getenv("OPENROUTER_API_KEY")
+        if not self.api_key:
+            raise ValueError(
+                "OpenRouter API key required. Either:\n"
+                "1. Set OPENROUTER_API_KEY environment variable\n"
+                "2. Pass api_key parameter to analyze_with_llm"
+            )
+        
+        self.model = model
         
         self.custom_prompt = custom_prompt
         self.analysis_flags = analysis_flags or {
@@ -234,7 +109,7 @@ class SkidlCircuitAnalyzer:
         start_time = time.time()
         
         if verbose:
-            print(f"\n=== Starting Circuit Analysis with {self.llm.model} ===")
+            print(f"\n=== Starting Circuit Analysis with {self.model} ===")
         
         try:
             # Generate the analysis prompt
@@ -243,9 +118,30 @@ class SkidlCircuitAnalyzer:
             if verbose:
                 print("\nGenerating analysis...")
             
-            # Get analysis from LLM
+            # Get analysis from OpenRouter
             request_start = time.time()
-            analysis_text = self.llm.quick_prompt(prompt)
+            headers = {
+                "Authorization": f"Bearer {self.api_key}",
+                "HTTP-Referer": "https://github.com/devbisme/skidl",
+                "X-Title": "SKiDL Circuit Analyzer"
+            }
+            
+            data = {
+                "model": self.model,
+                "messages": [{"role": "user", "content": prompt}],
+                "temperature": 0.7,
+                "max_tokens": 4000,
+            }
+            
+            response = requests.post(
+                "https://openrouter.ai/api/v1/chat/completions",
+                headers=headers,
+                json=data,
+                timeout=30
+            )
+            response.raise_for_status()
+            
+            analysis_text = response.json()["choices"][0]["message"]["content"]
             request_time = time.time() - request_start
             
             # Prepare results
