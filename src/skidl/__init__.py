@@ -43,7 +43,6 @@ from .part_query import (
 from .pin import Pin
 from .schlib import SchLib, load_backup_lib
 from .circuit_analyzer import SkidlCircuitAnalyzer
-from .llm_providers import *
 from .skidl import (
     ERC,
     POWER,

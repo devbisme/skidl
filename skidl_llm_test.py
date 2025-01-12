@@ -91,7 +91,7 @@ complete_circuit()
 
 # Analyze each subcircuit separately using the new function
 results = default_circuit.analyze_subcircuits_with_llm(
-    api_key=os.getenv("ANTHROPIC_API_KEY"),
+    api_key=os.getenv("OPENROUTER_API_KEY"),
     output_file="subcircuits_analysis.txt"
 )
 
