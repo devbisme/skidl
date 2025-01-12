@@ -1271,46 +1271,37 @@ class Circuit(SkidlBaseObject):
             
         return "\n".join(circuit_info)
 
-    def analyze_with_llm(self, hierarchy=None, depth=None, api_key=None, output_file="circuit_llm_analysis.txt"):
+    def analyze_with_llm(self, api_key=None, output_file="circuit_llm_analysis.txt", hierarchy=None, depth=None, analyze_subcircuits=False):
         """
-        Analyze the circuit using LLM.
+        Analyze the circuit using LLM, with options for analyzing the whole circuit or individual subcircuits.
         
         Args:
+            api_key: API key for the LLM service
+            output_file: File to save analysis results. If analyzing subcircuits, this will contain consolidated results.
             hierarchy: Starting hierarchy level to analyze. If None, starts from top.
             depth: How many levels deep to analyze. If None, analyzes all levels.
-            api_key: API key for the LLM service
-            output_file: File to save analysis results
+            analyze_subcircuits: If True, analyzes each subcircuit separately with depth=1.
+                               If False, analyzes from the specified hierarchy and depth.
             
         Returns:
-            Dictionary containing analysis results
+            If analyze_subcircuits=False:
+                Dictionary containing single analysis results
+            If analyze_subcircuits=True:
+                Dictionary containing:
+                    - success: Overall success status
+                    - subcircuits: Dict of analysis results for each subcircuit
+                    - total_time_seconds: Total analysis time
+                    - total_tokens: Total tokens used
         """
         from .circuit_analyzer import SkidlCircuitAnalyzer
-        
-        # Get circuit description
-        circuit_desc = self.get_circuit_info(hierarchy=hierarchy, depth=depth)
-        
-        # Create analyzer and run analysis
         analyzer = SkidlCircuitAnalyzer(api_key=api_key)
-        return analyzer.analyze_circuit(circuit_desc, output_file=output_file)
-
-    def analyze_subcircuits_with_llm(self, api_key=None, output_file="subcircuits_analysis.txt"):
-        """
-        Analyze each subcircuit separately using LLM.
         
-        This method analyzes each subcircuit individually with depth=1 to focus on
-        the specific functionality of that subcircuit level.
+        if not analyze_subcircuits:
+            # Single analysis of specified hierarchy
+            circuit_desc = self.get_circuit_info(hierarchy=hierarchy, depth=depth)
+            return analyzer.analyze_circuit(circuit_desc, output_file=output_file)
         
-        Args:
-            api_key: API key for the LLM service
-            output_file: File to save consolidated analysis results
-            
-        Returns:
-            Dictionary containing:
-                - success: Overall success status
-                - subcircuits: Dict of analysis results for each subcircuit
-                - total_time_seconds: Total analysis time
-                - total_tokens: Total tokens used
-        """
+        # Analyze each subcircuit separately
         results = {
             "success": True,
             "subcircuits": {},
@@ -1326,13 +1317,15 @@ class Circuit(SkidlBaseObject):
         
         # Analyze each subcircuit
         for hier in sorted(hierarchies):
-            # Analyze just this level with depth=1
-            sub_results = self.analyze_with_llm(
-                hierarchy=hier,
-                depth=1,  # Focus on just this subcircuit level
-                api_key=api_key,
+            # Get description focused on this subcircuit
+            circuit_desc = self.get_circuit_info(hierarchy=hier, depth=1)
+            
+            # Analyze just this subcircuit
+            sub_results = analyzer.analyze_circuit(
+                circuit_desc,
                 output_file=None  # Don't write individual files
             )
+            
             results["subcircuits"][hier] = sub_results
             results["total_time_seconds"] += sub_results.get("request_time_seconds", 0)
             results["total_tokens"] += sub_results.get("prompt_tokens", 0) + sub_results.get("response_tokens", 0)

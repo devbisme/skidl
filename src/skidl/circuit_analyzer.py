@@ -11,7 +11,7 @@ class SkidlCircuitAnalyzer:
     
     def __init__(
         self,
-        model: str = "anthropic/claude-3-haiku",
+        model: str = "anthropic/claude-3.5-haiku",
         api_key: Optional[str] = None,
         custom_prompt: Optional[str] = None,
         analysis_flags: Optional[Dict[str, bool]] = None,

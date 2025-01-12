@@ -300,10 +300,11 @@ for name, doc in default_circuit.subcircuit_docs.items():
     print(f"\n{name}:")
     print(doc)
 
-# Analyze each subcircuit separately using the new function
-results = default_circuit.analyze_subcircuits_with_llm(
+# Analyze each subcircuit separately using analyze_with_llm
+results = default_circuit.analyze_with_llm(
     api_key=os.getenv("OPENROUTER_API_KEY"),
-    output_file="subcircuits_analysis.txt"
+    output_file="subcircuits_analysis.txt",
+    analyze_subcircuits=True
 )
 
 # Print analysis results
