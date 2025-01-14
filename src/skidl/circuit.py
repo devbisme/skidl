@@ -1271,7 +1271,7 @@ class Circuit(SkidlBaseObject):
             
         return "\n".join(circuit_info)
 
-    def analyze_with_llm(self, api_key=None, output_file="circuit_llm_analysis.txt", hierarchy=None, depth=None, analyze_subcircuits=False, save_query_only=False):
+    def analyze_with_llm(self, api_key=None, output_file="circuit_llm_analysis.txt", hierarchy=None, depth=None, analyze_subcircuits=False, save_query_only=False, custom_prompt=None):
         """
         Analyze the circuit using LLM, with options for analyzing the whole circuit or individual subcircuits.
         
@@ -1282,6 +1282,9 @@ class Circuit(SkidlBaseObject):
             depth: How many levels deep to analyze. If None, analyzes all levels.
             analyze_subcircuits: If True, analyzes each subcircuit separately with depth=1.
                                If False, analyzes from the specified hierarchy and depth.
+            save_query_only: If True, only saves the query that would be sent to the LLM without executing it.
+            custom_prompt: Optional custom prompt to append to the default analysis prompt.
+                         This allows adding specific analysis requirements or questions.
             
         Returns:
             If analyze_subcircuits=False:
@@ -1294,7 +1297,7 @@ class Circuit(SkidlBaseObject):
                     - total_tokens: Total tokens used
         """
         from .circuit_analyzer import SkidlCircuitAnalyzer
-        analyzer = SkidlCircuitAnalyzer(api_key=api_key)
+        analyzer = SkidlCircuitAnalyzer(api_key=api_key, custom_prompt=custom_prompt)
         
         if not analyze_subcircuits:
             # Single analysis of specified hierarchy

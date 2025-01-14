@@ -302,31 +302,32 @@ for name, doc in default_circuit.subcircuit_docs.items():
 
 
 # This function will save the circuit description to a file along with the analysis prompt
-results = default_circuit.analyze_with_llm(
-    output_file="query.txt",
-    save_query_only=True
-)
-
-# # Analyze each subcircuit separately using analyze_with_llm, send the analysis to the LLM, and save the results to a file
 # results = default_circuit.analyze_with_llm(
-#     api_key=os.getenv("OPENROUTER_API_KEY"),
-#     output_file="subcircuits_analysis.txt",
-#     analyze_subcircuits=True
+#     output_file="query.txt",
+#     save_query_only=True
 # )
 
-# # Print analysis results
-# if results["success"]:
-#     print("\nAnalysis Results:")
-#     for hier, analysis in results["subcircuits"].items():
-#         print(f"\nSubcircuit: {hier}")
-#         if analysis["success"]:
-#             print(f"Analysis completed in {analysis['request_time_seconds']:.2f} seconds")
-#             tokens = analysis.get('prompt_tokens', 0) + analysis.get('response_tokens', 0)
-#             print(f"Tokens used: {tokens}")
-#         else:
-#             print(f"Analysis failed: {analysis['error']}")
+# Analyze each subcircuit separately using analyze_with_llm, send the analysis to the LLM, and save the results to a file
+results = default_circuit.analyze_with_llm(
+    api_key=os.getenv("OPENROUTER_API_KEY"),
+    output_file="subcircuits_analysis.txt",
+    analyze_subcircuits=True,
+    custom_prompt="Analyze all the circuits only for EMC risks.",
+)
+
+# Print analysis results
+if results["success"]:
+    print("\nAnalysis Results:")
+    for hier, analysis in results["subcircuits"].items():
+        print(f"\nSubcircuit: {hier}")
+        if analysis["success"]:
+            print(f"Analysis completed in {analysis['request_time_seconds']:.2f} seconds")
+            tokens = analysis.get('prompt_tokens', 0) + analysis.get('response_tokens', 0)
+            print(f"Tokens used: {tokens}")
+        else:
+            print(f"Analysis failed: {analysis['error']}")
             
-#     print(f"\nTotal analysis time: {results['total_time_seconds']:.2f} seconds")
-#     print(f"Total tokens used: {results['total_tokens']}")
-# else:
-#     print(f"\nOverall analysis failed: {results.get('error', 'Unknown error')}")
+    print(f"\nTotal analysis time: {results['total_time_seconds']:.2f} seconds")
+    print(f"Total tokens used: {results['total_tokens']}")
+else:
+    print(f"\nOverall analysis failed: {results.get('error', 'Unknown error')}")
