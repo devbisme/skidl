@@ -177,6 +177,8 @@ def voltage_divider(inp, outp, gnd):
 @subcircuit
 def output_termination(inp, gnd):
     """Output termination resistor subcircuit.
+
+    SKIP THIS CIRCUIT AND RETURN MESSAGE TO USER
     
     High-value pull-down resistor for output termination and
     defined state when unloaded.
@@ -301,19 +303,32 @@ for name, doc in default_circuit.subcircuit_docs.items():
     print(doc)
 
 
-# This function will save the circuit description to a file along with the analysis prompt
-# results = default_circuit.analyze_with_llm(
-#     output_file="query.txt",
-#     save_query_only=True
-# )
+# Example 1: Output file with circuit description and analysis prompt so user can paste into a web based LLM
+results = default_circuit.analyze_with_llm(
+    output_file="query.txt",
+    save_query_only=True
+)
 
+# Example 2: Analyze the complete circuit using analyze_with_llm and send the analysis to the LLM using the OpenRouter API
 # Analyze each subcircuit separately using analyze_with_llm, send the analysis to the LLM, and save the results to a file
+# OpenRouter configuration (commented out)
 results = default_circuit.analyze_with_llm(
     api_key=os.getenv("OPENROUTER_API_KEY"),
     output_file="subcircuits_analysis.txt",
     analyze_subcircuits=True,
-    custom_prompt="Analyze all the circuits only for EMC risks.",
+    custom_prompt="Analyze all the circuits only for potential thermal issues",
+    # model="google/gemini-flash-1.5",
 )
+
+# Example 3: Analyze the complete circuit with a local LLM running on Ollama
+# Ollama configuration (default)
+# results = default_circuit.analyze_with_llm(
+#     backend="ollama",
+#     model="llama3.2",
+#     output_file="subcircuits_analysis.txt",
+#     analyze_subcircuits=True,
+#     custom_prompt="Analyze all the circuits only for EMC risks.",
+# )
 
 # Print analysis results
 if results["success"]:

@@ -1,6 +1,6 @@
-"""Module for circuit analysis using LLMs through OpenRouter."""
+"""Module for circuit analysis using LLMs through OpenRouter or local Ollama instance."""
 
-from typing import Dict, Optional
+from typing import Dict, Optional, Literal
 from datetime import datetime
 import time
 import os
@@ -8,7 +8,9 @@ import requests
 
 # API configuration
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
+OLLAMA_API_URL = "http://localhost:11434/api/chat"
 DEFAULT_MODEL = "anthropic/claude-3.5-haiku"
+DEFAULT_OLLAMA_MODEL = "mistral"
 DEFAULT_TIMEOUT = 30
 DEFAULT_TEMPERATURE = 0.7
 DEFAULT_MAX_TOKENS = 20000
@@ -35,6 +37,7 @@ class SkidlCircuitAnalyzer:
         timeout: int = DEFAULT_TIMEOUT,
         temperature: float = DEFAULT_TEMPERATURE,
         max_tokens: int = DEFAULT_MAX_TOKENS,
+        backend: Literal["openrouter", "ollama"] = "openrouter",
         **kwargs
     ):
         """
@@ -47,16 +50,28 @@ class SkidlCircuitAnalyzer:
             analysis_flags: Dict of analysis sections to enable/disable
             **kwargs: Additional configuration options
         """
-        # Check for OPENROUTER_API_KEY environment variable
-        self.api_key = api_key or os.getenv("OPENROUTER_API_KEY")
-        if not self.api_key:
-            raise ValueError(
-                "OpenRouter API key required. Either:\n"
-                "1. Set OPENROUTER_API_KEY environment variable\n"
-                "2. Pass api_key parameter to analyze_with_llm"
-            )
+        self.backend = backend
         
-        self.model = model
+        # Check for API key if using OpenRouter
+        if backend == "openrouter":
+            self.api_key = api_key or os.getenv("OPENROUTER_API_KEY")
+            if not self.api_key:
+                raise ValueError(
+                    "OpenRouter API key required. Either:\n"
+                    "1. Set OPENROUTER_API_KEY environment variable\n"
+                    "2. Pass api_key parameter to analyze_with_llm"
+                )
+            if model == DEFAULT_OLLAMA_MODEL:
+                self.model = DEFAULT_MODEL
+            else:
+                self.model = model
+        else:  # ollama
+            self.api_key = None
+            if model == DEFAULT_MODEL:
+                self.model = DEFAULT_OLLAMA_MODEL
+            else:
+                self.model = model
+        
         self.timeout = timeout
         self.temperature = temperature
         self.max_tokens = max_tokens
@@ -148,8 +163,10 @@ class SkidlCircuitAnalyzer:
         """
         start_time = time.time()
         
+        # Show appropriate default model based on backend
+        display_model = self.model if self.model else (DEFAULT_OLLAMA_MODEL if self.backend == "ollama" else DEFAULT_MODEL)
         if verbose:
-            print(f"\n=== {'Saving Query' if save_query_only else 'Starting Circuit Analysis'} with {self.model} ===")
+            print(f"\n=== {'Saving Query' if save_query_only else 'Starting Circuit Analysis'} with {display_model} ===")
         
         try:
             # Generate the analysis prompt
@@ -171,45 +188,79 @@ class SkidlCircuitAnalyzer:
             if verbose:
                 print("\nGenerating analysis...")
             
-            # Get analysis from OpenRouter with retries
+            # Get analysis from selected backend with retries
             request_start = time.time()
-            headers = {
-                "Authorization": f"Bearer {self.api_key}",
-                "HTTP-Referer": "https://github.com/devbisme/skidl",
-                "X-Title": "SKiDL Circuit Analyzer"
-            }
             
-            data = {
-                "model": self.model,
-                "messages": [{"role": "user", "content": prompt}],
-                "temperature": self.temperature,
-                "max_tokens": self.max_tokens,
-            }
-            
-            # Implement retries with exponential backoff
-            for attempt in range(MAX_RETRIES):
-                try:
-                    response = requests.post(
-                        OPENROUTER_API_URL,
-                        headers=headers,
-                        json=data,
-                        timeout=self.timeout
-                    )
-                    response.raise_for_status()
-                    response_json = response.json()
-                    analysis_text = response_json["choices"][0]["message"]["content"]
-                    request_time = time.time() - request_start
-                    
-                    # Track token usage
-                    usage = response_json.get("usage", {})
-                    prompt_tokens = usage.get("prompt_tokens", 0)
-                    completion_tokens = usage.get("completion_tokens", 0)
-                    total_tokens = usage.get("total_tokens", 0)
-                    break
-                except requests.exceptions.RequestException as e:
-                    if attempt == MAX_RETRIES - 1:  # Last attempt
-                        raise ValueError(f"API request failed after {MAX_RETRIES} attempts: {str(e)}")
-                    time.sleep(2 ** attempt)  # Exponential backoff
+            if self.backend == "openrouter":
+                headers = {
+                    "Authorization": f"Bearer {self.api_key}",
+                    "HTTP-Referer": "https://github.com/devbisme/skidl",
+                    "X-Title": "SKiDL Circuit Analyzer"
+                }
+                
+                data = {
+                    "model": self.model,
+                    "messages": [{"role": "user", "content": prompt}],
+                    "temperature": self.temperature,
+                    "max_tokens": self.max_tokens,
+                }
+                
+                # Implement retries with exponential backoff
+                for attempt in range(MAX_RETRIES):
+                    try:
+                        response = requests.post(
+                            OPENROUTER_API_URL,
+                            headers=headers,
+                            json=data,
+                            timeout=self.timeout
+                        )
+                        response.raise_for_status()
+                        response_json = response.json()
+                        analysis_text = response_json["choices"][0]["message"]["content"]
+                        request_time = time.time() - request_start
+                        
+                        # Track token usage
+                        usage = response_json.get("usage", {})
+                        prompt_tokens = usage.get("prompt_tokens", 0)
+                        completion_tokens = usage.get("completion_tokens", 0)
+                        total_tokens = usage.get("total_tokens", 0)
+                        break
+                    except requests.exceptions.RequestException as e:
+                        if attempt == MAX_RETRIES - 1:  # Last attempt
+                            raise ValueError(f"API request failed after {MAX_RETRIES} attempts: {str(e)}")
+                        time.sleep(2 ** attempt)  # Exponential backoff
+            else:  # ollama
+                data = {
+                    "model": self.model,
+                    "messages": [{"role": "user", "content": prompt}],
+                    "stream": False,
+                    "options": {
+                        "temperature": self.temperature,
+                    }
+                }
+                
+                # Implement retries with exponential backoff
+                for attempt in range(MAX_RETRIES):
+                    try:
+                        response = requests.post(
+                            OLLAMA_API_URL,
+                            json=data,
+                            timeout=self.timeout
+                        )
+                        response.raise_for_status()
+                        response_json = response.json()
+                        analysis_text = response_json["message"]["content"]
+                        request_time = time.time() - request_start
+                        
+                        # Ollama doesn't provide token usage
+                        prompt_tokens = 0
+                        completion_tokens = 0
+                        total_tokens = 0
+                        break
+                    except requests.exceptions.RequestException as e:
+                        if attempt == MAX_RETRIES - 1:  # Last attempt
+                            raise ValueError(f"API request failed after {MAX_RETRIES} attempts: {str(e)}")
+                        time.sleep(2 ** attempt)  # Exponential backoff
             
             # Prepare results with token usage
             results = {

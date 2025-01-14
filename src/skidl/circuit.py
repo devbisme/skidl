@@ -1271,12 +1271,23 @@ class Circuit(SkidlBaseObject):
             
         return "\n".join(circuit_info)
 
-    def analyze_with_llm(self, api_key=None, output_file="circuit_llm_analysis.txt", hierarchy=None, depth=None, analyze_subcircuits=False, save_query_only=False, custom_prompt=None):
+    def analyze_with_llm(
+        self,
+        api_key=None,
+        output_file="circuit_llm_analysis.txt",
+        hierarchy=None,
+        depth=None,
+        analyze_subcircuits=False,
+        save_query_only=False,
+        custom_prompt=None,
+        backend="openrouter",
+        model=None,
+    ):
         """
         Analyze the circuit using LLM, with options for analyzing the whole circuit or individual subcircuits.
         
         Args:
-            api_key: API key for the LLM service
+            api_key: API key for the LLM service (required for OpenRouter, not needed for Ollama)
             output_file: File to save analysis results. If analyzing subcircuits, this will contain consolidated results.
             hierarchy: Starting hierarchy level to analyze. If None, starts from top.
             depth: How many levels deep to analyze. If None, analyzes all levels.
@@ -1285,6 +1296,8 @@ class Circuit(SkidlBaseObject):
             save_query_only: If True, only saves the query that would be sent to the LLM without executing it.
             custom_prompt: Optional custom prompt to append to the default analysis prompt.
                          This allows adding specific analysis requirements or questions.
+            backend: LLM backend to use ("openrouter" or "ollama"). Defaults to "openrouter".
+            model: Model to use for analysis. Defaults to backend's default model.
             
         Returns:
             If analyze_subcircuits=False:
@@ -1297,7 +1310,12 @@ class Circuit(SkidlBaseObject):
                     - total_tokens: Total tokens used
         """
         from .circuit_analyzer import SkidlCircuitAnalyzer
-        analyzer = SkidlCircuitAnalyzer(api_key=api_key, custom_prompt=custom_prompt)
+        analyzer = SkidlCircuitAnalyzer(
+            api_key=api_key,
+            custom_prompt=custom_prompt,
+            backend=backend,
+            model=model
+        )
         
         if not analyze_subcircuits:
             # Single analysis of specified hierarchy
