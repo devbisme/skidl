@@ -1271,7 +1271,7 @@ class Circuit(SkidlBaseObject):
             
         return "\n".join(circuit_info)
 
-    def analyze_with_llm(self, api_key=None, output_file="circuit_llm_analysis.txt", hierarchy=None, depth=None, analyze_subcircuits=False):
+    def analyze_with_llm(self, api_key=None, output_file="circuit_llm_analysis.txt", hierarchy=None, depth=None, analyze_subcircuits=False, save_query_only=False):
         """
         Analyze the circuit using LLM, with options for analyzing the whole circuit or individual subcircuits.
         
@@ -1299,7 +1299,7 @@ class Circuit(SkidlBaseObject):
         if not analyze_subcircuits:
             # Single analysis of specified hierarchy
             circuit_desc = self.get_circuit_info(hierarchy=hierarchy, depth=depth)
-            return analyzer.analyze_circuit(circuit_desc, output_file=output_file)
+            return analyzer.analyze_circuit(circuit_desc, output_file=output_file, save_query_only=save_query_only)
         
         # Analyze each subcircuit separately
         results = {
@@ -1323,7 +1323,8 @@ class Circuit(SkidlBaseObject):
             # Analyze just this subcircuit
             sub_results = analyzer.analyze_circuit(
                 circuit_desc,
-                output_file=None  # Don't write individual files
+                output_file=None,  # Don't write individual files
+                save_query_only=save_query_only
             )
             
             results["subcircuits"][hier] = sub_results

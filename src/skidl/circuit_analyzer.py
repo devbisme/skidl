@@ -125,7 +125,8 @@ class SkidlCircuitAnalyzer:
         self,
         circuit_description: str,
         output_file: Optional[str] = "circuit_llm_analysis.txt",
-        verbose: bool = True
+        verbose: bool = True,
+        save_query_only: bool = False
     ) -> Dict:
         """
         Analyze the circuit using the configured LLM.
@@ -148,11 +149,24 @@ class SkidlCircuitAnalyzer:
         start_time = time.time()
         
         if verbose:
-            print(f"\n=== Starting Circuit Analysis with {self.model} ===")
+            print(f"\n=== {'Saving Query' if save_query_only else 'Starting Circuit Analysis'} with {self.model} ===")
         
         try:
             # Generate the analysis prompt
             prompt = self._generate_analysis_prompt(circuit_description)
+            
+            # If save_query_only is True, just save the prompt and return
+            if save_query_only:
+                if output_file:
+                    self._save_analysis(output_file, prompt, verbose)
+                    if verbose:
+                        print("\n=== Query saved successfully ===")
+                return {
+                    "success": True,
+                    "query": prompt,
+                    "timestamp": int(datetime.now().timestamp()),
+                    "total_time_seconds": time.time() - start_time
+                }
             
             if verbose:
                 print("\nGenerating analysis...")
