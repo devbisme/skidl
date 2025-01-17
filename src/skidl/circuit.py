@@ -1267,7 +1267,14 @@ class Circuit(SkidlBaseObject):
                         net_name = pin.net.name if pin.net else "unconnected"
                         circuit_info.append(f"      {pin.num}/{pin.name}: {net_name}")
                         
-            # Rest of the implementation remains the same...
+            # Nets in this hierarchy
+            if hier in net_hierarchies:
+                circuit_info.append("\nNets:")
+                for net, connections in sorted(net_hierarchies[hier], key=lambda x: x[0].name):
+                    circuit_info.append(f"  Net: {net.name}")
+                    circuit_info.append("    Connections:")
+                    for pin in connections[hier]:
+                        circuit_info.append(f"      {pin.part.ref}.{pin.name}")
             
         return "\n".join(circuit_info)
 
