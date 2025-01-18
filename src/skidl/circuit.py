@@ -1259,37 +1259,14 @@ class Circuit(SkidlBaseObject):
                         net_name = pin.net.name if pin.net else "unconnected"
                         circuit_info.append(f"      {pin.num}/{pin.name}: {net_name}")
                         
-            # Nets connected to this hierarchy
+            # Nets in this hierarchy
             if hier in net_hierarchies:
-                circuit_info.append("  Nets:")
-                for net, hier_connections in sorted(net_hierarchies[hier], key=lambda x: x[0].name):
-                    circuit_info.append(f"    Net: {net.name}")
-                    # Local connections
-                    local_pins = hier_connections[hier]
-                    circuit_info.append("      Local Connections:")
-                    for pin in sorted(local_pins, key=lambda p: p.part.ref):
-                        circuit_info.append(f"        {pin.part.ref}.{pin.num}/{pin.name}")
-                    
-                    # Cross-hierarchy connections
-                    other_hierarchies = set(hier_connections.keys()) - {hier}
-                    if other_hierarchies:
-                        circuit_info.append("      Connected to Other Hierarchies:")
-                        for other_hier in sorted(other_hierarchies):
-                            circuit_info.append(f"        {other_hier}:")
-                            for pin in sorted(hier_connections[other_hier], key=lambda p: p.part.ref):
-                                circuit_info.append(f"          {pin.part.ref}.{pin.num}/{pin.name}")
-
-        # # Add end marker
-        # circuit_info.append("=" * 15 + " END CIRCUIT " + "=" * 15)
-        
-        # # Combine into final string
-        # circuit_text = "\n".join(circuit_info)
-        
-        # # Save to file
-        # with open(filename, 'w') as f:
-        #     f.write(circuit_text)
-        
-        # return circuit_text
+                circuit_info.append("\nNets:")
+                for net, connections in sorted(net_hierarchies[hier], key=lambda x: x[0].name):
+                    circuit_info.append(f"  Net: {net.name}")
+                    circuit_info.append("    Connections:")
+                    for pin in connections[hier]:
+                        circuit_info.append(f"      {pin.part.ref}.{pin.name}")
             
         return "\n".join(circuit_info)
 
