@@ -1,5 +1,6 @@
 from skidl import *
 import os
+import sys
 
 @subcircuit
 def rc_filter(inp, outp, gnd):
@@ -308,6 +309,7 @@ results = default_circuit.analyze_with_llm(
     output_file="query.txt",
     save_query_only=True
 )
+# sys.exit()
 
 # Example 2: Analyze the complete circuit using analyze_with_llm and send the analysis to the LLM using the OpenRouter API
 # Analyze each subcircuit separately using analyze_with_llm, send the analysis to the LLM, and save the results to a file

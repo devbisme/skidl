@@ -8,7 +8,7 @@ Handles complete circuits made of parts and nets.
 
 import json
 import subprocess
-from collections import Counter, deque
+from collections import Counter, deque, defaultdict
 
 import graphviz
 
@@ -106,8 +106,9 @@ class Circuit(SkidlBaseObject):
         self.interfaces = []
         self.packages = deque()
         self.hierarchy = "top"
-        self.level = 0
-        self.context = [("top",)]
+        # self.level = 0
+        # self.context = [("top",)]
+        self.context = []
         self.erc_assertion_list = []
         self.circuit_stack = (
             []
@@ -205,7 +206,7 @@ class Circuit(SkidlBaseObject):
 
         # Setup some globals needed in this context.
         builtins.default_circuit = self
-        builtins.NC = self.NC  # pylint: disable=undefined-variable
+        builtins.NC = self.NC
 
     def deactivate(self):
         """Deactivate the current hierarchical group and return to the previous one."""
@@ -1193,49 +1194,40 @@ class Circuit(SkidlBaseObject):
             depth (int): How many levels deep to analyze. If None, analyzes all levels.
             filename (str): Output filename for the circuit description.
         """
+
+        # A list for storing lines of text describing the circuit.
         circuit_info = []
-        circuit_info.append("Circuit Description:")
         circuit_info.append("=" * 40)
-        
-        # Get starting hierarchy
-        start_hier = hierarchy or self.hierarchy
         circuit_info.append(f"Circuit Name: {self.name}")
+        
+        # Get hierarchy label for the starting point.
+        start_hier = hierarchy or self.hierarchy
+        start_depth = len(start_hier.split(HIER_SEP))
         circuit_info.append(f"Starting Hierarchy: {start_hier}")
         
-        # Collect all hierarchies at or below the starting point
+        # Group parts by hierarchy and collect all hierarchical labels
+        # at or below the starting point.
+        hierarchy_parts = defaultdict(list)
         hierarchies = set()
         for part in self.parts:
             if part.hierarchy.startswith(start_hier):
                 # Check depth constraint if specified
-                if depth is None or len(part.hierarchy.split('.')) - len(start_hier.split('.')) <= depth:
+                if depth is None or len(part.hierarchy.split(HIER_SEP)) - start_depth <= depth:
+                    hierarchy_parts[part.hierarchy].append(part)
                     hierarchies.add(part.hierarchy)
         
-        # Group parts by hierarchy
-        hierarchy_parts = {}
-        for part in self.parts:
-            if part.hierarchy in hierarchies:
-                if part.hierarchy not in hierarchy_parts:
-                    hierarchy_parts[part.hierarchy] = []
-                hierarchy_parts[part.hierarchy].append(part)
-        
-        # Get nets and group by hierarchy
-        distinct_nets = self.get_nets()
-        net_hierarchies = {}
-        for net in distinct_nets:
-            net_hier_connections = {}
+        # Get nets and group by hierarchy.
+        net_hierarchies = defaultdict(list)
+        for net in self.get_nets():
+            net_hier_connections = defaultdict(list)
             for pin in net.pins:
                 if pin.part.hierarchy in hierarchies:
-                    hier = pin.part.hierarchy
-                    if hier not in net_hier_connections:
-                        net_hier_connections[hier] = []
-                    net_hier_connections[hier].append(pin)
+                    net_hier_connections[pin.part.hierarchy].append(pin)
             
             for hier in net_hier_connections:
-                if hier not in net_hierarchies:
-                    net_hierarchies[hier] = []
                 net_hierarchies[hier].append((net, net_hier_connections))
         
-        # Print consolidated information for each hierarchy level
+        # Print consolidated information for each hierarchy level.
         first_hierarchy = True
         for hier in sorted(hierarchies):
             if not first_hierarchy:
@@ -1267,7 +1259,37 @@ class Circuit(SkidlBaseObject):
                         net_name = pin.net.name if pin.net else "unconnected"
                         circuit_info.append(f"      {pin.num}/{pin.name}: {net_name}")
                         
-            # Rest of the implementation remains the same...
+            # Nets connected to this hierarchy
+            if hier in net_hierarchies:
+                circuit_info.append("  Nets:")
+                for net, hier_connections in sorted(net_hierarchies[hier], key=lambda x: x[0].name):
+                    circuit_info.append(f"    Net: {net.name}")
+                    # Local connections
+                    local_pins = hier_connections[hier]
+                    circuit_info.append("      Local Connections:")
+                    for pin in sorted(local_pins, key=lambda p: p.part.ref):
+                        circuit_info.append(f"        {pin.part.ref}.{pin.num}/{pin.name}")
+                    
+                    # Cross-hierarchy connections
+                    other_hierarchies = set(hier_connections.keys()) - {hier}
+                    if other_hierarchies:
+                        circuit_info.append("      Connected to Other Hierarchies:")
+                        for other_hier in sorted(other_hierarchies):
+                            circuit_info.append(f"        {other_hier}:")
+                            for pin in sorted(hier_connections[other_hier], key=lambda p: p.part.ref):
+                                circuit_info.append(f"          {pin.part.ref}.{pin.num}/{pin.name}")
+
+        # # Add end marker
+        # circuit_info.append("=" * 15 + " END CIRCUIT " + "=" * 15)
+        
+        # # Combine into final string
+        # circuit_text = "\n".join(circuit_info)
+        
+        # # Save to file
+        # with open(filename, 'w') as f:
+        #     f.write(circuit_text)
+        
+        # return circuit_text
             
         return "\n".join(circuit_info)
 
@@ -1310,6 +1332,10 @@ class Circuit(SkidlBaseObject):
                     - total_tokens: Total tokens used
         """
         from .circuit_analyzer import SkidlCircuitAnalyzer
+
+        if save_query_only:
+            backend = None  # Don't need backend for query only.
+
         analyzer = SkidlCircuitAnalyzer(
             api_key=api_key,
             custom_prompt=custom_prompt,
