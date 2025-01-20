@@ -302,6 +302,9 @@ for name, doc in default_circuit.subcircuit_docs.items():
     print(f"\n{name}:")
     print(doc)
 
+circuit_info = default_circuit.get_circuit_info()
+print(circuit_info)
+
 
 # Example 1: Output file with circuit description and analysis prompt so user can paste into a web based LLM
 results = default_circuit.analyze_with_llm(

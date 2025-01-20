@@ -113,7 +113,8 @@ class Circuit(SkidlBaseObject):
             []
         )  # Stack of previous default_circuits for context manager.
         self.no_files = False  # Allow creation of files for netlists, ERC, libs, etc.
-        self.subcircuit_docs = {}  # Store documentation for subcircuits
+        self.fields = getattr(self, "fields", {})  # Create fields dict if it doesn't exist
+        self.fields["subcircuit_docs"] = {}  # Store documentation for subcircuits
 
         # Internal set used to check for duplicate hierarchical names.
         self._hierarchical_names = {self.hierarchy}
@@ -199,7 +200,7 @@ class Circuit(SkidlBaseObject):
             # Go up 2 frames to get to the subcircuit function
             subcircuit_func = frame.f_back.f_back.f_locals.get('f')
             if subcircuit_func and subcircuit_func.__doc__:
-                self.subcircuit_docs[self.hierarchy] = subcircuit_func.__doc__.strip()
+                self.fields["subcircuit_docs"][self.hierarchy] = subcircuit_func.__doc__.strip()
         finally:
             del frame  # Avoid reference cycles
 
@@ -1187,6 +1188,7 @@ class Circuit(SkidlBaseObject):
         """
         Save circuit information to a text file and return the description as a string.
         Shows hierarchical structure of the circuit with consolidated parts and connections.
+        Explicitly identifies cross-hierarchy net connections.
         
         Args:
             hierarchy (str): Starting hierarchy level to analyze. If None, starts from top.
@@ -1218,9 +1220,11 @@ class Circuit(SkidlBaseObject):
                     hierarchy_parts[part.hierarchy] = []
                 hierarchy_parts[part.hierarchy].append(part)
         
-        # Get nets and group by hierarchy
+        # Get nets and analyze their hierarchy connections
         distinct_nets = self.get_nets()
         net_hierarchies = {}
+        cross_hierarchy_nets = {}  # Track nets that span multiple hierarchies
+        
         for net in distinct_nets:
             net_hier_connections = {}
             for pin in net.pins:
@@ -1230,12 +1234,31 @@ class Circuit(SkidlBaseObject):
                         net_hier_connections[hier] = []
                     net_hier_connections[hier].append(pin)
             
+            # Check if this net spans multiple hierarchies
+            if len(net_hier_connections) > 1:
+                cross_hierarchy_nets[net.name] = net_hier_connections
+            
             for hier in net_hier_connections:
                 if hier not in net_hierarchies:
                     net_hierarchies[hier] = []
                 net_hierarchies[hier].append((net, net_hier_connections))
         
+        # First show cross-hierarchy connections if any exist
+        if cross_hierarchy_nets:
+            circuit_info.append("\nCross-Hierarchy Connections:")
+            circuit_info.append("=" * 40)
+            
+            for net_name, hier_connections in sorted(cross_hierarchy_nets.items()):
+                circuit_info.append(f"\nNet {net_name} spans across hierarchies:")
+                for hier in sorted(hier_connections.keys()):
+                    circuit_info.append(f"  In hierarchy {hier}:")
+                    for pin in sorted(hier_connections[hier], key=lambda p: p.part.ref):
+                        circuit_info.append(f"    {pin.part.ref}.{pin.num}.{pin.name}")
+        
         # Print consolidated information for each hierarchy level
+        circuit_info.append("\nHierarchy Details:")
+        circuit_info.append("=" * 40)
+        
         first_hierarchy = True
         for hier in sorted(hierarchies):
             if not first_hierarchy:
@@ -1246,9 +1269,9 @@ class Circuit(SkidlBaseObject):
             circuit_info.append(f"Hierarchy Level: {hier}")
             
             # Add subcircuit docstring if available
-            if hier in self.subcircuit_docs:
+            if hier in self.fields["subcircuit_docs"]:
                 circuit_info.append("\nSubcircuit Documentation:")
-                circuit_info.append(self.subcircuit_docs[hier])
+                circuit_info.append(self.fields["subcircuit_docs"][hier])
                 circuit_info.append("")
             
             # Parts in this hierarchy
@@ -1265,16 +1288,20 @@ class Circuit(SkidlBaseObject):
                     circuit_info.append("    Pins:")
                     for pin in part.pins:
                         net_name = pin.net.name if pin.net else "unconnected"
+                        # Indicate if this pin is part of a cross-hierarchy net
+                        if net_name in cross_hierarchy_nets:
+                            net_name += " (cross-hierarchy)"
                         circuit_info.append(f"      {pin.num}/{pin.name}: {net_name}")
                         
             # Nets in this hierarchy
             if hier in net_hierarchies:
                 circuit_info.append("\nNets:")
                 for net, connections in sorted(net_hierarchies[hier], key=lambda x: x[0].name):
-                    circuit_info.append(f"  Net: {net.name}")
+                    net_type = " (cross-hierarchy)" if net.name in cross_hierarchy_nets else ""
+                    circuit_info.append(f"  Net: {net.name}{net_type}")
                     circuit_info.append("    Connections:")
                     for pin in connections[hier]:
-                        circuit_info.append(f"      {pin.part.ref}.{pin.name}")
+                        circuit_info.append(f"      {pin.part.ref}.{pin.num}.{pin.name}")
             
         return "\n".join(circuit_info)
 
