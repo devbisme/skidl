@@ -8,11 +8,14 @@ Generate KiCad 5 netlist.
 
 import os.path
 import time
+import uuid
 
 from skidl.pckg_info import __version__
 from skidl.scriptinfo import scriptinfo
 from skidl.utilities import add_quotes, export_to_all
 
+# This UUID was generated using uuidgen for passing as the namespace argument to uuid.uuid5().
+namespace_uuid = uuid.UUID("7026fcc6-e1a0-409e-aaf4-6a17ea82654f")
 
 def gen_netlist_comp(part):
     """Generate the netlist text describing a component.
@@ -33,13 +36,18 @@ def gen_netlist_comp(part):
     footprint = getattr(part, "footprint", "")
     footprint = add_quotes(footprint)
 
-    lib_filename = getattr(getattr(part, "lib", ""), "filename", "NO_LIB")
+    lib_filename = add_quotes(getattr(getattr(part, "lib", ""), "filename", "NO_LIB"))
     part_name = add_quotes(part.name)
 
-    # Embed the hierarchy along with a random integer into the sheetpath for each component.
+    # Embed the part hierarchy as a set of UUIDs into the sheetpath for each component.
     # This enables hierarchical selection in pcbnew.
-    hierarchy = add_quotes("/" + part.hierarchical_name.replace(HIER_SEP, "/"))
-    tstamps = hierarchy
+    sheetpath_pieces = part.hierarchy.split(HIER_SEP)
+    sheetpath = add_quotes("/".join(sheetpath_pieces))
+    sheetpath_tstamp = "/".join([
+        str(uuid.uuid5(namespace_uuid, piece))
+        for piece in sheetpath_pieces
+    ])
+    part_tstamp = str(uuid.uuid5(namespace_uuid, part.hierarchical_name))
 
     fields = ""
     for fld_name, fld_value in part.fields.items():
@@ -59,7 +67,9 @@ def gen_netlist_comp(part):
         + "      (footprint {footprint})\n"
         + "{fields}"
         + "      (libsource (lib {lib_filename}) (part {part_name}))\n"
-        + "      (sheetpath (names {hierarchy}) (tstamps {tstamps})))"
+        + "      (sheetpath (names {sheetpath}) (tstamps {sheetpath_tstamp}))\n"
+        + "      (tstamps {part_tstamp})\n"
+        + "    )\n"
     )
     txt = template.format(**locals())
     return txt
