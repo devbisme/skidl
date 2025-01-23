@@ -3,7 +3,7 @@
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """
-Generate KiCad 5 netlist.
+Generate KiCad 8 netlist.
 """
 
 import os.path
@@ -43,11 +43,11 @@ def gen_netlist_comp(part):
     # This enables hierarchical selection in pcbnew.
     sheetpath_pieces = part.hierarchy.split(HIER_SEP)
     sheetpath = add_quotes("/".join(sheetpath_pieces))
-    sheetpath_tstamp = "/".join([
+    sheetpath_tstamp = add_quotes("/".join([
         str(uuid.uuid5(namespace_uuid, piece))
         for piece in sheetpath_pieces
-    ])
-    part_tstamp = str(uuid.uuid5(namespace_uuid, part.hierarchical_name))
+    ]))
+    part_tstamp = add_quotes(str(uuid.uuid5(namespace_uuid, part.hierarchical_name)))
 
     fields = ""
     for fld_name, fld_value in part.fields.items():
