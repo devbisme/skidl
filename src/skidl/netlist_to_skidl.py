@@ -165,7 +165,7 @@ class HierarchicalConverter:
             props.append(f"description='{desc}'")
             
         # Add tag for reference
-        props.append(f"tag='{ref}'")  # Preserve reference designator
+        props.append(f"ref='{ref}'")  # Preserve reference designator
             
         # Add all additional properties from netlist
         if hasattr(comp, 'properties'):
