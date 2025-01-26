@@ -137,11 +137,6 @@ class HierarchicalConverter:
             
         return legalized
 
-    def get_net_name(self, name: str) -> str:
-        """Get the original net name, preserving case and special characters."""
-        # Just remove leading slashes and spaces
-        return name.lstrip('/ ')
-
     def component_to_skidl(self, comp: object) -> str:
         """Convert component to SKiDL instantiation with all properties."""
         ref = comp.ref  # Keep original reference
@@ -237,7 +232,7 @@ class HierarchicalConverter:
         if local_nets:
             code.append(f"{self.tab}# Local nets\n")
             for net in local_nets:
-                original_name = self.get_net_name(net)
+                original_name = net
                 legal_name = self.legalize_name(original_name)
                 code.append(f"{self.tab}{legal_name} = Net('{original_name}')\n")
             code.append("\n")
@@ -292,7 +287,7 @@ class HierarchicalConverter:
         
         for net in sorted(global_nets):
             if not net.startswith('unconnected'):
-                original_name = self.get_net_name(net)
+                original_name = net
                 legal_name = self.legalize_name(original_name)
                 code.append(f"{self.tab}{legal_name} = Net('{original_name}')\n")
         
