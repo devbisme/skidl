@@ -29,9 +29,8 @@ with open("HISTORY.rst") as history_file:
 requirements = [
     "future >= 0.15.0",
     "sexpdata == 1.0.0",
-    "kinparse >= 1.2.1",
-    "kinet2pcb >= 1.1.0",
-    # 'enum34; python_version < "3.0"',
+    "kinparse >= 1.2.2",
+    "kinet2pcb >= 1.1.2",
     #'PySpice; python_version >= "3.0"',
     "graphviz",
     "deprecation",
