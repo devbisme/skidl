@@ -4,6 +4,12 @@ History
 -------
 
 
+2.0.2 (2025-XX-XX)
+______________________
+- Fixed #238: tstamps were incorrectly generated for netlist files.
+- `netlist_to_skidl` no generates SKiDL code that mirrors the hierarchy found in the netlist.
+
+
 2.0.1 (2024-12-11)
 ______________________
 - Fixed #233: Imported `active_logger` into generate_schematic.py of KiCad 6, 7, 8.
