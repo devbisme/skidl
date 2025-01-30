@@ -187,3 +187,20 @@ def test_gen_pcb():
     """Test generating PCB."""
     esp32 = Part('RF_Module','ESP32-WROOM-32', footprint='RF_Module:ESP32-WROOM-32')
     generate_pcb()
+
+def test_global_net_names():
+    RR = Part('Device', 'R', dest=TEMPLATE)
+    RR1 = RR(value='1M')
+    RR2 = RR(value='2M')
+    RR3 = RR(value='3M')
+
+    (RR1 & RR2) | RR3 # results in `N$2` and `N$3`
+    RR1[1] += Net('net1')
+    RR2[2] += Net('net2')
+    #(RR1 & RR2) | RR3 # results in `net1` and `net2`
+
+    generate_netlist()
+
+    assert RR1[1].net.name == 'net1'
+    assert RR2[2].net.name == 'net2'
+
