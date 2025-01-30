@@ -8,11 +8,11 @@ def main():
     # Create nets
     _p_3V3 = Net('+3V3')
     _p_5V = Net('+5V')
-    _3v3_monitor = Net('3v3_monitor')
-    _5v_monitor = Net('5v_monitor')
-    D_p = Net('D+')
-    D_n = Net('D-')
-    esp32s3mini1_HW_VER = Net('esp32s3mini1/HW_VER')
+    _3v3_monitor = Net('/3v3_monitor')
+    _5v_monitor = Net('/5v_monitor')
+    D_p = Net('/D+')
+    D_n = Net('/D-')
+    esp32s3mini1_HW_VER = Net('/esp32s3mini1/HW_VER')
     GND = Net('GND')
 
     # Create subcircuits

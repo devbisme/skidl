@@ -4,15 +4,15 @@ from skidl import *
 @subcircuit
 def _3v3_regulator(_p_3V3, _p_5V, _3v3_monitor, _5v_monitor, GND):
     # Components
-    C2 = Part('Device', 'C', value='10uF', footprint='Capacitor_SMD:C_0603_1608Metric', tag='C2', Sheetname='3v3_regulator', Sheetfile='power2.kicad_sch', ki_keywords='cap capacitor', ki_fp_filters='C_*')
-    C3 = Part('Device', 'C', value='10uF', footprint='Capacitor_SMD:C_0603_1608Metric', tag='C3', Sheetname='3v3_regulator', Sheetfile='power2.kicad_sch', ki_keywords='cap capacitor', ki_fp_filters='C_*')
-    C5 = Part('Device', 'C', value='100nF', footprint='Capacitor_SMD:C_0603_1608Metric', tag='C5', Sheetname='3v3_regulator', Sheetfile='power2.kicad_sch', ki_keywords='cap capacitor', ki_fp_filters='C_*')
-    C9 = Part('Device', 'C', value='100nF', footprint='Capacitor_SMD:C_0603_1608Metric', tag='C9', Sheetname='3v3_regulator', Sheetfile='power2.kicad_sch', ki_keywords='cap capacitor', ki_fp_filters='C_*')
-    R2 = Part('Device', 'R', value='2k', footprint='Resistor_SMD:R_0603_1608Metric', tag='R2', Sheetname='3v3_regulator', Sheetfile='power2.kicad_sch', ki_keywords='R res resistor', ki_fp_filters='R_*')
-    R3 = Part('Device', 'R', value='1k', footprint='Resistor_SMD:R_0603_1608Metric', tag='R3', Sheetname='3v3_regulator', Sheetfile='power2.kicad_sch', ki_keywords='R res resistor', ki_fp_filters='R_*')
-    R7 = Part('Device', 'R', value='1k', footprint='Resistor_SMD:R_0603_1608Metric', tag='R7', Sheetname='3v3_regulator', Sheetfile='power2.kicad_sch', ki_keywords='R res resistor', ki_fp_filters='R_*')
-    R8 = Part('Device', 'R', value='2k', footprint='Resistor_SMD:R_0603_1608Metric', tag='R8', Sheetname='3v3_regulator', Sheetfile='power2.kicad_sch', ki_keywords='R res resistor', ki_fp_filters='R_*')
-    U1 = Part('Regulator_Linear', 'NCP1117-3.3_SOT223', value='NCP1117-3.3_SOT223', footprint='Package_TO_SOT_SMD:SOT-223-3_TabPin2', tag='U1', Sheetname='3v3_regulator', Sheetfile='power2.kicad_sch', ki_keywords='REGULATOR LDO 3.3V', ki_fp_filters='SOT?223*TabPin2*')
+    C2 = Part('Device', 'C', value='10uF', footprint='Capacitor_SMD:C_0603_1608Metric', ref='C2', Sheetname='3v3_regulator', Sheetfile='power2.kicad_sch', ki_keywords='cap capacitor', ki_fp_filters='C_*')
+    C3 = Part('Device', 'C', value='10uF', footprint='Capacitor_SMD:C_0603_1608Metric', ref='C3', Sheetname='3v3_regulator', Sheetfile='power2.kicad_sch', ki_keywords='cap capacitor', ki_fp_filters='C_*')
+    C5 = Part('Device', 'C', value='100nF', footprint='Capacitor_SMD:C_0603_1608Metric', ref='C5', Sheetname='3v3_regulator', Sheetfile='power2.kicad_sch', ki_keywords='cap capacitor', ki_fp_filters='C_*')
+    C9 = Part('Device', 'C', value='100nF', footprint='Capacitor_SMD:C_0603_1608Metric', ref='C9', Sheetname='3v3_regulator', Sheetfile='power2.kicad_sch', ki_keywords='cap capacitor', ki_fp_filters='C_*')
+    R2 = Part('Device', 'R', value='2k', footprint='Resistor_SMD:R_0603_1608Metric', ref='R2', Sheetname='3v3_regulator', Sheetfile='power2.kicad_sch', ki_keywords='R res resistor', ki_fp_filters='R_*')
+    R3 = Part('Device', 'R', value='1k', footprint='Resistor_SMD:R_0603_1608Metric', ref='R3', Sheetname='3v3_regulator', Sheetfile='power2.kicad_sch', ki_keywords='R res resistor', ki_fp_filters='R_*')
+    R7 = Part('Device', 'R', value='1k', footprint='Resistor_SMD:R_0603_1608Metric', ref='R7', Sheetname='3v3_regulator', Sheetfile='power2.kicad_sch', ki_keywords='R res resistor', ki_fp_filters='R_*')
+    R8 = Part('Device', 'R', value='2k', footprint='Resistor_SMD:R_0603_1608Metric', ref='R8', Sheetname='3v3_regulator', Sheetfile='power2.kicad_sch', ki_keywords='R res resistor', ki_fp_filters='R_*')
+    U1 = Part('Regulator_Linear', 'NCP1117-3.3_SOT223', value='NCP1117-3.3_SOT223', footprint='Package_TO_SOT_SMD:SOT-223-3_TabPin2', ref='U1', Sheetname='3v3_regulator', Sheetfile='power2.kicad_sch', ki_keywords='REGULATOR LDO 3.3V', ki_fp_filters='SOT?223*TabPin2*')
 
 
     # Connections
