@@ -1172,6 +1172,7 @@ class Circuit(SkidlBaseObject):
 
         # self._cull_unconnected_parts()
         self._check_for_empty_footprints()
+        self.merge_net_names()
 
     @property
     def no_files(self):
