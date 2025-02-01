@@ -258,6 +258,7 @@ class HierarchicalConverter:
             conn = self.net_to_skidl(net, sheet)
             if conn:
                 code.append(conn)
+        code.append(f"{self.tab}return\n")
         
         return "".join(code)
 
