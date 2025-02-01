@@ -162,17 +162,14 @@ class HierarchicalConverter:
         # Add tag for reference
         props.append(f"ref='{ref}'")  # Preserve reference designator
             
-        # Add all additional properties from netlist
+        # Add all additional properties from netlist as part fields
+        extra_fields = {}
         if hasattr(comp, 'properties'):
             for prop in comp.properties:
                 if prop.name not in ['Reference', 'Value', 'Footprint', 'Datasheet', 'Description']:
-                    # Always quote values for certain properties
-                    if prop.name in ['Sheetname', 'Sheetfile'] or prop.name.startswith('ki_'):
-                        value = f"'{prop.value}'"
-                    else:
-                        # Quote property values that contain spaces
-                        value = f"'{prop.value}'" if ' ' in prop.value else prop.value
-                    props.append(f"{prop.name}={value}")
+                    extra_fields[prop.name] = prop.value
+        if extra_fields:
+            props.append(f"fields={repr(extra_fields)}")
             
         # Join all properties
         return f"{self.tab}{self.legalize_name(ref)} = Part({', '.join(props)})\n"
