@@ -356,19 +356,30 @@ class HierarchicalConverter:
         
         code.append("\n@subcircuit\n")
         
-        # Function parameters - for hierarchical sheets, include both imported and local nets.
-        nets_to_pass = set(sheet.imported_nets)
-        if sheet.parent:
-            nets_to_pass.update(sheet.local_nets)
-        params = []
-        for net in sorted(nets_to_pass):
-            if not net.startswith('unconnected'):
-                params.append(self.legalize_name(net))
-        if 'GND' not in params:
-            params.append('GND')
+        # Function parameters - collect nets that are actually used in this sheet
+        used_nets = set()
+        
+        # Only add nets if the sheet has components or children
+        if sheet.components or sheet.children:
+            for net in sorted(sheet.imported_nets):
+                if not net.startswith('unconnected'):
+                    # Check if net is actually used in this sheet
+                    if sheet.name in self.net_usage.get(net, {}):
+                        used_nets.add(self.legalize_name(net))
             
+            # Add local nets if this is not the top level
+            if sheet.parent:
+                for net in sorted(sheet.local_nets):
+                    if not net.startswith('unconnected'):
+                        if sheet.name in self.net_usage.get(net, {}):
+                            used_nets.add(self.legalize_name(net))
+
+            # Only include GND if it's actually used in this sheet
+            if 'GND' in self.net_usage and sheet.name in self.net_usage['GND']:
+                used_nets.add('GND')
+        
         func_name = self.legalize_name(sheet.name)
-        code.append(f"def {func_name}({', '.join(params)}):\n")
+        code.append(f"def {func_name}({', '.join(sorted(used_nets))}):\n")
         
         # Components
         if sheet.components:
@@ -379,7 +390,7 @@ class HierarchicalConverter:
         
         # Local nets
         local_nets = sorted(net for net in sheet.local_nets 
-                          if not net.startswith('unconnected'))
+                        if not net.startswith('unconnected'))
         if local_nets:
             code.append(f"{self.tab}# Local nets\n")
             for net in local_nets:
@@ -393,22 +404,29 @@ class HierarchicalConverter:
             code.append(f"\n{self.tab}# Hierarchical subcircuits\n")
             for child_path in sheet.children:
                 child_sheet = self.sheets[child_path]
-                func_name = self.legalize_name(child_sheet.name)
-                params = []
-                # Pass through the parent's nets to the child
+                child_func_name = self.legalize_name(child_sheet.name)
+                child_params = []
+                
+                # Only pass nets that the child sheet actually uses
                 for net in sorted(child_sheet.imported_nets):
                     if not net.startswith('unconnected'):
-                        params.append(self.legalize_name(net))
-                if 'GND' not in params:
-                    params.append('GND')
-                code.append(f"{self.tab}{func_name}({', '.join(params)})\n")
+                        if child_sheet.name in self.net_usage.get(net, {}):
+                            child_params.append(self.legalize_name(net))
+                
+                # Only pass GND if child uses it
+                if 'GND' in self.net_usage and child_sheet.name in self.net_usage['GND']:
+                    child_params.append('GND')
+                
+                code.append(f"{self.tab}{child_func_name}({', '.join(child_params)})\n")
 
         # Connections
-        code.append(f"\n{self.tab}# Connections\n")
-        for net in self.netlist.nets:
-            conn = self.net_to_skidl(net, sheet)
-            if conn:
-                code.append(conn)
+        if sheet.components:
+            code.append(f"\n{self.tab}# Connections\n")
+            for net in self.netlist.nets:
+                conn = self.net_to_skidl(net, sheet)
+                if conn:
+                    code.append(conn)
+        
         code.append(f"{self.tab}return\n")
         
         return "".join(code)
@@ -444,87 +462,6 @@ class HierarchicalConverter:
                             print(f"  - Imported net (path): {net_name}")
                             break
 
-    def create_sheet_code(self, sheet: Sheet) -> str:
-        """Generate SKiDL code for a sheet."""
-        code = [
-            "# -*- coding: utf-8 -*-\n",
-            "from skidl import *\n"
-        ]
-        
-        # Import child subcircuits
-        for child_path in sheet.children:
-            child_sheet = self.sheets[child_path]
-            module_name = self.legalize_name(child_sheet.name)
-            code.append(f"from {module_name} import {module_name}\n")
-        
-        code.append("\n@subcircuit\n")
-        
-        # Function parameters - collect all nets this sheet needs
-        nets_to_pass = set()
-        
-        # Include imported nets
-        nets_to_pass.update(sheet.imported_nets)
-        
-        # For sheets that create nets used by children, include those too
-        if sheet.children:
-            for net_name, hierarchy in self.net_hierarchy.items():
-                if hierarchy['origin_sheet'] == sheet.name:
-                    nets_to_pass.add(net_name)
-        
-        # Remove unconnected nets and create parameter list
-        params = []
-        for net in sorted(nets_to_pass):
-            if not net.startswith('unconnected'):
-                params.append(self.legalize_name(net))
-                
-        func_name = self.legalize_name(sheet.name)
-        code.append(f"def {func_name}({', '.join(params)}):\n")
-        
-        # Components
-        if sheet.components:
-            code.append(f"{self.tab}# Components\n")
-            for comp in sorted(sheet.components, key=lambda x: x.ref):
-                code.append(self.component_to_skidl(comp))
-            code.append("\n")
-        
-        # Create local nets
-        local_nets = sorted(net for net in sheet.local_nets 
-                        if not net.startswith('unconnected'))
-        if local_nets:
-            code.append(f"{self.tab}# Local nets\n")
-            for net in local_nets:
-                original_name = net
-                legal_name = self.legalize_name(original_name)
-                code.append(f"{self.tab}{legal_name} = Net('{original_name}')\n")
-            code.append("\n")
-        
-        # Hierarchical subcircuits
-        if sheet.children:
-            code.append(f"\n{self.tab}# Hierarchical subcircuits\n")
-            for child_path in sheet.children:
-                child_sheet = self.sheets[child_path]
-                func_name = self.legalize_name(child_sheet.name)
-                
-                # Build list of nets needed by child
-                child_nets = []
-                
-                # Include nets that are actually used in child
-                for net in sorted(child_sheet.imported_nets):
-                    if not net.startswith('unconnected'):
-                        child_nets.append(self.legalize_name(net))
-                        
-                code.append(f"{self.tab}{func_name}({', '.join(child_nets)})\n")
-        
-        # Connections
-        code.append(f"\n{self.tab}# Connections\n")
-        for net in self.netlist.nets:
-            conn = self.net_to_skidl(net, sheet)
-            if conn:
-                code.append(conn)
-                
-        code.append(f"{self.tab}return\n")
-        
-        return "".join(code)
 
     def create_main_file(self, output_dir: str):
         """Create the main.py file."""
@@ -543,19 +480,41 @@ class HierarchicalConverter:
             "\ndef main():\n",
         ])
         
+        # Only create GND net if any top-level sheets actually use it
+        needs_gnd = False
+        for sheet in self.sheets.values():
+            if not sheet.parent and sheet.name != 'main':
+                if 'GND' in self.net_usage and sheet.name in self.net_usage['GND']:
+                    needs_gnd = True
+                    break
+
+        if needs_gnd:
+            code.append(f"{self.tab}# Create global ground net\n")
+            code.append(f"{self.tab}gnd = Net('GND')\n\n")
+        
         # Call only top-level subcircuits
-        code.append(f"\n{self.tab}# Create subcircuits\n")
+        code.append(f"{self.tab}# Create subcircuits\n")
         for sheet in self.get_hierarchical_order():
-            if not sheet.parent and sheet.name != 'main':  
+            if not sheet.parent and sheet.name != 'main':
                 func_name = self.legalize_name(sheet.name)
-                params = []
                 
-                # Only pass nets that are actually used in the sheet
-                for net in sorted(sheet.imported_nets):
-                    if not net.startswith('unconnected'):
-                        params.append(self.legalize_name(net))
+                # Only process sheets that have components or children
+                if sheet.components or sheet.children:
+                    # Only include nets that are actually used in the sheet
+                    used_nets = []
+                    for net in sorted(sheet.imported_nets):
+                        if not net.startswith('unconnected'):
+                            if sheet.name in self.net_usage.get(net, {}):
+                                used_nets.append(self.legalize_name(net))
+                    
+                    # Only add GND if sheet actually uses it
+                    if 'GND' in self.net_usage and sheet.name in self.net_usage['GND']:
+                        used_nets.append('gnd')
                         
-                code.append(f"{self.tab}{func_name}({', '.join(params)})\n")
+                    code.append(f"{self.tab}{func_name}({', '.join(used_nets)})\n")
+                else:
+                    # Empty sheet with no components or children
+                    code.append(f"{self.tab}{func_name}()\n")
         
         code.extend([
             "\nif __name__ == \"__main__\":\n",
@@ -566,7 +525,7 @@ class HierarchicalConverter:
         main_path = Path(output_dir) / "main.py"
         main_path.write_text("".join(code))
 
-
+        
     def get_hierarchical_order(self):
         """Return sheets in dependency order."""
         ordered = []
