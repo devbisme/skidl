@@ -29,12 +29,15 @@ with open("HISTORY.rst") as history_file:
 requirements = [
     "future >= 0.15.0",
     "sexpdata == 1.0.0",
-    "kinparse >= 1.2.2",
+    "kinparse >= 1.2.3",
     "kinet2pcb >= 1.1.2",
-    #'PySpice; python_version >= "3.0"',
     "graphviz",
     "deprecation",
     "requests >= 2.31.0",
+    # New requirements for kicad_skidl_llm.py
+    "ast3",  # For ast parsing of Python files
+    "importlib-metadata",  # For importlib support
+    "typing-extensions",  # For type hints in Python <3.8
 ]
 
 test_requirements = [
