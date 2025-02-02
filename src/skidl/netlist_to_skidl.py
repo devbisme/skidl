@@ -361,41 +361,34 @@ class HierarchicalConverter:
             "# -*- coding: utf-8 -*-\n",
             "from skidl import *\n"
         ]
-        
-        # Import child subcircuits
+
+        # Import child subcircuits 
         for child_path in sheet.children:
             child_sheet = self.sheets[child_path]
             module_name = self.legalize_name(child_sheet.name)
             code.append(f"from {module_name} import {module_name}\n")
-        
+
         code.append("\n@subcircuit\n")
-        
-        # Function parameters - only include nets that are:
-        # 1. Used in this sheet but created in a parent OR
-        # 2. Created in this sheet and used by children
+
+        # Function parameters - only include nets that are used in this sheet 
+        # but created in an ancestor sheet
         required_nets = set()
-        
         for net_name, hierarchy in self.net_hierarchy.items():
             if net_name.startswith('unconnected'):
                 continue
                 
             origin = hierarchy['origin_sheet']
             used_in = hierarchy['used_in_sheets']
-            paths = hierarchy['path_to_children']
-            
-            # If net is used here but created in parent
-            if sheet.path in used_in and origin != sheet.path:
-                required_nets.add(net_name)
-                
-            # If net is created here and used by children
-            elif origin == sheet.path and any(sheet.path in path for path in paths):
-                for path in paths:
-                    if sheet.path in path:
+
+            if sheet.path in used_in:  # Net is used here
+                if origin != sheet.path:  # Net is created somewhere else
+                    # Check if origin is an ancestor
+                    sheet_path = self.get_sheet_hierarchy_path(sheet.path)
+                    if origin in sheet_path:
                         required_nets.add(net_name)
-                        break
 
         # Sort and legalize parameter names
-        params = [self.legalize_name(net) for net in sorted(required_nets)]    
+        params = [self.legalize_name(net) for net in sorted(required_nets)]
 
         func_name = self.legalize_name(sheet.name)
         code.append(f"def {func_name}({', '.join(params)}):\n")
