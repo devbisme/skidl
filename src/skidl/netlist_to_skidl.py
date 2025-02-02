@@ -109,39 +109,19 @@ class HierarchicalConverter:
     def find_optimal_net_origin(self, used_sheets, net_name):
         """
         Determine the optimal sheet to create a net based on hierarchy.
+        Returns (origin_sheet, paths_to_children) where:
+            - origin_sheet is the sheet where the net should be defined
+            - paths_to_children are the paths for passing the net to child sheets
         """
         # Single sheet usage - create in that sheet
         if len(used_sheets) == 1:
             return list(used_sheets)[0], []
-            
-        # Power nets belong in Project Architecture
-        if any(pwr in net_name for pwr in ['+3.3V', '+5V', 'GND', 'Vmotor']):
-            return 'Project Architecture', [list(used_sheets)]
-            
-        # Get sheet paths
+                
+        # Get sheet paths for all usage points
         sheet_paths = {sheet: self.get_sheet_hierarchy_path(sheet) 
                     for sheet in used_sheets}
-                    
-        # Check if sheets are children of Project Architecture
-        if 'Project Architecture' in self.sheets:
-            shared_nets = 0
-            for sheet in used_sheets:
-                path = sheet_paths.get(sheet, [])
-                if 'Project Architecture' in path:
-                    shared_nets += 1
-                    
-            # If multiple sheets under Project Architecture share this net,
-            # it should be created in Project Architecture
-            if shared_nets > 1:
-                paths = []
-                for sheet in used_sheets:
-                    if sheet != 'Project Architecture':
-                        path = self.get_path_between_sheets('Project Architecture', sheet)
-                        if path:
-                            paths.append(path)
-                return 'Project Architecture', paths
-
-        # If not in Project Architecture, find lowest common parent
+        
+        # Find the common ancestors among all paths
         common_ancestors = None
         for paths in sheet_paths.values():
             if common_ancestors is None:
@@ -149,27 +129,26 @@ class HierarchicalConverter:
             else:
                 common_ancestors &= set(paths)
                 
-        if common_ancestors:
-            lowest = max(common_ancestors, 
-                        key=lambda x: max(path.index(x) if x in path else -1 
-                                        for path in sheet_paths.values()))
-            
-            # Build paths from parent to children
-            paths = []
-            for sheet in used_sheets:
-                if sheet != lowest:
-                    path = sheet_paths[sheet]
-                    start_idx = path.index(lowest)
-                    child_path = path[start_idx:]
-                    if len(child_path) > 1:
-                        paths.append(child_path)
-            return lowest, paths
-            
-        # Default to Project Architecture for multi-sheet nets
-        if len(used_sheets) > 1 and 'Project Architecture' in self.sheets:
-            return 'Project Architecture', [list(used_sheets)]
-            
-        return list(used_sheets)[0], []
+        if not common_ancestors:
+            # If no common ancestors, place at root level
+            return '', []
+                
+        # Find highest common parent that contains all usage points
+        highest_common = min(common_ancestors, 
+                            key=lambda x: min(path.index(x) if x in path else float('inf') 
+                                            for path in sheet_paths.values()))
+        
+        # Build paths from parent to children
+        paths = []
+        for sheet in used_sheets:
+            if sheet != highest_common:
+                path = sheet_paths[sheet]
+                start_idx = path.index(highest_common)
+                child_path = path[start_idx:]
+                if len(child_path) > 1:  # Only add if there's a path to traverse
+                    paths.append(child_path)
+                    
+        return highest_common, paths
 
     def analyze_nets(self):
         """Analyze nets to determine hierarchy and relationships between sheets."""
@@ -241,7 +220,7 @@ class HierarchicalConverter:
         # Store the analysis results for use in code generation
         self.net_hierarchy = net_hierarchy
         self.net_usage = net_usage
-
+        
     def legalize_name(self, name: str, is_filename: bool = False) -> str:
         """Convert any name into a valid Python identifier."""
         # Remove leading slashes and spaces
@@ -415,17 +394,22 @@ class HierarchicalConverter:
             "\ndef main():\n",
         ])
         
-        # Only create GND net if any top-level sheets actually use it
-        needs_gnd = False
-        for sheet in self.sheets.values():
-            if not sheet.parent and sheet.name != 'main':
-                if 'GND' in self.net_usage and sheet.name in self.net_usage['GND']:
-                    needs_gnd = True
-                    break
+        # Find all nets that need to be created at the top level
+        top_level_nets = set()
+        for net_name, hierarchy in self.net_hierarchy.items():
+            if not net_name.startswith('unconnected'):
+                # If net originates at root level or is used across multiple top-level sheets
+                if (not hierarchy['origin_sheet'] or 
+                    len([s for s in hierarchy['used_in_sheets'] if not self.sheets[s].parent]) > 1):
+                    top_level_nets.add(net_name)
 
-        if needs_gnd:
-            code.append(f"{self.tab}# Create global ground net\n")
-            code.append(f"{self.tab}gnd = Net('GND')\n\n")
+        # Create all top-level nets
+        if top_level_nets:
+            code.append(f"{self.tab}# Create global nets\n")
+            for net_name in sorted(top_level_nets):
+                legal_name = self.legalize_name(net_name)
+                code.append(f"{self.tab}{legal_name} = Net('{net_name}')\n")
+            code.append("\n")
         
         # Call only top-level subcircuits
         code.append(f"{self.tab}# Create subcircuits\n")
@@ -435,18 +419,22 @@ class HierarchicalConverter:
                 
                 # Only process sheets that have components or children
                 if sheet.components or sheet.children:
-                    # Only include nets that are actually used in the sheet
-                    used_nets = []
-                    for net in sorted(sheet.imported_nets):
-                        if not net.startswith('unconnected'):
-                            if sheet.name in self.net_usage.get(net, {}):
-                                used_nets.append(self.legalize_name(net))
+                    # Get all nets that need to be passed to this sheet
+                    needed_nets = []
+                    for net_name in sorted(sheet.imported_nets):
+                        if not net_name.startswith('unconnected'):
+                            # Only include nets that are actually used in this sheet or its children
+                            sheet_path = self.get_sheet_hierarchy_path(sheet.name)
+                            net_usage = self.net_usage.get(net_name, {})
+                            is_used = False
+                            for usage_sheet in net_usage:
+                                if any(p == usage_sheet for p in sheet_path):
+                                    is_used = True
+                                    break
+                            if is_used:
+                                needed_nets.append(self.legalize_name(net_name))
                     
-                    # Only add GND if sheet actually uses it
-                    if 'GND' in self.net_usage and sheet.name in self.net_usage['GND']:
-                        used_nets.append('gnd')
-                        
-                    code.append(f"{self.tab}{func_name}({', '.join(used_nets)})\n")
+                    code.append(f"{self.tab}{func_name}({', '.join(needed_nets)})\n")
                 else:
                     # Empty sheet with no components or children
                     code.append(f"{self.tab}{func_name}()\n")
@@ -459,6 +447,7 @@ class HierarchicalConverter:
         
         main_path = Path(output_dir) / "main.py"
         main_path.write_text("".join(code))
+
 
     def get_hierarchical_order(self):
         """Return sheets in dependency order."""

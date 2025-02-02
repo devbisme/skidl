@@ -35,7 +35,6 @@ requirements = [
     "deprecation",
     "requests >= 2.31.0",
     # New requirements for kicad_skidl_llm.py
-    "ast3",  # For ast parsing of Python files
     "importlib-metadata",  # For importlib support
     "typing-extensions",  # For type hints in Python <3.8
 ]
