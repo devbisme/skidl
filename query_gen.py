@@ -29,41 +29,67 @@ TARGET_FILES = [
     'resistor_divider1.py',
     'test_examples.py',
     'USB.py',
+    'example_kicad_project.net',
+    'report.txt'
 ]
 
 # Message to add at the start of the output file
 INTRO_MESSAGE = """
 
-netlist_to_skidl.py is the source file for logic that converts a KiCad netlist to a SKiDL script.
+netlist_to_skidl.py is the source file for logic that converts a KiCad netlist into equivalent hierarchical SKiDL programs.
 
-This logic seems to work well for a complex KiCAD project.  See the files:
-    'main_control_board.py',
-    'Block_Diagram.py',
-    'Project_Architecture.py',
-    'Power_Info.py',
-    'Revision_History.py',
-    'Coral_TPU.py',
-    'ESP32S3.PY',
-    'Left_Leg.py',
-    'Right_Leg.py',
-    'Voltage_Regulators.py',    
+This logic works well for a complex KiCad project. See the following files for the complex project:
+    - main_control_board.py
+    - Block_Diagram.py
+    - Project_Architecture.py
+    - Power_Info.py
+    - Revision_History.py
+    - Coral_TPU.py
+    - ESP32S3.PY
+    - Left_Leg.py
+    - Right_Leg.py
+    - Voltage_Regulators.py
 
-However, this logic breaks when trying to convert a KiCAD netlist for a simple project.  See the files:
+However, when converting a KiCad netlist for a simple project (see these files):
+    - example_kicad_project.net (netlist file being processed)
+    - main_simple_project.py
+    - esp32s3mini1.py
+    - _3v3_regulator.py
+    - resistor_divider1.py
+    - test_examples.py
+    - USB.py
+    - report.txt
 
-    'main_simple_project.py',
-    'esp32s3mini1.py',
-    '_3v3_regulator.py',
-    'resistor_divider1.py',
-    'test_examples.py',
-    'USB.py',
+The logic seems to work fairly well except:
+- **esp32s3mini1() Parameter Issue:**  
+  The generated subcircuit definition for `esp32s3mini1` erroneously includes an argument named `esp32s3mini1_HW_VER`. This net is not needed as an external parameter for this subcircuit. After manually removing this argument and running the generated main file, the output netlist imports correctly into KiCad (see report.txt for import logs). The problem appears to be in the net analysis logic, where the converter mistakenly classifies the net named `/esp32s3mini1/HW_VER` as imported rather than local. The solution is to adjust the net classification so that if the net originates in the same sheet as the subcircuit (or is intended to be local), it is not passed in as a parameter.
 
-Analyze netlist_to_skidl.py to determine why it breaks for simple projects.  The goal is to make it work for both simple and complex projects. 
-The algorithm should be general enough that it works for any KiCAD project.  The algorithm should not be hard-coded to work for specific projects.
+- **main_control_board.py Subcircuit Calls:**  
+  In the complex project, the generated `main_control_board.py` does not call any of the subsheets. In other words, the top-level file fails to invoke the subcircuits (such as Block_Diagram, ESP32S3, Voltage_Regulators, etc.). This indicates that the logic used to decide which sheets are “top-level” (and thus should be called from main) is not detecting them properly. The net analysis and sheet‐hierarchy code must be adjusted so that the top‐level aggregator (or main sheet) correctly calls all its child subcircuits—even if some of them do not import any nets—so that the hierarchical structure is fully instantiated in the generated main file.
 
-Do not produce any code yet.  Just analyze the existing code and determine what changes are needed to make it work for both simple and complex projects.
-Ask me questions to clarify anything you do not fully understand.  Give me examples of what you are thinking.
+- **Project_Architecture() Parameter Issue:**  
+  The generated definition for `Project_Architecture()` (which serves as the top-level sheet for the board) erroneously includes many parameters (e.g. `_p_3_3V`, `_p_5V`, and several others). Since Project_Architecture.py is intended to be the top-level sheet (with its purpose being mainly to document the overall architecture), it should not require any externally passed parameters; it should instead define its own local nets (or rely on the global definitions created by main). This indicates that the converter’s heuristic for deciding which nets are “imported” (i.e. must be passed in as parameters) is treating nets used in Project_Architecture as imported rather than local. The solution is to modify the net classification logic so that for the top-level aggregator sheet, all nets that it uses are defined locally and no parameters are required.
+
+In summary, the underlying issue in both simple and complex projects is how the converter’s net analysis and sheet‐hierarchy logic decide whether a net is “imported” (and thus should appear as a function parameter) or “local” (defined inside the subcircuit). For the simple project, no parameters are passed to subcircuits (even though the design requires them), while for the complex project the top-level Project_Architecture subcircuit is erroneously given a long parameter list. The fix must be made purely through analysis (e.g. by comparing the sheet’s “origin” for a net versus its usage) rather than by hardcoding specific net or sheet names.
+
+**Where to Look for a Solution:**
+
+- **netlist_to_skidl.py:**  
+  • In the `analyze_nets()` method, review how nets are classified as local versus imported. The logic that checks whether a net “originates” in the same sheet should be adjusted so that, for example, the `/esp32s3mini1/HW_VER` net is marked as local (thus not passed in as a parameter to `esp32s3mini1`).  
+  • In the `create_main_file()` method, verify the conditions used to decide which sheets are “top-level” (i.e. those that should be called from main). The condition should not omit subcircuits from being called if they belong to the top-level hierarchy.
+  
+- **Sheet Hierarchy:**  
+  Examine how sheet parent/child relationships are built in `extract_sheet_info()` and how they influence the net analysis. Ensure that a top-level aggregator like Project_Architecture is treated as “local” for its nets, so that no external parameters are needed.
+
+- **Subcircuit Calls in main_simple_project.py and main_control_board.py:**  
+  Compare the generated main files for the simple and complex projects. The simple project should have calls like  
+  ```python
+  esp32s3mini1(_p_3V3, _3v3_monitor, _5v_monitor, D_p, D_n, GND)
+  _3v3_regulator(_p_3V3, _p_5V, _3v3_monitor, _5v_monitor, GND)
+  USB(_p_5V, D_p, D_n, GND)
 
 """
+
 
 #==============================================================================
 # Script Implementation - No need to modify below this line
