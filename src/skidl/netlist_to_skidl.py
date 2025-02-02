@@ -38,13 +38,18 @@ class HierarchicalConverter:
         """Build sheet hierarchy from netlist."""
         active_logger.info("=== Extracting Sheet Info ===")
         
+        # Create name-to-path mapping for sheet lookup
+        self.sheet_name_to_path = {}
+        
         # First pass: Create all sheets
         for sheet in self.netlist.sheets:
-            path = sheet.name.strip('/')
-            name = path.split('/')[-1] if path else 'main'
-            parent = '/'.join(path.split('/')[:-1]) if '/' in path else None
+            # Keep original name for use as key but clean for file/module names
+            original_name = sheet.name.strip('/')
+            path = original_name
+            name = original_name.split('/')[-1] if original_name else 'main'
+            parent = '/'.join(original_name.split('/')[:-1]) if '/' in original_name else None
             
-            self.sheets[path] = Sheet(
+            self.sheets[original_name] = Sheet(
                 number=sheet.number,
                 name=name,
                 path=path,
@@ -54,6 +59,9 @@ class HierarchicalConverter:
                 parent=parent,
                 children=[]
             )
+            
+            # Store mapping from sheet name to full path
+            self.sheet_name_to_path[name] = original_name
         
         # Second pass: Build parent-child relationships
         for sheet in self.sheets.values():
@@ -61,24 +69,61 @@ class HierarchicalConverter:
                 parent_sheet = self.sheets.get(sheet.parent)
                 if parent_sheet:
                     parent_sheet.children.append(sheet.path)
+                    
 
     def get_sheet_path(self, comp):
         """Get sheet path from component properties."""
         if isinstance(comp.properties, dict):
             return comp.properties.get('Sheetname', '')
         sheet_prop = next((p for p in comp.properties if p.name == 'Sheetname'), None)
-        return sheet_prop.value if sheet_prop else ''
+        # Preserve exact sheet name with spaces 
+        return sheet_prop.value.strip() if sheet_prop else ''
+
 
     def assign_components_to_sheets(self):
         """Assign components to their respective sheets."""
         active_logger.info("=== Assigning Components to Sheets ===")
+        unassigned_components = []
+        sheet_not_found = set()
+        
         for comp in self.netlist.parts:
             sheet_name = self.get_sheet_path(comp)
             if sheet_name:
-                for sheet in self.sheets.values():
-                    if sheet.name == sheet_name:
+                # Try to find sheet by name
+                sheet_found = False
+                for path, sheet in self.sheets.items():
+                    # Match using original sheet name from properties
+                    if sheet_name == sheet.name:
                         sheet.components.append(comp)
+                        sheet_found = True
                         break
+                        
+                if not sheet_found:
+                    sheet_not_found.add(sheet_name)
+                    unassigned_components.append(comp)
+            else:
+                unassigned_components.append(comp)
+        
+        # Log warnings for unassigned components and missing sheets
+        if sheet_not_found:
+            active_logger.warning(f"Sheets not found in netlist: {sorted(sheet_not_found)}")
+            active_logger.warning("Components in these sheets will be assigned to root level")
+        
+        if unassigned_components:
+            active_logger.warning(f"Found {len(unassigned_components)} unassigned components")
+            # Assign unassigned components to root sheet
+            root = self.sheets.get('', None)
+            if not root:
+                root = Sheet(
+                    number='0',
+                    name='main',
+                    path='',
+                    components=[],
+                    local_nets=set(),
+                    imported_nets=set()
+                )
+                self.sheets[''] = root
+            root.components.extend(unassigned_components)
 
     def get_sheet_hierarchy_path(self, sheet_name):
         """Get the full hierarchical path from root to given sheet."""
@@ -167,8 +212,13 @@ class HierarchicalConverter:
                     if comp.ref == pin.ref:
                         sheet_name = self.get_sheet_path(comp)
                         if sheet_name:
-                            net_usage[net.name][sheet_name].add(f"{comp.ref}.{pin.num}")
-                            active_logger.debug(f"  - Used in sheet '{sheet_name}' by pin {comp.ref}.{pin.num}")
+                            # Convert sheet name to full path
+                            sheet_path = self.sheet_name_to_path.get(sheet_name)
+                            if sheet_path:
+                                net_usage[net.name][sheet_path].add(f"{comp.ref}.{pin.num}")
+                                active_logger.debug(f"  - Used in sheet '{sheet_name}' by pin {comp.ref}.{pin.num}")
+                            else:
+                                active_logger.warning(f"Sheet not found for component {comp.ref}: {sheet_name}")
         
         active_logger.info("2. Analyzing Net Origins and Hierarchy:")
         # Second pass: Determine net origins and build hierarchy
