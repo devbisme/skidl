@@ -34,7 +34,6 @@ requirements = [
     "graphviz",
     "deprecation",
     "requests >= 2.31.0",
-    # New requirements for kicad_skidl_llm.py
     "importlib-metadata",  # For importlib support
     "typing-extensions",  # For type hints in Python <3.8
 ]
