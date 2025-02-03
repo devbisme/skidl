@@ -5,7 +5,8 @@ from datetime import datetime
 import time
 import os
 import requests
-from openai import OpenAI 
+from openai import OpenAI
+from .logger import active_logger  # Import the active_logger
 
 # API configuration
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
@@ -76,11 +77,11 @@ class SkidlCircuitAnalyzer:
             verbose: Whether to print progress messages
         """
         if verbose:
-            print(f"\nSaving analysis to {output_file}...")
+            active_logger.info(f"\nSaving analysis to {output_file}...")
         with open(output_file, "w") as f:
             f.write(analysis_text)
         if verbose:
-            print("Analysis saved successfully")
+            active_logger.info("Analysis saved successfully")
 
     def _generate_analysis_prompt(self, circuit_description: str) -> str:
         """
@@ -144,7 +145,7 @@ class SkidlCircuitAnalyzer:
         # Show appropriate default model based on backend
         display_model = self.model if self.model else (DEFAULT_OLLAMA_MODEL if self.backend == "ollama" else DEFAULT_MODEL)
         if verbose:
-            print(f"\n=== {'Saving Query' if save_query_only else 'Starting Circuit Analysis'} with {display_model} ===")
+            active_logger.info(f"\n=== {'Saving Query' if save_query_only else 'Starting Circuit Analysis'} with {display_model} ===")
         
         try:
             # Generate the analysis prompt
@@ -155,7 +156,7 @@ class SkidlCircuitAnalyzer:
                 if output_file:
                     self._save_analysis(output_file, prompt, verbose)
                     if verbose:
-                        print("\n=== Query saved successfully ===")
+                        active_logger.info("\n=== Query saved successfully ===")
                 return {
                     "success": True,
                     "query": prompt,
@@ -164,7 +165,7 @@ class SkidlCircuitAnalyzer:
                 }
             
             if verbose:
-                print("\nGenerating analysis...")
+                active_logger.info("\nGenerating analysis...")
             
             # Get analysis from selected backend with retries
             request_start = time.time()
@@ -257,7 +258,7 @@ class SkidlCircuitAnalyzer:
                 self._save_analysis(output_file, analysis_text, verbose)
             
             if verbose:
-                print(f"\n=== Analysis completed in {results['total_time_seconds']:.2f} seconds ===")
+                active_logger.info(f"\n=== Analysis completed in {results['total_time_seconds']:.2f} seconds ===")
             
             return results
             
@@ -270,17 +271,17 @@ class SkidlCircuitAnalyzer:
             }
             
             if verbose:
-                print(f"\nERROR: Analysis failed: {str(e)}")
+                active_logger.error(f"\nERROR: Analysis failed: {str(e)}")
             
             if output_file:
                 if verbose:
-                    print(f"\nSaving error message to {output_file}...")
+                    active_logger.info(f"\nSaving error message to {output_file}...")
                 with open(output_file, "w") as f:
                     f.write(f"Analysis failed: {error_results['error']}")
                 if verbose:
-                    print("Error message saved")
+                    active_logger.info("Error message saved")
             
             if verbose:
-                print("\n=== Analysis failed ===")
+                active_logger.info("\n=== Analysis failed ===")
             
             return error_results

@@ -11,7 +11,9 @@ from collections import defaultdict
 from dataclasses import dataclass
 from typing import List, Set
 from kinparse import parse_netlist
-# Removed logger import
+from .logger import active_logger  # Import the active_logger
+
+from dataclasses import dataclass
 
 @dataclass
 class Sheet:
@@ -120,7 +122,7 @@ class HierarchicalConverter:
 
     def extract_sheet_info(self):
         """Populate self.sheets with Sheet objects built from the netlist."""
-        print("=== Extracting Sheet Info ===")
+        active_logger.info("=== Extracting Sheet Info ===")
         self.sheet_name_to_path = {}
         for sheet in self.netlist.sheets:
             original_name = sheet.name.strip('/')
@@ -144,7 +146,9 @@ class HierarchicalConverter:
                 children=[]
             )
             self.sheet_name_to_path[name] = original_name
-            print(f"  Found sheet: original_name='{original_name}', final='{name}', parent='{parent}'")
+            active_logger.info(
+                f"  Found sheet: original_name='{original_name}', final='{name}', parent='{parent}'"
+            )
             
         # Set up parent-child relationships
         for sheet in self.sheets.values():
@@ -167,9 +171,11 @@ class HierarchicalConverter:
                     sheet.parent = "main"
                     root.children.append(sheet.path)
 
-        print("=== Completed extracting sheet info ===")
+        active_logger.info("=== Completed extracting sheet info ===")
         for sheet_path, sheet in self.sheets.items():
-            print(f"   sheet path='{sheet_path}', parent='{sheet.parent}', children={sheet.children}")
+            active_logger.info(
+                f"   sheet path='{sheet_path}', parent='{sheet.parent}', children={sheet.children}"
+            )
             
     def is_descendant(self, potential_child, ancestor):
         """Check if one sheet is a descendant of another in the hierarchy."""
@@ -182,7 +188,7 @@ class HierarchicalConverter:
 
     def assign_components_to_sheets(self):
         """Assign each component from the netlist to its appropriate sheet."""
-        print("=== Assigning Components to Sheets ===")
+        active_logger.info("=== Assigning Components to Sheets ===")
         unassigned_components = []
         sheet_not_found = set()
         for comp in self.netlist.parts:
@@ -200,10 +206,14 @@ class HierarchicalConverter:
             else:
                 unassigned_components.append(comp)
         if sheet_not_found:
-            print(f"WARNING: Sheets not found in netlist: {sorted(sheet_not_found)}")
-            print("WARNING: Components in these sheets will be assigned to root level")
+            active_logger.warning(
+                f"WARNING: Sheets not found in netlist: {sorted(sheet_not_found)}"
+            )
+            active_logger.warning("WARNING: Components in these sheets will be assigned to root level")
         if unassigned_components:
-            print(f"WARNING: Found {len(unassigned_components)} unassigned components")
+            active_logger.warning(
+                f"WARNING: Found {len(unassigned_components)} unassigned components"
+            )
             root = self.sheets.get("main", None)
             if not root:
                 root = Sheet(
@@ -344,13 +354,13 @@ class HierarchicalConverter:
 
     def analyze_nets(self):
         """Analyze net usage to determine origins and required connections."""
-        print("=== Starting Net Analysis ===")
+        active_logger.info("=== Starting Net Analysis ===")
         net_usage = defaultdict(lambda: defaultdict(set))
         
-        print("1. Mapping Net Usage Across Sheets:")
+        active_logger.info("1. Mapping Net Usage Across Sheets:")
         # Map which nets are used in which sheets
         for net in self.netlist.nets:
-            print(f"\nAnalyzing net: {net.name}")
+            active_logger.info(f"\nAnalyzing net: {net.name}")
             for pin in net.pins:
                 for comp in self.netlist.parts:
                     if comp.ref == pin.ref:
@@ -359,12 +369,12 @@ class HierarchicalConverter:
                             sheet_path = self.sheet_name_to_path.get(sheet_name)
                             if sheet_path:
                                 net_usage[net.name][sheet_path].add(f"{comp.ref}.{pin.num}")
-                                print(f"  - Used in sheet '{sheet_name}' by pin {comp.ref}.{pin.num}")
+                                active_logger.info(f"  - Used in sheet '{sheet_name}' by pin {comp.ref}.{pin.num}")
 
-        print("2. Analyzing Net Origins and Hierarchy:")
+        active_logger.info("2. Analyzing Net Origins and Hierarchy:")
         net_hierarchy = {}
         for net_name, sheet_usages in net_usage.items():
-            print(f"\nNet: {net_name}")
+            active_logger.info(f"\nNet: {net_name}")
             used_sheets = set(sheet_usages.keys())
             origin_sheet, paths_to_children = self.find_optimal_net_origin(used_sheets, net_name)
             net_hierarchy[net_name] = {
@@ -372,11 +382,11 @@ class HierarchicalConverter:
                 'used_in_sheets': used_sheets,
                 'path_to_children': paths_to_children
             }
-            print(f"  - Origin sheet: {origin_sheet}")
-            print(f"  - Used in sheets: {used_sheets}")
-            print(f"  - Paths to children: {[' -> '.join(path) for path in paths_to_children]}")
+            active_logger.info(f"  - Origin sheet: {origin_sheet}")
+            active_logger.info(f"  - Used in sheets: {used_sheets}")
+            active_logger.info(f"  - Paths to children: {[' -> '.join(path) for path in paths_to_children]}")
 
-        print("3. Classifying local vs imported nets:")
+        active_logger.info("3. Classifying local vs imported nets:")
         # Clear any existing net classifications
         for sheet in self.sheets.values():
             sheet.local_nets.clear()
@@ -384,11 +394,11 @@ class HierarchicalConverter:
         
         # Process each sheet
         for sheet_path, sheet in self.sheets.items():
-            print(f"  Checking sheet: '{sheet.name}', path='{sheet_path}' with parent='{sheet.parent}'")
+            active_logger.info(f"  Checking sheet: '{sheet.name}', path='{sheet_path}' with parent='{sheet.parent}'")
             
             # Top level sheet doesn't import nets
             if sheet.parent is None:
-                print(f"  Top-level sheet: '{sheet_path}' => clearing imported_nets.")
+                active_logger.info(f"  Top-level sheet: '{sheet_path}' => clearing imported_nets.")
                 continue
                 
             for net_name, hierarchy in net_hierarchy.items():
@@ -418,22 +428,22 @@ class HierarchicalConverter:
                     
                 if is_local:
                     sheet.local_nets.add(net_name)
-                    print(f"    Net {net_name} is local (origin in this sheet).")
+                    active_logger.info(f"    Net {net_name} is local (origin in this sheet).")
                 else:
                     sheet.imported_nets.add(net_name)
-                    print(f"    Net {net_name} is imported here.")
+                    active_logger.info(f"    Net {net_name} is imported here.")
 
         self.net_hierarchy = net_hierarchy
         self.net_usage = net_usage
-        print("=== Completed net analysis ===")
+        active_logger.info("=== Completed net analysis ===")
         
         # Print summary for each sheet
         for sheet_path, sheet in self.sheets.items():
-            print(f"Sheet '{sheet_path}': local_nets={sheet.local_nets}, imported_nets={sheet.imported_nets}")
+            active_logger.info(f"Sheet '{sheet_path}': local_nets={sheet.local_nets}, imported_nets={sheet.imported_nets}")
 
     def generate_sheet_code(self, sheet: Sheet) -> str:
         """Generate the SKiDL code for a given sheet."""
-        print(f"=== generate_sheet_code for sheet '{sheet.name}' ===")
+        active_logger.info(f"=== generate_sheet_code for sheet '{sheet.name}' ===")
         
         code = [
             "# -*- coding: utf-8 -*-\n",
@@ -506,7 +516,7 @@ class HierarchicalConverter:
         code.append(f"{self.tab}return\n")
         
         generated_code = "".join(code)
-        print(f"Generated code for sheet '{sheet.name}':\n{generated_code}")
+        active_logger.info(f"Generated code for sheet '{sheet.name}':\n{generated_code}")
         return generated_code
 
     def get_hierarchical_order(self):
@@ -542,15 +552,15 @@ class HierarchicalConverter:
         self.analyze_nets()
         if output_dir:
             os.makedirs(output_dir, exist_ok=True)
-            print(f"Generating files in {output_dir}")
+            active_logger.info(f"Generating files in {output_dir}")
             for sheet in self.sheets.values():
                 if sheet.name != 'main':
                     filename = self.legalize_name(sheet.name, is_filename=True) + '.py'
                     sheet_path = Path(output_dir) / filename
                     sheet_path.write_text(self.generate_sheet_code(sheet))
-                    print(f"Created sheet file: {sheet_path}")
+                    active_logger.info(f"Created sheet file: {sheet_path}")
             self.create_main_file(output_dir)
-            print("Conversion completed successfully")
+            active_logger.info("Conversion completed successfully")
         else:
             main_sheet = next((s for s in self.sheets.values() if not s.parent), None)
             if main_sheet:
