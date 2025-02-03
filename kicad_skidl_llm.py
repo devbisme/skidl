@@ -20,8 +20,18 @@ Operations:
 Key Features:
     - Safe discovery and analysis of SKiDL circuits using AST parsing
     - Support for both single-file and multi-file SKiDL projects
-    - Flexible LLM backend selection (OpenRouter API or local Ollama)
+    - Flexible LLM backend selection:
+         * OpenRouter (cloud-based): Note that model names must be set according 
+           to the OpenRouter naming standard.
+         * Ollama (local): If using this backend, ensure Ollama is installed locally.
     - Comprehensive error handling and reporting
+
+Additional Notes for Novice Users:
+    - Make sure you have KiCad 7.0+ installed. You must also point the script to the 
+      correct location of your KiCad CLI executable (using --kicad-cli) if it is not in the default path.
+    - For LLM analysis using OpenRouter, you must provide a valid API key with --api-key.
+    - Ensure that any LLM model name provided (via --model) adheres to the naming conventions 
+      required by the selected backend.
 
 Usage Examples:
     # Generate netlist and SKiDL project from schematic
@@ -33,19 +43,22 @@ Usage Examples:
     # Generate SKiDL from netlist and analyze using Ollama
     python kicad_skidl_llm.py --netlist circuit.net --generate-skidl --analyze --backend ollama
 
+    # Dump temporary analysis file for inspection
+    python kicad_skidl_llm.py --skidl-source myproject/ --analyze --api-key YOUR_KEY --dump-temp
+
 Known Limitations:
-    1. Memory usage may be high for projects with many subcircuits
-    2. Python path handling may need adjustment for complex project structures
-    3. Circular dependencies in SKiDL projects may cause issues
-    4. File encoding issues possible with non-UTF8 files
-    5. Large projects may hit API rate limits with cloud LLMs
+    1. Memory usage may be high for projects with many subcircuits.
+    2. Python path handling may need adjustment for complex project structures.
+    3. Circular dependencies in SKiDL projects may cause issues.
+    4. File encoding issues possible with non-UTF8 files.
+    5. Large projects may hit API rate limits with cloud LLMs.
 
 Dependencies:
     - Python 3.7+
     - KiCad 7.0+ (for schematic operations)
     - SKiDL
     - AST (standard library)
-    - Either OpenRouter API key or local Ollama installation
+    - Either OpenRouter API key (for cloud-based LLM analysis) or a local Ollama installation
 
 Author: [Your Name]
 Date: February 2024
@@ -61,15 +74,14 @@ import importlib
 import textwrap
 import traceback
 from pathlib import Path
-from typing import List, Dict, Optional, Union, Tuple
+from typing import List, Dict, Optional, Tuple
 import argparse
 from skidl import *
 
-
+# Custom exception to signal issues during circuit discovery and loading.
 class CircuitDiscoveryError(Exception):
     """Raised when there are issues discovering or loading circuits."""
     pass
-
 
 class CircuitAnalyzer:
     """
@@ -79,7 +91,12 @@ class CircuitAnalyzer:
     - Finding @subcircuit decorated functions in Python files
     - Safely loading and executing discovered circuits
     - Running LLM analysis on circuits
-    
+
+    Note for LLM Analysis:
+      The default LLM analysis uses OpenRouter. This means that any LLM model name
+      provided must follow OpenRouter's naming standards. Alternatively, you can choose
+      the 'ollama' backend for local analysis if you have Ollama installed.
+      
     The analyzer uses AST parsing to discover circuits without executing
     potentially unsafe code, then creates isolated environments for
     circuit execution and analysis.
@@ -100,6 +117,7 @@ class CircuitAnalyzer:
             List of dicts containing:
                 - 'file': Path to Python file
                 - 'function': Name of decorated function
+                - 'lineno': Line number where the function is defined
                 
         Raises:
             CircuitDiscoveryError: If no valid Python files found
@@ -138,6 +156,12 @@ class CircuitAnalyzer:
     ) -> Tuple[Path, str]:
         """
         Create a temporary Python module that imports and executes discovered subcircuits.
+        The generated module creates dummy SKiDL nets for any parameters required by the 
+        subcircuit functions, allowing them to be called without errors.
+        
+        This version groups the discovered functions by file and generates explicit
+        import statements (rather than wildcard imports) so that functions whose names
+        start with an underscore (e.g. _3v3_regulator) are imported correctly.
         
         Args:
             subcircuits: List of subcircuit information from find_subcircuits()
@@ -152,24 +176,42 @@ class CircuitAnalyzer:
             CircuitDiscoveryError: If module creation fails
         """
         analysis_file = output_dir / 'circuit_analysis.py'
-        
         try:
-            # Generate imports and function calls
+            # Generate import statements and helper function.
             code_lines = [
                 "from skidl import *\n",
-                "from skidl.tools import *\n"
+                "from skidl.tools import *\n",
+                "import inspect\n\n",
+                "# Helper function that creates dummy nets for required parameters.\n",
+                "def call_subcircuit(func):\n",
+                "    # If the function is wrapped, get the original.\n",
+                "    wrapped = getattr(func, '__wrapped__', func)\n",
+                "    sig = inspect.signature(wrapped)\n",
+                "    # Create a dummy net for each parameter\n",
+                "    dummy_args = [Net(param.name) for param in sig.parameters.values()]\n",
+                "    return func(*dummy_args)\n\n"
             ]
             
-            # Import each unique file containing subcircuits
-            unique_files = {s['file'] for s in subcircuits}
-            for file in unique_files:
-                module_name = Path(file).stem
-                code_lines.append(f"from {module_name} import *\n")
+            # Group discovered functions by file.
+            imports_by_file = {}
+            for s in subcircuits:
+                file = s['file']
+                func_name = s['function']
+                if file not in imports_by_file:
+                    imports_by_file[file] = set()
+                imports_by_file[file].add(func_name)
             
-            # Create main function to execute subcircuits
-            code_lines.append("\ndef main():\n")
-            for circuit in subcircuits:
-                code_lines.append(f"    {circuit['function']}()\n")
+            # Generate explicit import lines for each file.
+            for file, functions in imports_by_file.items():
+                module_name = Path(file).stem
+                funcs_str = ", ".join(sorted(functions))
+                code_lines.append(f"from {module_name} import {funcs_str}\n")
+            
+            # Create main function to execute each subcircuit via call_subcircuit.
+            code_lines.append("\n\ndef main():\n")
+            for s in subcircuits:
+                func_name = s['function']
+                code_lines.append(f"    call_subcircuit({func_name})\n")
             
             code = ''.join(code_lines)
             
@@ -190,22 +232,24 @@ class CircuitAnalyzer:
         api_key: Optional[str] = None,
         backend: str = 'openrouter',
         model: Optional[str] = None,
-        prompt: Optional[str] = None
+        prompt: Optional[str] = None,
+        dump_temp: bool = False
     ) -> dict:
         """
         Analyze circuits from a SKiDL source (file or directory).
         
         Handles both single file and project directory cases:
         - Single file: Imports and executes directly
-        - Directory: Finds @subcircuit functions and creates analysis module
+        - Directory: Finds @subcircuit functions and creates an analysis module
         
         Args:
             source: Path to SKiDL file or project directory
             output_file: Where to save analysis results
-            api_key: API key for cloud LLM service
+            api_key: API key for cloud LLM service (required for openrouter)
             backend: 'openrouter' or 'ollama'
-            model: Model name for selected backend
+            model: Model name for selected backend (model names must adhere to the backend's naming standard)
             prompt: Custom analysis prompt
+            dump_temp: If True, do not delete the temporary analysis module and output its location.
             
         Returns:
             Analysis results dictionary containing:
@@ -220,7 +264,7 @@ class CircuitAnalyzer:
             RuntimeError: For analysis failures
         """
         if source.is_file():
-            # Single file case - import directly
+            # Single file case - import directly.
             sys.path.insert(0, str(source.parent))
             try:
                 module = importlib.import_module(source.stem)
@@ -239,7 +283,7 @@ class CircuitAnalyzer:
                 sys.path.pop(0)
                 
         else:
-            # Directory case - find and analyze subcircuits
+            # Directory case - find and analyze subcircuits.
             try:
                 subcircuits = CircuitAnalyzer.find_subcircuits(source)
                 if not subcircuits:
@@ -262,17 +306,20 @@ class CircuitAnalyzer:
                     module.main()
                 finally:
                     sys.path.pop(0)
-                    try:
-                        analysis_module.unlink()  # Clean up temporary file
-                    except Exception as e:
-                        print(f"Warning: Failed to remove temporary module: {e}")
+                    if dump_temp:
+                        print(f"Temporary analysis module saved at: {analysis_module}")
+                    else:
+                        try:
+                            analysis_module.unlink()  # Clean up temporary file.
+                        except Exception as e:
+                            print(f"Warning: Failed to remove temporary module: {e}")
                         
             except Exception as e:
                 raise CircuitDiscoveryError(
                     f"Circuit discovery/execution failed: {str(e)}"
                 ) from e
 
-        # Run LLM analysis
+        # Run LLM analysis.
         try:
             analysis_kwargs = {
                 'output_file': output_file,
@@ -296,6 +343,12 @@ class CircuitAnalyzer:
 def validate_kicad_cli(path: str) -> str:
     """
     Validate that KiCad CLI exists and is executable.
+    
+    NOTE for novice users:
+      You may need to adjust the path to point to your local KiCad installation.
+      For example, on macOS the default might be:
+          /Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli
+      Change this value with the --kicad-cli parameter if necessary.
     
     Args:
         path: Path to kicad-cli executable
@@ -338,10 +391,13 @@ def parse_args() -> argparse.Namespace:
               
               # Generate SKiDL from netlist and analyze using Ollama
               %(prog)s --netlist circuit.net --generate-skidl --analyze --backend ollama
+              
+              # Dump the temporary analysis file for inspection:
+              %(prog)s --skidl-source myproject/ --analyze --api-key YOUR_KEY --dump-temp
             """)
     )
     
-    # Input source group (mutually exclusive)
+    # Input source group (mutually exclusive).
     source_group = parser.add_mutually_exclusive_group(required=True)
     source_group.add_argument(
         '--schematic', '-s',
@@ -356,7 +412,7 @@ def parse_args() -> argparse.Namespace:
         help='Path to SKiDL file or project directory'
     )
     
-    # Operation mode flags
+    # Operation mode flags.
     parser.add_argument(
         '--generate-netlist',
         action='store_true',
@@ -373,11 +429,11 @@ def parse_args() -> argparse.Namespace:
         help='Run LLM analysis on circuits'
     )
     
-    # Optional configuration
+    # Optional configuration.
     parser.add_argument(
         '--kicad-cli',
         default="/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli",
-        help='Path to kicad-cli executable'
+        help='Path to kicad-cli executable (adjust this if your KiCad installation is in a different location)'
     )
     parser.add_argument(
         '--output-dir', '-o',
@@ -386,17 +442,17 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         '--api-key',
-        help='OpenRouter API key for cloud LLM analysis'
+        help='OpenRouter API key for cloud LLM analysis (required for openrouter backend)'
     )
     parser.add_argument(
         '--backend',
         choices=['openrouter', 'ollama'],
         default='openrouter',
-        help='LLM backend to use'
+        help='LLM backend to use (default is openrouter; note that model names must follow OpenRouter naming standards)'
     )
     parser.add_argument(
         '--model',
-        help='LLM model name for selected backend'
+        help='LLM model name for selected backend (ensure the model name conforms to the backend\'s naming standard)'
     )
     parser.add_argument(
         '--analysis-output',
@@ -407,10 +463,15 @@ def parse_args() -> argparse.Namespace:
         '--analysis-prompt',
         help='Custom prompt for circuit analysis'
     )
+    parser.add_argument(
+        '--dump-temp',
+        action='store_true',
+        help='Keep and output the temporary SKiDL analysis file for manual inspection'
+    )
     
     args = parser.parse_args()
     
-    # Validate argument combinations
+    # Validate argument combinations.
     if args.generate_netlist and not args.schematic:
         parser.error("--generate-netlist requires --schematic")
     if args.generate_skidl and not (args.netlist or args.generate_netlist):
@@ -433,6 +494,9 @@ def main():
     The pipeline tracks state between steps and provides detailed
     error reporting for each stage.
     
+    Note: Ensure that you have configured the correct path for kicad-cli,
+    and that any LLM model names conform to the backend's naming requirements.
+    
     Raises:
         Various exceptions with descriptive messages for different
         failure modes.
@@ -440,15 +504,15 @@ def main():
     try:
         args = parse_args()
         
-        # Determine output directory
+        # Determine output directory.
         output_dir = Path(args.output_dir)
         output_dir.mkdir(parents=True, exist_ok=True)
         
-        # Track current state for pipeline
+        # Track current state for pipeline.
         current_netlist = None
         current_skidl = None
         
-        # 1. Generate netlist if requested
+        # 1. Generate netlist if requested.
         if args.schematic and args.generate_netlist:
             print("\nStep 1: Generating netlist from schematic...")
             schematic_path = Path(args.schematic)
@@ -457,10 +521,10 @@ def main():
             if schematic_path.suffix != '.kicad_sch':
                 raise ValueError(f"Input must be .kicad_sch file: {schematic_path}")
             
-            # Validate KiCad CLI
+            # Validate KiCad CLI; adjust the path via --kicad-cli if needed.
             kicad_cli = validate_kicad_cli(args.kicad_cli)
             
-            # Generate netlist
+            # Generate netlist using the KiCad CLI tool.
             netlist_path = output_dir / f"{schematic_path.stem}.net"
             try:
                 subprocess.run([
@@ -480,14 +544,14 @@ def main():
             current_netlist = netlist_path
             print(f"✓ Generated netlist: {netlist_path}")
             
-        # 2. Start from netlist if provided
+        # 2. Start from netlist if provided.
         elif args.netlist:
             current_netlist = Path(args.netlist)
             if not current_netlist.exists():
                 raise FileNotFoundError(f"Netlist not found: {current_netlist}")
             print(f"\nUsing existing netlist: {current_netlist}")
             
-        # 3. Generate SKiDL project if requested
+        # 3. Generate SKiDL project if requested.
         if current_netlist and args.generate_skidl:
             print("\nStep 2: Generating SKiDL project from netlist...")
             skidl_dir = output_dir / f"{current_netlist.stem}_SKIDL"
@@ -507,14 +571,14 @@ def main():
             current_skidl = skidl_dir
             print(f"✓ Generated SKiDL project: {skidl_dir}")
             
-        # 4. Start from SKiDL if provided
+        # 4. Start from SKiDL if provided.
         elif args.skidl_source:
             current_skidl = Path(args.skidl_source)
             if not current_skidl.exists():
                 raise FileNotFoundError(f"SKiDL source not found: {current_skidl}")
             print(f"\nUsing existing SKiDL source: {current_skidl}")
             
-        # 5. Run analysis if requested
+        # 5. Run analysis if requested.
         if args.analyze:
             if not current_skidl:
                 raise ValueError("No SKiDL source available for analysis")
@@ -527,7 +591,8 @@ def main():
                     api_key=args.api_key,
                     backend=args.backend,
                     model=args.model,
-                    prompt=args.analysis_prompt
+                    prompt=args.analysis_prompt,
+                    dump_temp=args.dump_temp
                 )
                 
                 if results["success"]:
