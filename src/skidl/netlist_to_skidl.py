@@ -118,7 +118,6 @@ class HierarchicalConverter:
             return f"{self.tab}{net_name} += {', '.join(pins)}\n"
         return ""
 
-
     def extract_sheet_info(self):
         """Populate self.sheets with Sheet objects built from the netlist."""
         print("=== Extracting Sheet Info ===")
@@ -217,7 +216,6 @@ class HierarchicalConverter:
                 )
                 self.sheets["main"] = root
             root.components.extend(unassigned_components)
-
 
     def create_main_file(self, output_dir: str):
         """Generate the main.py file that creates nets and calls subcircuits."""
