@@ -5,12 +5,13 @@ from datetime import datetime
 import time
 import os
 import requests
+from openai import OpenAI 
 
 # API configuration
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
 OLLAMA_API_URL = "http://localhost:11434/api/chat"
 DEFAULT_MODEL = "google/gemini-flash-1.5"
-DEFAULT_OLLAMA_MODEL = "mistral"
+DEFAULT_OLLAMA_MODEL = "llama3.2:latest"
 DEFAULT_TIMEOUT = 30
 DEFAULT_TEMPERATURE = 0.7
 DEFAULT_MAX_TOKENS = 20000
@@ -170,7 +171,6 @@ class SkidlCircuitAnalyzer:
             
             if self.backend == "openrouter":
                 # Use the OpenAI client to query OpenRouter
-                from openai import OpenAI  # Requires the OpenAI package configured for OpenRouter
                 client = OpenAI(
                     base_url="https://openrouter.ai/api/v1",
                     api_key=self.api_key,
@@ -181,16 +181,6 @@ class SkidlCircuitAnalyzer:
                     "HTTP-Referer": "https://github.com/devbisme/skidl",
                     "X-Title": "SKiDL Circuit Analyzer"
                 }
-                
-                # if verbose:
-                #     print("Sending payload to OpenRouter:")
-                #     print({
-                #         "model": self.model,
-                #         "messages": [{"role": "user", "content": prompt}],
-                #         "temperature": self.temperature,
-                #         "max_tokens": self.max_tokens,
-                #         "extra_headers": extra_headers,
-                #     })
                 
                 for attempt in range(MAX_RETRIES):
                     try:
