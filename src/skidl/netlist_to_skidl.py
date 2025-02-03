@@ -291,52 +291,67 @@ class HierarchicalConverter:
         self.net_usage = net_usage
 
     def create_main_file(self, output_dir: str):
-        """Generate the main.py file. (This file is not itself a subcircuit and will simply call the top‐level subcircuits.)"""
+        """Generate the main.py file that creates nets and calls subcircuits."""
         code = [
             "# -*- coding: utf-8 -*-\n",
             "from skidl import *\n"
         ]
-        # Import all sheets that are direct children of main (or have parent == 'main').
+
+        # Import all sheets that are direct children of main
         for sheet in self.sheets.values():
             if (sheet.parent is None or sheet.parent == 'main') and sheet.name != 'main':
                 module_name = self.legalize_name(sheet.name)
                 code.append(f"from {module_name} import {module_name}\n")
+
         code.extend([
             "\n\ndef main():\n",
             f"{self.tab}# Create global nets\n"
         ])
-        # Global nets: those whose origin is in main or that are used in more than one top-level sheet.
-        top_level_nets = set()
+
+        # Collect nets that need to be created at top level
+        global_nets = set()
         for net_name, hierarchy in self.net_hierarchy.items():
             if net_name.startswith('unconnected'):
                 continue
-            # A net is global if its origin is main or if it is used in more than one sheet with no parent.
-            top_usage = [s for s in hierarchy['used_in_sheets'] if (self.sheets[s].parent is None or self.sheets[s].parent=='main')]
-            if hierarchy['origin_sheet'] == "main" or len(top_usage) > 1:
-                top_level_nets.add(net_name)
-        if top_level_nets:
-            for net_name in sorted(top_level_nets):
-                legal_name = self.legalize_name(net_name)
-                code.append(f"{self.tab}{legal_name} = Net('{net_name}')\n")
-            code.append("\n")
-        # Call each top-level subcircuit unconditionally.
-        code.append(f"{self.tab}# Create subcircuits\n")
+            # A net is global if it's used in multiple top-level sheets
+            # or if main is determined to be its origin
+            if hierarchy['origin_sheet'] == 'main' or len([s for s in hierarchy['used_in_sheets'] 
+                        if (self.sheets[s].parent is None or self.sheets[s].parent=='main')]) > 1:
+                global_nets.add(net_name)
+
+        # Create nets at top level
+        for net_name in sorted(global_nets):
+            legal_name = self.legalize_name(net_name)
+            code.append(f"{self.tab}{legal_name} = Net('{net_name}')\n")
+
+        # Call each subcircuit with its required nets
+        code.append(f"\n{self.tab}# Create subcircuits\n")
         for sheet in self.get_hierarchical_order():
             if sheet.name == 'main':
                 continue
             if sheet.parent is None or sheet.parent == 'main':
                 func_name = self.legalize_name(sheet.name)
-                # For top-level sheets, we assume all nets are defined locally so no parameters are passed.
-                code.append(f"{self.tab}{func_name}()\n")
-        # Do not insert a recursive call to main().
+                
+                # Get list of nets this sheet imports (needs passed in)
+                params = []
+                for net_name in sorted(sheet.imported_nets):
+                    params.append(self.legalize_name(net_name))
+                
+                # Call subcircuit function with required nets
+                param_str = ', '.join(params)
+                code.append(f"{self.tab}{func_name}({param_str})\n")
+
+        # Add boilerplate
         code.extend([
             "\nif __name__ == \"__main__\":\n",
             f"{self.tab}main()\n",
             f"{self.tab}generate_netlist()\n"
         ])
+
+        # Write the file
         main_path = Path(output_dir) / "main.py"
         main_path.write_text("".join(code))
-
+        
     def generate_sheet_code(self, sheet: Sheet) -> str:
         """Generate the SKiDL code for a given sheet."""
         code = [
