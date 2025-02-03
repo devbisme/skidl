@@ -118,36 +118,6 @@ class HierarchicalConverter:
             return f"{self.tab}{net_name} += {', '.join(pins)}\n"
         return ""
 
-    def find_optimal_net_origin(self, used_sheets, net_name):
-        """Determine the sheet where the net should be defined and list paths for child usage."""
-        if len(used_sheets) == 1:
-            return list(used_sheets)[0], []
-        sheet_paths = {sheet: self.get_sheet_hierarchy_path(sheet) for sheet in used_sheets}
-        common_path = None
-        for path in sheet_paths.values():
-            if common_path is None:
-                common_path = path
-            else:
-                new_common = []
-                for s1, s2 in zip(common_path, path):
-                    if s1 == s2:
-                        new_common.append(s1)
-                    else:
-                        break
-                common_path = new_common
-        origin_sheet = common_path[-1] if common_path else ''
-        paths = []
-        for sheet in used_sheets:
-            if sheet != origin_sheet:
-                path = sheet_paths[sheet]
-                try:
-                    start_idx = path.index(origin_sheet)
-                    child_path = path[start_idx:]
-                    if len(child_path) > 1:
-                        paths.append(child_path)
-                except ValueError:
-                    continue
-        return origin_sheet, paths
 
     def extract_sheet_info(self):
         """Populate self.sheets with Sheet objects built from the netlist."""
@@ -175,6 +145,9 @@ class HierarchicalConverter:
                 children=[]
             )
             self.sheet_name_to_path[name] = original_name
+            print(f"  Found sheet: original_name='{original_name}', final='{name}', parent='{parent}'")
+            
+        # Set up parent-child relationships
         for sheet in self.sheets.values():
             if sheet.parent:
                 parent_sheet = self.sheets.get(sheet.parent)
@@ -194,6 +167,19 @@ class HierarchicalConverter:
                         self.sheets["main"] = root
                     sheet.parent = "main"
                     root.children.append(sheet.path)
+
+        print("=== Completed extracting sheet info ===")
+        for sheet_path, sheet in self.sheets.items():
+            print(f"   sheet path='{sheet_path}', parent='{sheet.parent}', children={sheet.children}")
+            
+    def is_descendant(self, potential_child, ancestor):
+        """Check if one sheet is a descendant of another in the hierarchy."""
+        current = potential_child
+        while current in self.sheets:
+            if current == ancestor:
+                return True
+            current = self.sheets[current].parent
+        return False
 
     def assign_components_to_sheets(self):
         """Assign each component from the netlist to its appropriate sheet."""
@@ -232,63 +218,6 @@ class HierarchicalConverter:
                 self.sheets["main"] = root
             root.components.extend(unassigned_components)
 
-    def analyze_nets(self):
-        """Analyze net usage to determine, for each net, which sheet is its origin and in which sheets it is used.
-        Then classify nets in each sheet as local (defined in the sheet) or imported (to be passed as a parameter)."""
-        print("=== Starting Net Analysis ===")
-        net_usage = defaultdict(lambda: defaultdict(set))
-        print("1. Mapping Net Usage Across Sheets:")
-        for net in self.netlist.nets:
-            print(f"\nAnalyzing net: {net.name}")
-            for pin in net.pins:
-                for comp in self.netlist.parts:
-                    if comp.ref == pin.ref:
-                        sheet_name = self.get_sheet_path(comp)
-                        if sheet_name:
-                            sheet_path = self.sheet_name_to_path.get(sheet_name)
-                            if sheet_path:
-                                net_usage[net.name][sheet_path].add(f"{comp.ref}.{pin.num}")
-                                print(f"  - Used in sheet '{sheet_name}' by pin {comp.ref}.{pin.num}")
-        print("2. Analyzing Net Origins and Hierarchy:")
-        net_hierarchy = {}
-        for net_name, sheet_usages in net_usage.items():
-            print(f"\nNet: {net_name}")
-            used_sheets = set(sheet_usages.keys())
-            origin_sheet, paths_to_children = self.find_optimal_net_origin(used_sheets, net_name)
-            net_hierarchy[net_name] = {
-                'origin_sheet': origin_sheet,
-                'used_in_sheets': used_sheets,
-                'path_to_children': paths_to_children
-            }
-            print(f"  - Origin sheet: {origin_sheet}")
-            print(f"  - Used in sheets: {used_sheets}")
-            print(f"  - Paths to children: {[' -> '.join(path) for path in paths_to_children]}")
-        # Now classify nets for each sheet.
-        for sheet in self.sheets.values():
-            # If a sheet has no parent (i.e. is top-level), we want it to be the net origin for all nets it uses.
-            # So we force its imported nets to be empty.
-            if sheet.parent is None:
-                sheet.imported_nets = set()
-            else:
-                sheet.local_nets.clear()
-                sheet.imported_nets.clear()
-                print(f"\nSheet: {sheet.name}")
-                for net_name, hierarchy in net_hierarchy.items():
-                    if net_name.startswith('unconnected'):
-                        continue
-                    # If the net originates in this sheet, mark it as local.
-                    if hierarchy['origin_sheet'] == sheet.path:
-                        sheet.local_nets.add(net_name)
-                    # Otherwise, if this sheet uses the net, mark it as imported.
-                    elif sheet.path in hierarchy['used_in_sheets']:
-                        sheet.imported_nets.add(net_name)
-                    else:
-                        for path in hierarchy['path_to_children']:
-                            if sheet.path in path:
-                                sheet.imported_nets.add(net_name)
-                                break
-        self.net_hierarchy = net_hierarchy
-        self.net_usage = net_usage
 
     def create_main_file(self, output_dir: str):
         """Generate the main.py file that creates nets and calls subcircuits."""
@@ -352,83 +281,235 @@ class HierarchicalConverter:
         main_path = Path(output_dir) / "main.py"
         main_path.write_text("".join(code))
         
+    def find_optimal_net_origin(self, used_sheets, net_name):
+        """Determine the sheet where the net should be defined and list paths for child usage.
+        
+        Args:
+            used_sheets: Set of sheet paths where the net is used
+            net_name: Name of the net being analyzed
+            
+        Returns:
+            Tuple of (origin_sheet, paths_to_children) where:
+            - origin_sheet is the sheet path where the net should be defined
+            - paths_to_children is a list of paths showing how the net flows to child sheets
+        """
+        if len(used_sheets) == 1:
+            return list(used_sheets)[0], []
+            
+        # Get hierarchy paths for all sheets using this net
+        sheet_paths = {sheet: self.get_sheet_hierarchy_path(sheet) for sheet in used_sheets}
+        
+        # Find sheets that could "own" the net by containing all its usage
+        origin_candidates = set()
+        for sheet in used_sheets:
+            # Get all sheets that use this net below current sheet in hierarchy
+            child_usage = {s for s in used_sheets 
+                        if any(sheet == p for p in sheet_paths[s])}
+            if len(child_usage) == len(used_sheets):
+                origin_candidates.add(sheet)
+                
+        # If we found candidate owners, pick the most specific (deepest) one
+        if origin_candidates:
+            max_depth = 0
+            lowest_common = None
+            for candidate in origin_candidates:
+                depth = len(sheet_paths[candidate])
+                if depth > max_depth:
+                    max_depth = depth 
+                    lowest_common = candidate
+        else:
+            # Fall back to basic lowest common ancestor
+            common_prefix = []
+            first_path = sheet_paths[list(used_sheets)[0]]
+            for i in range(len(first_path)):
+                if all(len(p) > i and p[i] == first_path[i] 
+                    for p in sheet_paths.values()):
+                    common_prefix.append(first_path[i])
+                else:
+                    break
+            lowest_common = common_prefix[-1] if common_prefix else 'main'
+
+        # Generate paths from origin to sheets that need the net
+        paths = []
+        for sheet in used_sheets:
+            if sheet != lowest_common:
+                path = sheet_paths[sheet]
+                try:
+                    start_idx = path.index(lowest_common)
+                    child_path = path[start_idx:]
+                    if len(child_path) > 1:
+                        paths.append(child_path)
+                except ValueError:
+                    continue
+
+        return lowest_common, paths
+
+    def analyze_nets(self):
+        """Analyze net usage to determine origins and required connections."""
+        print("=== Starting Net Analysis ===")
+        net_usage = defaultdict(lambda: defaultdict(set))
+        
+        print("1. Mapping Net Usage Across Sheets:")
+        # Map which nets are used in which sheets
+        for net in self.netlist.nets:
+            print(f"\nAnalyzing net: {net.name}")
+            for pin in net.pins:
+                for comp in self.netlist.parts:
+                    if comp.ref == pin.ref:
+                        sheet_name = self.get_sheet_path(comp)
+                        if sheet_name:
+                            sheet_path = self.sheet_name_to_path.get(sheet_name)
+                            if sheet_path:
+                                net_usage[net.name][sheet_path].add(f"{comp.ref}.{pin.num}")
+                                print(f"  - Used in sheet '{sheet_name}' by pin {comp.ref}.{pin.num}")
+
+        print("2. Analyzing Net Origins and Hierarchy:")
+        net_hierarchy = {}
+        for net_name, sheet_usages in net_usage.items():
+            print(f"\nNet: {net_name}")
+            used_sheets = set(sheet_usages.keys())
+            origin_sheet, paths_to_children = self.find_optimal_net_origin(used_sheets, net_name)
+            net_hierarchy[net_name] = {
+                'origin_sheet': origin_sheet,
+                'used_in_sheets': used_sheets,
+                'path_to_children': paths_to_children
+            }
+            print(f"  - Origin sheet: {origin_sheet}")
+            print(f"  - Used in sheets: {used_sheets}")
+            print(f"  - Paths to children: {[' -> '.join(path) for path in paths_to_children]}")
+
+        print("3. Classifying local vs imported nets:")
+        # Clear any existing net classifications
+        for sheet in self.sheets.values():
+            sheet.local_nets.clear()
+            sheet.imported_nets.clear()
+        
+        # Process each sheet
+        for sheet_path, sheet in self.sheets.items():
+            print(f"  Checking sheet: '{sheet.name}', path='{sheet_path}' with parent='{sheet.parent}'")
+            
+            # Top level sheet doesn't import nets
+            if sheet.parent is None:
+                print(f"  Top-level sheet: '{sheet_path}' => clearing imported_nets.")
+                continue
+                
+            for net_name, hierarchy in net_hierarchy.items():
+                if net_name.startswith('unconnected'):
+                    continue
+                    
+                # Skip nets not used in or below this sheet
+                if sheet_path not in hierarchy['used_in_sheets'] and \
+                not any(sheet_path in path for path in hierarchy['path_to_children']):
+                    continue
+                    
+                # Determine if net should be local or imported
+                is_local = False
+                
+                # Net originates in this sheet
+                if hierarchy['origin_sheet'] == sheet_path:
+                    is_local = True
+                    
+                # Net is only used within this sheet's hierarchy
+                elif all(self.is_descendant(used_sheet, sheet_path) 
+                        for used_sheet in hierarchy['used_in_sheets']):
+                    is_local = True
+                    
+                # Handle special case nets (like power/ground) that need to flow down
+                elif any(sheet_path in path for path in hierarchy['path_to_children']):
+                    is_local = False
+                    
+                if is_local:
+                    sheet.local_nets.add(net_name)
+                    print(f"    Net {net_name} is local (origin in this sheet).")
+                else:
+                    sheet.imported_nets.add(net_name)
+                    print(f"    Net {net_name} is imported here.")
+
+        self.net_hierarchy = net_hierarchy
+        self.net_usage = net_usage
+        print("=== Completed net analysis ===")
+        
+        # Print summary for each sheet
+        for sheet_path, sheet in self.sheets.items():
+            print(f"Sheet '{sheet_path}': local_nets={sheet.local_nets}, imported_nets={sheet.imported_nets}")
+
     def generate_sheet_code(self, sheet: Sheet) -> str:
         """Generate the SKiDL code for a given sheet."""
+        print(f"=== generate_sheet_code for sheet '{sheet.name}' ===")
+        
         code = [
             "# -*- coding: utf-8 -*-\n",
             "from skidl import *\n"
         ]
-        # Import child subcircuits.
+        
+        # Import child subcircuits
         for child_path in sheet.children:
             child_sheet = self.sheets[child_path]
             module_name = self.legalize_name(child_sheet.name)
             code.append(f"from {module_name} import {module_name}\n")
+        
+        # Start function definition
         code.append("\n@subcircuit\n")
-        # Determine required nets: nets used in this sheet but not defined here.
-        required_nets = set()
-        for net_name, hierarchy in self.net_hierarchy.items():
-            if net_name.startswith('unconnected'):
-                continue
-            # If the net is used in the sheet and it does not originate here,
-            # then it should be passed in.
-            if sheet.path in hierarchy['used_in_sheets'] and hierarchy['origin_sheet'] != sheet.path:
-                required_nets.add(net_name)
-            else:
-                for path in hierarchy['path_to_children']:
-                    if sheet.path in path:
-                        required_nets.add(net_name)
-                        break
-        params = [self.legalize_name(net) for net in sorted(required_nets)]
+        
+        # Determine required nets that need to be passed in
+        required_nets = []
+        for net_name in sorted(sheet.imported_nets):
+            # Verify net really needs to be imported 
+            # (used by this sheet or needed by children)
+            if (sheet.path in self.net_usage[net_name] or 
+                any(child in self.net_usage[net_name] 
+                    for child in sheet.children)):
+                required_nets.append(self.legalize_name(net_name))
+        
         func_name = self.legalize_name(sheet.name)
-        code.append(f"def {func_name}({', '.join(params)}):\n")
-        # Create local nets (nets whose origin is in this sheet).
-        local_nets = []
-        for net_name, hierarchy in self.net_hierarchy.items():
-            if net_name.startswith('unconnected'):
-                continue
-            if hierarchy['origin_sheet'] == sheet.path:
-                local_nets.append(net_name)
+        code.append(f"def {func_name}({', '.join(required_nets)}):\n")
+        
+        # Create local nets
+        local_nets = sorted(sheet.local_nets)
         if local_nets:
             code.append(f"{self.tab}# Local nets\n")
-            for net in sorted(local_nets):
+            for net in local_nets:
                 legal_name = self.legalize_name(net)
                 code.append(f"{self.tab}{legal_name} = Net('{net}')\n")
             code.append("\n")
-        # Insert component instantiations.
+        
+        # Create components
         if sheet.components:
             code.append(f"{self.tab}# Components\n")
             for comp in sorted(sheet.components, key=lambda x: x.ref):
                 code.append(self.component_to_skidl(comp))
             code.append("\n")
-        # Call child subcircuits.
+        
+        # Create subcircuits
         if sheet.children:
             code.append(f"{self.tab}# Hierarchical subcircuits\n")
             for child_path in sheet.children:
-                child_sheet = self.sheets[child_path]
-                child_func_name = self.legalize_name(child_sheet.name)
-                # Determine parameters for the child subcircuit by collecting nets
-                child_nets = []
-                for net_name, hierarchy in self.net_hierarchy.items():
-                    if net_name.startswith('unconnected'):
-                        continue
-                    if child_sheet.path in hierarchy['used_in_sheets'] and hierarchy['origin_sheet'] != child_sheet.path:
-                        child_nets.append(net_name)
-                    else:
-                        for path in hierarchy['path_to_children']:
-                            if child_sheet.path in path:
-                                child_nets.append(net_name)
-                                break
-                child_params = [self.legalize_name(net) for net in sorted(set(child_nets))]
-                code.append(f"{self.tab}{child_func_name}({', '.join(child_params)})\n")
-        # Insert connections.
+                child = self.sheets[child_path]
+                child_func = self.legalize_name(child.name)
+                
+                # Determine which nets to pass to child
+                child_params = []
+                for net_name in sorted(child.imported_nets):
+                    if (child_path in self.net_usage[net_name] or
+                        any(grandchild in self.net_usage[net_name] 
+                            for grandchild in child.children)):
+                        child_params.append(self.legalize_name(net_name))
+                
+                code.append(f"{self.tab}{child_func}({', '.join(child_params)})\n")
+        
+        # Create connections
         if sheet.components:
             code.append(f"\n{self.tab}# Connections\n")
             for net in self.netlist.nets:
                 conn = self.net_to_skidl(net, sheet)
                 if conn:
                     code.append(conn)
+        
         code.append(f"{self.tab}return\n")
-        return "".join(code)
+        
+        generated_code = "".join(code)
+        print(f"Generated code for sheet '{sheet.name}':\n{generated_code}")
+        return generated_code
 
     def get_hierarchical_order(self):
         """Return the sheets in dependency order (children processed before their parents)."""
