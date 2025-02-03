@@ -69,6 +69,7 @@ import os
 import sys
 import ast
 import inspect
+import platform
 import subprocess
 import importlib
 import textwrap
@@ -76,7 +77,14 @@ import traceback
 from pathlib import Path
 from typing import List, Dict, Optional, Tuple
 import argparse
+import logging
 from skidl import *
+
+# Set up basic logging configuration.
+logging.basicConfig(
+    level=logging.INFO,
+    format='[%(levelname)s] %(message)s'
+)
 
 # Custom exception to signal issues during circuit discovery and loading.
 class CircuitDiscoveryError(Exception):
@@ -145,7 +153,7 @@ class CircuitAnalyzer:
                     tree = ast.parse(f.read())
                     SubcircuitFinder().visit(tree)
             except Exception as e:
-                print(f"Warning: Could not parse {current_file}: {e}")
+                logging.warning(f"Could not parse {current_file}: {e}")
                 
         return subcircuits
 
@@ -295,9 +303,9 @@ class CircuitAnalyzer:
                     subcircuits, source
                 )
                 
-                print(f"Found {len(subcircuits)} circuits to analyze:")
+                logging.info(f"Found {len(subcircuits)} circuits to analyze:")
                 for circuit in subcircuits:
-                    print(f"  - {circuit['function']} ({circuit['file']}:{circuit['lineno']})")
+                    logging.info(f"  - {circuit['function']} ({circuit['file']}:{circuit['lineno']})")
                 
                 sys.path.insert(0, str(source))
                 try:
@@ -307,12 +315,12 @@ class CircuitAnalyzer:
                 finally:
                     sys.path.pop(0)
                     if dump_temp:
-                        print(f"Temporary analysis module saved at: {analysis_module}")
+                        logging.info(f"Temporary analysis module saved at: {analysis_module}")
                     else:
                         try:
                             analysis_module.unlink()  # Clean up temporary file.
                         except Exception as e:
-                            print(f"Warning: Failed to remove temporary module: {e}")
+                            logging.warning(f"Failed to remove temporary module: {e}")
                         
             except Exception as e:
                 raise CircuitDiscoveryError(
@@ -343,12 +351,12 @@ class CircuitAnalyzer:
 def validate_kicad_cli(path: str) -> str:
     """
     Validate that KiCad CLI exists and is executable.
+    Provides platform-specific guidance if validation fails.
     
-    NOTE for novice users:
-      You may need to adjust the path to point to your local KiCad installation.
-      For example, on macOS the default might be:
-          /Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli
-      Change this value with the --kicad-cli parameter if necessary.
+    Common paths by platform:
+        - macOS: /Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli
+        - Windows: C:\\Program Files\\KiCad\\7.0\\bin\\kicad-cli.exe
+        - Linux: /usr/bin/kicad-cli
     
     Args:
         path: Path to kicad-cli executable
@@ -357,14 +365,50 @@ def validate_kicad_cli(path: str) -> str:
         Validated path
         
     Raises:
-        FileNotFoundError: If executable not found
-        PermissionError: If executable lacks permissions
+        FileNotFoundError: If executable not found, with platform-specific guidance
+        PermissionError: If executable lacks permissions, with remediation steps
     """
+    import platform
+    
+    system = platform.system().lower()
     cli_path = Path(path)
+    
     if not cli_path.exists():
-        raise FileNotFoundError(f"KiCad CLI not found: {path}")
+        suggestions = {
+            'darwin': [
+                "/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli",
+                "~/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli"
+            ],
+            'windows': [
+                r"C:\Program Files\KiCad\7.0\bin\kicad-cli.exe",
+                r"C:\Program Files (x86)\KiCad\7.0\bin\kicad-cli.exe"
+            ],
+            'linux': [
+                "/usr/bin/kicad-cli",
+                "/usr/local/bin/kicad-cli"
+            ]
+        }
+        
+        error_msg = [f"KiCad CLI not found: {path}"]
+        if system in suggestions:
+            error_msg.append("\nCommon paths for your platform:")
+            for suggestion in suggestions[system]:
+                error_msg.append(f"  - {suggestion}")
+        error_msg.append("\nSpecify the correct path using --kicad-cli")
+        raise FileNotFoundError('\n'.join(error_msg))
+        
     if not os.access(str(cli_path), os.X_OK):
-        raise PermissionError(f"KiCad CLI not executable: {path}")
+        if platform.system().lower() == 'windows':
+            raise PermissionError(
+                f"KiCad CLI not executable: {path}\n"
+                "Ensure the file exists and you have appropriate permissions."
+            )
+        else:
+            raise PermissionError(
+                f"KiCad CLI not executable: {path}\n"
+                "Try making it executable with: chmod +x {path}"
+            )
+            
     return str(cli_path)
 
 
@@ -428,12 +472,21 @@ def parse_args() -> argparse.Namespace:
         action='store_true',
         help='Run LLM analysis on circuits'
     )
-    
     # Optional configuration.
+    def get_default_kicad_cli() -> str:
+        """Get the default KiCad CLI path based on the current platform."""
+        system = platform.system().lower()
+        if system == 'darwin':  # macOS
+            return "/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli"
+        elif system == 'windows':
+            return "C:\\Program Files\\KiCad\\7.0\\bin\\kicad-cli.exe"
+        else:  # Linux and others
+            return "/usr/bin/kicad-cli"
+    
     parser.add_argument(
         '--kicad-cli',
-        default="/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli",
-        help='Path to kicad-cli executable (adjust this if your KiCad installation is in a different location)'
+        default=get_default_kicad_cli(),
+        help='Path to kicad-cli executable (defaults to standard installation path for your OS)'
     )
     parser.add_argument(
         '--output-dir', '-o',
@@ -514,7 +567,7 @@ def main():
         
         # 1. Generate netlist if requested.
         if args.schematic and args.generate_netlist:
-            print("\nStep 1: Generating netlist from schematic...")
+            logging.info("Step 1: Generating netlist from schematic...")
             schematic_path = Path(args.schematic)
             if not schematic_path.exists():
                 raise FileNotFoundError(f"Schematic not found: {schematic_path}")
@@ -542,18 +595,18 @@ def main():
                 ) from e
             
             current_netlist = netlist_path
-            print(f"✓ Generated netlist: {netlist_path}")
+            logging.info(f"✓ Generated netlist: {netlist_path}")
             
         # 2. Start from netlist if provided.
         elif args.netlist:
             current_netlist = Path(args.netlist)
             if not current_netlist.exists():
                 raise FileNotFoundError(f"Netlist not found: {current_netlist}")
-            print(f"\nUsing existing netlist: {current_netlist}")
+            logging.info(f"Using existing netlist: {current_netlist}")
             
         # 3. Generate SKiDL project if requested.
         if current_netlist and args.generate_skidl:
-            print("\nStep 2: Generating SKiDL project from netlist...")
+            logging.info("Step 2: Generating SKiDL project from netlist...")
             skidl_dir = output_dir / f"{current_netlist.stem}_SKIDL"
             skidl_dir.mkdir(parents=True, exist_ok=True)
             
@@ -569,21 +622,21 @@ def main():
                 ) from e
             
             current_skidl = skidl_dir
-            print(f"✓ Generated SKiDL project: {skidl_dir}")
+            logging.info(f"✓ Generated SKiDL project: {skidl_dir}")
             
         # 4. Start from SKiDL if provided.
         elif args.skidl_source:
             current_skidl = Path(args.skidl_source)
             if not current_skidl.exists():
                 raise FileNotFoundError(f"SKiDL source not found: {current_skidl}")
-            print(f"\nUsing existing SKiDL source: {current_skidl}")
+            logging.info(f"Using existing SKiDL source: {current_skidl}")
             
         # 5. Run analysis if requested.
         if args.analyze:
             if not current_skidl:
                 raise ValueError("No SKiDL source available for analysis")
                 
-            print("\nStep 3: Analyzing circuits...")
+            logging.info("Step 3: Analyzing circuits...")
             try:
                 results = CircuitAnalyzer.analyze_circuits(
                     source=current_skidl,
@@ -596,41 +649,41 @@ def main():
                 )
                 
                 if results["success"]:
-                    print("\nAnalysis Results:")
+                    logging.info("Analysis Results:")
                     for hier, analysis in results["subcircuits"].items():
-                        print(f"\nSubcircuit: {hier}")
+                        logging.info(f"\nSubcircuit: {hier}")
                         if analysis["success"]:
-                            print(f"✓ Analysis completed in {analysis['request_time_seconds']:.2f} seconds")
+                            logging.info(f"✓ Analysis completed in {analysis['request_time_seconds']:.2f} seconds")
                             tokens = analysis.get('prompt_tokens', 0) + analysis.get('response_tokens', 0)
                             if tokens:
-                                print(f"  Tokens used: {tokens}")
+                                logging.info(f"  Tokens used: {tokens}")
                         else:
-                            print(f"✗ Analysis failed: {analysis['error']}")
+                            logging.error(f"✗ Analysis failed: {analysis['error']}")
                     
-                    print(f"\nTotal analysis time: {results['total_time_seconds']:.2f} seconds")
+                    logging.info(f"\nTotal analysis time: {results['total_time_seconds']:.2f} seconds")
                     if results.get('total_tokens'):
-                        print(f"Total tokens used: {results['total_tokens']}")
-                    print(f"Analysis results saved to: {args.analysis_output}")
+                        logging.info(f"Total tokens used: {results['total_tokens']}")
+                    logging.info(f"Analysis results saved to: {args.analysis_output}")
                 else:
                     raise RuntimeError(f"Analysis failed: {results.get('error', 'Unknown error')}")
                     
             except Exception as e:
-                print("\n✗ Circuit analysis failed!")
-                print(f"Error: {str(e)}")
+                logging.error("✗ Circuit analysis failed!")
+                logging.error(f"Error: {str(e)}")
                 if args.backend == 'openrouter':
-                    print("\nTroubleshooting tips:")
-                    print("1. Check your API key")
-                    print("2. Verify you have sufficient API credits")
-                    print("3. Check for rate limiting")
+                    logging.error("Troubleshooting tips:")
+                    logging.error("1. Check your API key")
+                    logging.error("2. Verify you have sufficient API credits")
+                    logging.error("3. Check for rate limiting")
                 else:
-                    print("\nTroubleshooting tips:")
-                    print("1. Verify Ollama is running locally")
-                    print("2. Check if the requested model is installed")
+                    logging.error("Troubleshooting tips:")
+                    logging.error("1. Verify Ollama is running locally")
+                    logging.error("2. Check if the requested model is installed")
                 raise
                 
     except Exception as e:
-        print("\nError:", str(e))
-        print("\nStack trace:")
+        logging.error("Error: %s", str(e))
+        logging.error("Stack trace:")
         traceback.print_exc()
         sys.exit(1)
 
