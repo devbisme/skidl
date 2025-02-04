@@ -293,39 +293,77 @@ class CircuitAnalyzer:
         else:
             # Directory case - find and analyze subcircuits.
             try:
-                subcircuits = CircuitAnalyzer.find_subcircuits(source)
-                if not subcircuits:
-                    raise CircuitDiscoveryError(
-                        f"No @subcircuit functions found in {source}"
+                # Step 1: Find subcircuits
+                try:
+                    subcircuits = CircuitAnalyzer.find_subcircuits(source)
+                    if not subcircuits:
+                        raise CircuitDiscoveryError(
+                            f"No @subcircuit functions found in {source}"
+                        )
+                except Exception as e:
+                    raise CircuitDiscoveryError(f"Failed to find subcircuits: {str(e)}") from e
+
+                # Step 2: Create analysis module
+                try:
+                    analysis_module, generated_code = CircuitAnalyzer.create_analysis_module(
+                        subcircuits, source
                     )
-                
-                analysis_module, generated_code = CircuitAnalyzer.create_analysis_module(
-                    subcircuits, source
-                )
-                
+                except Exception as e:
+                    raise CircuitDiscoveryError(f"Failed to create analysis module: {str(e)}") from e
+
                 logging.info(f"Found {len(subcircuits)} circuits to analyze:")
                 for circuit in subcircuits:
                     logging.info(f"  - {circuit['function']} ({circuit['file']}:{circuit['lineno']})")
-                
+
+                # Step 3: Execute the module
                 sys.path.insert(0, str(source))
                 try:
                     module = importlib.import_module('circuit_analysis')
                     importlib.reload(module)
-                    module.main()
+                    try:
+                        module.main()
+                    except FileNotFoundError as e:
+                        # Check if this is a KiCad library error
+                        error_msg = str(e)
+                        if "Can't open file:" in error_msg and (".lib" in error_msg or any(lib_name in error_msg for lib_name in ["skip_kicad_symbols", "custom_symbols"])):
+                            msg = (
+                                f"Custom KiCad library not found: {error_msg.split(':')[-1].strip()}\n\n"
+                                "This error occurs when your schematic uses custom component libraries\n"
+                                "that aren't in the default KiCad search paths.\n\n"
+                                "To fix this:\n"
+                                "1. Locate your custom library files (e.g., skip_kicad_symbols.lib)\n"
+                                "2. Specify their directory paths using --kicad-lib-paths:\n"
+                                "   --kicad-lib-paths /path/to/libraries/\n"
+                                "3. Multiple paths can be specified:\n"
+                                "   --kicad-lib-paths /path1 /path2\n\n"
+                                "Common library locations:\n"
+                                "- Project directory\n"
+                                "- KiCad user library folder (~/Documents/KiCad/...)\n"
+                                "- Custom library directories"
+                            )
+                            raise CircuitDiscoveryError(msg) from e
+                        raise
+                    except Exception as e:
+                        raise CircuitDiscoveryError(
+                            f"Circuit execution failed: {str(e)}"
+                        ) from e
                 finally:
                     sys.path.pop(0)
+
+            except CircuitDiscoveryError:
+                raise
+            except Exception as e:
+                raise CircuitDiscoveryError(f"Circuit analysis failed: {str(e)}") from e
+            finally:
+                # Clean up analysis module if it exists
+                if 'analysis_module' in locals():
                     if dump_temp:
                         logging.info(f"Temporary analysis module saved at: {analysis_module}")
                     else:
                         try:
-                            analysis_module.unlink()  # Clean up temporary file.
+                            analysis_module.unlink()
                         except Exception as e:
                             logging.warning(f"Failed to remove temporary module: {e}")
-                        
-            except Exception as e:
-                raise CircuitDiscoveryError(
-                    f"Circuit discovery/execution failed: {str(e)}"
-                ) from e
 
         # Run LLM analysis.
         try:
@@ -521,6 +559,12 @@ def parse_args() -> argparse.Namespace:
         action='store_true',
         help='Keep and output the temporary SKiDL analysis file for manual inspection'
     )
+    # NEW: Argument to specify custom KiCad library paths.
+    parser.add_argument(
+        '--kicad-lib-paths',
+        nargs='*',
+        help='List of custom KiCad library paths (e.g., /path/to/lib1 /path/to/lib2)'
+    )
     
     args = parser.parse_args()
     
@@ -561,11 +605,9 @@ def main():
         output_dir = Path(args.output_dir)
         output_dir.mkdir(parents=True, exist_ok=True)
         
-        # Track current state for pipeline.
+        # Step 1: Generate netlist if requested.
         current_netlist = None
         current_skidl = None
-        
-        # 1. Generate netlist if requested.
         if args.schematic and args.generate_netlist:
             logging.info("Step 1: Generating netlist from schematic...")
             schematic_path = Path(args.schematic)
@@ -597,14 +639,54 @@ def main():
             current_netlist = netlist_path
             logging.info(f"✓ Generated netlist: {netlist_path}")
             
-        # 2. Start from netlist if provided.
         elif args.netlist:
             current_netlist = Path(args.netlist)
             if not current_netlist.exists():
                 raise FileNotFoundError(f"Netlist not found: {current_netlist}")
             logging.info(f"Using existing netlist: {current_netlist}")
+        
+        # Add and validate custom KiCad library paths
+        from skidl import lib_search_paths, KICAD
+        if args.kicad_lib_paths:
+            valid_paths = []
+            invalid_paths = []
             
-        # 3. Generate SKiDL project if requested.
+            for lib_path in args.kicad_lib_paths:
+                path = Path(lib_path)
+                if not path.is_dir():
+                    invalid_paths.append((path, "Directory does not exist"))
+                    continue
+                
+                # Check for .lib files in the directory
+                lib_files = list(path.glob("*.lib"))
+                if not lib_files:
+                    invalid_paths.append((path, "No .lib files found"))
+                    continue
+                
+                valid_paths.append(path)
+                lib_search_paths[KICAD].append(str(path))
+            
+            # Log results
+            if valid_paths:
+                logging.info("Added KiCad library paths:")
+                for path in valid_paths:
+                    logging.info(f"  ✓ {path}")
+                    lib_files = list(path.glob("*.lib"))
+                    for lib in lib_files[:3]:  # Show up to 3 libraries
+                        logging.info(f"    - {lib.name}")
+                    if len(lib_files) > 3:
+                        logging.info(f"    - ... and {len(lib_files)-3} more")
+            
+            if invalid_paths:
+                logging.warning("Some library paths were invalid:")
+                for path, reason in invalid_paths:
+                    logging.warning(f"  ✗ {path}: {reason}")
+                logging.warning("\nPlease ensure your library paths:")
+                logging.warning("1. Are valid directory paths")
+                logging.warning("2. Contain KiCad library (.lib) files")
+                logging.warning("3. Have correct permissions")
+        
+        # Step 2: Generate SKiDL project if requested.
         if current_netlist and args.generate_skidl:
             logging.info("Step 2: Generating SKiDL project from netlist...")
             skidl_dir = output_dir / f"{current_netlist.stem}_SKIDL"
@@ -624,14 +706,13 @@ def main():
             current_skidl = skidl_dir
             logging.info(f"✓ Generated SKiDL project: {skidl_dir}")
             
-        # 4. Start from SKiDL if provided.
         elif args.skidl_source:
             current_skidl = Path(args.skidl_source)
             if not current_skidl.exists():
                 raise FileNotFoundError(f"SKiDL source not found: {current_skidl}")
             logging.info(f"Using existing SKiDL source: {current_skidl}")
             
-        # 5. Run analysis if requested.
+        # Step 3: Run analysis if requested.
         if args.analyze:
             if not current_skidl:
                 raise ValueError("No SKiDL source available for analysis")
