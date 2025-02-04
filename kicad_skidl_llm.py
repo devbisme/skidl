@@ -325,21 +325,23 @@ class CircuitAnalyzer:
                     except FileNotFoundError as e:
                         # Check if this is a KiCad library error
                         error_msg = str(e)
-                        if "Can't open file:" in error_msg and (".lib" in error_msg or any(lib_name in error_msg for lib_name in ["skip_kicad_symbols", "custom_symbols"])):
+                        if "Can't open file:" in error_msg:
+                            # Extract the library name that couldn't be found
+                            missing_lib = error_msg.split(':')[-1].strip()
                             msg = (
-                                f"Custom KiCad library not found: {error_msg.split(':')[-1].strip()}\n\n"
-                                "This error occurs when your schematic uses custom component libraries\n"
-                                "that aren't in the default KiCad search paths.\n\n"
+                                f"KiCad symbol library not found: {missing_lib}\n\n"
+                                "The error occurred while trying to load a component library that isn't\n"
+                                "in KiCad's default search paths.\n\n"
                                 "To fix this:\n"
-                                "1. Locate your custom library files (e.g., skip_kicad_symbols.lib)\n"
-                                "2. Specify their directory paths using --kicad-lib-paths:\n"
-                                "   --kicad-lib-paths /path/to/libraries/\n"
-                                "3. Multiple paths can be specified:\n"
+                                "1. Use --kicad-lib-paths to specify directories containing your .kicad_sym files:\n"
+                                "   --kicad-lib-paths /path/to/symbol/libraries/\n"
+                                "2. Multiple paths can be specified:\n"
                                 "   --kicad-lib-paths /path1 /path2\n\n"
-                                "Common library locations:\n"
-                                "- Project directory\n"
-                                "- KiCad user library folder (~/Documents/KiCad/...)\n"
-                                "- Custom library directories"
+                                "Common places to look for symbol libraries:\n"
+                                "- Your project directory\n"
+                                "- KiCad user library folder\n"
+                                "- Third-party library directories\n"
+                                "\nNote: KiCad 8 uses .kicad_sym files for component symbols"
                             )
                             raise CircuitDiscoveryError(msg) from e
                         raise
@@ -657,33 +659,33 @@ def main():
                     invalid_paths.append((path, "Directory does not exist"))
                     continue
                 
-                # Check for .lib files in the directory
-                lib_files = list(path.glob("*.lib"))
-                if not lib_files:
-                    invalid_paths.append((path, "No .lib files found"))
+                # Check for KiCad 8 symbol files (.kicad_sym)
+                sym_files = list(path.glob("*.kicad_sym"))
+                if not sym_files:
+                    invalid_paths.append((path, "No .kicad_sym symbol files found"))
                     continue
-                
+
                 valid_paths.append(path)
                 lib_search_paths[KICAD].append(str(path))
-            
+
             # Log results
             if valid_paths:
-                logging.info("Added KiCad library paths:")
+                logging.info("Added KiCad 8 library paths:")
                 for path in valid_paths:
                     logging.info(f"  ✓ {path}")
-                    lib_files = list(path.glob("*.lib"))
-                    for lib in lib_files[:3]:  # Show up to 3 libraries
-                        logging.info(f"    - {lib.name}")
-                    if len(lib_files) > 3:
-                        logging.info(f"    - ... and {len(lib_files)-3} more")
-            
+                    sym_files = list(path.glob("*.kicad_sym"))
+                    for sym in sym_files[:3]:  # Show up to 3 symbol libraries
+                        logging.info(f"    - {sym.name}")
+                    if len(sym_files) > 3:
+                        logging.info(f"    - ... and {len(sym_files)-3} more")
+
             if invalid_paths:
                 logging.warning("Some library paths were invalid:")
                 for path, reason in invalid_paths:
                     logging.warning(f"  ✗ {path}: {reason}")
                 logging.warning("\nPlease ensure your library paths:")
                 logging.warning("1. Are valid directory paths")
-                logging.warning("2. Contain KiCad library (.lib) files")
+                logging.warning("2. Contain KiCad 8 symbol libraries (.kicad_sym files)")
                 logging.warning("3. Have correct permissions")
         
         # Step 2: Generate SKiDL project if requested.
