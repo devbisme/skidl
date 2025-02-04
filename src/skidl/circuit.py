@@ -1151,6 +1151,33 @@ class Circuit(SkidlBaseObject):
 
         lib.export(libname=skidl.config.backup_lib_name, file_=file_)
 
+    def to_tuple(self):
+        """Return tuple containing sorted tuples of the parts and nets where
+        each part is represented by a tuple of its reference, name, library name and 
+        each net is represented by a tuple of its name and a tuple of the pins
+        that are on it with each pin being a tuple of the part reference and pin
+        number."""
+        return (
+            tuple(
+                sorted(
+                    (
+                        (p.ref, p.name, p.lib.filename)
+                        for p in self.parts
+                    ),
+                    key=lambda x: x[0].lower(),
+                )
+            ),
+            tuple(
+                sorted(
+                    (
+                        (n.name, tuple(sorted(tuple((p.part.ref, p.num) for p in n.pins))))
+                        for n in self.nets
+                    ),
+                    key=lambda x: x[0].lower(),
+                )
+            ),
+        )
+
     def _check_for_empty_footprints(self):
         """Make sure part footprints aren't empty before generating netlist/PCB."""
 
