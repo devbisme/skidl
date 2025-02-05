@@ -31,10 +31,11 @@ requirements = [
     "sexpdata == 1.0.0",
     "kinparse >= 1.2.3",
     "kinet2pcb >= 1.1.2",
-    #'PySpice; python_version >= "3.0"',
     "graphviz",
     "deprecation",
     "requests >= 2.31.0",
+    "importlib-metadata",  # For importlib support
+    "typing-extensions",  # For type hints in Python <3.8
 ]
 
 test_requirements = [
