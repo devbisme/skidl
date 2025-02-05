@@ -194,6 +194,10 @@ def _create_logger(title, log_msg_id="", log_file_suffix=".log"):
     logging.setLoggerClass(SkidlLogger)
     logger = logging.getLogger(title)
 
+    # Prevent the logger from propagating messages up to the root logger
+    # so that messages are only sent to the handlers attached to this logger.
+    logger.propagate = False
+
     # Errors & warnings always appear on the terminal.
     handler = logging.StreamHandler(sys.stderr)
     handler.setLevel(logging.INFO)
