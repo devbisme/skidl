@@ -12,16 +12,19 @@ Features:
     - Circuit analysis using OpenRouter or Ollama LLM backends
     - Support for subcircuit analysis with selective circuit skipping
     - Detailed logging and timing information
+    - Parallel analysis of subcircuits
 
 Example Usage:
     # Analyze KiCad schematic
-    python kicad_skidl_llm.py --schematic design.kicad_sch --generate-netlist --generate-skidl --analyze --api-key YOUR_KEY
-    
+    python kicad_skidl_llm.py --schematic design.kicad_sch --generate-netlist \
+        --generate-skidl --analyze --api-key YOUR_KEY
+
     # Analyze existing SKiDL project using Ollama
     python kicad_skidl_llm.py --skidl-dir project/ --analyze --backend ollama
-    
+
     # Skip specific circuits during analysis
-    python kicad_skidl_llm.py --skidl circuit.py --analyze --skip-circuits "voltage_regulator1,adc_interface2"
+    python kicad_skidl_llm.py --skidl circuit.py --analyze \
+        --skip-circuits "voltage_regulator1,adc_interface2"
 """
 
 import os
@@ -30,21 +33,24 @@ import platform
 import subprocess
 import importlib
 import textwrap
-import traceback
 from pathlib import Path
-from typing import List, Dict, Optional, Union, Tuple, Set
+from typing import List, Dict, Optional, Union, Set
 import argparse
 import logging
 from datetime import datetime
 import time
 from enum import Enum
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from dataclasses import dataclass, field
+import json
 
 from skidl import *
 
 # Global configuration
-DEFAULT_TIMEOUT = 300
-DEFAULT_MODEL = "google/gemini-2.0-flash-001"
-DEFAULT_OUTPUT_DIR = Path.cwd() / "output"
+DEFAULT_TIMEOUT = 300  # Maximum time to wait for LLM response
+DEFAULT_MODEL = "google/gemini-2.0-flash-001"  # Default LLM model
+DEFAULT_OUTPUT_DIR = Path.cwd() / "output"  # Default output directory
 
 class Backend(Enum):
     """Supported LLM backends."""
@@ -70,95 +76,103 @@ class CircuitDiscoveryError(Exception):
     """Raised when there are issues discovering or loading circuits."""
     pass
 
+@dataclass
+class AnalysisState:
+    """
+    Tracks the state of circuit analysis across threads.
+    
+    This class maintains thread-safe state information about ongoing circuit analyses,
+    including completed circuits, failures, and timing metrics.
+    """
+    completed: Set[str] = field(default_factory=set)
+    failed: Dict[str, str] = field(default_factory=dict)  # circuit -> error message
+    results: Dict[str, Dict] = field(default_factory=dict)
+    lock: threading.Lock = field(default_factory=threading.Lock)
+    total_analysis_time: float = 0.0
+    
+    def save_state(self, path: Path):
+        """Save current analysis state to disk."""
+        with self.lock:
+            state_dict = {
+                "completed": list(self.completed),
+                "failed": self.failed,
+                "results": self.results,
+                "total_analysis_time": self.total_analysis_time
+            }
+            with open(path, 'w') as f:
+                json.dump(state_dict, f, indent=2)
+    
+    @classmethod
+    def load_state(cls, path: Path) -> 'AnalysisState':
+        """Load analysis state from disk."""
+        with open(path) as f:
+            state_dict = json.load(f)
+        state = cls()
+        state.completed = set(state_dict["completed"])
+        state.failed = state_dict["failed"]
+        state.results = state_dict["results"]
+        state.total_analysis_time = state_dict.get("total_analysis_time", 0.0)
+        return state
 
-def _analyze_subcircuits(
-    hierarchies: Set[str],
-    output_file: Optional[Path],
+    def add_result(self, circuit: str, result: Dict):
+        """Thread-safe addition of analysis result."""
+        with self.lock:
+            self.results[circuit] = result
+            self.completed.add(circuit)
+            # Add the analysis time from this result
+            if "request_time_seconds" in result:
+                self.total_analysis_time += result["request_time_seconds"]
+    
+    def add_failure(self, circuit: str, error: str):
+        """Thread-safe recording of analysis failure."""
+        with self.lock:
+            self.failed[circuit] = error
+
+def analyze_single_circuit(
+    circuit: str,
     api_key: Optional[str],
     backend: Backend,
     model: Optional[str],
     prompt: Optional[str],
-    start_time: float
-) -> Dict[str, Union[bool, float, int, Dict]]:
+    state: AnalysisState
+) -> None:
     """
-    Analyze subcircuits using LLM and generate consolidated results.
+    Analyze a single circuit and update the shared state.
     
     Args:
-        hierarchies: Set of circuit hierarchies to analyze
-        output_file: Output file for analysis results
+        circuit: Hierarchy name of circuit to analyze
         api_key: API key for LLM service
         backend: LLM backend to use
         model: Model name for selected backend
         prompt: Custom analysis prompt
-        start_time: Start time of analysis for timing calculations
-        
-    Returns:
-        Dictionary containing analysis results and metadata
+        state: Shared analysis state object
     """
-    if not hierarchies:
-        logger.warning("No valid circuits found for analysis after applying skip filters")
-        return {
-            "success": True,
-            "subcircuits": {},
-            "total_time_seconds": time.time() - start_time,
-            "total_tokens": 0
-        }
-    
-    results = {
-        "success": True,
-        "subcircuits": {},
-        "total_time_seconds": 0,
-        "total_tokens": 0
-    }
-    
-    consolidated_text = ["=== Subcircuits Analysis ===\n"]
-    for hier in sorted(hierarchies):
-        logger.info(f"\nAnalyzing subcircuit: {hier}")
+    try:
+        start_time = time.time()
         
-        # Get description focused on this subcircuit
-        circuit_desc = default_circuit.get_circuit_info(hierarchy=hier, depth=1)
+        # Get description focused on this circuit
+        circuit_desc = default_circuit.get_circuit_info(hierarchy=circuit, depth=1)
         
-        # Analyze just this subcircuit
-        sub_results = default_circuit.analyze_with_llm(
+        # Analyze just this circuit
+        result = default_circuit.analyze_with_llm(
             api_key=api_key,
-            output_file=None,  # Don't write individual files
+            output_file=None,
             backend=backend.value,
             model=model or DEFAULT_MODEL,
             custom_prompt=prompt,
-            analyze_subcircuits=False  # Only analyze this specific subcircuit
+            analyze_subcircuits=False
         )
         
-        results["subcircuits"][hier] = sub_results
-        results["total_time_seconds"] += sub_results.get("request_time_seconds", 0)
-        results["total_tokens"] += (
-            sub_results.get("prompt_tokens", 0) + 
-            sub_results.get("completion_tokens", 0)
-        )
+        # Add timing information
+        result["request_time_seconds"] = time.time() - start_time
         
-        # Build consolidated output text
-        consolidated_text.append(f"\n{'='*20} {hier} {'='*20}\n")
-        if sub_results.get("success", False):
-            analysis_text = sub_results.get("analysis", "No analysis available")
-            consolidated_text.append(analysis_text)
-            
-            token_info = (
-                f"\nTokens used: {sub_results.get('total_tokens', 0)} "
-                f"(Prompt: {sub_results.get('prompt_tokens', 0)}, "
-                f"Completion: {sub_results.get('completion_tokens', 0)})"
-            )
-            consolidated_text.append(token_info)
-        else:
-            consolidated_text.append(
-                f"Analysis failed: {sub_results.get('error', 'Unknown error')}"
-            )
-        consolidated_text.append("\n")
-    
-    # Save consolidated results
-    if output_file:
-        with open(output_file, "w") as f:
-            f.write("\n".join(consolidated_text))
-    
-    return results
+        state.add_result(circuit, result)
+        logger.info(f"✓ Completed analysis of {circuit}")
+        
+    except Exception as e:
+        error_msg = f"Analysis failed: {str(e)}"
+        state.add_failure(circuit, error_msg)
+        logger.error(f"✗ Failed analysis of {circuit}: {str(e)}")
 
 def analyze_circuits(
     source: Path,
@@ -168,10 +182,11 @@ def analyze_circuits(
     model: Optional[str] = None,
     prompt: Optional[str] = None,
     skip_circuits: Optional[Set[str]] = None,
-    dump_temp: bool = False
+    max_concurrent: int = 4,
+    state_file: Optional[Path] = None
 ) -> Dict[str, Union[bool, float, int, Dict]]:
     """
-    Analyze SKiDL circuits using the specified LLM backend.
+    Analyze SKiDL circuits using parallel LLM analysis.
     
     Args:
         source: Path to SKiDL file or directory
@@ -181,74 +196,118 @@ def analyze_circuits(
         model: Model name for selected backend
         prompt: Custom analysis prompt
         skip_circuits: Set of circuit hierarchies to skip
-        dump_temp: Flag to dump temporary files
+        max_concurrent: Maximum number of concurrent analyses
+        state_file: Optional path to save/load analysis state
         
     Returns:
         Dictionary containing analysis results and metadata
     """
-    start_time = time.time()
+    pipeline_start_time = time.time()
     skip_circuits = skip_circuits or set()
-
+    
+    # Load previous state if it exists
+    state = AnalysisState.load_state(state_file) if state_file and state_file.exists() else AnalysisState()
+    
     if skip_circuits:
         logger.info(f"Skipping circuits: {', '.join(sorted(skip_circuits))}")
     
     sys.path.insert(0, str(source.parent if source.is_file() else source))
     try:
-        # Import phase
-        t0 = time.time()
+        # Import and setup phase
         module_name = source.stem if source.is_file() else 'main'
         logger.info(f"Importing {module_name} module...")
         module = importlib.import_module(module_name)
         importlib.reload(module)
-        logger.info(f"Import completed in {time.time() - t0:.2f} seconds")
         
-        # Circuit instantiation phase
         if hasattr(module, 'main'):
-            t0 = time.time()
             logger.info("Executing circuit main()...")
-            try:
-                module.main()
-            except FileNotFoundError as e:
-                if "Can't open file:" in str(e):
-                    missing_lib = str(e).split(':')[-1].strip()
-                    msg = (
-                        f"KiCad symbol library not found: {missing_lib}\n"
-                        "Use --kicad-lib-paths to specify library directories"
-                    )
-                    raise CircuitDiscoveryError(msg) from e
-                raise
-            logger.info(f"Circuit instantiation completed in {time.time() - t0:.2f} seconds")
+            module.main()
         
-        # LLM Analysis phase
-        t0 = time.time()
-        logger.info("Starting LLM analysis...")
-        
-        # Get hierarchies and filter out skipped ones
+        # Get circuits to analyze (excluding already completed ones)
         hierarchies = set()
         for part in default_circuit.parts:
             if part.hierarchy != default_circuit.hierarchy:  # Skip top level
-                if part.hierarchy not in skip_circuits:
+                if part.hierarchy not in skip_circuits and part.hierarchy not in state.completed:
                     hierarchies.add(part.hierarchy)
         
-        results = _analyze_subcircuits(
-            hierarchies=hierarchies,
-            output_file=output_file,
-            api_key=api_key,
-            backend=backend,
-            model=model,
-            prompt=prompt,
-            start_time=start_time
+        if not hierarchies:
+            logger.info("No new circuits to analyze")
+            if state.completed:
+                logger.info(f"Previously analyzed: {len(state.completed)} circuits")
+            
+        else:
+            # Parallel analysis phase
+            logger.info(f"Starting parallel analysis of {len(hierarchies)} circuits...")
+            with ThreadPoolExecutor(max_workers=max_concurrent) as executor:
+                futures = []
+                for circuit in sorted(hierarchies):
+                    future = executor.submit(
+                        analyze_single_circuit,
+                        circuit=circuit,
+                        api_key=api_key,
+                        backend=backend,
+                        model=model,
+                        prompt=prompt,
+                        state=state
+                    )
+                    futures.append(future)
+                    
+                # Wait for all analyses to complete
+                for future in as_completed(futures):
+                    try:
+                        future.result()  # This will raise any exceptions from the thread
+                    except Exception as e:
+                        logger.error(f"Thread failed: {str(e)}")
+                    
+                    # Save intermediate state after each completion
+                    if state_file:
+                        state.save_state(state_file)
+        
+        # Generate consolidated report
+        consolidated_text = ["=== Circuit Analysis Report ===\n"]
+        
+        if state.completed:
+            consolidated_text.append("\n=== Successful Analyses ===")
+            for circuit in sorted(state.completed):
+                result = state.results[circuit]
+                consolidated_text.append(f"\n{'='*20} {circuit} {'='*20}")
+                consolidated_text.append(result.get("analysis", "No analysis available"))
+                token_info = (
+                    f"\nTokens used: {result.get('total_tokens', 0)} "
+                    f"(Prompt: {result.get('prompt_tokens', 0)}, "
+                    f"Completion: {result.get('completion_tokens', 0)})"
+                )
+                consolidated_text.append(token_info)
+        
+        if state.failed:
+            consolidated_text.append("\n=== Failed Analyses ===")
+            for circuit, error in sorted(state.failed.items()):
+                consolidated_text.append(f"\n{circuit}: {error}")
+        
+        # Save consolidated results
+        if output_file:
+            with open(output_file, "w") as f:
+                f.write("\n".join(consolidated_text))
+        
+        # Calculate total metrics
+        total_tokens = sum(
+            result.get("total_tokens", 0) 
+            for result in state.results.values()
         )
         
-        logger.info(f"LLM analysis completed in {time.time() - t0:.2f} seconds")
-        total_time = time.time() - start_time
-        logger.info(f"Total processing time: {total_time:.2f} seconds")
-        
-        return results
+        return {
+            "success": len(state.completed) > 0 and not state.failed,
+            "completed_circuits": sorted(state.completed),
+            "failed_circuits": state.failed,
+            "results": state.results,
+            "total_time_seconds": time.time() - pipeline_start_time,  # Overall pipeline time
+            "total_analysis_time": state.total_analysis_time,  # Cumulative analysis time
+            "total_tokens": total_tokens
+        }
         
     finally:
         sys.path.pop(0)
-             
+
 def validate_kicad_cli(path: str) -> str:
     """
     Validate KiCad CLI executable and provide platform-specific guidance.
@@ -325,6 +384,8 @@ def parse_args() -> argparse.Namespace:
               %(prog)s --schematic design.kicad_sch --generate-netlist --generate-skidl --analyze --api-key YOUR_KEY
               
               # Analyze existing SKiDL project with circuit skipping
+              %(prog)s --skidl-dir project/ --analyze
+# Skip specific circuits during analysis
               %(prog)s --skidl-dir project/ --analyze --skip-circuits "circuit1,circuit2" --api-key YOUR_KEY
             """)
     )
@@ -355,6 +416,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument('--skip-circuits', help='Comma-separated list of circuits to skip during analysis')
     parser.add_argument('--kicad-lib-paths', nargs='*', 
                        help='List of custom KiCad library paths')
+    parser.add_argument('--max-concurrent', type=int, default=4,
+                       help='Maximum number of concurrent LLM analyses (default: 4)')
     
     args = parser.parse_args()
     
@@ -532,32 +595,24 @@ def main() -> None:
                     backend=Backend(args.backend),
                     model=args.model,
                     prompt=args.analysis_prompt,
-                    skip_circuits=skip_circuits
+                    skip_circuits=skip_circuits,
+                    max_concurrent=args.max_concurrent
                 )
                 
                 if results["success"]:
-                    logger.info("Analysis Results:")
-                    if "subcircuits" in results:
-                        for hier, analysis in results["subcircuits"].items():
-                            logger.info(f"\nSubcircuit: {hier}")
-                            if analysis["success"]:
-                                logger.info(f"✓ Analysis completed in {analysis['request_time_seconds']:.2f} seconds")
-                                tokens = analysis.get('prompt_tokens', 0) + analysis.get('completion_tokens', 0)
-                                if tokens:
-                                    logger.info(f"  Tokens used: {tokens}")
-                            else:
-                                logger.error(f"✗ Analysis failed: {analysis['error']}")
-                        
-                        logger.info(f"\nTotal analysis time: {results['total_time_seconds']:.2f} seconds")
-                        if results.get('total_tokens'):
-                            logger.info(f"Total tokens used: {results['total_tokens']}")
-                    else:
-                        logger.info(f"✓ Analysis completed in {results['request_time_seconds']:.2f} seconds")
-                        tokens = results.get('prompt_tokens', 0) + results.get('completion_tokens', 0)
-                        if tokens:
-                            logger.info(f"Tokens used: {tokens}")
+                    logger.info("\nAnalysis Results:")
+                    logger.info(f"  ✓ Completed Circuits: {len(results['completed_circuits'])}")
+                    logger.info(f"  ✓ Total Analysis Time: {results['total_analysis_time']:.2f} seconds")
+                    logger.info(f"  ✓ Total Pipeline Time: {results['total_time_seconds']:.2f} seconds")
+                    if results.get('total_tokens'):
+                        logger.info(f"  ✓ Total Tokens Used: {results['total_tokens']}")
                             
-                    logger.info(f"Analysis results saved to: {args.analysis_output}")
+                    if results["failed_circuits"]:
+                        logger.warning("\nFailed Circuits:")
+                        for circuit, error in results["failed_circuits"].items():
+                            logger.warning(f"  ✗ {circuit}: {error}")
+                            
+                    logger.info(f"\nAnalysis results saved to: {args.analysis_output}")
                 else:
                     raise RuntimeError(f"Analysis failed: {results.get('error', 'Unknown error')}")
                     
@@ -576,7 +631,7 @@ def main() -> None:
                 raise
         
         total_time = time.time() - start_time
-        logger.info(f"Pipeline completed in {total_time:.2f} seconds")
+        logger.info(f"\nPipeline completed in {total_time:.2f} seconds")
                 
     except Exception as e:
         logger.error(f"Pipeline failed: {str(e)}")
