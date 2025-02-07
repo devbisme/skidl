@@ -110,6 +110,16 @@ TESTING_VERIFICATION: str = """
 - Debug interface requirements
 """.strip()
 
+CAP_DC_BIAS_DERATING: str = """
+7. Capacitor DC Bias Derating Analysis:
+- Identification of capacitors susceptible to DC bias derating
+- Calculation of effective capacitance at operating voltage
+- Impact on circuit performance (e.g., filter cutoff frequency, timing)
+- Recommendation of alternative capacitor types or values
+- Consideration of temperature effects on DC bias derating
+- Verification of capacitance derating with manufacturer data
+""".strip()
+
 # Dictionary mapping section names to their prompts
 ANALYSIS_SECTIONS: Dict[str, str] = {
     "system_overview": SYSTEM_OVERVIEW,
@@ -118,5 +128,6 @@ ANALYSIS_SECTIONS: Dict[str, str] = {
     "signal_integrity": SIGNAL_INTEGRITY,
     "thermal_analysis": THERMAL_ANALYSIS,
     "noise_analysis": NOISE_ANALYSIS,
-    "testing_verification": TESTING_VERIFICATION
+    "testing_verification": TESTING_VERIFICATION,
+    "cap_dc_bias_derating": CAP_DC_BIAS_DERATING
 }
