@@ -36,6 +36,7 @@ requirements = [
     "requests >= 2.31.0",
     "importlib-metadata",  # For importlib support
     "typing-extensions",  # For type hints in Python <3.8
+    "openai",
 ]
 
 test_requirements = [

@@ -438,33 +438,56 @@ def setup_environment(args) -> Path:
     return output_dir
 
 def handle_kicad_libraries(lib_paths: Optional[List[str]]) -> None:
-    """Add and validate KiCad library paths."""
-    if not lib_paths:
-        return
-        
+    """Add and validate KiCad library paths.
+    
+    Args:
+        lib_paths: List of paths to KiCad library directories
+    """
     from skidl import lib_search_paths, KICAD
     valid_paths = []
     invalid_paths = []
     
-    for lib_path in lib_paths:
-        path = Path(lib_path)
-        if not path.is_dir():
-            invalid_paths.append((path, "Directory does not exist"))
-            continue
-        
-        sym_files = list(path.glob("*.kicad_sym"))
-        if not sym_files:
-            invalid_paths.append((path, "No .kicad_sym symbol files found"))
-            continue
+    # First, clear any existing paths to avoid duplicates
+    lib_search_paths[KICAD] = []
+    
+    # Add system KiCad library path from environment variable
+    system_lib_path = os.environ.get('KICAD_SYMBOL_DIR')
+    if system_lib_path:
+        path = Path(system_lib_path)
+        if path.is_dir():
+            lib_search_paths[KICAD].append(str(path))
+            valid_paths.append(path)
+        else:
+            logger.warning(f"KICAD_SYMBOL_DIR path does not exist: {path}")
+    else:
+        logger.warning("KICAD_SYMBOL_DIR environment variable not set")
+        logger.warning("Please set KICAD_SYMBOL_DIR to your KiCad symbols directory")
+    
+    # Then process any additional user-provided paths
+    if lib_paths:
+        for lib_path in lib_paths:
+            path = Path(lib_path)
+            if not path.is_dir():
+                invalid_paths.append((path, "Directory does not exist"))
+                continue
+            
+            # Look for .kicad_sym files only
+            sym_files = list(path.glob("*.kicad_sym"))
+            if not sym_files:
+                invalid_paths.append((path, "No .kicad_sym files found"))
+                continue
 
-        valid_paths.append(path)
-        lib_search_paths[KICAD].append(str(path))
+            valid_paths.append(path)
+            # Add the path to SKiDL's library search paths
+            if str(path) not in lib_search_paths[KICAD]:
+                lib_search_paths[KICAD].append(str(path))
 
     if valid_paths:
         logger.info("Added KiCad library paths:")
         for path in valid_paths:
             logger.info(f"  ✓ {path}")
             sym_files = list(path.glob("*.kicad_sym"))
+            # Show up to 3 symbol files as examples
             for sym in sym_files[:3]:
                 logger.info(f"    - {sym.name}")
             if len(sym_files) > 3:
@@ -474,6 +497,17 @@ def handle_kicad_libraries(lib_paths: Optional[List[str]]) -> None:
         logger.warning("Invalid library paths:")
         for path, reason in invalid_paths:
             logger.warning(f"  ✗ {path}: {reason}")
+
+    if not valid_paths:
+        raise RuntimeError(
+            "No valid KiCad library paths found. Please ensure KICAD_SYMBOL_DIR "
+            "is set correctly and/or provide valid library paths."
+        )
+
+    # Debug output to verify paths are properly set
+    logger.debug("Final SKiDL library search paths:")
+    for path in lib_search_paths[KICAD]:
+        logger.debug(f"  - {path}")
 
 def generate_netlist(args, output_dir: Path) -> Optional[Path]:
     """Generate netlist from schematic if requested."""
