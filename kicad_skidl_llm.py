@@ -80,11 +80,23 @@ import argparse
 import logging
 from skidl import *
 
-# Set up basic logging configuration.
-logging.basicConfig(
-    level=logging.INFO,
-    format='[%(levelname)s] %(message)s'
-)
+import time
+from datetime import datetime
+
+# Configure logging
+logger = logging.getLogger('kicad_skidl_llm')
+logger.setLevel(logging.INFO)
+formatter = logging.Formatter('[%(asctime)s] %(levelname)s: %(message)s', 
+                            datefmt='%Y-%m-%d %H:%M:%S')
+handler = logging.StreamHandler()
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+
+# Disable propagation of SKiDL loggers to prevent duplicate messages
+skidl_loggers = ['skidl.logger', 'skidl.active_logger', 'skidl.erc_logger']
+for name in skidl_loggers:
+    l = logging.getLogger(name)
+    l.propagate = False
 
 # Custom exception to signal issues during circuit discovery and loading.
 class CircuitDiscoveryError(Exception):
@@ -109,130 +121,6 @@ class CircuitAnalyzer:
     potentially unsafe code, then creates isolated environments for
     circuit execution and analysis.
     """
-    
-    @staticmethod
-    def find_subcircuits(directory: Path) -> List[Dict[str, str]]:
-        """
-        Recursively find all functions decorated with @subcircuit in Python files.
-        
-        Uses AST parsing to safely discover circuits without executing code.
-        Skips files that can't be parsed and logs warnings.
-        
-        Args:
-            directory: Root directory to search for Python files
-            
-        Returns:
-            List of dicts containing:
-                - 'file': Path to Python file
-                - 'function': Name of decorated function
-                - 'lineno': Line number where the function is defined
-                
-        Raises:
-            CircuitDiscoveryError: If no valid Python files found
-        """
-        subcircuits = []
-        
-        class SubcircuitFinder(ast.NodeVisitor):
-            """AST visitor that identifies @subcircuit decorated functions."""
-            def visit_FunctionDef(self, node):
-                for decorator in node.decorator_list:
-                    if isinstance(decorator, ast.Name) and decorator.id == 'subcircuit':
-                        subcircuits.append({
-                            'file': str(current_file),
-                            'function': node.name,
-                            'lineno': node.lineno
-                        })
-        
-        python_files = list(directory.rglob('*.py'))
-        if not python_files:
-            raise CircuitDiscoveryError(f"No Python files found in {directory}")
-        
-        for current_file in python_files:
-            try:
-                with open(current_file, 'r', encoding='utf-8') as f:
-                    tree = ast.parse(f.read())
-                    SubcircuitFinder().visit(tree)
-            except Exception as e:
-                logging.warning(f"Could not parse {current_file}: {e}")
-                
-        return subcircuits
-
-    @staticmethod
-    def create_analysis_module(
-        subcircuits: List[Dict[str, str]], 
-        output_dir: Path
-    ) -> Tuple[Path, str]:
-        """
-        Create a temporary Python module that imports and executes discovered subcircuits.
-        The generated module creates dummy SKiDL nets for any parameters required by the 
-        subcircuit functions, allowing them to be called without errors.
-        
-        This version groups the discovered functions by file and generates explicit
-        import statements (rather than wildcard imports) so that functions whose names
-        start with an underscore (e.g. _3v3_regulator) are imported correctly.
-        
-        Args:
-            subcircuits: List of subcircuit information from find_subcircuits()
-            output_dir: Directory to write temporary module
-            
-        Returns:
-            Tuple of:
-                - Path to created module
-                - Generated code string (for debugging)
-                
-        Raises:
-            CircuitDiscoveryError: If module creation fails
-        """
-        analysis_file = output_dir / 'circuit_analysis.py'
-        try:
-            # Generate import statements and helper function.
-            code_lines = [
-                "from skidl import *\n",
-                "from skidl.tools import *\n",
-                "import inspect\n\n",
-                "# Helper function that creates dummy nets for required parameters.\n",
-                "def call_subcircuit(func):\n",
-                "    # If the function is wrapped, get the original.\n",
-                "    wrapped = getattr(func, '__wrapped__', func)\n",
-                "    sig = inspect.signature(wrapped)\n",
-                "    # Create a dummy net for each parameter\n",
-                "    dummy_args = [Net(param.name) for param in sig.parameters.values()]\n",
-                "    return func(*dummy_args)\n\n"
-            ]
-            
-            # Group discovered functions by file.
-            imports_by_file = {}
-            for s in subcircuits:
-                file = s['file']
-                func_name = s['function']
-                if file not in imports_by_file:
-                    imports_by_file[file] = set()
-                imports_by_file[file].add(func_name)
-            
-            # Generate explicit import lines for each file.
-            for file, functions in imports_by_file.items():
-                module_name = Path(file).stem
-                funcs_str = ", ".join(sorted(functions))
-                code_lines.append(f"from {module_name} import {funcs_str}\n")
-            
-            # Create main function to execute each subcircuit via call_subcircuit.
-            code_lines.append("\n\ndef main():\n")
-            for s in subcircuits:
-                func_name = s['function']
-                code_lines.append(f"    call_subcircuit({func_name})\n")
-            
-            code = ''.join(code_lines)
-            
-            with open(analysis_file, 'w', encoding='utf-8') as f:
-                f.write(code)
-                
-            return analysis_file, code
-            
-        except Exception as e:
-            raise CircuitDiscoveryError(
-                f"Failed to create analysis module: {str(e)}"
-            ) from e
-
 
     @staticmethod
     def analyze_circuits(
@@ -245,124 +133,109 @@ class CircuitAnalyzer:
         dump_temp: bool = False
     ) -> dict:
         """
-        Analyze circuits from either a SKiDL source file/project or KiCad conversion.
-        
-        Args:
-            source: Path to SKiDL file/project or KiCad conversion directory
-            output_file: Where to save analysis results
-            api_key: API key for cloud LLM service (required for openrouter)
-            backend: 'openrouter' or 'ollama'
-            model: Model name for selected backend
-            prompt: Custom analysis prompt
-            dump_temp: If True, do not delete temporary analysis files
-                
-        Returns:
-            Analysis results dictionary
+        Analyze circuits by executing original SKiDL code and analyzing default_circuit.
         """
+        start_time = time.time()
+        
+        # Generate a meaningful output filename if none provided
+        if not output_file:
+            output_file = f"{source.stem}_analysis.txt"
+            
         if source.is_file():
-            # Direct SKiDL file case - import and analyze the circuit
-            logging.info(f"Analyzing SKiDL file: {source}")
+            logger.info(f"Starting analysis of SKiDL file: {source}")
             
             sys.path.insert(0, str(source.parent))
             try:
-                # Import the SKiDL module which will populate default_circuit
+                # Import phase
+                t0 = time.time()
+                logger.info("Importing SKiDL module...")
                 module = importlib.import_module(source.stem)
-                importlib.reload(module)  # Reload in case it was previously imported
+                importlib.reload(module)
+                logger.info(f"Import completed in {time.time() - t0:.2f} seconds")
                 
-                # If there's a main() function, call it to instantiate the circuit
+                # Circuit instantiation phase 
                 if hasattr(module, 'main'):
+                    t0 = time.time()
+                    logger.info("Executing circuit main()...")
                     module.main()
-                    
-                # Get the populated default_circuit and analyze it
-                return default_circuit.analyze_with_llm(
+                    logger.info(f"Circuit instantiation completed in {time.time() - t0:.2f} seconds")
+                
+                # LLM Analysis phase
+                t0 = time.time()
+                logger.info("Starting LLM analysis...")
+                results = default_circuit.analyze_with_llm(
                     api_key=api_key,
                     output_file=output_file,
                     backend=backend,
                     model=model,
-                    prompt=prompt,
+                    custom_prompt=prompt,
                     analyze_subcircuits=True
                 )
+                logger.info(f"LLM analysis completed in {time.time() - t0:.2f} seconds")
+                
+                total_time = time.time() - start_time
+                logger.info(f"Total processing time: {total_time:.2f} seconds")
+                return results
                 
             except Exception as e:
-                raise CircuitDiscoveryError(
-                    f"Failed to analyze SKiDL file {source}: {str(e)}"
-                ) from e
+                logger.error(f"Analysis failed: {str(e)}")
+                raise
             finally:
                 sys.path.pop(0)
                     
         else:
-            # Directory case - handle KiCad conversion output
-            logging.info(f"Analyzing KiCad conversion directory: {source}")
+            # Directory case - import main.py from converted project
+            logger.info(f"Starting analysis of KiCad conversion directory: {source}")
             
+            main_file = source / 'main.py'
+            if not main_file.exists():
+                raise CircuitDiscoveryError(f"No main.py found in {source}")
+                
+            sys.path.insert(0, str(source))
             try:
-                # Find subcircuits in the converted SKiDL project
-                subcircuits = CircuitAnalyzer.find_subcircuits(source)
-                if not subcircuits:
-                    raise CircuitDiscoveryError(
-                        f"No @subcircuit functions found in {source}"
-                    )
-
-                logging.info(f"Found {len(subcircuits)} circuits to analyze:")
-                for circuit in subcircuits:
-                    logging.info(
-                        f"  - {circuit['function']} ({circuit['file']}:{circuit['lineno']})"
-                    )
-
-                # For KiCad conversions, we still need to create an analysis module
-                # since we're working with generated SKiDL code
-                analysis_module, generated_code = CircuitAnalyzer.create_analysis_module(
-                    subcircuits, source
-                )
-
-                # Execute the generated module
-                sys.path.insert(0, str(source))
+                # Import phase
+                t0 = time.time()
+                logger.info("Importing project main module...")
+                module = importlib.import_module('main')
+                importlib.reload(module)
+                logger.info(f"Import completed in {time.time() - t0:.2f} seconds")
+                
+                # Circuit instantiation phase
+                t0 = time.time()
+                logger.info("Executing circuit main()...")
                 try:
-                    module = importlib.import_module('circuit_analysis')
-                    importlib.reload(module)
-                    try:
-                        module.main()
-                    except FileNotFoundError as e:
-                        # Check if this is a KiCad library error
-                        if "Can't open file:" in str(e):
-                            missing_lib = str(e).split(':')[-1].strip()
-                            msg = (
-                                f"KiCad symbol library not found: {missing_lib}\n\n"
-                                "Use --kicad-lib-paths to specify library directories:\n"
-                                "  --kicad-lib-paths /path/to/symbol/libraries/\n"
-                            )
-                            raise CircuitDiscoveryError(msg) from e
-                        raise
-                    except Exception as e:
-                        raise CircuitDiscoveryError(
-                            f"Circuit execution failed: {str(e)}"
-                        ) from e
-                        
-                    # Analyze the populated default_circuit
-                    return default_circuit.analyze_with_llm(
-                        api_key=api_key,
-                        output_file=output_file,
-                        backend=backend,
-                        model=model,
-                        custom_prompt=prompt,
-                        analyze_subcircuits=True
-                    )
-                    
-                finally:
-                    sys.path.pop(0)
-                    # Clean up analysis module if it exists and not dumping temp files
-                    if not dump_temp:
-                        try:
-                            analysis_module.unlink()
-                        except Exception as e:
-                            logging.warning(f"Failed to remove temporary module: {e}")
-                    else:
-                        logging.info(f"Temporary analysis module saved at: {analysis_module}")
-
-            except CircuitDiscoveryError:
-                raise
-            except Exception as e:
-                raise CircuitDiscoveryError(f"Circuit analysis failed: {str(e)}") from e
-            
+                    module.main()
+                except FileNotFoundError as e:
+                    if "Can't open file:" in str(e):
+                        missing_lib = str(e).split(':')[-1].strip()
+                        msg = (
+                            f"KiCad symbol library not found: {missing_lib}\n"
+                            "Use --kicad-lib-paths to specify library directories"
+                        )
+                        raise CircuitDiscoveryError(msg) from e
+                    raise
+                logger.info(f"Circuit instantiation completed in {time.time() - t0:.2f} seconds")
+                
+                # LLM Analysis phase
+                t0 = time.time()
+                logger.info("Starting LLM analysis...")
+                results = default_circuit.analyze_with_llm(
+                    api_key=api_key,
+                    output_file=output_file,
+                    backend=backend,
+                    model=model,
+                    custom_prompt=prompt,
+                    analyze_subcircuits=True
+                )
+                logger.info(f"LLM analysis completed in {time.time() - t0:.2f} seconds")
+                
+                total_time = time.time() - start_time
+                logger.info(f"Total processing time: {total_time:.2f} seconds")
+                return results
+                
+            finally:
+                sys.path.pop(0)
+                            
 def validate_kicad_cli(path: str) -> str:
     """
     Validate that KiCad CLI exists and is executable.
@@ -569,13 +442,16 @@ def main():
     2. Analysis of SKiDL project directories
     3. KiCad schematic conversion and analysis
     """
+    start_time = time.time()
     try:
+        logger.info("Starting KiCad-SKiDL-LLM pipeline")
         args = parse_args()
         
         # Determine output directory
+        t0 = time.time()
         output_dir = Path(args.output_dir)
         output_dir.mkdir(parents=True, exist_ok=True)
-        
+        logger.info(f"Created output directory: {output_dir}")
         # Track the SKiDL source to analyze
         skidl_source = None
         
@@ -585,7 +461,7 @@ def main():
             
             # Step 1: Generate netlist if requested
             if args.schematic and args.generate_netlist:
-                logging.info("Step 1: Generating netlist from schematic...")
+                logger.info("Step 1: Generating netlist from schematic...")
                 schematic_path = Path(args.schematic)
                 if not schematic_path.exists():
                     raise FileNotFoundError(f"Schematic not found: {schematic_path}")
@@ -604,17 +480,17 @@ def main():
                     raise RuntimeError(f"Netlist generation failed:\n{e.stderr}") from e
                 
                 current_netlist = netlist_path
-                logging.info(f"✓ Generated netlist: {netlist_path}")
+                logger.info(f"✓ Generated netlist: {netlist_path}")
                 
             elif args.netlist:
                 current_netlist = Path(args.netlist)
                 if not current_netlist.exists():
                     raise FileNotFoundError(f"Netlist not found: {current_netlist}")
-                logging.info(f"Using existing netlist: {current_netlist}")
+                logger.info(f"Using existing netlist: {current_netlist}")
             
             # Step 2: Generate SKiDL if requested
             if args.generate_skidl:
-                logging.info("Step 2: Generating SKiDL project from netlist...")
+                logger.info("Step 2: Generating SKiDL project from netlist...")
                 skidl_dir = output_dir / f"{current_netlist.stem}_SKIDL"
                 skidl_dir.mkdir(parents=True, exist_ok=True)
                 
@@ -628,20 +504,20 @@ def main():
                     raise RuntimeError(f"SKiDL project generation failed:\n{e.stderr}") from e
                 
                 skidl_source = skidl_dir
-                logging.info(f"✓ Generated SKiDL project: {skidl_dir}")
+                logger.info(f"✓ Generated SKiDL project: {skidl_dir}")
         
         # Use direct SKiDL source if provided
         elif args.skidl:
             skidl_source = Path(args.skidl)
             if not skidl_source.exists():
                 raise FileNotFoundError(f"SKiDL file not found: {skidl_source}")
-            logging.info(f"Using SKiDL file: {skidl_source}")
+            logger.info(f"Using SKiDL file: {skidl_source}")
             
         elif args.skidl_dir:
             skidl_source = Path(args.skidl_dir)
             if not skidl_source.exists():
                 raise FileNotFoundError(f"SKiDL directory not found: {skidl_source}")
-            logging.info(f"Using SKiDL project directory: {skidl_source}")
+            logger.info(f"Using SKiDL project directory: {skidl_source}")
         
         # Add KiCad library paths if provided
         if args.kicad_lib_paths:
@@ -666,26 +542,26 @@ def main():
 
             # Log results
             if valid_paths:
-                logging.info("Added KiCad 8 library paths:")
+                logger.info("Added KiCad 8 library paths:")
                 for path in valid_paths:
-                    logging.info(f"  ✓ {path}")
+                    logger.info(f"  ✓ {path}")
                     sym_files = list(path.glob("*.kicad_sym"))
                     for sym in sym_files[:3]:  # Show up to 3 symbol libraries
-                        logging.info(f"    - {sym.name}")
+                        logger.info(f"    - {sym.name}")
                     if len(sym_files) > 3:
-                        logging.info(f"    - ... and {len(sym_files)-3} more")
+                        logger.info(f"    - ... and {len(sym_files)-3} more")
 
             if invalid_paths:
-                logging.warning("Some library paths were invalid:")
+                logger.warning("Some library paths were invalid:")
                 for path, reason in invalid_paths:
-                    logging.warning(f"  ✗ {path}: {reason}")
+                    logger.warning(f"  ✗ {path}: {reason}")
         
         # Step 3: Run analysis if requested
         if args.analyze:
             if not skidl_source:
                 raise ValueError("No SKiDL source available for analysis")
                 
-            logging.info("Step 3: Analyzing circuits...")
+            logger.info("Step 3: Analyzing circuits...")
             try:
                 results = CircuitAnalyzer.analyze_circuits(
                     source=skidl_source,
@@ -698,51 +574,50 @@ def main():
                 )
                 
                 if results["success"]:
-                    logging.info("Analysis Results:")
+                    logger.info("Analysis Results:")
                     # Handle subcircuit results if present
                     if "subcircuits" in results:
                         for hier, analysis in results["subcircuits"].items():
-                            logging.info(f"\nSubcircuit: {hier}")
+                            logger.info(f"\nSubcircuit: {hier}")
                             if analysis["success"]:
-                                logging.info(f"✓ Analysis completed in {analysis['request_time_seconds']:.2f} seconds")
+                                logger.info(f"✓ Analysis completed in {analysis['request_time_seconds']:.2f} seconds")
                                 tokens = analysis.get('prompt_tokens', 0) + analysis.get('response_tokens', 0)
                                 if tokens:
-                                    logging.info(f"  Tokens used: {tokens}")
+                                    logger.info(f"  Tokens used: {tokens}")
                             else:
-                                logging.error(f"✗ Analysis failed: {analysis['error']}")
+                                logger.error(f"✗ Analysis failed: {analysis['error']}")
                         
-                        logging.info(f"\nTotal analysis time: {results['total_time_seconds']:.2f} seconds")
+                        logger.info(f"\nTotal analysis time: {results['total_time_seconds']:.2f} seconds")
                         if results.get('total_tokens'):
-                            logging.info(f"Total tokens used: {results['total_tokens']}")
+                            logger.info(f"Total tokens used: {results['total_tokens']}")
                     else:
                         # Single circuit analysis results
-                        logging.info(f"✓ Analysis completed in {results['request_time_seconds']:.2f} seconds")
+                        logger.info(f"✓ Analysis completed in {results['request_time_seconds']:.2f} seconds")
                         tokens = results.get('prompt_tokens', 0) + results.get('response_tokens', 0)
                         if tokens:
-                            logging.info(f"Tokens used: {tokens}")
+                            logger.info(f"Tokens used: {tokens}")
                             
-                    logging.info(f"Analysis results saved to: {args.analysis_output}")
+                    logger.info(f"Analysis results saved to: {args.analysis_output}")
                 else:
                     raise RuntimeError(f"Analysis failed: {results.get('error', 'Unknown error')}")
                     
             except Exception as e:
-                logging.error("✗ Circuit analysis failed!")
-                logging.error(f"Error: {str(e)}")
+                logger.error("✗ Circuit analysis failed!")
+                logger.error(f"Error: {str(e)}")
                 if args.backend == 'openrouter':
-                    logging.error("Troubleshooting tips:")
-                    logging.error("1. Check your API key")
-                    logging.error("2. Verify you have sufficient API credits")
-                    logging.error("3. Check for rate limiting")
+                    logger.error("Troubleshooting tips:")
+                    logger.error("1. Check your API key")
+                    logger.error("2. Verify you have sufficient API credits")
+                    logger.error("3. Check for rate limiting")
                 else:
-                    logging.error("Troubleshooting tips:")
-                    logging.error("1. Verify Ollama is running locally")
-                    logging.error("2. Check if the requested model is installed")
+                    logger.error("Troubleshooting tips:")
+                    logger.error("1. Verify Ollama is running locally")
+                    logger.error("2. Check if the requested model is installed")
                 raise
                 
     except Exception as e:
-        logging.error("Error: %s", str(e))
-        logging.error("Stack trace:")
-        traceback.print_exc()
+        logger.error(f"Pipeline failed: {str(e)}")
+        logger.debug("Stack trace:", exc_info=True)
         sys.exit(1)
 
 if __name__ == "__main__":
