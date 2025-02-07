@@ -71,6 +71,94 @@ class CircuitDiscoveryError(Exception):
     pass
 
 
+def _analyze_subcircuits(
+    hierarchies: Set[str],
+    output_file: Optional[Path],
+    api_key: Optional[str],
+    backend: Backend,
+    model: Optional[str],
+    prompt: Optional[str],
+    start_time: float
+) -> Dict[str, Union[bool, float, int, Dict]]:
+    """
+    Analyze subcircuits using LLM and generate consolidated results.
+    
+    Args:
+        hierarchies: Set of circuit hierarchies to analyze
+        output_file: Output file for analysis results
+        api_key: API key for LLM service
+        backend: LLM backend to use
+        model: Model name for selected backend
+        prompt: Custom analysis prompt
+        start_time: Start time of analysis for timing calculations
+        
+    Returns:
+        Dictionary containing analysis results and metadata
+    """
+    if not hierarchies:
+        logger.warning("No valid circuits found for analysis after applying skip filters")
+        return {
+            "success": True,
+            "subcircuits": {},
+            "total_time_seconds": time.time() - start_time,
+            "total_tokens": 0
+        }
+    
+    results = {
+        "success": True,
+        "subcircuits": {},
+        "total_time_seconds": 0,
+        "total_tokens": 0
+    }
+    
+    consolidated_text = ["=== Subcircuits Analysis ===\n"]
+    for hier in sorted(hierarchies):
+        logger.info(f"\nAnalyzing subcircuit: {hier}")
+        
+        # Get description focused on this subcircuit
+        circuit_desc = default_circuit.get_circuit_info(hierarchy=hier, depth=1)
+        
+        # Analyze just this subcircuit
+        sub_results = default_circuit.analyze_with_llm(
+            api_key=api_key,
+            output_file=None,  # Don't write individual files
+            backend=backend.value,
+            model=model or DEFAULT_MODEL,
+            custom_prompt=prompt,
+            analyze_subcircuits=False  # Only analyze this specific subcircuit
+        )
+        
+        results["subcircuits"][hier] = sub_results
+        results["total_time_seconds"] += sub_results.get("request_time_seconds", 0)
+        results["total_tokens"] += (
+            sub_results.get("prompt_tokens", 0) + 
+            sub_results.get("completion_tokens", 0)
+        )
+        
+        # Build consolidated output text
+        consolidated_text.append(f"\n{'='*20} {hier} {'='*20}\n")
+        if sub_results.get("success", False):
+            analysis_text = sub_results.get("analysis", "No analysis available")
+            consolidated_text.append(analysis_text)
+            
+            token_info = (
+                f"\nTokens used: {sub_results.get('total_tokens', 0)} "
+                f"(Prompt: {sub_results.get('prompt_tokens', 0)}, "
+                f"Completion: {sub_results.get('completion_tokens', 0)})"
+            )
+            consolidated_text.append(token_info)
+        else:
+            consolidated_text.append(
+                f"Analysis failed: {sub_results.get('error', 'Unknown error')}"
+            )
+        consolidated_text.append("\n")
+    
+    # Save consolidated results
+    if output_file:
+        with open(output_file, "w") as f:
+            f.write("\n".join(consolidated_text))
+    
+    return results
 
 def analyze_circuits(
     source: Path,
@@ -82,7 +170,8 @@ def analyze_circuits(
     skip_circuits: Optional[Set[str]] = None,
     dump_temp: bool = False
 ) -> Dict[str, Union[bool, float, int, Dict]]:
-    """Analyze SKiDL circuits using the specified LLM backend.
+    """
+    Analyze SKiDL circuits using the specified LLM backend.
     
     Args:
         source: Path to SKiDL file or directory
@@ -93,6 +182,9 @@ def analyze_circuits(
         prompt: Custom analysis prompt
         skip_circuits: Set of circuit hierarchies to skip
         dump_temp: Flag to dump temporary files
+        
+    Returns:
+        Dictionary containing analysis results and metadata
     """
     start_time = time.time()
     skip_circuits = skip_circuits or set()
@@ -100,128 +192,18 @@ def analyze_circuits(
     if skip_circuits:
         logger.info(f"Skipping circuits: {', '.join(sorted(skip_circuits))}")
     
-    if source.is_file():
-        logger.info(f"Starting analysis of SKiDL file: {source}")
+    sys.path.insert(0, str(source.parent if source.is_file() else source))
+    try:
+        # Import phase
+        t0 = time.time()
+        module_name = source.stem if source.is_file() else 'main'
+        logger.info(f"Importing {module_name} module...")
+        module = importlib.import_module(module_name)
+        importlib.reload(module)
+        logger.info(f"Import completed in {time.time() - t0:.2f} seconds")
         
-        sys.path.insert(0, str(source.parent))
-        try:
-            # Import phase
-            t0 = time.time()
-            logger.info("Importing SKiDL module...")
-            module = importlib.import_module(source.stem)
-            importlib.reload(module)
-            logger.info(f"Import completed in {time.time() - t0:.2f} seconds")
-            
-            # Circuit instantiation phase 
-            if hasattr(module, 'main'):
-                t0 = time.time()
-                logger.info("Executing circuit main()...")
-                module.main()
-                logger.info(f"Circuit instantiation completed in {time.time() - t0:.2f} seconds")
-            
-            # LLM Analysis phase
-            t0 = time.time()
-            logger.info("Starting LLM analysis...")
-            
-            # Get hierarchies from parts and filter out skipped ones
-            hierarchies = set()
-            for part in default_circuit.parts:
-                if part.hierarchy != default_circuit.hierarchy:  # Skip top level
-                    if part.hierarchy not in skip_circuits:
-                        hierarchies.add(part.hierarchy)
-            
-            if not hierarchies:
-                logger.warning("No valid circuits found for analysis after applying skip filters")
-                return {
-                    "success": True,
-                    "subcircuits": {},
-                    "total_time_seconds": time.time() - start_time,
-                    "total_tokens": 0
-                }
-            
-            # Generate consolidated results
-            results = {
-                "success": True,
-                "subcircuits": {},
-                "total_time_seconds": 0,
-                "total_tokens": 0
-            }
-            
-            # Analyze each non-skipped subcircuit
-            consolidated_text = ["=== Subcircuits Analysis ===\n"]
-            for hier in sorted(hierarchies):
-                logger.info(f"\nAnalyzing subcircuit: {hier}")
-                
-                # Get description focused on this subcircuit
-                circuit_desc = default_circuit.get_circuit_info(hierarchy=hier, depth=1)
-                
-                # Analyze just this subcircuit
-                sub_results = default_circuit.analyze_with_llm(
-                    api_key=api_key,
-                    output_file=None,  # Don't write individual files
-                    backend=backend.value,
-                    model=model or DEFAULT_MODEL,
-                    custom_prompt=prompt,
-                    analyze_subcircuits=False  # Only analyze this specific subcircuit
-                )
-                
-                results["subcircuits"][hier] = sub_results
-                results["total_time_seconds"] += sub_results.get("request_time_seconds", 0)
-                results["total_tokens"] += sub_results.get("prompt_tokens", 0) + sub_results.get("completion_tokens", 0)
-                
-                # Build consolidated output text
-                consolidated_text.append(f"\n{'='*20} {hier} {'='*20}\n")
-                if sub_results.get("success", False):
-                    analysis_text = sub_results.get("analysis", "No analysis available")
-                    consolidated_text.append(analysis_text)
-                    
-                    token_info = (
-                        f"\nTokens used: {sub_results.get('total_tokens', 0)} "
-                        f"(Prompt: {sub_results.get('prompt_tokens', 0)}, "
-                        f"Completion: {sub_results.get('completion_tokens', 0)})"
-                    )
-                    consolidated_text.append(token_info)
-                else:
-                    consolidated_text.append(
-                        f"Analysis failed: {sub_results.get('error', 'Unknown error')}"
-                    )
-                consolidated_text.append("\n")
-            
-            # Save consolidated results
-            if output_file:
-                with open(output_file, "w") as f:
-                    f.write("\n".join(consolidated_text))
-            
-            logger.info(f"LLM analysis completed in {time.time() - t0:.2f} seconds")
-            total_time = time.time() - start_time
-            logger.info(f"Total processing time: {total_time:.2f} seconds")
-            
-            return results
-            
-        except Exception as e:
-            logger.error(f"Analysis failed: {str(e)}")
-            raise
-        finally:
-            sys.path.pop(0)
-                    
-    else:
-        # Directory case - import main.py from converted project
-        logger.info(f"Starting analysis of KiCad conversion directory: {source}")
-        
-        main_file = source / 'main.py'
-        if not main_file.exists():
-            raise CircuitDiscoveryError(f"No main.py found in {source}")
-            
-        sys.path.insert(0, str(source))
-        try:
-            # Import phase
-            t0 = time.time()
-            logger.info("Importing project main module...")
-            module = importlib.import_module('main')
-            importlib.reload(module)
-            logger.info(f"Import completed in {time.time() - t0:.2f} seconds")
-            
-            # Circuit instantiation phase
+        # Circuit instantiation phase
+        if hasattr(module, 'main'):
             t0 = time.time()
             logger.info("Executing circuit main()...")
             try:
@@ -236,89 +218,37 @@ def analyze_circuits(
                     raise CircuitDiscoveryError(msg) from e
                 raise
             logger.info(f"Circuit instantiation completed in {time.time() - t0:.2f} seconds")
-            
-            # LLM Analysis phase
-            t0 = time.time()
-            logger.info("Starting LLM analysis...")
-            
-            # Get hierarchies and filter out skipped ones
-            hierarchies = set()
-            for part in default_circuit.parts:
-                if part.hierarchy != default_circuit.hierarchy:  # Skip top level
-                    if part.hierarchy not in skip_circuits:
-                        hierarchies.add(part.hierarchy)
-            
-            if not hierarchies:
-                logger.warning("No valid circuits found for analysis after applying skip filters")
-                return {
-                    "success": True,
-                    "subcircuits": {},
-                    "total_time_seconds": time.time() - start_time,
-                    "total_tokens": 0
-                }
-            
-            # Generate consolidated results
-            results = {
-                "success": True,
-                "subcircuits": {},
-                "total_time_seconds": 0,
-                "total_tokens": 0
-            }
-            
-            # Analyze each non-skipped subcircuit
-            consolidated_text = ["=== Subcircuits Analysis ===\n"]
-            for hier in sorted(hierarchies):
-                logger.info(f"\nAnalyzing subcircuit: {hier}")
-                
-                # Get description focused on this subcircuit
-                circuit_desc = default_circuit.get_circuit_info(hierarchy=hier, depth=1)
-                
-                # Analyze just this subcircuit
-                sub_results = default_circuit.analyze_with_llm(
-                    api_key=api_key,
-                    output_file=None,  # Don't write individual files
-                    backend=backend.value,
-                    model=model or DEFAULT_MODEL,
-                    custom_prompt=prompt,
-                    analyze_subcircuits=False  # Only analyze this specific subcircuit
-                )
-                
-                results["subcircuits"][hier] = sub_results
-                results["total_time_seconds"] += sub_results.get("request_time_seconds", 0)
-                results["total_tokens"] += sub_results.get("prompt_tokens", 0) + sub_results.get("completion_tokens", 0)
-                
-                # Build consolidated output text
-                consolidated_text.append(f"\n{'='*20} {hier} {'='*20}\n")
-                if sub_results.get("success", False):
-                    analysis_text = sub_results.get("analysis", "No analysis available")
-                    consolidated_text.append(analysis_text)
-                    
-                    token_info = (
-                        f"\nTokens used: {sub_results.get('total_tokens', 0)} "
-                        f"(Prompt: {sub_results.get('prompt_tokens', 0)}, "
-                        f"Completion: {sub_results.get('completion_tokens', 0)})"
-                    )
-                    consolidated_text.append(token_info)
-                else:
-                    consolidated_text.append(
-                        f"Analysis failed: {sub_results.get('error', 'Unknown error')}"
-                    )
-                consolidated_text.append("\n")
-            
-            # Save consolidated results
-            if output_file:
-                with open(output_file, "w") as f:
-                    f.write("\n".join(consolidated_text))
-            
-            logger.info(f"LLM analysis completed in {time.time() - t0:.2f} seconds")
-            total_time = time.time() - start_time
-            logger.info(f"Total processing time: {total_time:.2f} seconds")
-            
-            return results
-            
-        finally:
-            sys.path.pop(0)
-            
+        
+        # LLM Analysis phase
+        t0 = time.time()
+        logger.info("Starting LLM analysis...")
+        
+        # Get hierarchies and filter out skipped ones
+        hierarchies = set()
+        for part in default_circuit.parts:
+            if part.hierarchy != default_circuit.hierarchy:  # Skip top level
+                if part.hierarchy not in skip_circuits:
+                    hierarchies.add(part.hierarchy)
+        
+        results = _analyze_subcircuits(
+            hierarchies=hierarchies,
+            output_file=output_file,
+            api_key=api_key,
+            backend=backend,
+            model=model,
+            prompt=prompt,
+            start_time=start_time
+        )
+        
+        logger.info(f"LLM analysis completed in {time.time() - t0:.2f} seconds")
+        total_time = time.time() - start_time
+        logger.info(f"Total processing time: {total_time:.2f} seconds")
+        
+        return results
+        
+    finally:
+        sys.path.pop(0)
+             
 def validate_kicad_cli(path: str) -> str:
     """
     Validate KiCad CLI executable and provide platform-specific guidance.
