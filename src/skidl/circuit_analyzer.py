@@ -12,7 +12,7 @@ from .logger import active_logger  # Import the active_logger
 # API configuration
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
 OLLAMA_API_URL = "http://localhost:11434/api/chat"
-DEFAULT_MODEL = "google/gemini-flash-1.5"
+DEFAULT_MODEL = "google/gemini-2.0-flash-001"
 DEFAULT_OLLAMA_MODEL = "llama3.2:latest"
 DEFAULT_TIMEOUT = 30
 DEFAULT_TEMPERATURE = 0.7
