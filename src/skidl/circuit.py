@@ -1282,6 +1282,9 @@ class Circuit(SkidlBaseObject):
                     # Add part docstring if available
                     if hasattr(part, 'description'):
                         circuit_info.append(f"    Description: {part.description}")
+                    # Add part purpose if available
+                    if hasattr(part, 'purpose'):
+                        circuit_info.append(f"    Purpose: {part.purpose}")
                     circuit_info.append("    Pins:")
                     for pin in part.pins:
                         net_name = pin.net.name if pin.net else "unconnected"
