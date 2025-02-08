@@ -1139,11 +1139,19 @@ class Circuit(SkidlBaseObject):
         lib.export(libname=skidl.config.backup_lib_name, file_=file_)
 
     def to_tuple(self):
-        """Return tuple containing sorted tuples of the parts and nets where
-        each part is represented by a tuple of its reference, name, library name and 
-        each net is represented by a tuple of its name and a tuple of the pins
-        that are on it with each pin being a tuple of the part reference and pin
-        number."""
+        """
+        Create a nested tuple that can be used to compare Circuit objects.
+        
+        Returns:
+            A tuple containing sorted tuples of the parts and nets where
+            each part is represented by a tuple of its reference, name, library name and 
+            each net is represented by a tuple of its name and a tuple of the pins
+            that are on it with each pin being a tuple of the part reference and pin
+            number.
+        """
+
+        self._preprocess()
+        
         return (
             tuple(
                 sorted(
