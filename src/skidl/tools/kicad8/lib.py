@@ -451,11 +451,21 @@ def parse_lib_part(part, partial_parse):
         add_unique_attr(part, unit_label, part)
 
     # Populate part fields from symbol properties. Properties will also be included below in drawing commands.
+    # Some default properties in case they're missing from the part.
     props = {
-        prop[1].lower(): prop
-        for prop in part.part_defn
-        if prop[0].value().lower() == "property"
+        "reference": ("", "", ""),
+        "value": ("", "", ""),
+        "footprint": ("", "", ""),
+        "datasheet": ("", "", ""),
     }
+    # Overwrite defaults with any existing properties from the part definition.
+    props.update(
+        {
+            prop[1].lower(): prop
+            for prop in part.part_defn
+            if prop[0].value().lower() == "property"
+        }
+    )
     part.ref_prefix = props["reference"][2]
     part.value = props["value"][2]
     part.fplist.append(props["footprint"][2])
