@@ -171,6 +171,10 @@ class Circuit(SkidlBaseObject):
                 ),
             )
 
+    def get_node_names(self):
+        """Return list of names of each subcircuit/group in the hierarchy."""
+        return tuple(set([part.hierarchy for part in self.parts]))
+
     def activate(self, name, tag):
         """Save the previous hierarchical group and activate a new one."""
 
