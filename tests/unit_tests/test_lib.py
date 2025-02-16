@@ -2,6 +2,7 @@
 
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
+import os
 import os.path
 
 import pytest
@@ -391,3 +392,16 @@ def test_lib_kicad_repository():
     # Check the integrity of each part in the library.
     for part in lib_4xxx.parts:
         check_lib_part(part)
+
+# Skip this test for KiCad 5 since the custom library doesn't exist in the KiCad 5 format.
+@pytest.mark.skipif(os.environ.get('SKIDL_TOOL', '')=='KICAD5', reason="Custom library not available in KiCad 5")
+def test_lib_custom():
+    """Test custom library."""
+    # Reset the library.
+    SchLib.reset()
+    # Set the library name.
+    lib_name = "220-3342-00-0602J"
+    # Create a custom library.
+    lib = SchLib(lib_name)
+    # Check that the part can be instantiated.
+    part = lib["220-3342-00-0602J"]
