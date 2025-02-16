@@ -8,6 +8,7 @@ Generate KiCad 7 netlist.
 
 import os.path
 import time
+import textwrap
 import uuid
 
 from skidl.pckg_info import __version__
@@ -168,13 +169,13 @@ def gen_netlist(circuit):
     src_file = os.path.join(scr_dict["dir"], scr_dict["source"])
     date = time.strftime("%m/%d/%Y %I:%M %p")
     tool = "SKiDL (" + __version__ + ")"
-    netlist = (
-        f"(export (version D)\n"
-        + "  (design\n"
-        + '    (source "{src_file}")\n'
-        + '    (date "{date}")\n'
-        + '    (tool "{tool}")'
-    )
+    netlist = f"""
+    (export (version D)
+      (design
+        (source "{src_file}")
+        (date "{date}")
+        (tool "{tool}")"""
+    netlist = textwrap.dedent(netlist)
     for num, node_name in enumerate(circuit.get_node_names(), 1):
         netlist += gen_netlist_sheet(node_name, num, src_file)
     netlist += "\n  )\n"
