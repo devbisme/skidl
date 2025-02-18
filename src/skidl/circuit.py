@@ -8,7 +8,7 @@ Handles complete circuits made of parts and nets.
 
 import json
 import subprocess
-from collections import Counter, deque
+from collections import Counter, deque, defaultdict
 
 import graphviz
 
@@ -106,13 +106,15 @@ class Circuit(SkidlBaseObject):
         self.interfaces = []
         self.packages = deque()
         self.hierarchy = "top"
-        self.level = 0
-        self.context = [("top",)]
+        # self.level = 0
+        # self.context = [("top",)]
+        self.context = []
         self.erc_assertion_list = []
         self.circuit_stack = (
             []
         )  # Stack of previous default_circuits for context manager.
         self.no_files = False  # Allow creation of files for netlists, ERC, libs, etc.
+        self.subcircuit_docs = {}  # Store documentation for subcircuits
 
         # Internal set used to check for duplicate hierarchical names.
         self._hierarchical_names = {self.hierarchy}
@@ -195,9 +197,20 @@ class Circuit(SkidlBaseObject):
         self.hierarchy = self.hierarchy + HIER_SEP + name + str(tag)
         self.add_hierarchical_name(self.hierarchy)
 
+        # Store subcircuit docstring if available
+        import inspect
+        frame = inspect.currentframe()
+        try:
+            # Go up 2 frames to get to the subcircuit function
+            subcircuit_func = frame.f_back.f_back.f_locals.get('f')
+            if subcircuit_func and subcircuit_func.__doc__:
+                self.subcircuit_docs[self.hierarchy] = subcircuit_func.__doc__.strip()
+        finally:
+            del frame  # Avoid reference cycles
+
         # Setup some globals needed in this context.
         builtins.default_circuit = self
-        builtins.NC = self.NC  # pylint: disable=undefined-variable
+        builtins.NC = self.NC
 
     def deactivate(self):
         """Deactivate the current hierarchical group and return to the previous one."""
@@ -1210,3 +1223,206 @@ class Circuit(SkidlBaseObject):
         """Don't output any files if stop is True."""
         self._no_files = stop
         stop_log_file_output(stop)
+
+    def get_circuit_info(self, hierarchy=None, depth=None, filename="circuit_description.txt"):
+        """
+        Save circuit information to a text file and return the description as a string.
+        Shows hierarchical structure of the circuit with consolidated parts and connections.
+        
+        Args:
+            hierarchy (str): Starting hierarchy level to analyze. If None, starts from top.
+            depth (int): How many levels deep to analyze. If None, analyzes all levels.
+            filename (str): Output filename for the circuit description.
+        """
+
+        # A list for storing lines of text describing the circuit.
+        circuit_info = []
+        circuit_info.append("=" * 40)
+        circuit_info.append(f"Circuit Name: {self.name}")
+        
+        # Get hierarchy label for the starting point.
+        start_hier = hierarchy or self.hierarchy
+        start_depth = len(start_hier.split(HIER_SEP))
+        circuit_info.append(f"Starting Hierarchy: {start_hier}")
+        
+        # Group parts by hierarchy and collect all hierarchical labels
+        # at or below the starting point.
+        hierarchy_parts = defaultdict(list)
+        hierarchies = set()
+        for part in self.parts:
+            if part.hierarchy.startswith(start_hier):
+                # Check depth constraint if specified
+                if depth is None or len(part.hierarchy.split(HIER_SEP)) - start_depth <= depth:
+                    hierarchy_parts[part.hierarchy].append(part)
+                    hierarchies.add(part.hierarchy)
+        
+        # Get nets and group by hierarchy.
+        net_hierarchies = defaultdict(list)
+        for net in self.get_nets():
+            net_hier_connections = defaultdict(list)
+            for pin in net.pins:
+                if pin.part.hierarchy in hierarchies:
+                    net_hier_connections[pin.part.hierarchy].append(pin)
+            
+            for hier in net_hier_connections:
+                net_hierarchies[hier].append((net, net_hier_connections))
+        
+        # Print consolidated information for each hierarchy level.
+        first_hierarchy = True
+        for hier in sorted(hierarchies):
+            if not first_hierarchy:
+                circuit_info.append("_" * 53)
+            else:
+                first_hierarchy = False
+                
+            circuit_info.append(f"Hierarchy Level: {hier}")
+            
+            # Add subcircuit docstring if available
+            if hier in self.subcircuit_docs:
+                circuit_info.append("\nSubcircuit Documentation:")
+                circuit_info.append(self.subcircuit_docs[hier])
+                circuit_info.append("")
+            
+            # Parts in this hierarchy
+            if hier in hierarchy_parts:
+                circuit_info.append("Parts:")
+                for part in sorted(hierarchy_parts[hier], key=lambda p: p.ref):
+                    circuit_info.append(f"  Part: {part.ref}")
+                    circuit_info.append(f"    Name: {part.name}")
+                    circuit_info.append(f"    Value: {part.value}")
+                    circuit_info.append(f"    Footprint: {part.footprint}")
+                    # Add part docstring if available
+                    if hasattr(part, 'description'):
+                        circuit_info.append(f"    Description: {part.description}")
+                    # Add part purpose if available
+                    if hasattr(part, 'purpose'):
+                        circuit_info.append(f"    Purpose: {part.purpose}")
+                    circuit_info.append("    Pins:")
+                    for pin in part.pins:
+                        net_name = pin.net.name if pin.net else "unconnected"
+                        circuit_info.append(f"      {pin.num}/{pin.name}: {net_name}")
+                        
+            # Nets in this hierarchy
+            if hier in net_hierarchies:
+                circuit_info.append("\nNets:")
+                for net, connections in sorted(net_hierarchies[hier], key=lambda x: x[0].name):
+                    circuit_info.append(f"  Net: {net.name}")
+                    circuit_info.append("    Connections:")
+                    for pin in connections[hier]:
+                        circuit_info.append(f"      {pin.part.ref}.{pin.name}")
+            
+        return "\n".join(circuit_info)
+
+    def analyze_with_llm(
+        self,
+        api_key=None,
+        output_file="circuit_llm_analysis.txt",
+        hierarchy=None,
+        depth=None,
+        analyze_subcircuits=False,
+        save_query_only=False,
+        custom_prompt=None,
+        backend="openrouter",
+        model=None,
+    ):
+        """
+        Analyze the circuit using LLM, with options for analyzing the whole circuit or individual subcircuits.
+        
+        Args:
+            api_key: API key for the LLM service (required for OpenRouter, not needed for Ollama)
+            output_file: File to save analysis results. If analyzing subcircuits, this will contain consolidated results.
+            hierarchy: Starting hierarchy level to analyze. If None, starts from top.
+            depth: How many levels deep to analyze. If None, analyzes all levels.
+            analyze_subcircuits: If True, analyzes each subcircuit separately with depth=1.
+                               If False, analyzes from the specified hierarchy and depth.
+            save_query_only: If True, only saves the query that would be sent to the LLM without executing it.
+            custom_prompt: Optional custom prompt to append to the default analysis prompt.
+                         This allows adding specific analysis requirements or questions.
+            backend: LLM backend to use ("openrouter" or "ollama"). Defaults to "openrouter".
+            model: Model to use for analysis. Defaults to backend's default model.
+            
+        Returns:
+            If analyze_subcircuits=False:
+                Dictionary containing single analysis results
+            If analyze_subcircuits=True:
+                Dictionary containing:
+                    - success: Overall success status
+                    - subcircuits: Dict of analysis results for each subcircuit
+                    - total_time_seconds: Total analysis time
+                    - total_tokens: Total tokens used
+        """
+        from .circuit_analyzer import SkidlCircuitAnalyzer
+
+        if save_query_only:
+            backend = None  # Don't need backend for query only.
+
+        analyzer = SkidlCircuitAnalyzer(
+            api_key=api_key,
+            custom_prompt=custom_prompt,
+            backend=backend,
+            model=model
+        )
+        
+        if not analyze_subcircuits:
+            # Single analysis of specified hierarchy
+            circuit_desc = self.get_circuit_info(hierarchy=hierarchy, depth=depth)
+            return analyzer.analyze_circuit(circuit_desc, output_file=output_file, save_query_only=save_query_only)
+        
+        # Analyze each subcircuit separately
+        results = {
+            "success": True,
+            "subcircuits": {},
+            "total_time_seconds": 0,
+            "total_tokens": 0
+        }
+        
+        # Get all unique subcircuit hierarchies
+        hierarchies = set()
+        for part in self.parts:
+            if part.hierarchy != self.hierarchy:  # Skip top level
+                hierarchies.add(part.hierarchy)
+        
+        # Analyze each subcircuit
+        for hier in sorted(hierarchies):
+            # Get description focused on this subcircuit
+            circuit_desc = self.get_circuit_info(hierarchy=hier, depth=1)
+            
+            # Analyze just this subcircuit
+            sub_results = analyzer.analyze_circuit(
+                circuit_desc,
+                output_file=None,  # Don't write individual files
+                save_query_only=save_query_only
+            )
+            
+            results["subcircuits"][hier] = sub_results
+            results["total_time_seconds"] += sub_results.get("request_time_seconds", 0)
+            results["total_tokens"] += sub_results.get("prompt_tokens", 0) + sub_results.get("response_tokens", 0)
+        
+        # Save consolidated results if requested
+        if output_file:
+            consolidated_text = ["=== Subcircuits Analysis ===\n"]
+            
+            for hier, analysis in results["subcircuits"].items():
+                consolidated_text.append(f"\n{'='*20} {hier} {'='*20}\n")
+                if analysis.get("success", False):
+                    # Include the actual analysis text
+                    analysis_text = analysis.get("analysis", "No analysis available")
+                    consolidated_text.append(analysis_text)
+                    
+                    # Include token usage info
+                    token_info = (
+                        f"\nTokens used: {analysis.get('total_tokens', 0)} "
+                        f"(Prompt: {analysis.get('prompt_tokens', 0)}, "
+                        f"Completion: {analysis.get('completion_tokens', 0)})"
+                    )
+                    consolidated_text.append(token_info)
+                else:
+                    consolidated_text.append(
+                        f"Analysis failed: {analysis.get('error', 'Unknown error')}"
+                    )
+                consolidated_text.append("\n")
+            
+            with open(output_file, "w") as f:
+                f.write("\n".join(consolidated_text))
+        
+        return results

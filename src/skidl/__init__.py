@@ -42,6 +42,7 @@ from .part_query import (
 )
 from .pin import Pin
 from .schlib import SchLib, load_backup_lib
+from .circuit_analyzer import SkidlCircuitAnalyzer
 from .skidl import (
     ERC,
     POWER,
@@ -57,6 +58,8 @@ from .skidl import (
     generate_svg,
     generate_xml,
     lib_search_paths,
+    get_circuit_info,
+    analyze_with_llm,
     no_files,
     reset,
     get_default_tool,

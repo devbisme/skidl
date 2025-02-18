@@ -186,3 +186,5 @@ uno_r3
 *.bak
 *.pkl
 
+# Mac stuff
+.DS_Store
