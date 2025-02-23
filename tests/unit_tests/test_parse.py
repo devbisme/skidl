@@ -2,13 +2,10 @@
 
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
-import pytest
-
 from skidl import Part, netlist_to_skidl, generate_netlist, TEMPLATE, Net, subcircuit
 from skidl.utilities import find_and_read_file
 
 
-@pytest.mark.skip(reason="This test is not working as expected.")
 def test_parser_1():
     """Test the parser with a simple netlist."""
 
@@ -43,11 +40,14 @@ def test_parser_1():
 
     # Create __init__.py file in the output directory so import will work.
     with open("./test_parser_1/__init__.py", "w") as f:
-        f.write("")
+        f.write("import main\n")
 
     default_circuit.reset()
 
     # Import and execute the generated SKiDL code.
+    import sys
+    import os
+    sys.path.insert(0, os.path.abspath("./test_parser_1"))
     import test_parser_1
 
     # Get the default circuit created by the generated SKiDL code.
