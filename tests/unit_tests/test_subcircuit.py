@@ -173,14 +173,16 @@ def test_hierarchical_names_1():
 
     resdiv()  # Instantiate the resistor divider subcircuit.
     resdiv(tag="divider1")  # Instantiate another resistor divider with a tag.
+    r_top = Resistor("1k", tag="resistor_top")  # Instantiate a resistor on the top level.
 
-    assert len(default_circuit.parts) == 4  # Check the number of parts.
+    assert len(default_circuit.parts) == 5  # Check the number of parts.
     assert len(default_circuit.get_nets()) == 6  # Check the number of nets.
 
-    assert r1s[0].hierarchical_name == "top.resdiv0.resistor1"  # Check hierarchical name.
-    assert r1s[1].hierarchical_name == "top.resdivdivider1.resistor1"  # Check hierarchical name.
-    assert r2s[0].hierarchical_name == "top.resdiv0.resistor2"  # Check hierarchical name.
-    assert r2s[1].hierarchical_name == "top.resdivdivider1.resistor2"  # Check hierarchical name.
+    assert r1s[0].hierarchical_name == ".resdiv0.resistor1"  # Check hierarchical name.
+    assert r1s[1].hierarchical_name == ".resdivdivider1.resistor1"  # Check hierarchical name.
+    assert r2s[0].hierarchical_name == ".resdiv0.resistor2"  # Check hierarchical name.
+    assert r2s[1].hierarchical_name == ".resdivdivider1.resistor2"  # Check hierarchical name.
+    assert r_top.hierarchical_name == ".resistor_top"  # Check top-level resistor name.
 
     ERC()  # Run electrical rules check.
     generate_netlist()  # Generate the netlist.

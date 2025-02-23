@@ -105,7 +105,7 @@ class Circuit(SkidlBaseObject):
         self.buses = []
         self.interfaces = []
         self.packages = deque()
-        self.hierarchy = "top"
+        self.hierarchy = "" # top level of the circuitry hierarchy.
         self.level = 0
         self.context = [("top",)]
         self.erc_assertion_list = []
@@ -173,7 +173,12 @@ class Circuit(SkidlBaseObject):
 
     def get_node_names(self):
         """Return list of names of each subcircuit/group in the hierarchy."""
-        return tuple(set([part.hierarchy for part in self.parts]))
+        node_names = set()
+        for part in self.parts:
+            part_hier_pieces = part.hierarchy.split(HIER_SEP)
+            for i in range(len(part_hier_pieces)):
+                node_names.add(HIER_SEP.join(part_hier_pieces[:i + 1]))
+        return tuple(node_names)
 
     def activate(self, name, tag):
         """Save the previous hierarchical group and activate a new one."""
@@ -1169,8 +1174,8 @@ class Circuit(SkidlBaseObject):
             tuple(
                 sorted(
                     (
-                        (n.name, tuple(sorted(tuple((p.part.ref, p.num) for p in n.pins))))
-                        for n in self.nets
+                        (n.name, tuple(sorted(tuple((p.part.ref, p.num) for p in n.get_pins()))))
+                        for n in self.get_nets()
                     ),
                     key=lambda x: x[0].lower(),
                 )

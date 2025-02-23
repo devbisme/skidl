@@ -20,44 +20,27 @@ from skidl.circuit import HIER_SEP
 namespace_uuid = uuid.UUID("7026fcc6-e1a0-409e-aaf4-6a17ea82654f")
 
 def gen_sheetpath(hierarchy):
-    """Generate a sheetpath for the hierarchy.
+    """Generate a sheetpath from a hierarchical path name."""
 
-    Args:
-        hierarchy (str): Hierarchical path name.
+    if not hierarchy:
+        return "/"
+    return "/" + hierarchy.replace(HIER_SEP, "/").strip("/") + "/"
 
-    Returns:
-        str: String containing the sheetpath.
-    """
-    sheetpath = hierarchy
-    sheetpath.replace(HIER_SEP, "/")
-    return sheetpath
+def gen_sheetpath_tstamp(sheetpath):
+    """Generate a timestamp for a sheetpath."""
 
-def gen_sheetpath_tstamp(hierarchy):
-    """Generate a timestamp for the sheetpath.
-
-    Args:
-        hierarchy (str): Hierarchical path name.
-
-    Returns:
-        str: String containing the timestamp.
-    """
-    hier_pieces = hierarchy.split(HIER_SEP)
-    sheetpath_tstamp = add_quotes("/".join([
-        str(uuid.uuid5(namespace_uuid, piece))
-        for piece in hier_pieces
-    ]))
-    return sheetpath_tstamp
+    if sheetpath == "/":
+        tstamp = "/"
+    else:
+        path_pieces = sheetpath.strip("/").split("/")
+        tstamp = "/".join([str(uuid.uuid5(namespace_uuid, piece)) for piece in path_pieces])
+        tstamp = "/" + tstamp + "/"
+    return tstamp
 
 def gen_part_tstamp(part):
-    """Generate a timestamp for the part.
+    """Generate a timestamp for a part."""
 
-    Args:
-        part (Part): Part object.
-
-    Returns:
-        str: String containing the timestamp.
-    """
-    part_tstamp = add_quotes(str(uuid.uuid5(namespace_uuid, part.hierarchical_name)))
+    part_tstamp = str(uuid.uuid5(namespace_uuid, part.hierarchical_name))
     return part_tstamp
 
 def gen_netlist_comp(part):
@@ -82,9 +65,9 @@ def gen_netlist_comp(part):
 
     # Embed the part hierarchy as a set of UUIDs into the sheetpath for each component.
     # This enables hierarchical selection in pcbnew.
-    sheetpath = gen_sheetpath(part.hierarchy)
-    sheetpath_tstamp = gen_sheetpath_tstamp(part.hierarchy)
-    part_tstamp = gen_part_tstamp(part)
+    sheetpath = add_quotes(gen_sheetpath(part.hierarchy))
+    sheetpath_tstamp = add_quotes(gen_sheetpath_tstamp(sheetpath))
+    part_tstamp = add_quotes(gen_part_tstamp(part))
 
     fields = ""
     for fld_name, fld_value in part.fields.items():
@@ -123,17 +106,17 @@ def gen_netlist_net(net):
     """
     code = add_quotes(net.code)
     name = add_quotes(net.name)
-    txt = "    (net (code {code}) (name {name})".format(**locals())
+    txt = f"    (net (code {code}) (name {name})"
     for p in sorted(net.pins, key=str):
         part_ref = add_quotes(p.part.ref)
         pin_num = add_quotes(p.num)
-        txt += "\n      (node (ref {part_ref}) (pin {pin_num}))".format(**locals())
+        txt += f'\n      (node (ref "{p.part.ref}") (pin "{p.num}"))'
     txt += ")"
     return txt
 
 def gen_netlist_sheet(hierarchy, number, src_file):
     sheetpath = gen_sheetpath(hierarchy)
-    sheetpath_tstamp = gen_sheetpath_tstamp(hierarchy)
+    sheetpath_tstamp = gen_sheetpath_tstamp(sheetpath)
     return f"""
     (sheet (number "{number}") (name "{sheetpath}") (tstamps "{sheetpath_tstamp}")
       (title_block
@@ -170,11 +153,11 @@ def gen_netlist(circuit):
     date = time.strftime("%m/%d/%Y %I:%M %p")
     tool = "SKiDL (" + __version__ + ")"
     netlist = f"""
-    (export (version D)
-      (design
-        (source "{src_file}")
-        (date "{date}")
-        (tool "{tool}")"""
+        (export (version D)
+        (design
+            (source "{src_file}")
+            (date "{date}")
+            (tool "{tool}")"""
     netlist = textwrap.dedent(netlist)
     for num, node_name in enumerate(circuit.get_node_names(), 1):
         netlist += gen_netlist_sheet(node_name, num, src_file)
