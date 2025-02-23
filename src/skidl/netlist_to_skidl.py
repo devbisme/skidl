@@ -7,7 +7,6 @@ Convert a KiCad netlist into equivalent hierarchical SKiDL programs.
 import re
 import os
 import random
-import textwrap
 from pathlib import Path
 from collections import defaultdict
 from dataclasses import dataclass
@@ -15,7 +14,6 @@ from typing import List, Set
 from kinparse import parse_netlist
 from .logger import active_logger  # Import the active_logger
 
-from dataclasses import dataclass
 
 
 @dataclass
