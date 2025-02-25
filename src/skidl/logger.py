@@ -106,13 +106,28 @@ class SkidlLogger(logging.getLoggerClass()):
         super().info(msg, *args, **kwargs)
 
     def info(self, msg, *args, **kwargs):
+        """Info message that includes the location where it was issued."""
         super().info(msg + self.get_trace(), *args, **kwargs)
 
+    def bare_info(self, msg, *args, **kwargs):
+        """Info message without location."""
+        super().info(msg, *args, **kwargs)
+
     def warning(self, msg, *args, **kwargs):
+        """Warning message that includes the location where it was issued."""
         super().warning(msg + self.get_trace(), *args, **kwargs)
 
+    def bare_warning(self, msg, *args, **kwargs):
+        """Warning message without location."""
+        super().warning(msg, *args, **kwargs)
+
     def error(self, msg, *args, **kwargs):
+        """Error message that includes the location where it was issued."""
         super().error(msg + self.get_trace(), *args, **kwargs)
+
+    def bare_error(self, msg, *args, **kwargs):
+        """Error message without location."""
+        super().error(msg, *args, **kwargs)
 
     def critical(self, msg, *args, **kwargs):
         super().critical(msg + self.get_trace(), *args, **kwargs)
