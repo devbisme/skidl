@@ -224,7 +224,8 @@ class Part(SkidlBaseObject):
         # Setup the tag for tieing the part to a footprint in a pcb editor.
         # Do this before adding the part to the circuit or an exception will occur
         # because the part can't give its hierarchical name to the circuit.
-        self.tag = tag or str(randint(0, 2**64 - 1))
+        # If the tag is not set, a random tag is generated.
+        self.tag = tag
 
         # Override the reference prefix if it was passed as a parameter.
         # If nothing was set, default to using "U".
@@ -1122,6 +1123,18 @@ class Part(SkidlBaseObject):
 
         convert_for_spice(self, spice_part, pin_map)
 
+    def check_for_manual_tag(self):
+        """Warn if the part tag was not set or was set randomly."""
+
+        if not self.tag:
+            active_logger.bare_warning(
+                f"Missing tag on part {self.ref} defined at {self.def_line}."
+            )
+        elif self.tag.startswith("random-"):
+            active_logger.bare_warning(
+                f"Randomly-assigned tag on part {self.ref} defined at {self.def_line}."
+            )
+
     def _find_min_max_pins(self):
         """Return the minimum and maximum pin numbers for the part."""
         pin_nums = []
@@ -1139,6 +1152,11 @@ class Part(SkidlBaseObject):
         except ValueError:
             # This happens if the part has no integer-labeled pins.
             return 0, 0
+        
+    @property
+    def def_line(self):
+        """Return the line number where the part was defined."""
+        return self.skidl_trace.split(";")[-1]
 
     @property
     def ordered_pins(self):
@@ -1163,14 +1181,18 @@ class Part(SkidlBaseObject):
             self.circuit.rmv_hierarchical_name(self.hierarchical_name)
 
         # Update the part's tag.
-        str_tag = str(value)
-        if re.compile(r"[^a-zA-Z0-9\-_]").search(str_tag):
-            active_logger.raise_(
-                ValueError,
-                "Can't set part tag to {} it contains disallowed characters.".format(
-                    str_tag
-                ),
-            )
+        if not value:
+            del self.tag
+            str_tag = "random-" + str(randint(0, 2**64 - 1))
+        else:
+            str_tag = str(value)
+            if re.compile(r"[^a-zA-Z0-9\-_]").search(str_tag):
+                active_logger.raise_(
+                    ValueError,
+                    "Can't set part tag to {} it contains disallowed characters.".format(
+                        str_tag
+                    ),
+                )
         self._tag = str_tag
 
         # Add the udpated hierarchical name back to the index.
@@ -1181,7 +1203,7 @@ class Part(SkidlBaseObject):
     def tag(self):
         """Delete the part tag."""
         # Part's can't have a None tag, so set a new random tag.
-        self.tag = randint(0, 2**64 - 1)
+        self.tag = "random-" + str(randint(0, 2**64 - 1))
 
     @property
     def ref(self):
@@ -1447,6 +1469,6 @@ def default_empty_footprint_handler(part):
 
     from .logger import active_logger
 
-    active_logger.error(
-        "No footprint for {part}/{ref}.".format(part=part.name, ref=part.ref)
+    active_logger.bare_error(
+        f"No footprint for {part.name}/{part.ref} defined at {part.def_line}."
     )

@@ -470,6 +470,15 @@ class Circuit(SkidlBaseObject):
         # Restore the logger that was active before the ERC.
         active_logger.pop()
 
+    def check_part_tags(self):
+        """
+        Check for any null or randomly-assigned tags since those will
+        lead to unstable associations between parts and PCB footprints.
+        """
+
+        for part in self.parts:
+            part.check_for_manual_tag()
+
     def generate_netlist(self, **kwargs):
         """
         Return a netlist and also write it to a file/stream.
@@ -492,6 +501,10 @@ class Circuit(SkidlBaseObject):
         active_logger.warning.reset()
 
         self._preprocess()
+
+        # Check for any randomly-assigned tags since those will lead to
+        # unstable associations between parts and PCB footprints.
+        self.check_part_tags()
 
         # Extract arguments:
         #     Get EDA tool the netlist will be generated for.
