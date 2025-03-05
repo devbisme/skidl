@@ -703,7 +703,7 @@ def gen_schematic(
     from skidl.schematics.place import PlacementFailure
     from skidl.schematics.route import RoutingFailure
     from skidl.tools import tool_modules
-    from skidl.schematics.node import Node
+    from skidl.node import Node
 
     # Part placement options that should always be turned on.
     options["use_push_pull"] = True
