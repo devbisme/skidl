@@ -703,7 +703,7 @@ def gen_schematic(
     from skidl.schematics.place import PlacementFailure
     from skidl.schematics.route import RoutingFailure
     from skidl.tools import tool_modules
-    from skidl.node import Node
+    from skidl.schematics.sch_node import SchNode
 
     # Part placement options that should always be turned on.
     options["use_push_pull"] = True
@@ -718,7 +718,7 @@ def gen_schematic(
     for _ in range(retries):
         preprocess_circuit(circuit, **options)
 
-        node = Node(circuit, tool_modules[KICAD5], filepath, top_name, title, flatness)
+        node = SchNode(circuit, tool_modules[KICAD5], filepath, top_name, title, flatness)
 
         try:
             # Place parts.
