@@ -114,7 +114,11 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
     )
 
     # Get the unique set of files referenced by the subcircuits in the Spice library.
-    lib_files = set([str(spice_lib[subcirc]) for subcirc in spice_lib.subcircuits])
+    for subcirc in spice_lib.subcircuits:
+        path = getattr(spice_lib[subcirc], "path", None)
+        if not path:
+            path = spice_lib[subcirc] # this is pyspice 1.5 behavior
+        lib_files = set([str(path)])
 
     # Go through the files and create a SKiDL Part for each subcircuit.
     for lib_file in lib_files:
@@ -316,7 +320,9 @@ def gen_netlist(self, **kwargs):
                     path = None
                     for lib in default_libs:
                         try:
-                            path = lib[model]
+                            path = getattr(lib[model], "path", None)
+                            if not path:
+                                path = lib[model]  # this is pyspice 1.5 behavior
                             break
                         except KeyError:
                             pass

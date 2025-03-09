@@ -51,7 +51,11 @@ inverter(outp[1], outp[2])  # Third inverter is driven by the output of the seco
 
 # Simulate the cascaded inverters.
 circ = generate_netlist()  # Pass-in the library where the transistor model is stored.
-sim = circ.simulator()
+try:
+    sim = Simulator.factory()
+    sim= sim.simulation(circ)
+except:
+    sim = circ.simulator()
 waveforms = sim.transient(step_time=0.01 @ u_ms, end_time=5 @ u_ms)
 
 # Get the waveforms for the input and output.
