@@ -70,7 +70,9 @@ def gen_netlist_comp(part):
     part_tstamp = add_quotes(gen_part_tstamp(part))
 
     fields = ""
-    for fld_name, fld_value in part.fields.items():
+    part_fields = list(part.fields.items())
+    part_fields += list({"SKiDL Line": part.def_line, "SKiDL Tag": part.tag}.items())
+    for fld_name, fld_value in part_fields:
         fld_name = add_quotes(fld_name)
         fld_value = add_quotes(fld_value)
         if fld_value:
