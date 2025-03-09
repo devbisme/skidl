@@ -27,7 +27,7 @@ class Node:
     ):
         self.parent = None
         self.children = defaultdict(
-            lambda: self.__class__(None, tool_module, filepath, top_name, title, flatness)
+            lambda: self.__class__(None, filepath, top_name)
         )
         self.filepath = filepath
         self.top_name = top_name
@@ -35,6 +35,25 @@ class Node:
 
         if circuit:
             self.add_circuit(circuit)
+
+    def get_or_add_child(self, name):
+        """Get or create a child node with the given name and attach it to the parent node.
+
+        Args:
+            self (Node): The parent node.
+            name (str): Name of the child node.
+
+        Returns:
+            Node: The child node.
+        """
+
+        # This will create a new child node if it doesn't already exist.
+        child = self.children[name]
+
+        # Attach the child node to this node.
+        child.parent = self
+
+        return child 
 
     def find_node_with_part(self, part):
         """Find the node that contains the part based on its hierarchy.
@@ -65,51 +84,6 @@ class Node:
         # Build the circuit node hierarchy by adding the parts.
         for part in circuit.parts:
             self.add_part(part)
-
-        # Add terminals to nodes in the hierarchy for nets that span across nodes.
-        for net in circuit.nets:
-            # Skip nets that are stubbed since there will be no wire to attach to the NetTerminal.
-            if getattr(net, "stub", False):
-                continue
-
-            # Search for pins in different nodes.
-            for pin1, pin2 in zip(net.pins[:-1], net.pins[1:]):
-                if pin1.part.hierarchy != pin2.part.hierarchy:
-                    # Found pins in different nodes, so break and add terminals to nodes below.
-                    break
-            else:
-                if len(net.pins) == 1:
-                    # Single pin on net and not stubbed, so add a terminal to it below.
-                    pass
-                elif not net.is_implicit():
-                    # The net has a user-assigned name, so add a terminal to it below.
-                    pass
-                else:
-                    # No need for net terminal because there are multiple pins
-                    # and they are all in the same node.
-                    continue
-
-            # Add a single terminal to each node that contains one or more pins of the net.
-            visited = []
-            for pin in net.pins:
-                # A stubbed pin can't be used to add NetTerminal since there is no explicit wire.
-                if pin.stub:
-                    continue
-
-                part = pin.part
-
-                if part.hierarchy in visited:
-                    # Already added a terminal to this node, so don't add another.
-                    continue
-
-                # Add NetTerminal to the node with this part/pin.
-                self.find_node_with_part(part).add_terminal(net)
-
-                # Record that this hierarchical node was visited.
-                visited.append(part.hierarchy)
-
-        # Flatten the hierarchy as specified by the flatness parameter.
-        self.flatten(self.flatness)
 
     def add_part(self, part, level=0):
         """Add a part to the node at the appropriate level of the hierarchy.
@@ -148,10 +122,7 @@ class Node:
         else:
             # Part is at a level below the current node. Get the child node using
             # the name of the next level in the hierarchy for this part.
-            child_node = self.children[level_names[level + 1]]
-
-            # Attach the child node to this node. (It may have just been created.)
-            child_node.parent = self
+            child_node = self.node.get_or_add_child(level_names[level + 1])
 
             # Add part to the child node (or one of its children).
             child_node.add_part(part, level + 1)

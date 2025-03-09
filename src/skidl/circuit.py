@@ -95,6 +95,8 @@ class Circuit(SkidlBaseObject):
 
     def mini_reset(self, init=False):
         """Clear any circuitry but don't erase any loaded part libraries."""
+        
+        from .node import Node
 
         self.group_name_cntr = Counter()
 
@@ -106,6 +108,7 @@ class Circuit(SkidlBaseObject):
         self.interfaces = []
         self.packages = deque()
         self.hierarchy = "" # top level of the circuitry hierarchy.
+        self.node = Node(self) # Hierarchical node tree for the circuit.
         self.level = 0
         self.context = [("top",)]
         self.erc_assertion_list = []
