@@ -244,8 +244,16 @@ counter(clk)
 # nxt = Bus('NXT',2)
 cntr(clk, cnt)
 
-waveforms = (
-    generate_netlist().simulator().transient(step_time=0.01 @ u_ns, end_time=30 @ u_ns)
-)
+circ = generate_netlist()
+try:
+    sim = Simulator.factory()
+    sim= sim.simulation(circ)
+except:
+    sim = circ.simulator()
+waveforms = sim.transient(step_time=0.01 @ u_ns, end_time=30 @ u_ns)
+
+# waveforms = (
+#     generate_netlist().simulator().transient(step_time=0.01 @ u_ns, end_time=30 @ u_ns)
+# )
 # oscope(waveforms, clk, *nw, *old)
 oscope(waveforms, clk, *cnt)

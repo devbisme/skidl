@@ -19,7 +19,12 @@ nfet.b & nfet.s
 circ = generate_netlist()
 print(circ)
 print("Creating simulator...")
-sim = circ.simulator()
+
+try:
+    sim = Simulator.factory()
+    sim= sim.simulation(circ)
+except:
+    sim = circ.simulator()
 print("Running simulation...")
 dc_vals = sim.dc(VS=slice(0, 10, 0.1))
 

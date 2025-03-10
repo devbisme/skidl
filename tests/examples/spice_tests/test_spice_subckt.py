@@ -20,7 +20,11 @@ circ = (
     generate_netlist()
 )  # Pass-in the library where the voltage regulator subcircuit is stored.
 print(circ)
-sim = circ.simulator()
+try:
+    sim = Simulator.factory()
+    sim= sim.simulation(circ)
+except:
+    sim = circ.simulator()
 dc_vals = sim.dc(
     VIN=slice(0, 10, 0.1)
 )  # Ramp vin from 0->10V and observe regulator output voltage.
