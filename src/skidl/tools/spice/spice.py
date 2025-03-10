@@ -506,7 +506,12 @@ def add_subcircuit_to_circuit(part, circuit):
     """
 
     # The device reference is always the first positional argument.
-    args = [_get_spice_ref(part)]
+    # sometimes we convert part from a U to X. In this case, we need to use the part name as the reference
+    # to avoid conflict with the subcircuit name
+    if part.ref.startswith(part.pyspice["name"]):
+        args = [_get_spice_ref(part)]
+    else:
+        args = [part.ref]
 
     args.append(part.name)
     args.extend(_get_net_names(part))

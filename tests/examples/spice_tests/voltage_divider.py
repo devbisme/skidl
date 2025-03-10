@@ -48,7 +48,6 @@ d1.name = '1N4148'
 spice_part = Part("1N4148", '1N4148', dest=TEMPLATE)
 ref = d1.ref
 d1.convert_for_spice(spice_part, {'A': 1, 'K': 2})
-d1.ref = '_' + ref
 
 from PySpice.Doc.ExampleTools import find_libraries
 from PySpice import SpiceLibrary, Circuit, Simulator
