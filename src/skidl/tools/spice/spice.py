@@ -600,13 +600,18 @@ def convert_for_spice(part, spice_part, pin_map):
     part.aliases += spice_part.aliases
 
     # Look-up pin names/numbers to create a mapping between actual Pin objects.
-    pin_map = [[part[dst], spice_part[src]] for dst, src in pin_map.items()]
+    pin_map = [[part[str(dst)], spice_part[str(src)]] for dst, src in pin_map.items()]
 
     # Pull some info from the SPICE part pins into the part pins.
     for dst_pin, src_pin in pin_map:
         dst_pin.num = src_pin.num
         dst_pin.name = src_pin.name
         dst_pin.aliases += src_pin.aliases
+    
+    # reorder the part pins based on spice part pins orders
+    # active_logger.info("Reordering pins for part {}".format(part.ref))
+    part.pins = [next(pin for pin in part.pins if pin.num == src.num or pin.name == src.name) for src in spice_part.pins]
+
 
 
 class XspicePinList(list):

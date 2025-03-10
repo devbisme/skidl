@@ -39,6 +39,7 @@ generate_netlist()
 ####################################################################################################
 set_default_tool(SPICE)
 from skidl.pyspice import *
+# map from skidl to pyspice. 1 is the skidl pin number, p is the pyspice pin number
 r1.convert_for_spice(R, {1: "p", 2: "n"})
 r2.convert_for_spice(R, {1: "p", 2: "n"})
 c1.convert_for_spice(C, {1: "p", 2: "n"})  
