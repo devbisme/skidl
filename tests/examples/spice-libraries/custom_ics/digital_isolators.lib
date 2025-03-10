@@ -1,0 +1,25 @@
+* PSpice Model Editor - Version 10.0.0
+
+*$
+.SUBCKT ISO7320C 1 2 3 4 5 6 7 8
+* 1: VCC1
+* 2: INA
+* 3: INB
+* 4: GND1
+* 5: GND2
+* 6: OUTB
+* 7: OUTA
+* 8: VCC2
+R1 1 4 1e9
+R2 2 4 1e9
+R3 3 4 1e9
+
+R6 6 5 1e9
+R7 7 5 1e9
+R8 8 5 1e9
+
+E6 6 5 3 4 1.0
+E7 7 5 2 4 1.0
+
+.ENDS ISO7320C
+*$

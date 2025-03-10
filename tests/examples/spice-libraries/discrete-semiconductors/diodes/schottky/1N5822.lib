@@ -1,0 +1,23 @@
+* -*- spice -*-
+* https://www.vishay.com/docs/88003/1n5822.txt
+*
+**********************************
+* Model created by               *
+*   Uni.Dipl.-Ing. Arpad Buermen *
+*   arpad.burmen@ieee.org        *
+* Copyright:                     *
+*   Thomatronik GmbH, Germany    *
+*   info@thomatronik.de          *
+**********************************
+* April 2001
+*   SPICE3
+.subckt 1N5822 1 2
+Ddio 1 2 legd
+Dgr 1 2 grd
+.model legd d is = 2.37487E-007 n = 1.98477 rs = 0.0171579
++ eg = 1.79999 xti = 3.99991
++ cjo = 5.47556E-010 vj = 1.64135 m = 0.603662 fc = 0.5
++ tt = 1.4427E-009 bv = 48.4 ibv = 3.5 af = 1 kf = 0
+.model grd d is = 1.27781E-005 n = 1.2149 rs = 0.0250254
++ eg = 0.55507 xti = 0.794212
+.ends
