@@ -12,6 +12,9 @@ vreg[1].aliases += "OUT"  # Set pin 1 as OUT.
 vreg[2].aliases += "GND"  # Set pin 2 as GND.
 
 r = R(value=470 @ u_Ohm)  # Load resistor on regulator output.
+vreg["3"].name = "IN"  # Set the input pin name to "IN".
+vreg["1"].name = "OUT"  # Set the output pin name to "OUT".
+vreg["2"].name = "GND"  # Set the ground pin name to "GND".
 
 vin["p"] & vreg["IN", "OUT"] & r & gnd
 gnd += vin["n"], vreg["GND"]  # Ground connections for everybody.
