@@ -2,32 +2,31 @@ import matplotlib.pyplot as plt
 
 from skidl.pyspice import *
 
-lib_search_paths[SPICE].append("../SpiceLib")
+lib_search_paths[SPICE].append("../../test_data/SpiceLib")
 
 vin = V(ref="VIN", dc_value=8 @ u_V)  # Input power supply.
+
 vreg = Part("NCP1117", "ncp1117_33-x")  # Voltage regulator from ON Semi part lib.
-print(vreg)  # Print vreg pin names.
+vreg[3].aliases += "IN"  # Set pin 3 as IN.
+vreg[1].aliases += "OUT"  # Set pin 1 as OUT.
+vreg[2].aliases += "GND"  # Set pin 2 as GND.
+
 r = R(value=470 @ u_Ohm)  # Load resistor on regulator output.
-vreg["IN", "OUT"] += (
-    vin["p"],
-    r[1],
-)  # Connect vreg input to vin and output to load resistor.
-gnd += vin["n"], r[2], vreg["GND"]  # Ground connections for everybody.
+
+vin["p"] & vreg["IN", "OUT"] & r & gnd
+gnd += vin["n"], vreg["GND"]  # Ground connections for everybody.
 
 # Simulate the voltage regulator subcircuit.
-# circ = generate_netlist(libs='SpiceLib') # Pass-in the library where the voltage regulator subcircuit is stored.
-circ = (
-    generate_netlist()
-)  # Pass-in the library where the voltage regulator subcircuit is stored.
+circ = generate_netlist()
 print(circ)
+
 try:
     sim = Simulator.factory()
-    sim= sim.simulation(circ)
+    sim = sim.simulation(circ)
 except:
     sim = circ.simulator()
-dc_vals = sim.dc(
-    VIN=slice(0, 10, 0.1)
-)  # Ramp vin from 0->10V and observe regulator output voltage.
+# Ramp vin from 0->10V and observe regulator output voltage.
+dc_vals = sim.dc(VIN=slice(0, 10, 0.1))
 
 # Get the input and output voltages.
 inp = dc_vals[node(vin["p"])]

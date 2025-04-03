@@ -1,8 +1,6 @@
-import os
-
 # Import the skidl library.
 from skidl import *
-from skidl import KICAD8
+
 set_default_tool(KICAD8)
 
 # Create input & output voltages and ground reference.
@@ -16,46 +14,35 @@ r2.value = '1K'   # Set lower resistor value.
 c1 = Part("Device", 'C', footprint="Capacitor_SMD:C_0603_1608Metric")
 c1.value = '1u'   # Set capacitor value.
 
-
 d1 = Part('Regulator_Switching',  'LM5017MR')
-d1.model = d1.value
-d1.fields['pin_map'] = {'RTN': '1', 'VIN': '2', 'ULVO': '3', 'RON': '4', 'FB': '5', 'VCC': '6', 'BST': '7', 'SW': '8', 'RTNPAD': '9'}
-
-
 
 # Connect the nets and resistors.
-vin += r1[1]      # Connect the input to the upper resistor.
-d1['RON'] += r1[2] # Output comes from the connection of the two resistors.
-vout += c1[1]
-gnd += c1[2]
-d1['FB'] += r2[1]
-vout += r2[2]
-vin += d1['VIN']
-gnd += d1['RTN']
-vout += d1['SW']
+vin & d1.VIN & r1 & d1.RON
+vout & c1 & gnd
+d1.FB & r2 & vout
+gnd += d1.RTN
+vout += d1.SW
+
 # connect the rest of the pins to gnd
 for pin in d1.pins:
     if pin.name in ['ULVO', 'FB', 'VCC', 'BST', 'RTNPAD']:
         gnd += d1[pin.name]
 
-# Output the netlist to a file.
-# generate_netlist()
-
-# generate_schematic()
-# generate_pcb()
-
 ####################################################################################################
+from skidl.pyspice import *
 set_default_tool(SPICE)
-# from skidl.pyspice import *
-# r1.convert_for_spice(R, {1: "p", 2: "n"})
+lib_search_paths[SPICE]=['../spice-libraries']
 
-from PySpice.Doc.ExampleTools import find_libraries
-from PySpice import SpiceLibrary, Circuit, Simulator
+# map from skidl to pyspice. 1 is the skidl pin number, p is the pyspice pin number
+r1.convert_for_spice(R, {1: "p", 2: "n"})
+r2.convert_for_spice(R, {1: "p", 2: "n"})
+c1.convert_for_spice(C, {1: "p", 2: "n"})  
+
+spice_part = Part("regulator_models", d1.name, dest=TEMPLATE)
+d1.convert_for_spice(spice_part, {'RTN': '1', 'VIN': '2', 'ULVO': '3', 'RON': '4', 'FB': '5', 'VCC': '6', 'BST': '7', 'SW': '8', 'RTNPAD': '9'})
+
+from PySpice import Simulator
 from PySpice.Unit import *
-
-# libraries_path = find_libraries()
-libraries_path = './tests/examples/spice-library/'
-lib_search_paths[SPICE]=[libraries_path]
 
 circuit = generate_netlist()
 print(circuit)

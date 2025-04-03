@@ -1,9 +1,10 @@
 import matplotlib.pyplot as plt
 
 from skidl.pyspice import *
+from skidl import Interface
 
 sky_lib = SchLib(
-    "/home/devb/tmp/skywater-pdk/libraries/sky130_fd_pr/latest/models/sky130.lib.spice",
+    "../../test_data/skywater/models/sky130.lib.spice",
     recurse=True,
     lib_section="tt",
 )
@@ -11,9 +12,8 @@ sky_lib = SchLib(
 nfet_wl = Parameters(W=1.26, L=0.15)
 pfet_wl = Parameters(W=1.26, L=0.15)
 
-pfet = Part(sky_lib, "sky130_fd_pr__pfet_01v8", params=pfet_wl)
-nfet = Part(sky_lib, "sky130_fd_pr__nfet_01v8", params=nfet_wl)
-
+pfet = Part(sky_lib, "sky130_fd_pr__pfet_01v8", params=pfet_wl, dest=TEMPLATE)
+nfet = Part(sky_lib, "sky130_fd_pr__nfet_01v8", params=nfet_wl, dest=TEMPLATE)
 
 def oscope(waveforms, *nets, ymin=-0.4, ymax=2.4):
 
@@ -39,7 +39,6 @@ def oscope(waveforms, *nets, ymin=-0.4, ymax=2.4):
 
     plt.show()
 
-
 def counter(*bits, time_step=1.0 @ u_ns, vmin=0.0 @ u_V, vmax=1.8 @ u_V):
     for bit in bits:
         pulse = PULSEV(
@@ -51,15 +50,15 @@ def counter(*bits, time_step=1.0 @ u_ns, vmin=0.0 @ u_V, vmax=1.8 @ u_V):
         pulse["p, n"] += bit, gnd
         time_step = 2 * time_step
 
-
 def pwr(dc_value=1.8 @ u_V):
     vdd_ps = V(ref="Vdd_ps", dc_value=dc_value)
     vdd_ps["p, n"] += Net("Vdd"), gnd
     return vdd_ps["p"]
 
-
-@package
-def inverter(a=Net(), out=Net()):
+@subcircuit
+def inverter(a=None, out=None):
+    a = a or Net()
+    out = out or Net()
     qp = pfet()
     qn = nfet()
 
@@ -67,28 +66,34 @@ def inverter(a=Net(), out=Net()):
     vdd & qp.b
     vdd & qp["s,d"] & out & qn["d,s"] & gnd
     a & qn.g & qp.g
+    return Interface(a=a, out=out)
 
-
-@package
-def nand(a=Net(), b=Net(), out=Net()):
-    q1, q2 = 2 * pfet()
-    q3, q4 = 2 * nfet()
+@subcircuit
+def nand(a=None, b=None, out=None):
+    a = a or Net()
+    b = b or Net()
+    out = out or Net()
+    q1, q2 = 2 * pfet
+    q3, q4 = 2 * nfet
 
     vdd & q1.b & q2.b
     gnd & q3.b & q4.b
     vdd & (q1["s,d"] | q2["s,d"]) & out & q3["d,s"] & q4["d,s"] & gnd
     a & q1.g & q3.g
     b & q2.g & q4.g
+    return Interface(a=a, b=b, out=out)
 
-
-@package
-def xor(a=Net(), b=Net(), out=Net()):
+@subcircuit
+def xor(a=None, b=None, out=None):
+    a = a or Net()
+    b = b or Net()
+    out = out or Net()
     a_inv, b_inv = inverter(), inverter()
     a_inv.a += a
     b_inv.a += b
 
-    an, abn, bn, bbn = 4 * nfet()
-    ap, abp, bp, bbp = 4 * pfet()
+    an, abn, bn, bbn = 4 * nfet
+    ap, abp, bp, bbp = 4 * pfet
 
     vdd & abp["s,d"] & bp["s,d"] & out & an["d,s"] & bn["d,s"] & gnd
     vdd & ap["s,d"] & bbp["s,d"] & out & abn["d,s"] & bbn["d,s"] & gnd
@@ -101,9 +106,15 @@ def xor(a=Net(), b=Net(), out=Net()):
     vdd & ap.b & abp.b & bp.b & bbp.b
     gnd & an.b & abn.b & bn.b & bbn.b
 
+    return Interface(a=a, b=b, out=out)
 
-@package
-def full_adder(a=Net(), b=Net(), cin=Net(), s=Net(), cout=Net()):
+@subcircuit
+def full_adder(a=None, b=None, cin=None, s=None, cout=None):
+    a = a or Net()
+    b = b or Net()
+    cin = cin or Net()
+    s = s or Net()
+    cout = cout or Net()
     ab_sum = Net()
     xor()["a,b,out"] += a, b, ab_sum
     xor()["a,b,out"] += ab_sum, cin, s
@@ -112,7 +123,7 @@ def full_adder(a=Net(), b=Net(), cin=Net(), s=Net(), cout=Net()):
     nand1["a,b"] += ab_sum, cin
     nand2["a,b"] += a, b
     nand3["a,b,out"] += nand1.out, nand2.out, cout
-
+    return Interface(a=a, b=b, cin=cin, s=s, cout=cout)
 
 @subcircuit
 def adder(a, b, cin, s, cout):
@@ -126,7 +137,6 @@ def adder(a, b, cin, s, cout):
             fadds[i].cin += fadds[i - 1].cout
     cout += fadds[-1].cout
 
-
 def integerize(waveforms, *nets, threshold=0.9 @ u_V):
     def binarize():
         binary_vals = []
@@ -138,7 +148,6 @@ def integerize(waveforms, *nets, threshold=0.9 @ u_V):
     for bin_vector in zip(*reversed(binarize())):
         int_vals.append(int(bytes([ord("0") + b for b in bin_vector]), base=2))
     return int_vals
-
 
 def sample(sample_times, times, *int_vals):
     sample_vals = [[] for _ in int_vals]
@@ -154,9 +163,10 @@ def sample(sample_times, times, *int_vals):
                 break
     return sample_vals
 
-
-@package
-def weak_inverter(a=Net(), out=Net()):
+@subcircuit
+def weak_inverter(a=None, out=None):
+    a = a or Net()
+    out = out or Net()
     weak_nfet_wl = Parameters(W=1.0, L=8.0)
     weak_pfet_wl = Parameters(W=1.0, L=8.0)
     qp = Part(sky_lib, "sky130_fd_pr__pfet_01v8", params=weak_pfet_wl)
@@ -166,10 +176,14 @@ def weak_inverter(a=Net(), out=Net()):
     vdd & qp.b
     vdd & qp["s,d"] & out & qn["d,s"] & gnd
     a & qn.g & qp.g
+    
+    return Interface(a=a, out=out)
 
-
-@package
-def sram_bit(wr=Net(), in_=Net(), out=Net()):
+@subcircuit
+def sram_bit(wr=None, in_=None, out=None):
+    wr = wr or Net()
+    in_ = in_ or Net()
+    out = out or Net()
     in_inv = inverter()
     inv12, inv34 = weak_inverter(), weak_inverter()
     m5, m6 = nfet(), nfet()
@@ -182,9 +196,13 @@ def sram_bit(wr=Net(), in_=Net(), out=Net()):
     wr & m5.g & m6.g
     gnd & m5.b & m6.b
 
+    return Interface(wr=wr, in_=in_, out=out)
 
-@package
-def latch_bit(wr=Net(), in_=Net(), out=Net()):
+@subcircuit
+def latch_bit(wr=None, in_=None, out=None):
+    wr = wr or Net()
+    in_ = in_ or Net()
+    out = out or Net()
     inv_in, inv_out, inv_wr = inverter(), inverter(), inverter()
     q_in, q_latch = nfet(), nfet()
     in_ & q_in["s,d"] & inv_in["a, out"] & inv_out["a, out"] & out
@@ -195,9 +213,13 @@ def latch_bit(wr=Net(), in_=Net(), out=Net()):
     q_latch.g & inv_wr.out
     q_latch.b & gnd
 
+    return Interface(wr=wr, in_=in_, out=out)
 
-@package
-def reg_bit(wr=Net(), in_=Net(), out=Net()):
+@subcircuit
+def reg_bit(wr=None, in_=None, out=None):
+    wr = wr or Net()
+    in_ = in_ or Net()
+    out = out or Net()
     master, slave = latch_bit(), latch_bit()
     wr_inv = inverter()
     wr_inv.a += wr
@@ -205,6 +227,7 @@ def reg_bit(wr=Net(), in_=Net(), out=Net()):
     wr_inv.out & master.wr
     wr & slave.wr
 
+    return Interface(wr=wr, in_=in_, out=out)
 
 @subcircuit
 def register(wr, in_, out):
@@ -212,7 +235,6 @@ def register(wr, in_, out):
     reg_bits = [reg_bit() for _ in range(width)]
     for i, rb in enumerate(reg_bits):
         rb["wr, in_, out"] += wr, in_[i], out[i]
-
 
 @subcircuit
 def cntr(clk, out):
@@ -224,36 +246,26 @@ def cntr(clk, out):
     adder(out, zero, vdd, nxt, Net())
     register(clk, nxt, out)
 
-
 reset()
 
 vdd = pwr()
 clk = Net("clk")
-# nw, old = Bus('NW', 3), Bus('OLD', 3)
 cnt = Bus("CNT", 3)
 counter(clk)
-# inverter()["a, out"] += old[0], nw[0]
-# reg_bit()["wr, in_, out"] += clk, nw, old
-# register(clk, nw, old)
-# adder(old, Bus(gnd,gnd,gnd), vdd, nw, Net())
-# old & inverter()["a, out"] & nw
-# register(clk, cnt, nxt)
-# sum, cout = Bus('SUM', len(cnt)), Net()
-# adder(cnt, Bus('B', gnd,gnd,gnd), vdd, sum, cout)
-# cnt = Bus('CNT',2)
-# nxt = Bus('NXT',2)
 cntr(clk, cnt)
+
+# waveforms = (
+#     generate_netlist()
+#     .simulator()
+#     .transient(step_time=0.01 @ u_ns, end_time=30 @ u_ns)
+# )
 
 circ = generate_netlist()
 try:
     sim = Simulator.factory()
-    sim= sim.simulation(circ)
+    sim = sim.simulation(circ)
 except:
     sim = circ.simulator()
 waveforms = sim.transient(step_time=0.01 @ u_ns, end_time=30 @ u_ns)
 
-# waveforms = (
-#     generate_netlist().simulator().transient(step_time=0.01 @ u_ns, end_time=30 @ u_ns)
-# )
-# oscope(waveforms, clk, *nw, *old)
 oscope(waveforms, clk, *cnt)

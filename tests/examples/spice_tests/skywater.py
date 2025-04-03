@@ -6,12 +6,19 @@ lib_search_paths[SPICE].append("")
 
 vs = V(ref="VS", dc_value=1 @ u_V)
 r = R(value=0 @ u_Ohm)
+# splib = SchLib(
+#     "/media/devb/Main/TEMP/skywater-pdk/libraries/sky130_fd_pr/latest/models/sky130.lib.spice",
+#     recurse=True,
+#     lib_section="tt",
+# )
 splib = SchLib(
-    "/media/devb/Main/TEMP/skywater-pdk/libraries/sky130_fd_pr/latest/models/sky130.lib.spice",
+    "../../test_data/skywater/models/sky130.lib.spice",
     recurse=True,
     lib_section="tt",
 )
+
 nfet = Part(splib, "sky130_fd_pr__nfet_01v8", params=Parameters(L=8, W=0.55))
+print(nfet)
 vs["p"] & r & nfet["d, s"] & gnd & vs["n"]
 nfet.g & nfet.d
 nfet.b & nfet.s
