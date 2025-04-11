@@ -4,7 +4,7 @@ from skidl.pyspice import *
 from skidl import Interface
 
 sky_lib = SchLib(
-    "../../test_data/skywater/models/sky130.lib.spice",
+    "/home/asepahvand/repos/skywater-pdk/libraries/sky130_fd_pr/latest/models/sky130.lib.spice",
     recurse=True,
     lib_section="tt",
 )
@@ -261,6 +261,7 @@ cntr(clk, cnt)
 # )
 
 circ = generate_netlist()
+print(circ)
 try:
     sim = Simulator.factory()
     sim = sim.simulation(circ)
