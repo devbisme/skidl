@@ -4,7 +4,7 @@ from skidl.pyspice import *
 from skidl import Interface
 
 sky_lib = SchLib(
-    "/home/asepahvand/repos/skywater-pdk/libraries/sky130_fd_pr/latest/models/sky130.lib_custom.spice",
+    "/home/asepahvand/repos/skywater-pdk/libraries/sky130_fd_pr/latest/models/sky130.lib.spice",
     recurse=True,
     lib_section="tt",
 )
