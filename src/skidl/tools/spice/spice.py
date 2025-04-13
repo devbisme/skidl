@@ -335,7 +335,7 @@ def gen_netlist(self, **kwargs):
                 circuit.model(*model.args, **model.kwargs)
             else:
                 try:
-                    path = pyspice["lib"][model]
+                    path = pyspice["lib"]._subcircuits[model]
                 except KeyError:
                     # The part doesn't contain the library with the model, so look elsewhere.
                     if not default_libs:
