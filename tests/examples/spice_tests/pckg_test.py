@@ -4,7 +4,9 @@ from skidl.pyspice import *
 from skidl import Interface
 
 sky_lib = SchLib(
-    "/home/asepahvand/repos/skywater-pdk/libraries/sky130_fd_pr/latest/models/sky130.lib.spice",
+    # "/home/devb/projects/KiCad/tools/skidl/tests/test_data/skywater/models/sky130.lib.spice",
+    "../../test_data/skywater/models/sky130.lib.spice",
+    # "/home/asepahvand/repos/skywater-pdk/libraries/sky130_fd_pr/latest/models/sky130.lib.spice",
     recurse=True,
     lib_section="tt",
 )
@@ -253,12 +255,6 @@ clk = Net("clk")
 cnt = Bus("CNT", 3)
 counter(clk)
 cntr(clk, cnt)
-
-# waveforms = (
-#     generate_netlist()
-#     .simulator()
-#     .transient(step_time=0.01 @ u_ns, end_time=30 @ u_ns)
-# )
 
 circ = generate_netlist()
 print(circ)

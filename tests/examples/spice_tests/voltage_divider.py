@@ -41,8 +41,8 @@ spice_part = Part("1N4148", '1N4148', dest=TEMPLATE)
 ref = d1.ref
 d1.convert_for_spice(spice_part, {'A': 1, 'K': 2})
 
-from PySpice import Simulator
-from PySpice.Unit import *
+from InSpice import Simulator
+from InSpice.Unit import *
 
 circuit = generate_netlist()
 print(circuit)

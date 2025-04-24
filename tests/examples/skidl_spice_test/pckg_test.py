@@ -1,13 +1,14 @@
 import matplotlib.pyplot as plt
 
 # from skidl import SKIDL, SPICE, TEMPLATE, Part, generate_netlist
+from skidl import Interface
 from skidl.pyspice import *  # isort:skip
 
 
 def test_skywater_1():
 
     sky_lib = SchLib(
-        "/home/devb/tmp/skywater-pdk/libraries/sky130_fd_pr/latest/models/sky130.lib.spice",
+        "../../test_data/skywater/models/sky130.lib.spice",
         recurse=True,
         lib_section="tt",
     )
@@ -59,8 +60,10 @@ def test_skywater_1():
         vdd_ps["p, n"] += Net("Vdd"), gnd
         return vdd_ps["p"]
 
-    @package
+    @subcircuit
     def inverter(a=Net(), out=Net()):
+        a, out = Net(), Net()
+
         qp = pfet()
         qn = nfet()
 
@@ -69,8 +72,12 @@ def test_skywater_1():
         vdd & qp["s,d"] & out & qn["d,s"] & gnd
         a & qn.g & qp.g
 
-    @package
-    def nand(a=Net(), b=Net(), out=Net()):
+        return Interface(a=a, out=out)
+
+    @subcircuit
+    def nand():
+        a, b, out = Net(), Net(), Net()
+
         q1, q2 = 2 * pfet
         q3, q4 = 2 * nfet
 
@@ -80,8 +87,12 @@ def test_skywater_1():
         a & q1.g & q3.g
         b & q2.g & q4.g
 
-    @package
-    def xor(a=Net(), b=Net(), out=Net()):
+        return Interface(a=a, b=b, out=out)
+
+    @subcircuit
+    def xor():
+        a, b, out = Net(), Net(), Net()
+
         a_inv, b_inv = inverter(), inverter()
         a_inv.a += a
         b_inv.a += b
@@ -100,8 +111,12 @@ def test_skywater_1():
         vdd & ap.b & abp.b & bp.b & bbp.b
         gnd & an.b & abn.b & bn.b & bbn.b
 
-    @package
+        return Interface(a=a, b=b, out=out)
+
+    @subcircuit
     def full_adder(a=Net(), b=Net(), cin=Net(), s=Net(), cout=Net()):
+        a, b, cin, s, cout = Net(), Net(), Net(), Net(), Net()
+
         ab_sum = Net()
         xor()["a,b,out"] += a, b, ab_sum
         xor()["a,b,out"] += ab_sum, cin, s
@@ -110,6 +125,8 @@ def test_skywater_1():
         nand1["a,b"] += ab_sum, cin
         nand2["a,b"] += a, b
         nand3["a,b,out"] += nand1.out, nand2.out, cout
+
+        return Interface(a=a, b=b, cin=cin, s=s, cout=cout)
 
     @subcircuit
     def adder(a, b, cin, s, cout):
@@ -149,8 +166,10 @@ def test_skywater_1():
                     break
         return sample_vals
 
-    @package
-    def latch_bit(wr=Net(), in_=Net(), out=Net()):
+    @subcircuit
+    def latch_bit():
+        wr, in_, out = Net(), Net(), Net()
+
         inv_in, inv_out, inv_wr = inverter(), inverter(), inverter()
         q_in, q_latch = nfet(), nfet()
         in_ & q_in["s,d"] & inv_in["a, out"] & inv_out["a, out"] & out
@@ -161,14 +180,20 @@ def test_skywater_1():
         q_latch.g & inv_wr.out
         q_latch.b & gnd
 
-    @package
-    def reg_bit(wr=Net(), in_=Net(), out=Net()):
+        return Interface(wr=wr, in_=in_, out=out)
+
+    @subcircuit
+    def reg_bit():
+        wr, in_, out = Net(), Net(), Net()
+
         master, slave = latch_bit(), latch_bit()
         wr_inv = inverter()
         wr_inv.a += wr
         in_ & master["in_, out"] & slave["in_, out"] & out
         wr_inv.out & master.wr
         wr & slave.wr
+
+        return Interface(wr=wr, in_=in_, out=out)
 
     @subcircuit
     def register(wr, in_, out):
@@ -197,7 +222,8 @@ def test_skywater_1():
 
     circ = generate_netlist()
     print(circ)
-    waveforms = circ.simulator().transient(step_time=0.01 @ u_ns, end_time=30 @ u_ns)
+    sim = Simulator.factory().simulation(circ)
+    waveforms = sim.transient(step_time=0.01 @ u_ns, end_time=30 @ u_ns)
     oscope(waveforms, clk, *cnt)
 
 

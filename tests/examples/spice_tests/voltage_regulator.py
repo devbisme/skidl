@@ -41,8 +41,8 @@ c1.convert_for_spice(C, {1: "p", 2: "n"})
 spice_part = Part("regulator_models", d1.name, dest=TEMPLATE)
 d1.convert_for_spice(spice_part, {'RTN': '1', 'VIN': '2', 'ULVO': '3', 'RON': '4', 'FB': '5', 'VCC': '6', 'BST': '7', 'SW': '8', 'RTNPAD': '9'})
 
-from PySpice import Simulator
-from PySpice.Unit import *
+from InSpice import Simulator
+from InSpice.Unit import *
 
 circuit = generate_netlist()
 print(circuit)

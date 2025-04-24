@@ -33,13 +33,7 @@ from .utilities import (
 __all__ = ["NETLIST", "LIBRARY", "TEMPLATE", "PartTmplt", "SkidlPart"]
 
 
-try:
-    from PySpice.Unit.Unit import UnitValue
-except ImportError:
-    # PySpice is not supported in Python 2, so need to make a dummy class
-    # to replicate a class from PySpice.
-    class UnitValue(object):
-        pass
+from InSpice.Unit.Unit import UnitValue
 
 
 # Places where parts can be stored.

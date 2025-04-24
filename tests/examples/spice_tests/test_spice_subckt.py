@@ -7,14 +7,16 @@ lib_search_paths[SPICE].append("../../test_data/SpiceLib")
 vin = V(ref="VIN", dc_value=8 @ u_V)  # Input power supply.
 
 vreg = Part("NCP1117", "ncp1117_33-x")  # Voltage regulator from ON Semi part lib.
-vreg[3].aliases += "IN"  # Set pin 3 as IN.
-vreg[1].aliases += "OUT"  # Set pin 1 as OUT.
-vreg[2].aliases += "GND"  # Set pin 2 as GND.
+# Set pin aliases using pin numbers.
+vreg[1].aliases += "IN"  # Set pin 3 as IN.
+vreg[2].aliases += "OUT"  # Set pin 1 as OUT.
+vreg[3].aliases += "GND"  # Set pin 2 as GND.
+# Or set pin aliases using pin labels.
+# vreg.n["3"].aliases += "IN"  # Set pin 3 as IN.
+# vreg.n["1"].aliases += "OUT"  # Set pin 1 as OUT.
+# vreg.n["2"].aliases += "GND"  # Set pin 2 as GND.
 
 r = R(value=470 @ u_Ohm)  # Load resistor on regulator output.
-vreg["3"].name = "IN"  # Set the input pin name to "IN".
-vreg["1"].name = "OUT"  # Set the output pin name to "OUT".
-vreg["2"].name = "GND"  # Set the ground pin name to "GND".
 
 vin["p"] & vreg["IN", "OUT"] & r & gnd
 gnd += vin["n"], vreg["GND"]  # Ground connections for everybody.

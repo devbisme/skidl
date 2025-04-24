@@ -28,7 +28,7 @@ gnd += (
 
 # Simulate the circuit.
 circ = generate_netlist()  # Create the PySpice Circuit object from the SKiDL code.
-sim = circ.simulator()  # Get a simulator for the Circuit object.
+sim = Simulator.factory().simulation(circ)
 waveforms = sim.transient(
     step_time=0.01 @ u_ms, end_time=10 @ u_ms
 )  # Run a transient simulation from 0 to 10 msec.

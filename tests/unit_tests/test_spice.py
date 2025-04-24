@@ -62,6 +62,7 @@ def test_xspice_1():
     set_default_tool(SPICE)
     # Component declarations showing various XSPICE styles.
     vin = sinev(offset=1.65 @ u_V, amplitude=1.65 @ u_V, frequency=100e6)
+
     adc = Part(
         "pyspice",
         "A",
@@ -113,7 +114,7 @@ def test_xspice_1():
 
     circ = generate_netlist()
     print(circ)
-    sim = circ.simulator()
+    sim = Simulator.factory().simulation(circ)
     waveforms = sim.transient(step_time=0.1 @ u_ns, end_time=50 @ u_ns)
     time = waveforms.time
     vin = waveforms[node(vin["p"])]
@@ -148,7 +149,7 @@ def test_part_convert_for_spice():
     set_default_tool(SPICE)
     circ = generate_netlist()
     print(circ)
-    sim = circ.simulator()
+    sim = Simulator.factory().simulation(circ)
     analysis = sim.dc(V1=slice(0, 5, 0.5))
 
     dc_vin = analysis.Vin
@@ -167,9 +168,15 @@ def test_subcircuit_1():
     set_default_tool(SPICE)
 
     vin = V(ref="VIN", dc_value=8 @ u_V)  # Input power supply.
+    
     vreg = Part("NCP1117", "ncp1117_33-x")  # Voltage regulator from ON Semi part lib.
+    vreg[1].aliases += "IN"  # Set pin 1 to be the IN pin.
+    vreg[2].aliases += "OUT"  # Set pin 2 to be the OUT pin.
+    vreg[3].aliases += "GND"  # Set pin 3 to be the GND pin.
     print(vreg)  # Print vreg pin names.
+
     r = R(value=470 @ u_Ohm)  # Load resistor on regulator output.
+    
     # Connect vreg input to vin and output to load resistor.
     vreg["IN", "OUT"] += vin["p"], r[1]
     gnd += vin["n"], r[2], vreg["GND"]  # Ground connections for everybody.
@@ -179,7 +186,7 @@ def test_subcircuit_1():
     # Pass-in the library where the voltage regulator subcircuit is stored.
     circ = generate_netlist()
     print(circ)
-    sim = circ.simulator()
+    sim = Simulator.factory().simulation(circ)
     # Ramp vin from 0->10V and observe regulator output voltage.
     dc_vals = sim.dc(VIN=slice(0, 10, 0.1))
 
@@ -247,7 +254,7 @@ def test_model_1():
     circ = (
         generate_netlist()
     )  # Pass-in the library where the transistor model is stored.
-    sim = circ.simulator()
+    sim = Simulator.factory().simulation(circ)
     waveforms = sim.transient(step_time=0.01 @ u_ms, end_time=5 @ u_ms)
 
     # Get the waveforms for the input and output.
@@ -283,6 +290,9 @@ def test_all_parts():
     vin = V(dc_value=8 @ u_V)  # Input power supply
     splib = SchLib("NCP1117")
     vreg = Part(splib, "ncp1117_33-x")  # Voltage regulator.
+    vreg[1].aliases += "IN"  # Set pin 1 to be the IN pin.
+    vreg[2].aliases += "OUT"  # Set pin 2 to be the OUT pin.
+    vreg[3].aliases += "GND"  # Set pin 3 to be the GND pin.
     r = R(value=470 @ u_Ohm)
     print(vreg)
     vreg["IN", "OUT"] += vin["p"], r[1]
@@ -294,9 +304,8 @@ def test_all_parts():
     print(node(vin["p"]))
 
     # Simulate the voltage regulator subcircuit.
-    # Pass-in the library where the voltage regulator subcircuit is stored.
     circ = generate_netlist()
-    sim = circ.simulator()
+    sim = Simulator.factory().simulation(circ)
     dc_vals = sim.dc(**{vin.ref: slice(0, 10, 0.1)})
 
     # Get the input and output voltages.
@@ -340,7 +349,7 @@ def test_all_parts():
     # Simulate the transistor amplifier. This requires a SPICE library containing a model of the 2N2222A transistor.
     # Pass the directory to the SPICE model library when creating circuit.
     circ = generate_netlist()
-    sim = circ.simulator()
+    sim = Simulator.factory().simulation(circ)
     waveforms = sim.transient(step_time=0.01 @ u_ms, end_time=5 @ u_ms)
 
     # Get the input source and amplified output waveforms.
@@ -383,7 +392,7 @@ def test_all_parts():
     # Simulate the transistor amplifier. This requires a SPICE library containing a model of the 2N2222A transistor.
     # Pass the directory to the SPICE model library when creating circuit.
     circ = generate_netlist()
-    sim = circ.simulator()
+    sim = Simulator.factory().simulation(circ)
     waveforms = sim.transient(step_time=0.01 @ u_ms, end_time=5 @ u_ms)
 
     # Get the input source and amplified output waveforms.
@@ -429,7 +438,7 @@ def test_all_parts():
     # Pass the directory to the SPICE model library when creating circuit.
     circ = generate_netlist()
     print(circ)
-    sim = circ.simulator()
+    sim = Simulator.factory().simulation(circ)
     waveforms = sim.transient(step_time=0.01 @ u_ms, end_time=5 @ u_ms)
 
     # Get the input source and amplified output waveforms.
@@ -476,7 +485,7 @@ def test_all_parts():
     # Pass the directory to the SPICE model library when creating circuit.
     circ = generate_netlist()
     print(circ)
-    sim = circ.simulator()
+    sim = Simulator.factory().simulation(circ)
     waveforms = sim.transient(step_time=0.01 @ u_ms, end_time=5 @ u_ms)
 
     # Get the input source and amplified output waveforms.
@@ -519,7 +528,7 @@ def test_all_parts():
     # Simulate the circuit.
     circ = generate_netlist()  # Create the PySpice Circuit object from the SKiDL code.
     print(circ)
-    sim = circ.simulator()  # Get a simulator for the Circuit object.
+    sim = Simulator.factory().simulation(circ)
     # Run a transient simulation from 0 to 10 msec.
     waveforms = sim.transient(step_time=0.01 @ u_ms, end_time=10 @ u_ms)
 
@@ -558,7 +567,7 @@ def test_all_parts():
     # Simulate the circuit.
     # Translate the SKiDL code into a PyCircuit Circuit object.
     circ = generate_netlist()
-    sim = circ.simulator()  # Create a simulator for the Circuit object.
+    sim = Simulator.factory().simulation(circ)
     # Run a DC simulation where the voltage ramps from 0 to 1V by 0.1V increments.
     dc_vals = sim.dc(VS=slice(0, 1, 0.1))
 
@@ -604,7 +613,7 @@ def test_all_parts():
 
     # Simulate the circuit.
     circ = generate_netlist()  # Create the PySpice Circuit object from the SKiDL code.
-    sim = circ.simulator()  # Get a simulator for the Circuit object.
+    sim = Simulator.factory().simulation(circ)
     # Run a transient simulation from 0 to 10 msec.
     waveforms = sim.transient(step_time=0.01 @ u_ms, end_time=10 @ u_ms)
 
@@ -645,7 +654,7 @@ def test_all_parts():
 
     # Simulate the circuit.
     circ = generate_netlist()  # Create the PySpice Circuit object from the SKiDL code.
-    sim = circ.simulator()  # Get a simulator for the Circuit object.
+    sim = Simulator.factory().simulation(circ)
     # Run a transient simulation from 0 to 10 msec.
     waveforms = sim.transient(step_time=0.01 @ u_ms, end_time=10 @ u_ms)
 
@@ -998,13 +1007,11 @@ def test_skywater_1():
     counter(clk)
     cntr(clk, cnt)
 
-    waveforms = (
-        generate_netlist()
-        .simulator()
-        .transient(step_time=0.01 @ u_ns, end_time=30 @ u_ns)
-    )
-    oscope(waveforms, clk, *cnt)
+    circ = generate_netlist()
+    sim = Simulator.factory().simulation(circ)
+    waveforms = sim.transient(step_time=0.01 @ u_ns, end_time=30 @ u_ns)
 
+    oscope(waveforms, clk, *cnt)
 
 @pytest.mark.spice
 # @pytest.mark.xfail(raises=(FileNotFoundError))
@@ -1014,7 +1021,7 @@ def test_skywater_2():
     set_default_tool(SPICE)
 
     vs = V(ref="VS", dc_value=1 @ u_V)
-    r = R(value=0 @ u_Ohm)
+    r = R(value=1 @ u_Ohm)
     sky_lib = SchLib(
         "sky130.lib.spice",
         recurse=True,
@@ -1027,7 +1034,7 @@ def test_skywater_2():
     nfet.b & nfet.s
 
     circ = generate_netlist()
-    sim = circ.simulator()
+    sim = Simulator.factory().simulation(circ)
     dc_vals = sim.dc(VS=slice(0, 10, 0.1))
 
     # Get the voltage applied to the resistor and the current coming out of the voltage source.

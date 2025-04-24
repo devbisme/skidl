@@ -10,7 +10,7 @@ from skidl.pyspice import *
 # %matplotlib inline
 
 lib_search_paths[SPICE].append(
-    "/media/devb/Main/TEMP/ngspice-33/examples/p-to-n-examples"
+    "../../test_data/SpiceLib"
 )
 print(lib_search_paths[SPICE])
 
@@ -49,7 +49,7 @@ gnd += v2["n"], c["-"], vreset["n"], ccont["-"]
 # Simulate the circuit.
 circ = generate_netlist()  # Create the PySpice Circuit object from the SKiDL code.
 print(circ)
-sim = circ.simulator()  # Get a simulator for the Circuit object.
+sim = Simulator.factory().simulation(circ)
 waveforms = sim.transient(
     step_time=0.01 @ u_ms, end_time=100 @ u_ms
 )  # Run a transient simulation from 0 to 100 msec.

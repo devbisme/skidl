@@ -1,13 +1,14 @@
 import matplotlib.pyplot as plt
 
 # from skidl import SKIDL, SPICE, TEMPLATE, Part, generate_netlist
+from skidl import *
 from skidl.pyspice import *  # isort:skip
 
 
 def test_inverters():
 
     sky_lib = SchLib(
-        "/home/devb/tmp/skywater-pdk/libraries/sky130_fd_pr/latest/models/sky130.lib.spice",
+        "../../test_data/skywater/models/sky130.lib.spice",
         recurse=True,
         lib_section="tt",
     )
@@ -18,8 +19,9 @@ def test_inverters():
     pfet = Part(sky_lib, "sky130_fd_pr__pfet_01v8", params=pfet_wl, dest=TEMPLATE)
     nfet = Part(sky_lib, "sky130_fd_pr__nfet_01v8", params=nfet_wl, dest=TEMPLATE)
 
-    @package
-    def inverter(a=Net(), out=Net()):
+    @subcircuit
+    def inverter():
+        a, out = Net(), Net()
         qp = pfet()
         qn = nfet()
 
@@ -27,6 +29,8 @@ def test_inverters():
         vdd & qp.b
         vdd & qp["s,d"] & out & qn["d,s"] & gnd
         a & qn.g & qp.g
+
+        return Interface(a=a, out=out)
 
     #############################################################################
 
