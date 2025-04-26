@@ -350,16 +350,19 @@ class Net(SkidlBaseObject):
 
         # Create a list of copies of this net.
         copies = []
+
+        # Skip some Net attributes that would cause an infinite recursion exception
+        # or net naming clashes.
+        copy_attrs = vars(self).keys() - ["circuit", "traversal", "_name", "_aliases"]
+        
         for i in range(num_copies):
 
             # Create a new net to store the copy.
             cpy = Net(circuit=circuit)
 
             # Deep copy attributes from the source net to the copy.
-            # Skip some attributes that would cause an infinite recursion exception.
-            for k, v in self.__dict__.items():
-                if k not in ["circuit", "traversal"]:
-                    setattr(cpy, k, deepcopy(v))
+            for k in copy_attrs:
+                setattr(cpy, k, deepcopy(getattr(self, k)))
 
             # Add other attributes to the net copy.
             for k, v in list(attribs.items()):
