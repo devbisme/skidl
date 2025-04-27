@@ -8,6 +8,7 @@ Import this file to reconfigure SKiDL for doing SPICE simulations.
 
 from .bus import Bus
 from .group import subcircuit
+from .interface import Interface
 from .logger import active_logger
 from .net import Net
 from .part import TEMPLATE, Part
