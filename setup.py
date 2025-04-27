@@ -31,7 +31,7 @@ requirements = [
     "sexpdata == 1.0.0",
     "kinparse >= 1.2.3",
     "kinet2pcb >= 1.1.2",
-    'inspice',
+    "inspice; python_version>='3.11'",
     "ply",
     "graphviz",
     "deprecation",

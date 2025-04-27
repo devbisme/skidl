@@ -6,6 +6,8 @@
 Import this file to reconfigure SKiDL for doing SPICE simulations.
 """
 
+import sys
+
 from .bus import Bus
 from .group import subcircuit
 from .interface import Interface
@@ -22,8 +24,12 @@ from .skidl import (
 )
 from .tools.spice import Parameters, XspiceModel, node
 
-from InSpice import *
-from InSpice.Unit import *
+# InSpice may not be installed because of Python version.
+try:
+    from InSpice import *
+    from InSpice.Unit import *
+except ImportError:
+    pass
 
 from skidl import SKIDL, SPICE
 from .tools.skidl.libs.pyspice_sklib import *

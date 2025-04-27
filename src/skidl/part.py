@@ -33,9 +33,6 @@ from .utilities import (
 __all__ = ["NETLIST", "LIBRARY", "TEMPLATE", "PartTmplt", "SkidlPart"]
 
 
-from InSpice.Unit.Unit import UnitValue
-
-
 # Places where parts can be stored.
 #   NETLIST: The part will become part of a circuit netlist.
 #   LIBRARY: The part will be placed in the part list for a library.
@@ -1231,10 +1228,6 @@ class Part(SkidlBaseObject):
         """Get, set and delete the part value."""
         try:
             return self._value
-            if isinstance(self._value, UnitValue):
-                return self._value
-            else:
-                return str(self._value)
         except AttributeError:
             # If part has no value, return its part name as the value. This is
             # done in KiCad where a resistor value is set to 'R' if no
