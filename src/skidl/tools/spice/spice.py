@@ -8,7 +8,6 @@ Handler for reading SPICE libraries.
 
 import os.path
 import re
-import sys
 
 from skidl import Alias, Net, LIBRARY, Part, Pin
 from skidl.logger import active_logger
@@ -298,12 +297,6 @@ def gen_netlist(self, **kwargs):
     """
 
     from skidl import lib_search_paths, SPICE
-
-    if sys.version_info.major == 2:
-        active_logger.raise_(
-            NotImplementedError,
-            "PySpice does not support Python 2, so a SPICE netlist cannot be generated.",
-        )
 
     # Create an empty PySpice circuit.
     title = kwargs.pop("title", "")  # Get title and remove it from kwargs.
