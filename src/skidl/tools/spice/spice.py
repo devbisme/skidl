@@ -21,11 +21,17 @@ from skidl.utilities import (
 
 __all__ = ["lib_suffix", "DeviceModel", "XspiceModel", "Parameters"]
 
-
-from InSpice.Spice.Library import SpiceLibrary
-from InSpice.Spice.Netlist import (
-    Circuit as PySpiceCircuit,  # Avoid clash with Circuit class below.
-)
+# InSpice may not be installed because of Python version.
+try:
+    from InSpice.Spice.Library import SpiceLibrary
+    from InSpice.Spice.Netlist import (
+        Circuit as PySpiceCircuit,  # Avoid clash with Circuit class below.
+    )
+except ImportError:
+    raise ImportError(
+        "InSpice not installed. Please install InSpice to use SPICE functionality."
+    )
+    pass
 
 # These aren't used here, but they are used in modules
 # that include this module.
@@ -298,6 +304,9 @@ def gen_netlist(self, **kwargs):
 
     from skidl import lib_search_paths, SPICE
 
+    # Merge multi-segment nets or else the SPICE netlist will be malformed.
+    self.merge_nets()
+
     # Create an empty PySpice circuit.
     title = kwargs.pop("title", "")  # Get title and remove it from kwargs.
     circuit = PySpiceCircuit(title)
@@ -309,8 +318,6 @@ def gen_netlist(self, **kwargs):
     model_paths = set()  # Paths to the model files that have been used.
     lib_paths = set()  # Paths to the library files that have been used.
     lib_ids = set()  # A lib_id is a tuple of the path to the lib file and a section.
-
-    self.merge_nets()  # Merge multi-segment nets or else the SPICE netlist will be malformed.
 
     for part in self.parts:
         try:
@@ -627,7 +634,6 @@ def convert_for_spice(part, spice_part, pin_map):
     # reorder the part pins based on spice part pins orders
     # active_logger.info("Reordering pins for part {}".format(part.ref))
     part.pins = [next(pin for pin in part.pins if pin.num == src.num or pin.name == src.name) for src in spice_part.pins]
-
 
 
 class XspicePinList(list):

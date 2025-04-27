@@ -150,6 +150,16 @@ def gen_netlist(circuit):
         str: String containing netlist text.
     """
 
+    # Check for some things that can cause problems if the netlist is
+    # used to create a PCB.
+
+    # Check for parts with no physical footprint to place on the PCB.
+    circuit.check_for_empty_footprints()
+    
+    # Check for any randomly-assigned tags since those will lead to
+    # unstable associations between parts and PCB footprints.
+    circuit.check_part_tags()
+
     scr_dict = scriptinfo()
     src_file = os.path.join(scr_dict["dir"], scr_dict["source"])
     date = time.strftime("%m/%d/%Y %I:%M %p")

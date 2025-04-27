@@ -458,7 +458,7 @@ class Circuit(SkidlBaseObject):
         active_logger.error.reset()
         active_logger.warning.reset()
 
-        self._preprocess()
+        self.merge_net_names()
 
         if self.no_files:
             active_logger.stop_file_output()
@@ -469,6 +469,22 @@ class Circuit(SkidlBaseObject):
 
         # Restore the logger that was active before the ERC.
         active_logger.pop()
+
+    def cull_unconnected_parts(self):
+        """Remove parts that aren't connected to anything."""
+
+        for part in self.parts:
+            if not part.is_connected():
+                self -= part
+
+    def check_for_empty_footprints(self):
+        """Make sure part footprints aren't empty before generating netlist/PCB."""
+
+        for part in self.parts:
+            if getattr(part, "footprint", "") == "":
+                import skidl
+
+                skidl.empty_footprint_handler(part)
 
     def check_part_tags(self):
         """
@@ -500,11 +516,12 @@ class Circuit(SkidlBaseObject):
         active_logger.error.reset()
         active_logger.warning.reset()
 
-        self._preprocess()
+        self.merge_net_names()
 
-        # Check for any randomly-assigned tags since those will lead to
-        # unstable associations between parts and PCB footprints.
-        self.check_part_tags()
+        # Don't do any checks for empty footprints or random/missing tags
+        # since this should be done when tool-specific netlists are generated.
+        # For example, these checks aren't necessary when generating
+        # a SPICE netlist.
 
         # Extract arguments:
         #     Get EDA tool the netlist will be generated for.
@@ -550,7 +567,11 @@ class Circuit(SkidlBaseObject):
         active_logger.error.reset()
         active_logger.warning.reset()
 
-        self._preprocess()
+        self.merge_net_names()
+
+        # Check for things that can cause problems.
+        self.check_for_empty_footprints()
+        self.check_part_tags()
 
         # Extract arguments:
         #     Get EDA tool the netlist will be generated for.
@@ -591,7 +612,7 @@ class Circuit(SkidlBaseObject):
         active_logger.error.reset()
         active_logger.warning.reset()
 
-        self._preprocess()
+        self.merge_net_names()
 
         tool = tool or skidl.config.tool
         netlist = tool_modules[tool].gen_xml(self)
@@ -826,7 +847,7 @@ class Circuit(SkidlBaseObject):
         active_logger.error.reset()
         active_logger.warning.reset()
 
-        self._preprocess()
+        self.merge_net_names()
 
         # Get the list of nets which will be routed and not represented by stubs.
         net_stubs = self.get_net_nc_stubs()
@@ -1019,7 +1040,7 @@ class Circuit(SkidlBaseObject):
         else:
             skidl.empty_footprint_handler = _empty_footprint_handler
 
-        self._preprocess()
+        self.merge_net_names()
         self.merge_nets() # Merge nets or schematic routing will fail.
 
         tool = kwargs.pop("tool", skidl.config.tool)
@@ -1070,7 +1091,7 @@ class Circuit(SkidlBaseObject):
         active_logger.error.reset()
         active_logger.warning.reset()
 
-        self._preprocess()
+        self.merge_net_names()
 
         dot = graphviz.Digraph(engine=engine)
         dot.attr(rankdir=rankdir, splines=splines)
@@ -1150,7 +1171,7 @@ class Circuit(SkidlBaseObject):
         if self.no_files:
             return
 
-        self._preprocess()
+        self.merge_net_names()
 
         lib = SchLib(tool=SKIDL)  # Create empty library.
         for p in self.parts:
@@ -1172,7 +1193,7 @@ class Circuit(SkidlBaseObject):
             number.
         """
 
-        self._preprocess()
+        self.merge_net_names()
         
         return (
             tuple(
@@ -1194,29 +1215,6 @@ class Circuit(SkidlBaseObject):
                 )
             ),
         )
-
-    def _check_for_empty_footprints(self):
-        """Make sure part footprints aren't empty before generating netlist/PCB."""
-
-        for part in self.parts:
-            if getattr(part, "footprint", "") == "":
-                import skidl
-
-                skidl.empty_footprint_handler(part)
-
-    def _cull_unconnected_parts(self):
-        """Remove parts that aren't connected to anything."""
-
-        for part in self.parts:
-            if not part.is_connected():
-                self -= part
-
-    def _preprocess(self):
-        """Prepare the circuit for generating a netlist, PCB, etc."""
-
-        # self._cull_unconnected_parts()
-        self._check_for_empty_footprints()
-        self.merge_net_names()
 
     @property
     def no_files(self):
