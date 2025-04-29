@@ -28,9 +28,6 @@ try:
         Circuit as PySpiceCircuit,  # Avoid clash with Circuit class below.
     )
 except ImportError:
-    raise ImportError(
-        "InSpice not installed. Please install InSpice to use SPICE functionality."
-    )
     pass
 
 # These aren't used here, but they are used in modules
