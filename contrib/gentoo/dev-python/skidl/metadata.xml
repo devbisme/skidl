@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<name>Dave Vandenbout</name>
+		<email>dave@vdb.name</email>
+	</maintainer>
+	<maintainer type="project">
+		<email>proxy-maint@gentoo.org</email>
+		<name>Proxy Maintainers</name>
+	</maintainer>
+	<longdescription lang="en">
+	SKiDL is a module that allows you to compactly describe the interconnection of electronic circuits and components using Python.
+	The resulting Python program performs electrical rules checking for common mistakes and outputs a netlist that serves as input to a PCB layout tool.
+	</longdescription>
+	<longdescription lang="ru">
+	</longdescription>
+	<upstream>
+		<maintainer status="active">
+			<name>Dave Vandenbout</name>
+			<email>dave@vdb.name</email>
+		</maintainer>
+		<changelog>https://github.com/devbisme/skidl/blob/master/HISTORY.rst</changelog>
+		<doc lang="en">https://devbisme.github.io/skidl/#introduction</doc>
+		<bugs-to>mailto:dave@vdb.name</bugs-to>
+		<remote-id type="github">devbisme/skidl</remote-id>
+		<remote-id type="pypi">skidl</remote-id>
+	</upstream>
+</pkgmetadata>
