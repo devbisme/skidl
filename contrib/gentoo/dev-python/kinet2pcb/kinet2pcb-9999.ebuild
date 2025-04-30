@@ -27,4 +27,6 @@ RDEPEND="
 	dev-python/hierplace[${PYTHON_USEDEP}]
 "
 
+distutils_enable_tests pytest
 
+S=${WORKDIR}/${P}

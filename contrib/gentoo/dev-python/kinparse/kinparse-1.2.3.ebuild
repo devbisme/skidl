@@ -26,4 +26,6 @@ RDEPEND="
 	>=dev-python/pyparsing-2.1.1[${PYTHON_USEDEP}]
 "
 
+distutils_enable_tests pytest
 
+S=${WORKDIR}/${P}
