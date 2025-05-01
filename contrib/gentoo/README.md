@@ -1,4 +1,4 @@
-emusc and libemusc
+SKiDL
 ===============
 
 Gentoo overlay with ebuild for SKiDL and supporting libs
