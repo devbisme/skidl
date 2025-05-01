@@ -6,16 +6,10 @@ EAPI=8
 DISTUTILS_USE_PEP517=setuptools
 PYTHON_COMPAT=( python3_{10..13} )
 
-inherit distutils-r1
+inherit distutils-r1 git-r3
 
 # We use patched version instead of upstream - to handle shared library NGspice correctly
-if [[ ${PV} == 9999 ]]; then
-	inherit git-r3
-	EGIT_REPO_URI="https://github.com/tapegoji/${PN}.git"
-else
-	SRC_URI="https://github.com/tapegoji/PySpice/archive/refs/tags/v${PV}.tar.gz -> ${P}.gh.tar.gz"
-	KEYWORDS="~amd64 ~x86"
-fi
+EGIT_REPO_URI="https://github.com/tapegoji/${PN}.git"
 
 DESCRIPTION="PySpice is a Python module which interfaces Python to the Ngspice and Xyce circuit simulators"
 HOMEPAGE="https://pyspice.fabrice-salvaire.fr/ https://github.com/FabriceSalvaire/${PN} https://pypi.org/project/${PN}"
