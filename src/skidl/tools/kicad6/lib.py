@@ -8,7 +8,6 @@ Parsing of Kicad libraries.
 
 import os
 from collections import defaultdict, OrderedDict
-import sexpdata
 
 from skidl import Alias
 from skidl.logger import active_logger
@@ -21,6 +20,7 @@ from skidl.utilities import (
     num_to_chars,
     to_list,
     add_unique_attr,
+    sexp_to_nested_list, nested_list_to_sexp,
 )
 
 
@@ -111,7 +111,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
 
     # Convert S-expression library into a list of symbols.
     try:
-        lib_list = sexpdata.loads(lib_txt)
+        lib_list = sexp_to_nested_list(lib_txt)
     except:
         active_logger.raise_(
             RuntimeError,
@@ -126,7 +126,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
         [
             (item[1], item[2:])
             for item in lib_list[1:]
-            if item[0].value().lower() == "symbol"
+            if item[0].lower() == "symbol"
         ]
     )
 
@@ -136,7 +136,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
 
         # See if this symbol extends a previous parent symbol.
         for item in part_defn:
-            if item[0].value().lower() == "extends":
+            if item[0].lower() == "extends":
                 # Get the properties from the parent symbol.
                 parent_part = lib[item[1]]
                 if parent_part.part_defn:
@@ -145,7 +145,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
                         {
                             item[1].lower(): item[2]
                             for item in parent_part.part_defn
-                            if item[0].value().lower() == "property"
+                            if item[0].lower() == "property"
                         }
                     )
                 else:
@@ -161,7 +161,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
             {
                 item[1].lower(): item[2]
                 for item in part_defn
-                if item[0].value().lower() == "property"
+                if item[0].lower() == "property"
             }
         )
 
@@ -225,7 +225,7 @@ def parse_lib_part(part, partial_parse):
 
     # Search for a parent that this part inherits from.
     for item in part.part_defn:
-        if item[0].value().lower() == "extends":
+        if item[0].lower() == "extends":
 
             # Make a copy of the parent part from the library.
             parent_part = part.lib[item[1]].copy(dest=TEMPLATE)
@@ -257,7 +257,7 @@ def parse_lib_part(part, partial_parse):
 
             # Perform some operations on the child part.
             for item in part.part_defn:
-                cmd = item[0].value().lower()
+                cmd = item[0].lower()
                 if cmd == "del":
                     part.rmv_pins(item[1])
                 elif cmd == "swap":
@@ -293,19 +293,19 @@ def parse_lib_part(part, partial_parse):
         }
 
         # Get the pins for this symbol.
-        symbol_pins = [item for item in symbol if item[0].value().lower() == "pin"]
+        symbol_pins = [item for item in symbol if item[0].lower() == "pin"]
 
         # Process the pins for the symbol.
         for pin in symbol_pins:
             # Pin electrical type immediately follows the "pin" tag.
-            pin_func = pin_io_type_translation[pin[1].value().lower()]
+            pin_func = pin_io_type_translation[pin[1].lower()]
 
             # Find the pin name, number, and X/Y position.
             pin_name = ""
             pin_number = None
             for item in pin:
                 item = to_list(item)
-                token_name = item[0].value().lower()
+                token_name = item[0].lower()
                 if token_name == "name":
                     pin_name = item[1]
                 elif token_name == "number":
@@ -344,7 +344,7 @@ def parse_lib_part(part, partial_parse):
         return [
             item
             for item in symbol
-            if item[0].value().lower()
+            if item[0].lower()
             in ("arc", "bezier", "circle", "pin", "polyline", "rectangle", "text")
         ]
 
@@ -356,7 +356,7 @@ def parse_lib_part(part, partial_parse):
     units = {
         item[1]: item[2:]
         for item in part.part_defn[1:]
-        if item[0].value().lower() == "symbol"
+        if item[0].lower() == "symbol"
     }
 
     # I'm assuming a part will not have both pins at the top level and units with pins.
@@ -463,7 +463,7 @@ def parse_lib_part(part, partial_parse):
         {
             prop[1].lower(): prop
             for prop in part.part_defn
-            if prop[0].value().lower() == "property"
+            if prop[0].lower() == "property"
         }
     )
     part.ref_prefix = props["reference"][2]

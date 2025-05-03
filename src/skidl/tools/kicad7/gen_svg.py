@@ -7,6 +7,7 @@ Functions for generating SVG.
 """
 
 import math
+from collections import namedtuple
 
 from skidl.geometry import Tx, Point, BBox, tx_flip_y
 from skidl.utilities import export_to_all
@@ -18,7 +19,7 @@ def draw_cmd_to_dict(symbol):
     dictionary for easier access to properties.
     """
     d = {}
-    name = symbol[0].value()
+    name = symbol[0]
     items = symbol[1:]
     d = {}
     is_named_present = False

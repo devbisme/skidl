@@ -356,7 +356,7 @@ def test_lib_kicad_top_level_pins():
     parts = {
         item[1]: item[2:]
         for item in nested_list[1:]
-        if item[0].value().lower() == "symbol"
+        if item[0].lower() == "symbol"
     }
     # Assert that the number of parts in the library file matches the number of parts in the library.
     assert len(parts.keys()) == len(part_names)
