@@ -3,7 +3,12 @@
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """
-Handles buses.
+Bus management in SKiDL.
+
+This module provides the Bus class for creating and managing collections of related
+nets. Buses can be indexed to access individual nets, sliced to access multiple nets,
+interconnected with pins and other buses, and copied to create multiple instances.
+Buses are essential for handling multi-bit signals like data paths or address lines.
 """
 
 import re
@@ -43,22 +48,27 @@ __all__ = ["BUS_PREFIX"]
 @export_to_all
 class Bus(SkidlBaseObject):
     """
-    This class collects one or more nets into a group that can be indexed.
-
+    A collection of related nets that can be indexed and connected as a group.
+    
+    Bus objects group nets to represent multi-bit signals like data buses, address buses,
+    or other related collections of signals. Buses can be created from integer widths,
+    existing nets, pins, or other buses. Individual nets in a bus can be accessed using
+    integer indices, slices, or net names.
+    
     Args:
-        name: A string with the name of the bus.
-        args: A list of ints, pins, nets, buses to attach to the net.
-
+        name (str, optional): The name of the bus. If None, an implicit name will be generated.
+        *args: Various objects to create bus from - can include integers (for width), 
+              pins, nets, or other buses.
+    
     Keyword Args:
-        attribs: A dictionary of attributes and values to attach to
-            the Net object.
-
-    Example:
-        ::
-
-            n = Net()
-            led1 = Part("Device", 'LED')
-            b = Bus('B', 8, n, led1['K'])
+        circuit (Circuit, optional): The Circuit object this bus belongs to.
+        attribs: Various attributes to attach to the bus.
+        
+    Examples:
+        >>> data_bus = Bus('DATA', 8)  # Create 8-bit DATA bus
+        >>> addr_bus = Bus('ADDR', 16)  # Create 16-bit ADDR bus
+        >>> data_bus[0] += some_pin  # Connect a pin to bit 0
+        >>> byte_bus = data_bus[7:0]  # Create a slice of the bus
     """
 
     def __init__(self, *args, **attribs):
@@ -104,27 +114,41 @@ class Bus(SkidlBaseObject):
         self.extend(args)
 
     def __str__(self):
-        """Return a list of the nets in this bus as a string."""
+        """
+        Return a string representation of the bus.
+        
+        Returns:
+            str: Bus name followed by a list of nets in the bus.
+        """
         return self.name + ":\n\t" + "\n\t".join([n.__str__() for n in self.nets])
 
     __repr__ = __str__  # TODO: This is a temporary fix. Need a better __repr__ for Bus.
 
     def __iter__(self):
         """
-        Return an iterator for stepping thru individual lines of the bus.
+        Return an iterator for stepping through individual nets in the bus.
+        
+        Returns:
+            iterator: An iterator yielding each net in the bus.
         """
         return (self[l] for l in range(len(self)))  # Return generator expr.
 
     def __getitem__(self, *ids):
         """
-        Return a NetPinList made up of the nets at the given indices.
-
+        Return a net or NetPinList of nets at the specified indices.
+        
+        Bus indexing supports integers, net names, and slices. When multiple 
+        indices are selected, returns a NetPinList containing the nets.
+        
         Args:
-            ids: A list of indices of bus lines. These can be individual
-                numbers, net names, nested lists, or slices.
-
+            *ids: Indices of nets to get. Can be integers, strings (net names),
+                 slices, or nested lists of these.
+                 
         Returns:
-            A NetPinList if the indices are valid, otherwise None.
+            Net or NetPinList: The requested net(s) from the bus.
+            
+        Raises:
+            TypeError: If an unsupported index type is used.
         """
 
         # Use the indices to get the nets from the bus.
@@ -153,8 +177,8 @@ class Bus(SkidlBaseObject):
     def __setitem__(self, ids, pins_nets_buses):
         """
         You can't assign to bus lines. You must use the += operator.
-
-        This method is a work-around that allows the use of the += for making
+        
+        You can't allow use of the +. You must use the += operator.= for making
         connections to bus lines while prohibiting direct assignment. Python
         processes something like my_bus[7:0] += 8 * Pin() as follows::
 
@@ -182,15 +206,40 @@ class Bus(SkidlBaseObject):
         active_logger.raise_(TypeError, "Can't assign to a bus! Use the += operator.")
 
     def __iadd__(self, *pins_nets_buses):
-        """Connect nets, pins, or buses to the bus."""
+        """
+        Connect nets, pins, or buses to this bus.
+        
+        Args:
+            *pins_nets_buses: Objects to connect to the bus.
+            
+        Returns:
+            Bus: The updated bus with new connections.
+        """
         return self.connect(*pins_nets_buses)
 
     def __call__(self, num_copies=None, **attribs):
-        """Calling the Bus object will make multiple copies of the bus."""
+        """
+        Create multiple copies of this bus.
+        
+        Args:
+            num_copies (int, optional): Number of copies to create.
+            **attribs: Attributes to apply to the copies.
+            
+        Returns:
+            Bus or list[Bus]: Copy or copies of the bus.
+        """
         return self.copy(num_copies=num_copies, **attribs)
 
     def __mul__(self, num_copies):
-        """Use the multiplication operator to make multiple copies of the bus."""
+        """
+        Multiply operator to create multiple copies of the bus.
+        
+        Args:
+            num_copies (int): Number of copies to create.
+            
+        Returns:
+            list[Bus]: List of bus copies.
+        """
         if num_copies is None:
             num_copies = 0
         return self.copy(num_copies=num_copies)
@@ -198,18 +247,37 @@ class Bus(SkidlBaseObject):
     __rmul__ = __mul__  # Make the reverse multiplication operator do the same thing.
 
     def __len__(self):
-        """Return the number of nets in this bus."""
+        """
+        Return the number of nets in the bus.
+        
+        Returns:
+            int: Number of nets in the bus.
+        """
         return len(self.nets)
 
     def __bool__(self):
-        """Any valid Bus is True."""
+        """
+        Return True if the bus is valid (always True).
+        
+        Returns:
+            bool: Always True for any bus instance.
+        """
         return True
 
     __nonzero__ = __bool__  # Python 2 compatibility.
 
     @classmethod
     def get(cls, name, circuit=None):
-        """Get the bus with the given name from a circuit, or return None."""
+        """
+        Get a bus by name from a circuit.
+        
+        Args:
+            name (str): Name or alias of the bus to find.
+            circuit (Circuit, optional): Circuit to search in. Defaults to default_circuit.
+            
+        Returns:
+            Bus or None: The found bus object or None if not found.
+        """
 
         circuit = circuit or default_circuit
 
@@ -231,13 +299,38 @@ class Bus(SkidlBaseObject):
 
     @classmethod
     def fetch(cls, name, *args, **attribs):
-        """Get the bus with the given name from a circuit, or create it if not found."""
+        """
+        Get a bus by name from a circuit, or create it if it doesn't exist.
+        
+        This method is similar to get(), but will create a new bus if one
+        with the given name is not found.
+        
+        Args:
+            name (str): Name of the bus to fetch or create.
+            *args: Arguments to pass to the Bus constructor if creation is needed.
+            **attribs: Keyword arguments to pass to the Bus constructor if creation is needed.
+            
+        Returns:
+            Bus: An existing or newly created bus.
+        """
 
         circuit = attribs.get("circuit", default_circuit)
         return cls.get(name, circuit=circuit) or cls(name, *args, **attribs)
 
     def insert(self, index, *objects):
-        """Insert objects into bus starting at indexed position."""
+        """
+        Insert objects into the bus starting at the given index.
+        
+        Objects can be integers (to create N new nets), existing nets, pins, or buses.
+        New nets will be given names based on the bus name and their position.
+        
+        Args:
+            index (int): Position to insert objects.
+            *objects: Objects to insert - integers, nets, pins, or buses.
+            
+        Raises:
+            ValueError: If an unsupported object type is inserted.
+        """
 
         for obj in flatten(objects):
             if isinstance(obj, int):
@@ -284,34 +377,34 @@ class Bus(SkidlBaseObject):
                 net.name = self.name + sep + str(i)
 
     def extend(self, *objects):
-        """Extend bus by appending objects to the end (MSB)."""
+        """
+        Extend the bus by adding nets to the end (MSB).
+        
+        Args:
+            *objects: Objects to add - integers, nets, pins, or buses.
+        """
         self.insert(len(self.nets), objects)
 
     def copy(self, num_copies=None, **attribs):
         """
-        Make zero or more copies of this bus.
-
+        Create one or more copies of this bus.
+        
         Args:
-            num_copies: Number of copies to make of this bus.
-
-        Keyword Args:
-            attribs: Name/value pairs for setting attributes for the copy.
-
+            num_copies (int, optional): Number of copies to create.
+                If None, a single copy will be made.
+            **attribs: Attributes for the copies. If values are lists/tuples,
+                each copy gets the corresponding value.
+                
         Returns:
-            A list of Bus copies or a Bus if num_copies==1.
-
+            Bus or list[Bus]: A single Bus copy or list of copies.
+            
         Raises:
-            Exception if the requested number of copies is a non-integer or negative.
-
-        Notes:
-            An instance of a bus can be copied just by calling it like so::
-
-                b = Bus('A', 8)  # Create a bus.
-                b_copy = b(2)   # Get two copies of the bus.
-
-            You can also use the multiplication operator to make copies::
-
-                b = 10 * Bus('A', 8)  # Create an array of buses.
+            ValueError: If num_copies is not a non-negative integer.
+            
+        Examples:
+            >>> b = Bus('A', 8)
+            >>> b_copy = b(2)  # Get two copies
+            >>> b_array = 5 * Bus('A', 8)  # Create an array of 5 buses
         """
 
         # If the number of copies is None, then a single copy will be made
@@ -366,42 +459,61 @@ class Bus(SkidlBaseObject):
         return copies[0]
 
     def get_nets(self):
-        """Return the list of nets contained in this bus."""
+        """
+        Return the list of nets contained in this bus.
+        
+        Returns:
+            list[Net]: Nets in this bus.
+        """
         return self.nets
 
     def get_pins(self):
-        """It's an error to get the list of pins attached to all bus lines."""
+        """
+        Raise an error since accessing all pins across a bus is not supported.
+        
+        Raises:
+            Exception: Always raises an error.
+        """
         active_logger.raise_("Can't get the list of pins on a bus!")
 
     def is_movable(self):
         """
-        Return true if all the nets in a bus are movable to another circuit.
+        Check if the bus can be moved to another circuit.
+        
+        A bus is movable if all of its nets are movable.
+        
+        Returns:
+            bool: True if all nets in the bus are movable.
         """
         return all(n.is_movable() for n in self.nets)
 
     def is_implicit(self):
-        """Return true if the bus name is implicit."""
+        """
+        Check if the bus name is implicitly generated.
+        
+        Implicit bus names start with the BUS_PREFIX or NET_PREFIX.
+        
+        Returns:
+            bool: True if the bus has an implicitly generated name.
+        """
         prefix_re = "({}|{})+".format(re.escape(NET_PREFIX), re.escape(BUS_PREFIX))
         return re.match(prefix_re, self.name)
 
     def connect(self, *pins_nets_buses):
         """
-        Return the bus after connecting one or more nets, pins, or buses.
-
+        Connect pins, nets, or buses to this bus.
+        
         Args:
-            pins_nets_buses: One or more Pin, Net or Bus objects or
-                lists/tuples of them.
-
+            *pins_nets_buses: Pins, nets, buses or lists/tuples of them to connect.
+            
         Returns:
-            The updated bus with the new connections.
-
-        Notes:
-            You can connect nets or pins to a bus like so::
-
-                p = Pin()       # Create a pin.
-                n = Net()       # Create a net.
-                b = Bus('B', 2) # Create a two-wire bus.
-                b += p,n        # Connect pin and net to B[0] and B[1].
+            Bus: The updated bus with the new connections.
+            
+        Examples:
+            >>> b = Bus('B', 2)
+            >>> p = Pin()
+            >>> n = Net()
+            >>> b += p, n  # Connect pin to B[0] and net to B[1]
         """
         nets = NetPinList(self.nets)
         nets += pins_nets_buses
@@ -410,15 +522,24 @@ class Bus(SkidlBaseObject):
     @property
     def name(self):
         """
-        Get, set and delete the name of the bus.
-
-        When setting the bus name, if another bus with the same name
-        is found, the name for this bus is adjusted to make it unique.
+        Get the name of the bus.
+        
+        When setting the name, if another bus with the same name exists in the
+        circuit, the name will be adjusted to make it unique.
+        
+        Returns:
+            str: The bus name.
         """
         return super(Bus, self).name
 
     @name.setter
     def name(self, name):
+        """
+        Set the bus name.
+        
+        Args:
+            name (str): The new name for the bus.
+        """
         # Remove the existing name so it doesn't cause a collision if the
         # object is renamed with its existing name.
         del self.name
@@ -431,14 +552,32 @@ class Bus(SkidlBaseObject):
 
     @name.deleter
     def name(self):
-        """Delete the bus name."""
+        """
+        Delete the bus name.
+        
+        This reverts the bus to having no name.
+        """
         super(Bus, self.__class__).name.fdel(self)
 
     @property
     def width(self):
-        """Return width of a Bus, which is the same as using the len() operator."""
+        """
+        Get the width of the bus (number of nets).
+        
+        Returns:
+            int: The number of nets in the bus.
+        """
         return len(self)
 
     @property
     def pins(self):
+        """
+        Get all pins connected to the bus.
+        
+        Returns:
+            list: List of pins connected to the bus nets.
+            
+        Raises:
+            Exception: Always raises an error since accessing all pins across a bus is not supported.
+        """
         return self.get_pins()

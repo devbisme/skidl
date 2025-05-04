@@ -4,6 +4,11 @@
 
 """
 Specialized list for handling nets, pins, and buses.
+
+This module provides the NetPinList class, which is a specialized list that
+handles collections of pins and nets. It supports operations for connecting
+pins and nets in series or parallel configurations and provides access to
+common properties across all pins and nets in the list.
 """
 
 from .alias import Alias
@@ -16,32 +21,109 @@ from .utilities import expand_buses, export_to_all, flatten, set_iadd
 
 @export_to_all
 class NetPinList(list):
+    """
+    Specialized list for handling collections of nets and pins.
+    
+    NetPinList extends the Python list with additional functionality for
+    working with collections of pins and nets. It handles bus expansion and
+    provides operations to connect nets and pins in series or parallel.
+    """
 
     def __len__(self):
-        """Return the number of individual pins/nets in this interface."""
+        """
+        Return the number of individual pins/nets in this interface.
+        
+        This performs bus expansion to count the actual number of pins or nets.
+        
+        Returns:
+            An integer representing the total count of pins/nets after bus expansion.
+        """
         return len(expand_buses(self))
 
     def __and__(self, obj):
-        """Attach a NetPinList and another part/pin/net in serial."""
-
+        """
+        Attach a NetPinList and another part/pin/net in series.
+        
+        The & operator creates a serial connection between this NetPinList and
+        another object.
+        
+        Args:
+            obj: The part, pin, net, or bus to connect in series.
+            
+        Returns:
+            A Network object representing the series connection.
+            
+        Examples:
+            net_list & resistor  # Connect nets in series with a resistor
+        """
         return Network(self) & obj
 
     def __rand__(self, obj):
-        """Attach a NetPinList and another part/pin/net in serial."""
-
+        """
+        Attach a NetPinList and another part/pin/net in series.
+        
+        This is called when the & operator is used with the NetPinList on the right side.
+        
+        Args:
+            obj: The part, pin, net, or bus to connect in series.
+            
+        Returns:
+            A Network object representing the series connection.
+        """
         return obj & Network(self)
 
     def __or__(self, obj):
-        """Attach a NetPinList and another part/pin/net in parallel."""
-
+        """
+        Attach a NetPinList and another part/pin/net in parallel.
+        
+        The | operator creates a parallel connection between this NetPinList and
+        another object.
+        
+        Args:
+            obj: The part, pin, net, or bus to connect in parallel.
+            
+        Returns:
+            A Network object representing the parallel connection.
+            
+        Examples:
+            net_list | resistor  # Connect nets in parallel with a resistor
+        """
         return Network(self) | obj
 
     def __ror__(self, obj):
-        """Attach a NetPinList and another part/pin/net in parallel."""
-
+        """
+        Attach a NetPinList and another part/pin/net in parallel.
+        
+        This is called when the | operator is used with the NetPinList on the right side.
+        
+        Args:
+            obj: The part, pin, net, or bus to connect in parallel.
+            
+        Returns:
+            A Network object representing the parallel connection.
+        """
         return obj | Network(self)
 
     def __iadd__(self, *nets_pins_buses):
+        """
+        Connect pins/nets with another pin/net/bus.
+        
+        The += operator connects pins or nets in this list with pins or nets
+        in other lists or objects.
+        
+        Args:
+            *nets_pins_buses: One or more pins, nets, or buses to connect.
+            
+        Returns:
+            The updated NetPinList after making the connections.
+            
+        Raises:
+            ValueError: If trying to connect to an illegal type or if connection
+                        counts don't match.
+                        
+        Examples:
+            bus1 += bus2  # Connect all pins in bus1 to corresponding pins in bus2
+        """
         nets_pins_a = expand_buses(self)
         len_a = len(nets_pins_a)
 
@@ -88,13 +170,28 @@ class NetPinList(list):
         return self
 
     def create_network(self):
-        """Create a network from a list of pins and nets."""
-
+        """
+        Create a network from a list of pins and nets.
+        
+        Returns:
+            A Network object created from the pins and nets in this list.
+            
+        Raises:
+            ValueError: If the list has more than 2 items.
+        """
         return Network(*self)  # An error will occur if list has more than 2 items.
 
     @property
     def circuit(self):
-        """Get the circuit the pins/nets are members of."""
+        """
+        Get the circuit the pins/nets are members of.
+        
+        Returns:
+            The Circuit object that the pins/nets belong to.
+            
+        Raises:
+            ValueError: If pins/nets belong to different circuits.
+        """
         cct = set()
         for pn in self:
             cct.add(pn.circuit)
@@ -107,36 +204,71 @@ class NetPinList(list):
 
     @property
     def width(self):
-        """Return width, which is the same as using the len() operator."""
+        """
+        Return the width (number of pins/nets) in this list.
+        
+        Returns:
+            An integer representing the number of pins/nets after bus expansion.
+        """
         return len(self)
 
     # Setting/clearing the do_erc flag for the list sets/clears the do_erc flags of the pins/nets in the list.
     @property
     def do_erc(self):
+        """
+        Get the electrical rule checking status for pins/nets in the list.
+        
+        Raises:
+            NotImplementedError: This property can only be set or deleted, not read.
+        """
         raise NotImplementedError
 
     @do_erc.setter
     def do_erc(self, on_off):
+        """
+        Set the electrical rule checking status for all pins/nets in the list.
+        
+        Args:
+            on_off: Boolean indicating whether to perform ERC on the pins/nets.
+        """
         for pn in self:
             pn.do_erc = on_off
 
     @do_erc.deleter
     def do_erc(self):
+        """
+        Restore the default electrical rule checking status for all pins/nets in the list.
+        """
         for pn in self:
             del pn.do_erc
 
     # Setting/clearing the drive strength for the list sets/clears the drive of the pins/nets in the list.
     @property
     def drive(self):
+        """
+        Get the drive strength of pins/nets in the list.
+        
+        Raises:
+            NotImplementedError: This property can only be set or deleted, not read.
+        """
         raise NotImplementedError
 
     @do_erc.setter
     def drive(self, strength):
+        """
+        Set the drive strength for all pins/nets in the list.
+        
+        Args:
+            strength: The drive strength value to set for all pins/nets.
+        """
         for pn in self:
             pn.drive = strength
 
     @do_erc.deleter
     def drive(self):
+        """
+        Restore the default drive strength for all pins/nets in the list.
+        """
         for pn in self:
             del pn.drive
 
@@ -145,12 +277,32 @@ class NetPinList(list):
     # might be returned by the filter_list() utility.
     @property
     def aliases(self):
+        """
+        Get the aliases for this NetPinList.
+        
+        For NetPinList, no aliases are allowed, so returns an empty Alias object.
+        
+        Returns:
+            An empty Alias object.
+        """
         return Alias([])  # No aliases, so just return an empty list.
 
     @aliases.setter
     def aliases(self, alias):
+        """
+        Setting aliases on a NetPinList is not allowed.
+        
+        Raises:
+            NotImplementedError: Always raised since aliases cannot be set on a NetPinList.
+        """
         raise NotImplementedError
 
     @aliases.deleter
     def aliases(self):
+        """
+        Deleting aliases from a NetPinList is not allowed.
+        
+        Raises:
+            NotImplementedError: Always raised since aliases cannot be deleted from a NetPinList.
+        """
         raise NotImplementedError

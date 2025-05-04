@@ -2,6 +2,14 @@
 
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
+"""
+SKiDL: A Python-Based Schematic Design Language
+
+This module is the main entry point for SKiDL and provides global functions
+and configuration for creating electronic circuit designs programmatically.
+It initializes the default circuit and provides functions that operate on it.
+"""
+
 import sys
 
 from .circuit import Circuit
@@ -78,11 +86,21 @@ POWER = pin_drives.POWER
 
 @export_to_all
 def get_default_tool():
-    """Get the ECAD tool that will be used by default."""
+    """
+    Get the ECAD tool that will be used by default.
+    
+    Returns:
+        The currently configured default ECAD tool.
+    """
     return config.tool
 
 
 @export_to_all
 def set_default_tool(tool):
-    """Set the ECAD tool that will be used by default."""
+    """
+    Set the ECAD tool that will be used by default.
+    
+    Args:
+        tool: The ECAD tool to use as the default.
+    """
     config.tool = tool

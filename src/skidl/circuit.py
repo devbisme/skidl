@@ -3,7 +3,12 @@
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """
-Handles complete circuits made of parts and nets.
+Circuit management in SKiDL.
+
+This module provides the Circuit class which serves as the central container
+for all circuit elements (parts, nets, buses) and their interconnections. 
+It handles hierarchical circuit structures, electrical rule checking (ERC),
+and output generation (netlists, PCBs, SVGs, etc.).
 """
 
 import json
@@ -51,25 +56,37 @@ __all__ = ["HIER_SEP"]
 @export_to_all
 class Circuit(SkidlBaseObject):
     """
-    Class object that holds the entire netlist of parts and nets.
-
+    Container for an entire electronic circuit design.
+    
+    The Circuit class is the central repository for all the parts, nets, buses,
+    and interfaces that make up a circuit. It manages the hierarchical structure
+    of the design, performs electrical rule checking, and generates various outputs
+    like netlists, PCB files, and graphical representations.
+    
     Attributes:
-        parts: List of all the schematic parts as Part objects.
-        nets: List of all the schematic nets as Net objects.
-        buses: List of all the buses as Bus objects.
-        hierarchy: A '.'-separated concatenation of the names of nested
-            SubCircuits at the current time it is read.
-        level: The current level in the schematic hierarchy.
-        context: Stack of contexts for each level in the hierarchy.
+        parts (list): List of all parts in the circuit.
+        nets (list): List of all nets in the circuit.
+        buses (list): List of all buses in the circuit.
+        interfaces (list): List of all interfaces in the circuit.
+        hierarchy (str): Current position in the hierarchy, represented as a dot-separated string.
+        level (int): Current level in the hierarchy.
+        context (list): Stack tracking the context at each hierarchical level.
+        erc_list (list): List of ERC (Electrical Rule Checking) functions to run on the circuit.
+        NC (Net): The special no-connect net used in this circuit.
     """
 
     # Set the default ERC functions for all Circuit instances.
     erc_list = [dflt_circuit_erc]
 
     def __init__(self, **kwargs):
+        """
+        Initialize a new Circuit object.
+        
+        Args:
+            **kwargs: Arbitrary keyword arguments to set as attributes of the circuit.
+        """
         super().__init__()
 
-        """Initialize the Circuit object."""
         self.reset(init=True)
 
         # Set passed-in attributes for the circuit.
@@ -77,24 +94,58 @@ class Circuit(SkidlBaseObject):
             setattr(self, k, v)
 
     def __iadd__(self, *stuff):
-        """Add Parts, Nets, Buses, and Interfaces to the circuit."""
+        """
+        Add parts, nets, buses, and interfaces to the circuit.
+        
+        Args:
+            *stuff: Various circuit elements to add.
+            
+        Returns:
+            Circuit: The updated circuit with new elements.
+        """
         return self.add_stuff(*stuff)
 
     def __isub__(self, *stuff):
-        """Remove Parts, Nets, Buses, and Interfaces from the circuit."""
+        """
+        Remove parts, nets, buses, and interfaces from the circuit.
+        
+        Args:
+            *stuff: Various circuit elements to remove.
+            
+        Returns:
+            Circuit: The updated circuit with elements removed.
+        """
         return self.rmv_stuff(*stuff)
 
     def __enter__(self):
-        """Create a context for making this circuit the default_circuit."""
+        """
+        Create a context to make this circuit the default_circuit.
+        
+        Returns:
+            Circuit: This circuit instance.
+        """
         self.circuit_stack.append(default_circuit)
         builtins.default_circuit = self
         return self
 
     def __exit__(self, type, value, traceback):
+        """
+        Exit the context and restore the previous default_circuit.
+        
+        Args:
+            type: Exception type if an exception occurred.
+            value: Exception value if an exception occurred.
+            traceback: Traceback if an exception occurred.
+        """
         builtins.default_circuit = self.circuit_stack.pop()
 
     def mini_reset(self, init=False):
-        """Clear any circuitry but don't erase any loaded part libraries."""
+        """
+        Clear any circuitry but don't erase any loaded part libraries.
+        
+        Args:
+            init (bool, optional): True if this is being called during initialization.
+        """
 
         self.group_name_cntr = Counter()
 
@@ -129,7 +180,12 @@ class Circuit(SkidlBaseObject):
             builtins.NC = self.NC
 
     def reset(self, init=False):
-        """Clear any circuitry and cached part libraries and start over."""
+        """
+        Clear any circuitry and cached part libraries and start over.
+        
+        Args:
+            init (bool, optional): True if this is being called during initialization.
+        """
 
         try:
             from . import skidl
@@ -149,7 +205,15 @@ class Circuit(SkidlBaseObject):
         config.backup_lib = None
 
     def add_hierarchical_name(self, name):
-        """Record a new hierarchical name.  Throw an error if it is a duplicate."""
+        """
+        Record a new hierarchical name and check for duplicates.
+        
+        Args:
+            name (str): Hierarchical name to add.
+            
+        Raises:
+            ValueError: If the name is a duplicate.
+        """
         if name in self._hierarchical_names:
             active_logger.raise_(
                 ValueError,
@@ -160,7 +224,15 @@ class Circuit(SkidlBaseObject):
         self._hierarchical_names.add(name)
 
     def rmv_hierarchical_name(self, name):
-        """Remove an existing hierarchical name.  Throw an error if non-existent."""
+        """
+        Remove an existing hierarchical name.
+        
+        Args:
+            name (str): Hierarchical name to remove.
+            
+        Raises:
+            ValueError: If the name doesn't exist.
+        """
         try:
             self._hierarchical_names.remove(name)
         except KeyError:
@@ -172,7 +244,12 @@ class Circuit(SkidlBaseObject):
             )
 
     def get_node_names(self):
-        """Return list of names of each subcircuit/group in the hierarchy."""
+        """
+        Get the names of all subcircuits/groups in the hierarchy.
+        
+        Returns:
+            tuple: Tuple of node names in the circuit hierarchy.
+        """
         node_names = set()
         for part in self.parts:
             part_hier_pieces = part.hierarchy.split(HIER_SEP)
@@ -181,7 +258,17 @@ class Circuit(SkidlBaseObject):
         return tuple(node_names)
 
     def activate(self, name, tag):
-        """Save the previous hierarchical group and activate a new one."""
+        """
+        Activate a new hierarchical group and save the previous one.
+        
+        This method saves the current context and creates a new hierarchical level
+        with the given name and tag.
+        
+        Args:
+            name (str): Name for the new hierarchical level.
+            tag: Tag to disambiguate multiple instances of the same hierarchical name.
+                 If None, an incrementing counter will be used.
+        """
 
         # Create a name for this group from the concatenated names of all
         # the nested contexts that were called on all the preceding levels
@@ -205,7 +292,11 @@ class Circuit(SkidlBaseObject):
         builtins.NC = self.NC  # pylint: disable=undefined-variable
 
     def deactivate(self):
-        """Deactivate the current hierarchical group and return to the previous one."""
+        """
+        Deactivate the current hierarchical group and return to the previous one.
+        
+        This restores the context that existed before the current one was created.
+        """
 
         # Restore the context that existed before this one was created.
         # This does not remove the circuitry since it has already been
@@ -214,7 +305,15 @@ class Circuit(SkidlBaseObject):
         builtins.NC = default_circuit.NC
 
     def add_parts(self, *parts):
-        """Add some Part objects to the circuit."""
+        """
+        Add parts to the circuit.
+        
+        Args:
+            *parts: Part objects to add to the circuit.
+            
+        Raises:
+            ValueError: If attempting to add an unmovable part.
+        """
         for part in parts:
             # Add the part to this circuit if the part is movable and
             # it's not already in this circuit.
@@ -246,7 +345,15 @@ class Circuit(SkidlBaseObject):
                     )
 
     def rmv_parts(self, *parts):
-        """Remove some Part objects from the circuit."""
+        """
+        Remove parts from the circuit.
+        
+        Args:
+            *parts: Part objects to remove from the circuit.
+            
+        Raises:
+            ValueError: If attempting to remove an unmovable part.
+        """
         for part in parts:
             part.disconnect()
             if part.is_movable():
@@ -268,7 +375,15 @@ class Circuit(SkidlBaseObject):
                 )
 
     def add_nets(self, *nets):
-        """Add some Net objects to the circuit. Assign a net name if necessary."""
+        """
+        Add nets to the circuit.
+        
+        Args:
+            *nets: Net objects to add to the circuit.
+            
+        Raises:
+            ValueError: If attempting to add an unmovable net.
+        """
         for net in nets:
             # Add the net to this circuit if the net is movable and
             # it's not already in this circuit.
@@ -293,7 +408,15 @@ class Circuit(SkidlBaseObject):
                     )
 
     def rmv_nets(self, *nets):
-        """Remove some Net objects from the circuit."""
+        """
+        Remove nets from the circuit.
+        
+        Args:
+            *nets: Net objects to remove from the circuit.
+            
+        Raises:
+            ValueError: If attempting to remove an unmovable net.
+        """
         for net in nets:
             if net.is_movable():
                 if net.circuit == self and net in self.nets:
@@ -313,7 +436,15 @@ class Circuit(SkidlBaseObject):
                 )
 
     def add_buses(self, *buses):
-        """Add some Bus objects to the circuit. Assign a bus name if necessary."""
+        """
+        Add buses to the circuit.
+        
+        Args:
+            *buses: Bus objects to add to the circuit.
+            
+        Raises:
+            ValueError: If attempting to add an unmovable bus.
+        """
         for bus in buses:
             # Add the bus to this circuit if the bus is movable and
             # it's not already in this circuit.
@@ -335,7 +466,15 @@ class Circuit(SkidlBaseObject):
                         self += net
 
     def rmv_buses(self, *buses):
-        """Remove some buses from the circuit."""
+        """
+        Remove buses from the circuit.
+        
+        Args:
+            *buses: Bus objects to remove from the circuit.
+            
+        Raises:
+            ValueError: If attempting to remove an unmovable bus.
+        """
         for bus in buses:
             if bus.is_movable():
                 if bus.circuit == self and bus in self.buses:
@@ -357,7 +496,18 @@ class Circuit(SkidlBaseObject):
                 )
 
     def add_stuff(self, *stuff):
-        """Add Parts, Nets, Buses, and Interfaces to the circuit."""
+        """
+        Add various circuit elements to the circuit.
+        
+        Args:
+            *stuff: Parts, nets, buses, or interfaces to add.
+            
+        Returns:
+            Circuit: The updated circuit.
+            
+        Raises:
+            ValueError: If attempting to add an unsupported type.
+        """
 
         for thing in flatten(stuff):
             if isinstance(thing, Part):
@@ -374,7 +524,18 @@ class Circuit(SkidlBaseObject):
         return self
 
     def rmv_stuff(self, *stuff):
-        """Remove Parts, Nets, Buses, and Interfaces from the circuit."""
+        """
+        Remove various circuit elements from the circuit.
+        
+        Args:
+            *stuff: Parts, nets, buses, interfaces, or packages to remove.
+            
+        Returns:
+            Circuit: The updated circuit.
+            
+        Raises:
+            ValueError: If attempting to remove an unsupported type.
+        """
 
         for thing in flatten(stuff):
             if isinstance(thing, Part):
@@ -393,7 +554,15 @@ class Circuit(SkidlBaseObject):
         return self
 
     def get_nets(self):
-        """Get all the distinct nets for the circuit."""
+        """
+        Get all distinct nets in the circuit.
+        
+        This excludes the no-connect net, empty nets, and nets that are electrically
+        connected to other nets already in the result list.
+        
+        Returns:
+            list: List of distinct nets in the circuit.
+        """
 
         distinct_nets = []
         for net in self.nets:
@@ -414,7 +583,11 @@ class Circuit(SkidlBaseObject):
         return distinct_nets
 
     def merge_net_names(self):
-        """Assign same name to all segments of multi-segment nets."""
+        """
+        Assign the same name to all segments of multi-segment nets.
+        
+        This ensures that connected nets share a common name.
+        """
 
         for net in self.nets:
             if len(net.nets) > 1:
@@ -423,7 +596,7 @@ class Circuit(SkidlBaseObject):
     def merge_nets(self):
         """
         Merge multi-segment nets into a single net.
-
+        
         Note: Multi-segment nets had to be merged or else tests to detect the
             same net would fail in routing.py when generating schematics.
             But as a result of merging, net variables can become invalid because of new merging.
@@ -449,7 +622,17 @@ class Circuit(SkidlBaseObject):
         self.nets = list(set(self.nets) - merged_nets)
 
     def ERC(self, *args, **kwargs):
-        """Run class-wide and local ERC functions on this circuit."""
+        """
+        Perform Electrical Rule Checking on the circuit.
+        
+        This method runs both the class-wide ERC functions and any local ERC functions 
+        defined for this circuit. It checks for issues like unconnected pins, pin type
+        conflicts, etc.
+        
+        Args:
+            *args: Arguments to pass to the ERC functions.
+            **kwargs: Keyword arguments to pass to the ERC functions.
+        """
 
         # Save the currently active logger and activate the ERC logger.
         active_logger.push(erc_logger)
@@ -471,14 +654,23 @@ class Circuit(SkidlBaseObject):
         active_logger.pop()
 
     def cull_unconnected_parts(self):
-        """Remove parts that aren't connected to anything."""
+        """
+        Remove parts that aren't connected to anything in the circuit.
+        
+        This can be useful to clean up a design by removing unused parts.
+        """
 
         for part in self.parts:
             if not part.is_connected():
                 self -= part
 
     def check_for_empty_footprints(self):
-        """Make sure part footprints aren't empty before generating netlist/PCB."""
+        """
+        Check that all parts have assigned footprints.
+        
+        This method calls the empty_footprint_handler for any parts that
+        don't have a footprint assigned.
+        """
 
         for part in self.parts:
             if getattr(part, "footprint", "") == "":
@@ -488,8 +680,11 @@ class Circuit(SkidlBaseObject):
 
     def check_part_tags(self):
         """
-        Check for any null or randomly-assigned tags since those will
-        lead to unstable associations between parts and PCB footprints.
+        Check for missing or randomly-assigned part tags.
+        
+        Part tags are important for maintaining stable associations between
+        schematic parts and PCB footprints. This method warns about any
+        parts with null or randomly-assigned tags.
         """
 
         for part in self.parts:
@@ -497,16 +692,16 @@ class Circuit(SkidlBaseObject):
 
     def generate_netlist(self, **kwargs):
         """
-        Return a netlist and also write it to a file/stream.
-
+        Generate a netlist for the circuit.
+        
         Args:
-            file_: Either a file object that can be written to, or a string
-                containing a file name, or None.
-            tool: The EDA tool the netlist will be generated for.
-            do_backup: If true, create a library with all the parts in the circuit.
-
+            file_ (str or file object, optional): File to write netlist to.
+            tool (str, optional): The EDA tool to generate the netlist for.
+            do_backup (bool, optional): If True, create a library with all parts in the circuit.
+            **kwargs: Additional arguments passed to the tool-specific netlist generator.
+            
         Returns:
-            A netlist.
+            str: The generated netlist as a string.
         """
 
         from . import skidl
@@ -549,15 +744,13 @@ class Circuit(SkidlBaseObject):
     def generate_pcb(self, **kwargs):
         """
         Create a PCB file from the circuit.
-
+        
         Args:
-            file_: Either a file object that can be written to, or a string
-                containing a file name, or None.
-            tool: The EDA tool the netlist will be generated for.
-            do_backup: If true, create a library with all the parts in the circuit.
-            fp_libs: List of directories containing footprint libraries.
-        Returns:
-            None.
+            file_ (str or file object, optional): File to write PCB data to.
+            tool (str, optional): The EDA tool to generate the PCB for.
+            do_backup (bool, optional): If True, create a library with all parts in the circuit.
+            fp_libs (list, optional): List of directories containing footprint libraries.
+            **kwargs: Additional arguments passed to the tool-specific PCB generator.
         """
 
         from . import skidl
@@ -594,15 +787,14 @@ class Circuit(SkidlBaseObject):
 
     def generate_xml(self, file_=None, tool=None):
         """
-        Return netlist as an XML string and also write it to a file/stream.
-
+        Generate an XML representation of the circuit.
+        
         Args:
-            file_: Either a file object that can be written to, or a string
-                containing a file name, or None.
-            tool: Backend tool such as KICAD.
-
+            file_ (str or file object, optional): File to write XML data to.
+            tool (str, optional): Backend tool to use for XML generation.
+            
         Returns:
-            A string containing the netlist.
+            str: The generated XML as a string.
         """
 
         from . import skidl
@@ -626,15 +818,19 @@ class Circuit(SkidlBaseObject):
         return netlist
 
     def generate_netlistsvg_skin(self, net_stubs, layout_options=None):
-        """ Generate SVG for schematic symbols for netlistsvg skin file.
-
+        """
+        Generate SVG for schematic symbols for a netlistsvg skin file.
+        
+        This creates the SVG symbol definitions that will be used by netlistsvg
+        to visualize the circuit.
+        
         Args:
             net_stubs (list): List of nets that are stubbed rather than routed.
             layout_options (str, optional): String of ELK layout options. Defaults to None.
-                                            https://eclipse.dev/elk/reference/options.html
-
+                                           See https://eclipse.dev/elk/reference/options.html
+                                           
         Returns:
-            str: SVG for skin file.
+            str: SVG content for the skin file.
         """
 
         default_layout_options = """
@@ -815,7 +1011,12 @@ class Circuit(SkidlBaseObject):
         return "\n".join((head_svg, part_svg, tail_svg))
 
     def get_net_nc_stubs(self):
-        """Get all nets/buses that are stubs or no-connects."""
+        """
+        Get all nets/buses that are stubs or no-connects.
+        
+        Returns:
+            list: List of nets that are stubs or no-connects.
+        """
 
         # Search all nets for those set as stubs or that are no-connects.
         stubs = [
@@ -829,16 +1030,15 @@ class Circuit(SkidlBaseObject):
 
     def generate_svg(self, file_=None, tool=None, layout_options=None):
         """
-        Create an SVG file displaying the circuit schematic and
-        return the dictionary that can be displayed by netlistsvg.
-
+        Create an SVG visualization of the circuit and return the netlistsvg input data.
+        
         Args:
-            file_ (_type_, optional): Filename to store SVG. Defaults to None.
-            tool (_type_, optional): Backend tool. Defaults to None.
-            layout_options (_type_, optional): Options to control netlistsvg/ELK layout algorithm. Defaults to None.
-
+            file_ (str, optional): Base filename to store SVG and intermediate files.
+            tool (str, optional): Backend tool to use.
+            layout_options (str, optional): Options to control netlistsvg/ELK layout algorithm.
+            
         Returns:
-            dict: JSON dictionary for input to netlistsvg.
+            dict: JSON dictionary that can be used as input to netlistsvg.
         """
 
         from . import skidl
@@ -1011,7 +1211,15 @@ class Circuit(SkidlBaseObject):
 
     def generate_schematic(self, **kwargs):
         """
-        Create a schematic from a Circuit.
+        Create a schematic file from the circuit.
+        
+        This generates a visual representation of the circuit that can be
+        opened in an EDA tool like KiCad's Eeschema.
+        
+        Args:
+            **kwargs: Arguments for the schematic generator including:
+                empty_footprint_handler (function, optional): Custom handler for parts without footprints.
+                tool (str, optional): The EDA tool to generate the schematic for.
         """
 
         import skidl
@@ -1066,25 +1274,25 @@ class Circuit(SkidlBaseObject):
         split_parts_ref=[],
     ):
         """
-        Returns a graphviz graph as graphviz object and can also write it to a file/stream.
-        When used in ipython the graphviz object will drawn as an SVG in the output.
-
-        See https://graphviz.readthedocs.io/en/stable/ and http://graphviz.org/doc/info/attrs.html
-
+        Generate a Graphviz DOT visualization of the circuit.
+        
+        Creates a graphical representation of the circuit as a graph where parts
+        and nets are nodes, and connections are edges.
+        
         Args:
-            file_: A string containing a file name, or None.
-            engine: See graphviz documentation
-            rankdir: See graphviz documentation
-            part_shape: Shape of the part nodes
-            net_shape: Shape of the net nodes
-            splines: Style for the edges, try 'ortho' for a schematic like feel
-            show_values: Show values as external labels on part nodes
-            show_anon: Show anonymous net names
-            split_nets: splits up the plot for the given list of net names
-            split_parts_ref: splits up the plot for all pins for the given list of part refs
-
+            file_ (str, optional): File to write the DOT data to.
+            engine (str, optional): Graphviz layout engine to use. Default is "neato".
+            rankdir (str, optional): Direction of graph layout. Default is "LR" (left to right).
+            part_shape (str, optional): Shape to use for part nodes. Default is "rectangle".
+            net_shape (str, optional): Shape to use for net nodes. Default is "point".
+            splines (str, optional): Style for the edges. Try "ortho" for schematic-like feel.
+            show_values (bool, optional): Show part values as labels. Default is True.
+            show_anon (bool, optional): Show anonymous net names. Default is False.
+            split_nets (list, optional): List of net names to split in visualization. Default is ["GND"].
+            split_parts_ref (list, optional): List of part references to split in visualization.
+            
         Returns:
-            graphviz.Digraph
+            graphviz.Digraph: A Graphviz graph object.
         """
 
         # Reset the counters to clear any warnings/errors from previous run.
@@ -1154,15 +1362,14 @@ class Circuit(SkidlBaseObject):
 
     def backup_parts(self, file_=None):
         """
-        Saves parts in circuit as a SKiDL library in a file.
-
+        Save all parts in the circuit as a SKiDL library file.
+        
+        This creates a backup library that can be used to restore the parts
+        in the circuit.
+        
         Args:
-            file: Either a file object that can be written to, or a string
-                containing a file name, or None. If None, a standard library
-                file will be used.
-
-        Returns:
-            Nothing.
+            file_ (str or file object, optional): File to write the library to.
+                If None, a standard library file will be used.
         """
 
         from . import skidl
@@ -1183,14 +1390,15 @@ class Circuit(SkidlBaseObject):
 
     def to_tuple(self):
         """
-        Create a nested tuple that can be used to compare Circuit objects.
+        Create a nested tuple representation of the circuit for comparison.
+        
+        The tuple contains sorted tuples of parts and nets information,
+        suitable for comparing circuits structurally.
         
         Returns:
-            A tuple containing sorted tuples of the parts and nets where
-            each part is represented by a tuple of its reference, name, library name and 
-            each net is represented by a tuple of its name and a tuple of the pins
-            that are on it with each pin being a tuple of the part reference and pin
-            number.
+            tuple: A tuple containing:
+                - A tuple of part representations (ref, name, lib)
+                - A tuple of net representations (name, pins)
         """
 
         self.merge_net_names()
@@ -1218,11 +1426,21 @@ class Circuit(SkidlBaseObject):
 
     @property
     def no_files(self):
-        """Prevent creation of output files (netlists, ERC, logs) by this Circuit object."""
+        """
+        Control whether output files are generated.
+        
+        Returns:
+            bool: True if file output is suppressed, False otherwise.
+        """
         return self._no_files
 
     @no_files.setter
     def no_files(self, stop):
-        """Don't output any files if stop is True."""
+        """
+        Set whether to suppress file output.
+        
+        Args:
+            stop (bool): True to suppress file output, False to allow it.
+        """
         self._no_files = stop
         stop_log_file_output(stop)

@@ -4,6 +4,12 @@
 
 """
 Import this file to reconfigure SKiDL for doing SPICE simulations.
+
+This module configures SKiDL to work with SPICE simulations by:
+1. Importing necessary SPICE-related modules and classes
+2. Setting up the default ground net
+3. Loading SPICE-specific parts libraries
+4. Making all PySpice parts available in the module namespace
 """
 
 import sys

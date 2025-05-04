@@ -3,7 +3,11 @@
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """
-Handles part pins.
+Handles part pins and their connections to nets.
+
+This module provides the Pin class which represents electronic component pins. 
+Pins can be connected to nets and other pins, and have various electrical properties 
+like input, output, bidirectional, etc.
 """
 
 import random
@@ -178,17 +182,20 @@ pin_info = {
 @total_ordering
 class Pin(SkidlBaseObject):
     """
-    A class for storing data about pins for a part.
+    A class for storing data about pins for electronic parts.
 
     Args:
-        attribs: Key/value pairs of attributes to add to the library.
+        attribs: Key/value pairs of attributes to add to the pin.
 
     Attributes:
-        nets: The electrical nets this pin is connected to (can be >1).
-        part: Link to the Part object this pin belongs to.
-        func: Pin function such as PinType.types.INPUT.
-        do_erc: When false, the pin is not checked for ERC violations.
-
+        nets (list): The electrical nets this pin is connected to (can be >1).
+        part (Part): Link to the Part object this pin belongs to.
+        name (str): Name of the pin (e.g., "GND", "VCC").
+        num (str): Pin number (e.g., "1", "2", "A5").
+        func (int): Pin function from pin_types enum (e.g., INPUT, OUTPUT, BIDIR).
+        do_erc (bool): When False, the pin is not checked for ERC violations.
+        stub (bool): When True, the pin is only for internal schematic connections.
+        aliases (list): Alternative names for this pin.
     """
 
     def __init__(self, **attribs):
@@ -212,7 +219,12 @@ class Pin(SkidlBaseObject):
             setattr(self, k, v)
 
     def __str__(self):
-        """Return a description of this pin as a string."""
+        """
+        Return a description of this pin as a string.
+        
+        Returns:
+            str: String formatted as "Pin ref/num/names/func"
+        """
         ref = getattr(self.part, "ref", "???")
         num, names, func = self.get_pin_info()
         return "Pin {ref}/{num}/{names}/{func}".format(**locals())
@@ -220,12 +232,29 @@ class Pin(SkidlBaseObject):
     __repr__ = __str__
 
     def __bool__(self):
-        """Any valid Pin is True."""
+        """
+        Any valid Pin is considered True in boolean context.
+        
+        Returns:
+            bool: Always True for valid pins
+        """
         return True
 
     __nonzero__ = __bool__  # Python 2 compatibility.
 
     def __lt__(self, o):
+        """
+        Compare pins for sorting based on normalized pin numbers.
+        
+        Args:
+            o (Pin): Another pin to compare with
+            
+        Returns:
+            bool: True if this pin's normalized number is less than the other pin's
+            
+        Raises:
+            ValueError: If comparing pins from different parts
+        """
         if not isinstance(o, type(self)):
             return NotImplemented
         if self.part != o.part:
@@ -233,30 +262,71 @@ class Pin(SkidlBaseObject):
         return self._normalize_num() < o._normalize_num()
 
     def __eq__(self, o):
+        """
+        Check if two pins are equivalent (same part and normalized number).
+        
+        Args:
+            o (Pin): Another pin to compare with
+            
+        Returns:
+            bool: True if pins are equivalent, False otherwise
+        """
         if not isinstance(o, type(self)):
             return NotImplemented
         return self.part == o.part and self._normalize_num() == o._normalize_num()
 
     def __and__(self, obj):
-        """Attach a pin and another part/pin/net in serial."""
+        """
+        Attach a pin and another part/pin/net in serial.
+        
+        Args:
+            obj: Another part, pin, or net
+            
+        Returns:
+            Network: A network with the pin and object connected in series
+        """
         from .network import Network
 
         return Network(self) & obj
 
     def __rand__(self, obj):
-        """Attach a pin and another part/pin/net in serial."""
+        """
+        Support for right-side serial attachment.
+        
+        Args:
+            obj: Another part, pin, or net
+            
+        Returns:
+            Network: A network with the object and pin connected in series
+        """
         from .network import Network
 
         return obj & Network(self)
 
     def __or__(self, obj):
-        """Attach a pin and another part/pin/net in parallel."""
+        """
+        Attach a pin and another part/pin/net in parallel.
+        
+        Args:
+            obj: Another part, pin, or net
+            
+        Returns:
+            Network: A network with the pin and object connected in parallel
+        """
         from .network import Network
 
         return Network(self) | obj
 
     def __ror__(self, obj):
-        """Attach a pin and another part/pin/net in parallel."""
+        """
+        Support for right-side parallel attachment.
+        
+        Args:
+            obj: Another part, pin, or net
+            
+        Returns:
+            Network: A network with the object and pin connected in parallel
+        """
         from .network import Network
 
         return obj | Network(self)
@@ -271,10 +341,13 @@ class Pin(SkidlBaseObject):
         Return copy or list of copies of a pin including any net connection.
 
         Args:
-            num_copies: Number of copies to make of pin.
+            num_copies (int, optional): Number of copies to make of pin.
 
         Keyword Args:
             attribs: Name/value pairs for setting attributes for the pin.
+
+        Returns:
+            Pin or list[Pin]: Copy or list of copies of the pin
 
         Notes:
             An instance of a pin can be copied just by calling it like so::
@@ -286,6 +359,15 @@ class Pin(SkidlBaseObject):
         return self.copy(num_copies=num_copies, **attribs)
 
     def __mul__(self, num_copies):
+        """
+        Create multiple copies of a pin.
+        
+        Args:
+            num_copies (int): Number of copies to create
+            
+        Returns:
+            Pin or list[Pin]: Single pin or list of pins
+        """
         if num_copies is None:
             num_copies = 0
         return self.copy(num_copies=num_copies)
@@ -301,7 +383,10 @@ class Pin(SkidlBaseObject):
                 numbers, net names, nested lists, or slices.
 
         Returns:
-            The pin, otherwise None or raises an Exception.
+            Pin: The pin if index is 0, otherwise None or raises Exception.
+            
+        Raises:
+            ValueError: If a non-zero index is used or multiple indices are provided
         """
 
         # Resolve the indices.
@@ -348,6 +433,9 @@ class Pin(SkidlBaseObject):
     def __iter__(self):
         """
         Return an iterator for stepping through the pin.
+        
+        Returns:
+            iterator: Generator that yields this pin once
         """
         # You can only iterate a Pin one time.
         return (self for i in [0])  # Return generator expr.
@@ -361,7 +449,7 @@ class Pin(SkidlBaseObject):
                 lists/tuples of them.
 
         Returns:
-            The updated pin with the new connections.
+            Pin: The updated pin with the new connections.
 
         Notes:
             You can connect nets or pins to a pin like so::
@@ -377,10 +465,13 @@ class Pin(SkidlBaseObject):
         Return copy or list of copies of a pin including any net connection.
 
         Args:
-            num_copies: Number of copies to make of pin.
+            num_copies (int, optional): Number of copies to make of pin.
 
         Keyword Args:
             attribs: Name/value pairs for setting attributes for the pin.
+
+        Returns:
+            Pin or list[Pin]: A single copy or a list of copies.
 
         Notes:
             An instance of a pin can be copied just by calling it like so::
@@ -442,7 +533,15 @@ class Pin(SkidlBaseObject):
         return copies[0]
 
     def is_connected(self):
-        """Return true if a pin is connected to a net (but not a no-connect net)."""
+        """
+        Return true if a pin is connected to a net (but not a no-connect net).
+        
+        Returns:
+            bool: True if connected to a normal net, False otherwise
+            
+        Raises:
+            ValueError: If pin is connected to both normal and no-connect nets
+        """
 
         from .net import NCNet, Net
 
@@ -476,7 +575,18 @@ class Pin(SkidlBaseObject):
         )
 
     def is_attached(self, pin_net_bus):
-        """Return true if this pin is attached to the given pin, net or bus."""
+        """
+        Return true if this pin is attached to the given pin, net or bus.
+        
+        Args:
+            pin_net_bus: A Pin, Net or Bus object
+            
+        Returns:
+            bool: True if attached, False otherwise
+            
+        Raises:
+            ValueError: If attempting to check attachment to an invalid object type
+        """
 
         from .net import Net
         from .pin import Pin
@@ -500,7 +610,12 @@ class Pin(SkidlBaseObject):
         )
 
     def split_name(self, delimiters):
-        """Use chars in divider to split a pin name and add substrings to aliases."""
+        """
+        Use chars in divider to split a pin name and add substrings to aliases.
+        
+        Args:
+            delimiters (str): String of characters used to split pin names
+        """
 
         # Split pin name and add subnames as aliases.
         self.aliases += re.split("[" + re.escape(delimiters) + "]", self.name)
@@ -517,7 +632,7 @@ class Pin(SkidlBaseObject):
                 lists/tuples of them.
 
         Returns:
-            The updated pin with the new connections.
+            Pin: The updated pin with the new connections.
 
         Notes:
             You can connect nets or pins to a pin like so::
@@ -562,7 +677,9 @@ class Pin(SkidlBaseObject):
         return self
 
     def disconnect(self):
-        """Disconnect this pin from all nets."""
+        """
+        Disconnect this pin from all nets.
+        """
         if not self.net:
             return
         for n in self.nets:
@@ -571,7 +688,8 @@ class Pin(SkidlBaseObject):
         self.nets = []
 
     def move(self, net):
-        """Move pin to another net.
+        """
+        Move pin to another net.
 
         Args:
             net (Net): Destination net for pin.
@@ -581,15 +699,30 @@ class Pin(SkidlBaseObject):
         net += self
 
     def get_nets(self):
-        """Return a list containing the Net objects connected to this pin."""
+        """
+        Return a list containing the Net objects connected to this pin.
+        
+        Returns:
+            list: List of Net objects connected to this pin
+        """
         return self.nets
 
     def get_pins(self):
-        """Return a list containing this pin."""
+        """
+        Return a list containing this pin.
+        
+        Returns:
+            list: List containing just this pin
+        """
         return to_list(self)
 
     def create_network(self):
-        """Create a network from a single pin."""
+        """
+        Create a network from a single pin.
+        
+        Returns:
+            Network: A network containing just this pin
+        """
         from .network import Network
 
         ntwk = Network()
@@ -597,7 +730,12 @@ class Pin(SkidlBaseObject):
         return ntwk
 
     def chk_conflict(self, other_pin):
-        """Check for electrical rule conflicts between this pin and another."""
+        """
+        Check for electrical rule conflicts between this pin and another.
+        
+        Args:
+            other_pin (Pin): The other pin to check against
+        """
 
         if not self.do_erc or not other_pin.do_erc:
             return
@@ -627,7 +765,12 @@ class Pin(SkidlBaseObject):
             active_logger.error(msg)
 
     def erc_desc(self):
-        """Return a string describing this pin for ERC."""
+        """
+        Return a string describing this pin for ERC.
+        
+        Returns:
+            str: Description string for the pin
+        """
         desc = "{func} pin {num}/{name} of {part}".format(
             part=self.part.erc_desc(),
             num=self.num,
@@ -637,6 +780,12 @@ class Pin(SkidlBaseObject):
         return desc
 
     def get_pin_info(self):
+        """
+        Get basic pin information.
+        
+        Returns:
+            tuple: (pin number, pin names/aliases, pin function)
+        """
         num = getattr(self, "num", "???")
         names = [getattr(self, "name", "???")]
         names.extend(self.aliases)
@@ -645,7 +794,12 @@ class Pin(SkidlBaseObject):
         return num, names, func
 
     def export(self):
-        """Return a string to recreate a Pin object."""
+        """
+        Return a string to recreate a Pin object.
+        
+        Returns:
+            str: Python code string that recreates the pin when evaluated
+        """
         attribs = []
         for k in ["num", "name", "func", "unit"]:
             v = getattr(self, k, None)
@@ -661,7 +815,8 @@ class Pin(SkidlBaseObject):
         return "Pin({})".format(",".join(attribs))
 
     def _normalize_num(self):
-        """Normalize pin numbers into a tuple for comparison purposes.
+        """
+        Normalize pin numbers into a tuple for comparison purposes.
 
         Returns:
             tuple: Tuple consisting of BGA row identifier and numeric column.
@@ -685,24 +840,43 @@ class Pin(SkidlBaseObject):
 
     @property
     def pins(self):
+        """
+        Get a list of pins (just this pin for a Pin object).
+        
+        Returns:
+            list: List containing just this pin
+        """
         return self.get_pins()
 
     @property
     def net(self):
-        """Return one of the nets the pin is connected to."""
+        """
+        Return one of the nets the pin is connected to.
+        
+        Returns:
+            Net or None: The first net the pin is connected to, or None
+        """
         if self.nets:
             return self.nets[0]
         return None
 
     @property
     def width(self):
-        """Return width of a Pin, which is always 1."""
+        """
+        Return width of a Pin, which is always 1.
+        
+        Returns:
+            int: Always 1
+        """
         return 1
 
     @property
     def drive(self):
         """
-        Get, set and delete the drive strength of this pin.
+        Get the drive strength of this pin.
+        
+        Returns:
+            int: Drive strength value from pin_drives enum
         """
         try:
             return self._drive
@@ -712,10 +886,19 @@ class Pin(SkidlBaseObject):
 
     @drive.setter
     def drive(self, drive):
+        """
+        Set the drive strength of this pin.
+        
+        Args:
+            drive (int): Drive strength from pin_drives enum
+        """
         self._drive = drive
 
     @drive.deleter
     def drive(self):
+        """
+        Delete the explicit drive strength, reverting to the default.
+        """
         try:
             del self._drive
         except AttributeError:
@@ -723,12 +906,22 @@ class Pin(SkidlBaseObject):
 
     @property
     def ref(self):
-        """Return the reference of the part the pin belongs to."""
+        """
+        Return the reference of the part the pin belongs to.
+        
+        Returns:
+            str: Reference designator of the parent part
+        """
         return self.part.ref
 
     @property
     def circuit(self):
-        """Return the circuit of the part the pin belongs to."""
+        """
+        Return the circuit of the part the pin belongs to.
+        
+        Returns:
+            Circuit: The circuit containing the parent part
+        """
         return self.part.circuit
 
 
@@ -739,6 +932,7 @@ class Pin(SkidlBaseObject):
 class PhantomPin(Pin):
     """
     A pin type that exists solely to tie two pinless nets together.
+    
     It will not participate in generating any netlists.
     """
 

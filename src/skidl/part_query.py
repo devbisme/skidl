@@ -4,6 +4,10 @@
 
 """
 Functions for finding/displaying parts and footprints.
+
+This module provides utilities to search for electronic parts and footprints
+across libraries, and to display their details. It includes support for
+regular expression searches and filtering on different properties.
 """
 
 import os
@@ -26,12 +30,27 @@ def _parse_search_terms(terms):
     """
     Return a regular expression for a sequence of search terms.
 
+    Converts a user-friendly search string into a regular expression pattern that can be
+    used for matching part and footprint attributes. The function handles quoted phrases 
+    and logical OR operations.
+
     Substitute a zero-width lookahead assertion (?= ) for each term. Thus,
     the "abc def" would become "(?=.*(abc))(?=.*(def))" and would match any string
     containing both "abc" and "def". Or "abc (def|ghi)" would become
     "(?=.*(abc))((?=.*(def|ghi))" and would match any string containing
     "abc" and "def" or "ghi". Quoted terms can be used for phrases containing
     whitespace.
+
+    Args:
+        terms (str): Space-separated search terms. Can include quoted phrases for exact matches
+                    and '|' for OR operations.
+
+    Returns:
+        str: A regular expression pattern string that will match if all terms are found.
+
+    Example:
+        _parse_search_terms('resistor 10k') returns a regex that matches strings containing
+        both 'resistor' and '10k'.
     """
 
     # Place the quote-delimited REs before the RE for sequences of
@@ -47,7 +66,21 @@ def _parse_search_terms(terms):
 
 @export_to_all
 def search_parts_iter(terms, tool=None):
-    """Return a list of (lib, part) sequences that match a regex term."""
+    """
+    Return an iterator of (lib, part) sequences that match regex terms.
+    
+    This generator function yields information about libraries being searched and parts
+    found that match the search terms.
+    
+    Args:
+        terms (str): Space-separated search terms to match against part attributes.
+        tool (str, optional): The ECAD tool format for the libraries to search. 
+                             Defaults to the currently configured tool.
+    
+    Yields:
+        tuple: Either progress information as ("LIB", lib_file, index, total) 
+               or part information as ("PART", lib_file, part_obj, part_alias).
+    """
 
     import skidl
     import skidl.tools
@@ -113,6 +146,17 @@ def search_parts_iter(terms, tool=None):
 def search_parts(terms, tool=None):
     """
     Print a list of parts with the regex terms within their name, alias, description or keywords.
+    
+    Searches through all available libraries for parts matching the given terms and prints
+    the results to the console.
+    
+    Args:
+        terms (str): Space-separated search terms to match against part attributes.
+        tool (str, optional): The ECAD tool format for the libraries to search.
+                             Defaults to the currently configured tool.
+    
+    Returns:
+        None: Results are printed to the console.
     """
 
     parts = set()
@@ -137,13 +181,16 @@ def show_part(lib, part_name, tool=None):
     """
     Print the I/O pins for a given part in a library.
 
+    Creates a template Part object that can be inspected to see its pins and properties.
+
     Args:
         lib: Either a SchLib object or the name of a library.
-        part_name: The name of the part in the library.
-        tool: The ECAD tool format for the library.
+        part_name (str): The name of the part in the library.
+        tool (str, optional): The ECAD tool format for the library.
+                             Defaults to the currently configured tool.
 
     Returns:
-        A Part object.
+        Part: A template Part object if found, otherwise None.
     """
 
     import skidl
@@ -159,18 +206,44 @@ def show_part(lib, part_name, tool=None):
 
 
 class FootprintCache(dict):
-    """Dict for storing footprints from all directories."""
+    """
+    Dict for storing footprints from all directories.
+    
+    This cache stores footprint information from KiCad libraries to avoid
+    repeatedly reading the same files from disk during searches.
+    It maps library nicknames to a dict containing the path and module information.
+    """
 
     def __init__(self, *args, **kwargs):
+        """
+        Initialize the footprint cache.
+        
+        Args:
+            *args, **kwargs: Arguments passed to the dict constructor.
+        """
         super().__init__(*args, **kwargs)
         self.reset()  # Cache starts off empty, hence invalid.
 
     def reset(self):
+        """
+        Reset the footprint cache.
+        
+        Clears all cached footprint data and marks the cache as invalid.
+        """
         self.clear()  # Clear out cache.
         self.valid = False  # Cache is empty, hence invalid.
 
     def load(self, path):
-        """Load cache with footprints from libraries in fp-lib-table file."""
+        """
+        Load cache with footprints from libraries in fp-lib-table file.
+        
+        Reads the fp-lib-table file in the given path to identify and load
+        footprint libraries into the cache.
+        
+        Args:
+            path (str): Path to directory containing fp-lib-table file.
+                       If no fp-lib-table is found, treats the path itself as a module library.
+        """
 
         # Expand any env. vars and/or user in the path.
         path = os.path.expandvars(os.path.expanduser(path))
@@ -274,7 +347,21 @@ footprint_cache = FootprintCache()
 
 @export_to_all
 def search_footprints_iter(terms, tool=None):
-    """Return a list of (lib, footprint) sequences that match a regex term."""
+    """
+    Return an iterator over footprints that match the regex terms.
+    
+    This generator function yields information about libraries being searched and footprints
+    found that match the search terms.
+    
+    Args:
+        terms (str): Space-separated search terms to match against footprint attributes.
+        tool (str, optional): The ECAD tool format for the footprint libraries to search.
+                             Defaults to the currently configured tool.
+    
+    Yields:
+        tuple: Either progress information as ("LIB", lib_name, index, total) 
+               or footprint information as ("MODULE", lib_name, module_text, module_name).
+    """
 
     import skidl
 
@@ -359,6 +446,17 @@ def search_footprints_iter(terms, tool=None):
 def search_footprints(terms, tool=None):
     """
     Print a list of footprints with the regex term within their description/tags.
+    
+    Searches through all available footprint libraries for footprints matching 
+    the given terms and prints the results to the console.
+    
+    Args:
+        terms (str): Space-separated search terms to match against footprint attributes.
+        tool (str, optional): The ECAD tool format for the libraries to search.
+                             Defaults to the currently configured tool.
+    
+    Returns:
+        None: Results are printed to the console.
     """
 
     footprints = []
@@ -391,14 +489,17 @@ def search_footprints(terms, tool=None):
 def show_footprint(lib, module_name, tool=None):
     """
     Print the pads for a given module in a library.
+    
+    Creates a Module object that can be inspected to see its pads and properties.
 
     Args:
-        lib: The name of a library.
-        module_name: The name of the footprint in the library.
-        tool: The ECAD tool format for the library.
+        lib (str): The name of a library.
+        module_name (str): The name of the footprint in the library.
+        tool (str, optional): The ECAD tool format for the library.
+                             Defaults to the currently configured tool.
 
     Returns:
-        A Part object.
+        Module: A Module object representing the footprint.
     """
 
     import skidl

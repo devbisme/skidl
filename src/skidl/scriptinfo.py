@@ -3,7 +3,12 @@
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """
-Routines for getting information about a script.
+Routines for getting information about a running script.
+
+This module provides functions to determine information about the currently
+executing Python script, such as its name, directory, and call stack. These 
+functions are useful for generating file names based on the script name and
+for debugging purposes.
 """
 
 import inspect
@@ -17,20 +22,22 @@ from .utilities import export_to_all
 @export_to_all
 def scriptinfo():
     """
-    Returns a dictionary with information about the running top level Python
-    script:
-    ---------------------------------------------------------------------------
-    dir:    directory containing script or compiled executable
-    name:   name of script or executable
-    source: name of source code file
-    ---------------------------------------------------------------------------
-    `name` and `source` are identical if and only if running interpreted code.
-    When running code compiled by `py2exe` or `cx_freeze`, `source` contains
-    the name of the originating Python script.
-    If compiled by PyInstaller, `source` contains no meaningful information.
-
-    Downloaded from:
-    http://code.activestate.com/recipes/579018-python-determine-name-and-directory-of-the-top-lev/
+    Get information about the running top-level Python script.
+    
+    This function identifies the top-level script that is currently running,
+    whether it's an interpreted Python script or a compiled executable.
+    
+    Returns:
+        dict: A dictionary with the following keys:
+            - 'dir': Directory containing the script or compiled executable
+            - 'name': Name of script or executable
+            - 'source': Name of source code file
+            
+    Notes:
+        'name' and 'source' are identical if and only if running interpreted code.
+        When running code compiled by `py2exe` or `cx_freeze`, `source` contains
+        the name of the originating Python script.
+        If compiled by PyInstaller, `source` contains no meaningful information.
     """
 
     # ---------------------------------------------------------------------------
@@ -63,7 +70,15 @@ def scriptinfo():
 
 @export_to_all
 def get_script_name():
-    """Return the name of the top-level script."""
+    """
+    Return the name of the top-level script without the file extension.
+    
+    This function gets the name of the top-level script that is currently running
+    and removes any file extension.
+    
+    Returns:
+        str: The name of the top-level script without file extension.
+    """
     return os.path.splitext(scriptinfo()["name"])[0]
 
 
@@ -71,6 +86,13 @@ def get_script_name():
 def get_skidl_trace():
     """
     Return a list containing the source line trace where a SKiDL object was instantiated.
+    
+    This function traces the call stack to determine where a SKiDL object was created,
+    skipping internal SKiDL function calls to show only the user's code.
+    
+    Returns:
+        list: A list of strings in the format "filepath:line_number" representing
+              the call stack that led to the creation of a SKiDL object.
     """
 
     # To determine where this object was created, trace the function
