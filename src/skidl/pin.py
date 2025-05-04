@@ -590,6 +590,7 @@ class Pin(SkidlBaseObject):
 
         from .net import Net
         from .pin import Pin
+        from .bus import Bus
 
         if not self.is_connected():
             return False
