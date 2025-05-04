@@ -88,7 +88,7 @@ class Bus(SkidlBaseObject):
         if not name:
             try:
                 # The first string found will be the bus name.
-                name = [a for a in args if isinstance(a, (basestring, type(None)))][0]
+                name = [a for a in args if isinstance(a, (str, type(None)))][0]
                 # Remove the name from the list of things to be added to the bus.
                 args = list(args)
                 args.remove(name)
@@ -156,7 +156,7 @@ class Bus(SkidlBaseObject):
         for ident in expand_indices(0, len(self) - 1, False, *ids):
             if isinstance(ident, int):
                 nets.append(self.nets[ident])
-            elif isinstance(ident, basestring):
+            elif isinstance(ident, str):
                 nets.extend(filter_list(self.nets, name=ident))
             else:
                 active_logger.raise_(

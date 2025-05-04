@@ -180,7 +180,7 @@ def rmv_quotes(s):
         str or other: String with quotes removed, or the original object if not a string.
     """
 
-    if not isinstance(s, basestring):
+    if not isinstance(s, str):
         return s
 
     mtch = re.match(r'^\s*"(.*)"\s*$', s)
@@ -205,7 +205,7 @@ def add_quotes(s):
         str or other: String with quotes added, or the original object if not a string.
     """
 
-    if not isinstance(s, basestring):
+    if not isinstance(s, str):
         return s
     
     return json.dumps(s, ensure_ascii=False)
@@ -630,7 +630,7 @@ def filter_list(lst, **criteria):
                     # the extract list.
                     break
 
-            elif isinstance(v, (int, basestring)):
+            elif isinstance(v, (int, str)):
                 # Loop through the list of attribute values. If at least one
                 # value matches the current criterium, then break from the
                 # criteria loop and extract this item.
@@ -796,7 +796,7 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
                 # are added to the list of ids. If not, the original id is
                 # added to the list.
                 ids.extend((Rgx(i) for i in explode(id.strip())))
-        elif isinstance(indx, basestring):
+        elif isinstance(indx, str):
             # String might contain multiple indices with a separator.
             for id in re.split(INDEX_SEPARATOR, indx):
                 # If the id is a valid bus expression, then the exploded bus lines
@@ -1170,7 +1170,7 @@ def opened(f_or_fn, mode):
        TypeError: If f_or_fn is neither a string nor a file-like object.
     """
 
-    if isinstance(f_or_fn, basestring):
+    if isinstance(f_or_fn, str):
         with open(f_or_fn, mode, encoding="utf-8") as f:
             yield f
     elif hasattr(f_or_fn, "fileno"):

@@ -581,7 +581,7 @@ def add_xspice_io(part, io):
         return
 
     # Change a string into a list with a single string element.
-    if isinstance(io, basestring):
+    if isinstance(io, str):
         io = [io]
 
     # Join all the pin name arguments into a comma-separated string and then split them into a list.

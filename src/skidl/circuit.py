@@ -11,6 +11,7 @@ It handles hierarchical circuit structures, electrical rule checking (ERC),
 and output generation (netlists, PCBs, SVGs, etc.).
 """
 
+import builtins
 import json
 import subprocess
 from collections import Counter, deque
@@ -25,7 +26,6 @@ except ImportError:
     pass
 
 from .bus import Bus
-from .common import builtins
 from .erc import dflt_circuit_erc
 from .group import Group
 from .logger import active_logger, erc_logger, stop_log_file_output

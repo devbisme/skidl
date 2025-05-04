@@ -10,10 +10,10 @@ and configuration for creating electronic circuit designs programmatically.
 It initializes the default circuit and provides functions that operate on it.
 """
 
+import builtins
 import sys
 
 from .circuit import Circuit
-from .common import builtins
 from .config_ import SkidlConfig
 from .part import default_empty_footprint_handler
 from .pin import pin_drives

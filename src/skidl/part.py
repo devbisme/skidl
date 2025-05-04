@@ -239,7 +239,7 @@ class Part(SkidlBaseObject):
         if lib:
             # If the lib argument is a string, then create a library using the
             # string as the library file name.
-            if isinstance(lib, basestring):
+            if isinstance(lib, str):
                 libname = lib
                 try:
                     lib = SchLib(filename=libname, tool=tool)
