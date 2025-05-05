@@ -121,13 +121,13 @@ def gen_part_tstamp(part):
     """
     Generate a unique timestamp for a given part based on its hierarchical name.
 
-    This function uses a UUID version 5 (SHA-1 hash) to create a deterministic 
-    and unique identifier for the part. The UUID is generated using a namespace 
+    This function uses a UUID version 5 (SHA-1 hash) to create a deterministic
+    and unique identifier for the part. The UUID is generated using a namespace
     UUID and the hierarchical name of the part.
 
     Args:
-        part: An object representing the part. It is expected to have a 
-              'hierarchical_name' attribute that uniquely identifies the part 
+        part: An object representing the part. It is expected to have a
+              'hierarchical_name' attribute that uniquely identifies the part
               within its hierarchy.
 
     Returns:
@@ -136,6 +136,7 @@ def gen_part_tstamp(part):
 
     part_tstamp = str(uuid.uuid5(namespace_uuid, part.hierarchical_name))
     return part_tstamp
+
 
 def gen_netlist_comp(part):
     """
@@ -202,6 +203,14 @@ def gen_netlist_comp(part):
         ["sheetpath", ["names", sheetpath], ["tstamps", sheetpath_tstamp]],
         ["tstamps", part_tstamp],
     ]
+
+    # If part has a 'dnp' attribute set to True, add the dnp property
+    if getattr(part, "dnp", False):
+        comp.append(["property", ["name", "dnp"]])
+    
+    # If part has an 'exclude_from_bom' attribute set to True, add the exclude_from_bom property
+    if getattr(part, "exclude_from_bom", False):
+        comp.append(["property", ["name", "exclude_from_bom"]])
 
     return comp
 
