@@ -196,7 +196,7 @@ def gen_netlist_comp(part):
         ["ref", ref],
         ["value", value],
         ["description", description],
-        # ["footprint", footprint],
+        ["footprint", footprint],
         # ["datasheet", datasheet],
         fields,
         ["libsource", ["lib", lib_filename], ["part", part_name]],
