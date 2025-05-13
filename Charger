@@ -1,0 +1,19 @@
+Define components
+
+vin = Part('Connector', 'CONN_02x1', footprint='Connector:TerminalBlock_Phoenix_MSTB_2pin_5.08mm') transformer = Part('Power', 'Transformer', footprint='Transformer:EI30') bridge_rectifier = Part('Diode', 'DIODE_BRIDGE', footprint='DiodeBridge:GBU8K') capacitors = Part('Capacitor', 'C', footprint='Capacitor_THT:Radial_D10_L16_P5') * 2 voltage_regulator = Part('Regulator', 'LM338', footprint='TO-220') potentiometer = Part('Potentiometer', 'POT', footprint='Potentiometer:Potentiometer_Vertical') heat_sink = Part('Mechanical', 'HeatSink', footprint='HeatSink:TO220') fuse = Part('Fuse', 'FUSE', footprint='Fuse:Holder') output_meter = Part('Display', 'VoltAmpMeter', footprint='Display:7Segment') vout = Part('Connector', 'CONN_02x1', footprint='Connector:TerminalBlock_Phoenix_MSTB_2pin_5.08mm')
+
+Circuit connections
+
+vin[1] += transformer[1] transformer[2] += bridge_rectifier['~'] bridge_rectifier['+'] += capacitors[0][1] capacitors[0][2] += voltage_regulator['IN'] voltage_regulator['OUT'] += potentiometer[1] potentiometer[2] += vout[1]
+
+Ground connections
+
+gnd = Net('GND') gnd += bridge_rectifier['-'], capacitors[1][2], voltage_regulator['GND'], vout[2], potentiometer[3]
+
+Protection and Safety
+
+gnd += fuse[2] fuse[1] += vin[2] heat_sink[1] += voltage_regulator['TAB']
+
+Display
+
+vout[1] += output_meter[1] gnd += output_meter[2]
