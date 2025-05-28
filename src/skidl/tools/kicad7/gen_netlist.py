@@ -266,11 +266,9 @@ def gen_netlist(circuit, **kwargs):
         - Components and nets are sorted for consistent output.
     """
 
-    # If track_src is not specified in kwargs, use the circuit's track_src attribute
-    # if it has one. Otherwise, leave track_src unspecified.
+    # If track_src is not specified in kwargs, use the circuit's track_src attribute.
     if "track_src" not in kwargs:
-        if hasattr(circuit, "track_src"):
-            kwargs["track_src"] = circuit.track_src
+        kwargs["track_src"] = circuit.track_src
 
     # Check for some things that can cause problems if the netlist is
     # used to create a PCB.

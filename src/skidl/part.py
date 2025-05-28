@@ -11,6 +11,7 @@ to form complete circuits.
 """
 
 import functools
+import os.path
 import re
 from copy import copy
 from random import randint
@@ -1426,12 +1427,15 @@ class Part(SkidlBaseObject):
     @property
     def src_line(self):
         """
-        Return the line number where the part was defined.
+        Return the file name and line number where the part was defined.
         
         Returns:
-            str: Line number or trace information for part definition
+            str: File name and line number separated by colon.
         """
-        return self.skidl_trace.split(";")[-1]
+        file_path, file_line = self.skidl_trace[-1]
+        if not self.circuit.track_abs_path:
+            file_path = os.path.relpath(file_path, self.circuit.script_dir)
+        return file_path + ":" + file_line
 
     @property
     def ordered_pins(self):

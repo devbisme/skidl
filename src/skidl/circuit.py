@@ -34,7 +34,7 @@ from .part import Part, PartUnit
 from .pckg_info import __version__
 from .pin import pin_types
 from .schlib import SchLib
-from .scriptinfo import get_script_name, get_skidl_trace
+from .scriptinfo import get_script_dir, get_script_name, get_skidl_trace
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import (
     detect_os,
@@ -86,6 +86,11 @@ class Circuit(SkidlBaseObject):
             **kwargs: Arbitrary keyword arguments to set as attributes of the circuit.
         """
         super().__init__()
+
+        # Store the directory of the top-level script when this Circuit is first created.
+        self.script_dir = get_script_dir()
+        self.track_src = True # By default, put track source info into outputs like netlists.
+        self.track_abs_path = False  # By default, track using relative paths.
 
         self.reset(init=True)
 
@@ -335,8 +340,7 @@ class Circuit(SkidlBaseObject):
                     self.add_hierarchical_name(part.hierarchical_name)
 
                     # Store part instantiation trace.
-                    track_abs_path = getattr(self, "track_abs_path", False)
-                    part.skidl_trace = ";".join(get_skidl_trace(track_abs_path=track_abs_path))
+                    part.skidl_trace = get_skidl_trace(track_abs_path=self.track_abs_path)
 
                     self.parts.append(part)
                 else:
