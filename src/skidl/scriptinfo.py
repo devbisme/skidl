@@ -85,14 +85,28 @@ def get_script_name():
 @export_to_all
 def get_skidl_trace(track_abs_path=False):
     """
-    Return a list containing the source line trace where a SKiDL object was instantiated.
+    Return the call stack trace where a SKiDL object was instantiated.
     
-    This function traces the call stack to determine where a SKiDL object was created,
-    skipping internal SKiDL function calls to show only the user's code.
+    This function examines the call stack to determine precisely where a SKiDL 
+    object was created in the user's code. It filters out internal SKiDL function 
+    calls to show only relevant user code locations, making debugging and tracing 
+    object creation easier.
+    
+    Args:
+        track_abs_path (bool, optional): If True, return absolute file paths in the trace.
+                                        If False (default), return paths relative to the 
+                                        SKiDL library directory.
     
     Returns:
-        list: A list of strings in the format "filepath:line_number" representing
-              the call stack that led to the creation of a SKiDL object.
+        list: A list of strings, each in the format "filepath:line_number", 
+              representing the call stack that led to the creation of a SKiDL object.
+              The list is ordered from the earliest (bottom of stack) to latest (top)
+              function calls.
+    
+    Example:
+        >>> trace = get_skidl_trace()
+        >>> print(trace)
+        ['my_circuit.py:42', 'components.py:156']
     """
 
     # To determine where this object was created, trace the function
@@ -109,8 +123,8 @@ def get_skidl_trace(track_abs_path=False):
         skidl_dir, _ = os.path.split(call_stack[0][1])
 
     # Record file_name:line_num starting from the bottom of the stack
-    # and terminate as soon as a function is found that's in the
-    # SKiDL library (no use recording internal calls).
+    # while skipping every function found in the SKiDL library
+    # (no use recording internal calls).
     skidl_trace = []
     for frame in reversed(call_stack):
         try:
@@ -120,8 +134,8 @@ def get_skidl_trace(track_abs_path=False):
             filename = frame[1]
             lineno = frame[2]
         if os.path.split(filename)[0] == skidl_dir:
-            # Found function in SKiDL library, so trace is complete.
-            break
+            # Skip recording functions in the SKiDL library.
+            continue
 
         # Get the absolute path to the file containing the function
         # and the line number of the call in the file. Append these
