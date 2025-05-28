@@ -1393,11 +1393,11 @@ class Part(SkidlBaseObject):
 
         if not self.tag:
             active_logger.bare_warning(
-                f"Missing tag on part {self.ref} defined at {self.def_line}."
+                f"Missing tag on part {self.name}/{self.ref} added at {self.src_line}."
             )
         elif self.tag.startswith("random-"):
             active_logger.bare_warning(
-                f"Randomly-assigned tag on part {self.ref} defined at {self.def_line}."
+                f"Randomly-assigned tag on part {self.name}/{self.ref} added at {self.src_line}."
             )
 
     def _find_min_max_pins(self):
@@ -1424,7 +1424,7 @@ class Part(SkidlBaseObject):
             return 0, 0
         
     @property
-    def def_line(self):
+    def src_line(self):
         """
         Return the line number where the part was defined.
         
@@ -1862,5 +1862,5 @@ def default_empty_footprint_handler(part):
     from .logger import active_logger
 
     active_logger.bare_error(
-        f"No footprint for {part.name}/{part.ref} defined at {part.def_line}."
+        f"No footprint for {part.name}/{part.ref} added at {part.src_line}."
     )

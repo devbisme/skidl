@@ -42,6 +42,27 @@ def gen_sheetpath(hierarchy):
     return "/" + hierarchy.replace(HIER_SEP, "/").strip("/") + "/"
 
 
+def gen_part_tstamp(part):
+    """
+    Generate a unique timestamp for a given part based on its hierarchical name.
+
+    This function uses a UUID version 5 (SHA-1 hash) to create a deterministic
+    and unique identifier for the part. The UUID is generated using a namespace
+    UUID and the hierarchical name of the part.
+
+    Args:
+        part: An object representing the part. It is expected to have a
+              'hierarchical_name' attribute that uniquely identifies the part
+              within its hierarchy.
+
+    Returns:
+        str: A string representation of the generated UUID.
+    """
+
+    part_tstamp = str(uuid.uuid5(namespace_uuid, part.hierarchical_name))
+    return part_tstamp
+
+
 def gen_sheetpath_tstamp(sheetpath):
     """
     Generate a timestamp for a given sheetpath.
@@ -72,7 +93,7 @@ def gen_sheetpath_tstamp(sheetpath):
     return tstamp
 
 
-def gen_netlist_sheet(hierarchy, number, src_file):
+def gen_netlist_sheet(hierarchy, number, src_file, **kwargs):
     """
     Generate a netlist sheet representation for a KiCad project.
 
@@ -117,28 +138,7 @@ def gen_netlist_sheet(hierarchy, number, src_file):
     return sheet
 
 
-def gen_part_tstamp(part):
-    """
-    Generate a unique timestamp for a given part based on its hierarchical name.
-
-    This function uses a UUID version 5 (SHA-1 hash) to create a deterministic
-    and unique identifier for the part. The UUID is generated using a namespace
-    UUID and the hierarchical name of the part.
-
-    Args:
-        part: An object representing the part. It is expected to have a
-              'hierarchical_name' attribute that uniquely identifies the part
-              within its hierarchy.
-
-    Returns:
-        str: A string representation of the generated UUID.
-    """
-
-    part_tstamp = str(uuid.uuid5(namespace_uuid, part.hierarchical_name))
-    return part_tstamp
-
-
-def gen_netlist_comp(part):
+def gen_netlist_comp(part, **kwargs):
     """
     Generate a netlist component representation for a given part.
 
@@ -183,7 +183,9 @@ def gen_netlist_comp(part):
             "Datasheet": datasheet,
         }.items()
     )
-    part_fields += list({"SKiDL Line": part.def_line, "SKiDL Tag": part.tag}.items())
+    part_fields.append(["SKiDL Tag", part.tag])
+    if kwargs.get("track_src", True):
+        part_fields.append(["SKiDL Line", part.src_line])
     for fld_name, fld_value in part_fields:
         if fld_value:
             field = ["field", ["name", fld_name], fld_value]
@@ -215,7 +217,7 @@ def gen_netlist_comp(part):
     return comp
 
 
-def gen_netlist_net(net):
+def gen_netlist_net(net, **kwargs):
     """
     Generate a netlist representation for a given net.
 
@@ -241,7 +243,7 @@ def gen_netlist_net(net):
 
 
 @export_to_all
-def gen_netlist(circuit):
+def gen_netlist(circuit, **kwargs):
     """
     Generate a netlist for a given circuit.
 
@@ -264,6 +266,12 @@ def gen_netlist(circuit):
         - Components and nets are sorted for consistent output.
     """
 
+    # If track_src is not specified in kwargs, use the circuit's track_src attribute
+    # if it has one. Otherwise, leave track_src unspecified.
+    if "track_src" not in kwargs:
+        if hasattr(circuit, "track_src"):
+            kwargs["track_src"] = circuit.track_src
+
     # Check for some things that can cause problems if the netlist is
     # used to create a PCB.
 
@@ -281,17 +289,17 @@ def gen_netlist(circuit):
 
     sheets = []
     for num, node_name in enumerate(circuit.get_node_names(), 1):
-        sheets.append(gen_netlist_sheet(node_name, num, src_file))
+        sheets.append(gen_netlist_sheet(node_name, num, src_file, **kwargs))
 
     components = []
     for p in sorted(circuit.parts, key=lambda p: str(p.ref)):
-        components.append(gen_netlist_comp(p))
+        components.append(gen_netlist_comp(p, **kwargs))
 
     nets = []
     sorted_nets = sorted(circuit.get_nets(), key=lambda n: str(n.name))
     for code, net in enumerate(sorted_nets, 1):
         net.code = code
-        nets.append(gen_netlist_net(net))
+        nets.append(gen_netlist_net(net, **kwargs))
 
     netlist = [
         "export",

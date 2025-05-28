@@ -83,7 +83,7 @@ def get_script_name():
 
 
 @export_to_all
-def get_skidl_trace():
+def get_skidl_trace(track_abs_path=False):
     """
     Return a list containing the source line trace where a SKiDL object was instantiated.
     
@@ -126,7 +126,10 @@ def get_skidl_trace():
         # Get the absolute path to the file containing the function
         # and the line number of the call in the file. Append these
         # to the trace.
-        filepath = os.path.abspath(filename)
+        if track_abs_path:
+            filepath = os.path.abspath(filename)
+        else:
+            filepath = os.path.relpath(filename, skidl_dir)
         skidl_trace.append(":".join((filepath, str(lineno))))
 
     return skidl_trace

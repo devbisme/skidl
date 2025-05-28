@@ -335,7 +335,8 @@ class Circuit(SkidlBaseObject):
                     self.add_hierarchical_name(part.hierarchical_name)
 
                     # Store part instantiation trace.
-                    part.skidl_trace = ";".join(get_skidl_trace())
+                    track_abs_path = getattr(self, "track_abs_path", False)
+                    part.skidl_trace = ";".join(get_skidl_trace(track_abs_path=track_abs_path))
 
                     self.parts.append(part)
                 else:

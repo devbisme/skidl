@@ -168,7 +168,7 @@ class SkidlLogger(logging.getLoggerClass()):
         """
         if self.trace_depth <= 0:
             return ""
-        trace = get_skidl_trace()
+        trace = get_skidl_trace(track_abs_path=True)
         start = len(trace) - self.trace_depth
         return " @ [" + "=>".join(trace[start:]) + "]"
 
