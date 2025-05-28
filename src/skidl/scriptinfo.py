@@ -67,6 +67,17 @@ def scriptinfo():
     scr_dict = {"name": trc, "source": trc, "dir": scriptdir}
     return scr_dict
 
+@export_to_all
+def get_script_dir():
+    """
+    Return the directory of the top-level script.
+    
+    This function retrieves the directory where the top-level script is located.
+    
+    Returns:
+        str: The directory of the top-level script.
+    """
+    return scriptinfo()["dir"]
 
 @export_to_all
 def get_script_name():
@@ -144,6 +155,6 @@ def get_skidl_trace(track_abs_path=False):
             filepath = os.path.abspath(filename)
         else:
             filepath = os.path.relpath(filename, skidl_dir)
-        skidl_trace.append(":".join((filepath, str(lineno))))
+        skidl_trace.append((filepath, str(lineno)))
 
     return skidl_trace
