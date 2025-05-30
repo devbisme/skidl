@@ -29,6 +29,7 @@ with open("HISTORY.rst") as history_file:
 requirements = [
     "kinparse >= 1.2.3",
     "kinet2pcb >= 1.1.2",
+    "simp_sexp",
     "inspice; python_version>='3.11'",
     "ply",
     "graphviz",

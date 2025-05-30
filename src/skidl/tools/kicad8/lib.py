@@ -9,6 +9,7 @@ Parsing of Kicad libraries.
 import os
 from collections import defaultdict, OrderedDict
 
+from simp_sexp import Sexp
 from skidl import Alias
 from skidl.logger import active_logger
 from skidl.part import LIBRARY
@@ -20,7 +21,7 @@ from skidl.utilities import (
     num_to_chars,
     to_list,
     add_unique_attr,
-    sexp_to_nested_list, nested_list_to_sexp,
+    # sexp_to_nested_list, nested_list_to_sexp,
 )
 
 
@@ -109,79 +110,60 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
         # File contents were already decoded.
         pass
 
-    # Convert S-expression library into a list of symbols.
+    # Convert library text into an S-expression.
     try:
-        lib_list = sexp_to_nested_list(lib_txt)
+        lib_sexp = Sexp(lib_txt)
     except:
         active_logger.raise_(
             RuntimeError,
             "The file {} is not a KiCad Schematic Library File.\n".format(filename),
         )
 
-    # Skip over the 'kicad_symbol_lib' label and extract symbols into a dictionary with
-    # symbol names as keys. Use an ordered dictionary to keep parts in the same order as
-    # they appeared in the library file because in KiCad V6 library symbols can "extend"
+    # Extract symbols into a dictionary with symbol names as keys. 
+    # Use an ordered dictionary to keep parts in the same order as
+    # they appeared in the library file because in KiCad V6+ library symbols can "extend"
     # previous symbols which should be processed before those that extend them.
     symbols = OrderedDict(
         [
-            (item[1], item[2:])
-            for item in lib_list[1:]
-            if item[0].lower() == "symbol"
+            (symbol[1], symbol)
+            for symbol in lib_sexp.search("/kicad_symbol_lib/symbol", ignore_case=True)
         ]
     )
 
     # Create Part objects for each symbol in the library.
-    for part_name, part_defn in symbols.items():
+    for symbol_name, symbol in symbols.items():
+
+        # Get symbol properties
         properties = {}
-
-        # See if this symbol extends a previous parent symbol.
-        for item in part_defn:
-            if item[0].lower() == "extends":
-                # Get the properties from the parent symbol.
-                parent_part = lib[item[1]]
-                if parent_part.part_defn:
-                    # Properties are stored as lists: ["property", name, value].
-                    properties.update(
-                        {
-                            item[1].lower(): item[2]
-                            for item in parent_part.part_defn
-                            if item[0].lower() == "property"
-                        }
-                    )
-                else:
-                    properties["ki_keywords"] = parent_part.keywords
-                    properties["ki_description"] = parent_part.description
-                    properties["datasheet"] = parent_part.datasheet
-
-                break  # At most one extends clause in part def.
-
-        # Get symbol properties, primarily to get the reference id.
-        # Properties are stored as lists: ["property", name, value].
-        properties.update(
-            {
-                item[1].lower(): item[2]
-                for item in part_defn
-                if item[0].lower() == "property"
-            }
-        )
+        extends = symbol.search("/symbol/extends", ignore_case=True)
+        if extends:
+            # If the current symbol extends a previous parent symbol,
+            # use the properties from the parent symbol as properties for this one.
+            parent_name = extends[0][1]
+            parent = symbols[parent_name]
+            parent_properties = parent.search("/symbol/property", ignore_case=True)
+            properties = {p[1].lower(): p[2] for p in parent_properties}
+        # Update properties with those from the current symbol.
+        current_properties = symbol.search("/symbol/property", ignore_case=True)
+        properties.update({p[1].lower(): p[2] for p in current_properties})
 
         # Get part properties.
         keywords = properties.get("ki_keywords", "")
         datasheet = properties.get("datasheet", "")
-        description = properties.get("ki_description", "")
+        description = properties.get("description", "")
 
         # Join the various text pieces by newlines so the ^ and $ special characters
         # can be used to detect the start and end of a piece of text during RE searches.
-        search_text = "\n".join([filename, part_name, description, keywords])
+        search_text = "\n".join([filename, symbol_name, description, keywords])
 
         # Create a Part object and add it to the library object.
         lib.add_parts(
             Part(
-                part_defn=part_defn,  # A list of lists that define the part.
+                part_defn=symbol,  # A list of lists that define the part.
                 tool=KICAD8,
                 dest=LIBRARY,
                 filename=filename,
-                name=part_name,
+                name=symbol_name,
                 aliases=list(),  # No aliases in KiCad V6?
                 keywords=keywords,
                 datasheet=datasheet,
