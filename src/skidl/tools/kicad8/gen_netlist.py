@@ -9,12 +9,12 @@ Generate KiCad 8 netlist.
 import os.path
 import time
 import uuid
+from simp_sexp import Sexp
 
 from skidl.pckg_info import __version__
 from skidl.scriptinfo import scriptinfo
 from skidl.utilities import export_to_all
 from skidl.circuit import HIER_SEP
-from simp_sexp import Sexp
 
 # This UUID was generated using uuidgen for passing as the namespace argument to uuid.uuid5().
 namespace_uuid = uuid.UUID("7026fcc6-e1a0-409e-aaf4-6a17ea82654f")

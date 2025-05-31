@@ -6,6 +6,7 @@ import os
 import os.path
 
 import pytest
+from simp_sexp import Sexp
 
 import skidl
 from skidl import (
@@ -27,7 +28,7 @@ from skidl import (
 from skidl.logger import active_logger
 from skidl.pin import pin_types
 from skidl.tools import ALL_TOOLS, lib_suffixes
-from skidl.utilities import to_list, find_and_read_file, sexp_to_nested_list
+from skidl.utilities import to_list, find_and_read_file
 
 from .setup_teardown import setup_function, teardown_function
 
@@ -280,7 +281,7 @@ def test_lib_kicad_1():
     part_cnt = len([l for l in lines if l.startswith("ENDDEF")])
     # If no parts are found, parse the library file as an S-expression.
     if not part_cnt:
-        nested_list = sexp_to_nested_list("\n".join(lines))
+        nested_list = Sexp("\n".join(lines))
         parts = {
             item[1]: item[2:]
             for item in nested_list[1:]
@@ -316,7 +317,7 @@ def test_lib_kicad_2():
     part_cnt = len([l for l in lines if l.startswith("ENDDEF")])
     # If no parts are found, parse the library file as an S-expression.
     if not part_cnt:
-        nested_list = sexp_to_nested_list("\n".join(lines))
+        nested_list = Sexp("\n".join(lines))
         parts = {
             item[1]: item[2:]
             for item in nested_list[1:]
@@ -352,7 +353,7 @@ def test_lib_kicad_top_level_pins():
     sexp, _ = find_and_read_file(
         lib_name, ext=lib_suffixes[tool], paths=lib_search_paths[tool]
     )
-    nested_list = sexp_to_nested_list(sexp)
+    nested_list = Sexp(sexp)
     parts = {
         item[1]: item[2:]
         for item in nested_list[1:]

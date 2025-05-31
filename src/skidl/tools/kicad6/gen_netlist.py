@@ -9,10 +9,11 @@ Generate KiCad 8 netlist.
 import os.path
 import time
 import uuid
+from simp_sexp import Sexp
 
 from skidl.pckg_info import __version__
 from skidl.scriptinfo import scriptinfo
-from skidl.utilities import export_to_all, nested_list_to_sexp
+from skidl.utilities import export_to_all
 from skidl.circuit import HIER_SEP
 
 # This UUID was generated using uuidgen for passing as the namespace argument to uuid.uuid5().
@@ -111,7 +112,7 @@ def gen_netlist_sheet(hierarchy, number, src_file, **kwargs):
     """
     sheetpath = gen_sheetpath(hierarchy)
     sheetpath_tstamp = gen_sheetpath_tstamp(sheetpath)
-    sheet = [
+    sheet = Sexp([
         "sheet",
         ["number", number],
         ["name", sheetpath],
@@ -133,7 +134,7 @@ def gen_netlist_sheet(hierarchy, number, src_file, **kwargs):
             ["comment", ["number", "8"], ["value", ""]],
             ["comment", ["number", "9"], ["value", ""]],
         ],
-    ]
+    ])
 
     return sheet
 
@@ -172,9 +173,7 @@ def gen_netlist_comp(part, **kwargs):
     sheetpath_tstamp = gen_sheetpath_tstamp(sheetpath)
     part_tstamp = gen_part_tstamp(part)
 
-    fields = [
-        "fields",
-    ]
+    fields = Sexp(["fields"])
     part_fields = list(part.fields.items())
     part_fields += list(
         {
@@ -188,12 +187,12 @@ def gen_netlist_comp(part, **kwargs):
         part_fields.append(["SKiDL Line", part.src_line])
     for fld_name, fld_value in part_fields:
         if fld_value:
-            field = ["field", ["name", fld_name], fld_value]
+            field = Sexp(["field", ["name", fld_name], fld_value])
         else:
-            field = ["field", ["name", fld_name]]
+            field = Sexp(["field", ["name", fld_name]])
         fields.append(field)
 
-    comp = [
+    comp = Sexp([
         "comp",
         ["ref", ref],
         ["value", value],
@@ -204,15 +203,15 @@ def gen_netlist_comp(part, **kwargs):
         ["libsource", ["lib", lib_filename], ["part", part_name]],
         ["sheetpath", ["names", sheetpath], ["tstamps", sheetpath_tstamp]],
         ["tstamps", part_tstamp],
-    ]
+    ])
 
     # If part has a 'dnp' attribute set to True, add the dnp property
     if getattr(part, "dnp", False):
-        comp.append(["property", ["name", "dnp"]])
+        comp.append(Sexp(["property", ["name", "dnp"]]))
     
     # If part has an 'exclude_from_bom' attribute set to True, add the exclude_from_bom property
     if getattr(part, "exclude_from_bom", False):
-        comp.append(["property", ["name", "exclude_from_bom"]])
+        comp.append(Sexp(["property", ["name", "exclude_from_bom"]]))
 
     return comp
 
@@ -235,7 +234,7 @@ def gen_netlist_net(net, **kwargs):
               and pin numbers.
     """
 
-    nt_lst = ["net", ["code", net.code], ["name", net.name]]
+    nt_lst = Sexp(["net", ["code", net.code], ["name", net.name]])
     for p in sorted(net.pins, key=str):
         nt_lst.append(["node", ["ref", p.part.ref], ["pin", p.num]])
 
@@ -249,7 +248,7 @@ def gen_netlist(circuit, **kwargs):
 
     This function creates a netlist representation of the circuit, which includes
     information about components, nets, and design metadata. The netlist is formatted
-    as a nested list structure and converted to S-expression format.
+    as a nested list structure and converted to S-expression format using the Sexp class.
 
     Args:
         circuit (Circuit): The circuit object containing parts, nets, and other
@@ -264,6 +263,7 @@ def gen_netlist(circuit, **kwargs):
         - The netlist includes metadata such as the source file, date, and tool
           version.
         - Components and nets are sorted for consistent output.
+        - The Sexp class is used to create a properly formatted S-expression.
     """
 
     # If track_src is not specified in kwargs, use the circuit's track_src attribute.
@@ -285,21 +285,21 @@ def gen_netlist(circuit, **kwargs):
     date = time.strftime("%m/%d/%Y %I:%M %p")
     tool = f"SKiDL ({__version__})"
 
-    sheets = []
+    sheets = Sexp()
     for num, node_name in enumerate(circuit.get_node_names(), 1):
         sheets.append(gen_netlist_sheet(node_name, num, src_file, **kwargs))
 
-    components = []
+    components = Sexp()
     for p in sorted(circuit.parts, key=lambda p: str(p.ref)):
         components.append(gen_netlist_comp(p, **kwargs))
 
-    nets = []
+    nets = Sexp()
     sorted_nets = sorted(circuit.get_nets(), key=lambda n: str(n.name))
     for code, net in enumerate(sorted_nets, 1):
         net.code = code
         nets.append(gen_netlist_net(net, **kwargs))
 
-    netlist = [
+    netlist = Sexp([
         "export",
         ["version", "D"],
         [
@@ -311,6 +311,9 @@ def gen_netlist(circuit, **kwargs):
         ],
         ["components", *components],
         ["nets", *nets],
-    ]
+    ])
 
-    return nested_list_to_sexp(netlist)
+    # Add quotes to all strings following the initial keyword in each S-expression of the netlist.
+    netlist.add_quotes(lambda s: True)
+
+    return netlist.to_str()

@@ -8,8 +8,8 @@ Parsing of Kicad libraries.
 
 import os
 from collections import defaultdict, OrderedDict
-
 from simp_sexp import Sexp
+
 from skidl import Alias
 from skidl.logger import active_logger
 from skidl.part import LIBRARY
@@ -21,7 +21,6 @@ from skidl.utilities import (
     num_to_chars,
     to_list,
     add_unique_attr,
-    # sexp_to_nested_list, nested_list_to_sexp,
 )
 
 
@@ -110,7 +109,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
         # File contents were already decoded.
         pass
 
-    # Convert library text into an S-expression.
+    # Convert library text into an S-expression object.
     try:
         lib_sexp = Sexp(lib_txt)
     except:
@@ -198,6 +197,8 @@ def parse_lib_part(part, partial_parse):
     # If a part def already exists, the name has already been set, so exit.
     if partial_parse:
         return
+    
+    part_defn = part.part_defn
 
     part.aliases = Alias()  # Part aliases.
     part.fplist = []  # Footprint list.
@@ -206,54 +207,53 @@ def parse_lib_part(part, partial_parse):
     )  # Drawing commands for the part and any units, including pins.
 
     # Search for a parent that this part inherits from.
-    for item in part.part_defn:
-        if item[0].lower() == "extends":
+    extends = part_defn.search("/symbol/extends", ignore_case=True)
+    if extends:
 
-            # Make a copy of the parent part from the library.
-            parent_part = part.lib[item[1]].copy(dest=TEMPLATE)
+        # Make a copy of the parent part from the library.
+        parent_name = extends[0][1]
+        parent_part = part.lib[parent_name].copy(dest=TEMPLATE)
 
-            # Remove parent attributes that we don't want to overwrite in the child.
-            parent_part_dict = parent_part.__dict__
-            for property_key in (
-                "part_defn",
-                "_name",
-                "_aliases",
-                "description",
-                "datasheet",
-                "keywords",
-                "search_text",
-            ):
-                try:
-                    del parent_part_dict[property_key]
-                except KeyError:
-                    pass
+        # Remove parent attributes that we don't want to overwrite in the child.
+        parent_part_dict = vars(parent_part)
+        for property_key in (
+            "part_defn",
+            "_name",
+            "_aliases",
+            "description",
+            "datasheet",
+            "keywords",
+            "search_text",
+        ):
+            try:
+                del parent_part_dict[property_key]
+            except KeyError:
+                pass
 
-            # Overwrite child with the parent part.
-            part.__dict__.update(parent_part_dict)
+        # Overwrite child with the parent part.
+        vars(part).update(parent_part_dict)
 
-            # Make sure all the pins have a valid reference to the child.
-            part.associate_pins()
+        # Make sure all the pins have a valid reference to the child.
+        part.associate_pins()
 
-            # Copy part units so all the pin and part references stay valid.
-            part.copy_units(parent_part)
+        # Copy part units so all the pin and part references stay valid.
+        part.copy_units(parent_part)
 
-            # Perform some operations on the child part.
-            for item in part.part_defn:
-                cmd = item[0].lower()
-                if cmd == "del":
-                    part.rmv_pins(item[1])
-                elif cmd == "swap":
-                    part.swap_pins(item[1], item[2])
-                elif cmd == "renum":
-                    part.renumber_pin(item[1], item[2])
-                elif cmd == "rename":
-                    part.rename_pin(item[1], item[2])
-                elif cmd == "property_del":
-                    del part.fields[item[1]]
-                elif cmd == "alternate":
-                    pass
-
-            break
+        # Perform some operations on the child part.
+        for item in part_defn:
+            cmd = item[0].lower()
+            if cmd == "del":
+                part.rmv_pins(item[1])
+            elif cmd == "swap":
+                part.swap_pins(item[1], item[2])
+            elif cmd == "renum":
+                part.renumber_pin(item[1], item[2])
+            elif cmd == "rename":
+                part.rename_pin(item[1], item[2])
+            elif cmd == "property_del":
+                del part.fields[item[1]]
+            elif cmd == "alternate":
+                pass
 
     def parse_pins(symbol, unit):
         """Parse the pins within a symbol and add them to the Part object."""
@@ -275,7 +275,7 @@ def parse_lib_part(part, partial_parse):
         }
 
         # Get the pins for this symbol.
-        symbol_pins = [item for item in symbol if item[0].lower() == "pin"]
+        symbol_pins = symbol.search("/symbol/pin", ignore_case=True)
 
         # Process the pins for the symbol.
         for pin in symbol_pins:
@@ -331,14 +331,12 @@ def parse_lib_part(part, partial_parse):
         ]
 
     # Parse top-level pins. (Any units with pins are parsed later.)
-    top_has_pins = parse_pins(part.part_defn, unit=1)
+    top_has_pins = parse_pins(part_defn, unit=1)
 
-    # Find all the units within a symbol. Skip the first item which is the
-    # 'symbol' marking the start of the entire part definition.
+    # Make dict of all the units within a symbol, keyed by unit id.
     units = {
-        item[1]: item[2:]
-        for item in part.part_defn[1:]
-        if item[0].lower() == "symbol"
+        unit[1]: unit
+        for unit in part_defn.search("/symbol/symbol", ignore_case=True)
     }
 
     # I'm assuming a part will not have both pins at the top level and units with pins.
@@ -444,8 +442,7 @@ def parse_lib_part(part, partial_parse):
     props.update(
         {
             prop[1].lower(): prop
-            for prop in part.part_defn
-            if prop[0].lower() == "property"
+            for prop in part_defn.search("/symbol/property", ignore_case=True)
         }
     )
     part.ref_prefix = props["reference"][2]
@@ -455,10 +452,11 @@ def parse_lib_part(part, partial_parse):
     part.draw_cmds[1].extend([props["reference"], props["value"]])
 
     # Construct the rest of the part attribute space, avoid part attributes that are already defined.
+    already_defined = vars(part).keys()
     part_dict = {
         k.replace(" ", "_").replace("/", "_"): v[2]
         for k, v in props.items()
-        if k not in vars(part).keys()
+        if k not in already_defined
     }
     for k, v in part_dict.items():
         setattr(part, k, v)
