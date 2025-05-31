@@ -4,6 +4,9 @@
 
 """
 Utility functions used by the rest of SKiDL.
+
+This module provides various helper functions and classes that support the main SKiDL functionality,
+including string manipulation, list operations, file handling, and other utility operations.
 """
 
 import collections
@@ -27,13 +30,17 @@ INDEX_SEPARATOR = re.compile("[, \t]+")
 
 
 def export_to_all(fn):
-    """Add a function to the __all__ list of this module.
-
+    """
+    Add a function to the __all__ list of this module.
+    
+    This decorator adds the decorated function's name to the module's __all__ list,
+    making it available when using "from module import *".
+    
     Args:
         fn (function): The function to be added to the __all__ list of this module.
 
     Returns:
-        function: The function that was passed in.
+        function: The function that was passed in, unchanged.
     """
     mod = sys.modules[fn.__module__]
     if hasattr(mod, "__all__"):
@@ -45,6 +52,15 @@ def export_to_all(fn):
 
 @export_to_all
 def detect_os():
+    """
+    Detect the operating system.
+    
+    Returns:
+        str: The name of the operating system ('Windows', 'Linux', or 'MacOS').
+        
+    Raises:
+        Exception: If the operating system cannot be identified.
+    """
     os_name = platform.system()
     if os_name == "Windows":
         return "Windows"
@@ -58,7 +74,12 @@ def detect_os():
 
 @export_to_all
 class Rgx(str):
-    """Same as a string but the class makes it recognizable as as a regular expression."""
+    """
+    String subclass that represents a regular expression.
+    
+    This class is used to distinguish regular expressions from normal strings
+    in functions that need to process both types differently.
+    """
 
     def __init__(self, s):
         str.__init__(s)
@@ -66,13 +87,34 @@ class Rgx(str):
 
 @export_to_all
 def sgn(x):
-    """Return -1,0,1 if x<0, x==0, x>0."""
+    """
+    Return the sign of a number.
+    
+    Args:
+        x (numeric): The number to check.
+        
+    Returns:
+        int: -1 if x<0, 1 if x>0, 0 if x==0.
+    """
     return -1 if x < 0 else (1 if x > 0 else 0)
 
 
 @export_to_all
 def debug_trace(fn, *args, **kwargs):
-    """Decorator to print tracing info when debugging execution."""
+    """
+    Decorator to print tracing info when debugging execution.
+    
+    When the decorated function is called with debug_trace=True,
+    it will print the function name before execution.
+    
+    Args:
+        fn (function): The function to be decorated.
+        *args: Variable length argument list.
+        **kwargs: Arbitrary keyword arguments.
+        
+    Returns:
+        function: The decorated function.
+    """
 
     def traced_fn(*args, **kwargs):
         if kwargs.get("debug_trace"):
@@ -84,7 +126,18 @@ def debug_trace(fn, *args, **kwargs):
 
 @export_to_all
 def consistent_hash(text):
-    """Return a hash value for a text string."""
+    """
+    Return a hash value for a text string.
+    
+    This function generates a deterministic, consistent hash value for a given string
+    using SHA-256 algorithm.
+    
+    Args:
+        text (str): The input string to hash.
+        
+    Returns:
+        str: A 16-character hexadecimal hash string.
+    """
 
     # Create a SHA-256 hash object
     hash_object = hashlib.sha256()
@@ -98,7 +151,15 @@ def consistent_hash(text):
 
 @export_to_all
 def num_to_chars(num):
-    """Return a string like 'AB' when given a number like 28."""
+    """
+    Convert a number to a spreadsheet-style column identifier.
+    
+    Args:
+        num (int): A positive integer.
+        
+    Returns:
+        str: A string like 'A' for 1, 'B' for 2, 'Z' for 26, 'AA' for 27, etc.
+    """
     num -= 1
     s = ""
     while num >= 0:
@@ -109,9 +170,17 @@ def num_to_chars(num):
 
 @export_to_all
 def rmv_quotes(s):
-    """Remove starting and ending quotes from a string."""
+    """
+    Remove starting and ending quotes from a string.
+    
+    Args:
+        s (str or other): Input string or non-string object.
+        
+    Returns:
+        str or other: String with quotes removed, or the original object if not a string.
+    """
 
-    if not isinstance(s, basestring):
+    if not isinstance(s, str):
         return s
 
     mtch = re.match(r'^\s*"(.*)"\s*$', s)
@@ -126,9 +195,17 @@ def rmv_quotes(s):
 
 @export_to_all
 def add_quotes(s):
-    """Return string with added quotes if it contains whitespace or parens."""
+    """
+    Return string with added quotes using JSON formatting.
+    
+    Args:
+        s (str or other): Input string or non-string object.
+        
+    Returns:
+        str or other: String with quotes added, or the original object if not a string.
+    """
 
-    if not isinstance(s, basestring):
+    if not isinstance(s, str):
         return s
     
     return json.dumps(s, ensure_ascii=False)
@@ -136,14 +213,30 @@ def add_quotes(s):
 
 @export_to_all
 def cnvt_to_var_name(s):
-    """Convert a string to a legal Python variable name and return it."""
+    """
+    Convert a string to a legal Python variable name.
+    
+    Replaces illegal characters with underscores to create a valid Python identifier.
+    
+    Args:
+        s (str): The string to convert.
+        
+    Returns:
+        str: A valid Python variable name.
+    """
     return re.sub(r"\W|^(?=\d)", "_", s)
 
 
 @export_to_all
 def to_list(x):
     """
-    Return x if it is already a list, or return a list containing x if x is a scalar.
+    Convert a scalar value to a list or return x if it is already a list-like object.
+    
+    Args:
+        x: Input value (scalar or list-like).
+        
+    Returns:
+        list, tuple, or set: The original list-like input or a new list containing the scalar value.
     """
     if isinstance(x, (list, tuple, set)):
         return x  # Already a list, so just return it.
@@ -153,11 +246,11 @@ def to_list(x):
 @export_to_all
 def list_or_scalar(lst):
     """
-    Return a list if passed a multi-element list, otherwise return a single scalar.
-
+    Return a list or scalar depending on the input.
+    
     Args:
-        lst: Either a list or a scalar.
-
+        lst: Either a list/tuple or a scalar value.
+        
     Returns:
         * A list if passed a multi-element list.
         * The list element if passed a single-element list.
@@ -176,7 +269,13 @@ def list_or_scalar(lst):
 @export_to_all
 def flatten(nested_list):
     """
-    Return a flattened list of items from a nested list.
+    Recursively flatten a nested list structure.
+    
+    Args:
+        nested_list: A list that may contain other lists, tuples, or sets as items.
+        
+    Returns:
+        list: A flat list containing all items from the nested structure.
     """
     lst = []
     for item in nested_list:
@@ -189,14 +288,27 @@ def flatten(nested_list):
 
 @export_to_all
 def set_attr(objs, attr, value):
-    """Set an attribute in a list of objects."""
+    """
+    Set an attribute to a value in one or more objects.
+    
+    Args:
+        objs: A single object or list of objects.
+        attr (str): Name of the attribute to set.
+        value: Value to assign to the attribute.
+    """
     for o in to_list(objs):
         setattr(o, attr, value)
 
 
 @export_to_all
 def rmv_attr(objs, attrs):
-    """Remove a list of attributes from a list of objects."""
+    """
+    Remove one or more attributes from one or more objects.
+    
+    Args:
+        objs: A single object or list of objects.
+        attrs: A string or list of strings naming attributes to remove.
+    """
     for o in to_list(objs):
         for a in to_list(attrs):
             try:
@@ -207,7 +319,16 @@ def rmv_attr(objs, attrs):
 
 @export_to_all
 def add_unique_attr(obj, name, value, check_dup=False):
-    """Create an attribute if the attribute name isn't already used."""
+    """
+    Create an attribute if the attribute name isn't already used.
+    
+    Args:
+        obj: Object to which the attribute will be added.
+        name (str): Name of the attribute to add.
+        value: Value to assign to the attribute.
+        check_dup (bool, optional): If True, warns if attribute already exists but doesn't modify it.
+                                   If False, overwrites existing attribute. Defaults to False.
+    """
     from .logger import active_logger
 
     try:
@@ -230,7 +351,15 @@ def add_unique_attr(obj, name, value, check_dup=False):
 
 @export_to_all
 def from_iadd(objs):
-    """Return True if one or more objects have attribute iadd_flag set to True."""
+    """
+    Check if one or more objects have the iadd_flag attribute set to True.
+    
+    Args:
+        objs: A single object or list of objects to check.
+        
+    Returns:
+        bool: True if any object has iadd_flag set to True, False otherwise.
+    """
     try:
         for o in objs:
             if getattr(o, "iadd_flag", False):
@@ -242,27 +371,42 @@ def from_iadd(objs):
 
 @export_to_all
 def set_iadd(objs, value):
-    """Set iadd_flag with T/F value for a list of objects."""
+    """
+    Set the iadd_flag attribute in one or more objects.
+    
+    Args:
+        objs: A single object or list of objects.
+        value (bool): Value to assign to the iadd_flag attribute.
+    """
     set_attr(objs, "iadd_flag", value)
 
 
 @export_to_all
 def rmv_iadd(objs):
-    """Delete iadd_flag attribute from a list of objects."""
+    """
+    Remove the iadd_flag attribute from one or more objects.
+    
+    Args:
+        objs: A single object or list of objects.
+    """
     rmv_attr(objs, "iadd_flag")
 
 
 @export_to_all
 def merge_dicts(dct, merge_dct):
     """
-    Dict merge that recurses through both dicts and updates keys.
-
+    Recursively merge two dictionaries, updating keys in the first with values from the second.
+    
+    This function modifies the first dictionary in-place to include keys from the second.
+    If a key exists in both dictionaries and both values are dictionaries, it recursively
+    merges those nested dictionaries.
+    
     Args:
-        dct: The dict that will be updated.
-        merge_dct: The dict whose values will be inserted into dct.
+        dct (dict): The target dictionary that will be updated.
+        merge_dct (dict): The dictionary whose values will be merged into dct.
 
     Returns:
-        Nothing.
+        Nothing. The first dictionary is modified in-place.
     """
 
     for k, v in list(merge_dct.items()):
@@ -283,7 +427,12 @@ prefix_counts = collections.Counter()
 
 @export_to_all
 def reset_get_unique_name():
-    """Reset the heaps that store previously-assigned names."""
+    """
+    Reset the heaps that store previously-assigned names.
+    
+    This function clears the internal storage used by get_unique_name() to track
+    previously generated names.
+    """
     global name_heap, prefix_counts
     name_heap = set([None])
     prefix_counts = collections.Counter()
@@ -293,19 +442,19 @@ def reset_get_unique_name():
 @export_to_all
 def get_unique_name(lst, attrib, prefix, initial=None):
     """
-    Return a name that doesn't collide with another in a list.
-
-    This subrcurrent_leveline is used to generate unique part references (e.g., "R12")
-    or unique net names (e.g., "N$5").
-
+    Generate a unique name within a list of objects.
+    
+    This function is used to generate unique part references (e.g., "R12")
+    or unique net names (e.g., "N$5") that don't collide with existing names.
+    
     Args:
         lst: The list of objects containing names.
-        attrib: The attribute in each object containing the name.
-        prefix: The prefix attached to each name.
+        attrib (str): The attribute in each object containing the name.
+        prefix (str): The prefix attached to each name.
         initial: The initial setting of the name (can be None or empty string).
 
     Returns:
-        A string containing the unique name.
+        str: A unique name that doesn't exist in the list.
     """
 
     # Use the list id to disambiguate names of objects on different lists (e.g., parts & nets).
@@ -378,14 +527,24 @@ def get_unique_name(lst, attrib, prefix, initial=None):
     n = len(filter_list(lst, **filter_dict))
     name = name + "_" + str(n + 1)
 
-    # Recursively call this rcurrent_leveline using the newly-generated name to
+    # Recursively call this routine using the newly-generated name to
     # make sure it's unique. Eventually, a unique name will be returned.
     return get_unique_name(lst, attrib, prefix, name)
 
 
 @export_to_all
 def fullmatch(regex, string, flags=0):
-    """Emulate python-3.4 re.fullmatch()."""
+    """
+    Emulate python-3.4 re.fullmatch() function.
+    
+    Args:
+        regex (str): Regular expression pattern.
+        string (str): String to match against the pattern.
+        flags (int, optional): Flags to pass to the regex engine. Defaults to 0.
+        
+    Returns:
+        Match object or None: Match object if the string matches the pattern fully, None otherwise.
+    """
     return re.match("(?:" + regex + r")\Z", string, flags=flags)
 
 
@@ -393,13 +552,13 @@ def fullmatch(regex, string, flags=0):
 def filter_list(lst, **criteria):
     """
     Return a list of objects whose attributes match a set of criteria.
-
-    Return a list of objects extracted from a list whose attributes match a
-    set of criteria. The match is done using regular expressions.
+    
+    This function filters a list based on attribute values using regular expressions.
+    
     Example: filter_list(pins, name='io[0-9]+', direction='bidir') will
     return all the bidirectional pins of the component that have pin names
     starting with 'io' followed by a number (e.g., 'IO45').
-
+    
     If an attribute of the lst object is a list or tuple, each entry in the
     list/tuple will be checked for a match. Only one entry needs to match to
     consider the entire attribute a match. This feature is useful when
@@ -408,16 +567,18 @@ def filter_list(lst, **criteria):
     Args:
         lst: The list from which objects will be extracted.
 
-    Keywords Args:
+    Keyword Args:
         criteria: Keyword-argument pairs. The keyword specifies the attribute
             name while the argument contains the desired value of the attribute.
             Regardless of what type the argument is, it is always compared as if
             it was a string. The argument can also be a regular expression that
             must match the entire string created from the attribute of the list
             object.
+            
+            Special keyword 'do_str_match': If True, use string matching instead of regex.
 
     Returns:
-        A list of objects whose attributes match *all* the criteria.
+        list: A list of objects whose attributes match *all* the criteria.
     """
 
     def strmatch(a, b, flags):
@@ -469,7 +630,7 @@ def filter_list(lst, **criteria):
                     # the extract list.
                     break
 
-            elif isinstance(v, (int, basestring)):
+            elif isinstance(v, (int, str)):
                 # Loop through the list of attribute values. If at least one
                 # value matches the current criterium, then break from the
                 # criteria loop and extract this item.
@@ -508,21 +669,24 @@ def filter_list(lst, **criteria):
 def expand_indices(slice_min, slice_max, match_regex, *indices):
     """
     Expand a list of indices into a list of integers and strings.
-
+    
     This function takes the indices used to select pins of parts and
     lines of buses and returns a flat list of numbers and strings.
     String and integer indices are put in the list unchanged, but
     slices are expanded into a list of integers before entering the
-    final list.
-
+    final list. It also handles bus notation expressions.
+    
     Args:
-        slice_min: The minimum possible index.
-        slice_max: The maximum possible index (used for slice indices).
-        match_regex: If true,
-        indices: A list of indices made up of numbers, slices, text strings.
+        slice_min (int): The minimum possible index.
+        slice_max (int): The maximum possible index (used for slice indices).
+        match_regex (bool): If true, adjust regex patterns for pin/bus matches.
+        *indices: A list of indices made up of numbers, slices, text strings.
 
     Returns:
-        A linear list of all the indices made up only of numbers and strings.
+        list: A linear list of all the indices made up only of numbers and strings.
+        
+    Raises:
+        IndexError: If a slice index is out of valid range.
     """
 
     from .logger import active_logger
@@ -574,10 +738,10 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
         in a one-element list.
 
         Args:
-            bus_str: A string containing a bus expression like "D[0:3]".
+            bus_str (str): A string containing a bus expression like "D[0:3]".
 
         Returns:
-            A list of bus lines like ['D0', 'D1', 'D2', 'D3'] or a one-element
+            list: A list of bus lines like ['D0', 'D1', 'D2', 'D3'] or a one-element
             list with the original input string if it's not a valid bus expression.
         """
 
@@ -632,7 +796,7 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
                 # are added to the list of ids. If not, the original id is
                 # added to the list.
                 ids.extend((Rgx(i) for i in explode(id.strip())))
-        elif isinstance(indx, basestring):
+        elif isinstance(indx, str):
             # String might contain multiple indices with a separator.
             for id in re.split(INDEX_SEPARATOR, indx):
                 # If the id is a valid bus expression, then the exploded bus lines
@@ -652,6 +816,15 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
 def expand_buses(pins_nets_buses):
     """
     Take list of pins, nets, and buses and return a list of only pins and nets.
+    
+    This function flattens a list containing both buses and their nets/pins
+    into a flat list of just nets/pins.
+    
+    Args:
+        pins_nets_buses (list): List containing pins, nets, and buses.
+        
+    Returns:
+        list: A flattened list containing only pins and nets.
     """
 
     # This relies on the fact that a bus is an iterable of its nets,
@@ -666,7 +839,12 @@ def expand_buses(pins_nets_buses):
 def find_num_copies(**attribs):
     """
     Return the number of copies to make based on the number of attribute values.
-
+    
+    This function examines keyword arguments to determine how many copies of an object
+    should be created. If all values are scalar or lists/tuples of length 1, only one
+    copy is needed. If there are lists/tuples of greater length, the maximum length
+    determines the number of copies.
+    
     Keyword Args:
         attribs: Dict of Keyword/Value pairs for setting object attributes.
             If the value is a scalar, then the number of copies is one.
@@ -674,10 +852,10 @@ def find_num_copies(**attribs):
             length of the list/tuple.
 
     Returns:
-        The length of the longest value in the dict of attributes.
+        int: The length of the longest value in the dict of attributes.
 
     Raises:
-        Exception if there are two or more list/tuple values with different
+        ValueError: If there are two or more list/tuple values with different
         lengths that are greater than 1. (All attribute values must be scalars
         or lists/tuples of the same length.)
     """
@@ -711,11 +889,17 @@ def find_num_copies(**attribs):
 
 @export_to_all
 def norecurse(f):
-    """Decorator that keeps a function from recursively calling itself.
-
-    Parameters
-    ----------
-    f: function
+    """
+    Decorator that keeps a function from recursively calling itself.
+    
+    This decorator checks the call stack to prevent recursive calls
+    to the decorated function.
+    
+    Args:
+        f (function): The function to decorate.
+        
+    Returns:
+        function: A wrapper function that checks for recursion.
     """
 
     def func(*args, **kwargs):
@@ -733,9 +917,20 @@ def norecurse(f):
 
 @export_to_all
 class TriggerDict(dict):
-    """This dict triggers a function when one of its entries changes."""
+    """
+    Dictionary that triggers a function when one of its entries changes.
+    
+    This dictionary subclass allows custom functions to be executed when
+    specific keys are modified.
+    """
 
     def __init__(self, *args, **kwargs):
+        """
+        Initialize a TriggerDict.
+        
+        Args:
+            *args, **kwargs: Arguments passed to the parent dict constructor.
+        """
         super().__init__(*args, **kwargs)
 
         # Create a dict of functions that will be run if their associated
@@ -744,6 +939,13 @@ class TriggerDict(dict):
         self.trigger_funcs = dict()
 
     def __setitem__(self, k, v):
+        """
+        Set a key's value and trigger any associated function if the value changed.
+        
+        Args:
+            k: The dictionary key.
+            v: The value to set.
+        """
         if k in self.trigger_funcs:
             if v != self[k]:
                 self.trigger_funcs[k](self, k, v)
@@ -752,7 +954,15 @@ class TriggerDict(dict):
 
 @export_to_all
 def is_binary_file(filename):
-    """Return true if a file contains binary (non-text) characters."""
+    """
+    Return true if a file contains binary (non-text) characters.
+    
+    Args:
+        filename (str): Path to the file to check.
+        
+    Returns:
+        bool: True if the file contains binary data, False otherwise.
+    """
     text_chars = bytearray({7, 8, 9, 10, 12, 13, 27} | set(range(0x20, 0x100)) - {0x7F})
     try:
         with open(filename, "rb") as fp:
@@ -763,6 +973,15 @@ def is_binary_file(filename):
 
 @export_to_all
 def is_url(s):
+    """
+    Check if a string is a valid HTTP/HTTPS URL.
+    
+    Args:
+        s (str): String to check.
+        
+    Returns:
+        bool: True if the string is a valid HTTP/HTTPS URL, False otherwise.
+    """
     return urllib.parse.urlparse(s).scheme in {"http", "https"}
 
 
@@ -772,19 +991,25 @@ def find_and_open_file(
 ):
     """
     Search for a file in list of paths, open it and return file pointer and full file name.
-
+    
+    This function searches for a file in various locations, including URLs, and returns
+    an open file pointer and the complete path to the file.
+    
     Args:
-        filename: Base file name (e.g., "my_file").
-        paths: List of paths to search for the file.
-        ext: The extension for the file (e.g., ".txt") or a list of extensions.
-        allow_failure: If false, failure to find file raises and exception.
-        exclude_binary: If true, skip files that contain binary data.
-        descend: If 0, don't search lower-level directories. If positive, search
+        filename (str): Base file name (e.g., "my_file").
+        paths (list, optional): List of paths to search for the file. Defaults to current directory.
+        ext (str or list, optional): The extension for the file (e.g., ".txt") or a list of extensions.
+        allow_failure (bool, optional): If False, failure to find file raises an exception. Defaults to False.
+        exclude_binary (bool, optional): If True, skip files that contain binary data. Defaults to False.
+        descend (int, optional): If 0, don't search lower-level directories. If positive, search
                  that many levels down for the file. If negative, descend into
-                 subdirectories withcurrent_level limit.
+                 subdirectories without limit. Defaults to 0.
 
     Returns:
-        File pointer and file name or None, None if file could not be opened.
+        tuple: (file_pointer, file_name) or (None, None) if file could not be opened and allow_failure is True.
+        
+    Raises:
+        FileNotFoundError: If the file couldn't be found and allow_failure is False.
     """
 
     from .logger import active_logger
@@ -858,20 +1083,24 @@ def find_and_open_file(
 def find_and_read_file(
     filename, paths=None, ext=None, allow_failure=False, exclude_binary=False, descend=0
 ):
-    """Search for a file in list of paths, open it and return its contents.
-
+    """
+    Search for a file in list of paths, open it and return its contents.
+    
     Args:
-        filename: Base file name (e.g., "my_file").
-        paths: List of paths to search for the file.
-        ext: The extension for the file (e.g., ".txt") or a list of extensions.
-        allow_failure: If false, failure to find file raises and exception.
-        exclude_binary: If true, skip files that contain binary data.
-        descend: If 0, don't search lower-level directories. If positive, search
+        filename (str): Base file name (e.g., "my_file").
+        paths (list, optional): List of paths to search for the file. Defaults to current directory.
+        ext (str or list, optional): The extension for the file (e.g., ".txt") or a list of extensions.
+        allow_failure (bool, optional): If False, failure to find file raises an exception. Defaults to False.
+        exclude_binary (bool, optional): If True, skip files that contain binary data. Defaults to False.
+        descend (int, optional): If 0, don't search lower-level directories. If positive, search
                  that many levels down for the file. If negative, descend into
-                 subdirectories withcurrent_level limit.
+                 subdirectories without limit. Defaults to 0.
 
     Returns:
-        File contents and file name or None, None if file could not be opened.
+        tuple: (file_contents, file_name) or (None, None) if file could not be opened and allow_failure is True.
+        
+    Raises:
+        FileNotFoundError: If the file couldn't be found and allow_failure is False.
     """
 
     fp, fn = find_and_open_file(
@@ -891,19 +1120,23 @@ def find_and_read_file(
 
 @export_to_all
 def get_abs_filename(filename, paths=None, ext=None, allow_failure=False, descend=0):
-    """Search for a file in list of paths, and return its absolute file name.
-
+    """
+    Search for a file in list of paths, and return its absolute file name.
+    
     Args:
-        filename: Base file name (e.g., "my_file").
-        paths: List of paths to search for the file.
-        ext: The extension for the file (e.g., ".txt").
-        allow_failure: If false, failure to find file raises and exception.
-        descend: If 0, don't search lower-level directories. If positive, search
+        filename (str): Base file name (e.g., "my_file").
+        paths (list, optional): List of paths to search for the file. Defaults to current directory.
+        ext (str or list, optional): The extension for the file (e.g., ".txt") or a list of extensions.
+        allow_failure (bool, optional): If False, failure to find file raises an exception. Defaults to False.
+        descend (int, optional): If 0, don't search lower-level directories. If positive, search
                  that many levels down for the file. If negative, descend into
-                 subdirectories withcurrent_level limit.
+                 subdirectories without limit. Defaults to 0.
 
     Returns:
-        File name if file exists, otherwise None.
+        str: Absolute file name if file exists, otherwise None.
+        
+    Raises:
+        FileNotFoundError: If the file couldn't be found and allow_failure is False.
     """
 
     fp, fn = find_and_open_file(filename, paths, ext, allow_failure, False, descend)
@@ -921,15 +1154,23 @@ def get_abs_filename(filename, paths=None, ext=None, allow_failure=False, descen
 @contextmanager
 def opened(f_or_fn, mode):
     """
-    Yields an opened file or file-like object.
-
+    Context manager that yields an opened file or file-like object.
+    
+    This context manager handles both filenames and file objects, ensuring
+    proper opening and closing of files.
+    
     Args:
-       file_or_filename: Either an already opened file or file-like
-           object, or a filename to open.
-       mode: The mode to open the file in.
+       f_or_fn: Either an already opened file or file-like object, or a filename to open.
+       mode (str): The mode to open the file in.
+       
+    Yields:
+       file: An opened file object.
+       
+    Raises:
+       TypeError: If f_or_fn is neither a string nor a file-like object.
     """
 
-    if isinstance(f_or_fn, basestring):
+    if isinstance(f_or_fn, str):
         with open(f_or_fn, mode, encoding="utf-8") as f:
             yield f
     elif hasattr(f_or_fn, "fileno"):
@@ -946,3 +1187,4 @@ def opened(f_or_fn, mode):
                 type(f_or_fn)
             )
         )
+

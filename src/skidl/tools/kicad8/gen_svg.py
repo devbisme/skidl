@@ -19,7 +19,7 @@ def draw_cmd_to_dict(symbol):
     dictionary for easier access to properties.
     """
     d = {}
-    name = symbol[0].value()
+    name = symbol[0]
     items = symbol[1:]
     d = {}
     is_named_present = False

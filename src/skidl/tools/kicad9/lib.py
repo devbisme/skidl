@@ -39,10 +39,10 @@ def default_lib_paths():
 
     # Add the location of the default KiCad part libraries.
     try:
-        paths.append(os.environ["KICAD8_SYMBOL_DIR"])
+        paths.append(os.environ["KICAD9_SYMBOL_DIR"])
     except KeyError:
         active_logger.warning(
-            "KICAD8_SYMBOL_DIR environment variable is missing, so the default KiCad symbol libraries won't be searched."
+            "KICAD9_SYMBOL_DIR environment variable is missing, so the default KiCad symbol libraries won't be searched."
         )
 
     return paths
@@ -79,11 +79,11 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
         lib_section: Only used for SPICE simulations.
     """
 
-    from skidl import Part, KICAD8
+    from skidl import Part, KICAD9
     from skidl.tools import lib_suffixes
 
     # Try to open the file using allowable suffixes for the versions of KiCAD.
-    suffixes = lib_suffixes[KICAD8]
+    suffixes = lib_suffixes[KICAD9]
     base, suffix = os.path.splitext(filename)
     if suffix:
         # If an explicit file extension was given, use it instead of tool lib default extensions.
@@ -159,7 +159,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
         lib.add_parts(
             Part(
                 part_defn=symbol,  # A list of lists that define the part.
-                tool=KICAD8,
+                tool=KICAD9,
                 dest=LIBRARY,
                 filename=filename,
                 name=symbol_name,

@@ -2,35 +2,62 @@
 
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
-"""SKiDL: A Python-Based Schematic Design Language
+"""
+SKiDL: A Python-Based Schematic Design Language
 
-This module extends Python with the ability to design electronic
-circuits. It provides classes for working with:
+SKiDL is a module that allows you to compactly describe electronic
+circuits using Python. The resulting Python program performs electrical rules
+checking for common mistakes and outputs a netlist that serves as input to
+a PCB layout tool.
 
-* Electronic parts (``Part``),
-* Collections of part terminals (``Pin``) connected via wires (``Net``), and
-* Groups of related nets (``Bus``).
+SKiDL reads in libraries of electronic parts and converts them into
+Python objects. The objects can be instantiated into components and connected
+into a circuit using net objects. The circuit can be checked for
+common errors automatically by the ERC (electrical rules checking)
+module, and then a netlist can be generated for input to
+a PCB layout tool.
 
-Using these classes, you can concisely describe the interconnection of
-parts using a flat or hierarchical structure. The resulting Python script
-outputs a netlist that can be imported into a PCB layout tool or Spice simulator.
-The script can also check the resulting circuitry for electrical rule violations.
+Full documentation is available at https://devbisme.github.io/skidl
+
+Here's a simple example of SKiDL used to describe a circuit with a resistor
+and LED in series powered by a battery:
+
+    import skidl
+    from skidl import *
+
+    # Create a resistor and LED.
+    r1 = Part('Device', 'R', value='1K')  # Create a 1K resistor.
+    led = Part('Device', 'LED')           # Create a LED.
+
+    # Create a battery.
+    bat = Part('Device', 'Battery_Cell')
+
+    # Connect the components.
+    vcc = Net('VCC')      # Net for VCC.
+    gnd = Net('GND')      # Net for ground.
+    vcc += bat['+']       # Connect the battery positive terminal to VCC.
+    gnd += bat['-']       # Connect the battery negative terminal to GND.
+    vcc += r1[1]          # Connect one end of the resistor to VCC.
+    r1[2] += led['A']     # Connect the other end to the LED anode.
+    led['K'] += gnd       # Connect the LED cathode to GND.
+
+    # Output the netlist to a file.
+    generate_netlist()
 """
 
-
 from .pckg_info import __version__
-from .alias import Alias
-from .bus import Bus
-from .circuit import HIER_SEP, Circuit
-from .group import Group, SubCircuit, subcircuit
-from .interface import Interface
-from .logger import erc_logger
-from .net import Net
-from .netclass import NetClass
-from .netlist_to_skidl import netlist_to_skidl
-from .network import Network, tee
-from .part import LIBRARY, NETLIST, TEMPLATE, Part, PartTmplt, SkidlPart
-from .part_query import (
+from .alias import Alias  # Class for creating aliases for part names
+from .bus import Bus  # Class for managing groups of related nets
+from .circuit import HIER_SEP, Circuit  # Circuit management and hierarchy separator
+from .group import Group, SubCircuit, subcircuit  # Grouping related components
+from .interface import Interface  # Standardized connections between subcircuits
+from .logger import erc_logger  # Logger for ERC (Electrical Rule Checking)
+from .net import Net  # Class for electrical connections between pins
+from .netclass import NetClass  # Class for assigning properties to groups of nets
+from .netlist_to_skidl import netlist_to_skidl  # Function to import netlists
+from .network import Network, tee  # Network management and connection splitting
+from .part import LIBRARY, NETLIST, TEMPLATE, Part, PartTmplt, SkidlPart  # Component handling
+from .part_query import (  # Component search and visualization functions
     search,
     search_footprints,
     search_footprints_iter,
@@ -40,9 +67,9 @@ from .part_query import (
     show_footprint,
     show_part,
 )
-from .pin import Pin
-from .schlib import SchLib, load_backup_lib
-from .skidl import (
+from .pin import Pin  # Class for component connection points
+from .schlib import SchLib, load_backup_lib  # Schematic library management
+from .skidl import (  # Core SKiDL functionality
     ERC,
     POWER,
     backup_parts,
@@ -61,7 +88,7 @@ from .skidl import (
     reset,
     get_default_tool,
     set_default_tool,
-    KICAD, # References the latest version of KiCad.
+    KICAD,  # References the latest version of KiCad.
 )
-from .utilities import Rgx
+from .utilities import Rgx  # Regular expression utilities
 from . import scripts  # Necessary to get access to netlist_to_skidl_main.

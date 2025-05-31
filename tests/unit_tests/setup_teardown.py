@@ -58,6 +58,7 @@ def setup_function(f):
         "KICAD6": KICAD6,
         "KICAD7": KICAD7,
         "KICAD8": KICAD8,
+        "KICAD9": KICAD9,
     }.get(os.getenv("SKIDL_TOOL"), KICAD8)
     set_default_tool(tool)
 

@@ -3,7 +3,12 @@
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """
-Handles nets.
+Network connection management in SKiDL.
+
+This module provides the Net class which represents electrical connections between
+component pins. Nets can be named, connected to pins, merged with other nets, and
+checked for electrical rule violations. The module also provides the NCNet subclass
+for explicitly marking pins as not connected.
 """
 
 import collections
@@ -38,18 +43,25 @@ Traversal = collections.namedtuple("Traversal", ["nets", "pins"])
 @export_to_all
 class Net(SkidlBaseObject):
     """
-    Lists of connected pins are stored as nets using this class.
-
+    A collection of electrically connected component pins.
+    
+    Nets represent electrical connections in a circuit and can have names, 
+    drive strengths, and electrical rules checking (ERC) applied to them. 
+    Pins can be connected to nets using the += operator.
+    
     Args:
-        name: A string with the name of the net. If None or '', then
-            a unique net name will be assigned.
-        circuit: The Circuit object this net belongs to.
-        *pins_nets_buses: One or more Pin, Net, or Bus objects or
-            lists/tuples of them to be connected to this net.
-
+        name (str, optional): Name of the net. If None or empty, a unique name will be generated.
+        circuit (Circuit, optional): The circuit this net belongs to. If None, the default circuit is used.
+        *pins_nets_buses: One or more Pin, Net, or Bus objects to connect to this net.
+        
     Keyword Args:
-        attribs: A dictionary of attributes and values to attach to
-            the Net object.
+        attribs: Arbitrary keyword=value attributes to attach to the net.
+        
+    Examples:
+        >>> gnd = Net('GND')  # Create a net called GND
+        >>> gnd += part1['GND']  # Connect pin of part1 to GND
+        >>> net1 = Net()  # Create a net with an automatically assigned name
+        >>> net1 += part2[1], part3[6]  # Connect pins from two parts to the net
     """
 
     # Set the default ERC functions for all Net instances.
@@ -86,13 +98,23 @@ class Net(SkidlBaseObject):
             setattr(self, k, v)
 
     def __bool__(self):
-        """Any valid Net is True"""
+        """
+        Return True if this is a valid net.
+        
+        Returns:
+            bool: Always True for valid nets.
+        """
         return True
 
     __nonzero__ = __bool__  # Python 2 compatibility.
 
     def __str__(self):
-        """Return a list of the pins on this net as a string."""
+        """
+        Return a string representation of the net and its connected pins.
+        
+        Returns:
+            str: Net name followed by the pins connected to it, sorted alphabetically.
+        """
         self.test_validity()
         pins = self.pins
         return (
@@ -103,48 +125,97 @@ class Net(SkidlBaseObject):
 
     # Use += to connect to nets.
     def __iadd__(self, *pins_nets_buses):
-        """Return the net after connecting other pins, nets, and buses to it."""
+        """
+        Connect pins, nets, or buses to this net.
+        
+        Args:
+            *pins_nets_buses: One or more Pin, Net, or Bus objects to connect.
+            
+        Returns:
+            Net: Updated net with new connections.
+        """
         return self.connect(*pins_nets_buses)
 
     def __and__(self, obj):
-        """Attach a net and another part/pin/net in serial."""
+        """
+        Connect this net and another object in series.
+        
+        Args:
+            obj: Another part, pin, or net to connect in series with this net.
+            
+        Returns:
+            Network: A series network containing this net and the other object.
+        """
         from .network import Network
 
         return Network(self) & obj
 
     def __rand__(self, obj):
-        """Attach a net and another part/pin/net in serial."""
+        """
+        Connect another object and this net in series.
+        
+        Args:
+            obj: Another part, pin, or net to connect in series with this net.
+            
+        Returns:
+            Network: A series network containing the other object and this net.
+        """
         from .network import Network
 
         return obj & Network(self)
 
     def __or__(self, obj):
-        """Attach a net and another part/pin/net in parallel."""
+        """
+        Connect this net and another object in parallel.
+        
+        Args:
+            obj: Another part, pin, or net to connect in parallel with this net.
+            
+        Returns:
+            Network: A parallel network containing this net and the other object.
+        """
         from .network import Network
 
         return Network(self) | obj
 
     def __ror__(self, obj):
-        """Attach a net and another part/pin/net in parallel."""
+        """
+        Connect another object and this net in parallel.
+        
+        Args:
+            obj: Another part, pin, or net to connect in parallel with this net.
+            
+        Returns:
+            Network: A parallel network containing the other object and this net.
+        """
         from .network import Network
 
         return obj | Network(self)
 
     def __len__(self):
-        """Return the number of pins attached to this net."""
+        """
+        Return the number of pins attached to this net.
+        
+        Returns:
+            int: Number of pins connected to this net.
+        """
         self.test_validity()
         return len(self.pins)
 
     def __getitem__(self, *ids):
         """
         Return the net if the indices resolve to a single index of 0.
-
+        
+        A net only has one element (itself), so the only valid index is 0.
+        
         Args:
-            ids: A list of indices. These can be individual
-                numbers, net names, nested lists, or slices.
-
+            *ids: A list of indices to apply to the net.
+            
         Returns:
-            The net, otherwise None or raises an Exception.
+            Net: This net if the index is 0, otherwise None or raises an exception.
+            
+        Raises:
+            ValueError: If multiple indices or a non-zero index is used.
         """
 
         # Resolve the indices.
@@ -159,10 +230,10 @@ class Net(SkidlBaseObject):
 
     def __setitem__(self, ids, *pins_nets_buses):
         """
-        You can't assign to Nets. You must use the += operator.
-
+        Prohibit direct assignment to nets. Use the += operator instead.
+        
         This method is a work-around that allows the use of the += for making
-        connections to nets while prohibiting direct assignment. Python
+connections to nets while         prohibiting direct assignment. Python
         processes something like net[0] += Pin() as follows::
 
             1. Net.__getitem__ is called with '0' as the index. This
@@ -191,16 +262,39 @@ class Net(SkidlBaseObject):
     def __iter__(self):
         """
         Return an iterator for stepping through the net.
+        
+        A net iterator only yields the net itself because a net has only one element.
+        
+        Returns:
+            iterator: Generator that yields this net.
         """
         # You can only iterate a Net one time.
         return (self[i] for i in [0])  # Return generator expr.
 
     def __call__(self, num_copies=None, circuit=None, **attribs):
-        """Make one or more copies of this net."""
+        """
+        Create one or more copies of this net.
+        
+        Args:
+            num_copies (int, optional): Number of copies to create.
+            circuit (Circuit, optional): Circuit to add the copies to.
+            **attribs: Additional attributes to apply to the copies.
+            
+        Returns:
+            Net or list[Net]: Single net or list of net copies.
+        """
         return self.copy(num_copies=num_copies, circuit=circuit, **attribs)
 
     def __mul__(self, num_copies):
-        """Use multiplication operator to make copies of a net."""
+        """
+        Create multiple copies of this net using the multiplication operator.
+        
+        Args:
+            num_copies (int): Number of copies to create.
+            
+        Returns:
+            list[Net]: List of net copies.
+        """
         if num_copies is None:
             num_copies = 0
         return self.copy(num_copies=num_copies)
@@ -209,7 +303,16 @@ class Net(SkidlBaseObject):
 
     @classmethod
     def get(cls, name, circuit=None):
-        """Get the net with the given name from a circuit, or return None."""
+        """
+        Get a net by name from a circuit.
+        
+        Args:
+            name (str): Name or alias of the net to find.
+            circuit (Circuit, optional): Circuit to search in. Defaults to default_circuit.
+            
+        Returns:
+            Net or None: The found net object or None if not found.
+        """
 
         from .alias import Alias
 
@@ -231,23 +334,58 @@ class Net(SkidlBaseObject):
 
     @classmethod
     def fetch(cls, name, *args, **attribs):
-        """Get the net with the given name from a circuit, or create it if not found."""
+        """
+        Get a net by name from a circuit, or create it if not found.
+        
+        This method tries to find a net with the given name in the circuit.
+        If not found, it creates a new net with that name.
+        
+        Args:
+            name (str): Name of the net to fetch or create.
+            *args: Arguments to pass to the Net constructor if creation is needed.
+            **attribs: Keyword arguments to pass to the Net constructor if creation is needed.
+            
+        Returns:
+            Net: An existing or newly created net.
+        """
 
         circuit = attribs.get("circuit", default_circuit)
         return cls.get(name, circuit=circuit) or cls(name, *args, **attribs)
 
     def get_pins(self):
-        """Return a list of pins attached to this net."""
+        """
+        Get all pins connected to this net.
+        
+        Returns:
+            list: List of pins attached to this net, including pins attached
+                 to electrically connected segments.
+        """
         self.test_validity()
         return self._traverse().pins
 
     def get_nets(self):
-        """Return a list of nets attached to this net, including this net."""
+        """
+        Get all connected net segments including this one.
+        
+        Returns:
+            list: List of all net segments connected to this net, including this net.
+        """
         self.test_validity()
         return self._traverse().nets
 
     def is_attached(self, pin_net_bus):
-        """Return true if the pin, net or bus is attached to this one."""
+        """
+        Check if a pin, net, or bus is electrically connected to this net.
+        
+        Args:
+            pin_net_bus: A Pin, Net, or Bus object to check for attachment.
+            
+        Returns:
+            bool: True if the object is electrically connected to this net.
+            
+        Raises:
+            TypeError: If the given object is not a Pin, Net, or Bus.
+        """
         if isinstance(pin_net_bus, Net):
             return pin_net_bus in self.nets
         if isinstance(pin_net_bus, Pin):
@@ -263,10 +401,13 @@ class Net(SkidlBaseObject):
 
     def is_movable(self):
         """
-        Return true if the net is movable to another circuit.
-
-        A net is movable if it's not part of a Circuit or if there are no pins
+        Check if the net can be moved to another circuit.
+        
+        A net is movable if it's not part of a Circuit or if it has no pins
         attached to it.
+        
+        Returns:
+            bool: True if the net is movable.
         """
 
         from .circuit import Circuit
@@ -274,7 +415,14 @@ class Net(SkidlBaseObject):
         return not isinstance(self.circuit, Circuit) or not self._pins
 
     def is_implicit(self):
-        """Return true if the net name is implicit."""
+        """
+        Check if the net has an implicitly generated name.
+        
+        Implicit net names start with NET_PREFIX or BUS_PREFIX.
+        
+        Returns:
+            bool: True if the net name is implicitly generated.
+        """
 
         from .bus import BUS_PREFIX
 
@@ -284,29 +432,25 @@ class Net(SkidlBaseObject):
 
     def copy(self, num_copies=None, circuit=None, **attribs):
         """
-        Make zero or more copies of this net.
-
+        Create one or more copies of this net.
+        
         Args:
-            num_copies: Number of copies to make of this net.
-
-        Keyword Args:
-            attribs: Name/value pairs for setting attributes for the copy.
-
+            num_copies (int, optional): Number of copies to create.
+                If None, a single copy will be made.
+            circuit (Circuit, optional): The circuit the copies will be added to.
+            **attribs: Attributes to apply to the copies.
+                
         Returns:
-            A list of Net copies or a Net if num_copies==1.
-
+            Net or list[Net]: A single Net copy or list of copies.
+            
         Raises:
-            Exception if the requested number of copies is a non-integer or negative.
-
-        Notes:
-            An instance of a net can be copied just by calling it like so::
-
-                n = Net('A')    # Create a net.
-                n_copy = n()    # Copy the net.
-
-            You can also use the multiplication operator to make copies::
-
-                n = 10 * Net('A')  # Create an array of nets.
+            ValueError: If num_copies is not a non-negative integer.
+            ValueError: If trying to copy a net that already has pins attached.
+            
+        Examples:
+            >>> n = Net('A')    # Create a net.
+            >>> n_copy = n()    # Copy the net.
+            >>> n_array = 10 * Net('A')  # Create an array of 10 nets.
         """
 
         self.test_validity()
@@ -350,16 +494,19 @@ class Net(SkidlBaseObject):
 
         # Create a list of copies of this net.
         copies = []
+
+        # Skip some Net attributes that would cause an infinite recursion exception
+        # or net naming clashes.
+        copy_attrs = vars(self).keys() - ["circuit", "traversal", "_name", "_aliases"]
+        
         for i in range(num_copies):
 
             # Create a new net to store the copy.
             cpy = Net(circuit=circuit)
 
             # Deep copy attributes from the source net to the copy.
-            # Skip some attributes that would cause an infinite recursion exception.
-            for k, v in self.__dict__.items():
-                if k not in ["circuit", "traversal"]:
-                    setattr(cpy, k, deepcopy(v))
+            for k in copy_attrs:
+                setattr(cpy, k, deepcopy(getattr(self, k)))
 
             # Add other attributes to the net copy.
             for k, v in list(attribs.items()):
@@ -386,21 +533,28 @@ class Net(SkidlBaseObject):
 
     def connect(self, *pins_nets_buses):
         """
-        Return the net after connecting other pins, nets, and buses to it.
-
+        Connect pins, nets, and buses to this net.
+        
+        This method connects the provided pins, nets, and buses to this net,
+        creating electrical connections between them. It's also accessible via
+        the += operator.
+        
         Args:
-            *pins_nets_buses: One or more Pin, Net, or Bus objects or
-                lists/tuples of them to be connected to this net.
-
+            *pins_nets_buses: One or more Pin, Net, Bus objects or lists/tuples of them
+                              to connect to this net.
+                
         Returns:
-            The updated net with the new connections.
-
-        Notes:
-            Connections to nets can also be made using the += operator like so::
-
-                atmega = Part('atmel', 'ATMEGA16U2')
-                net = Net()
-                net += atmega[1]  # Connects pin 1 of chip to the net.
+            Net: The updated net with new connections.
+            
+        Raises:
+            ValueError: If attempting to connect nets from different circuits.
+            ValueError: If attempting to connect parts from different circuits.
+            TypeError: If attempting to connect something other than a Pin or Net.
+            
+        Examples:
+            >>> net1 = Net('NET1')
+            >>> net1.connect(part1['GND'], part2[7])  # Connect pins to net
+            >>> net1 += part3['A']  # Alternate syntax using += operator
         """
 
         from .pin import PhantomPin, Pin
@@ -531,7 +685,12 @@ class Net(SkidlBaseObject):
         return self
 
     def disconnect(self, pin):
-        """Remove the pin from this net but not any other nets it's attached to."""
+        """
+        Remove a pin from this net but not from other nets it's attached to.
+        
+        Args:
+            pin (Pin): The pin to disconnect from this net.
+        """
         try:
             self._pins.remove(pin)
         except ValueError:
@@ -545,7 +704,13 @@ class Net(SkidlBaseObject):
             pass  # No traversal to delete.
 
     def merge_names(self):
-        """For multi-segment nets, select a common name for all the segments."""
+        """
+        For multi-segment nets, select a common name for all segments.
+        
+        When nets are joined, they can have different names. This method
+        chooses the best name among connected net segments and assigns
+        it to all of them.
+        """
 
         def select_name(nets):
             """Return the net with the best name among a list of nets."""
@@ -604,7 +769,12 @@ class Net(SkidlBaseObject):
             net._name = selected_name  # pylint: disable=protected-access
 
     def create_network(self):
-        """Create a network from a single net."""
+        """
+        Create a Network object containing just this net.
+        
+        Returns:
+            Network: A network containing this net.
+        """
         from .network import Network
 
         ntwk = Network()
@@ -614,9 +784,12 @@ class Net(SkidlBaseObject):
     def generate_netlist_net(self, tool=None):
         """
         Generate the net information for inclusion in a netlist.
-
+        
         Args:
-            tool: The format for the netlist file (e.g., KICAD).
+            tool (str, optional): The format for the netlist file (e.g., KICAD).
+            
+        Returns:
+            str: The net information formatted for the specified tool.
         """
 
         import skidl
@@ -636,9 +809,12 @@ class Net(SkidlBaseObject):
     def generate_xml_net(self, tool=None):
         """
         Generate the net information for inclusion in an XML file.
-
+        
         Args:
-            tool: The format for the XML file (e.g., KICAD).
+            tool (str, optional): The format for the XML file (e.g., KICAD).
+            
+        Returns:
+            str: The net information formatted as XML for the specified tool.
         """
 
         import skidl
@@ -656,7 +832,15 @@ class Net(SkidlBaseObject):
         return tool_modules[tool].gen_xml_net(self)
 
     def _traverse(self):
-        """Return all the nets and pins attached to this net, including itself."""
+        """
+        Traverse all nets and pins connected to this net.
+        
+        This method builds a complete list of all pins and nets that are
+        electrically connected to this net, either directly or indirectly.
+        
+        Returns:
+            Traversal: A namedtuple containing lists of all connected nets and pins.
+        """
 
         try:
             return self.traversal  # Return pre-existing traversal.
@@ -702,22 +886,36 @@ class Net(SkidlBaseObject):
 
     @property
     def width(self):
-        """Return width of a Net, which is always 1."""
+        """
+        Get the width of the net.
+        
+        Returns:
+            int: Always 1 for a Net object.
+        """
         return 1
 
     @property
     def name(self):
         """
-        Get, set and delete the name of this net.
-
+        Get or set the name of this net.
+        
         When setting the net name, if another net with the same name
-        is found, the name for this net is adjusted to make it unique.
+        exists in the circuit, the name for this net will be adjusted
+        to make it unique.
+        
+        Returns:
+            str: Net name.
         """
         return super(Net, self).name
 
     @name.setter
     def name(self, name):
-
+        """
+        Set the name of this net.
+        
+        Args:
+            name (str): The new name for the net.
+        """
         self.test_validity()
         # Remove the existing name so it doesn't cause a collision if the
         # object is renamed with its existing name.
@@ -731,35 +929,58 @@ class Net(SkidlBaseObject):
 
     @name.deleter
     def name(self):
+        """Delete the net name."""
         self.test_validity()
         super(Net, self.__class__).name.fdel(self)
 
     @property
     def pins(self):
+        """
+        Get the pins attached to this net.
+        
+        Returns:
+            list: List of pins attached to this net.
+        """
         return self.get_pins()
 
     @property
     def nets(self):
+        """
+        Get all net segments connected to this net.
+        
+        Returns:
+            list: List of all net segments electrically connected to this net.
+        """
         return self.get_nets()
 
     @property
     def netclass(self):
         """
-        Get, set and delete the net class assigned to this net.
-
-        If not net class is set, then reading the net class returns None.
-
-        You can't overwrite the net class of a net once it's set.
-        You'll have to delete it and then set it to a new value.
-
-        Also, assigning a net class of None will have no affect on the
-        existing net class of a net.
+        Get, set or delete the net class assigned to this net.
+        
+        Net classes can be used to group nets and apply specific attributes to them.
+        Once set, a net class cannot be overwritten - it must be deleted first.
+        
+        Returns:
+            NetClass or None: The net class object assigned to this net, or None if no class is assigned.
+            
+        Raises:
+            ValueError: When trying to assign a different net class to a net that already has one.
         """
         self.test_validity()
         return getattr(self, "_netclass", None)
 
     @netclass.setter
     def netclass(self, netclass):
+        """
+        Set the net class for this net.
+        
+        Args:
+            netclass (NetClass): The net class to assign to this net.
+            
+        Raises:
+            ValueError: If trying to assign a different net class to a net that already has one.
+        """
         self.test_validity()
 
         # Just leave the existing net class at its current value if setting the
@@ -797,6 +1018,11 @@ class Net(SkidlBaseObject):
 
     @netclass.deleter
     def netclass(self):
+        """
+        Delete the net class from this net.
+        
+        This removes the net class from all connected net segments.
+        """
         self.test_validity()
         nets = self.nets  # Get all interconnected subnets.
         for n in nets:
@@ -808,11 +1034,14 @@ class Net(SkidlBaseObject):
     @property
     def drive(self):
         """
-        Get, set and delete the drive strength of this net.
-
-        The drive strength cannot be set to a value less than its current
-        value. So as pins are added to a net, the drive strength reflects the
-        maximum drive value of the pins currently on the net.
+        Get, set or delete the drive strength of this net.
+        
+        The drive strength represents the electrical driving capability of the net.
+        It is automatically set to the maximum drive value of any pin connected to
+        the net, and cannot be set to a lower value than the current maximum.
+        
+        Returns:
+            int: The drive strength value.
         """
         self.test_validity()
         nets = self.nets  # Get all interconnected subnets.
@@ -821,6 +1050,13 @@ class Net(SkidlBaseObject):
 
     @drive.setter
     def drive(self, drive):
+        """
+        Set the drive strength for this net.
+        
+        Args:
+            drive (int): The new drive strength value. If less than the current
+                         value, the current value will be maintained.
+        """
         self.test_validity()
         nets = self.nets  # Get all interconnected subnets.
         max_drive = max(nets, key=lambda n: n._drive)._drive
@@ -830,6 +1066,7 @@ class Net(SkidlBaseObject):
 
     @drive.deleter
     def drive(self):
+        """Delete the drive strength from this net."""
         self.test_validity()
         nets = self.nets  # Get all interconnected subnets.
         for n in nets:
@@ -837,24 +1074,57 @@ class Net(SkidlBaseObject):
 
     @property
     def stub(self):
+        """
+        Get or set the stub status of this net.
+        
+        A stub net is not routed in schematic generation, but
+        is represented as a short stub connected to the pin.
+        
+        Returns:
+            bool: True if this is a stub net.
+        """
         return self._stub
 
     @stub.setter
     def stub(self, val):
+        """
+        Set the stub status for this net.
+        
+        Args:
+            val (bool): True to make this a stub net, False otherwise.
+        """
         self._stub = val
         for pin in self.get_pins():
             pin.stub = val
 
     @property
     def valid(self):
+        """
+        Check if this net is still valid.
+        
+        Returns:
+            bool: True if the net is valid, False if it has been invalidated.
+        """
         return self._valid
 
     @valid.setter
     def valid(self, val):
+        """
+        Set the validity status of this net.
+        
+        Args:
+            val (bool): True to mark the net as valid, False to invalidate it.
+        """
         self.test_validity()
         self._valid = val
 
     def test_validity(self):
+        """
+        Test if the net is valid for use.
+        
+        Raises:
+            ValueError: If the net is no longer valid.
+        """
         if self.valid:
             return
         active_logger.raise_(
@@ -866,23 +1136,19 @@ class Net(SkidlBaseObject):
 @export_to_all
 class NCNet(Net):
     """
-    Lists of unconnected pins are stored using this Net subclass.
-
-    This is a netlist subclass used for storing lists of pins which are
-    explicitly specified as not being connected. This means the ERC won't
-    flag these pins as floating, but no net connections for these pins
-    will be placed in the netlist so there will actually be no
-    connections to these pins in the physical circuit.
-
+    A specialized Net class for unconnected pins.
+    
+    NCNet is used for marking pins as explicitly not connected. These pins won't
+    be flagged as floating during ERC, but no actual connections will be made
+    to them in the physical circuit.
+    
     Args:
-        name: A string with the name of the net. If None or '', then
-            a unique net name will be assigned.
-        *pins_nets_buses: One or more Pin, Net, or Bus objects or
-            lists/tuples of them to be connected to this net.
-
+        name (str, optional): Name of the no-connect net. If None, a unique name is generated.
+        circuit (Circuit, optional): The circuit this no-connect net belongs to.
+        *pins_nets_buses: One or more Pin, Net, or Bus objects to mark as not connected.
+        
     Keyword Args:
-        attribs: A dictionary of attributes and values to attach to
-            the object.
+        attribs: Various attributes to attach to the no-connect net.
     """
 
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
@@ -893,15 +1159,25 @@ class NCNet(Net):
         self.do_erc = False  # No need to do ERC on no-connect nets.
 
     def generate_netlist_net(self, tool=None):
-        """NO_CONNECT nets don't generate anything for netlists."""
+        """
+        Generate empty string as NO_CONNECT nets don't appear in netlists.
+        
+        Args:
+            tool (str, optional): The netlist generation tool.
+            
+        Returns:
+            str: Always returns an empty string.
+        """
         return ""
 
     @property
     def drive(self):
         """
-        Get the drive strength of this net.
-
-        The drive strength is always NOCONNECT_DRIVE. It can't be changed.
-        The drive strength cannot be deleted.
+        Get the drive strength of this no-connect net.
+        
+        The drive strength is always NOCONNECT_DRIVE for NCNets and cannot be changed.
+        
+        Returns:
+            int: The NOCONNECT drive strength value.
         """
         return self._drive

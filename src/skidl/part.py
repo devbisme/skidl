@@ -3,10 +3,15 @@
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """
-Handles parts.
+Handles parts in a circuit.
+
+This module provides classes and functions for creating, managing, and connecting electronic parts
+in a circuit. Parts can be instantiated from libraries, customized with attributes, and connected
+to form complete circuits.
 """
 
 import functools
+import os.path
 import re
 from copy import copy
 from random import randint
@@ -33,15 +38,6 @@ from .utilities import (
 __all__ = ["NETLIST", "LIBRARY", "TEMPLATE", "PartTmplt", "SkidlPart"]
 
 
-try:
-    from PySpice.Unit.Unit import UnitValue
-except ImportError:
-    # PySpice is not supported in Python 2, so need to make a dummy class
-    # to replicate a class from PySpice.
-    class UnitValue(object):
-        pass
-
-
 # Places where parts can be stored.
 #   NETLIST: The part will become part of a circuit netlist.
 #   LIBRARY: The part will be placed in the part list for a library.
@@ -51,15 +47,36 @@ NETLIST, LIBRARY, TEMPLATE = ["NETLIST", "LIBRARY", "TEMPLATE"]
 
 class PinNumberSearch(object):
     """
-    A class for restricting part pin indexing to only pin numbers
-    while ignoring pin names.
+    A class for restricting part pin indexing to only pin numbers while ignoring pin names.
+    
+    This class enables accessing pins by their number only, even when pins
+    might have both numbers and names.
+    
+    Attributes:
+        part (Part): The part whose pins this object searches through.
     """
 
     def __init__(self, part):
+        """
+        Initialize the pin number search object.
+        
+        Args:
+            part (Part): The part whose pins will be searched by number.
+        """
         # Store the part this object belongs to.
         self.part = part
 
     def get_pins(self, *pin_ids, **criteria):
+        """
+        Get pins from a part using only pin numbers.
+        
+        Args:
+            pin_ids: ID numbers of the pins to get from the part.
+            criteria: Additional criteria for selecting pins.
+            
+        Returns:
+            Pin or list: The selected pins.
+        """
         # Add criteria that restricts pin searching to only numbers.
         criteria["only_search_numbers"] = True
 
@@ -75,14 +92,35 @@ class PinNumberSearch(object):
 
 class PinNameSearch(object):
     """
-    A class for restricting part pin indexing to only pin names
-    while ignoring pin numbers.
+    A class for restricting part pin indexing to only pin names while ignoring pin numbers.
+    
+    This class enables accessing pins by their name only, even when pins
+    might have both numbers and names.
+    
+    Attributes:
+        part (Part): The part whose pins this object searches through.
     """
 
     def __init__(self, part):
+        """
+        Initialize the pin name search object.
+        
+        Args:
+            part (Part): The part whose pins will be searched by name.
+        """
         self.part = part
 
     def get_pins(self, *pin_ids, **criteria):
+        """
+        Get pins from a part using only pin names.
+        
+        Args:
+            pin_ids: Names of the pins to get from the part.
+            criteria: Additional criteria for selecting pins.
+            
+        Returns:
+            Pin or list: The selected pins.
+        """
         # Add criteria that restricts pin searching to only names.
         criteria["only_search_names"] = True
 
@@ -100,23 +138,27 @@ class PinNameSearch(object):
 class Part(SkidlBaseObject):
     """
     A class for storing a definition of a schematic part.
+    
+    This class represents electronic components in a schematic. Parts can be
+    instantiated from libraries, customized with attributes, and connected
+    together to form circuits.
 
     Args:
-        lib: Either a SchLib object or a schematic part library file name.
-        name: A string with name of the part to find in the library, or to assign to
+        lib (str or SchLib, optional): Either a SchLib object or a schematic part library file name.
+        name (str, optional): A string with name of the part to find in the library, or to assign to
             the part defined by the part definition.
-        dest: String that indicates where the part is destined for (e.g., LIBRARY).
-        tool: The format for the library file or part definition (e.g., KICAD).
-        connections: A dictionary with part pin names/numbers as keys and the
+        dest (str, optional): String that indicates where the part is destined for (e.g., NETLIST).
+        tool (str, optional): The format for the library file or part definition (e.g., KICAD).
+        connections (dict, optional): A dictionary with part pin names/numbers as keys and the
             nets to which they will be connected as values. For example:
             { 'IN-':a_in, 'IN+':gnd, '1':AMPED_OUTPUT, '14':vcc, '7':gnd }
-        part_defn: A list of strings that define the part (usually read from a
+        part_defn (list, optional): A list of strings that define the part (usually read from a
             schematic library file).
-        circuit: The Circuit object this Part belongs to.
-        ref_prefix: Prefix for part references such as 'U' or 'J'.
-        ref: A specific part reference to be assigned.
-        tag: A specific tag to tie the part to its footprint in the PCB.
-        pin_splitters: String of characters that split long pin names into shorter aliases.
+        circuit (Circuit, optional): The Circuit object this Part belongs to.
+        ref_prefix (str, optional): Prefix for part references such as 'U' or 'J'.
+        ref (str, optional): A specific part reference to be assigned.
+        tag (str, optional): A specific tag to tie the part to its footprint in the PCB.
+        pin_splitters (str, optional): String of characters that split long pin names into shorter aliases.
 
     Keyword Args:
         kwargs: Name/value pairs for setting attributes for the part.
@@ -124,8 +166,17 @@ class Part(SkidlBaseObject):
             named 'manf_num' for the part and assign it the value 'LM4808MP-8'.
 
     Raises:
-        * Exception if the part library and definition are both missing.
-        * Exception if an unknown file format is requested.
+        ValueError: If the part library and definition are both missing.
+        ValueError: If an unknown file format is requested.
+        
+    Attributes:
+        name (str): The part name.
+        description (str): Description of the part.
+        ref (str): Reference designator for the part (e.g., 'R1', 'U3').
+        ref_prefix (str): Prefix for the reference (e.g., 'R', 'U').
+        pins (list): List of Pin objects for this part.
+        unit (dict): Dictionary for storing subunits of the part.
+        circuit (Circuit): The circuit this part belongs to.
     """
 
     # Set the default ERC functions for all Part instances.
@@ -146,7 +197,25 @@ class Part(SkidlBaseObject):
         pin_splitters=None,
         **kwargs
     ):
-
+        """
+        Initialize a part with the given parameters.
+        
+        Args:
+            lib (str or SchLib, optional): Library containing the part.
+            name (str, optional): Part name to search for in the library.
+            dest (str, optional): Destination for the part (NETLIST, LIBRARY, TEMPLATE).
+            tool (str, optional): Tool format (KICAD, SPICE, etc.).
+            connections (dict, optional): Pre-defined connections for the part's pins.
+            part_defn (list, optional): List of strings defining the part.
+            circuit (Circuit, optional): Circuit the part belongs to.
+            ref_prefix (str, optional): Prefix for the part reference (e.g., 'R', 'U').
+            ref (str, optional): Specific reference designator.
+            tag (str, optional): Tag for associating with PCB footprint.
+            pin_splitters (str, optional): Characters for splitting pin names into aliases.
+            
+        Keyword Args:
+            kwargs: Additional attributes for the part.
+        """
         import skidl
         from skidl import SchLib, SKIDL
         from skidl.tools.spice import add_xspice_io
@@ -171,7 +240,7 @@ class Part(SkidlBaseObject):
         if lib:
             # If the lib argument is a string, then create a library using the
             # string as the library file name.
-            if isinstance(lib, basestring):
+            if isinstance(lib, str):
                 libname = lib
                 try:
                     lib = SchLib(filename=libname, tool=tool)
@@ -289,7 +358,12 @@ class Part(SkidlBaseObject):
         self.aliases += name
 
     def __str__(self):
-        """Return a description of the pins on this part as a string."""
+        """
+        Return a description of the pins on this part as a string.
+        
+        Returns:
+            str: A formatted string showing the part name, aliases, description and pins.
+        """
         return "\n {name} ({aliases}): {desc}\n    {pins}".format(
             name=self.name,
             aliases=", ".join(self.aliases),
@@ -300,35 +374,44 @@ class Part(SkidlBaseObject):
     __repr__ = __str__
 
     def __bool__(self):
-        """Any valid Part is True"""
+        """
+        Any valid Part is True.
+        
+        Returns:
+            bool: Always returns True for valid Part objects.
+        """
         return True
 
     __nonzero__ = __bool__  # Python 2 compatibility.
 
     def __len__(self):
-        """Return the number of pins in this part."""
+        """
+        Return the number of pins in this part.
+        
+        Returns:
+            int: The number of pins in this part.
+        """
         return len(self.pins)
 
     # Make copies with the multiplication operator or by calling the object.
     def __call__(self, num_copies=None, dest=NETLIST, circuit=None, io=None, **attribs):
         """
-        Make zero or more copies of this part while maintaining all pin/net
-        connections.
+        Make zero or more copies of this part while maintaining all pin/net connections.
 
         Args:
-            num_copies: Number of copies to make of this part.
-            dest: Indicates where the copy is destined for (e.g., NETLIST).
-            circuit: The circuit this part should be added to.
-            io: XSPICE I/O names.
+            num_copies (int, optional): Number of copies to make of this part.
+            dest (str, optional): Indicates where the copy is destined for (e.g., NETLIST).
+            circuit (Circuit, optional): The circuit this part should be added to.
+            io (list, optional): XSPICE I/O names.
 
         Keyword Args:
             attribs: Name/value pairs for setting attributes for the copy.
 
         Returns:
-            A list of Part copies or a single Part if num_copies==1.
+            Part or list: A list of Part copies or a single Part if num_copies==1.
 
         Raises:
-            Exception if the requested number of copies is a non-integer or negative.
+            ValueError: If the requested number of copies is a non-integer or negative.
 
         Notes:
             An instance of a part can be copied just by calling it like so::
@@ -346,6 +429,15 @@ class Part(SkidlBaseObject):
         )
 
     def __mul__(self, num_copies):
+        """
+        Create multiple copies of a part using the * operator.
+        
+        Args:
+            num_copies (int): Number of copies to make.
+            
+        Returns:
+            list: List of part copies.
+        """
         if num_copies is None:
             num_copies = 0
         return self.copy(num_copies=num_copies)
@@ -353,29 +445,69 @@ class Part(SkidlBaseObject):
     __rmul__ = __mul__
 
     def __iadd__(self, *pins):
-        """Add one or more pins to a part and return the part."""
+        """
+        Add one or more pins to a part and return the part.
+        
+        Args:
+            *pins: Pin objects to add to the part.
+            
+        Returns:
+            Part: The part with added pins.
+        """
         return self.add_pins(*pins)
 
     def __and__(self, obj):
-        """Attach a part and another part/pin/net in serial."""
+        """
+        Attach a part and another part/pin/net in serial.
+        
+        Args:
+            obj: The object to connect in series with this part.
+            
+        Returns:
+            Network: A network representing the series connection.
+        """
         from .network import Network
 
         return Network(self) & obj
 
     def __rand__(self, obj):
-        """Attach a part and another part/pin/net in serial."""
+        """
+        Attach a part and another part/pin/net in serial (right-side operation).
+        
+        Args:
+            obj: The object to connect in series with this part.
+            
+        Returns:
+            Network: A network representing the series connection.
+        """
         from .network import Network
 
         return obj & Network(self)
 
     def __or__(self, obj):
-        """Attach a part and another part/pin/net in parallel."""
+        """
+        Attach a part and another part/pin/net in parallel.
+        
+        Args:
+            obj: The object to connect in parallel with this part.
+            
+        Returns:
+            Network: A network representing the parallel connection.
+        """
         from .network import Network
 
         return Network(self) | obj
 
     def __ror__(self, obj):
-        """Attach a part and another part/pin/net in parallel."""
+        """
+        Attach a part and another part/pin/net in parallel (right-side operation).
+        
+        Args:
+            obj: The object to connect in parallel with this part.
+            
+        Returns:
+            Network: A network representing the parallel connection.
+        """
         from .network import Network
 
         return obj | Network(self)
@@ -395,9 +527,9 @@ class Part(SkidlBaseObject):
                 pins must have in order to be selected.
 
         Returns:
-            A list of pins matching the given IDs and satisfying all the criteria,
-            or just a single Pin object if only a single match was found.
-            Or None if no match was found.
+            Pin or list: A list of pins matching the given IDs and satisfying all the criteria,
+                or just a single Pin object if only a single match was found.
+                Or None if no match was found.
 
         Notes:
             Pins can be selected from a part by using brackets like so::
@@ -428,6 +560,13 @@ class Part(SkidlBaseObject):
                as part of processing the += operator. If there is no
                iadd_flag attribute, then __setitem__ was entered as a result
                of using a direct assignment, which is not allowed.
+               
+        Args:
+            ids: Pin IDs being assigned to
+            pins_nets_buses: Object being assigned to the pins
+            
+        Raises:
+            TypeError: If direct assignment is attempted
         """
 
         # If the iadd_flag is set, then it's OK that we got
@@ -441,7 +580,18 @@ class Part(SkidlBaseObject):
         active_logger.raise_(TypeError, "Can't assign to a part! Use the += operator.")
 
     def __getattr__(self, attr):
-        """Normal attribute wasn't found, so check pin aliases."""
+        """
+        Normal attribute wasn't found, so check pin aliases.
+        
+        Args:
+            attr (str): Attribute name to look for
+            
+        Returns:
+            Pin or NetPinList: The pin(s) with matching alias
+            
+        Raises:
+            AttributeError: If no pin aliases match and the attribute doesn't exist
+        """
         from skidl.netpinlist import NetPinList
 
         # Look for the attribute name in the list of pin aliases.
@@ -463,6 +613,9 @@ class Part(SkidlBaseObject):
     def __iter__(self):
         """
         Return an iterator for stepping thru individual pins of the part.
+        
+        Returns:
+            iterator: Iterator providing access to the part's pins.
         """
 
         # Get the list pf pins for this part using the getattribute for the
@@ -478,16 +631,16 @@ class Part(SkidlBaseObject):
         Get the part with the given text from a circuit, or return None.
 
         Args:
-            text: A text string that will be searched for in the list of
+            text (str): A text string that will be searched for in the list of
                 parts.
 
         Keyword Args:
-            circuit: The circuit whose parts will be searched. If set to None,
+            circuit (Circuit, optional): The circuit whose parts will be searched. If set to None,
                 then the parts in the default_circuit will be searched.
 
         Returns:
-            A list of parts or a single part that match the text string with
-            either their reference, name, alias, or their description.
+            Part or list: A list of parts or a single part that match the text string with
+                either their reference, name, alias, or their description.
         """
 
         circuit = circuit or default_circuit
@@ -508,19 +661,25 @@ class Part(SkidlBaseObject):
         return list_or_scalar(parts)
 
     def value_to_str(self):
-        """Return value of part as a string."""
+        """
+        Return value of part as a string.
+        
+        Returns:
+            str: String representation of the part's value.
+        """
         value = getattr(self, "value", getattr(self, "name", self.ref_prefix))
         return str(value)
 
     def similarity(self, part, **options):
-        """Return a measure of how similar two parts are.
+        """
+        Return a measure of how similar two parts are.
 
         Args:
             part (Part): The part to compare to for similarity.
             options (dict): Dictionary of options and settings affecting similarity computation.
 
         Returns:
-            Float value for similarity (larger means more similar).
+            float: Value for similarity (larger means more similar).
         """
 
         def score_pins():
@@ -554,8 +713,8 @@ class Part(SkidlBaseObject):
         Create a part from its stored part definition.
 
         Args:
-            partial_parse: When true, just get the name and aliases for the
-                part. Leave the rest unparsed.
+            partial_parse (bool, optional): When true, just get the name and aliases for the
+                part. Leave the rest unparsed. Defaults to False.
         """
 
         from .tools import tool_modules
@@ -566,29 +725,30 @@ class Part(SkidlBaseObject):
     def associate_pins(self):
         """
         Make sure all the pins in a part have valid references to the part.
+        
+        This updates each pin's part attribute to point to this part object.
         """
         for p in self.pins:
             p.part = self
 
     def copy(self, num_copies=None, dest=NETLIST, circuit=None, io=None, **attribs):
         """
-        Make zero or more copies of this part while maintaining all pin/net
-        connections.
+        Make zero or more copies of this part while maintaining all pin/net connections.
 
         Args:
-            num_copies: Number of copies to make of this part.
-            dest: Indicates where the copy is destined for (e.g., NETLIST).
-            circuit: The circuit this part should be added to.
-            io: XSPICE I/O names.
+            num_copies (int, optional): Number of copies to make of this part.
+            dest (str, optional): Indicates where the copy is destined for (e.g., NETLIST).
+            circuit (Circuit, optional): The circuit this part should be added to.
+            io (list, optional): XSPICE I/O names.
 
         Keyword Args:
             attribs: Name/value pairs for setting attributes for the copy.
 
         Returns:
-            A list of Part copies or a single Part if num_copies==1.
+            Part or list: A list of Part copies or a single Part if num_copies==1.
 
         Raises:
-            Exception if the requested number of copies is a non-integer or negative.
+            ValueError: If the requested number of copies is a non-integer or negative.
 
         Notes:
             An instance of a part can be copied just by calling it like so::
@@ -721,7 +881,12 @@ class Part(SkidlBaseObject):
         return copies[0]
 
     def validate(self):
-        """Check that pins and units reference the correct part that owns them."""
+        """
+        Check that pins and units reference the correct part that owns them.
+        
+        Raises:
+            AssertionError: If pins or units don't properly reference this part.
+        """
         for pin in self.pins:
             assert pin.part == self
         for unit in self.unit.values():
@@ -730,7 +895,15 @@ class Part(SkidlBaseObject):
                 unit.validate()
 
     def copy_units(self, src):
-        """Make copies of the units from the source part."""
+        """
+        Make copies of the units from the source part.
+        
+        Args:
+            src (Part): The source part containing units to copy.
+            
+        Raises:
+            Exception: If an illegal unit type is encountered.
+        """
         self.unit = {}  # Remove references to any existing units.
         for label, unit in src.unit.items():
             if isinstance(unit, PartUnit):
@@ -748,7 +921,15 @@ class Part(SkidlBaseObject):
                 raise Exception("Illegal unit type ({}).".format(type(unit)))
 
     def add_pins(self, *pins):
-        """Add one or more pins to a part and return the part."""
+        """
+        Add one or more pins to a part and return the part.
+        
+        Args:
+            *pins: Pin objects to add to the part.
+            
+        Returns:
+            Part: The part with pins added.
+        """
         for pin in flatten(pins):
             pin.part = self
             self.pins.append(pin)
@@ -759,14 +940,25 @@ class Part(SkidlBaseObject):
         return self
 
     def rmv_pins(self, *pin_ids):
-        """Remove one or more pins from a part."""
+        """
+        Remove one or more pins from a part.
+        
+        Args:
+            *pin_ids: IDs (names or numbers) of pins to remove.
+        """
         pins = self.pins
         for i, pin in enumerate(pins):
             if pin.num in pin_ids or pin.name in pin_ids:
                 del pins[i]
 
     def swap_pins(self, pin_id1, pin_id2):
-        """Swap pin name/number between two pins of a part."""
+        """
+        Swap pin name/number between two pins of a part.
+        
+        Args:
+            pin_id1: ID of first pin (name or number)
+            pin_id2: ID of second pin (name or number)
+        """
         pins = self.pins
         i1, i2 = None, None
         for i, pin in enumerate(pins):
@@ -786,14 +978,26 @@ class Part(SkidlBaseObject):
             )
 
     def rename_pin(self, pin_id, new_pin_name):
-        """Assign a new name to a pin of a part."""
+        """
+        Assign a new name to a pin of a part.
+        
+        Args:
+            pin_id: ID of pin to rename (name or number)
+            new_pin_name (str): New name for the pin
+        """
         for pin in self.pins:
             if pin_id in (pin.num, pin.name):
                 pin.name = new_pin_name
                 return
 
     def renumber_pin(self, pin_id, new_pin_num):
-        "Assign a new number to a pin of a part." ""
+        """
+        Assign a new number to a pin of a part.
+        
+        Args:
+            pin_id: ID of pin to renumber (name or number)
+            new_pin_num: New number for the pin
+        """
         for pin in self.pins:
             if pin_id in (pin.num, pin.name):
                 pin.num = new_pin_num
@@ -811,19 +1015,18 @@ class Part(SkidlBaseObject):
         Keyword Args:
             criteria: Key/value pairs that specify attribute values the
                 pins must have in order to be selected.
+            silent (bool, optional): If True, don't issue error messages. Defaults to False.
+            only_search_numbers (bool, optional): Only search for pins by number. Defaults to False.
+            only_search_names (bool, optional): Only search for pins by name. Defaults to False.
+            match_regex (bool, optional): Allow regex pattern matching for pin names. Defaults to False.
 
         Returns:
-            A list of pins matching the given IDs and satisfying all the criteria,
-            or just a single Pin object if only a single match was found.
-            Or None if no match was found.
-
-        Notes:
-            Pins can be selected from a part by using brackets like so::
-
-                atmega = Part('atmel', 'ATMEGA16U2')
-                net = Net()
-                atmega[1] += net  # Connects pin 1 of chip to the net.
-                net += atmega['RESET']  # Connects reset pin to the net.
+            Pin or list: A list of pins matching the given IDs and satisfying all the criteria,
+                or just a single Pin object if only a single match was found.
+                Or None if no match was found and silent=True.
+                
+        Raises:
+            ValueError: If pins can't be found and silent=False.
         """
 
         from .alias import Alias
@@ -914,8 +1117,11 @@ class Part(SkidlBaseObject):
         return list_or_scalar(pins)
 
     def disconnect(self):
-        """Disconnect all the part's pins from nets."""
-
+        """
+        Disconnect all the part's pins from nets.
+        
+        This removes all connections to the part's pins.
+        """
         for pin in self.pins:
             pin.disconnect()
 
@@ -927,6 +1133,9 @@ class Part(SkidlBaseObject):
         this method will return False. Otherwise, it will return True even if
         the part has no pins (which can be the case for mechanical parts,
         silkscreen logos, or other non-electrical schematic elements).
+        
+        Returns:
+            bool: True if the part is connected or has no pins, False otherwise.
         """
 
         # Assume parts without pins (like mech. holes) are always connected.
@@ -942,7 +1151,15 @@ class Part(SkidlBaseObject):
         return False
 
     def attached_to(self, nets=None):
-        """Return True if any part pin is connected to a net in the list."""
+        """
+        Return True if any part pin is connected to a net in the list.
+        
+        Args:
+            nets (list, optional): List of nets to check for connection.
+            
+        Returns:
+            bool: True if part is connected to any of the nets, False otherwise.
+        """
         if not nets:
             return False
 
@@ -961,6 +1178,9 @@ class Part(SkidlBaseObject):
             2) the part has pins but none of them are connected to nets, or
             3) the part has no pins (which can be the case for mechanical parts,
                silkscreen logos, or other non-electrical schematic elements).
+               
+        Returns:
+            bool: True if the part can be moved to another circuit, False otherwise.
         """
         from .circuit import Circuit
 
@@ -971,7 +1191,12 @@ class Part(SkidlBaseObject):
         )
 
     def split_pin_names(self, delimiters):
-        """Use chars in delimiters to split pin names and add as aliases to each pin."""
+        """
+        Use chars in delimiters to split pin names and add as aliases to each pin.
+        
+        Args:
+            delimiters (str): String of characters to use as delimiters for splitting pin names.
+        """
         if delimiters:
             for pin in self:
                 # Split pin name and add subnames as aliases to the pin.
@@ -985,7 +1210,7 @@ class Part(SkidlBaseObject):
         acts like a Part but contains only a subset of the pins of the Part.
 
         Args:
-            label: The label used to identify the PartUnit.
+            label (str): The label used to identify the PartUnit.
             pin_ids: A list of strings containing pin names, numbers,
                 regular expressions, slices, lists or tuples.
 
@@ -994,7 +1219,10 @@ class Part(SkidlBaseObject):
                 pin must have in order to be selected.
 
         Returns:
-            The PartUnit.
+            PartUnit: The newly created part unit.
+            
+        Warning:
+            Will issue a warning if the unit label collides with any part pin names.
         """
 
         # Warn if the unit label collides with any of the part's pin names.
@@ -1015,24 +1243,43 @@ class Part(SkidlBaseObject):
         return self.unit[label]
 
     def rmv_unit(self, label):
-        """Remove a PartUnit from a Part."""
+        """
+        Remove a PartUnit from a Part.
+        
+        Args:
+            label (str): Label of unit to remove.
+        """
         delattr(self, label)
         del self.unit[label]
 
     def grab_pins(self):
-        """Grab pins back from PartUnits."""
+        """
+        Grab pins back from PartUnits.
+        
+        Makes each unit release its pins back to the part that contains it.
+        """
 
         # Make each unit release its pins back to the part that contains it.
         for unit in self.unit.values():
             unit.release_pins()
 
     def release_pins(self):
-        """A Part can't release pins back to its PartUnits, so do nothing."""
+        """
+        A Part can't release pins back to its PartUnits, so do nothing.
+        """
 
         pass
 
     def create_network(self):
-        """Create a network from the pins of a part."""
+        """
+        Create a network from the pins of a part.
+        
+        Returns:
+            Network: A network containing the part's pins.
+            
+        Raises:
+            Exception: If the part has more than 2 pins.
+        """
         from .network import Network
 
         ntwk = Network(self[:])  # An error will occur if part has more than 2 pins.
@@ -1041,6 +1288,14 @@ class Part(SkidlBaseObject):
     def generate_svg_component(self, symtx="", tool=None, net_stubs=None):
         """
         Generate the SVG for displaying a part in an SVG schematic.
+        
+        Args:
+            symtx (str, optional): Transform for the SVG symbol. Defaults to "".
+            tool (str, optional): Tool format to use for SVG generation. Defaults to config.tool.
+            net_stubs (list, optional): List of net stubs to include in the SVG.
+            
+        Returns:
+            str: SVG representation of the component.
         """
 
         import skidl
@@ -1052,16 +1307,20 @@ class Part(SkidlBaseObject):
         return tool_modules[tool].gen_svg_comp(self, symtx=symtx, net_stubs=net_stubs)
 
     def erc_desc(self):
-        """Create description of part for ERC and other error reporting."""
+        """
+        Create description of part for ERC and other error reporting.
+        
+        Returns:
+            str: A string description in the form "name/ref"
+        """
         return "{p.name}/{p.ref}".format(p=self)
 
-        """"""
-
     def export(self, addtl_part_attrs=None):
-        """Return a string to recreate a Part object.
+        """
+        Return a string to recreate a Part object.
 
         Args:
-            addtl_part_attrs (list): List of additional part attribute names to include in export.
+            addtl_part_attrs (list, optional): List of additional part attribute names to include in export.
 
         Returns:
             str: String that can be evaluated to rebuild the Part object.
@@ -1113,7 +1372,8 @@ class Part(SkidlBaseObject):
         return "Part(**{{ {} }})".format(", ".join(attribs))
 
     def convert_for_spice(self, spice_part, pin_map):
-        """Convert a Part object for use with SPICE.
+        """
+        Convert a Part object for use with SPICE.
 
         Args:
             spice_part (Part): The type of SPICE Part to be converted to.
@@ -1124,19 +1384,30 @@ class Part(SkidlBaseObject):
         convert_for_spice(self, spice_part, pin_map)
 
     def check_for_manual_tag(self):
-        """Warn if the part tag was not set or was set randomly."""
+        """
+        Warn if the part tag was not set or was set randomly.
+        
+        Issues warning messages when:
+        1. A part has no tag
+        2. A part has a randomly generated tag
+        """
 
         if not self.tag:
             active_logger.bare_warning(
-                f"Missing tag on part {self.ref} defined at {self.def_line}."
+                f"Missing tag on part {self.name}/{self.ref} added at {self.src_line}."
             )
         elif self.tag.startswith("random-"):
             active_logger.bare_warning(
-                f"Randomly-assigned tag on part {self.ref} defined at {self.def_line}."
+                f"Randomly-assigned tag on part {self.name}/{self.ref} added at {self.src_line}."
             )
 
     def _find_min_max_pins(self):
-        """Return the minimum and maximum pin numbers for the part."""
+        """
+        Return the minimum and maximum pin numbers for the part.
+        
+        Returns:
+            tuple: A tuple containing (min_pin_num, max_pin_num)
+        """
         pin_nums = []
         try:
             for p in self.pins:
@@ -1154,28 +1425,61 @@ class Part(SkidlBaseObject):
             return 0, 0
         
     @property
-    def def_line(self):
-        """Return the line number where the part was defined."""
-        return self.skidl_trace.split(";")[-1]
+    def src_line(self):
+        """
+        Return the file name and line number where the part was defined.
+        
+        Returns:
+            str: File name and line number separated by colon.
+        """
+        file_path, file_line = self.skidl_trace[-1]
+        if not self.circuit.track_abs_path:
+            file_path = os.path.relpath(file_path, self.circuit.script_dir)
+        return file_path + ":" + file_line
 
     @property
     def ordered_pins(self):
+        """
+        Return the pins of the part in a sorted order.
+        
+        Returns:
+            list: Sorted list of the part's pins.
+        """
         return sorted(self.pins)
 
     @property
     def hierarchical_name(self):
+        """
+        Return the hierarchical name of the part.
+        
+        Returns:
+            str: The hierarchical name including hierarchy prefix and tag.
+        """
         from .circuit import HIER_SEP
 
         return getattr(self, "hierarchy", "") + HIER_SEP + self._tag
 
     @property
     def tag(self):
-        """Return the part's tag."""
+        """
+        Return the part's tag.
+        
+        Returns:
+            str: The part's tag.
+        """
         return self._tag
 
     @tag.setter
     def tag(self, value):
-        """Set the part's tag."""
+        """
+        Set the part's tag.
+        
+        Args:
+            value (str): The new tag for the part.
+            
+        Raises:
+            ValueError: If the tag contains disallowed characters.
+        """
         # Remove the part's old hierarchical name from the index.
         if self.circuit is not None:
             self.circuit.rmv_hierarchical_name(self.hierarchical_name)
@@ -1201,23 +1505,41 @@ class Part(SkidlBaseObject):
 
     @tag.deleter
     def tag(self):
-        """Delete the part tag."""
+        """
+        Delete the part tag.
+        
+        Note:
+            Part's can't have a None tag, so a new random tag will be set.
+        """
         # Part's can't have a None tag, so set a new random tag.
         self.tag = "random-" + str(randint(0, 2**64 - 1))
 
     @property
     def ref(self):
         """
-        Get, set and delete the part reference.
+        Get the part reference.
 
         When setting the part reference, if another part with the same
         reference is found, the reference for this part is adjusted to make
         it unique.
+        
+        Returns:
+            str: The part's reference designator.
         """
         return self._ref
 
     @ref.setter
     def ref(self, r):
+        """
+        Set the part's reference.
+        
+        Args:
+            r (str): The reference to assign to the part.
+            
+        Notes:
+            If the reference would conflict with another part, a unique
+            variation will be generated.
+        """
         # Remove the existing reference so it doesn't cause a collision if the
         # object is renamed with its existing name.
         self._ref = None
@@ -1229,18 +1551,21 @@ class Part(SkidlBaseObject):
 
     @ref.deleter
     def ref(self):
-        """Delete the part reference."""
+        """
+        Delete the part reference.
+        """
         self._ref = None
 
     @property
     def value(self):
-        """Get, set and delete the part value."""
+        """
+        Get the part value.
+        
+        Returns:
+            str: The part's value, or part name if no value is set.
+        """
         try:
             return self._value
-            if isinstance(self._value, UnitValue):
-                return self._value
-            else:
-                return str(self._value)
         except AttributeError:
             # If part has no value, return its part name as the value. This is
             # done in KiCad where a resistor value is set to 'R' if no
@@ -1249,37 +1574,69 @@ class Part(SkidlBaseObject):
 
     @value.setter
     def value(self, value):
-        """Set the part value."""
+        """
+        Set the part value.
+        
+        Args:
+            value: The value to assign to the part.
+        """
         self._value = value
 
     @value.deleter
     def value(self):
-        """Delete the part value."""
+        """
+        Delete the part value.
+        """
         del self._value
 
     @property
     def foot(self):
-        """Get, set and delete the part footprint."""
+        """
+        Get the part footprint.
+        
+        Returns:
+            str: The part's footprint.
+        """
         return self._foot
 
     @foot.setter
     def foot(self, footprint):
-        """Set the part footprint."""
+        """
+        Set the part footprint.
+        
+        Args:
+            footprint (str): The footprint to assign to the part.
+        """
         self._foot = str(footprint)
 
     @foot.deleter
     def foot(self):
-        """Delete the part footprint."""
+        """
+        Delete the part footprint.
+        """
         del self._foot
 
     @property
     def match_pin_regex(self):
-        """Get, set and delete the enable/disable of pin regular-expression matching."""
+        """
+        Get the enable/disable flag for pin regular-expression matching.
+        
+        Returns:
+            bool: Current state of regex matching flag.
+        """
         return self._match_pin_regex
 
     @match_pin_regex.setter
     def match_pin_regex(self, flag):
-        """Set the regex matching flag."""
+        """
+        Set the regex matching flag.
+        
+        Args:
+            flag (bool): True to enable regex matching for pins, False to disable.
+            
+        Notes:
+            This also sets the flag for all units of the part.
+        """
         self._match_pin_regex = flag
 
         # Also set flag for units of the part.
@@ -1288,11 +1645,10 @@ class Part(SkidlBaseObject):
 
     @match_pin_regex.deleter
     def match_pin_regex(self):
-        """Delete the regex matching flag."""
+        """
+        Delete the regex matching flag.
+        """
         del self._match_pin_regex
-
-
-##############################################################################
 
 
 @export_to_all
@@ -1306,7 +1662,8 @@ class PartUnit(Part):
     cannot store any other unique data.
 
     Args:
-        part: This is the parent Part whose pins the PartUnit is built from.
+        part (Part): This is the parent Part whose pins the PartUnit is built from.
+        label (str): A unique label for this unit.
         pin_ids: A list of strings containing pin names, numbers,
             regular expressions, slices, lists or tuples. If empty, it
             will match *every* pin of the part.
@@ -1314,6 +1671,7 @@ class PartUnit(Part):
     Keyword Args:
         criteria: Key/value pairs that specify attribute values the
             pin must have in order to be selected.
+        unit (int): Unit number assigned to this PartUnit. Defaults to 1.
 
     Examples:
         This will return unit 1 from a part::
@@ -1327,6 +1685,18 @@ class PartUnit(Part):
     """
 
     def __init__(self, parent, label, *pin_ids, **criteria):
+        """
+        Initialize a PartUnit with pins selected from a parent part.
+        
+        Args:
+            parent (Part): Parent part to get pins from.
+            label (str): Label for this unit.
+            pin_ids: Pin names/numbers to include in this unit.
+            
+        Keyword Args:
+            criteria: Key/value pairs for selecting pins.
+            unit (int): Unit number. Defaults to 1.
+        """
 
         from .pin import Pin
 
@@ -1382,6 +1752,12 @@ class PartUnit(Part):
     def add_pins_from_parent(self, *pin_ids, **criteria):
         """
         Add selected pins from the parent to the part unit.
+        
+        Args:
+            pin_ids: Pin names/numbers to add from parent.
+            
+        Keyword Args:
+            criteria: Key/value pairs for selecting pins.
         """
 
         # Get new pins selected from the parent.
@@ -1401,26 +1777,40 @@ class PartUnit(Part):
         self.pins = list(set(self.pins + new_pins))
 
     def validate(self):
-        """Check that unit pins point to the parent part."""
-
+        """
+        Check that unit pins point to the parent part.
+        
+        Raises:
+            AssertionError: If pins don't refer to the parent part.
+        """
         for pin in self.pins:
             assert id(pin.part) == id(self.parent)
 
     def grab_pins(self):
-        """Grab pin from Part and assign to PartUnit."""
-
+        """
+        Grab pin from Part and assign to PartUnit.
+        
+        This changes each pin's part reference to point to this unit.
+        """
         for pin in self.pins:
             pin.part = self
 
     def release_pins(self):
-        """Return PartUnit pins to parent Part."""
-
+        """
+        Return PartUnit pins to parent Part.
+        
+        This changes each pin's part reference to point back to the parent part.
+        """
         for pin in self.pins:
             pin.part = self.parent
 
     def export(self):
-        """Return a string describing the PartUnit for exporting purposes."""
-
+        """
+        Return a string describing the PartUnit for exporting purposes.
+        
+        Returns:
+            str: Dictionary representation of the unit as a string.
+        """
         d = dict()
         d["label"] = self.label
         d["num"] = self.num
@@ -1429,21 +1819,29 @@ class PartUnit(Part):
 
     @property
     def ref(self):
+        """
+        Get the unit's hierarchical reference.
+        
+        Returns:
+            str: Reference in the form "parent_ref.label"
+        """
         from .circuit import HIER_SEP
 
         return HIER_SEP.join((self.parent.ref, self.label))
 
 
-##############################################################################
-
-
 PartTmplt = functools.partial(Part, dest=TEMPLATE)
-PartTmplt.__doc__ = """Shortcut for creating a Part template."""
+PartTmplt.__doc__ = """
+    Shortcut for creating a Part template.
+    
+    Creates a Part that is not added to the default circuit.
+    """
 
 SkidlPart = functools.partial(Part, tool="skidl", dest=TEMPLATE)
 SkidlPart.__doc__ = """ 
-    A class for storing a SKiDL definition of a schematic part. It's identical
-    to its Part superclass except:
+    A class for storing a SKiDL definition of a schematic part.
+    
+    It's identical to its Part superclass except:
 
     + The tool defaults to SKIDL.
     + The destination defaults to TEMPLATE so that it's easier to start
@@ -1451,12 +1849,10 @@ SkidlPart.__doc__ = """
     """
 
 
-##############################################################################
-
-
 @export_to_all
 def default_empty_footprint_handler(part):
-    """Handle the situation of a Part with no footprint when generating netlist/PCB.
+    """
+    Handle the situation of a Part with no footprint when generating netlist/PCB.
 
     Args:
         part (Part): The part with no footprint.
@@ -1470,5 +1866,5 @@ def default_empty_footprint_handler(part):
     from .logger import active_logger
 
     active_logger.bare_error(
-        f"No footprint for {part.name}/{part.ref} defined at {part.def_line}."
+        f"No footprint for {part.name}/{part.ref} added at {part.src_line}."
     )

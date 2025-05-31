@@ -1,8 +1,0 @@
-When installing ngspice version 30:
-
-1. Download the [ngspice-30_dll_64.zip file](https://sourceforge.net/projects/ngspice/files/ng-spice-rework/30/ngspice-30_dll_64.zip/download).
-2. Unpack it into `C:\Program Files`. It should have the name Spice64_dll so pyspice can find it.
-3. Change subdirectory `dll-vs` to `bin_dll`.
-3. Make sure to run 64-bit Python. Otherwise, it will be unable to run the 64-bit DLLs.
-4. Install PySpice 1.3.2. (PySpice 1.2.0 will fail.)
-5. Place an `spinit` file in the same directory as the .py or .ipynb file you're trying to run. 

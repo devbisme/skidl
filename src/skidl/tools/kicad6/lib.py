@@ -8,7 +8,7 @@ Parsing of Kicad libraries.
 
 import os
 from collections import defaultdict, OrderedDict
-import sexpdata
+from simp_sexp import Sexp
 
 from skidl import Alias
 from skidl.logger import active_logger
@@ -109,79 +109,60 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
         # File contents were already decoded.
         pass
 
-    # Convert S-expression library into a list of symbols.
+    # Convert library text into an S-expression object.
     try:
-        lib_list = sexpdata.loads(lib_txt)
+        lib_sexp = Sexp(lib_txt)
     except:
         active_logger.raise_(
             RuntimeError,
             "The file {} is not a KiCad Schematic Library File.\n".format(filename),
         )
 
-    # Skip over the 'kicad_symbol_lib' label and extract symbols into a dictionary with
-    # symbol names as keys. Use an ordered dictionary to keep parts in the same order as
-    # they appeared in the library file because in KiCad V6 library symbols can "extend"
+    # Extract symbols into a dictionary with symbol names as keys. 
+    # Use an ordered dictionary to keep parts in the same order as
+    # they appeared in the library file because in KiCad V6+ library symbols can "extend"
     # previous symbols which should be processed before those that extend them.
     symbols = OrderedDict(
         [
-            (item[1], item[2:])
-            for item in lib_list[1:]
-            if item[0].value().lower() == "symbol"
+            (symbol[1], symbol)
+            for symbol in lib_sexp.search("/kicad_symbol_lib/symbol", ignore_case=True)
         ]
     )
 
     # Create Part objects for each symbol in the library.
-    for part_name, part_defn in symbols.items():
+    for symbol_name, symbol in symbols.items():
+
+        # Get symbol properties
         properties = {}
-
-        # See if this symbol extends a previous parent symbol.
-        for item in part_defn:
-            if item[0].value().lower() == "extends":
-                # Get the properties from the parent symbol.
-                parent_part = lib[item[1]]
-                if parent_part.part_defn:
-                    # Properties are stored as lists: ["property", name, value].
-                    properties.update(
-                        {
-                            item[1].lower(): item[2]
-                            for item in parent_part.part_defn
-                            if item[0].value().lower() == "property"
-                        }
-                    )
-                else:
-                    properties["ki_keywords"] = parent_part.keywords
-                    properties["ki_description"] = parent_part.description
-                    properties["datasheet"] = parent_part.datasheet
-
-                break  # At most one extends clause in part def.
-
-        # Get symbol properties, primarily to get the reference id.
-        # Properties are stored as lists: ["property", name, value].
-        properties.update(
-            {
-                item[1].lower(): item[2]
-                for item in part_defn
-                if item[0].value().lower() == "property"
-            }
-        )
+        extends = symbol.search("/symbol/extends", ignore_case=True)
+        if extends:
+            # If the current symbol extends a previous parent symbol,
+            # use the properties from the parent symbol as properties for this one.
+            parent_name = extends[0][1]
+            parent = symbols[parent_name]
+            parent_properties = parent.search("/symbol/property", ignore_case=True)
+            properties = {p[1].lower(): p[2] for p in parent_properties}
+        # Update properties with those from the current symbol.
+        current_properties = symbol.search("/symbol/property", ignore_case=True)
+        properties.update({p[1].lower(): p[2] for p in current_properties})
 
         # Get part properties.
         keywords = properties.get("ki_keywords", "")
         datasheet = properties.get("datasheet", "")
-        description = properties.get("ki_description", "")
+        description = properties.get("description", "")
 
         # Join the various text pieces by newlines so the ^ and $ special characters
         # can be used to detect the start and end of a piece of text during RE searches.
-        search_text = "\n".join([filename, part_name, description, keywords])
+        search_text = "\n".join([filename, symbol_name, description, keywords])
 
         # Create a Part object and add it to the library object.
         lib.add_parts(
             Part(
-                part_defn=part_defn,  # A list of lists that define the part.
+                part_defn=symbol,  # A list of lists that define the part.
                 tool=KICAD6,
                 dest=LIBRARY,
                 filename=filename,
-                name=part_name,
+                name=symbol_name,
                 aliases=list(),  # No aliases in KiCad V6?
                 keywords=keywords,
                 datasheet=datasheet,
@@ -216,6 +197,8 @@ def parse_lib_part(part, partial_parse):
     # If a part def already exists, the name has already been set, so exit.
     if partial_parse:
         return
+    
+    part_defn = part.part_defn
 
     part.aliases = Alias()  # Part aliases.
     part.fplist = []  # Footprint list.
@@ -224,54 +207,53 @@ def parse_lib_part(part, partial_parse):
     )  # Drawing commands for the part and any units, including pins.
 
     # Search for a parent that this part inherits from.
-    for item in part.part_defn:
-        if item[0].value().lower() == "extends":
+    extends = part_defn.search("/symbol/extends", ignore_case=True)
+    if extends:
 
-            # Make a copy of the parent part from the library.
-            parent_part = part.lib[item[1]].copy(dest=TEMPLATE)
+        # Make a copy of the parent part from the library.
+        parent_name = extends[0][1]
+        parent_part = part.lib[parent_name].copy(dest=TEMPLATE)
 
-            # Remove parent attributes that we don't want to overwrite in the child.
-            parent_part_dict = parent_part.__dict__
-            for property_key in (
-                "part_defn",
-                "_name",
-                "_aliases",
-                "description",
-                "datasheet",
-                "keywords",
-                "search_text",
-            ):
-                try:
-                    del parent_part_dict[property_key]
-                except KeyError:
-                    pass
+        # Remove parent attributes that we don't want to overwrite in the child.
+        parent_part_dict = vars(parent_part)
+        for property_key in (
+            "part_defn",
+            "_name",
+            "_aliases",
+            "description",
+            "datasheet",
+            "keywords",
+            "search_text",
+        ):
+            try:
+                del parent_part_dict[property_key]
+            except KeyError:
+                pass
 
-            # Overwrite child with the parent part.
-            part.__dict__.update(parent_part_dict)
+        # Overwrite child with the parent part.
+        vars(part).update(parent_part_dict)
 
-            # Make sure all the pins have a valid reference to the child.
-            part.associate_pins()
+        # Make sure all the pins have a valid reference to the child.
+        part.associate_pins()
 
-            # Copy part units so all the pin and part references stay valid.
-            part.copy_units(parent_part)
+        # Copy part units so all the pin and part references stay valid.
+        part.copy_units(parent_part)
 
-            # Perform some operations on the child part.
-            for item in part.part_defn:
-                cmd = item[0].value().lower()
-                if cmd == "del":
-                    part.rmv_pins(item[1])
-                elif cmd == "swap":
-                    part.swap_pins(item[1], item[2])
-                elif cmd == "renum":
-                    part.renumber_pin(item[1], item[2])
-                elif cmd == "rename":
-                    part.rename_pin(item[1], item[2])
-                elif cmd == "property_del":
-                    del part.fields[item[1]]
-                elif cmd == "alternate":
-                    pass
-
-            break
+        # Perform some operations on the child part.
+        for item in part_defn:
+            cmd = item[0].lower()
+            if cmd == "del":
+                part.rmv_pins(item[1])
+            elif cmd == "swap":
+                part.swap_pins(item[1], item[2])
+            elif cmd == "renum":
+                part.renumber_pin(item[1], item[2])
+            elif cmd == "rename":
+                part.rename_pin(item[1], item[2])
+            elif cmd == "property_del":
+                del part.fields[item[1]]
+            elif cmd == "alternate":
+                pass
 
     def parse_pins(symbol, unit):
         """Parse the pins within a symbol and add them to the Part object."""
@@ -293,19 +275,19 @@ def parse_lib_part(part, partial_parse):
         }
 
         # Get the pins for this symbol.
-        symbol_pins = [item for item in symbol if item[0].value().lower() == "pin"]
+        symbol_pins = symbol.search("/symbol/pin", ignore_case=True)
 
         # Process the pins for the symbol.
         for pin in symbol_pins:
             # Pin electrical type immediately follows the "pin" tag.
-            pin_func = pin_io_type_translation[pin[1].value().lower()]
+            pin_func = pin_io_type_translation[pin[1].lower()]
 
             # Find the pin name, number, and X/Y position.
             pin_name = ""
             pin_number = None
             for item in pin:
                 item = to_list(item)
-                token_name = item[0].value().lower()
+                token_name = item[0].lower()
                 if token_name == "name":
                     pin_name = item[1]
                 elif token_name == "number":
@@ -344,19 +326,17 @@ def parse_lib_part(part, partial_parse):
         return [
             item
             for item in symbol
-            if item[0].value().lower()
+            if item[0].lower()
             in ("arc", "bezier", "circle", "pin", "polyline", "rectangle", "text")
         ]
 
     # Parse top-level pins. (Any units with pins are parsed later.)
-    top_has_pins = parse_pins(part.part_defn, unit=1)
+    top_has_pins = parse_pins(part_defn, unit=1)
 
-    # Find all the units within a symbol. Skip the first item which is the
-    # 'symbol' marking the start of the entire part definition.
+    # Make dict of all the units within a symbol, keyed by unit id.
     units = {
-        item[1]: item[2:]
-        for item in part.part_defn[1:]
-        if item[0].value().lower() == "symbol"
+        unit[1]: unit
+        for unit in part_defn.search("/symbol/symbol", ignore_case=True)
     }
 
     # I'm assuming a part will not have both pins at the top level and units with pins.
@@ -462,8 +442,7 @@ def parse_lib_part(part, partial_parse):
     props.update(
         {
             prop[1].lower(): prop
-            for prop in part.part_defn
-            if prop[0].value().lower() == "property"
+            for prop in part_defn.search("/symbol/property", ignore_case=True)
         }
     )
     part.ref_prefix = props["reference"][2]
@@ -473,10 +452,11 @@ def parse_lib_part(part, partial_parse):
     part.draw_cmds[1].extend([props["reference"], props["value"]])
 
     # Construct the rest of the part attribute space, avoid part attributes that are already defined.
+    already_defined = vars(part).keys()
     part_dict = {
         k.replace(" ", "_").replace("/", "_"): v[2]
         for k, v in props.items()
-        if k not in vars(part).keys()
+        if k not in already_defined
     }
     for k, v in part_dict.items():
         setattr(part, k, v)

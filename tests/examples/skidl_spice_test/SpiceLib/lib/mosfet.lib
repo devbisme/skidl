@@ -1,2 +1,0 @@
-*
-.MODEL MOD1 NMOS (VTO=1.4, KP=0.002)

@@ -3,7 +3,12 @@
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """
-Routines for getting information about a script.
+Routines for getting information about a running script.
+
+This module provides functions to determine information about the currently
+executing Python script, such as its name, directory, and call stack. These 
+functions are useful for generating file names based on the script name and
+for debugging purposes.
 """
 
 import inspect
@@ -17,20 +22,22 @@ from .utilities import export_to_all
 @export_to_all
 def scriptinfo():
     """
-    Returns a dictionary with information about the running top level Python
-    script:
-    ---------------------------------------------------------------------------
-    dir:    directory containing script or compiled executable
-    name:   name of script or executable
-    source: name of source code file
-    ---------------------------------------------------------------------------
-    `name` and `source` are identical if and only if running interpreted code.
-    When running code compiled by `py2exe` or `cx_freeze`, `source` contains
-    the name of the originating Python script.
-    If compiled by PyInstaller, `source` contains no meaningful information.
-
-    Downloaded from:
-    http://code.activestate.com/recipes/579018-python-determine-name-and-directory-of-the-top-lev/
+    Get information about the running top-level Python script.
+    
+    This function identifies the top-level script that is currently running,
+    whether it's an interpreted Python script or a compiled executable.
+    
+    Returns:
+        dict: A dictionary with the following keys:
+            - 'dir': Directory containing the script or compiled executable
+            - 'name': Name of script or executable
+            - 'source': Name of source code file
+            
+    Notes:
+        'name' and 'source' are identical if and only if running interpreted code.
+        When running code compiled by `py2exe` or `cx_freeze`, `source` contains
+        the name of the originating Python script.
+        If compiled by PyInstaller, `source` contains no meaningful information.
     """
 
     # ---------------------------------------------------------------------------
@@ -60,17 +67,57 @@ def scriptinfo():
     scr_dict = {"name": trc, "source": trc, "dir": scriptdir}
     return scr_dict
 
+@export_to_all
+def get_script_dir():
+    """
+    Return the directory of the top-level script.
+    
+    This function retrieves the directory where the top-level script is located.
+    
+    Returns:
+        str: The directory of the top-level script.
+    """
+    return scriptinfo()["dir"]
 
 @export_to_all
 def get_script_name():
-    """Return the name of the top-level script."""
+    """
+    Return the name of the top-level script without the file extension.
+    
+    This function gets the name of the top-level script that is currently running
+    and removes any file extension.
+    
+    Returns:
+        str: The name of the top-level script without file extension.
+    """
     return os.path.splitext(scriptinfo()["name"])[0]
 
 
 @export_to_all
-def get_skidl_trace():
+def get_skidl_trace(track_abs_path=False):
     """
-    Return a list containing the source line trace where a SKiDL object was instantiated.
+    Return the call stack trace where a SKiDL object was instantiated.
+    
+    This function examines the call stack to determine precisely where a SKiDL 
+    object was created in the user's code. It filters out internal SKiDL function 
+    calls to show only relevant user code locations, making debugging and tracing 
+    object creation easier.
+    
+    Args:
+        track_abs_path (bool, optional): If True, return absolute file paths in the trace.
+                                        If False (default), return paths relative to the 
+                                        SKiDL library directory.
+    
+    Returns:
+        list: A list of strings, each in the format "filepath:line_number", 
+              representing the call stack that led to the creation of a SKiDL object.
+              The list is ordered from the earliest (bottom of stack) to latest (top)
+              function calls.
+    
+    Example:
+        >>> trace = get_skidl_trace()
+        >>> print(trace)
+        ['my_circuit.py:42', 'components.py:156']
     """
 
     # To determine where this object was created, trace the function
@@ -87,8 +134,8 @@ def get_skidl_trace():
         skidl_dir, _ = os.path.split(call_stack[0][1])
 
     # Record file_name:line_num starting from the bottom of the stack
-    # and terminate as soon as a function is found that's in the
-    # SKiDL library (no use recording internal calls).
+    # while skipping every function found in the SKiDL library
+    # (no use recording internal calls).
     skidl_trace = []
     for frame in reversed(call_stack):
         try:
@@ -98,13 +145,16 @@ def get_skidl_trace():
             filename = frame[1]
             lineno = frame[2]
         if os.path.split(filename)[0] == skidl_dir:
-            # Found function in SKiDL library, so trace is complete.
-            break
+            # Skip recording functions in the SKiDL library.
+            continue
 
         # Get the absolute path to the file containing the function
         # and the line number of the call in the file. Append these
         # to the trace.
-        filepath = os.path.abspath(filename)
-        skidl_trace.append(":".join((filepath, str(lineno))))
+        if track_abs_path:
+            filepath = os.path.abspath(filename)
+        else:
+            filepath = os.path.relpath(filename, skidl_dir)
+        skidl_trace.append((filepath, str(lineno)))
 
     return skidl_trace

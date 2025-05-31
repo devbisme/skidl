@@ -3,7 +3,13 @@
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """
-Handles SKiDL configuration parameters stored in a JSON file.
+Configuration management for SKiDL.
+
+This module provides classes for loading, storing, and accessing SKiDL configuration
+parameters. Configuration data is stored in JSON files and includes settings for
+default tools, library search paths, footprint search paths, and backup library options.
+The module supports configuration hierarchies with system, user, and project-specific 
+settings that are merged according to priority.
 """
 
 import collections
@@ -19,7 +25,18 @@ from .utilities import TriggerDict, export_to_all, merge_dicts
 
 @export_to_all
 class Config(dict):
-    """Class for handling configuration parameters."""
+    """
+    Base class for managing configuration parameters.
+    
+    This class extends the dictionary to store configuration parameters and provides
+    methods to load configuration from JSON files and save it back to disk.
+    Configuration from multiple sources can be merged with intelligent handling
+    of nested dictionaries.
+    
+    Args:
+        cfg_file_name (str): Name of the configuration file.
+        *dirs: Directories to search for configuration files.
+    """
 
     def __init__(self, cfg_file_name, *dirs):
         super().__init__()
@@ -27,19 +44,50 @@ class Config(dict):
         self.load(*dirs)
 
     def __getattr__(self, key):
-        """Get the value of a Config attribute or else from the Config dictionary."""
+        """
+        Access configuration values as attributes.
+        
+        This enables dot notation access to configuration parameters in addition
+        to dictionary-style access.
+        
+        Args:
+            key (str): The configuration parameter name.
+            
+        Returns:
+            The value of the configuration parameter.
+            
+        Raises:
+            AttributeError: If the key doesn't exist in the configuration.
+        """
         try:
             return self[key]
         except KeyError:
             raise AttributeError
 
     def __setattr__(self, key, value):
-        """Set the value of both a Config attribute and a Config dictionary entry."""
+        """
+        Set configuration values as attributes and dictionary entries.
+        
+        This ensures that attribute-style and dictionary-style access and
+        modification are synchronized.
+        
+        Args:
+            key (str): The configuration parameter name.
+            value: The value to assign to the parameter.
+        """
         self.__dict__[key] = value
         self[key] = value
 
     def merge(self, merge_dct):
-        """Recurse through both dicts and update keys."""
+        """
+        Merge another dictionary into this configuration.
+        
+        This method recursively merges dictionaries, preserving nested structures
+        where possible.
+        
+        Args:
+            merge_dct (dict): Dictionary to merge into this configuration.
+        """
         for k, v in list(merge_dct.items()):
             if (
                 k in self
@@ -51,7 +99,15 @@ class Config(dict):
                 self[k] = merge_dct[k]
 
     def load(self, *dirs):
-        """Load configuration from JSON files in given dirs."""
+        """
+        Load configuration from JSON files in the specified directories.
+        
+        This method looks for the configuration file in each directory and merges
+        the settings found in each file, with later directories taking precedence.
+        
+        Args:
+            *dirs: Directories to search for configuration files.
+        """
         for dir in dirs:
             path = os.path.join(dir, self.cfg_file_name)
             path = os.path.expanduser(path)
@@ -63,7 +119,13 @@ class Config(dict):
                 pass
 
     def store(self, dir="."):
-        """Store configuration file as JSON in directory."""
+        """
+        Store the current configuration as a JSON file.
+        
+        Args:
+            dir (str, optional): Directory to store the configuration file in.
+                Defaults to the current directory.
+        """
         path = os.path.join(dir, self.cfg_file_name)
         path = os.path.expanduser(path)
         path = os.path.abspath(path)
@@ -73,7 +135,15 @@ class Config(dict):
 
 @export_to_all
 class SkidlConfig(Config):
-    """Config specialized for SKiDL configuration files."""
+    """
+    Configuration class specialized for SKiDL.
+    
+    This class extends the base Config class with SKiDL-specific defaults and
+    behaviors, such as managing tool selection, library paths, and footprint paths.
+    
+    Args:
+        tool (str): Default tool/backend to use if not specified in config files.
+    """
 
     def __init__(self, tool):
         from skidl import SKIDL
