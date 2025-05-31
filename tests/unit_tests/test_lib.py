@@ -14,6 +14,7 @@ from skidl import (
     KICAD6,
     KICAD7,
     KICAD8,
+    KICAD9,
     SKIDL,
     TEMPLATE,
     Part,
@@ -282,16 +283,12 @@ def test_lib_kicad_1():
     # If no parts are found, parse the library file as an S-expression.
     if not part_cnt:
         nested_list = Sexp("\n".join(lines))
-        parts = {
-            item[1]: item[2:]
-            for item in nested_list[1:]
-            if item[0].lower() == "symbol"
-        }
-        part_cnt = len(parts.keys())
+        parts = nested_list.search("kicad_symbol_lib/symbol", ignore_case=True)
+        part_cnt = len(parts)
     # Assert that the number of parts in the library file matches the number of parts in the library.
     assert part_cnt == len(part_names)
     # Assert that the number of parts is within the expected range.
-    assert part_cnt in (559, 571, 596, 600)
+    assert part_cnt in (533, 559, 571, 596, 600)
     # Check the integrity of each part in the library.
     for part in lib.parts:
         check_lib_part(part)
@@ -380,6 +377,7 @@ def test_lib_kicad_repository():
         KICAD6: "https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master",
         KICAD7: "https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master",
         KICAD8: "https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master",
+        KICAD9: "https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master",
     }
     # Set the library name.
     lib_name = "4xxx"
