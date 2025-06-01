@@ -150,7 +150,7 @@ def part_to_eeschema(part, tx):
             break
     eeschema.append(
         'F 2 "{}" {} {} {} {} {} {} {}'.format(
-            part.footprint,
+            getattr(part, "footprint", ""),
             part.draw[n_F2].orientation,
             str(origin.x + part.draw[n_F2].x),
             str(origin.y + part.draw[n_F2].y),
