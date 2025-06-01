@@ -74,7 +74,7 @@ class SchNode(Node, Placer, Router):
 
             # Search for pins in different nodes.
             for pin1, pin2 in zip(net.pins[:-1], net.pins[1:]):
-                if pin1.part.hierarchy != pin2.part.hierarchy:
+                if pin1.part.hierarchical_name != pin2.part.hierarchical_name:
                     # Found pins in different nodes, so break and add terminals to nodes below.
                     break
             else:
@@ -98,7 +98,7 @@ class SchNode(Node, Placer, Router):
 
                 part = pin.part
 
-                if part.hierarchy in visited:
+                if part.hierarchical_name in visited:
                     # Already added a terminal to this node, so don't add another.
                     continue
 
@@ -106,7 +106,7 @@ class SchNode(Node, Placer, Router):
                 self.find_node_with_part(part).add_terminal(net)
 
                 # Record that this hierarchical node was visited.
-                visited.append(part.hierarchy)
+                visited.append(part.hierarchical_name)
 
         # Flatten the hierarchy as specified by the flatness parameter.
         self.flatten(self.flatness)

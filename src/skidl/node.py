@@ -16,9 +16,6 @@ Node class for storing circuit hierarchy.
 class Node:
     """Data structure for holding information about a node in the circuit hierarchy."""
 
-    filename_sz = 20
-    name_sz = 40
-
     def __init__(
         self,
         circuit=None,
@@ -27,7 +24,7 @@ class Node:
     ):
         self.parent = None
         self.children = defaultdict(
-            lambda: self.__class__(None, filepath, top_name)
+            lambda: type(self)(None, filepath, top_name)
         )
         self.filepath = filepath
         self.top_name = top_name
@@ -67,7 +64,7 @@ class Node:
 
         from skidl.circuit import HIER_SEP
 
-        level_names = part.hierarchy.split(HIER_SEP)
+        level_names = part.hierarchical_name.split(HIER_SEP)
         node = self
         for lvl_nm in level_names[1:]:
             node = node.children[lvl_nm]
@@ -96,7 +93,7 @@ class Node:
         from skidl.circuit import HIER_SEP
 
         # Get list of names of hierarchical levels (in order) leading to this part.
-        level_names = part.hierarchy.split(HIER_SEP)
+        level_names = part.hierarchical_name.split(HIER_SEP)
 
         # Get depth in hierarchy for this part.
         part_level = len(level_names) - 1
@@ -122,7 +119,7 @@ class Node:
         else:
             # Part is at a level below the current node. Get the child node using
             # the name of the next level in the hierarchy for this part.
-            child_node = self.node.get_or_add_child(level_names[level + 1])
+            child_node = self.get_or_add_child(level_names[level + 1])
 
             # Add part to the child node (or one of its children).
             child_node.add_part(part, level + 1)

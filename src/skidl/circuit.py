@@ -124,12 +124,12 @@ class Circuit(SkidlBaseObject):
 
     def __enter__(self):
         """
-        Create a context to make this circuit the default_circuit.
+        When entering a context, save the previous default_circuit and make this circuit the default_circuit.
         
         Returns:
-            Circuit: This circuit instance.
+            Circuit: The new default circuit instance.
         """
-        self.circuit_stack.append(default_circuit)
+        self.parent = default_circuit
         builtins.default_circuit = self
         return self
 
@@ -142,7 +142,7 @@ class Circuit(SkidlBaseObject):
             value: Exception value if an exception occurred.
             traceback: Traceback if an exception occurred.
         """
-        builtins.default_circuit = self.circuit_stack.pop()
+        builtins.default_circuit = self.parent
 
     def mini_reset(self, init=False):
         """Clear any circuitry but don't erase any loaded part libraries."""
@@ -157,15 +157,11 @@ class Circuit(SkidlBaseObject):
         self.netclasses = {}
         self.buses = []
         self.interfaces = []
-        self.packages = deque()
         self.hierarchy = "" # top level of the circuitry hierarchy.
-        self.node = Node(self) # Hierarchical node tree for the circuit.
-        self.level = 0
+        self.active_node = Node(self) # Hierarchical node to which parts are currently added.
         self.context = [("top",)]
         self.erc_assertion_list = []
-        self.circuit_stack = (
-            []
-        )  # Stack of previous default_circuits for context manager.
+        self.parent= None # Circuit that contains this circuit, if any.
         self.no_files = False  # Allow creation of files for netlists, ERC, libs, etc.
 
         # Internal set used to check for duplicate hierarchical names.
@@ -531,7 +527,7 @@ class Circuit(SkidlBaseObject):
         Remove various circuit elements from the circuit.
         
         Args:
-            *stuff: Parts, nets, buses, interfaces, or packages to remove.
+            *stuff: Parts, nets, buses, or interfaces to remove.
             
         Returns:
             Circuit: The updated circuit.
@@ -547,8 +543,6 @@ class Circuit(SkidlBaseObject):
                 self.rmv_nets(thing)
             elif isinstance(thing, Bus):
                 self.rmv_buses(thing)
-            elif isinstance(thing, Package):
-                self.rmv_packages(thing)
             else:
                 active_logger.raise_(
                     ValueError,
