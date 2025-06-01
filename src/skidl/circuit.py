@@ -129,7 +129,7 @@ class Circuit(SkidlBaseObject):
         Returns:
             Circuit: The new default circuit instance.
         """
-        self.parent = default_circuit
+        self.circuit_stack.append(default_circuit)
         builtins.default_circuit = self
         return self
 
@@ -142,7 +142,7 @@ class Circuit(SkidlBaseObject):
             value: Exception value if an exception occurred.
             traceback: Traceback if an exception occurred.
         """
-        builtins.default_circuit = self.parent
+        builtins.default_circuit = self.circuit_stack.pop()
 
     def mini_reset(self, init=False):
         """Clear any circuitry but don't erase any loaded part libraries."""
@@ -161,7 +161,7 @@ class Circuit(SkidlBaseObject):
         self.active_node = Node(self) # Hierarchical node to which parts are currently added.
         self.context = [("top",)]
         self.erc_assertion_list = []
-        self.parent= None # Circuit that contains this circuit, if any.
+        self.circuit_stack = deque()  # Stack of circuits defined within circuits.
         self.no_files = False  # Allow creation of files for netlists, ERC, libs, etc.
 
         # Internal set used to check for duplicate hierarchical names.
