@@ -20,7 +20,7 @@ def dflt_circuit_erc(circuit):
     """
     Perform electrical rules check on an entire circuit.
     
-    This function checks all nets, parts, interfaces, and packages in the circuit
+    This function checks all nets, parts, and interfaces in the circuit
     for electrical rule violations. It first merges multi-segment nets, then
     runs ERC checks on each unique net once to prevent duplicate error messages.
     
@@ -41,8 +41,8 @@ def dflt_circuit_erc(circuit):
     for name in net_names:
         Net.get(name, circuit=circuit).ERC()
 
-    # Check parts, interfaces & packages for errors:
-    for piece in circuit.parts + circuit.interfaces + list(circuit.packages):
+    # Check parts & interfaces for errors:
+    for piece in circuit.parts + circuit.interfaces:
         piece.ERC()
 
 
