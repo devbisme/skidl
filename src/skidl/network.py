@@ -19,9 +19,9 @@ class Network(list):
     """
     A container for arranging pins, nets, and parts in series and parallel.
     
-    The Network class extends the list type to store input and output nodes (ports)
+    The Network class extends the list type to store input and output ports
     which can be connected to form series and parallel arrangements using the '&' and '|'
-    operators. A Network can have up to two nodes representing its input and output ports.
+    operators. A Network can have up to two ports representing its input and output.
     """
     
     def __init__(self, *objs):
@@ -36,7 +36,7 @@ class Network(list):
             
         Raises:
             TypeError: If an object cannot be converted to a Network.
-            ValueError: If the resulting Network would have more than two nodes.
+            ValueError: If the resulting Network would have more than two ports.
         """
         super().__init__()
         for obj in objs:
@@ -60,7 +60,7 @@ class Network(list):
             if len(self) > 2:
                 active_logger.raise_(
                     ValueError,
-                    "A Network object can't have more than two nodes.",
+                    "A Network object can't have more than two ports.",
                 )
 
     def __and__(self, obj):
@@ -90,12 +90,12 @@ class Network(list):
                 ),
             )
 
-        # Attach the output of the first network to the input of the second.
+        # Attach the output port of the first network to the input port of the second.
         # (Use -1 index to get the output port instead of 1 because the network
         # may only have a single port serving as both the input and output.)
         self[-1] += ntwk[0]
 
-        # Return a network consisting of the input of the first and the output of the second.
+        # Return a network consisting of the input port of the first and the output port of the second.
         return Network(self[0], ntwk[-1])
 
     def __rand__(self, obj):
@@ -172,7 +172,7 @@ def tee(ntwk):
         ntwk: Object to be converted to a Network if not already.
         
     Returns:
-        Node: The first terminal (input port) of the Network.
+        Port: The first terminal (input port) of the Network.
         
     Example:
         vi & r1 & r2 & tee(r3 & r4 & gnd) & r5 & gnd
@@ -187,5 +187,5 @@ def tee(ntwk):
         # Convert an object into a Network if it isn't already.
         ntwk = Network(ntwk)
 
-    # Return the first terminal of the network.
+    # Return the input port of the network.
     return ntwk[0]
