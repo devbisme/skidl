@@ -66,10 +66,5 @@ class NetClass(object):
         for k, v in list(attribs.items()):
             setattr(self, k, v)
 
-        # Is this net class already defined?
-        if circuit.netclasses.get(name) is not None:
-            active_logger.warning(
-                "Cannot redefine existing net class {name}!".format(**locals())
-            )
-        else:
-            circuit.netclasses[name] = self
+        # Add netclass to circuit. Duplicate netclasses will be flagged.
+        circuit.add_netclass(self)

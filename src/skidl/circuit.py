@@ -303,6 +303,21 @@ class Circuit(SkidlBaseObject):
         builtins.default_circuit, self.hierarchy = self.context.pop()
         builtins.NC = default_circuit.NC
 
+    def add_netclass(self, netclass):
+        """
+        Add a net class to the circuit.
+        
+        Args:
+            netclass (NetClass): The net class to add to the circuit.
+        """
+
+        # Is this net class already defined?
+        if netclass.name in self.netclasses:
+            active_logger.warning(f"Cannot redefine existing net class {netclass.name}!")
+        else:
+            self.netclasses[netclass.name] = netclass
+
+
     def add_parts(self, *parts):
         """
         Add parts to the circuit.
