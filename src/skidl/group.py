@@ -44,7 +44,7 @@ class Group:
     def __init__(self, name, **kwargs):
         """Initialize a hierarchical group with a name and optional attributes."""
         self.name = name
-        self.circuit = kwargs.pop("circuit", default_circuit) or default_circuit
+        self.circuit = kwargs.pop("circuit", default_circuit)
         self.tag = kwargs.pop("tag", None)
 
     def __enter__(self):
