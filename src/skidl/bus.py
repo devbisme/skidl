@@ -546,7 +546,7 @@ class Bus(SkidlBaseObject):
 
         # Now name the object with the given name or some variation
         # of it that doesn't collide with anything else in the list.
-        super(Bus, self.__class__).name.fset(
+        super(Bus, type(self)).name.fset(
             self, get_unique_name(self.circuit.buses, "name", BUS_PREFIX, name)
         )
 
@@ -557,7 +557,7 @@ class Bus(SkidlBaseObject):
         
         This reverts the bus to having no name.
         """
-        super(Bus, self.__class__).name.fdel(self)
+        super(Bus, type(self)).name.fdel(self)
 
     @property
     def width(self):

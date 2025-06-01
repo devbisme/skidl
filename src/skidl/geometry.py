@@ -141,7 +141,7 @@ class Tx:
         Returns:
             str: String showing the class name and transformation parameters.
         """
-        return "{self.__class__}({self.a}, {self.b}, {self.c}, {self.d}, {self.dx}, {self.dy})".format(
+        return "{type(self)}({self.a}, {self.b}, {self.c}, {self.d}, {self.dx}, {self.dy})".format(
             self=self
         )
 
@@ -565,7 +565,7 @@ class Point:
         Returns:
             str: String with class name and x,y coordinates.
         """
-        return "{self.__class__}({self.x}, {self.y})".format(self=self)
+        return "{type(self)}({self.x}, {self.y})".format(self=self)
 
 
 Vector = Point
@@ -824,7 +824,7 @@ class BBox:
         Returns:
             str: String showing the class name and min/max points.
         """
-        return "{self.__class__}(Point({self.min}), Point({self.max}))".format(
+        return "{type(self)}(Point({self.min}), Point({self.max}))".format(
             self=self
         )
 

@@ -673,7 +673,7 @@ class XspicePinList(list):
         Args:
             attribs(dict): Attributes to apply to copied part pins.
         """
-        cpy = self.__class__(self.num, self.name, self.part)
+        cpy = type(self)(self.num, self.name, self.part)
         for pin in self:
             cpy += pin.copy(**attribs)
         return cpy

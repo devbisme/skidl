@@ -923,7 +923,7 @@ connections to nets while         prohibiting direct assignment. Python
 
         # Now name the object with the given name or some variation
         # of it that doesn't collide with anything else in the list.
-        super(Net, self.__class__).name.fset(
+        super(Net, type(self)).name.fset(
             self, get_unique_name(self.circuit.nets, "name", NET_PREFIX, name)
         )
 
@@ -931,7 +931,7 @@ connections to nets while         prohibiting direct assignment. Python
     def name(self):
         """Delete the net name."""
         self.test_validity()
-        super(Net, self.__class__).name.fdel(self)
+        super(Net, type(self)).name.fdel(self)
 
     @property
     def pins(self):

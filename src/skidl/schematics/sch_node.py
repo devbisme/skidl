@@ -38,7 +38,7 @@ class SchNode(Node, Placer, Router):
         super().__init__(None, filepath, top_name)
         self.parent = None
         self.children = defaultdict(
-            lambda: self.__class__(
+            lambda: type(self)(
                 None, tool_module, filepath, top_name, title, flatness
             )
         )
