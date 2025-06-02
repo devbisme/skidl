@@ -124,18 +124,19 @@ class Circuit(SkidlBaseObject):
 
     def __enter__(self):
         """
-        When entering a context, save the previous default_circuit and make this circuit the default_circuit.
+        When entering a Circuit context, save the previous default_circuit and make this circuit the default_circuit.
         
         Returns:
             Circuit: The new default circuit instance.
         """
         self.circuit_stack.append(default_circuit)
         builtins.default_circuit = self
+        builtins.NC = self.NC
         return self
 
     def __exit__(self, type, value, traceback):
         """
-        Exit the context and restore the previous default_circuit.
+        Exit the context and restore the previous Circuit context as the default_circuit.
         
         Args:
             type: Exception type if an exception occurred.
@@ -143,6 +144,7 @@ class Circuit(SkidlBaseObject):
             traceback: Traceback if an exception occurred.
         """
         builtins.default_circuit = self.circuit_stack.pop()
+        builtins.NC = default_circuit.NC
 
     def mini_reset(self, init=False):
         """Clear any circuitry but don't erase any loaded part libraries."""
@@ -159,7 +161,7 @@ class Circuit(SkidlBaseObject):
         self.interfaces = []
         self.hierarchy = "" # top level of the circuitry hierarchy.
         self.active_node = Node(self) # Hierarchical node to which parts are currently added.
-        self.context = [("top",)]
+        self.context = []
         self.erc_assertion_list = []
         self.circuit_stack = deque()  # Stack of circuits defined within circuits.
         self.no_files = False  # Allow creation of files for netlists, ERC, libs, etc.
@@ -269,6 +271,9 @@ class Circuit(SkidlBaseObject):
                  If None, an incrementing counter will be used.
         """
 
+        # Save the hierarchy from which this was called.
+        self.context.append(self.hierarchy)
+
         # Create a name for this group from the concatenated names of all
         # the nested contexts that were called on all the preceding levels
         # that led to this one. Also, add a distinct tag to the current
@@ -279,16 +284,9 @@ class Circuit(SkidlBaseObject):
             tag = self.group_name_cntr[grp_hier_name]
             self.group_name_cntr[grp_hier_name] += 1
 
-        # Save the context from which this was called.
-        self.context.append((default_circuit, self.hierarchy))
-
         # Create a new hierarchical name in the activated context.
-        self.hierarchy = self.hierarchy + HIER_SEP + name + str(tag)
+        self.hierarchy = grp_hier_name + str(tag)
         self.add_hierarchical_name(self.hierarchy)
-
-        # Setup some globals needed in this context.
-        builtins.default_circuit = self
-        builtins.NC = self.NC  # pylint: disable=undefined-variable
 
     def deactivate(self):
         """
@@ -297,11 +295,10 @@ class Circuit(SkidlBaseObject):
         This restores the context that existed before the current one was created.
         """
 
-        # Restore the context that existed before this one was created.
+        # Restore the hierarchy that existed before this one was created.
         # This does not remove the circuitry since it has already been
         # added to the part and net lists.
-        builtins.default_circuit, self.hierarchy = self.context.pop()
-        builtins.NC = default_circuit.NC
+        self.hierarchy = self.context.pop()
 
     def add_netclass(self, netclass):
         """

@@ -110,18 +110,24 @@ def SubCircuit(f):
         circuit = kwargs.pop("circuit", default_circuit)
         tag = kwargs.pop("tag", None)
 
-        # Create a hierarchical group context and call the function within it.
-        with Group(name=f.__name__, tag=tag, circuit=circuit):
+        # Most likely the group is being created within the current Circuit, but
+        # enter the context just in case it's a different Circuit. This won't hurt 
+        # anything if it's the same Circuit.
+        with circuit:
+            # Then create a hierarchical group context and call the function within it.
+            with Group(name=f.__name__, tag=tag, circuit=circuit):
 
-            # Call the function to create whatever circuitry it handles.
-            # The arguments to the function are usually nets to be connected to the
-            # parts instantiated in the function, but they may also be user-specific
-            # and have no effect on the mechanics of adding parts or nets although
-            # they may direct the function as to what parts and nets get created.
-            # Store any results it returns as a list. These results are user-specific
-            # and have no effect on the mechanics of adding parts or nets.
-            results = f(*args, **kwargs)
+                # Call the function to create whatever circuitry it handles.
+                # The arguments to the function are usually nets to be connected to the
+                # parts instantiated in the function, but they may also be user-specific
+                # and have no effect on the mechanics of adding parts or nets although
+                # they may direct the function as to what parts and nets get created.
+                # Store any results it returns as a list. These results are user-specific
+                # and have no effect on the mechanics of adding parts or nets.
+                results = f(*args, **kwargs)
 
+        # At this point, we've popped out of the group and Circuit contexts
+        # and can return the results of the function call.
         return results
 
     return sub_f
