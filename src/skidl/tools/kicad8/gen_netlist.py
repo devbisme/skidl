@@ -316,4 +316,6 @@ def gen_netlist(circuit, **kwargs):
     # Add quotes to all strings following the initial keyword in each S-expression of the netlist.
     netlist.add_quotes(lambda s: True)
 
-    return netlist.to_str()
+    # For some reason, KiCad's PCBNEW expects a space after the beginning export keyword
+    # or else it rejects the netlist file.
+    return netlist.to_str().replace("(export\n", "(export \n", 1)
