@@ -28,7 +28,7 @@ OK, WARNING, ERROR = list(range(3))
 class SkidlBaseObject(object):
     """
     Base class for all SKiDL objects.
-    
+
     This class provides common functionality for all SKiDL objects such as
     attribute handling, ERC checking, and object copying. It also manages
     object names, aliases, and notes.
@@ -45,13 +45,13 @@ class SkidlBaseObject(object):
     def __getattr__(self, key):
         """
         Retrieve an attribute from the fields dictionary.
-        
+
         Args:
             key: The attribute name to retrieve.
-            
+
         Returns:
             The value of the attribute.
-            
+
         Raises:
             AttributeError: If the attribute doesn't exist.
         """
@@ -64,10 +64,10 @@ class SkidlBaseObject(object):
     def __setattr__(self, key, value):
         """
         Set an attribute either directly or in the fields dictionary.
-        
+
         If the key is 'fields' or doesn't exist in fields, sets it directly,
         otherwise updates the fields dictionary.
-        
+
         Args:
             key: The attribute name to set.
             value: The value to assign to the attribute.
@@ -80,7 +80,7 @@ class SkidlBaseObject(object):
     def copy(self):
         """
         Create a deep copy of this object.
-        
+
         Returns:
             A new SkidlBaseObject with copies of this object's fields, aliases, and notes.
         """
@@ -99,10 +99,10 @@ class SkidlBaseObject(object):
     def ERC(self, *args, **kwargs):
         """
         Run Electrical Rules Check on this object.
-        
+
         This method runs all ERC functions and evaluates all ERC assertions
         assigned to the object.
-        
+
         Args:
             *args: Arguments to pass to ERC functions.
             **kwargs: Keyword arguments to pass to ERC functions.
@@ -116,7 +116,7 @@ class SkidlBaseObject(object):
     def add_erc_function(self, func):
         """
         Add an ERC function to this object or its class.
-        
+
         Args:
             func: A function that will be called during ERC checking.
         """
@@ -125,7 +125,7 @@ class SkidlBaseObject(object):
     def add_erc_assertion(self, assertion, fail_msg="FAILED", severity=ERROR):
         """
         Add an ERC assertion to this object or its class.
-        
+
         Args:
             assertion: A string containing a Python expression that should evaluate to True.
             fail_msg: Message to display if assertion fails.
@@ -154,7 +154,7 @@ class SkidlBaseObject(object):
     def _eval_erc_assertions(self):
         """
         Evaluate all ERC assertions for this object.
-        
+
         This method evaluates all assertions and logs failures with appropriate
         severity levels.
         """
@@ -189,7 +189,7 @@ class SkidlBaseObject(object):
     def name(self):
         """
         Get the primary name of this object.
-        
+
         Returns:
             The primary name of this object.
         """
@@ -199,7 +199,7 @@ class SkidlBaseObject(object):
     def name(self, nm):
         """
         Set the primary name of this object and add it to aliases.
-        
+
         Args:
             nm: The new name for this object.
         """
@@ -220,7 +220,7 @@ class SkidlBaseObject(object):
     def aliases(self):
         """
         Get the aliases for this object.
-        
+
         Returns:
             An Alias object containing all alternate names for this object.
         """
@@ -233,7 +233,7 @@ class SkidlBaseObject(object):
     def aliases(self, name_or_list):
         """
         Set aliases for this object.
-        
+
         Args:
             name_or_list: A name or list of names to use as aliases.
         """
@@ -253,7 +253,7 @@ class SkidlBaseObject(object):
     def notes(self):
         """
         Get the notes for this object.
-        
+
         Returns:
             A Note object containing all notes associated with this object.
         """
@@ -266,7 +266,7 @@ class SkidlBaseObject(object):
     def notes(self, text_or_notes):
         """
         Set notes for this object.
-        
+
         Args:
             text_or_notes: Text string or Note object to associate with this object.
         """
@@ -281,3 +281,18 @@ class SkidlBaseObject(object):
             del self._notes
         except AttributeError:
             pass
+
+    @property
+    def hiertuple(self):
+        """Return a tuple containing the hierarchical path of this object."""
+        try:
+            return self.node.hiertuple
+        except AttributeError:
+            return tuple()
+
+    @property
+    def hierpath(self):
+        """Return a string containing the hierarchical path of this object."""
+        from skidl.circuit import HIER_SEP
+
+        return HIER_SEP.join(self.hiertuple)

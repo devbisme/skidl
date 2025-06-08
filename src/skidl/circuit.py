@@ -27,9 +27,9 @@ except ImportError:
 
 from .bus import Bus
 from .erc import dflt_circuit_erc
-from .group import Group
 from .logger import active_logger, erc_logger, stop_log_file_output
 from .net import NCNet, Net
+from .node import Node
 from .part import Part, PartUnit
 from .pckg_info import __version__
 from .pin import pin_types
@@ -89,7 +89,7 @@ class Circuit(SkidlBaseObject):
 
         # Store the directory of the top-level script when this Circuit is first created.
         self.script_dir = get_script_dir()
-        self.track_src = True # By default, put track source info into outputs like netlists.
+        self.track_src = True  # By default, put track source info into outputs like netlists.
         self.track_abs_path = False  # By default, track using relative paths.
 
         self.reset(init=True)
@@ -149,8 +149,6 @@ class Circuit(SkidlBaseObject):
     def mini_reset(self, init=False):
         """Clear any circuitry but don't erase any loaded part libraries."""
 
-        from .node import Node
-        
         self.group_name_cntr = Counter()
 
         self.name = ""
@@ -159,15 +157,12 @@ class Circuit(SkidlBaseObject):
         self.netclasses = {}
         self.buses = []
         self.interfaces = []
-        self.hierarchy = "" # top level of the circuitry hierarchy.
-        self.active_node = Node(self) # Hierarchical node to which parts are currently added.
-        self.context = []
+        self.nodes = set()  # Set of all nodes in the circuit hierarchy.
+        self.active_node = None
+        self.active_node = self.activate(name="", tag=None)
         self.erc_assertion_list = []
         self.circuit_stack = deque()  # Stack of circuits defined within circuits.
         self.no_files = False  # Allow creation of files for netlists, ERC, libs, etc.
-
-        # Internal set used to check for duplicate hierarchical names.
-        self._hierarchical_names = {self.hierarchy}
 
         # Clear the name heap for nets and parts.
         reset_get_unique_name()
@@ -205,58 +200,14 @@ class Circuit(SkidlBaseObject):
         # Clear out any old backup lib so the new one will get reloaded when it's needed.
         config.backup_lib = None
 
-    def add_hierarchical_name(self, name):
-        """
-        Record a new hierarchical name and check for duplicates.
-        
-        Args:
-            name (str): Hierarchical name to add.
-            
-        Raises:
-            ValueError: If the name is a duplicate.
-        """
-        if name in self._hierarchical_names:
-            active_logger.raise_(
-                ValueError,
-                "Can't add duplicate hierarchical name {} to this circuit.".format(
-                    name
-                ),
-            )
-        self._hierarchical_names.add(name)
-
-    def rmv_hierarchical_name(self, name):
-        """
-        Remove an existing hierarchical name.
-        
-        Args:
-            name (str): Hierarchical name to remove.
-            
-        Raises:
-            ValueError: If the name doesn't exist.
-        """
-        try:
-            self._hierarchical_names.remove(name)
-        except KeyError:
-            active_logger.raise_(
-                ValueError,
-                "Can't remove non-existent hierarchical name {} from circuit.".format(
-                    name
-                ),
-            )
-
     def get_node_names(self):
         """
-        Get the names of all subcircuits/groups in the hierarchy.
+        Get the hierarchical names of all subcircuits/groups in the hierarchy.
         
         Returns:
-            tuple: Tuple of node names in the circuit hierarchy.
+            tuple: Tuple of hierarchical node names in the circuit hierarchy.
         """
-        node_names = set()
-        for part in self.parts:
-            part_hier_pieces = part.hierarchy.split(HIER_SEP)
-            for i in range(len(part_hier_pieces)):
-                node_names.add(HIER_SEP.join(part_hier_pieces[:i + 1]))
-        return tuple(node_names)
+        return (node.hierpath for node in self.nodes)
 
     def activate(self, name, tag):
         """
@@ -271,22 +222,32 @@ class Circuit(SkidlBaseObject):
                  If None, an incrementing counter will be used.
         """
 
-        # Save the hierarchy from which this was called.
-        self.context.append(self.hierarchy)
-
         # Create a name for this group from the concatenated names of all
         # the nested contexts that were called on all the preceding levels
         # that led to this one. Also, add a distinct tag to the current
         # name to disambiguate multiple uses of the same function.  This is
         # either specified as an argument, or an incrementing value is used.
-        grp_hier_name = self.hierarchy + HIER_SEP + name
+        try:
+            grp_hier_name = self.active_node.hierpath + HIER_SEP + name
+        except AttributeError:
+            grp_hier_name = name
+        # TODO: straighten-out tag issues.
         if tag is None:
             tag = self.group_name_cntr[grp_hier_name]
             self.group_name_cntr[grp_hier_name] += 1
 
-        # Create a new hierarchical name in the activated context.
-        self.hierarchy = grp_hier_name + str(tag)
-        self.add_hierarchical_name(self.hierarchy)
+        node_key = name
+        if tag:
+            node_key += "_" + str(tag)
+        if not getattr(self, "active_node", None):
+            new_node = Node(name=node_key, circuit=self, parent=None)
+        else:
+            assert node_key not in self.active_node.children, f"Duplicated node key: {node_key}"
+            new_node = Node(name=node_key, circuit=self, parent=self.active_node)
+            self.active_node.children[node_key] = new_node
+        self.active_node = new_node
+        self.nodes.add(new_node)
+        return new_node
 
     def deactivate(self):
         """
@@ -298,7 +259,7 @@ class Circuit(SkidlBaseObject):
         # Restore the hierarchy that existed before this one was created.
         # This does not remove the circuitry since it has already been
         # added to the part and net lists.
-        self.hierarchy = self.context.pop()
+        self.active_node = self.active_node.parent
 
     def add_netclass(self, netclass):
         """
@@ -313,7 +274,6 @@ class Circuit(SkidlBaseObject):
             active_logger.warning(f"Cannot redefine existing net class {netclass.name}!")
         else:
             self.netclasses[netclass.name] = netclass
-
 
     def add_parts(self, *parts):
         """
@@ -339,11 +299,10 @@ class Circuit(SkidlBaseObject):
                     part.circuit = self  # Record the Circuit object for this part.
                     part.ref = part.ref  # Adjusts the part reference if necessary.
 
-                    # Store hierarchy of part.
-                    part.hierarchy = self.hierarchy
+                    # Add the part to the currently active node.
+                    self.active_node.parts.append(part)
+                    part.node = self.active_node
 
-                    # Check the part does not have a conflicting hierarchical name
-                    self.add_hierarchical_name(part.hierarchical_name)
 
                     # Store part instantiation trace.
                     part.skidl_trace = get_skidl_trace(track_abs_path=self.track_abs_path)
@@ -369,7 +328,8 @@ class Circuit(SkidlBaseObject):
             part.disconnect()
             if part.is_movable():
                 if part.circuit == self and part in self.parts:
-                    self.rmv_hierarchical_name(part.hierarchical_name)
+                    part.node.parts.remove(part)
+                    part.node = None
                     part.circuit = None
                     part.hierarchy = None
                     self.parts.remove(part)
@@ -408,7 +368,6 @@ class Circuit(SkidlBaseObject):
                     # Add the net to this circuit.
                     net.circuit = self  # Record the Circuit object the net belongs to.
                     net.name = net.name
-                    net.hierarchy = self.hierarchy  # Store hierarchy of net.
 
                     self.nets.append(net)
 
@@ -470,7 +429,6 @@ class Circuit(SkidlBaseObject):
                     # Add the bus to this circuit.
                     bus.circuit = self
                     bus.name = bus.name
-                    bus.hierarchy = self.hierarchy  # Store hierarchy of the bus.
 
                     self.buses.append(bus)
                     for net in bus.nets:
@@ -1049,8 +1007,6 @@ class Circuit(SkidlBaseObject):
         Returns:
             dict: JSON dictionary that can be used as input to netlistsvg.
         """
-
-        from . import skidl
 
         # Reset the counters to clear any warnings/errors from previous run.
         active_logger.error.reset()

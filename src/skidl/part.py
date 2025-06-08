@@ -1457,7 +1457,7 @@ class Part(SkidlBaseObject):
         """
         from .circuit import HIER_SEP
 
-        return getattr(self, "hierarchy", "") + HIER_SEP + self._tag
+        return self.hierpath + HIER_SEP + self._tag
 
     @property
     def tag(self):
@@ -1480,9 +1480,6 @@ class Part(SkidlBaseObject):
         Raises:
             ValueError: If the tag contains disallowed characters.
         """
-        # Remove the part's old hierarchical name from the index.
-        if self.circuit is not None:
-            self.circuit.rmv_hierarchical_name(self.hierarchical_name)
 
         # Update the part's tag.
         if not value:
@@ -1498,10 +1495,6 @@ class Part(SkidlBaseObject):
                     ),
                 )
         self._tag = str_tag
-
-        # Add the udpated hierarchical name back to the index.
-        if self.circuit is not None:
-            self.circuit.add_hierarchical_name(self.hierarchical_name)
 
     @tag.deleter
     def tag(self):

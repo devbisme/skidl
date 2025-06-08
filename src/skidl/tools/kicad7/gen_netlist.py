@@ -169,7 +169,7 @@ def gen_netlist_comp(part, **kwargs):
 
     # Embed the part hierarchy as a set of UUIDs into the sheetpath for each component.
     # This enables hierarchical selection in pcbnew.
-    sheetpath = gen_sheetpath(part.hierarchy)
+    sheetpath = gen_sheetpath(part.hierpath)
     sheetpath_tstamp = gen_sheetpath_tstamp(sheetpath)
     part_tstamp = gen_part_tstamp(part)
 

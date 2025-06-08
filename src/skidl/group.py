@@ -13,6 +13,7 @@ subcircuits in traditional schematic capture tools.
 
 import functools
 
+from .skidlbaseobj import SkidlBaseObject
 from .utilities import export_to_all
 
 
@@ -20,7 +21,7 @@ __all__ = ["subcircuit"]
 
 
 @export_to_all
-class Group:
+class Group(SkidlBaseObject):
     """
     Context manager for hierarchical grouping of circuit components.
     
@@ -43,6 +44,7 @@ class Group:
 
     def __init__(self, name, **kwargs):
         """Initialize a hierarchical group with a name and optional attributes."""
+        super().__init__()
         self.name = name
         self.circuit = kwargs.pop("circuit", default_circuit)
         self.tag = kwargs.pop("tag", None)
