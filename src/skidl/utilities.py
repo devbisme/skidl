@@ -462,6 +462,11 @@ def get_unique_name(lst, attrib, prefix, initial=None):
 
     name = initial
 
+    # If the prefix ends with a number, then append an underscore in case another
+    # number is appended to the prefix when forming a unique name.
+    if prefix[-1].isdigit():
+        prefix += "_"
+
     # Fast processing for names that haven't been seen before.
     # This speeds up the most common cases for finding a new name, but doesn't
     # really hurt the less common cases.
@@ -480,37 +485,24 @@ def get_unique_name(lst, attrib, prefix, initial=None):
 
     # Get the unique names used in the list.
     unique_names = set([getattr(l, attrib, None) for l in lst])
+    unique_names -= {None}
 
     # If the initial name is None, then create a name based on the prefix
     # and the smallest unused number that's available for that prefix.
     if not name:
-        # Do a binary search for a unique name formed from the prefix + number.
-        n = 1  # Starting number to append to the prefix.
-        while True:
-            # Step forward in larger and larger increments looking for a name
-            # that isn't in the list.
-            step = 1
-            while prefix + str(n) in unique_names:
-                n += step
-                step *= 2
-            # If the step is 1, then the first name tried was available, so take it.
-            # If the step is two, the next sequential name after the first name tried
-            # was available, so take that.
-            if step in (1, 2):
-                name = prefix + str(n)
-                break
-            # For larger step sizes, there may be non-existent names preceding
-            # the current value of n. So search backward starting with a large step
-            # and making it smaller and smaller until an existing name is found.
-            while (prefix + str(n) not in unique_names) and (step > 1):
-                step //= 2
-                n -= step
-            # Go back to the start of the loop and search forward from this value
-            # of n looking for an unused slot.
-
-            # Bump prefix counter to the newest index.
-            prefix_counts[lst_id + prefix] = n
-
+        # Get every name in the list that starts with the prefix.
+        prefix_names = {n for n in unique_names if n.startswith(prefix)}
+        # Find the next available number that's greater than the largest used number.
+        next_avail_num = max(
+            [int(n[len(prefix) :]) for n in prefix_names if n[len(prefix) :].isdigit()],
+            default=0,
+        ) + 1
+        # Now form the name from the prefix appended with the next available number.
+        name = prefix + str(next_avail_num)
+        name_heap.add(lst_id + name)
+        prefix_counts[lst_id + prefix] = next_avail_num
+        return name
+    
     # If the initial name is just a number, then prepend the prefix to it.
     elif isinstance(name, int):
         name = prefix + str(name)
@@ -519,17 +511,23 @@ def get_unique_name(lst, attrib, prefix, initial=None):
     # If the name is unique, then return it.
     if name not in unique_names:
         name_heap.add(lst_id + name)
+        prefix_counts[lst_id + prefix] += 1
         return name
 
-    # Otherwise, determine how many copies of the name are in the list and
-    # append a number to make this name unique.
-    filter_dict = {attrib: re.escape(name) + r"_\d+"}
-    n = len(filter_list(lst, **filter_dict))
-    name = name + "_" + str(n + 1)
-
-    # Recursively call this routine using the newly-generated name to
-    # make sure it's unique. Eventually, a unique name will be returned.
-    return get_unique_name(lst, attrib, prefix, name)
+    # There are name conflicts, so we need to find the next available index to attach to the name.
+    name_conflicts = {n for n in unique_names if n.startswith(name)}
+    next_avail_num = max(
+            [int(n[len(name) :]) for n in name_conflicts if n[len(name) :].isdigit()],
+            default=0,
+    ) + 1
+    # If the original name ends with a digit, then append an underscore to it to
+    # separate it from the appended number.
+    if name[-1].isdigit():
+        name += "_"
+    name = name + str(next_avail_num)
+    name_heap.add(lst_id + name)
+    prefix_counts[lst_id + prefix] = next_avail_num
+    return name
 
 
 @export_to_all
