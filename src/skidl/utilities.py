@@ -944,7 +944,8 @@ class TriggerDict(dict):
             v: The value to set.
         """
         if k in self.trigger_funcs:
-            if v != self[k]:
+            if v != self.get(k, None):
+            # if v != self[k]:
                 self.trigger_funcs[k](self, k, v)
         super().__setitem__(k, v)
 
