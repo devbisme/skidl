@@ -1424,16 +1424,18 @@ class Part(SkidlBaseObject):
             # This happens if the part has no integer-labeled pins.
             return 0, 0
         
-    @property
-    def src_line(self):
+    def src_line(self, rel_path):
         """
         Return the file name and line number where the part was defined.
+
+        Args:
+            rel_path (bool): If True, use the relative path of the file.
         
         Returns:
             str: File name and line number separated by colon.
         """
         file_path, file_line = self.skidl_trace[-1]
-        if not self.circuit.track_abs_path:
+        if rel_path:
             file_path = os.path.relpath(file_path, self.circuit.script_dir)
         return file_path + ":" + file_line
 

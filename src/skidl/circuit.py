@@ -340,7 +340,7 @@ class Circuit(SkidlBaseObject):
                     self.add_hierarchical_name(part.hierarchical_name)
 
                     # Store part instantiation trace.
-                    part.skidl_trace = get_skidl_trace(track_abs_path=self.track_abs_path)
+                    part.skidl_trace = get_skidl_trace()
 
                     self.parts.append(part)
                 else:
@@ -730,6 +730,10 @@ class Circuit(SkidlBaseObject):
         tool = kwargs.pop("tool", skidl.config.tool)
         file_ = kwargs.pop("file_", None)
         do_backup = kwargs.pop("do_backup", True)
+
+        # Pass these settings from the Circuit object if they are not already set.
+        kwargs["track_abs_path"] = kwargs.get("track_abs_path", self.track_abs_path)
+        kwargs["track_src"] = kwargs.get("track_src", self.track_src)
 
         netlist = tool_modules[tool].gen_netlist(self, **kwargs)
 

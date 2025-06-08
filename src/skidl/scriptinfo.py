@@ -94,31 +94,7 @@ def get_script_name():
 
 
 @export_to_all
-def get_skidl_trace(track_abs_path=False):
-    """
-    Return the call stack trace where a SKiDL object was instantiated.
-    
-    This function examines the call stack to determine precisely where a SKiDL 
-    object was created in the user's code. It filters out internal SKiDL function 
-    calls to show only relevant user code locations, making debugging and tracing 
-    object creation easier.
-    
-    Args:
-        track_abs_path (bool, optional): If True, return absolute file paths in the trace.
-                                        If False (default), return paths relative to the 
-                                        SKiDL library directory.
-    
-    Returns:
-        list: A list of strings, each in the format "filepath:line_number", 
-              representing the call stack that led to the creation of a SKiDL object.
-              The list is ordered from the earliest (bottom of stack) to latest (top)
-              function calls.
-    
-    Example:
-        >>> trace = get_skidl_trace()
-        >>> print(trace)
-        ['my_circuit.py:42', 'components.py:156']
-    """
+def get_skidl_trace():
 
     # To determine where this object was created, trace the function
     # calls that led to it and place into a field
@@ -148,13 +124,6 @@ def get_skidl_trace(track_abs_path=False):
             # Skip recording functions in the SKiDL library.
             continue
 
-        # Get the absolute path to the file containing the function
-        # and the line number of the call in the file. Append these
-        # to the trace.
-        if track_abs_path:
-            filepath = os.path.abspath(filename)
-        else:
-            filepath = os.path.relpath(filename, skidl_dir)
-        skidl_trace.append((filepath, str(lineno)))
+        skidl_trace.append((os.path.abspath(filename), str(lineno)))
 
     return skidl_trace

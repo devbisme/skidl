@@ -184,7 +184,7 @@ def gen_netlist_comp(part, **kwargs):
     )
     part_fields.append(["SKiDL Tag", part.tag])
     if kwargs.get("track_src", True):
-        part_fields.append(["SKiDL Line", part.src_line])
+        part_fields.append(["SKiDL Line", part.src_line(not kwargs.get("track_abs_path", False))])
     for fld_name, fld_value in part_fields:
         if fld_value:
             field = Sexp(["field", ["name", fld_name], fld_value])
@@ -266,9 +266,9 @@ def gen_netlist(circuit, **kwargs):
         - The Sexp class is used to create a properly formatted S-expression.
     """
 
-    # If track_src is not specified in kwargs, use the circuit's track_src attribute.
-    if "track_src" not in kwargs:
-        kwargs["track_src"] = circuit.track_src
+    # If track_src, track_abs_path is not specified in kwargs, use values from the circuit attributes.
+    kwargs["track_src"] = kwargs.get("track_src", circuit.track_src)
+    kwargs["track_abs_path"] = kwargs.get("track_abs_path", circuit.track_abs_path)
 
     # Check for some things that can cause problems if the netlist is
     # used to create a PCB.
