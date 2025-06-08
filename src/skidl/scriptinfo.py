@@ -95,6 +95,18 @@ def get_script_name():
 
 @export_to_all
 def get_skidl_trace():
+    """
+    Get a trace of function calls excluding internal SKiDL functions.
+    
+    This function examines the current call stack and creates a trace that
+    excludes calls to internal SKiDL library functions. The resulting trace
+    is useful for debugging and for identifying where SKiDL objects were created
+    in user code.
+    
+    Returns:
+        list: A list of tuples containing (file_path, line_number) for each relevant
+              call in the stack, ordered from the oldest call to the most recent.
+    """
 
     # To determine where this object was created, trace the function
     # calls that led to it and place into a field
@@ -110,7 +122,7 @@ def get_skidl_trace():
         skidl_dir, _ = os.path.split(call_stack[0][1])
 
     # Record file_name:line_num starting from the bottom of the stack
-    # while skipping every function found in the SKiDL library
+    # while skipping every function found in the SKiDL package
     # (no use recording internal calls).
     skidl_trace = []
     for frame in reversed(call_stack):
@@ -120,8 +132,8 @@ def get_skidl_trace():
         except AttributeError:
             filename = frame[1]
             lineno = frame[2]
-        if os.path.split(filename)[0] == skidl_dir:
-            # Skip recording functions in the SKiDL library.
+        if filename.startswith(skidl_dir):
+            # Skip functions in the SKiDL package.
             continue
 
         skidl_trace.append((os.path.abspath(filename), str(lineno)))
