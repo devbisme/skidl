@@ -117,7 +117,7 @@ def debug_trace(fn, *args, **kwargs):
     """
 
     def traced_fn(*args, **kwargs):
-        if kwargs.get("debug_trace"):
+        if kwargs.pop("debug_trace"):
             print("Doing {} ...".format(fn.__name__))
         return fn(*args, **kwargs)
 
@@ -413,7 +413,7 @@ def merge_dicts(dct, merge_dct):
         if (
             k in dct
             and isinstance(dct[k], dict)
-            and isinstance(merge_dct[k], collections.Mapping)
+            and isinstance(merge_dct[k], collections.abc.Mapping)
         ):
             merge_dicts(dct[k], merge_dct[k])
         else:
@@ -455,7 +455,6 @@ def get_unique_name(lst, attrib, prefix, initial=None):
     Returns:
         str: A unique name that doesn't exist in the list.
     """
-
     # Use the list id to disambiguate names of objects on different lists (e.g., parts & nets).
     lst_id = str(id(lst))
 
@@ -470,16 +469,18 @@ def get_unique_name(lst, attrib, prefix, initial=None):
     # This speeds up the most common cases for finding a new name, but doesn't
     # really hurt the less common cases.
     if not name:
-        name = prefix + str(prefix_counts[lst_id + prefix] + 1)
-        if lst_id + name not in name_heap:
-            name_heap.add(lst_id + name)
+        probe_name = prefix + str(prefix_counts[lst_id + prefix] + 1)
+        if lst_id + probe_name not in name_heap:
+            name_heap.add(lst_id + probe_name)
             prefix_counts[lst_id + prefix] += 1
-            return name
+            return probe_name
     else:
         if isinstance(name, int):
-            name = prefix + str(name)
-        if lst_id + name not in name_heap:
-            name_heap.add(lst_id + name)
+            probe_name = prefix + str(name)
+        else:
+            probe_name = name
+        if lst_id + probe_name not in name_heap:
+            name_heap.add(lst_id + probe_name)
             return name
 
     # Get the unique names used in the list.
@@ -490,7 +491,7 @@ def get_unique_name(lst, attrib, prefix, initial=None):
     # and the smallest unused number that's available for that prefix.
     if not name:
         # Get every name in the list that starts with the prefix.
-        prefix_names = {n for n in unique_names if n.startswith(prefix)}
+        prefix_names = {n for n in unique_names if str(n).startswith(prefix)}
         # Find the next available number that's greater than the largest used number.
         next_avail_num = max(
             [int(n[len(prefix) :]) for n in prefix_names if n[len(prefix) :].isdigit()],
@@ -900,10 +901,9 @@ def norecurse(f):
     """
 
     def func(*args, **kwargs):
-        # If a function's name is on the stack twice (once for the current call
-        # and a second time for the previous call), then return withcurrent_level
+        # If a function's name is already on the stack, then return without
         # executing the function.
-        if len([1 for l in traceback.extract_stack() if l[2] == f.__name__]) > 1:
+        if len([1 for l in traceback.extract_stack() if l[2] == f.__name__]) > 0:
             return None
 
         # Otherwise, not a recursive call so execute the function and return result.

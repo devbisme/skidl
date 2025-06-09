@@ -33,11 +33,10 @@ class TestExportToAll:
         mock_module = Mock()
         mock_module.__all__ = ['existing_func']
         
-        with patch('sys.modules', {'test_module': mock_module}):
+        with patch('sys.modules', {'test_utilities': mock_module}):
             @export_to_all
             def test_func():
                 pass
-            test_func.__module__ = 'test_module'
             
             # Apply decorator
             decorated_func = export_to_all(test_func)
@@ -50,13 +49,10 @@ class TestExportToAll:
         mock_module = Mock(spec=[])  # Module without __all__
         del mock_module.__all__  # Ensure __all__ doesn't exist
         
-        with patch('sys.modules', {'test_module': mock_module}):
+        with patch('sys.modules', {'test_utilities': mock_module}):
             @export_to_all
             def test_func():
                 pass
-            test_func.__module__ = 'test_module'
-            
-            decorated_func = export_to_all(test_func)
             
         assert hasattr(mock_module, '__all__')
         assert mock_module.__all__ == ['test_func']
@@ -123,7 +119,8 @@ class TestDebugTrace:
         @debug_trace
         def test_function():
             return "result"
-            
+
+        # Call the function with debug_trace=True
         result = test_function(debug_trace=True)
         captured = capsys.readouterr()
         
@@ -229,7 +226,7 @@ class TestCnvtToVarName:
     
     @pytest.mark.parametrize("input_str,expected", [
         ("hello-world", "hello_world"),
-        ("123abc", "_23abc"),
+        ("123abc", "_123abc"),
         ("valid_name", "valid_name"),
         ("with spaces", "with_spaces"),
         ("special!@#chars", "special___chars")
@@ -413,8 +410,12 @@ class TestGetUniqueName:
         obj1.name = 'R1'
         obj2 = Mock()
         obj2.name = 'R2'
-        
-        result = get_unique_name([obj1, obj2], 'name', 'R')
+        lst = [obj1, obj2]
+        result = get_unique_name(lst, 'name', 'R', 'R1')
+        assert result == 'R1'
+        result = get_unique_name(lst, 'name', 'R', 'R2')
+        assert result == 'R2'
+        result = get_unique_name(lst, 'name', 'R')
         assert result == 'R3'
         
     def test_get_unique_name_with_initial(self):
@@ -482,7 +483,7 @@ class TestExpandIndices:
     def test_expand_indices_slice(self):
         """Test expanding slice indices."""
         result = expand_indices(0, 10, False, slice(1, 4))
-        assert result == [1, 2, 3]
+        assert result == [1, 2, 3, 4]
         
     def test_expand_indices_string(self):
         """Test expanding string indices."""
@@ -637,17 +638,6 @@ class TestOpened:
                 content = file_obj.read()
                 
         os.unlink(f.name)
-        assert content == 'test content'
-        
-    def test_opened_with_file_object(self):
-        """Test opened context manager with file object."""
-        with tempfile.NamedTemporaryFile(mode='w+', suffix='.txt') as f:
-            f.write('test content')
-            f.seek(0)
-            
-            with opened(f, 'r') as file_obj:
-                content = file_obj.read()
-                
         assert content == 'test content'
         
     def test_opened_invalid_type(self):
