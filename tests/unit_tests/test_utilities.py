@@ -1,4 +1,8 @@
+import pytest
+
 from skidl.utilities import is_url
+
+from .setup_teardown import setup_function, teardown_function
 
 def test_unix_paths_not_urls():
     """Test that Unix paths are not recognized as URLs."""

@@ -2,8 +2,11 @@
 
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
+import pytest
+
 from skidl import Part, netlist_to_skidl, generate_netlist, TEMPLATE, Net, subcircuit
-from skidl.utilities import find_and_read_file
+
+from .setup_teardown import setup_function, teardown_function
 
 
 def test_parser_1():
@@ -42,7 +45,7 @@ def test_parser_1():
     with open("./test_parser_1/__init__.py", "w") as f:
         f.write("import main\n")
 
-    default_circuit.reset()
+    default_circuit.mini_reset()
 
     # Import and execute the generated SKiDL code.
     import sys
