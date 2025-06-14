@@ -2,6 +2,8 @@
 
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
+import pytest
+
 from skidl import TEMPLATE, Part, generate_netlist
 
 from .setup_teardown import setup_function, teardown_function

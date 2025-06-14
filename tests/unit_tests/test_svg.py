@@ -5,6 +5,7 @@
 import pytest
 
 from skidl import Part, Net, generate_svg, TEMPLATE, SubCircuit, Bus, POWER, ERC
+
 from .setup_teardown import setup_function, teardown_function
 
 

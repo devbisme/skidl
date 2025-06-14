@@ -2,6 +2,8 @@
 
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
+import pytest
+
 from builtins import super
 
 from skidl import (

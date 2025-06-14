@@ -4,6 +4,8 @@
 
 from builtins import super
 
+import pytest
+
 from skidl import ERC, Net, Part, PartTmplt, erc_logger, generate_netlist
 from skidl.utilities import to_list, Rgx
 
