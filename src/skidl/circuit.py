@@ -47,12 +47,6 @@ from .utilities import (
 )
 
 
-HIER_SEP = "."  # Separator for hierarchy labels.
-
-
-__all__ = ["HIER_SEP"]
-
-
 @export_to_all
 class Circuit(SkidlBaseObject):
     """
@@ -136,7 +130,7 @@ class Circuit(SkidlBaseObject):
 
     def __exit__(self, type, value, traceback):
         """
-        Exit the context and restore the previous Circuit context as the default_circuit.
+        Exit the current Circuit context and restore the previous one as the default_circuit.
         
         Args:
             type: Exception type if an exception occurred.
@@ -154,24 +148,22 @@ class Circuit(SkidlBaseObject):
         self.name = ""
         self.parts = []
         self.nets = []
-        self.netclasses = {}
         self.buses = []
         self.interfaces = []
+        self.netclasses = {}
         self.nodes = set()  # Set of all nodes in the circuit hierarchy.
         self.active_node = None
-        self.active_node = self.activate(name="", tag=None)
-        self.erc_assertion_list = []
+        self.active_node = self.activate(name="", tag="")
         self.circuit_stack = deque()  # Stack of circuits defined within circuits.
+        self.erc_assertion_list = []
         self.no_files = False  # Allow creation of files for netlists, ERC, libs, etc.
 
-        # Clear the name heap for nets and parts.
+        # Clear the name heap for nets, parts, etc.
         reset_get_unique_name()
 
         # Clear out the no-connect net and set the global no-connect if it's
         # tied to this circuit.
-        self.NC = NCNet(
-            name="__NOCONNECT", circuit=self
-        )  # Net for storing no-connects for parts in this circuit.
+        self.NC = NCNet(name="__NOCONNECT", circuit=self)
         if not init and self is default_circuit:
             builtins.NC = self.NC
 
@@ -207,59 +199,30 @@ class Circuit(SkidlBaseObject):
         Returns:
             tuple: Tuple of hierarchical node names in the circuit hierarchy.
         """
-        return (node.hierpath for node in self.nodes)
+        return (node.hiertuple for node in self.nodes)
 
     def activate(self, name, tag):
         """
-        Activate a new hierarchical group and save the previous one.
-        
-        This method saves the current context and creates a new hierarchical level
-        with the given name and tag.
-        
-        Args:
-            name (str): Name for the new hierarchical level.
-            tag: Tag to disambiguate multiple instances of the same hierarchical name.
-                 If None, an incrementing counter will be used.
+        Activate a new hierarchical node as a child of the currently active node.
         """
 
-        # Create a name for this group from the concatenated names of all
-        # the nested contexts that were called on all the preceding levels
-        # that led to this one. Also, add a distinct tag to the current
-        # name to disambiguate multiple uses of the same function.  This is
-        # either specified as an argument, or an incrementing value is used.
-        try:
-            grp_hier_name = self.active_node.hierpath + HIER_SEP + name
-        except AttributeError:
-            grp_hier_name = name
-        # TODO: straighten-out tag issues.
-        if tag is None:
-            tag = self.group_name_cntr[grp_hier_name]
-            self.group_name_cntr[grp_hier_name] += 1
-
-        node_key = name
-        if tag:
-            node_key += "_" + str(tag)
-        if not getattr(self, "active_node", None):
-            new_node = Node(name=node_key, circuit=self, parent=None)
-        else:
-            assert node_key not in self.active_node.children, f"Duplicated node key: {node_key}"
-            new_node = Node(name=node_key, circuit=self, parent=self.active_node)
-            self.active_node.children[node_key] = new_node
+        new_node = Node(circuit=self, name=name, tag=tag, parent=getattr(self, "active_node", None))
+        self.add_node(new_node)
         self.active_node = new_node
-        self.nodes.add(new_node)
         return new_node
 
     def deactivate(self):
         """
-        Deactivate the current hierarchical group and return to the previous one.
-        
-        This restores the context that existed before the current one was created.
+        Deactivate the current hierarchical node and return to the previous one.
         """
 
         # Restore the hierarchy that existed before this one was created.
         # This does not remove the circuitry since it has already been
         # added to the part and net lists.
         self.active_node = self.active_node.parent
+
+    def add_node(self, node):
+        self.nodes.add(node)
 
     def add_netclass(self, netclass):
         """
@@ -645,17 +608,19 @@ class Circuit(SkidlBaseObject):
 
                 skidl.empty_footprint_handler(part)
 
-    def check_part_tags(self):
+    def check_tags(self):
         """
-        Check for missing or randomly-assigned part tags.
+        Check for missing part or hierarchical node tags.
         
-        Part tags are important for maintaining stable associations between
+        Tags are important for maintaining stable associations between
         schematic parts and PCB footprints. This method warns about any
-        parts with null or randomly-assigned tags.
+        missing tags.
         """
 
         for part in self.parts:
-            part.check_for_manual_tag()
+            part.check_tag(create_if_missing=True)
+        for node in self.nodes:
+            node.check_tag(create_if_missing=True)
 
     def generate_netlist(self, **kwargs):
         """
@@ -680,7 +645,7 @@ class Circuit(SkidlBaseObject):
 
         self.merge_net_names()
 
-        # Don't do any checks for empty footprints or random/missing tags
+        # Don't do any checks for empty footprints or missing tags
         # since this should be done when tool-specific netlists are generated.
         # For example, these checks aren't necessary when generating
         # a SPICE netlist.
@@ -731,7 +696,7 @@ class Circuit(SkidlBaseObject):
 
         # Check for things that can cause problems.
         self.check_for_empty_footprints()
-        self.check_part_tags()
+        self.check_tags()
 
         # Extract arguments:
         #     Get EDA tool the netlist will be generated for.
