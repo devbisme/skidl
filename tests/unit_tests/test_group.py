@@ -8,7 +8,6 @@ from builtins import super
 
 from skidl import (
     ERC,
-    HIER_SEP,
     TEMPLATE,
     Bus,
     Group,
@@ -18,6 +17,7 @@ from skidl import (
     generate_xml,
     subcircuit,
 )
+from skidl.skidlbaseobj import HIER_SEP
 
 from .setup_teardown import setup_function, teardown_function
 

@@ -179,10 +179,10 @@ def test_hierarchical_names_1():
     assert len(default_circuit.parts) == 5  # Check the number of parts.
     assert len(default_circuit.get_nets()) == 6  # Check the number of nets.
 
-    assert r1s[0].hierarchical_name == ".resdiv.resistor1"  # Check hierarchical name.
-    assert r1s[1].hierarchical_name == ".resdiv1.resistor1"  # Check hierarchical name.
-    assert r2s[0].hierarchical_name == ".resdiv.resistor2"  # Check hierarchical name.
-    assert r2s[1].hierarchical_name == ".resdiv1.resistor2"  # Check hierarchical name.
+    assert r1s[0].hierarchical_name == ".resdiv1.resistor1"  # Check hierarchical name.
+    assert r1s[1].hierarchical_name == ".resdiv2.resistor1"  # Check hierarchical name.
+    assert r2s[0].hierarchical_name == ".resdiv1.resistor2"  # Check hierarchical name.
+    assert r2s[1].hierarchical_name == ".resdiv2.resistor2"  # Check hierarchical name.
     assert r_top.hierarchical_name == ".resistor_top"  # Check top-level resistor name.
 
     ERC()  # Run electrical rules check.
