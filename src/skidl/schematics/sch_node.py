@@ -89,7 +89,7 @@ class SchNode(Placer, Router):
             Node: The Node object containing the part.
         """
 
-        from skidl.circuit import HIER_SEP
+        from skidl.skidlbaseobj import HIER_SEP
 
         level_names = part.hierarchical_name.split(HIER_SEP)
         node = self
@@ -106,7 +106,7 @@ class SchNode(Placer, Router):
             level (int, optional): The current level (depth) of the node in the hierarchy. Defaults to 0.
         """
 
-        from skidl.circuit import HIER_SEP
+        from skidl.skidlbaseobj import HIER_SEP
 
         # Get list of names of hierarchical levels (in order) leading to this part.
         level_names = part.hierarchical_name.split(HIER_SEP)
@@ -205,7 +205,7 @@ class SchNode(Placer, Router):
             net (Net): The net to be added to this node.
         """
 
-        from skidl.circuit import HIER_SEP
+        from skidl.skidlbaseobj import HIER_SEP
         from .net_terminal import NetTerminal
 
         nt = NetTerminal(net, self.tool_module)
