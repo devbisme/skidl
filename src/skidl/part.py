@@ -293,7 +293,6 @@ class Part(SkidlBaseObject):
         # Setup the tag for tieing the part to a footprint in a pcb editor.
         # Do this before adding the part to the circuit or an exception will occur
         # because the part can't give its hierarchical name to the circuit.
-        # If the tag is not set, a random tag is generated.
         self.tag = tag
 
         # Override the reference prefix if it was passed as a parameter.
@@ -799,6 +798,13 @@ class Part(SkidlBaseObject):
             # Make a shallow copy of the part.
             cpy = copy(self)
 
+            # Remove any existing part tag so the copy won't be linked to the
+            # same footprint in the PCB as the source.
+            try:
+                del cpy.tag
+            except AttributeError:
+                pass
+
             # Remove any existing Pin and PartUnit attributes so new ones
             # can be made in the copy without generating warning messages.
             rmv_attrs = [
@@ -839,12 +845,6 @@ class Part(SkidlBaseObject):
 
             # Copied part starts off not being in any circuit.
             cpy.circuit = None
-
-            # Reset the tag to a random generated one.  We
-            # are careful to do this after setting the circuit to
-            # None so we don't corrupt the hierarchical name index
-            # maintained in circuit.
-            del cpy.tag
 
             # If copy is destined for a netlist, then add it to the Circuit its
             # source came from or else add it to the default Circuit object.
@@ -1383,24 +1383,6 @@ class Part(SkidlBaseObject):
 
         convert_for_spice(self, spice_part, pin_map)
 
-    def check_for_manual_tag(self):
-        """
-        Warn if the part tag was not set or was set randomly.
-        
-        Issues warning messages when:
-        1. A part has no tag
-        2. A part has a randomly generated tag
-        """
-
-        if not self.tag:
-            active_logger.bare_warning(
-                f"Missing tag on part {self.name}/{self.ref} added at {self.src_line}."
-            )
-        elif self.tag.startswith("random-"):
-            active_logger.bare_warning(
-                f"Randomly-assigned tag on part {self.name}/{self.ref} added at {self.src_line}."
-            )
-
     def _find_min_max_pins(self):
         """
         Return the minimum and maximum pin numbers for the part.
@@ -1423,19 +1405,6 @@ class Part(SkidlBaseObject):
         except ValueError:
             # This happens if the part has no integer-labeled pins.
             return 0, 0
-        
-    @property
-    def src_line(self):
-        """
-        Return the file name and line number where the part was defined.
-        
-        Returns:
-            str: File name and line number separated by colon.
-        """
-        file_path, file_line = self.skidl_trace[-1]
-        if not self.circuit.track_abs_path:
-            file_path = os.path.relpath(file_path, self.circuit.script_dir)
-        return file_path + ":" + file_line
 
     @property
     def ordered_pins(self):
@@ -1455,57 +1424,7 @@ class Part(SkidlBaseObject):
         Returns:
             str: The hierarchical name including hierarchy prefix and tag.
         """
-        from .circuit import HIER_SEP
-
-        return self.hierpath + HIER_SEP + self._tag
-
-    @property
-    def tag(self):
-        """
-        Return the part's tag.
-        
-        Returns:
-            str: The part's tag.
-        """
-        return self._tag
-
-    @tag.setter
-    def tag(self, value):
-        """
-        Set the part's tag.
-        
-        Args:
-            value (str): The new tag for the part.
-            
-        Raises:
-            ValueError: If the tag contains disallowed characters.
-        """
-
-        # Update the part's tag.
-        if not value:
-            del self.tag
-            str_tag = "random-" + str(randint(0, 2**64 - 1))
-        else:
-            str_tag = str(value)
-            if re.compile(r"[^a-zA-Z0-9\-_]").search(str_tag):
-                active_logger.raise_(
-                    ValueError,
-                    "Can't set part tag to {} it contains disallowed characters.".format(
-                        str_tag
-                    ),
-                )
-        self._tag = str_tag
-
-    @tag.deleter
-    def tag(self):
-        """
-        Delete the part tag.
-        
-        Note:
-            Part's can't have a None tag, so a new random tag will be set.
-        """
-        # Part's can't have a None tag, so set a new random tag.
-        self.tag = "random-" + str(randint(0, 2**64 - 1))
+        return self.hiername
 
     @property
     def ref(self):
@@ -1818,7 +1737,7 @@ class PartUnit(Part):
         Returns:
             str: Reference in the form "parent_ref.label"
         """
-        from .circuit import HIER_SEP
+        from .skidlbaseobj import HIER_SEP
 
         return HIER_SEP.join((self.parent.ref, self.label))
 
