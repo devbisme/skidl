@@ -14,7 +14,6 @@ from simp_sexp import Sexp
 from skidl.pckg_info import __version__
 from skidl.scriptinfo import scriptinfo
 from skidl.utilities import export_to_all
-from skidl.circuit import HIER_SEP
 
 # This UUID was generated using uuidgen for passing as the namespace argument to uuid.uuid5().
 namespace_uuid = uuid.UUID("7026fcc6-e1a0-409e-aaf4-6a17ea82654f")
@@ -22,16 +21,16 @@ namespace_uuid = uuid.UUID("7026fcc6-e1a0-409e-aaf4-6a17ea82654f")
 
 def gen_sheetpath(hierarchy):
     """
-    Generate a sheetpath string from a hierarchical path name.
+    Generate a sheetpath string from a hierarchical path tuple.
 
     A sheetpath is a string representation of the hierarchical path
     in a KiCad project. This function converts the given hierarchy
-    string into a valid sheetpath format by replacing the hierarchy
-    separator with '/' and ensuring it starts and ends with '/'.
+    tuple into a valid sheetpath format by joining the elements of the
+    hierarchy tuple with '/' and ensuring it starts and ends with '/'.
 
     Args:
-        hierarchy (str): The hierarchical path name, where levels are
-                         separated by a specific hierarchy separator.
+        hierarchy (tuple): A tuple of strings with the name of each level
+            of the hierarchy.
 
     Returns:
         str: The generated sheetpath string. If the input hierarchy
@@ -40,7 +39,7 @@ def gen_sheetpath(hierarchy):
 
     if not hierarchy:
         return "/"
-    return "/" + hierarchy.replace(HIER_SEP, "/").strip("/") + "/"
+    return f"/{'/'.join(hierarchy)}/"
 
 
 def gen_part_tstamp(part):
@@ -64,17 +63,18 @@ def gen_part_tstamp(part):
     return part_tstamp
 
 
-def gen_sheetpath_tstamp(sheetpath):
+def gen_sheetpath_tstamp(hierarchy):
     """
-    Generate a timestamp for a given sheetpath.
+    Generate a timestamp from a hierarchical path tuple.
 
-    This function creates a unique timestamp for a hierarchical sheetpath
-    in a KiCad project. If the sheetpath is the root ("/"), the timestamp
-    will also be "/". For other sheetpaths, it generates a UUID for each
-    segment of the path and combines them into a single timestamp.
+    This function creates a unique timestamp for a hierarchical path
+    in a KiCad project. If the hierarchy is empty, the timestamp
+    will be "/". Otherwise, it generates a UUID for each
+    entry of the tuple and combines them into a single timestamp.
 
     Args:
-        sheetpath (str): The hierarchical sheetpath, represented as a string.
+        hierarchy (tuple): A tuple of strings with the name of each level
+            of the hierarchy.
 
     Returns:
         str: A timestamp for the sheetpath. For the root path, it returns "/".
@@ -83,12 +83,11 @@ def gen_sheetpath_tstamp(sheetpath):
              segment of the sheetpath.
     """
 
-    if sheetpath == "/":
+    if not hierarchy:
         tstamp = "/"
     else:
-        path_pieces = sheetpath.strip("/").split("/")
         tstamp = "/".join(
-            [str(uuid.uuid5(namespace_uuid, piece)) for piece in path_pieces]
+            [str(uuid.uuid5(namespace_uuid, level)) for level in hierarchy]
         )
         tstamp = "/" + tstamp + "/"
     return tstamp
@@ -111,7 +110,7 @@ def gen_netlist_sheet(hierarchy, number, src_file, **kwargs):
               its metadata and title block information.
     """
     sheetpath = gen_sheetpath(hierarchy)
-    sheetpath_tstamp = gen_sheetpath_tstamp(sheetpath)
+    sheetpath_tstamp = gen_sheetpath_tstamp(hierarchy)
     sheet = Sexp([
         "sheet",
         ["number", number],
@@ -169,8 +168,8 @@ def gen_netlist_comp(part, **kwargs):
 
     # Embed the part hierarchy as a set of UUIDs into the sheetpath for each component.
     # This enables hierarchical selection in pcbnew.
-    sheetpath = gen_sheetpath(part.hierpath)
-    sheetpath_tstamp = gen_sheetpath_tstamp(sheetpath)
+    sheetpath = gen_sheetpath(part.hiertuple)
+    sheetpath_tstamp = gen_sheetpath_tstamp(part.hiertuple)
     part_tstamp = gen_part_tstamp(part)
 
     fields = Sexp(["fields"])
@@ -276,9 +275,9 @@ def gen_netlist(circuit, **kwargs):
     # Check for parts with no physical footprint to place on the PCB.
     circuit.check_for_empty_footprints()
 
-    # Check for any randomly-assigned tags since those will lead to
+    # Check for any missing tags since those will lead to
     # unstable associations between parts and PCB footprints.
-    circuit.check_part_tags()
+    circuit.check_tags()
 
     scr_dict = scriptinfo()
     src_file = os.path.join(scr_dict["dir"], scr_dict["source"])
