@@ -484,7 +484,7 @@ def get_unique_name(lst, attrib, prefix, initial=None):
             return name
 
     # Get the unique names used in the list.
-    unique_names = set([getattr(l, attrib, None) for l in lst])
+    unique_names = set([str(getattr(l, attrib, None)) for l in lst])
     unique_names -= {None}
 
     # If the initial name is None, then create a name based on the prefix
