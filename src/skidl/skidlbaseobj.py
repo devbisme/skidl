@@ -11,6 +11,9 @@ and object copying.
 """
 
 import inspect
+import random
+import string
+import os.path
 from collections import namedtuple
 from copy import deepcopy
 
@@ -19,9 +22,11 @@ from .note import Note
 from .utilities import export_to_all
 
 
-__all__ = ["OK", "WARNING", "ERROR"]
+__all__ = ["OK", "WARNING", "ERROR", "HIER_SEP"]
 
 OK, WARNING, ERROR = list(range(3))
+
+HIER_SEP = "."  # Separator for hierarchical names.
 
 
 @export_to_all
@@ -217,6 +222,61 @@ class SkidlBaseObject(object):
             pass
 
     @property
+    def tag(self):
+        """
+        Get the tag of this object.
+
+        Returns:
+            The tag of this object.
+        """
+        return self._tag
+
+    @tag.setter
+    def tag(self, tag_):
+        """
+        Set the tag of this object.
+
+        Args:
+            tag_: The new tag for this object.
+        """
+        del self.tag  # Remove any pre-existing tag.
+        self._tag = tag_
+
+    @tag.deleter
+    def tag(self):
+        """Remove the tag from this object."""
+        try:
+            del self._tag
+        except AttributeError:
+            pass
+
+    def check_tag(self, create_if_missing=False):
+        """
+        Check if the tag is set for this object.
+        Warn if the tag is not set.
+
+        Returns:
+            True if the tag is set, False otherwise.
+        """
+        from skidl.logger import active_logger
+
+        if getattr(self, "tag", None):
+            return True
+        else:
+            active_logger.bare_warning(
+                f"Missing tag on {self.name} instantiated at {self.src_line}."
+            )
+            if create_if_missing:
+                # Create a random tag if it is missing.
+                chars = string.ascii_letters + string.digits + "_"
+                length = 10
+                self.tag = ''.join(random.choices(chars, k=length))
+                active_logger.bare_warning(
+                    f"Random tag {self.tag} generated for {self.name}."
+                )
+            return False
+
+    @property
     def aliases(self):
         """
         Get the aliases for this object.
@@ -293,6 +353,35 @@ class SkidlBaseObject(object):
     @property
     def hierpath(self):
         """Return a string containing the hierarchical path of this object."""
-        from skidl.circuit import HIER_SEP
 
         return HIER_SEP.join(self.hiertuple)
+
+    @property
+    def hiername(self):
+        """
+        Return the hierarchical name of the part.
+        
+        Returns:
+            str: The hierarchical name including hierarchy prefix and tag.
+        """
+
+        return self.hierpath + HIER_SEP + (getattr(self, "tag", None) or getattr(self, "ref", self.name))
+
+                
+    @property
+    def src_line(self):
+        """
+        Return the file name and line number where the object was instantiated.
+        
+        Returns:
+            str: File name and line number separated by colon.
+        """
+        try:
+            file_path, file_line = self.skidl_trace[-1]
+        except (AttributeError, IndexError):
+            # If skidl_trace is not set or empty, return an empty string.
+            return ""
+        if not self.circuit.track_abs_path:
+            file_path = os.path.relpath(file_path, self.circuit.script_dir)
+        return file_path + ":" + file_line
+
