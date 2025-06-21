@@ -353,10 +353,14 @@ def pin_label_to_eeschema(pin, tx):
         return ""
 
     label_type = "HLabel"
+    pin_hiertuple = pin.part.hiertuple
     for pn in pin.net.pins:
-        if pin.part.hierarchy.startswith(pn.part.hierarchy):
+        pn_hiertuple = pn.part.hiertuple
+        if pin_hiertuple[:len(pn_hiertuple)] == pn_hiertuple:
+            # If the pin is in the same hierarchy as the net pin, then don't label it.
             continue
-        if pn.part.hierarchy.startswith(pin.part.hierarchy):
+        if pn_hiertuple[:len(pin_hiertuple)] == pin_hiertuple:
+            # If the net pin is in the same hierarchy as the pin, then don't label it.
             continue
         label_type = "GLabel"
         break
@@ -437,7 +441,7 @@ def node_to_eeschema(node, sheet_tx=Tx()):
         str: EESCHEMA text for the node circuitry.
     """
 
-    from skidl import HIER_SEP
+    from skidl.skidlbaseobj import HIER_SEP
 
     # List to hold all the EESCHEMA code for this node.
     eeschema_code = []
