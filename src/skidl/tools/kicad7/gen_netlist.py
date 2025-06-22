@@ -12,7 +12,7 @@ import uuid
 from simp_sexp import Sexp
 
 from skidl.pckg_info import __version__
-from skidl.scriptinfo import scriptinfo
+from skidl.scriptinfo import scriptinfo, get_script_dir
 from skidl.utilities import export_to_all
 
 # This UUID was generated using uuidgen for passing as the namespace argument to uuid.uuid5().
@@ -111,6 +111,14 @@ def gen_netlist_sheet(hierarchy, number, src_file, **kwargs):
     """
     sheetpath = gen_sheetpath(hierarchy)
     sheetpath_tstamp = gen_sheetpath_tstamp(hierarchy)
+
+    if kwargs.get("track_abs_path", True):
+        # If track_abs_path is True, use the absolute path of the source filename.
+        src_file = os.path.abspath(src_file)
+    else:
+        # If track_abs_path is False, use the path of the source filename relative to the script.
+        src_file = os.path.relpath(src_file, get_script_dir())
+
     sheet = Sexp([
         "sheet",
         ["number", number],
@@ -183,7 +191,7 @@ def gen_netlist_comp(part, **kwargs):
     )
     part_fields.append(["SKiDL Tag", part.tag])
     if kwargs.get("track_src", True):
-        part_fields.append(["SKiDL Line", part.src_line])
+        part_fields.append(["SKiDL Line", part.src_line(not kwargs.get("track_abs_path", False))])
     for fld_name, fld_value in part_fields:
         if fld_value:
             field = Sexp(["field", ["name", fld_name], fld_value])
@@ -265,9 +273,9 @@ def gen_netlist(circuit, **kwargs):
         - The Sexp class is used to create a properly formatted S-expression.
     """
 
-    # If track_src is not specified in kwargs, use the circuit's track_src attribute.
-    if "track_src" not in kwargs:
-        kwargs["track_src"] = circuit.track_src
+    # If track_src, track_abs_path is not specified in kwargs, use values from the circuit attributes.
+    kwargs["track_src"] = kwargs.get("track_src", circuit.track_src)
+    kwargs["track_abs_path"] = kwargs.get("track_abs_path", circuit.track_abs_path)
 
     # Check for some things that can cause problems if the netlist is
     # used to create a PCB.
@@ -281,6 +289,13 @@ def gen_netlist(circuit, **kwargs):
 
     scr_dict = scriptinfo()
     src_file = os.path.join(scr_dict["dir"], scr_dict["source"])
+    if kwargs.get("track_abs_path", True):
+        # If track_abs_path is True, use the absolute path of the source filename.
+        src_file = os.path.abspath(src_file)
+    else:
+        # If track_abs_path is False, use the path of the source filename relative to the script.
+        src_file = os.path.relpath(src_file, get_script_dir())
+
     date = time.strftime("%m/%d/%Y %I:%M %p")
     tool = f"SKiDL ({__version__})"
 
