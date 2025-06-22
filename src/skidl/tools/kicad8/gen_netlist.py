@@ -12,7 +12,7 @@ import uuid
 from simp_sexp import Sexp
 
 from skidl.pckg_info import __version__
-from skidl.scriptinfo import scriptinfo
+from skidl.scriptinfo import scriptinfo, get_script_dir
 from skidl.utilities import export_to_all
 from skidl.circuit import HIER_SEP
 
@@ -112,6 +112,14 @@ def gen_netlist_sheet(hierarchy, number, src_file, **kwargs):
     """
     sheetpath = gen_sheetpath(hierarchy)
     sheetpath_tstamp = gen_sheetpath_tstamp(sheetpath)
+
+    if kwargs.get("track_abs_path", True):
+        # If track_abs_path is True, use the absolute path of the source filename.
+        src_file = os.path.abspath(src_file)
+    else:
+        # If track_abs_path is False, use the path of the source filename relative to the script.
+        src_file = os.path.relpath(src_file, get_script_dir())
+
     sheet = Sexp([
         "sheet",
         ["number", number],
@@ -282,6 +290,13 @@ def gen_netlist(circuit, **kwargs):
 
     scr_dict = scriptinfo()
     src_file = os.path.join(scr_dict["dir"], scr_dict["source"])
+    if kwargs.get("track_abs_path", True):
+        # If track_abs_path is True, use the absolute path of the source filename.
+        src_file = os.path.abspath(src_file)
+    else:
+        # If track_abs_path is False, use the path of the source filename relative to the script.
+        src_file = os.path.relpath(src_file, get_script_dir())
+
     date = time.strftime("%m/%d/%Y %I:%M %p")
     tool = f"SKiDL ({__version__})"
 
