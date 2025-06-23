@@ -37,9 +37,8 @@ def gen_sheetpath(hierarchy):
              is empty or None, the function returns "/".
     """
 
-    if not hierarchy:
-        return "/"
-    return f"/{'/'.join(hierarchy)}/"
+    assert hierarchy[0] == "", "Top level of hierarchy must be an empty string."
+    return f"{'/'.join(hierarchy)}/"
 
 
 def gen_part_tstamp(part):
@@ -83,11 +82,12 @@ def gen_sheetpath_tstamp(hierarchy):
              segment of the sheetpath.
     """
 
-    if not hierarchy:
+    assert hierarchy[0] == "", "Top level of hierarchy must be an empty string."
+    if len(hierarchy) == 1:
         tstamp = "/"
     else:
         tstamp = "/".join(
-            [str(uuid.uuid5(namespace_uuid, level)) for level in hierarchy]
+            [str(uuid.uuid5(namespace_uuid, level)) for level in hierarchy[1:]]
         )
         tstamp = "/" + tstamp + "/"
     return tstamp
@@ -190,8 +190,8 @@ def gen_netlist_comp(part, **kwargs):
         }.items()
     )
     part_fields.append(["SKiDL Tag", part.tag])
-    if kwargs.get("track_src", True):
-        part_fields.append(["SKiDL Line", part.src_line(not kwargs.get("track_abs_path", False))])
+    if kwargs["track_src"]:
+        part_fields.append(["SKiDL Line", part.src_line(kwargs["track_abs_path"])])
     for fld_name, fld_value in part_fields:
         if fld_value:
             field = Sexp(["field", ["name", fld_name], fld_value])
