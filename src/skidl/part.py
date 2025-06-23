@@ -1778,5 +1778,5 @@ def default_empty_footprint_handler(part):
     from .logger import active_logger
 
     active_logger.bare_error(
-        f"No footprint for {part.name}/{part.ref} added at {part.src_line}."
+        f"No footprint for {part.name}/{part.ref} added at {part.src_line(True)}."
     )

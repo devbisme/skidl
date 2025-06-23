@@ -46,7 +46,7 @@ class Node(SkidlBaseObject):
         self.tag = tag
 
         # Store the stack trace for where this node was instantiated.
-        self.skidl_trace = get_skidl_trace(track_abs_path=self.circuit.track_abs_path)
+        self.skidl_trace = get_skidl_trace()
 
         # Create a list to hold the parts that are instantiated in this this node.
         self.parts = []

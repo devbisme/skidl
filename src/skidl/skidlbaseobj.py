@@ -264,7 +264,7 @@ class SkidlBaseObject(object):
             return True
         else:
             active_logger.bare_warning(
-                f"Missing tag on {self.name} instantiated at {self.src_line}."
+                f"Missing tag on {self.name} instantiated at {self.src_line(True)}."
             )
             if create_if_missing:
                 # Create a random tag if it is missing.
@@ -368,10 +368,13 @@ class SkidlBaseObject(object):
         return self.hierpath + HIER_SEP + (getattr(self, "tag", None) or getattr(self, "ref", self.name))
 
                 
-    @property
-    def src_line(self):
+    def src_line(self, track_abs_path=False):
         """
         Return the file name and line number where the object was instantiated.
+
+        Args:
+            track_abs_path (bool): If True, use the absolute path of the file.
+                                   If False, use the relative path from the script directory.
         
         Returns:
             str: File name and line number separated by colon.
@@ -381,7 +384,7 @@ class SkidlBaseObject(object):
         except (AttributeError, IndexError):
             # If skidl_trace is not set or empty, return an empty string.
             return ""
-        if not self.circuit.track_abs_path:
+        if not track_abs_path:
             file_path = os.path.relpath(file_path, self.circuit.script_dir)
         return file_path + ":" + file_line
 
