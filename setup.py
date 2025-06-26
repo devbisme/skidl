@@ -27,7 +27,7 @@ with open("HISTORY.rst") as history_file:
     history = history_file.read().replace(".. :changelog:", "")
 
 requirements = [
-    "kinparse >= 1.2.3",
+    "kinparse >= 1.2.4",
     "kinet2pcb >= 1.1.2",
     "simp_sexp",
     "inspice; python_version>='3.11'",
@@ -48,14 +48,13 @@ setup(
     author=__author__,
     author_email=__email__,
     url="https://github.com/devbisme/skidl",
+    python_requires=">=3.6",
     project_urls={
         "Documentation": "https://devbisme.github.io/skidl",
         "Source": "https://github.com/devbisme/skidl",
         "Changelog": "https://github.com/devbisme/skidl/blob/master/HISTORY.rst",
         "Tracker": "https://github.com/devbisme/skidl/issues",
     },
-    # packages=['skidl',],
-    # packages=setuptools.find_packages(),
     packages=setuptools.find_packages(where="src"),
     entry_points={
         "console_scripts": [
@@ -75,6 +74,8 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Natural Language :: English",
         "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
