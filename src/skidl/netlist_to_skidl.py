@@ -129,8 +129,8 @@ class SheetSexp:
     """
 
     def __init__(self, sexp):
-        self.num = sexp.search("/sheet/number")[0][1]
-        self.name = sexp.search("/sheet/name")[0][1]
+        self.num = sexp.search("/sheet/number").value
+        self.name = sexp.search("/sheet/name").value
 
 
 class PartSexp:
@@ -139,12 +139,12 @@ class PartSexp:
     """
 
     def __init__(self, sexp):
-        self.sheetpath = sexp.search("/comp/sheetpath/names")[0][1]
-        self.ref = sexp.search("/comp/ref")[0][1]
-        self.value = sexp.search("/comp/value")[0][1]
-        self.footprint = sexp.search("/comp/footprint")[0][1]
-        self.name = sexp.search("/comp/libsource/part")[0][1]
-        self.lib = sexp.search("/comp/libsource/lib")[0][1]
+        self.sheetpath = sexp.search("/comp/sheetpath/names").value
+        self.ref = sexp.search("/comp/ref").value
+        self.value = sexp.search("/comp/value").value
+        self.footprint = sexp.search("/comp/footprint").value
+        self.name = sexp.search("/comp/libsource/part").value
+        self.lib = sexp.search("/comp/libsource/lib").value
         self.properties = [PropertySexp(prop) for prop in sexp.search("/comp/property")]
 
 
@@ -154,8 +154,8 @@ class PropertySexp:
     """
 
     def __init__(self, sexp):
-        self.name = sexp.search("/property/name")[0][1]
-        self.value = sexp.search("/property/value")[0][1]
+        self.name = sexp.search("/property/name").value
+        self.value = sexp.search("/property/value").value
 
 
 class PinSexp:
@@ -164,8 +164,8 @@ class PinSexp:
     """
 
     def __init__(self, sexp):
-        self.ref = sexp.search("/node/ref")[0][1]
-        self.num = sexp.search("/node/pin")[0][1]
+        self.ref = sexp.search("/node/ref").value
+        self.num = sexp.search("/node/pin").value
 
 
 class NetSexp:
@@ -174,7 +174,7 @@ class NetSexp:
     """
 
     def __init__(self, sexp):
-        self.name = sexp.search("/net/name")[0][1]
+        self.name = sexp.search("/net/name").value
         self.pins = [PinSexp(node) for node in sexp.search("/net/node")]
 
 
