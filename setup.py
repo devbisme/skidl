@@ -27,7 +27,6 @@ with open("HISTORY.rst") as history_file:
     history = history_file.read().replace(".. :changelog:", "")
 
 requirements = [
-    "kinparse >= 1.2.4",
     "kinet2pcb >= 1.1.2",
     "simp_sexp",
     "inspice; python_version>='3.11'",

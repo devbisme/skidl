@@ -14,10 +14,9 @@ import random
 from pathlib import Path
 from collections import defaultdict
 from dataclasses import dataclass
+from simp_sexp import Sexp
 from typing import List, Set
-from kinparse import parse_netlist
 from .logger import active_logger  # Import the active_logger
-
 
 
 @dataclass
@@ -123,6 +122,169 @@ def find_common_path_prefix(path1: str, path2: str) -> str:
     return path_prefix
 
 
+class SheetSexp:
+    """
+    This class delivers attributes from a sheet S-expression.
+    """
+    def __init__(self, sexp):
+        self.sexp = sexp
+
+    @property
+    def num(self):
+        return self.sexp.search("/sheet/number")[0][1]
+
+    @property
+    def name(self):
+        return self.sexp.search("/sheet/name")[0][1]
+
+
+class PartSexp:
+    """
+    This class delivers attributes from a component S-expression.
+    """
+    def __init__(self, sexp):
+        self.sexp = sexp
+
+    @property
+    def sheetpath(self):
+        return self.sexp.search("/comp/sheetpath/names")[0][1]
+    
+    @property
+    def ref(self):
+        return self.sexp.search("/comp/ref")[0][1]
+    
+    @property
+    def value(self):
+        return self.sexp.search("/comp/value")[0][1]
+    
+    @property
+    def footprint(self):
+        return self.sexp.search("/comp/footprint")[0][1]
+    
+    @property
+    def name(self):
+        return self.sexp.search("/comp/libsource/part")[0][1]
+    
+    @property
+    def lib(self):
+        return self.sexp.search("/comp/libsource/lib")[0][1]
+    
+    @property
+    def properties(self):
+        return [PropertySexp(prop) for prop in self.sexp.search("/comp/property")]
+
+
+class PropertySexp:
+    """
+    This class delivers attributes from a property S-expression.
+    """
+    def __init__(self, sexp):
+        self.sexp = sexp
+
+    @property
+    def name(self):
+        return self.sexp.search("/property/name")[0][1]
+
+    @property
+    def value(self):
+        return self.sexp.search("/property/value")[0][1]
+    
+
+class PinSexp:
+    """
+    This class delivers attributes from a pin S-expression.
+    """
+    def __init__(self, sexp):
+        self.sexp = sexp
+
+    @property
+    def ref(self):
+        return self.sexp.search("/node/ref")[0][1]
+
+    @property
+    def num(self):
+        return self.sexp.search("/node/pin")[0][1]
+
+
+class NetSexp:
+    """
+    This class delivers attributes from a net S-expression.
+    """
+    def __init__(self, sexp):
+        self.sexp = sexp
+
+    @property
+    def name(self):
+        return self.sexp.search("/net/name")[0][1]
+    
+    @property
+    def pins(self):
+        """
+        Return a list of pin objects associated with this net.
+        
+        Each pin object contains the reference and number of the pin.
+        
+        Returns:
+            List: List of pin objects with 'ref' and 'num' attributes
+        """
+        return [
+            PinSexp(node) for node in self.sexp.search("/net/node")
+        ]
+
+
+class NetlistSexp:
+    """
+    Represents a KiCad netlist.
+    
+    This class encapsulates the structure of a KiCad netlist, including its parts,
+    nets, and sheets. It provides methods to access and manipulate the netlist data.
+    
+    Attributes:
+        parts (List): List of components in the netlist
+        nets (List): List of electrical nets in the netlist
+        sheets (List): List of hierarchical sheets in the netlist
+    """
+    
+    def __init__(self, sexp):
+        self.sexp = sexp
+
+    @property
+    def sheets(self):
+        """
+        Return the list of sheets in the netlist.
+        
+        This property extracts and returns the hierarchical sheets defined in the netlist.
+        
+        Returns:
+            List: List of sheet objects
+        """
+        return [SheetSexp(sht) for sht in self.sexp.search("design/sheet")]
+
+    @property
+    def parts(self):
+        """
+        Return the list of parts (components) in the netlist.
+        
+        This property extracts and returns the components defined in the netlist.
+        
+        Returns:
+            List: List of component objects
+        """
+        return [PartSexp(comp) for comp in self.sexp.search("components/comp")]
+    
+    @property
+    def nets(self):
+        """
+        Return the list of nets in the netlist.
+        
+        This property extracts and returns the electrical nets defined in the netlist.
+        
+        Returns:
+            List: List of net objects
+        """
+        return [NetSexp(net) for net in self.sexp.search("nets/net")]
+
+
 class HierarchicalConverter:
     """
     Converts a KiCad netlist into hierarchical SKiDL Python scripts.
@@ -131,14 +293,21 @@ class HierarchicalConverter:
     that preserve the hierarchical structure of the original schematic.
     """
     
-    def __init__(self, netlist_src):
+    def __init__(self, src):
         """
         Initialize the converter with a KiCad netlist.
         
         Args:
-            netlist_src: Path to a KiCad netlist file or a string containing netlist data
+            src: Path to a KiCad netlist file or a string containing netlist data
         """
-        self.netlist = parse_netlist(netlist_src)
+        try:
+            text = src.read()
+        except Exception:
+            try:
+                text = open(src,'r',encoding='latin_1').read()
+            except Exception:
+                text = src
+        self.netlist = NetlistSexp(Sexp(text))
         self.sheets = {}
         self.tab = " " * 4
 
@@ -190,7 +359,7 @@ class HierarchicalConverter:
             ]
         else:
             sheet_paths = list(
-                set([self.get_sheet_path(part) for part in self.netlist.parts])
+                set([part.sheetpath for part in self.netlist.parts])
             )
             sheet_numbers_paths = enumerate(sheet_paths)
 
@@ -242,7 +411,7 @@ class HierarchicalConverter:
         active_logger.info("=== Assigning Components to Sheets ===")
 
         for comp in self.netlist.parts:
-            sheet_path = self.get_sheet_path(comp)
+            sheet_path = comp.sheetpath
             if sheet_path in self.sheets:
                 self.sheets[sheet_path].components.append(comp)
                 active_logger.info(
@@ -298,7 +467,7 @@ class HierarchicalConverter:
             for pin in net.pins:
                 for comp in self.netlist.parts:
                     if comp.ref == pin.ref:
-                        comp_sht_pth = self.get_sheet_path(comp)
+                        comp_sht_pth = comp.sheetpath
                         net_usage[net.name][comp_sht_pth].add(f"{comp.ref}.{pin.num}")
                         active_logger.info(
                             f"  - Used in sheet '{comp_sht_pth}' by pin {comp.ref}.{pin.num}"
