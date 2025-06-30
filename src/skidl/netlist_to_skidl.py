@@ -192,10 +192,9 @@ class NetlistSexp:
     """
 
     def __init__(self, sexp):
-        self.sexp = sexp
-        self.sheets = [SheetSexp(sht) for sht in self.sexp.search("design/sheet")]
-        self.parts = [PartSexp(comp) for comp in self.sexp.search("components/comp")]
-        self.nets = [NetSexp(net) for net in self.sexp.search("nets/net")]
+        self.sheets = [SheetSexp(sht) for sht in sexp.search("design/sheet")]
+        self.parts = [PartSexp(comp) for comp in sexp.search("components/comp")]
+        self.nets = [NetSexp(net) for net in sexp.search("nets/net")]
 
 
 class HierarchicalConverter:
