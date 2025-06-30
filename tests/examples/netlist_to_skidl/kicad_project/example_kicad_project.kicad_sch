@@ -1,7 +1,7 @@
 (kicad_sch
-	(version 20231120)
+	(version 20250114)
 	(generator "eeschema")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(uuid "139408cf-b4ac-4ccf-8751-afbb6def1f13")
 	(paper "A4")
 	(lib_symbols)
@@ -87,7 +87,6 @@
 	)
 	(label "3v3_monitor"
 		(at 137.16 60.96 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -98,7 +97,6 @@
 	)
 	(label "D-"
 		(at 137.16 68.58 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -109,7 +107,6 @@
 	)
 	(label "D+"
 		(at 162.56 53.34 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -120,7 +117,6 @@
 	)
 	(label "5v_monitor"
 		(at 137.16 57.15 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -131,7 +127,6 @@
 	)
 	(label "5v_monitor"
 		(at 96.52 54.61 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -142,7 +137,6 @@
 	)
 	(label "D+"
 		(at 137.16 66.04 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -153,7 +147,6 @@
 	)
 	(label "3v3_monitor"
 		(at 96.52 57.15 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -164,7 +157,6 @@
 	)
 	(label "D-"
 		(at 162.56 55.88 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -176,6 +168,10 @@
 	(sheet
 		(at 78.74 48.26)
 		(size 13.97 22.86)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -205,23 +201,23 @@
 		)
 		(pin "5v_monitor" input
 			(at 92.71 54.61 0)
+			(uuid "b99079f2-aec9-4add-861e-df79ed240fa3")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "b99079f2-aec9-4add-861e-df79ed240fa3")
 		)
 		(pin "3v3_monitor" input
 			(at 92.71 57.15 0)
+			(uuid "7451d16f-e1d9-40bc-82ed-046bf8702f6b")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "7451d16f-e1d9-40bc-82ed-046bf8702f6b")
 		)
 		(instances
 			(project "example_kicad_project"
@@ -234,6 +230,10 @@
 	(sheet
 		(at 166.37 46.99)
 		(size 20.32 26.67)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -263,23 +263,23 @@
 		)
 		(pin "D+" input
 			(at 166.37 53.34 180)
+			(uuid "603b1cbd-e83a-4352-a5c3-eee31b2f07f8")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "603b1cbd-e83a-4352-a5c3-eee31b2f07f8")
 		)
 		(pin "D-" input
 			(at 166.37 55.88 180)
+			(uuid "d1f3146e-52f8-4edf-b10a-ac6a1a672611")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "d1f3146e-52f8-4edf-b10a-ac6a1a672611")
 		)
 		(instances
 			(project "example_kicad_project"
@@ -292,6 +292,10 @@
 	(sheet
 		(at 111.76 45.72)
 		(size 21.59 25.4)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -321,43 +325,43 @@
 		)
 		(pin "3v3_monitor" input
 			(at 133.35 60.96 0)
+			(uuid "07aab0d4-78c3-4900-8b73-3e2535a98882")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "07aab0d4-78c3-4900-8b73-3e2535a98882")
 		)
 		(pin "5v_monitor" input
 			(at 133.35 57.15 0)
+			(uuid "4c885d4b-445c-462d-ab0d-6c69f6b0eb62")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "4c885d4b-445c-462d-ab0d-6c69f6b0eb62")
 		)
 		(pin "D+" input
 			(at 133.35 66.04 0)
+			(uuid "1db54b71-1ddb-4986-863a-3a3032ec7448")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "1db54b71-1ddb-4986-863a-3a3032ec7448")
 		)
 		(pin "D-" input
 			(at 133.35 68.58 0)
+			(uuid "6de2798b-2b35-47e3-a3a9-c2dd7379e871")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "6de2798b-2b35-47e3-a3a9-c2dd7379e871")
 		)
 		(instances
 			(project "example_kicad_project"
@@ -372,4 +376,5 @@
 			(page "1")
 		)
 	)
+	(embedded_fonts no)
 )
