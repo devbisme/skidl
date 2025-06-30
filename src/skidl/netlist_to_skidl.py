@@ -23,10 +23,10 @@ from .logger import active_logger  # Import the active_logger
 class Sheet:
     """
     Represents a hierarchical sheet from a KiCad schematic.
-    
+
     This dataclass stores information about a sheet in the schematic hierarchy,
     including its components, nets, and relationship to other sheets.
-    
+
     Attributes:
         number (str): Sheet number in the hierarchy
         name (str): Sheet name
@@ -37,6 +37,7 @@ class Sheet:
         parent (str): Path to the parent sheet, or None for top-level sheets
         children (List[str]): Paths to the child sheets of this sheet
     """
+
     number: str
     name: str
     path: str
@@ -57,19 +58,19 @@ class Sheet:
 def legalize_name(name: str, is_filename: bool = False) -> str:
     """
     Return a version of name that is a legal Python identifier.
-    
+
     This function converts arbitrary strings to valid Python identifiers by replacing
     illegal characters with underscores and handling special cases for names
     starting with numbers or containing special symbols.
-    
+
     Args:
         name (str): The original name to convert
         is_filename (bool, optional): Whether the name will be used as a filename.
                                      Defaults to False.
-    
+
     Returns:
         str: A legal Python identifier derived from the input name
-        
+
     Examples:
         >>> legalize_name("1wire")
         "_1wire"
@@ -94,16 +95,16 @@ def legalize_name(name: str, is_filename: bool = False) -> str:
 def find_common_path_prefix(path1: str, path2: str) -> str:
     """
     Return the common path prefix of two paths.
-    
+
     This function finds the longest common hierarchical path prefix between two paths.
-    
+
     Args:
         path1 (str): First path
         path2 (str): Second path
-        
+
     Returns:
         str: The common path prefix including the trailing separator
-        
+
     Examples:
         >>> find_common_path_prefix("/path/to/sheet1/", "/path/to/sheet2/")
         "/path/to/"
@@ -126,177 +127,89 @@ class SheetSexp:
     """
     This class delivers attributes from a sheet S-expression.
     """
+
     def __init__(self, sexp):
-        self.sexp = sexp
-
-    @property
-    def num(self):
-        return self.sexp.search("/sheet/number")[0][1]
-
-    @property
-    def name(self):
-        return self.sexp.search("/sheet/name")[0][1]
+        self.num = sexp.search("/sheet/number")[0][1]
+        self.name = sexp.search("/sheet/name")[0][1]
 
 
 class PartSexp:
     """
     This class delivers attributes from a component S-expression.
     """
-    def __init__(self, sexp):
-        self.sexp = sexp
 
-    @property
-    def sheetpath(self):
-        return self.sexp.search("/comp/sheetpath/names")[0][1]
-    
-    @property
-    def ref(self):
-        return self.sexp.search("/comp/ref")[0][1]
-    
-    @property
-    def value(self):
-        return self.sexp.search("/comp/value")[0][1]
-    
-    @property
-    def footprint(self):
-        return self.sexp.search("/comp/footprint")[0][1]
-    
-    @property
-    def name(self):
-        return self.sexp.search("/comp/libsource/part")[0][1]
-    
-    @property
-    def lib(self):
-        return self.sexp.search("/comp/libsource/lib")[0][1]
-    
-    @property
-    def properties(self):
-        return [PropertySexp(prop) for prop in self.sexp.search("/comp/property")]
+    def __init__(self, sexp):
+        self.sheetpath = sexp.search("/comp/sheetpath/names")[0][1]
+        self.ref = sexp.search("/comp/ref")[0][1]
+        self.value = sexp.search("/comp/value")[0][1]
+        self.footprint = sexp.search("/comp/footprint")[0][1]
+        self.name = sexp.search("/comp/libsource/part")[0][1]
+        self.lib = sexp.search("/comp/libsource/lib")[0][1]
+        self.properties = [PropertySexp(prop) for prop in sexp.search("/comp/property")]
 
 
 class PropertySexp:
     """
     This class delivers attributes from a property S-expression.
     """
+
     def __init__(self, sexp):
-        self.sexp = sexp
+        self.name = sexp.search("/property/name")[0][1]
+        self.value = sexp.search("/property/value")[0][1]
 
-    @property
-    def name(self):
-        return self.sexp.search("/property/name")[0][1]
-
-    @property
-    def value(self):
-        return self.sexp.search("/property/value")[0][1]
-    
 
 class PinSexp:
     """
     This class delivers attributes from a pin S-expression.
     """
+
     def __init__(self, sexp):
-        self.sexp = sexp
-
-    @property
-    def ref(self):
-        return self.sexp.search("/node/ref")[0][1]
-
-    @property
-    def num(self):
-        return self.sexp.search("/node/pin")[0][1]
+        self.ref = sexp.search("/node/ref")[0][1]
+        self.num = sexp.search("/node/pin")[0][1]
 
 
 class NetSexp:
     """
     This class delivers attributes from a net S-expression.
     """
-    def __init__(self, sexp):
-        self.sexp = sexp
 
-    @property
-    def name(self):
-        return self.sexp.search("/net/name")[0][1]
-    
-    @property
-    def pins(self):
-        """
-        Return a list of pin objects associated with this net.
-        
-        Each pin object contains the reference and number of the pin.
-        
-        Returns:
-            List: List of pin objects with 'ref' and 'num' attributes
-        """
-        return [
-            PinSexp(node) for node in self.sexp.search("/net/node")
-        ]
+    def __init__(self, sexp):
+        self.name = sexp.search("/net/name")[0][1]
+        self.pins = [PinSexp(node) for node in sexp.search("/net/node")]
 
 
 class NetlistSexp:
     """
     Represents a KiCad netlist.
-    
+
     This class encapsulates the structure of a KiCad netlist, including its parts,
     nets, and sheets. It provides methods to access and manipulate the netlist data.
-    
+
     Attributes:
         parts (List): List of components in the netlist
         nets (List): List of electrical nets in the netlist
         sheets (List): List of hierarchical sheets in the netlist
     """
-    
+
     def __init__(self, sexp):
         self.sexp = sexp
-
-    @property
-    def sheets(self):
-        """
-        Return the list of sheets in the netlist.
-        
-        This property extracts and returns the hierarchical sheets defined in the netlist.
-        
-        Returns:
-            List: List of sheet objects
-        """
-        return [SheetSexp(sht) for sht in self.sexp.search("design/sheet")]
-
-    @property
-    def parts(self):
-        """
-        Return the list of parts (components) in the netlist.
-        
-        This property extracts and returns the components defined in the netlist.
-        
-        Returns:
-            List: List of component objects
-        """
-        return [PartSexp(comp) for comp in self.sexp.search("components/comp")]
-    
-    @property
-    def nets(self):
-        """
-        Return the list of nets in the netlist.
-        
-        This property extracts and returns the electrical nets defined in the netlist.
-        
-        Returns:
-            List: List of net objects
-        """
-        return [NetSexp(net) for net in self.sexp.search("nets/net")]
+        self.sheets = [SheetSexp(sht) for sht in self.sexp.search("design/sheet")]
+        self.parts = [PartSexp(comp) for comp in self.sexp.search("components/comp")]
+        self.nets = [NetSexp(net) for net in self.sexp.search("nets/net")]
 
 
 class HierarchicalConverter:
     """
     Converts a KiCad netlist into hierarchical SKiDL Python scripts.
-    
+
     This class analyzes a KiCad netlist and generates equivalent SKiDL scripts
     that preserve the hierarchical structure of the original schematic.
     """
-    
+
     def __init__(self, src):
         """
         Initialize the converter with a KiCad netlist.
-        
+
         Args:
             src: Path to a KiCad netlist file or a string containing netlist data
         """
@@ -304,36 +217,25 @@ class HierarchicalConverter:
             text = src.read()
         except Exception:
             try:
-                text = open(src,'r',encoding='latin_1').read()
+                text = open(src, "r", encoding="latin_1").read()
             except Exception:
                 text = src
         self.netlist = NetlistSexp(Sexp(text))
         self.sheets = {}
         self.tab = " " * 4
 
-    def get_sheet_path(self, comp):
-        """
-        Return the sheet path from a component's properties.
-        
-        Args:
-            comp: A component object from the netlist
-            
-        Returns:
-            str: The hierarchical path to the sheet containing this component
-        """
-        return comp.sheetpath.names
 
     def find_lowest_common_ancestor(self, sheet1, sheet2):
         """
         Return the lowest common ancestor (LCA) of two sheets.
-        
+
         This method finds the sheet that is the closest common parent of two sheets
         in the schematic hierarchy.
-        
+
         Args:
             sheet1 (str): Path to the first sheet
             sheet2 (str): Path to the second sheet
-            
+
         Returns:
             str: Path to the lowest common ancestor sheet
         """
@@ -344,7 +246,7 @@ class HierarchicalConverter:
     def extract_sheet_info(self):
         """
         Populate self.sheets with Sheet objects built from the netlist.
-        
+
         This method examines the netlist to identify all sheets and their
         hierarchical relationships, creating Sheet objects to represent them.
         """
@@ -358,9 +260,7 @@ class HierarchicalConverter:
                 sheet_number_path[1] for sheet_number_path in sheet_numbers_paths
             ]
         else:
-            sheet_paths = list(
-                set([part.sheetpath for part in self.netlist.parts])
-            )
+            sheet_paths = list(set([part.sheetpath for part in self.netlist.parts]))
             sheet_numbers_paths = enumerate(sheet_paths)
 
         for sheet_number, sheet_path in sheet_numbers_paths:
@@ -404,7 +304,7 @@ class HierarchicalConverter:
     def assign_components_to_sheets(self):
         """
         Assign each component from the netlist to its appropriate sheet.
-        
+
         This method assigns components to their respective sheets based on the
         sheet path information in the netlist.
         """
@@ -427,11 +327,12 @@ class HierarchicalConverter:
     def analyze_nets(self):
         """
         Analyze net usage to determine origins and required connections.
-        
+
         This method examines how nets are used across sheets to determine which
         sheets need to pass nets to their children, which nets are local, and
         which are imported.
         """
+
         def find_net_src_dests(net_sheets):
             """
             Return the top-most sheet where the net is used and a list of all
@@ -521,7 +422,7 @@ class HierarchicalConverter:
     def cull_from_top(self):
         """
         Remove top-level sheets that are not needed.
-        
+
         This method simplifies the hierarchy by removing unnecessary empty top-level
         sheets, making the resulting SKiDL code more concise.
         """
@@ -546,13 +447,13 @@ class HierarchicalConverter:
     def component_to_skidl(self, comp: object) -> str:
         """
         Return a SKiDL instantiation string for a component.
-        
+
         This method generates SKiDL code to instantiate a component with all its
         relevant properties preserved.
-        
+
         Args:
             comp (object): A component object from the netlist
-            
+
         Returns:
             str: SKiDL code to instantiate the component
         """
@@ -586,13 +487,13 @@ class HierarchicalConverter:
     def net_to_skidl(self, net: object, sheet: Sheet) -> str:
         """
         Return a SKiDL connection string for a net within a given sheet.
-        
+
         This method generates SKiDL code to connect pins to a net within a sheet.
-        
+
         Args:
             net (object): A net object from the netlist
             sheet (Sheet): The sheet context for this net connection
-            
+
         Returns:
             str: SKiDL code to connect pins to the net, or an empty string if
                  no connections are needed in this sheet
@@ -612,13 +513,13 @@ class HierarchicalConverter:
     def generate_sheet_code(self, sheet: Sheet) -> str:
         """
         Generate the SKiDL code for a given sheet.
-        
+
         This method creates a complete SKiDL subcircuit function for a sheet,
         including component instantiation, connections, and calls to child subcircuits.
-        
+
         Args:
             sheet (Sheet): The sheet to generate code for
-            
+
         Returns:
             str: Complete SKiDL Python code for the sheet as a subcircuit
         """
@@ -701,10 +602,10 @@ class HierarchicalConverter:
     def generate_main_code(self):
         """
         Generate the code for the main.py file that creates nets and calls subcircuits.
-        
+
         This method creates the top-level Python script that imports and calls the
         top-level subcircuit and generates the final netlist.
-        
+
         Returns:
             str: SKiDL Python code for the main script
         """
@@ -721,14 +622,14 @@ class HierarchicalConverter:
     def convert(self, output_dir: str = None):
         """
         Run the complete conversion and write files if output_dir is provided.
-        
+
         This method performs the full netlist-to-SKiDL conversion process and
         optionally writes the generated Python files to a directory.
-        
+
         Args:
             output_dir (str, optional): Directory to write the generated Python files.
                                        If None, files are not written.
-                                       
+
         Returns:
             str: If output_dir is None, returns the main sheet code as a string.
                  Otherwise, returns an empty string after writing files.
@@ -759,15 +660,15 @@ class HierarchicalConverter:
 def netlist_to_skidl(netlist_src: str, output_dir: str = None):
     """
     Convert a KiCad netlist to hierarchical SKiDL Python files.
-    
+
     This function creates a HierarchicalConverter and uses it to convert
     a KiCad netlist into SKiDL Python scripts.
-    
+
     Args:
         netlist_src (str): Path to a KiCad netlist file or a string containing netlist data
         output_dir (str, optional): Directory to write the generated Python files.
                                    If None, files are not written.
-                                   
+
     Returns:
         str: If output_dir is None, returns the main sheet code as a string.
              Otherwise, returns an empty string after writing files.
