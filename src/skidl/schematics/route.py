@@ -2286,9 +2286,7 @@ class Router:
                 if not closest_face:
                     # Exception raised if couldn't find a path from start to stop faces.
                     raise GlobalRoutingFailure(
-                        "Global routing failure: {net.name} {net} {start_face.pins}".format(
-                            **locals()
-                        )
+                        f"Global routing failure: {net.name} {net} {start_face.pins}"
                     )
 
                 # Add the closest adjacent face to the list of visited faces.

@@ -3,7 +3,7 @@
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """
-Generate KiCad 5 XML.
+Generate KiCad XML.
 """
 
 import os.path
@@ -33,7 +33,7 @@ def gen_xml_comp(part):
         footprint = part.footprint
     except AttributeError:
         active_logger.error(
-            "No footprint for {part}/{ref}.".format(part=part.name, ref=ref)
+            f"No footprint for {part}/{ref}."
         )
         footprint = "No Footprint"
 
@@ -45,9 +45,7 @@ def gen_xml_comp(part):
         fld_value = add_quotes(fld_value)
         if fld_value:
             fld_name = add_quotes(fld_name)
-            fields += "\n        (field (name {fld_name}) {fld_value})".format(
-                **locals()
-            )
+            fields += f"\n        (field (name {fld_name}) {fld_value})"
     if fields:
         fields = "      <fields>" + fields
         fields += "\n      </fields>\n"
@@ -67,11 +65,11 @@ def gen_xml_comp(part):
 def gen_xml_net(net):
     code = net.code
     name = net.name
-    txt = '    <net code="{code}" name="{name}">'.format(**locals())
+    txt = f'    <net code="{code}" name="{name}">'
     for p in net.pins:
         part_ref = p.part.ref
         pin_num = p.num
-        txt += '\n      <node ref="{part_ref}" pin="{pin_num}"/>'.format(**locals())
+        txt += f'\n      <node ref="{part_ref}" pin="{pin_num}"/>'
     txt += "\n    </net>"
     return txt
 

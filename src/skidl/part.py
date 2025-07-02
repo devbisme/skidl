@@ -247,9 +247,7 @@ class Part(SkidlBaseObject):
                 except FileNotFoundError as e:
                     if skidl.config.query_backup_lib:
                         active_logger.warning(
-                            'Could not load KiCad schematic library "{}", falling back to backup library.'.format(
-                                libname
-                            )
+                            f'Could not load KiCad schematic library "{libname}", falling back to backup library.'
                         )
                         lib = skidl.load_backup_lib()
                         if not lib:
@@ -779,16 +777,12 @@ class Part(SkidlBaseObject):
         if not isinstance(num_copies, int):
             active_logger.raise_(
                 ValueError,
-                "Can't make a non-integer number ({}) of copies of a part!".format(
-                    num_copies
-                ),
+                f"Can't make a non-integer number ({num_copies}) of copies of a part!"
             )
         if num_copies < 0:
             active_logger.raise_(
                 ValueError,
-                "Can't make a negative number ({}) of copies of a part!".format(
-                    num_copies
-                ),
+                "Can't make a negative number ({num_copies}) of copies of a part!"
             )
 
         # Now make copies of the part one-by-one.
@@ -866,9 +860,7 @@ class Part(SkidlBaseObject):
                     except IndexError:
                         active_logger.raise_(
                             ValueError,
-                            "{} copies of part {} were requested, but too few elements in attribute {}!".format(
-                                num_copies, self.name, k
-                            ),
+                            f"{num_copies} copies of part {self.name} were requested, but too few elements in attribute {k}!"
                         )
                 setattr(cpy, k, v)
 
@@ -918,7 +910,7 @@ class Part(SkidlBaseObject):
                 self.unit[label].num = unit.num
                 add_unique_attr(self, label, self)
             else:
-                raise Exception("Illegal unit type ({}).".format(type(unit)))
+                raise Exception(f"Illegal unit type ({type(unit)}).")
 
     def add_pins(self, *pins):
         """
@@ -1109,9 +1101,7 @@ class Part(SkidlBaseObject):
         # Log an error if no pins were selected using the pin ids.
         if not pins and not silent:
             active_logger.error(
-                "No pins found using {self.name}:{self.ref}[{pin_ids}]".format(
-                    **locals()
-                )
+                f"No pins found using {self.name}:{self.ref}[{pin_ids}]"
             )
 
         return list_or_scalar(pins)
@@ -1229,9 +1219,7 @@ class Part(SkidlBaseObject):
         collisions = [pin for pin in self if pin.aliases == label]
         if collisions:
             active_logger.warning(
-                "Using a label ({}) for a unit of {} that matches one or more of it's pin names ({})!".format(
-                    label, self.erc_desc(), collisions
-                )
+                f"Using a label ({label}) for a unit of {self.erc_desc()} that matches one or more of it's pin names ({collisions})!"
             )
 
         # Create the part unit.
@@ -1313,7 +1301,7 @@ class Part(SkidlBaseObject):
         Returns:
             str: A string description in the form "name/ref"
         """
-        return "{p.name}/{p.ref}".format(p=self)
+        return f"{self.name}/{self.ref}"
 
     def export(self, addtl_part_attrs=None):
         """
@@ -1347,14 +1335,14 @@ class Part(SkidlBaseObject):
 
         # Export the part as a SKiDL template.
         attribs = []
-        attribs.append("'{}':{}".format("name", repr(self.name)))
+        attribs.append(f"'name':{repr(self.name)}")
         attribs.append("'dest':TEMPLATE")
         attribs.append("'tool':SKIDL")
 
         # Collect all the part attributes and the list of pins and units as Python code.
         for k in keys:
             v = getattr(self, k, None)
-            attribs.append("'{}':{}".format(k, repr(v)))
+            attribs.append(f"'{k}':{repr(v)}")
         if self.pins:
             pin_strs = [p.export() for p in self.pins]
             attribs.append("'pins':[{}]".format(",".join(pin_strs)))

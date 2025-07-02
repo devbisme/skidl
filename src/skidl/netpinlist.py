@@ -134,9 +134,7 @@ class NetPinList(list):
         for np in illegal:
             active_logger.raise_(
                 ValueError,
-                "Can't make connections to a {} ({}).".format(
-                    type(np), getattr(np, "__name__", "")
-                ),
+                f"Can't make connections to a {type(np)} ({getattr(np, '__name__', '')})."
             )
         len_b = len(nets_pins_b)
 
@@ -144,7 +142,7 @@ class NetPinList(list):
             if len_a > 1 and len_b > 1:
                 active_logger.raise_(
                     ValueError,
-                    "Connection mismatch {} != {}!".format(len_a, len_b),
+                    f"Connection mismatch {len_a} != {len_b}!",
                 )
 
             # If just a single net is to be connected, make a list out of it that's
@@ -199,7 +197,7 @@ class NetPinList(list):
             return cct.pop()
         active_logger.raise_(
             ValueError,
-            "This NetPinList contains nets/pins in {} circuits.".format(len(cct)),
+            f"This NetPinList contains nets/pins in {len(cct)} circuits.",
         )
 
     @property

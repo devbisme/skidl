@@ -58,9 +58,7 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
         )
     except FileNotFoundError as e:
         raise FileNotFoundError(
-            "Unable to open SKiDL Schematic Library File {} ({})".format(
-                filename, str(e)
-            )
+            f"Unable to open SKiDL Schematic Library File {filename} ({str(e)})"
         )
     try:
         # The SKiDL library is stored as a Python module that's executed to
@@ -79,10 +77,10 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
                 return
 
         # Oops! No library object. Something went wrong.
-        raise ValueError("No SchLib object found in {}".format(filename))
+        raise ValueError(f"No SchLib object found in {filename}")
 
     except Exception as e:
-        active_logger.error("Problem with {}".format(filename))
+        active_logger.error(f"Problem with {filename}")
         active_logger.error(e)
         raise
 

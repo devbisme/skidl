@@ -30,4 +30,4 @@ dc_vout = analysis.Vout
 print("{:^7s}{:^7s}".format("Vin (V)", " Vout (V)"))
 print("=" * 15)
 for v, i in zip(dc_vin.as_ndarray(), dc_vout.as_ndarray()):
-    print("{:6.2f} {:6.2f}".format(v, i))
+    print(f"{v:6.2f} {i:6.2f}")

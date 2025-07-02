@@ -90,7 +90,7 @@ def draw_cmd_to_svg(draw_cmd, tx, part, net_stubs, max_stub_len):
     tx_scale = tx.scale  # Compute this only once.
 
     def points_to_str(*points):
-        pt2str = lambda pt: "{pt.x:.3f},{pt.y:.3f}".format(pt=pt)
+        pt2str = lambda pt: f"{pt.x:.3f},{pt.y:.3f}"
         return " ".join((pt2str(pt) for pt in points))
 
     def pin_side(vec):
@@ -273,7 +273,7 @@ def draw_cmd_to_svg(draw_cmd, tx, part, net_stubs, max_stub_len):
                 attr = 's:attribute="value"'
             else:
                 raise RuntimeError(
-                    "Unknown property {symbol[1]} is not hidden.".format(**locals())
+                    f"Unknown property {symbol[1]} is not hidden."
                 )
             start = Point(*shape["at"][0:2])
             rotation = shape["at"][2]
@@ -358,10 +358,8 @@ def draw_cmd_to_svg(draw_cmd, tx, part, net_stubs, max_stub_len):
         circle_stroke_width = 2 * stroke_width
 
         points_str = points_to_str(start, end)
-        pin_svg = '<polyline points="{points_str}" style="stroke-width:{stroke_width:.3f}" class="$cell_id symbol {fill}" />\n'.format(
-            **locals()
-        )
-        # pin_circle_svg = '<circle cx="{start.x:.3f}" cy="{start.y:.3f}" r="{circle_stroke_width:.3f}" style="stroke-width:{circle_stroke_width:.3f}" class="$cell_id symbol {fill}" />\n'.format(**locals())
+        pin_svg = f'<polyline points="{points_str}" style="stroke-width:{stroke_width:.3f}" class="$cell_id symbol {fill}" />\n'
+        # pin_circle_svg = f'<circle cx="{start.x:.3f}" cy="{start.y:.3f}" r="{circle_stroke_width:.3f}" style="stroke-width:{circle_stroke_width:.3f}" class="$cell_id symbol {fill}" />\n'
         pin_circle_svg = ""
         pin_num_svg = pin_text_to_svg(pin_num, "pin_num", side, end, num_char_wid)
         pin_name_svg = pin_text_to_svg(pin_name, "pin_name", side, end, name_char_wid)
@@ -371,9 +369,7 @@ def draw_cmd_to_svg(draw_cmd, tx, part, net_stubs, max_stub_len):
             )
         else:
             net_name_svg = ""
-        connection_svg = '<g s:x="{start.x:.3f}" s:y="{start.y:.3f}" s:pid="{pin_num}" s:position="{side}"/>\n'.format(
-            **locals()
-        )
+        connection_svg = f'<g s:x="{start.x:.3f}" s:y="{start.y:.3f}" s:pid="{pin_num}" s:position="{side}"/>\n'
         svg = "".join(
             [
                 pin_svg,
@@ -405,7 +401,7 @@ def draw_cmd_to_svg(draw_cmd, tx, part, net_stubs, max_stub_len):
         bbox = text_bbox(text, start, (end - start).norm, char_wid, char_hgt)
 
     else:
-        raise RuntimeError("Unrecognized shape type: {shape_type}".format(**locals()))
+        raise RuntimeError(f"Unrecognized shape type: {shape_type}")
 
     return svg, bbox
 
@@ -469,11 +465,11 @@ def gen_svg_comp(part, symtx, net_stubs=None):
             # If net stubs are attached to symbol, then it's only to be used
             # for a specific part. Therefore, tag the symbol name with the unique
             # part reference so it will only be used by this part.
-            symbol_name = "{part.name}_{part.ref}_{unit.num}_{symtx}".format(**locals())
+            symbol_name = f"{part.name}_{part.ref}_{unit.num}_{symtx}"
         else:
             # No net stubs means this symbol can be used for any part that
             # also has no net stubs, so don't tag it with a specific part reference.
-            symbol_name = "{part.name}_{unit.num}_{symtx}".format(**locals())
+            symbol_name = f"{part.name}_{unit.num}_{symtx}"
 
         # Begin SVG for part unit. Translate it so the bbox.min is at (0,0).
         translate = -bbox.min
@@ -491,7 +487,7 @@ def gen_svg_comp(part, symtx, net_stubs=None):
         )
 
         # Add part alias.
-        svg.append('<s:alias val="{symbol_name}"/>\n'.format(**locals()))
+        svg.append(f'<s:alias val="{symbol_name}"/>\n')
 
         for item in unit_svg:
             if "text" not in item:

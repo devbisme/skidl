@@ -118,7 +118,7 @@ def debug_trace(fn, *args, **kwargs):
 
     def traced_fn(*args, **kwargs):
         if kwargs.pop("debug_trace"):
-            print("Doing {} ...".format(fn.__name__))
+            print(f"Doing {fn.__name__} ...")
         return fn(*args, **kwargs)
 
     return traced_fn
@@ -702,9 +702,7 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
             if slc.start and slc.start > slice_max:
                 active_logger.raise_(
                     IndexError,
-                    "Index current_level of range ({} > {})!".format(
-                        slc.start, slice_max
-                    ),
+                    f"Index current_level of range ({slc.start} > {slice_max})!"
                 )
             # Count down from start to stop.
             stop = stop - step
@@ -715,9 +713,7 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
             if slc.stop and slc.stop > slice_max:
                 active_logger.raise_(
                     IndexError,
-                    "Index current_level of range ({} > {})!".format(
-                        slc.stop, slice_max
-                    ),
+                    f"Index current_level of range ({slc.stop} > {slice_max})!"
                 )
             # Count up from start to stop
             stop += step
@@ -803,7 +799,7 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
                 ids.extend(explode(id.strip()))
         else:
             active_logger.raise_(
-                TypeError, "Unknown type in index: {}.".format(type(indx))
+                TypeError, f"Unknown type in index: {type(indx)}."
             )
 
     # Return the completely expanded list of indices.
@@ -871,12 +867,12 @@ def find_num_copies(**attribs):
     if len(num_copies) > 2:
         active_logger.raise_(
             ValueError,
-            "Mismatched lengths of attributes: {}!".format(num_copies),
+            f"Mismatched lengths of attributes: {num_copies}!",
         )
     elif len(num_copies) > 1 and min(num_copies) > 1:
         active_logger.raise_(
             ValueError,
-            "Mismatched lengths of attributes: {}!".format(num_copies),
+            f"Mismatched lengths of attributes: {num_copies}!",
         )
 
     try:
@@ -1072,7 +1068,7 @@ def find_and_open_file(
         return None, None
     else:
         active_logger.raise_(
-            FileNotFoundError, "Can't open file: {}.\n".format(filename)
+            FileNotFoundError, f"Can't open file: {filename}.\n"
         )
 
 
@@ -1180,8 +1176,6 @@ def opened(f_or_fn, mode):
                 yield f
     else:
         raise TypeError(
-            "argument must be a filename or a file-like object (is: {})".format(
-                type(f_or_fn)
-            )
+            f"argument must be a filename or a file-like object (is: {type(f_or_fn)})"
         )
 

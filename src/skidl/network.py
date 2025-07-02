@@ -45,9 +45,7 @@ class Network(list):
             except AttributeError:
                 active_logger.raise_(
                     TypeError,
-                    "Can't create a network from a {} object ({}).".format(
-                        type(obj), obj.__name__
-                    ),
+                    f"Can't create a network from a {type(obj)} object ({obj.__name__})."
                 )
 
             # Add the in & out ports of the object network to this network.
@@ -85,9 +83,7 @@ class Network(list):
         except AttributeError:
             active_logger.raise_(
                 TypeError,
-                "Unable to create a Network from a {} object ({}).".format(
-                    type(obj), obj.__name__
-                ),
+                f"Unable to create a Network from a {type(obj)} object ({obj.__name__})."
             )
 
         # Attach the output port of the first network to the input port of the second.
@@ -135,9 +131,7 @@ class Network(list):
         except AttributeError:
             active_logger.raise_(
                 TypeError,
-                "Unable to create a Network from a {} object ({}).".format(
-                    type(obj), obj.__name__
-                ),
+                f"Unable to create a Network from a {type(obj)} object ({obj.__name__})."
             )
 
         # Attach the inputs of both networks and the outputs of both networks to

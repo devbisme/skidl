@@ -108,7 +108,7 @@ def search_parts_iter(terms, tool=None):
         try:
             files = os.listdir(lib_dir)
         except (FileNotFoundError, OSError):
-            active_logger.warning("Could not open directory '{}'".format(lib_dir))
+            active_logger.warning(f"Could not open directory '{lib_dir}'")
             files = []
 
         files = [(lib_dir, l) for l in files if l.endswith(lib_suffixes)]
@@ -162,7 +162,7 @@ def search_parts(terms, tool=None):
     parts = set()
     for part in search_parts_iter(terms, tool):
         if part[0] == "LIB":
-            print(" " * 79, "\rSearching {} ...".format(part[1]), sep="", end="\r")
+            print(" " * 79, f"\rSearching {part[1]} ...", sep="", end="\r")
         elif part[0] == "PART":
             parts.add(part[1:4])
     print(" " * 79, end="\r")
@@ -170,9 +170,7 @@ def search_parts(terms, tool=None):
     # Print each part name sorted by the library where it was found.
     for lib_file, part, part_name in sorted(list(parts), key=lambda p: p[0]):
         print(
-            "{}: {} ({})".format(
-                lib_file, part_name, getattr(part, "description", "???")
-            )
+            f"{lib_file}: {part_name} ({getattr(part, 'description', '???')})"
         )
 
 
@@ -257,9 +255,7 @@ class FootprintCache(dict):
             # fp-lib-table file was not found, so create a table containing the path directory
             # as a single module lib.
             nickname, ext = os.path.splitext(os.path.basename(path))
-            tbl = '(fp_lib_table\n(lib (name {nickname})(type KiCad)(uri {path})(options "")(descr ""))\n)'.format(
-                **locals()
-            )
+            tbl = f'(fp_lib_table\n(lib (name {nickname})(type KiCad)(uri {path})(options "")(descr ""))\n)'
 
         # Get individual "(lib ...)" entries from the string.
         libs = re.findall(
@@ -315,9 +311,7 @@ class FootprintCache(dict):
             unexpanded_vars = get_env_vars(uri)
             if unexpanded_vars:
                 active_logger.warning(
-                    "There are some undefined environment variables: {}".format(
-                        " ".join(unexpanded_vars)
-                    )
+                    f"There are some undefined environment variables: {' '.join(unexpanded_vars)}"
                 )
                 continue
 
@@ -423,7 +417,7 @@ def search_footprints_iter(terms, tool=None):
             num_pads = len(
                 set(re.findall(r"\(\s*pad\s+([^\s)]+)", " ".join(module_text)))
             )
-            num_pads_str = "#pads={}".format(num_pads)
+            num_pads_str = f"#pads={num_pads}"
 
             # Create a string with the module name, library name, number of pads,
             # description and tags.
@@ -462,7 +456,7 @@ def search_footprints(terms, tool=None):
     footprints = []
     for fp in search_footprints_iter(terms, tool):
         if fp[0] == "LIB":
-            print(" " * 79, "\rSearching {} ...".format(fp[1]), sep="", end="\r")
+            print(" " * 79, f"\rSearching {fp[1]} ...", sep="", end="\r")
         elif fp[0] == "MODULE":
             footprints.append(fp[1:4])
     print(" " * 79, end="\r")
@@ -482,7 +476,7 @@ def search_footprints(terms, tool=None):
                 tags = line.split("(tags ")[1].rsplit(")", 1)[0]
             except IndexError:
                 pass
-        print("{}: {} ({} - {})".format(lib_file, module_name, descr, tags))
+        print(f"{lib_file}: {module_name} ({descr} - {tags})")
 
 
 @export_to_all

@@ -166,9 +166,7 @@ class SkidlBaseObject(object):
         from .logger import active_logger
 
         def erc_report(evtpl):
-            log_msg = "{evtpl.stmnt} {evtpl.fail_msg} in {evtpl.filename}:{evtpl.lineno}:{evtpl.function}.".format(
-                evtpl=evtpl
-            )
+            log_msg = "{evtpl.stmnt} {evtpl.fail_msg} in {evtpl.filename}:{evtpl.lineno}:{evtpl.function}."
             if evtpl.severity == ERROR:
                 active_logger.error(log_msg)
             elif evtpl.severity == WARNING:

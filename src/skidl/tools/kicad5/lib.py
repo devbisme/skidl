@@ -96,7 +96,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
             break
     if not f:
         raise FileNotFoundError(
-            "Unable to open KiCad Schematic Library File {}".format(filename)
+            f"Unable to open KiCad Schematic Library File {filename}"
         )
 
     lib_txt = f.read()
@@ -113,7 +113,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
     if not header.startswith("EESchema-LIBRARY"):
         active_logger.raise_(
             RuntimeError,
-            "The file {} is not a KiCad Schematic Library File.\n".format(filename),
+            f"The file {filename} is not a KiCad Schematic Library File.\n"
         )
 
     # Process each part.
@@ -521,23 +521,17 @@ def parse_lib_part(part, partial_parse):
                             or pin.unit != rpt_pin.unit
                         ):
                             active_logger.warning(
-                                "Non-identical pins with the same number ({}) in symbol drawing {}".format(
-                                    pin.num, part.name
-                                )
+                                f"Non-identical pins with the same number ({pin.num}) in symbol drawing {part.name}."
                             )
 
                 # Found something unknown in the drawing section.
                 else:
-                    msg = "Found something strange in {} symbol drawing: {}.".format(
-                        part.name, line
-                    )
+                    msg = f"Found something strange in {part.name} symbol drawing: {line}."
                     active_logger.warning(msg)
 
             # Found something unknown outside the footprint list or drawing section.
             else:
-                msg = "Found something strange in {} symbol definition: {}.".format(
-                    part.name, line
-                )
+                msg = f"Found something strange in {part.name} symbol definition: {line}."
                 active_logger.warning(msg)
 
     # Define some shortcuts to part information.

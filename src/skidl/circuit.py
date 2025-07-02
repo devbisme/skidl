@@ -274,7 +274,7 @@ class Circuit(SkidlBaseObject):
                 else:
                     active_logger.raise_(
                         ValueError,
-                        "Can't add unmovable part {} to this circuit.".format(part.ref),
+                        f"Can't add unmovable part {part.ref} to this circuit.",
                     )
 
     def rmv_parts(self, *parts):
@@ -298,14 +298,12 @@ class Circuit(SkidlBaseObject):
                     self.parts.remove(part)
                 else:
                     active_logger.warning(
-                        "Removing non-existent part {} from this circuit.".format(
-                            part.ref
-                        )
+                        f"Removing non-existent part {part.ref} from this circuit."
                     )
             else:
                 active_logger.raise_(
                     ValueError,
-                    "Can't remove part {} from this circuit.".format(part.ref),
+                    f"Can't remove part {part.ref} from this circuit.",
                 )
 
     def add_nets(self, *nets):
@@ -337,7 +335,7 @@ class Circuit(SkidlBaseObject):
                 else:
                     active_logger.raise_(
                         ValueError,
-                        "Can't add unmovable net {} to this circuit.".format(net.name),
+                        f"Can't add unmovable net {net.name} to this circuit.",
                     )
 
     def rmv_nets(self, *nets):
@@ -358,14 +356,12 @@ class Circuit(SkidlBaseObject):
                     self.nets.remove(net)
                 else:
                     active_logger.warning(
-                        "Removing non-existent net {} from this circuit.".format(
-                            net.name
-                        )
+                        f"Removing non-existent net {net.name} from this circuit."
                     )
             else:
                 active_logger.raise_(
                     ValueError,
-                    "Can't remove unmovable net {} from this circuit.".format(net.name),
+                    f"Can't remove unmovable net {net.name} from this circuit.",
                 )
 
     def add_buses(self, *buses):
@@ -417,14 +413,12 @@ class Circuit(SkidlBaseObject):
                         self -= net
                 else:
                     active_logger.warning(
-                        "Removing non-existent bus {} from this circuit.".format(
-                            bus.name
-                        )
+                        f"Removing non-existent bus {bus.name} from this circuit."
                     )
             else:
                 active_logger.raise_(
                     ValueError,
-                    "Can't remove unmovable bus {} from this circuit.".format(bus.name),
+                    f"Can't remove unmovable bus {bus.name} from this circuit.",
                 )
 
     def add_stuff(self, *stuff):
@@ -451,7 +445,7 @@ class Circuit(SkidlBaseObject):
             else:
                 active_logger.raise_(
                     ValueError,
-                    "Can't add a {} to a Circuit object.".format(type(thing)),
+                    f"Can't add a {type(thing)} to a Circuit object.",
                 )
         return self
 
@@ -479,7 +473,7 @@ class Circuit(SkidlBaseObject):
             else:
                 active_logger.raise_(
                     ValueError,
-                    "Can't remove a {} from a Circuit object.".format(type(thing)),
+                    f"Can't remove a {type(thing)} from a Circuit object.",
                 )
         return self
 
@@ -1171,7 +1165,7 @@ class Circuit(SkidlBaseObject):
             """Handle the situation of a Part with no footprint when generating a schematic."""
 
             active_logger.warning(
-                "No footprint for {part}/{ref}.".format(part=part.name, ref=part.ref)
+                f"No footprint for {part.name}/{part.ref}."
             )
 
             # Supply a nonsense footprint just so no complaints are raised when the EESCHEMA code is generated.

@@ -377,4 +377,4 @@ class SchNode(Placer, Router):
 
             return wire_length
 
-        return "{}\n".format(get_wire_length(self))
+        return f"{get_wire_length(self)}\n"

@@ -160,7 +160,7 @@ class Bus(SkidlBaseObject):
                 nets.extend(filter_list(self.nets, name=ident))
             else:
                 active_logger.raise_(
-                    TypeError, "Can't index bus with a {}.".format(type(ident))
+                    TypeError, f"Can't index bus with a {type(ident)}."
                 )
 
         if len(nets) == 0:
@@ -363,9 +363,7 @@ class Bus(SkidlBaseObject):
             else:
                 active_logger.raise_(
                     ValueError,
-                    "Adding illegal type of object ({}) to Bus {}.".format(
-                        type(obj), self.name
-                    ),
+                    f"Adding illegal type of object ({type(obj)}) to Bus {self.name}.",
                 )
 
         # Assign names to all the unnamed nets in the bus.
@@ -420,16 +418,12 @@ class Bus(SkidlBaseObject):
         if not isinstance(num_copies, int):
             active_logger.raise_(
                 ValueError,
-                "Can't make a non-integer number ({}) of copies of a bus!".format(
-                    num_copies
-                ),
+                f"Can't make a non-integer number ({num_copies}) of copies of a bus!",
             )
         if num_copies < 0:
             active_logger.raise_(
                 ValueError,
-                "Can't make a negative number ({}) of copies of a bus!".format(
-                    num_copies
-                ),
+                f"Can't make a negative number ({num_copies}) of copies of a bus!",
             )
 
         copies = []
@@ -445,9 +439,7 @@ class Bus(SkidlBaseObject):
                     except IndexError:
                         active_logger.raise_(
                             ValueError,
-                            "{} copies of bus {} were requested, but too few elements in attribute {}!".format(
-                                num_copies, self.name, k
-                            ),
+                            f"{num_copies} copies of bus {self.name} were requested, but too few elements in attribute {k}!",
                         )
                 setattr(cpy, k, v)
 
@@ -496,7 +488,7 @@ class Bus(SkidlBaseObject):
         Returns:
             bool: True if the bus has an implicitly generated name.
         """
-        prefix_re = "({}|{})+".format(re.escape(NET_PREFIX), re.escape(BUS_PREFIX))
+        prefix_re = f"({re.escape(NET_PREFIX)}|{re.escape(BUS_PREFIX)})+"
         return re.match(prefix_re, self.name)
 
     def connect(self, *pins_nets_buses):

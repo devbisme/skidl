@@ -186,7 +186,7 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
                                 part.associate_pins()
                             except IndexError:
                                 active_logger.warning(
-                                    "Misformatted SPICE subcircuit: {}".format(part.part_defn)
+                                    f"Misformatted SPICE subcircuit: {part.part_defn}"
                                 )
                             else:
                                 # Now find a symbol file for the part to assign names to the pins.
@@ -350,9 +350,7 @@ def gen_netlist(self, **kwargs):
                             pass
                     if path == None:
                         active_logger.error(
-                            "Unable to find model {} for part {}".format(
-                                model, part.ref
-                            )
+                            f"Unable to find model {model} for part {part.ref}"
                         )
 
                 # Include the model file if it hasn't been included yet.
@@ -383,7 +381,7 @@ def gen_netlist(self, **kwargs):
         try:
             add_func = part.pyspice["add"]
         except (AttributeError, KeyError):
-            active_logger.error("Part has no SPICE model: {}".format(part))
+            active_logger.error(f"Part has no SPICE model: {part}")
         else:
             add_func(part, circuit)
 
@@ -452,10 +450,8 @@ def _get_kwargs(part, kw):
                 kwargs.update({param_name: node(pin)})
             except KeyError:
                 active_logger.error(
-                    "Part {}-{} has no {} pin: {}".format(
-                        part.ref, part.name, pin.name, part
+                    f"Part {part.ref}-{part.name} has no {pin.name} pin: {part}"
                     )
-                )
 
     return kwargs
 
@@ -464,7 +460,7 @@ def _get_kwargs(part, kw):
 def not_implemented(part, circuit):
     """Unable to add a particular SPICE part to a circuit."""
     active_logger.error(
-        "Function not implemented for {} - {}.".format(part.name, part.ref)
+        f"Function not implemented for {part.name} - {part.ref}."
     )
 
 
@@ -563,7 +559,7 @@ def add_xspice_to_circuit(part, circuit):
             # Add pins from a pin vector.
             args.append("[" + " ".join([node(p) for p in pin]) + "]")
         else:
-            active_logger.error("Illegal XSPICE argument: {}".format(pin))
+            active_logger.error(f"Illegal XSPICE argument: {pin}")
 
     # The XSPICE model name should be the only keyword argument.
     kwargs = {"model": part.model.name}
@@ -629,7 +625,7 @@ def convert_for_spice(part, spice_part, pin_map):
         dst_pin.aliases += src_pin.aliases
     
     # reorder the part pins based on spice part pins orders
-    # active_logger.info("Reordering pins for part {}".format(part.ref))
+    # active_logger.info("Reordering pins for part {part.ref}")
     part.pins = [next(pin for pin in part.pins if pin.num == src.num or pin.name == src.name) for src in spice_part.pins]
 
 

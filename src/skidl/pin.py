@@ -227,7 +227,7 @@ class Pin(SkidlBaseObject):
         """
         ref = getattr(self.part, "ref", "???")
         num, names, func = self.get_pin_info()
-        return "Pin {ref}/{num}/{names}/{func}".format(**locals())
+        return f"Pin {ref}/{num}/{names}/{func}"
 
     __repr__ = __str__
 
@@ -493,16 +493,12 @@ class Pin(SkidlBaseObject):
         if not isinstance(num_copies, int):
             active_logger.raise_(
                 ValueError,
-                "Can't make a non-integer number ({}) of copies of a pin!".format(
-                    num_copies
-                ),
+                f"Can't make a non-integer number ({num_copies}) of copies of a pin!"
             )
         if num_copies < 0:
             active_logger.raise_(
                 ValueError,
-                "Can't make a negative number ({}) of copies of a pin!".format(
-                    num_copies
-                ),
+                f"Can't make a negative number ({num_copies}) of copies of a pin!"
             )
 
         copies = []
@@ -562,16 +558,12 @@ class Pin(SkidlBaseObject):
             # Can't be connected to both normal and no-connect nets!
             active_logger.raise_(
                 ValueError,
-                "{} is connected to both normal and no-connect nets!".format(
-                    self.erc_desc()
-                ),
+                f"{self.erc_desc()} is connected to both normal and no-connect nets!"
             )
         # This is just strange...
         active_logger.raise_(
             ValueError,
-            "{} is connected to something strange: {}.".format(
-                self.erc_desc(), self.nets
-            ),
+            f"{self.erc_desc()} is connected to something strange: {self.nets}."
         )
 
     def is_attached(self, pin_net_bus):
@@ -607,7 +599,7 @@ class Pin(SkidlBaseObject):
             return False
         active_logger.raise_(
             ValueError,
-            "Pins can't be attached to {}!".format(type(pin_net_bus)),
+            f"Pins can't be attached to {type(pin_net_bus)}!",
         )
 
     def split_name(self, delimiters):
@@ -667,9 +659,7 @@ class Pin(SkidlBaseObject):
             else:
                 active_logger.raise_(
                     TypeError,
-                    "Cannot attach non-Pin/non-Net {} to {}.".format(
-                        type(pn), self.erc_desc()
-                    ),
+                    f"Cannot attach non-Pin/non-Net {type(pn)} to {self.erc_desc()}."
                 )
 
         # Set the flag to indicate this result came from the += operator.
@@ -759,7 +749,7 @@ class Pin(SkidlBaseObject):
         n = self.net.name
         p1 = self.erc_desc()
         p2 = other_pin.erc_desc()
-        msg = "Pin conflict on net {n}, {p1} <==> {p2} ({erc_msg})".format(**locals())
+        msg = f"Pin conflict on net {n}, {p1} <==> {p2} ({erc_msg})"
         if erc_result == WARNING:
             active_logger.warning(msg)
         else:

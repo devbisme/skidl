@@ -93,7 +93,7 @@ def calc_symbol_bbox(part, **options):
                     bbox *= Tx().move(Point(-bbox.w / 2, 0))
                 else:
                     raise Exception(
-                        "Inconsistent horizontal alignment: {}".format(halign)
+                        f"Inconsistent horizontal alignment: {halign}"
                     )
 
                 # Vertically align bbox.
@@ -106,7 +106,7 @@ def calc_symbol_bbox(part, **options):
                     bbox *= Tx().move(Point(0, -bbox.h / 2))
                 else:
                     raise Exception(
-                        "Inconsistent vertical alignment: {}".format(valign)
+                        f"Inconsistent vertical alignment: {valign}"
                     )
 
                 bbox *= Tx().move(Point(obj.x, obj.y))
@@ -142,7 +142,7 @@ def calc_symbol_bbox(part, **options):
                     bbox *= Tx().move(Point(-bbox.w / 2, 0))
                 else:
                     raise Exception(
-                        "Inconsistent horizontal alignment: {}".format(halign)
+                        f"Inconsistent horizontal alignment: {halign}"
                     )
 
                 # Vertically align bbox.
@@ -155,7 +155,7 @@ def calc_symbol_bbox(part, **options):
                     bbox *= Tx().move(Point(0, -bbox.h / 2))
                 else:
                     raise Exception(
-                        "Inconsistent vertical alignment: {}".format(valign)
+                        f"Inconsistent vertical alignment: {valign}"
                     )
 
                 bbox *= Tx().move(Point(obj.x, obj.y))
@@ -205,9 +205,7 @@ def calc_symbol_bbox(part, **options):
 
             else:
                 active_logger.error(
-                    "Unknown graphical object {} in part symbol {}.".format(
-                        obj_type, part.name
-                    )
+                    f"Unknown graphical object {obj_type} in part symbol {part.name}."
                 )
 
         # After the unit bounding box is calculated, change it from mm to mils.

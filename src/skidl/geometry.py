@@ -141,9 +141,7 @@ class Tx:
         Returns:
             str: String showing the class name and transformation parameters.
         """
-        return "{type(self)}({self.a}, {self.b}, {self.c}, {self.d}, {self.dx}, {self.dy})".format(
-            self=self
-        )
+        return f"{type(self)}({self.a}, {self.b}, {self.c}, {self.d}, {self.dx}, {self.dy})"
 
     def __str__(self):
         """
@@ -152,9 +150,7 @@ class Tx:
         Returns:
             str: String showing the transformation parameters in a list format.
         """
-        return "[{self.a}, {self.b}, {self.c}, {self.d}, {self.dx}, {self.dy}]".format(
-            self=self
-        )
+        return f"[{self.a}, {self.b}, {self.c}, {self.d}, {self.dx}, {self.dy}]"
 
     def __mul__(self, m):
         """
@@ -490,7 +486,7 @@ class Point:
         Returns:
             str: String with x and y coordinates.
         """
-        return "{} {}".format(self.x, self.y)
+        return f"{self.x} {self.y}"
 
     def snap(self, grid_spacing):
         """
@@ -565,7 +561,7 @@ class Point:
         Returns:
             str: String with class name and x,y coordinates.
         """
-        return "{type(self)}({self.x}, {self.y})".format(self=self)
+        return f"{type(self)}({self.x}, {self.y})"
 
 
 Vector = Point
@@ -824,9 +820,7 @@ class BBox:
         Returns:
             str: String showing the class name and min/max points.
         """
-        return "{type(self)}(Point({self.min}), Point({self.max}))".format(
-            self=self
-        )
+        return f"{type(self)}(Point({self.min}), Point({self.max}))"
 
     def __str__(self):
         """
@@ -835,7 +829,7 @@ class BBox:
         Returns:
             str: String representation of the min/max points.
         """
-        return "[{}, {}]".format(self.min, self.max)
+        return f"[{self.min}, {self.max}]"
 
 
 @export_to_all
@@ -883,7 +877,7 @@ class Segment:
         Returns:
             str: String with the segment endpoints.
         """
-        return "{} {}".format(str(self.p1), str(self.p2))
+        return f"{str(self.p1)} {str(self.p2)}"
 
     def flip_xy(self):
         """

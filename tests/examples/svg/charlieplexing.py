@@ -3,7 +3,7 @@ from skidl import *
 
 
 def reref(part, r, c):
-    part.ref = "{part.name}-{r}-{c}".format(**locals())
+    part.ref = f"{part.name}-{r}-{c}"
 
 
 @subcircuit

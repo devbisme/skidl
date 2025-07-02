@@ -98,7 +98,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
             break
     if not f:
         raise FileNotFoundError(
-            "Unable to open KiCad Schematic Library File {}".format(filename)
+            f"Unable to open KiCad Schematic Library File {filename}"
         )
 
     # Parse the library and return a nested list of library parts.
@@ -115,7 +115,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
     except:
         active_logger.raise_(
             RuntimeError,
-            "The file {} is not a KiCad Schematic Library File.\n".format(filename),
+            f"The file {filename} is not a KiCad Schematic Library File.\n",
         )
 
     # Extract symbols into a dictionary with symbol names as keys. 

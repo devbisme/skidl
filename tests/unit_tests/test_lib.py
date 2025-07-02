@@ -243,7 +243,7 @@ def check_lib_part(part):
     pins = to_list(part.get_pins())
     # Raise an exception if the part has no pins.
     if not pins:
-        raise Exception("Part {} has no pins!".format(part.name))
+        raise Exception(f"Part {part.name} has no pins!")
     # Get the list of pins for each unit.
     unit_pins = []
     for unit in part.unit.values():
@@ -253,13 +253,11 @@ def check_lib_part(part):
     # Raise an exception if the number of pins in the units doesn't match the total number of pins.
     if part.unit and len(unit_pins) != len(pins):
         raise Exception(
-            "Part {} with {} pins in {} units doesn't match {} total part pins!".format(
-                part.name, len(unit_pins), len(part.unit), len(pins)
-            )
+            f"Part {part.name} with {len(unit_pins)} pins in {len(part.unit)} units doesn't match {len(pins)} total part pins!"
         )
     # Raise an exception if the part has no pins.
     if len(part.pins) == 0:
-        raise Exception("Part {part.name} has no pins: {part.pins}".format(**locals()))
+        raise Exception(f"Part {part.name} has no pins: {part.pins}")
 
 
 def test_lib_kicad_1():

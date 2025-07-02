@@ -396,7 +396,7 @@ connections to nets while         prohibiting direct assignment. Python
                     return True
             return False
         active_logger.raise_(
-            TypeError, "Nets can't be attached to {}!".format(type(pin_net_bus))
+            TypeError, f"Nets can't be attached to {type(pin_net_bus)}!"
         )
 
     def is_movable(self):
@@ -427,7 +427,7 @@ connections to nets while         prohibiting direct assignment. Python
         from .bus import BUS_PREFIX
 
         self.test_validity()
-        prefix_re = "({}|{})+".format(re.escape(NET_PREFIX), re.escape(BUS_PREFIX))
+        prefix_re = f"({re.escape(NET_PREFIX)}|{re.escape(BUS_PREFIX)})+"
         return re.match(prefix_re, self.name)
 
     def copy(self, num_copies=None, circuit=None, **attribs):
@@ -469,13 +469,13 @@ connections to nets while         prohibiting direct assignment. Python
             active_logger.raise_(
                 ValueError,
                 "Can't make a non-integer number "
-                "({}) of copies of a net!".format(num_copies),
+                f"({num_copies}) of copies of a net!",
             )
         if num_copies < 0:
             active_logger.raise_(
                 ValueError,
                 "Can't make a negative number "
-                "({}) of copies of a net!".format(num_copies),
+                f"({num_copies}) of copies of a net!",
             )
 
         # If circuit is not specified, then create the copies within circuit of the
@@ -517,9 +517,9 @@ connections to nets while         prohibiting direct assignment. Python
                         active_logger.raise_(
                             ValueError,
                             (
-                                "{} copies of net {} were requested, but too "
-                                "few elements in attribute {}!"
-                            ).format(num_copies, self.name, k),
+                                "{num_copies} copies of net {self.name} were requested, but too "
+                                "few elements in attribute {k}!"
+                            )
                         )
                 setattr(cpy, k, v)
 
@@ -570,13 +570,13 @@ connections to nets while         prohibiting direct assignment. Python
             if isinstance(self, NCNet):
                 active_logger.raise_(
                     ValueError,
-                    "Can't join with a no-connect net {}!".format(self.name),
+                    f"Can't join with a no-connect net {self.name}!",
                 )
 
             if isinstance(net, NCNet):
                 active_logger.raise_(
                     ValueError,
-                    "Can't join with a no-connect net {}!".format(net.name),
+                    f"Can't join with a no-connect net {net.name}!",
                 )
 
             # No need to do anything if merging a net with itself.
@@ -633,38 +633,28 @@ connections to nets while         prohibiting direct assignment. Python
                 else:
                     active_logger.raise_(
                         ValueError,
-                        "Can't attach nets in different circuits ({}, {})!".format(
-                            pn.circuit.name, self.circuit.name
-                        ),
+                        f"Can't attach nets in different circuits ({pn.circuit.name}, {self.circuit.name})!"
                     )
             elif isinstance(pn, Pin):
                 if not pn.part or pn.part.circuit == self.circuit:
                     if not pn.part:
                         active_logger.warning(
-                            "Attaching non-part Pin {} to a Net {}.".format(
-                                pn.name, self.name
-                            )
+                            f"Attaching non-part Pin {pn.name} to a Net {self.name}."
                         )
                     connect_pin(pn)
                 elif not pn.part.circuit:
                     active_logger.warning(
-                        "Attaching part template Pin {} to a Net {}.".format(
-                            pn.name, self.name
-                        )
+                        f"Attaching part template Pin {pn.name} to a Net {self.name}."
                     )
                 else:
                     active_logger.raise_(
                         ValueError,
-                        "Can't attach a part to a net in different circuits ({}, {})!".format(
-                            pn.part.circuit.name, self.circuit.name
-                        ),
+                        f"Can't attach a part to a net in different circuits ({pn.part.circuit.name}, {self.circuit.name})!"
                     )
             else:
                 active_logger.raise_(
                     TypeError,
-                    "Cannot attach non-Pin/non-Net {} to Net {}.".format(
-                        type(pn), self.name
-                    ),
+                    f"Cannot attach non-Pin/non-Net {type(pn)} to Net {self.name}.",
                 )
 
         # If something has been connected to a net, then recompute its traversal so the
@@ -736,9 +726,7 @@ connections to nets while         prohibiting direct assignment. Python
                 if fixed0 and fixed1:
                     active_logger.raise_(
                         ValueError,
-                        "Cannot merge two nets with fixed names: {} and {}.".format(
-                            name0, name1
-                        ),
+                        f"Cannot merge two nets with fixed names: {name0} and {name1}.",
                     )
                 if nets[1].is_implicit():
                     return nets[0]
@@ -746,9 +734,7 @@ connections to nets while         prohibiting direct assignment. Python
                     return nets[1]
                 if name0 != name1:
                     active_logger.warning(
-                        "Merging two named nets ({name0} and {name1}) into {name0}.".format(
-                            **locals()
-                        )
+                        f"Merging two named nets ({name0} and {name1}) into {name0}."
                     )
                 return nets[0]
 
@@ -1003,14 +989,12 @@ connections to nets while         prohibiting direct assignment. Python
             if netclass not in netclasses:
                 active_logger.raise_(
                     ValueError,
-                    "Can't assign net class {netclass.name} to net {self.name} that's already assigned net class {netclasses}".format(
-                        **locals()
-                    ),
+                    f"Can't assign net class {netclass.name} to net {self.name} that's already assigned net class {netclasses}"
                 )
         else:
             active_logger.raise_(
                 ValueError,
-                "Too many netclasses assigned to net {self.name}".format(**locals()),
+                f"Too many netclasses assigned to net {self.name}",
             )
 
         for n in nets:
@@ -1129,7 +1113,7 @@ connections to nets while         prohibiting direct assignment. Python
             return
         active_logger.raise_(
             ValueError,
-            "Net {} is no longer valid. Do not use it!".format(self.name),
+            f"Net {self.name} is no longer valid. Do not use it!",
         )
 
 

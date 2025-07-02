@@ -32,7 +32,7 @@ from .setup_teardown import setup_function, teardown_function
 sch_options = {}
 # seed = int(time.time())
 # sch_options["seed"] = seed
-# print("Random seed = {}".format(seed))
+# print(f"Random seed = {seed}")
 sch_options["retries"] = 3
 # sch_options["allow_routing_failure"] = True
 # sch_options["pt_to_pt_mult"] = 1  # HACK: Ad-hoc value.
@@ -92,7 +92,7 @@ def create_schematic(num_trials=1, flatness=1.0, script_stack_level=1, report_fa
         pass
     with open(stats_file, "w") as fp:
         # First line shows configuration of P&R options.
-        config = ";".join(["{}={}".format(k,v) for k,v in sch_options.items()])
+        config = ";".join([f"{k}={v}" for k,v in sch_options.items()])
         fp.write(config)
         fp.write("\n")
         # Add headers for columns of statistics.
@@ -131,7 +131,7 @@ def plot_stats(stats_file):
     plt.xlabel("Total Routed Wire Length")
     plt.ylabel("Frequency")
     plt.title("Distribution of Total Routed Wiring Length")
-    plt.annotate("success={:.2f}\nmean={:.0f}\nmedian={:.0f}\nstddev={:.0f}".format(route_success, route_len_mean, route_len_median, route_len_stddev), xy=(0.75, 0.5), xycoords='axes fraction')
+    plt.annotate(f"success={route_success:.2f}\nmean={route_len_mean:.0f}\nmedian={route_len_median:.0f}\nstddev={route_len_stddev:.0f}", xy=(0.75, 0.5), xycoords='axes fraction')
     plt.show()
 
 def summarize_stats(stats_file, stat_headers):
@@ -613,8 +613,8 @@ def test_gen_sch_4():
 
     best_arr.apply()
     for part in best_arr.parts:
-        print("{part.ref:5s} {part.region.x} {part.region.y}".format(**locals()))
-    print("cost = {best_arr.cost()}".format(**locals()))
+        print(f"{part.ref:5s} {part.region.x} {part.region.y}")
+    print(f"cost = {best_arr.cost()}")
 
 
 @pytest.mark.xfail(raises=RoutingFailure)
@@ -676,8 +676,8 @@ def test_gen_sch_5():
 
     best_arr.apply()
     for part in default_circuit.parts:
-        print("{part.ref:5s} {part.region.x} {part.region.y}".format(**locals()))
-    print("cost = {best_arr.cost()}".format(**locals()))
+        print(f"{part.ref:5s} {part.region.x} {part.region.y}")
+    print(f"cost = {best_arr.cost()}")
 
     best_arr.expand_grid(3, 3)
     arr = best_arr
@@ -697,8 +697,8 @@ def test_gen_sch_5():
 
     best_arr.apply()
     for part in default_circuit.parts:
-        print("{part.ref:5s} {part.region.x} {part.region.y}".format(**locals()))
-    print("cost = {best_arr.cost()}".format(**locals()))
+        print(f"{part.ref:5s} {part.region.x} {part.region.y}")
+    print(f"cost = {best_arr.cost()}")
 
 
 @pytest.mark.xfail(raises=RoutingFailure)

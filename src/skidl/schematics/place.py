@@ -910,9 +910,7 @@ def push_and_pull(anchored_parts, mobile_parts, nets, force_func, **options):
             # Draw current part placement for debugging purposes.
             draw_placement(parts, nets, scr, tx, font)
             draw_text(
-                "alpha:{alpha:3.2f} iter:{_} force:{sum_of_forces:.1f} stable:{stable_threshold}".format(
-                    **locals()
-                ),
+                f"alpha:{alpha:3.2f} iter:{_} force:{sum_of_forces:.1f} stable:{stable_threshold}",
                 txt_org,
                 scr,
                 tx,
@@ -1435,7 +1433,7 @@ class Placer:
         current_attrs = node.get_attrs()
         for key in current_attrs.keys():
             print(
-                "added {} attrs: {}".format(key, current_attrs[key] - node.attrs[key])
+                f"added {key} attrs: {current_attrs[key] - node.attrs[key]}"
             )
 
     def rmv_placement_stuff(node):

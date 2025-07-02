@@ -123,7 +123,7 @@ def test_xspice_1():
     print("{:^7s}{:^7s}".format("vin", "vout"))
     print("=" * 15)
     for v1, v2 in zip(vin.as_ndarray(), vout.as_ndarray()):
-        print("{:6.2f} {:6.2f}".format(v1, v2))
+        print(f"{v1:6.2f} {v2:6.2f}")
 
 
 @pytest.mark.spice
@@ -158,7 +158,7 @@ def test_part_convert_for_spice():
     print("{:^7s}{:^7s}".format("Vin (V)", " Vout (V)"))
     print("=" * 15)
     for v, i in zip(dc_vin.as_ndarray(), dc_vout.as_ndarray()):
-        print("{:6.2f} {:6.2f}".format(v, i))
+        print(f"{v:6.2f} {i:6.2f}")
 
 
 @pytest.mark.spice
@@ -581,7 +581,7 @@ def test_all_parts():
     print("{:^7s}{:^7s}".format("V", " I (mA)"))
     print("=" * 15)
     for v, i in zip(voltage.as_ndarray(), current.as_ndarray() * 1000):
-        print("{:6.2f} {:6.2f}".format(v, i))
+        print(f"{v:6.2f} {i:6.2f}")
 
     # Create a plot of the current (Y coord) versus the applied voltage (X coord).
     figure = plt.figure(1)
@@ -1047,7 +1047,7 @@ def test_skywater_2():
     print("{:^7s}{:^7s}".format("V", " I (mA)"))
     print("=" * 15)
     for v, i in zip(voltage.as_ndarray(), current.as_ndarray() * 1000):
-        print("{:6.2f} {:6.2f}".format(v, i))
+        print(f"{v:6.2f} {i:6.2f}")
 
     # Create a plot of the current (Y coord) versus the applied voltage (X coord).
     figure = plt.figure(1)

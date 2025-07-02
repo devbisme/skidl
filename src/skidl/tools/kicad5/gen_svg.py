@@ -323,7 +323,7 @@ def gen_svg_comp(part, symtx, net_stubs=None):
             path_op = "M"
             for pt in pts:
                 obj_bbox.add(pt)
-                path.append("{path_op} {pt.x} {pt.y}".format(**locals()))
+                path.append(f"{path_op} {pt.x} {pt.y}")
                 path_op = "L"
             path = " ".join(path)
             thickness = (poly.thickness or default_thickness) * scale
@@ -543,11 +543,11 @@ def gen_svg_comp(part, symtx, net_stubs=None):
             # If net stubs are attached to symbol, then it's only to be used
             # for a specific part. Therefore, tag the symbol name with the unique
             # part reference so it will only be used by this part.
-            symbol_name = "{part.name}_{part.ref}_{unit}_{symtx}".format(**locals())
+            symbol_name = f"{part.name}_{part.ref}_{unit}_{symtx}"
         else:
             # No net stubs means this symbol can be used for any part that
             # also has no net stubs, so don't tag it with a specific part reference.
-            symbol_name = "{part.name}_{unit}_{symtx}".format(**locals())
+            symbol_name = f"{part.name}_{unit}_{symtx}"
 
         # Begin SVG for part unit. Translate it so the bbox.min is at (0,0).
         translate = bbox.min * -1
@@ -565,7 +565,7 @@ def gen_svg_comp(part, symtx, net_stubs=None):
         )
 
         # Add part alias.
-        svg.append('<s:alias val="{symbol_name}"/>'.format(**locals()))
+        svg.append(f'<s:alias val="{symbol_name}"/>')
 
         # Add part unit text and graphics.
         svg.extend(unit_filled_svg[unit])  # Filled items go on the bottom.

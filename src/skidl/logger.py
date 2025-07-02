@@ -296,17 +296,13 @@ class SkidlLogger(logging.getLoggerClass()):
             phase_desc (str): Description of the phase being summarized (e.g., "generating netlist").
         """
         if (self.error.count, self.warning.count, self.bare_error.count, self.bare_warning.count) == (0, 0, 0, 0):
-            self.summary("No errors or warnings found while {}.\n".format(phase_desc))
+            self.summary(f"No errors or warnings found while {phase_desc}.\n")
         else:
             self.summary(
-                "{} warnings found while {}.".format(
-                    active_logger.warning.count + active_logger.bare_warning.count, phase_desc
-                )
+                f"{active_logger.warning.count + active_logger.bare_warning.count} warnings found while {phase_desc}."
             )
             self.summary(
-                "{} errors found while {}.\n".format(
-                    active_logger.error.count + active_logger.bare_error.count, phase_desc
-                )
+                f"{active_logger.error.count + active_logger.bare_error.count} errors found while {phase_desc}.\n"
             )
 
 

@@ -106,7 +106,7 @@ class SchLib(object):
             # OK, unknown tool...
             active_logger.raise_(
                 ValueError,
-                "Unsupported ECAD tool library: {}.".format(tool),
+                f"Unsupported ECAD tool library: {tool}.",
             )
         abs_filename = get_abs_filename(
             filename, paths, exts, allow_failure=False, descend=-1
@@ -182,7 +182,7 @@ class SchLib(object):
         Returns:
             str: A string listing all parts in the library with their descriptions.
         """
-        return "\n".join(["{}: {}".format(p.name, p.description) for p in self.parts])
+        return "\n".join([f"{p.name}: {p.description}" for p in self.parts])
 
     __repr__ = __str__
 
@@ -334,15 +334,11 @@ class SchLib(object):
 
         # No parts found, so signal an error.
         if not parts and not allow_failure:
-            message = "Unable to find part {} in library {}.".format(
-                name, getattr(self, "filename", "UNKNOWN")
-            )
+            message = f"Unable to find part {name} in library {getattr(self, 'filename', 'UNKNOWN')}."
             active_logger.raise_(ValueError, message)
 
         if len(parts) > 1 and not allow_multiples:
-            message = "Found multiple parts matching {}. Selecting {}.".format(
-                name, parts[0].name
-            )
+            message = f"Found multiple parts matching {name}. Selecting {parts[0].name}."
             active_logger.warning(message)
             parts = parts[0:1]  # Just keep the first part.
 
@@ -387,9 +383,7 @@ class SchLib(object):
         part_export_str = ",".join(
             [p.export(addtl_part_attrs=addtl_part_attrs) for p in self.parts]
         )
-        export_str += "{} = SchLib(tool=SKIDL).add_parts(*[{}])".format(
-            cnvt_to_var_name(libname), part_export_str
-        )
+        export_str += f"{cnvt_to_var_name(libname)} = SchLib(tool=SKIDL).add_parts(*[{part_export_str}])"
         export_str = prettify(export_str)
         with opened(file_, "w") as f:
             f.write(export_str)

@@ -150,7 +150,7 @@ def calc_symbol_bbox(part, **options):
             elif halign == "C":
                 bbox *= Tx().move(Point(-bbox.w / 2, 0))
             else:
-                raise Exception("Inconsistent horizontal alignment: {}".format(halign))
+                raise Exception(f"Inconsistent horizontal alignment: {halign}")
 
             # Vertically align bbox.
             valign = obj.valign[:1].upper()  # valign is first letter.
@@ -161,7 +161,7 @@ def calc_symbol_bbox(part, **options):
             elif valign == "C":
                 bbox *= Tx().move(Point(0, -bbox.h / 2))
             else:
-                raise Exception("Inconsistent vertical alignment: {}".format(valign))
+                raise Exception(f"Inconsistent vertical alignment: {valign}")
 
             bbox *= Tx().move(Point(obj.x, obj.y))
             obj_bbox.add(bbox)
@@ -193,7 +193,7 @@ def calc_symbol_bbox(part, **options):
             elif halign == "C":
                 bbox *= Tx().move(Point(-bbox.w / 2, 0))
             else:
-                raise Exception("Inconsistent horizontal alignment: {}".format(halign))
+                raise Exception(f"Inconsistent horizontal alignment: {halign}")
 
             # Vertically align bbox.
             valign = obj.valign[:1].upper()  # valign is first letter.
@@ -204,7 +204,7 @@ def calc_symbol_bbox(part, **options):
             elif valign == "C":
                 bbox *= Tx().move(Point(0, -bbox.h / 2))
             else:
-                raise Exception("Inconsistent vertical alignment: {}".format(valign))
+                raise Exception(f"Inconsistent vertical alignment: {valign}")
 
             bbox *= Tx().move(Point(obj.x, obj.y))
             obj_bbox.add(bbox)
@@ -273,9 +273,7 @@ def calc_symbol_bbox(part, **options):
 
         else:
             active_logger.error(
-                "Unknown graphical object {} in part symbol {}.".format(
-                    type(obj), part.name
-                )
+                f"Unknown graphical object {type(obj)} in part symbol {part.name}."
             )
 
         # REMOVE: Maybe we shouldn't do this?
