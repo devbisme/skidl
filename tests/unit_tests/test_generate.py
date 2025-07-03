@@ -35,14 +35,25 @@ from .setup_teardown import setup_function, teardown_function
 def flat_circuit():
     """Create a flat circuit."""
     # Define parts.
-    q = Part(
-        lib="Device",
-        name="Q_PNP_CBE",
-        footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2",
-        dest=TEMPLATE,
-        symtx="V",
-        value="Q_NPN_CBE",
-    )
+    try:
+        q = Part(
+            lib="Device",
+            name="Q_PNP_CBE",
+            footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2",
+            dest=TEMPLATE,
+            symtx="V",
+            value="Q_PNP_CBE",
+        )
+    except ValueError:
+        # If the part is not found, use another library.
+        q = Part(
+            lib="Transistor_BJT",
+            name="Q_PNP_CBE",
+            footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2",
+            dest=TEMPLATE,
+            symtx="V",
+            value="Q_PNP_CBE",
+        )
     r = Part(
         "Device", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE
     )
@@ -112,13 +123,22 @@ def test_gen_flat_graph():
 def hier_circuit():
     """Create a hierarchical circuit."""
     # Define parts.
-    q = Part(
-        lib="Device",
-        name="Q_PNP_CBE",
-        footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2",
-        dest=TEMPLATE,
-        # symtx="V",
-    )
+    try:
+        q = Part(
+            lib="Device",
+            name="Q_PNP_CBE",
+            footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2",
+            dest=TEMPLATE,
+            # symtx="V",
+        )
+    except ValueError:
+        q = Part(
+            lib="Transistor_BJT",
+            name="Q_PNP_CBE",
+            footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2",
+            dest=TEMPLATE,
+            # symtx="V",
+        )
     r = Part(
         "Device", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE
     )

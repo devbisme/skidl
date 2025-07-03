@@ -13,8 +13,11 @@ def test_ntwk_1():
     """Test a common-emitter amplifier."""
     # Create two resistors and a transistor.
     r1, r2 = Part("Device", "R", dest=TEMPLATE) * 2
-    q1 = Part("Device", "Q_NPN_EBC")
-    
+    try:
+        q1 = Part("Device", "Q_NPN_EBC")
+    except ValueError:
+        q1 = Part("Transistor_BJT", "Q_NPN_EBC")
+
     # Connect the components to form the amplifier circuit.
     Net("5V") & r1 & Net("OUTPUT") & q1["C,E"] & Net("GND")
     Net.fetch("5V") & r2 & q1.B & Net("INPUT")
@@ -65,8 +68,11 @@ def test_ntwk_3():
 def test_ntwk_4():
     """Test limit on network length with a single transistor."""
     # Create a transistor.
-    q1 = Part("Device", "Q_NPN_EBC")
-    
+    try:
+        q1 = Part("Device", "Q_NPN_EBC")
+    except ValueError:
+        q1 = Part("Transistor_BJT", "Q_NPN_EBC")
+
     # Expect a ValueError when creating a network with the transistor.
     with pytest.raises(ValueError):
         Network(q1)
@@ -75,8 +81,11 @@ def test_ntwk_4():
 def test_ntwk_5():
     """Test limit on network length with a sliced transistor."""
     # Create a transistor.
-    q1 = Part("Device", "Q_NPN_EBC")
-    
+    try:
+        q1 = Part("Device", "Q_NPN_EBC")
+    except ValueError:
+        q1 = Part("Transistor_BJT", "Q_NPN_EBC")
+
     # Expect a ValueError when creating a network with a sliced transistor.
     with pytest.raises(ValueError):
         Network(q1[:])
@@ -86,8 +95,11 @@ def test_ntwk_6():
     """Test limit on network length with resistors and a transistor."""
     # Create two resistors and a transistor.
     r1, r2 = Part("Device", "R", dest=TEMPLATE) * 2
-    q1 = Part("Device", "Q_NPN_EBC")
-    
+    try:
+        q1 = Part("Device", "Q_NPN_EBC")
+    except ValueError:
+        q1 = Part("Transistor_BJT", "Q_NPN_EBC")
+
     # Expect a ValueError when creating a network with the components.
     with pytest.raises(ValueError):
         (r1 | r2) & q1

@@ -12,7 +12,10 @@ from .setup_teardown import setup_function, teardown_function
 def test_svg_1():
     l1 = Part("Device", "L")
     r1, r2 = Part("Device", "R", dest=TEMPLATE, value="200.0") * 2
-    q1 = Part("Device", "Q_NPN_CBE")
+    try:
+        q1 = Part("Device", "Q_NPN_CBE")
+    except ValueError:
+        q1 = Part("Transistor_BJT", "Q_NPN_CBE")
     c1 = Part("Device", "C", value="10pF")
     r3 = r2(value="1K")
     vcc, vin, vout, gnd = Net("VCC"), Net("VIN"), Net("VOUT"), Net("GND")
@@ -68,7 +71,10 @@ def test_svg_3():
     generate_svg()
 
 def test_svg_4():
-    q = Part(lib="Device", name="Q_PNP_CBE", dest=TEMPLATE, symtx="V")
+    try:
+        q = Part(lib="Device", name="Q_PNP_CBE", dest=TEMPLATE, symtx="V")
+    except ValueError:
+        q = Part(lib="Transistor_BJT", name="Q_PNP_CBE", dest=TEMPLATE, symtx="V")
     r = Part("Device", "R", dest=TEMPLATE)
     gndt = Part("power", "GND")
     vcct = Part("power", "VCC")
@@ -170,7 +176,10 @@ def test_svg_8():
     e.stub, b.stub, c.stub = True, True, True
 
     # Create part templates.
-    qt = Part(lib="Device", name="Q_PNP_CBE", dest=TEMPLATE)
+    try:
+        qt = Part(lib="Device", name="Q_PNP_CBE", dest=TEMPLATE)
+    except ValueError:
+        qt = Part(lib="Transistor_BJT", name="Q_PNP_CBE", dest=TEMPLATE)
 
     # Instantiate parts.
     for q, tx in zip(qt(8), ["", "H", "V", "R", "L", "VL", "HR", "LV"]):
@@ -182,7 +191,10 @@ def test_svg_8():
 
 def test_svg_9():
     # Create part templates.
-    q = Part(lib="Device", name="Q_PNP_CBE", dest=TEMPLATE, symtx="V")
+    try:
+        q = Part(lib="Device", name="Q_PNP_CBE", dest=TEMPLATE, symtx="V")
+    except ValueError:
+        q = Part(lib="Transistor_BJT", name="Q_PNP_CBE", dest=TEMPLATE, symtx="V")
     r = Part("Device", "R", dest=TEMPLATE)
 
     # Create nets.
@@ -221,10 +233,16 @@ def test_svg_9():
     generate_svg()
 
 def test_svg_10():
-    mosfet = Part("Device", "Q_PMOS_GSD")
+    try:
+        mosfet = Part("Device", "Q_PMOS_GSD")
+    except ValueError:
+        mosfet = Part("Transistor_FET", "Q_PMOS_GSD")
     mosfet.symtx = "HR"
     mosfet.symtx = "HL"
-    pmos = Part("Device", "Q_PMOS_GSD")
+    try:
+        pmos = Part("Device", "Q_PMOS_GSD")
+    except ValueError:
+        pmos = Part("Transistor_FET", "Q_PMOS_GSD")
     n01 = Net("n01")
     mosfet[1] += mosfet[2]
     n01 += mosfet[3]

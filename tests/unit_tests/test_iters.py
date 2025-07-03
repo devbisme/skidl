@@ -26,7 +26,10 @@ def test_iters_1():
 
 def test_iters_2():
     """Test pin iterator."""
-    q = Part("Device", "Q_NPN_CEB")  # Create a transistor part.
+    try:
+        q = Part("Device", "Q_NPN_CEB")  # Create a transistor part.
+    except ValueError:
+        q = Part("Transistor_BJT", "Q_NPN_CEB")  # Create a transistor part.
     s = 0  # Initialize a counter.
     for p1 in q:  # Iterate over the pins of the transistor.
         for p2 in q:  # Iterate over the pins of the transistor again.
