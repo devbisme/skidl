@@ -1,0 +1,8 @@
+path: /home/devb/projects/KiCad/tools/skidl/tests/examples/skidl_spice_test/../../test_data/SpiceLib/discrete-semiconductors/diodes/general-purpose/BAV21.lib@xyce
+date: '2025-04-24T18:18:57.136406'
+digest: 77163391ce8d748c5e539e4c3cf6562c4596241e
+description: ''
+models:
+- name: BAV21
+  description: ''
+  type: D

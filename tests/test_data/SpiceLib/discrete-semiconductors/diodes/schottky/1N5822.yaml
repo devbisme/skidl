@@ -1,0 +1,14 @@
+path: /home/devb/projects/KiCad/tools/skidl/tests/examples/skidl_spice_test/../../test_data/SpiceLib/discrete-semiconductors/diodes/schottky/1N5822.lib
+date: '2025-04-24T18:18:57.136406'
+digest: 1e33a914cf68f96c4d3c065b7f5954fcb4c21d84
+description: ''
+subcircuits:
+- name: 1N5822
+  description: ''
+  nodes:
+  - index: 0
+    name: '1'
+    internal_node: 1
+  - index: 1
+    name: '2'
+    internal_node: 2

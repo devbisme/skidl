@@ -1,0 +1,23 @@
+path: /home/devb/projects/KiCad/tools/skidl/tests/examples/skidl_spice_test/../../test_data/SpiceLib/semiconductors/operational-amplifier/generic_opamp.lib
+date: '2025-04-24T18:18:57.176406'
+digest: 943aafc69db4fb676ec22d6d03c864b2f5da80ed
+description: ''
+subcircuits:
+- name: genopa1
+  description: ''
+  nodes:
+  - index: 0
+    name: in+
+    internal_node: 1
+  - index: 1
+    name: in-
+    internal_node: 2
+  - index: 2
+    name: vcc
+    internal_node: 3
+  - index: 3
+    name: vee
+    internal_node: 4
+  - index: 4
+    name: out
+    internal_node: 5

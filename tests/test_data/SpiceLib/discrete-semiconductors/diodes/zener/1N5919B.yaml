@@ -1,0 +1,14 @@
+path: /home/devb/projects/KiCad/tools/skidl/tests/examples/skidl_spice_test/../../test_data/SpiceLib/discrete-semiconductors/diodes/zener/1N5919B.lib
+date: '2025-04-24T18:18:57.140406'
+digest: baf0a564b1c8b7948d66542e0793a068f4c77e27
+description: ''
+subcircuits:
+- name: d1n5919brl
+  description: ''
+  nodes:
+  - index: 0
+    name: '2'
+    internal_node: 1
+  - index: 1
+    name: '1'
+    internal_node: 2

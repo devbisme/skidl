@@ -1,0 +1,8 @@
+path: /home/devb/projects/KiCad/tools/skidl/tests/examples/skidl_spice_test/../../test_data/SpiceLib/discrete-semiconductors/transistors/ptm_65nm_pmos_bulk.mod
+date: '2025-04-24T18:18:57.140406'
+digest: 03ea7ee64110192b3a635a41827607166e5e7f1e
+description: ''
+models:
+- name: ptm65nm_pmos
+  description: ''
+  type: pmos

@@ -1,0 +1,38 @@
+* -*- spice -*-
+* http://www.nxp.com/documents/spice_model/BAV21.prm
+*
+*******************************************
+*
+* BAV21
+* 
+* NXP Semiconductors
+* 
+* General-purpose diode 
+* 
+* VRRM = 250V
+* IFRM = 625mA   
+* trr  = 50ns
+* 
+* Package pinning does not match Spice model pinning.
+* Package: SOD27
+* 
+* Package Pin 1: Cathode 
+* Package Pin 2: Anode
+* 
+* Simulator: PSPICE
+*
+*******************************************
+*
+.MODEL BAV21 D
++ IS=21.910E-9
++ N=2.2330
++ RS=1.0000E-3
++ IKF=19.230E-3
++ CJO=1.0300E-12
++ M=.1001
++ VJ=.75
+* + ISR=10.010E-21 * not recognised
++ BV=293.10
++ IBV=1.2930E-3
++ TT=51.940E-9
+*

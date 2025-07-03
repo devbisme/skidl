@@ -1,0 +1,14 @@
+path: /home/devb/projects/KiCad/tools/skidl/tests/examples/skidl_spice_test/../../test_data/SpiceLib/discrete-semiconductors/diodes/switching/1N4148.lib
+date: '2025-04-24T18:18:57.140406'
+digest: 99667fc22c27ecd25601cfbb2e2ee7cbfac2051f
+description: ''
+subcircuits:
+- name: 1N4148
+  description: ''
+  nodes:
+  - index: 0
+    name: '1'
+    internal_node: 1
+  - index: 1
+    name: '2'
+    internal_node: 2

@@ -1,0 +1,8 @@
+path: /home/devb/projects/KiCad/tools/skidl/tests/examples/skidl_spice_test/../../test_data/SpiceLib/discrete-semiconductors/transistors/2N2222A.lib
+date: '2025-04-24T18:18:57.140406'
+digest: e4fec54625f9d37518517581535a11aab3d3c459
+description: ''
+models:
+- name: 2n2222a
+  description: ''
+  type: npn

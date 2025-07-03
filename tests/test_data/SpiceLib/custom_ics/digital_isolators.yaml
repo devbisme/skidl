@@ -1,0 +1,32 @@
+path: /home/devb/projects/KiCad/tools/skidl/tests/examples/skidl_spice_test/../../test_data/SpiceLib/custom_ics/digital_isolators.lib
+date: '2025-04-24T18:18:57.084406'
+digest: 2a4b8aceaf8acc7fa2303c8e046f9d43a2476167
+description: ''
+subcircuits:
+- name: ISO7320C
+  description: ''
+  nodes:
+  - index: 0
+    name: '1'
+    internal_node: 1
+  - index: 1
+    name: '2'
+    internal_node: 2
+  - index: 2
+    name: '3'
+    internal_node: 3
+  - index: 3
+    name: '4'
+    internal_node: 4
+  - index: 4
+    name: '5'
+    internal_node: 5
+  - index: 5
+    name: '6'
+    internal_node: 6
+  - index: 6
+    name: '7'
+    internal_node: 7
+  - index: 7
+    name: '8'
+    internal_node: 8

@@ -1,0 +1,17 @@
+path: /home/devb/projects/KiCad/tools/skidl/tests/examples/skidl_spice_test/../../test_data/SpiceLib/discrete-semiconductors/transistors/MOSFET/irf150.lib
+date: '2025-04-24T18:18:57.140406'
+digest: fba6d4de74dfd6e8c1f6abfd9dc5022e6d99b110
+description: ''
+subcircuits:
+- name: irf150
+  description: ''
+  nodes:
+  - index: 0
+    name: '1'
+    internal_node: 1
+  - index: 1
+    name: '2'
+    internal_node: 2
+  - index: 2
+    name: '3'
+    internal_node: 3
