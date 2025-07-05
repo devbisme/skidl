@@ -13,18 +13,16 @@ import os
 import random
 from pathlib import Path
 from collections import defaultdict
-from dataclasses import dataclass
 from simp_sexp import Sexp
 from typing import List, Set
 from .logger import active_logger  # Import the active_logger
 
 
-@dataclass
 class Sheet:
     """
     Represents a hierarchical sheet from a KiCad schematic.
 
-    This dataclass stores information about a sheet in the schematic hierarchy,
+    This object stores information about a sheet in the schematic hierarchy,
     including its components, nets, and relationship to other sheets.
 
     Attributes:
@@ -38,21 +36,14 @@ class Sheet:
         children (List[str]): Paths to the child sheets of this sheet
     """
 
-    number: str
-    name: str
-    path: str
-    components: List
-    local_nets: Set[str]
-    imported_nets: Set[str]
-    parent: str = None
-    children: List[str] = None
+    def __init__(self, **attribs):
+        """
+        Initialize a Sheet object with the given attributes.
 
-    def __post_init__(self):
+        Args:
+            **attribs: Attributes to initialize the Sheet object
         """
-        Initialize the sheet with an empty children list if none was provided.
-        """
-        if self.children is None:
-            self.children = []
+        self.__dict__.update(attribs)
 
 
 def legalize_name(name: str, is_filename: bool = False) -> str:
