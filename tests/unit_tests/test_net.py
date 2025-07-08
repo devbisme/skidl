@@ -55,7 +55,7 @@ def test_netclass_1():
     led = Part("Device", "LED_ARBG")
     n1 = Net()
     n1 += led[1, 2, 3, 4]  # Add LED pins to net.
-    n1.netclass = NetClass("my_net", a=1, b=2, c=3)  # Assign netclass.
+    n1.netclass = NetClass("my_net", a=1, b=2, c=3, priority=1)  # Assign netclass.
 
 
 def test_netclass_2():
@@ -63,16 +63,16 @@ def test_netclass_2():
     led = Part("Device", "LED_ARBG")
     n1 = Net()
     n1 += led[1, 2, 3, 4]  # Add pins to net.
-    n1.netclass = NetClass("my_net", a=1, b=2, c=3)  # Assign netclass.
-    with pytest.raises(ValueError):
-        n1.netclass = NetClass("my_net", a=5, b=6, c=7)  # Reassign netclass should raise error.
+    n1.netclass = NetClass("my_net", a=1, b=2, c=3, priority=2)  # Assign netclass.
+    with pytest.raises(KeyError):
+        n1.netclass = NetClass("my_net", a=5, b=6, c=7, priority=1)  # Reassign netclass should raise error.
 
 
 def test_netclass_3():
     """Test merging nets with different netclasses."""
     n1, n2 = Net("a"), Net("b")
-    n1.netclass = NetClass("class1")  # Assign netclass to n1.
-    n2.netclass = NetClass("class2")  # Assign netclass to n2.
+    n1.netclass = NetClass("class1", priority=1)  # Assign netclass to n1.
+    n2.netclass = NetClass("class2", priority=2)  # Assign netclass to n2.
     with pytest.raises(ValueError):
         n1 += n2  # Merging nets with different netclasses should raise error.
 
@@ -81,10 +81,10 @@ def test_netclass_4():
     """Test netclass propagation after merging nets."""
     n1, n2 = Net("a"), Net("b")
     n1 += n2  # Merge nets.
-    n1.netclass = NetClass("class1")  # Assign netclass to merged net.
+    n1.netclass = NetClass("class1", priority=1)  # Assign netclass to merged net.
     assert n2.netclass.name == "class1"  # Netclass should propagate.
     with pytest.raises(ValueError):
-        n2.netclass = NetClass("class2")  # Reassigning netclass should raise error.
+        n2.netclass = NetClass("class2", priority=2)  # Reassigning netclass should raise error.
 
 
 def test_drive_1():

@@ -26,6 +26,7 @@ except ImportError:
     pass
 
 from .bus import Bus
+from .designclass import DesignClass
 from .erc import dflt_circuit_erc
 from .logger import active_logger, erc_logger, stop_log_file_output
 from .net import NCNet, Net
@@ -150,7 +151,8 @@ class Circuit(SkidlBaseObject):
         self.nets = []
         self.buses = []
         self.interfaces = []
-        self.netclasses = {}
+        self.netclasses = DesignClass()
+        self.compclasses = DesignClass()
         self.nodes = set()  # Set of all nodes in the circuit hierarchy.
         self.active_node = None
         self.active_node = self.activate(name="", tag="")
@@ -231,12 +233,7 @@ class Circuit(SkidlBaseObject):
         Args:
             netclass (NetClass): The net class to add to the circuit.
         """
-
-        # Is this net class already defined?
-        if netclass.name in self.netclasses:
-            active_logger.warning(f"Cannot redefine existing net class {netclass.name}!")
-        else:
-            self.netclasses[netclass.name] = netclass
+        self.netclasses.add(netclass, netclass.priority)
 
     def add_parts(self, *parts):
         """
