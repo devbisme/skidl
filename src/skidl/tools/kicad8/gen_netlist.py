@@ -11,6 +11,7 @@ import time
 import uuid
 from simp_sexp import Sexp
 
+from skidl.netclass import NetClass
 from skidl.pckg_info import __version__
 from skidl.scriptinfo import scriptinfo, get_script_dir
 from skidl.utilities import export_to_all
@@ -240,10 +241,12 @@ def gen_netlist_net(net, **kwargs):
               its code, name, and associated pins with their part references
               and pin numbers.
     """
-
-    nt_lst = Sexp(["net", ["code", net.code], ["name", net.name]])
+    net_classes = net.netclass.by_priority()
+    net_class_str = ",".join(reversed(net_classes))
+    nt_lst = Sexp(["net", ["code", net.code], ["name", net.name], ["class", net_class_str]])
     for p in sorted(net.pins, key=str):
-        nt_lst.append(["node", ["ref", p.part.ref], ["pin", p.num]])
+        _, _, pin_type = p.get_pin_info()
+        nt_lst.append(["node", ["ref", p.part.ref], ["pin", p.num], ["pintype", pin_type]])
 
     return nt_lst
 
@@ -286,6 +289,14 @@ def gen_netlist(circuit, **kwargs):
     # Check for any missing tags since those will lead to
     # unstable associations between parts and PCB footprints.
     circuit.check_tags()
+
+    # Add a Default netclass to the circuit if none exists.
+    if "Default" not in circuit.netclasses:
+        NetClass("Default", circuit=circuit, priority=0)
+
+    # Add the Default netclass to all the nets.
+    for net in circuit.get_nets():
+        net.netclass = "Default"
 
     scr_dict = scriptinfo()
     src_file = os.path.join(scr_dict["dir"], scr_dict["source"])
