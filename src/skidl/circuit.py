@@ -233,7 +233,7 @@ class Circuit(SkidlBaseObject):
         Args:
             netclass (NetClass): The net class to add to the circuit.
         """
-        self.netclasses.add(netclass, netclass.priority)
+        self.netclasses.add(netclass)
 
     def add_parts(self, *parts):
         """

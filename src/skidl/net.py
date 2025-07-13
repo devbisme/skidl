@@ -3,12 +3,86 @@
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """
-Network connection management in SKiDL.
+Network connection management for SKiDL circuit design.
 
-This module provides the Net class which represents electrical connections between
-component pins. Nets can be named, connected to pins, merged with other nets, and
-checked for electrical rule violations. The module also provides the NCNet subclass
-for explicitly marking pins as not connected.
+This module provides comprehensive electrical connection management through the Net
+class and its specialized subclass NCNet. These classes represent electrical
+connections between component pins, enabling circuit designers to model, analyze,
+and verify electrical connectivity in their designs.
+
+Key Capabilities:
+    - Electrical connection modeling between component pins
+    - Named and anonymous net creation with automatic naming
+    - Net merging and electrical rule checking (ERC)
+    - Drive strength management and conflict detection  
+    - Net class assignment for PCB routing rules
+    - Hierarchical net traversal and connectivity analysis
+    - No-connect (NC) net support for unconnected pins
+    - Integration with netlist generation and PCB tools
+
+Core Classes:
+    Net: Primary class representing electrical connections between pins.
+        Supports naming, drive strength, net classes, ERC, and connection
+        management. Handles automatic net merging when pins are connected.
+        
+    NCNet: Specialized Net subclass for explicitly unconnected pins.
+        Marks pins as intentionally not connected to suppress ERC warnings
+        while maintaining design intent documentation.
+
+Connection Model:
+    Nets use a pin-centric connection model where pins can belong to multiple
+    nets simultaneously, enabling complex electrical relationships. When nets
+    are joined (via pin connections), they form electrically connected segments
+    that share properties like drive strength and net classes.
+
+Electrical Rules:
+    The module supports comprehensive electrical rule checking (ERC) including:
+    - Drive strength conflicts (multiple drivers on one net)
+    - Floating pin detection (inputs without drivers)
+    - No-connect verification (intentionally unconnected pins)
+    - Net class rule validation and conflict resolution
+
+Example Usage:
+    >>> # Create named and anonymous nets
+    >>> vcc = Net('VCC')                    # Named power net
+    >>> gnd = Net('GND')                    # Named ground net  
+    >>> data = Net()                        # Anonymous net (auto-named)
+    >>> 
+    >>> # Connect component pins to nets
+    >>> vcc += mcu['VCC'], regulator['OUT'] # Multiple connections
+    >>> gnd += mcu['GND'], regulator['GND'] # Ground connections
+    >>> data += mcu['PA0'], sensor['DATA']  # Data connection
+    >>> 
+    >>> # Create no-connect nets for unused pins
+    >>> nc = NCNet()                        # No-connect net
+    >>> nc += mcu['UNUSED1'], mcu['UNUSED2'] # Mark pins as NC
+    >>> 
+    >>> # Apply net classes for PCB routing
+    >>> power_class = NetClass('Power', trace_width=0.5, clearance=0.2)
+    >>> vcc.netclass = power_class          # Apply to power nets
+    >>> 
+    >>> # Check electrical connectivity
+    >>> print(f"VCC has {len(vcc)} pins connected")
+    >>> print(f"Data net name: {data.name}")
+    >>> if vcc.is_attached(mcu['VCC']):
+    ...     print("MCU VCC pin is connected to VCC net")
+
+Advanced Features:
+    - Multi-segment nets with automatic name merging
+    - Drive strength propagation and conflict detection
+    - Hierarchical net traversal for complex connectivity
+    - Stub net support for schematic generation
+    - Network object creation for circuit analysis
+    - XML and netlist export for PCB tools
+    - Deep copying with automatic name adjustment
+
+Integration:
+    Nets integrate seamlessly with other SKiDL components:
+    - Parts: Automatic connection via pin assignments
+    - Buses: Multi-bit connection management  
+    - Circuits: Automatic net registration and naming
+    - ERC: Built-in electrical rule checking
+    - Tools: Export to KiCad, Altium, Eagle, etc.
 """
 
 import collections
@@ -17,6 +91,7 @@ from copy import copy, deepcopy
 
 from .erc import dflt_net_erc
 from .logger import active_logger
+from .netclass import NetClass, NetClassList
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import (
     expand_buses,
@@ -43,31 +118,157 @@ Traversal = collections.namedtuple("Traversal", ["nets", "pins"])
 @export_to_all
 class Net(SkidlBaseObject):
     """
-    A collection of electrically connected component pins.
+    Represents an electrical connection between component pins in a circuit.
     
-    Nets represent electrical connections in a circuit and can have names, 
-    drive strengths, and electrical rules checking (ERC) applied to them. 
-    Pins can be connected to nets using the += operator.
+    The Net class is the fundamental building block for electrical connectivity
+    in SKiDL circuits. It manages collections of pins that are electrically
+    connected, handles net naming and drive strength management, supports net
+    classes for PCB routing rules, and provides electrical rule checking (ERC).
+    
+    Nets can be created with explicit names or receive automatically generated
+    names. They support dynamic connection and disconnection of pins, automatic
+    merging when nets are joined through common pins, and property propagation
+    across connected net segments.
+
+    Connection Management:
+        Nets use the += operator for intuitive pin connection syntax. When pins
+        are connected to nets, the nets automatically merge if the pins were
+        previously connected to other nets, creating larger electrically
+        connected groups.
+
+    Drive Strength:
+        Nets automatically track and manage drive strength based on connected
+        pins. Drive conflicts (multiple strong drivers) are detected and can
+        be flagged during ERC. The net's drive strength is always the maximum
+        of all connected pins.
+
+    Net Classes:
+        Nets can be assigned to one or more net classes that define PCB routing
+        rules, trace widths, clearances, via sizes, and other physical
+        properties. These are used during PCB layout and design rule checking.
+
+    Electrical Rules:
+        Built-in ERC functions check for common electrical problems including
+        floating inputs, drive conflicts, and design rule violations. Custom
+        ERC functions can be added for specific design requirements.
     
     Args:
-        name (str, optional): Name of the net. If None or empty, a unique name will be generated.
-        circuit (Circuit, optional): The circuit this net belongs to. If None, the default circuit is used.
-        *pins_nets_buses: One or more Pin, Net, or Bus objects to connect to this net.
+        name (str, optional): Explicit name for the net. If None or empty,
+            an automatically generated unique name will be assigned using
+            the NET_PREFIX pattern (e.g., "N$1", "N$2", etc.).
+        circuit (Circuit, optional): The circuit this net belongs to.
+            If None, the net is added to the default active circuit.
+        *pins_nets_buses: Initial pins, nets, or buses to connect to this net.
+            Can be individual objects or collections. Nets will be merged
+            if pins connect previously separate nets.
         
     Keyword Args:
         attribs: Arbitrary keyword=value attributes to attach to the net.
+            Common attributes include drive strength overrides, ERC flags,
+            documentation strings, and tool-specific properties.
         
     Examples:
-        >>> gnd = Net('GND')  # Create a net called GND
-        >>> gnd += part1['GND']  # Connect pin of part1 to GND
-        >>> net1 = Net()  # Create a net with an automatically assigned name
-        >>> net1 += part2[1], part3[6]  # Connect pins from two parts to the net
+        >>> # Create named nets for power and ground
+        >>> vcc = Net('VCC')           # 3.3V power rail
+        >>> gnd = Net('GND')           # Ground reference
+        >>> 
+        >>> # Create anonymous nets (auto-named)
+        >>> data_net = Net()           # Becomes "N$1" 
+        >>> clock_net = Net()          # Becomes "N$2"
+        >>> 
+        >>> # Connect pins during creation
+        >>> spi_clk = Net('SPI_CLK', mcu['SCK'], flash['CLK'])
+        >>> 
+        >>> # Connect pins after creation
+        >>> data_net += mcu['PA0']     # Connect single pin
+        >>> data_net += sensor['OUT'], led['IN']  # Connect multiple pins
+        >>> 
+        >>> # Apply net classes for PCB routing
+        >>> power_class = NetClass('Power', trace_width=0.5)
+        >>> vcc.netclass = power_class
+        >>> 
+        >>> # Check connections and properties
+        >>> print(f"VCC net has {len(vcc)} pins")
+        >>> print(f"Drive strength: {vcc.drive}")
+        >>> if vcc.is_attached(mcu['VCC']):
+        ...     print("MCU VCC pin is on VCC net")
+
+    Advanced Usage:
+        >>> # Create multiple copies for arrays
+        >>> data_buses = 8 * Net('DATA')  # Creates DATA_0 through DATA_7
+        >>> 
+        >>> # Merge nets by connecting common pins
+        >>> net1 = Net('SIGNAL_A')
+        >>> net2 = Net('SIGNAL_B') 
+        >>> shared_pin = mcu['PA1']
+        >>> net1 += shared_pin     # Pin on net1
+        >>> net2 += shared_pin     # Merges net1 and net2
+        >>> 
+        >>> # Use in network analysis
+        >>> network = net1.create_network()  # Convert to Network object
+        >>> 
+        >>> # Export for PCB tools
+        >>> netlist_data = vcc.generate_netlist_net('kicad')
     """
 
     # Set the default ERC functions for all Net instances.
     erc_list = [dflt_net_erc]
 
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
+        """
+        Initialize a new Net object with optional name and connections.
+
+        Creates a new net with the specified name (or auto-generated name) and
+        optionally connects it to the provided pins, nets, or buses. The net
+        is automatically added to the specified circuit or the default circuit.
+
+        Args:
+            name (str, optional): Desired name for the net. Must be unique within
+                the circuit. If None, empty, or conflicts with existing names,
+                a unique name will be automatically generated using NET_PREFIX.
+            circuit (Circuit, optional): Target circuit for the net. If None,
+                the net is added to the currently active default circuit.
+            *pins_nets_buses: Initial objects to connect to this net:
+                - Pin objects: Individual pins from parts
+                - Net objects: Other nets to merge with this one
+                - Bus objects: Multi-bit collections (expanded to individual nets)
+                - Lists/tuples: Collections of the above objects
+
+        Keyword Args:
+            attribs: Additional attributes to set on the net:
+                - drive: Override automatic drive strength calculation
+                - do_erc: Enable/disable ERC checking (default: True)
+                - stub: Mark as stub net for schematic generation
+                - Custom attributes for documentation or tool integration
+
+        Raises:
+            ValueError: If attempting to connect objects from different circuits.
+            TypeError: If attempting to connect unsupported object types.
+
+        Examples:
+            >>> # Basic net creation
+            >>> vcc = Net('VCC')                    # Named power net
+            >>> data = Net()                        # Auto-named net
+            >>> 
+            >>> # Create with initial connections
+            >>> spi_clk = Net('SPI_CLK', mcu['SCK'], flash['CLK'])
+            >>> 
+            >>> # Create with attributes
+            >>> test_net = Net('TEST', do_erc=False, drive=pin_drives.STRONG)
+            >>> 
+            >>> # Create in specific circuit
+            >>> sub_net = Net('SUB_SIGNAL', circuit=subcircuit)
+
+        Automatic Naming:
+            If no name is provided or the name conflicts with existing nets,
+            an automatic name is generated using the pattern "N$1", "N$2", etc.
+            This ensures all nets have unique, valid names within their circuit.
+
+        Circuit Integration:
+            The new net is automatically registered with its circuit, making it
+            available for name lookups, ERC checking, and netlist generation.
+            The circuit maintains references to all nets for global operations.
+        """
         from .pin import pin_drives
 
         super().__init__()
@@ -77,6 +278,7 @@ class Net(SkidlBaseObject):
         self._drive = pin_drives.NONE
         self._pins = []
         self.circuit = None
+        self._netclass = NetClassList()  # Default net class list.
         self.code = None  # This is the net number used in a KiCad netlist file.
         self.stub = False  # Net is not a stub for schematic generation.
 
@@ -304,16 +506,71 @@ connections to nets while         prohibiting direct assignment. Python
     @classmethod
     def get(cls, name, circuit=None):
         """
-        Get a net by name from a circuit.
+        Retrieve an existing net by name from a circuit.
+        
+        Searches the specified circuit (or default circuit) for a net with the
+        given name or alias. This provides a convenient way to access existing
+        nets without maintaining explicit references, especially useful in
+        hierarchical designs or when working with imported netlists.
+
+        The search examines both primary net names and any assigned aliases,
+        using string matching to find the best match. Case-sensitive exact
+        matching is performed for reliable net identification.
         
         Args:
-            name (str): Name or alias of the net to find.
-            circuit (Circuit, optional): Circuit to search in. Defaults to default_circuit.
-            
+            name (str): Name or alias of the net to find. Must match exactly
+                (case-sensitive) either the net's primary name or one of its
+                assigned aliases.
+            circuit (Circuit, optional): Circuit to search for the net.
+                If None, searches the currently active default circuit.
+                
         Returns:
-            Net or None: The found net object or None if not found.
-        """
+            Net or None: The found Net object if a match is found, otherwise
+                None. For nets with multiple interconnected segments, returns
+                the first segment found (all segments share the same name).
+            
+        Examples:
+            >>> # Find nets by primary name
+            >>> vcc = Net.get('VCC')                    # Find VCC net
+            >>> ground = Net.get('GND', my_circuit)     # Find in specific circuit
+            >>> 
+            >>> # Find nets by alias
+            >>> power = Net.get('POWER_RAIL')           # Might be alias for VCC
+            >>> 
+            >>> # Handle missing nets gracefully
+            >>> test_net = Net.get('TEST_SIGNAL')
+            >>> if test_net is None:
+            ...     print("Test signal net not found")
+            ... else:
+            ...     print(f"Found net with {len(test_net)} pins")
+            >>> 
+            >>> # Use in conditional operations
+            >>> existing_clk = Net.get('CLK') or Net('CLK')  # Get or create
 
+        Search Strategy:
+            The method searches in the following order:
+            1. Primary net names (exact string match)
+            2. Net aliases (exact string match)
+            3. Returns None if no matches found
+
+        Multi-segment Nets:
+            For nets composed of multiple interconnected segments (created by
+            merging nets), the search returns the first segment found. All
+            segments of a multi-segment net share the same name, so any
+            segment provides access to the complete electrical group.
+
+        Circuit Context:
+            Each circuit maintains its own namespace for net names. The same
+            name can exist in different circuits without conflict. Always
+            specify the circuit parameter when working with multiple circuits
+            to ensure you get the net from the correct context.
+
+        Performance:
+            The search is optimized for typical circuit sizes but may be slower
+            for very large circuits with thousands of nets. Consider maintaining
+            direct references for frequently accessed nets in performance-critical
+            applications.
+        """
         from .alias import Alias
 
         circuit = circuit or default_circuit
@@ -332,23 +589,87 @@ connections to nets while         prohibiting direct assignment. Python
 
         return None
 
-    @classmethod
+    @classmethod  
     def fetch(cls, name, *args, **attribs):
         """
-        Get a net by name from a circuit, or create it if not found.
+        Get an existing net by name, or create it if not found.
         
-        This method tries to find a net with the given name in the circuit.
-        If not found, it creates a new net with that name.
+        This convenience method combines the functionality of get() and __init__()
+        to provide a "get-or-create" pattern. It first attempts to find an existing
+        net with the specified name, and if not found, creates a new net with that
+        name and the provided parameters.
+
+        This is particularly useful for building circuits where you want to
+        reference nets by name without worrying about whether they already exist,
+        such as when importing from netlists or building circuits procedurally.
         
         Args:
-            name (str): Name of the net to fetch or create.
-            *args: Arguments to pass to the Net constructor if creation is needed.
-            **attribs: Keyword arguments to pass to the Net constructor if creation is needed.
-            
+            name (str): Name of the net to fetch or create. Used for both
+                the search (if net exists) and the name parameter (if creating).
+            *args: Additional positional arguments passed to Net() constructor
+                if creation is needed. Ignored if net already exists.
+            **attribs: Keyword arguments passed to Net() constructor if creation
+                is needed. The 'circuit' parameter is used for both search
+                and creation contexts.
+                
         Returns:
-            Net: An existing or newly created net.
-        """
+            Net: Either the existing net with the specified name, or a newly
+                created net if no existing net was found. The returned net
+                is guaranteed to have the requested name (or a unique variant).
+            
+        Examples:
+            >>> # Basic fetch-or-create pattern
+            >>> vcc = Net.fetch('VCC')                  # Creates if not exists
+            >>> vcc2 = Net.fetch('VCC')                 # Returns existing net
+            >>> assert vcc is vcc2                     # Same object
+            >>> 
+            >>> # Fetch with creation parameters
+            >>> power = Net.fetch('POWER_RAIL',
+            ...                   mcu['VCC'], regulator['OUT'],  # Initial connections
+            ...                   do_erc=True,                   # ERC enabled
+            ...                   circuit=main_circuit)          # Specific circuit
+            >>> 
+            >>> # Use in circuit building
+            >>> def connect_power(part):
+            ...     vcc = Net.fetch('VCC')              # Always get VCC net
+            ...     gnd = Net.fetch('GND')              # Always get GND net  
+            ...     vcc += part['VCC']                  # Connect power
+            ...     gnd += part['GND']                  # Connect ground
+            >>> 
+            >>> # Procedural circuit construction
+            >>> for i in range(8):
+            ...     data_net = Net.fetch(f'DATA_{i}')
+            ...     data_net += processor[f'D{i}'], memory[f'D{i}']
 
+        Creation vs. Retrieval:
+            - If a net with the specified name exists: Returns existing net,
+              ignores all other parameters
+            - If no net exists: Creates new net with all provided parameters
+            - Circuit context: Used for both search and creation
+
+        Name Uniqueness:
+            If the requested name conflicts with existing nets during creation,
+            the new net will receive a modified name (e.g., "VCC_1", "VCC_2")
+            to maintain uniqueness within the circuit.
+
+        Circuit Handling:
+            The 'circuit' parameter serves dual purposes:
+            - Search context: Where to look for existing nets
+            - Creation context: Where to create new nets if needed
+            - If not specified, uses the default circuit for both operations
+
+        Error Handling:
+            Creation errors (invalid parameters, circuit conflicts, etc.) are
+            passed through from the Net() constructor. Retrieval errors are
+            rare since get() returns None for missing nets rather than raising
+            exceptions.
+
+        Use Cases:
+            - Importing circuits from external netlists
+            - Procedural circuit generation with named nets
+            - Building reusable circuit functions that reference standard nets
+            - Interactive circuit construction where net existence is uncertain
+        """
         circuit = attribs.get("circuit", default_circuit)
         return cls.get(name, circuit=circuit) or cls(name, *args, **attribs)
 
@@ -533,30 +854,81 @@ connections to nets while         prohibiting direct assignment. Python
 
     def connect(self, *pins_nets_buses):
         """
-        Connect pins, nets, and buses to this net.
+        Connect pins, nets, and buses to this net, creating electrical connections.
         
-        This method connects the provided pins, nets, and buses to this net,
-        creating electrical connections between them. It's also accessible via
-        the += operator.
+        This is the primary method for building electrical connectivity in SKiDL
+        circuits. It handles connecting individual pins, merging nets, and expanding
+        buses into individual connections. When nets are connected through common
+        pins, they automatically merge into larger electrically connected groups.
+
+        The method supports the += operator for intuitive connection syntax and
+        handles all the complexity of maintaining electrical connectivity, drive
+        strength propagation, and net class inheritance across connected segments.
         
         Args:
-            *pins_nets_buses: One or more Pin, Net, Bus objects or lists/tuples of them
-                              to connect to this net.
-                
+            *pins_nets_buses: Objects to connect to this net:
+                - Pin: Individual component pins to attach
+                - Net: Other nets to merge with this one  
+                - Bus: Multi-bit collections (individual nets extracted)
+                - Lists/tuples: Collections of the above objects
+                - None values: Ignored for programming convenience
+
         Returns:
-            Net: The updated net with new connections.
+            Net: This net object (supports method chaining and += operator).
             
         Raises:
             ValueError: If attempting to connect nets from different circuits.
+                All connected objects must belong to the same circuit context.
             ValueError: If attempting to connect parts from different circuits.
-            TypeError: If attempting to connect something other than a Pin or Net.
+                Component pins must be from parts in the same circuit.
+            TypeError: If attempting to connect unsupported object types.
+                Only Pin, Net, and Bus objects can be connected to nets.
             
         Examples:
-            >>> net1 = Net('NET1')
-            >>> net1.connect(part1['GND'], part2[7])  # Connect pins to net
-            >>> net1 += part3['A']  # Alternate syntax using += operator
-        """
+            >>> # Connect individual pins
+            >>> vcc = Net('VCC')
+            >>> vcc.connect(mcu['VCC'], regulator['OUT'])
+            >>> 
+            >>> # Use += operator (equivalent to connect)
+            >>> gnd = Net('GND')
+            >>> gnd += mcu['GND'], regulator['GND'], capacitor[2]
+            >>> 
+            >>> # Connect nets (automatic merging)
+            >>> signal_a = Net('SIG_A')
+            >>> signal_b = Net('SIG_B')
+            >>> shared_pin = buffer['OUT']
+            >>> signal_a += shared_pin        # Pin on signal_a
+            >>> signal_b += shared_pin        # Merges signal_a and signal_b
+            >>> 
+            >>> # Connect buses (expanded automatically)
+            >>> data_bus = Bus('DATA', 8)     # 8-bit bus
+            >>> control_net = Net('CTRL')
+            >>> control_net += data_bus[0]    # Connect to bit 0 of bus
+            >>> 
+            >>> # Chain connections
+            >>> clock_net = Net('CLK').connect(mcu['CLK'], rtc['CLK_OUT'])
 
+        Net Merging:
+            When connecting nets that already have pins attached, the nets
+            automatically merge into a single electrical group. All properties
+            like drive strength and net classes are combined according to
+            precedence rules (maximum drive, class union, etc.).
+
+        Drive Strength:
+            Connected pins contribute their drive strength to the net. The net's
+            overall drive is the maximum of all connected pins. Drive conflicts
+            (multiple strong drivers) are detected during ERC checking.
+
+        Net Classes:
+            When nets are merged, their net classes are combined. If conflicting
+            net classes are detected, warnings may be issued depending on the
+            specific class definitions and priority levels.
+
+        Circuit Validation:
+            All connected objects must belong to the same circuit. Cross-circuit
+            connections are not allowed and will raise ValueError exceptions.
+            This maintains circuit encapsulation and prevents invalid topologies.
+        """
         from .pin import PhantomPin, Pin
 
         def join(net):
@@ -942,78 +1314,143 @@ connections to nets while         prohibiting direct assignment. Python
     @property
     def netclass(self):
         """
-        Get, set or delete the net class assigned to this net.
+        Get or set the net class(es) assigned to this net and connected segments.
         
-        Net classes can be used to group nets and apply specific attributes to them.
-        Once set, a net class cannot be overwritten - it must be deleted first.
-        
+        Net classes define electrical and physical properties for PCB routing
+        such as trace widths, clearances, via sizes, and design priorities.
+        A net can belong to zero, one, or multiple net classes depending on
+        design requirements.
+
+        This property provides access to the net class assignment(s) for this
+        net and all electrically connected net segments. When setting net
+        classes, the assignment propagates to all connected segments to
+        maintain electrical consistency.
+
         Returns:
-            NetClass or None: The net class object assigned to this net, or None if no class is assigned.
-            
-        Raises:
-            ValueError: When trying to assign a different net class to a net that already has one.
+            None, NetClass, or NetClassList: 
+                - None: No net classes assigned
+                - NetClass: Single net class assigned
+                - NetClassList: Multiple net classes assigned
+
+        Examples:
+            >>> # Check current net class assignment
+            >>> power_net = Net('VCC')
+            >>> print(power_net.netclass)              # None initially
+            >>> 
+            >>> # Assign single net class
+            >>> power_class = NetClass('Power', trace_width=0.5, clearance=0.2)
+            >>> power_net.netclass = power_class
+            >>> print(type(power_net.netclass))        # <class 'NetClass'>
+            >>> 
+            >>> # Assign multiple net classes
+            >>> high_speed_class = NetClass('HighSpeed', via_dia=0.4)
+            >>> power_net.netclass = power_class, high_speed_class
+            >>> print(type(power_net.netclass))        # <class 'NetClassList'>
+            >>> 
+            >>> # Access net class properties
+            >>> if power_net.netclass:
+            ...     if hasattr(power_net.netclass, 'trace_width'):
+            ...         print(f"Trace width: {power_net.netclass.trace_width}mm")
+            ...     else:
+            ...         for nc in power_net.netclass:
+            ...             if hasattr(nc, 'trace_width'):
+            ...                 print(f"Trace width: {nc.trace_width}mm")
+
+        Multi-segment Behavior:
+            When nets are electrically connected (merged), all segments share
+            the same net class assignments. Setting the net class on any
+            segment updates all connected segments simultaneously.
+
+        Class Conflict Resolution:
+            When multiple net classes are assigned that have conflicting
+            properties, the resolution depends on the specific PCB tool and
+            net class priorities. Generally, classes with lower priority
+            numbers take precedence over higher priority numbers.
+
+        PCB Tool Integration:
+            Net class assignments are exported to PCB design tools during
+            netlist generation, where they become design rules and routing
+            constraints. Different tools may interpret multiple net classes
+            differently.
         """
         self.test_validity()
-        return getattr(self, "_netclass", None)
+        if len(self._netclass) == 0:
+            return None
+        elif len(self._netclass) == 1:
+            return self._netclass[0]
+        else:
+            return self._netclass
 
     @netclass.setter
-    def netclass(self, netclass):
+    def netclass(self, *netclasses):
         """
-        Set the net class for this net.
+        Assign one or more net classes to this net and all connected segments.
         
+        Sets the net class assignment(s) for this net, automatically propagating
+        the assignment to all electrically connected net segments. This ensures
+        consistent routing rules across the entire electrical connection.
+
         Args:
-            netclass (NetClass): The net class to assign to this net.
-            
-        Raises:
-            ValueError: If trying to assign a different net class to a net that already has one.
+            *netclasses: One or more NetClass objects or NetClassList objects
+                to assign to this net. Multiple classes can be assigned
+                simultaneously by passing multiple arguments.
+
+        Examples:
+            >>> power_net = Net('VCC')
+            >>> power_class = NetClass('Power', trace_width=0.5)
+            >>> critical_class = NetClass('Critical', priority=1)
+            >>> 
+            >>> # Assign single class
+            >>> power_net.netclass = power_class
+            >>> 
+            >>> # Assign multiple classes
+            >>> power_net.netclass = power_class, critical_class
+            >>> 
+            >>> # Assign from list
+            >>> class_list = NetClassList(power_class, critical_class)
+            >>> power_net.netclass = class_list
+
+        Propagation:
+            The assignment automatically propagates to all nets that are
+            electrically connected to this net through shared pins. This
+            maintains consistency across multi-segment nets.
+
+        Additive Behavior:
+            Net class assignments are additive - existing classes are retained
+            when new classes are added. To replace all classes, delete the
+            existing assignment first:
+            >>> del power_net.netclass      # Clear existing classes
+            >>> power_net.netclass = new_class  # Assign new class
         """
         self.test_validity()
-
-        # Just leave the existing net class at its current value if setting the
-        # net class to None. This is useful when merging nets because you just
-        # assign each net the net class of the other and they should both get
-        # the same net class (either None or the value of the net class of one,
-        # the other, or both.)
-        if netclass is None:
-            return
-
-        # A net class can only be assigned if there is no existing net class
-        # or if the existing net class matches the net class parameter (in
-        # which case this is redundant).
-        nets = self.nets  # Get all interconnected subnets.
-        netclasses = set([getattr(n, "_netclass", None) for n in nets])
-        netclasses.discard(None)
-        if len(netclasses) == 0:
-            pass
-        elif len(netclasses) == 1:
-            if netclass not in netclasses:
-                active_logger.raise_(
-                    ValueError,
-                    f"Can't assign net class {netclass.name} to net {self.name} that's already assigned net class {netclasses}"
-                )
-        else:
-            active_logger.raise_(
-                ValueError,
-                f"Too many netclasses assigned to net {self.name}",
-            )
-
-        for n in nets:
-            n._netclass = netclass
+        for net in self.nets:
+            net._netclass.add(*netclasses)
 
     @netclass.deleter
     def netclass(self):
         """
-        Delete the net class from this net.
+        Remove all net class assignments from this net and connected segments.
         
-        This removes the net class from all connected net segments.
+        Clears all net class assignments from this net and all electrically
+        connected net segments. After deletion, the nets will have no routing
+        rules or design constraints beyond default values.
+
+        Examples:
+            >>> power_net = Net('VCC')
+            >>> power_net.netclass = NetClass('Power')
+            >>> print(power_net.netclass)              # <NetClass 'Power'>
+            >>> 
+            >>> del power_net.netclass                 # Remove all classes
+            >>> print(power_net.netclass)              # None
+
+        Multi-segment Behavior:
+            The deletion propagates to all electrically connected net segments,
+            ensuring consistent behavior across the entire electrical connection.
         """
         self.test_validity()
         nets = self.nets  # Get all interconnected subnets.
         for n in nets:
-            try:
-                del self._netclass
-            except AttributeError:
-                pass
+            n._netclass = NetClassList()
 
     @property
     def drive(self):
@@ -1120,22 +1557,157 @@ connections to nets while         prohibiting direct assignment. Python
 @export_to_all
 class NCNet(Net):
     """
-    A specialized Net class for unconnected pins.
+    A specialized Net subclass for explicitly marking pins as not connected.
     
-    NCNet is used for marking pins as explicitly not connected. These pins won't
-    be flagged as floating during ERC, but no actual connections will be made
-    to them in the physical circuit.
+    NCNet (No Connect Net) is used to explicitly mark component pins as
+    intentionally unconnected. This serves two important purposes:
+    
+    1. Design Intent Documentation: Clearly indicates that leaving pins
+       unconnected is intentional rather than an oversight.
+       
+    2. ERC Suppression: Prevents electrical rule checking from flagging
+       these pins as floating or unconnected errors.
+
+    NCNet objects behave like regular nets for connection purposes but have
+    special properties that distinguish them from normal electrical connections.
+    They don't appear in netlists since they represent the absence of
+    electrical connections rather than actual connections.
+
+    Common Use Cases:
+        - Unused input pins on digital logic devices
+        - Reserved pins on microcontrollers not used in current design
+        - Optional features not implemented in current circuit variant
+        - Test points or debugging pins not connected in production
+        - Analog inputs not used in specific application configurations
+
+    ERC Behavior:
+        NCNet objects are excluded from normal ERC checking since they
+        explicitly represent intentionally unconnected pins. This prevents
+        false warnings about floating inputs or undriven nets while maintaining
+        design verification for actual electrical connections.
+
+    Netlist Generation:
+        NCNet objects do not generate entries in netlists or connection lists
+        since they represent the explicit absence of connections. PCB tools
+        typically handle no-connect markers through special annotations rather
+        than actual net connections.
     
     Args:
-        name (str, optional): Name of the no-connect net. If None, a unique name is generated.
+        name (str, optional): Name for the no-connect net. If None, an
+            automatically generated name will be assigned. Multiple pins
+            can share the same NCNet or use separate NCNet instances.
         circuit (Circuit, optional): The circuit this no-connect net belongs to.
-        *pins_nets_buses: One or more Pin, Net, or Bus objects to mark as not connected.
+            If None, uses the default circuit.
+        *pins_nets_buses: Pins, nets, or buses to mark as not connected.
+            These will be connected to this NCNet to indicate their
+            no-connect status.
         
     Keyword Args:
-        attribs: Various attributes to attach to the no-connect net.
+        attribs: Additional attributes for the no-connect net. Note that
+            some attributes like drive strength are automatically set to
+            appropriate values for no-connect nets.
+            
+    Examples:
+        >>> # Mark individual unused pins as no-connect
+        >>> nc1 = NCNet()
+        >>> nc1 += mcu['UNUSED_PA5'], mcu['UNUSED_PA6']
+        >>> 
+        >>> # Use separate NC nets for different pin groups
+        >>> analog_nc = NCNet('ANALOG_NC')
+        >>> digital_nc = NCNet('DIGITAL_NC') 
+        >>> analog_nc += adc['AIN3'], adc['AIN4']
+        >>> digital_nc += mcu['PB7'], mcu['PB8']
+        >>> 
+        >>> # Mark test points as no-connect in production
+        >>> test_nc = NCNet('TEST_NC')
+        >>> test_nc += test_point_1['PIN'], test_point_2['PIN']
+        >>> 
+        >>> # Create during component instantiation
+        >>> mcu = Part('MCU', 'STM32F401')
+        >>> nc_net = NCNet()
+        >>> nc_net += mcu['BOOT0'], mcu['NRST']  # Not used in this design
+
+    Design Verification:
+        While NCNet pins are excluded from standard ERC checking, they can
+        still be verified for design intent:
+        - Confirm all NC pins are intentionally unconnected
+        - Verify no required pins are accidentally marked as NC
+        - Check that NC assignments match design specifications
+
+    Tool Integration:
+        Different PCB tools handle no-connect markers differently:
+        - KiCad: No-connect flags on pins, excluded from netlist
+        - Altium: No ERC markers, special netlist handling
+        - Eagle: No-connect symbols, netlist exclusion
+        - Other tools: Tool-specific no-connect representations
+
+    Best Practices:
+        - Use descriptive names for NC nets to document intent
+        - Group related NC pins on the same NC net when appropriate
+        - Document why specific pins are marked as no-connect
+        - Review NC assignments during design reviews
+        - Consider future design variants that might use NC pins
     """
 
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
+        """
+        Initialize a new no-connect net for unconnected pins.
+
+        Creates a specialized net that marks pins as intentionally not connected,
+        suppressing ERC warnings while documenting design intent. The NC net
+        automatically sets appropriate drive characteristics and ERC flags.
+
+        Args:
+            name (str, optional): Name for the no-connect net. If None, an
+                auto-generated name will be assigned. Using descriptive names
+                helps document which pins are intentionally unconnected.
+            circuit (Circuit, optional): Target circuit for the NC net.
+                If None, the NC net is added to the default circuit.
+            *pins_nets_buses: Initial pins to mark as no-connect:
+                - Pin objects: Individual component pins to mark as NC
+                - Collections: Lists or tuples of pins to mark together
+                - Note: Connecting nets or buses to NCNet is unusual
+
+        Keyword Args:
+            attribs: Additional attributes for the NC net. Some attributes
+                are automatically set to appropriate values:
+                - drive: Set to NOCONNECT to indicate no driving capability
+                - do_erc: Disabled to suppress ERC warnings
+
+        Examples:
+            >>> # Basic no-connect net creation
+            >>> nc = NCNet()                            # Auto-named NC net
+            >>> nc += mcu['UNUSED1'], mcu['UNUSED2']    # Mark pins as NC
+            >>> 
+            >>> # Named no-connect nets for documentation
+            >>> analog_nc = NCNet('ANALOG_UNUSED')
+            >>> debug_nc = NCNet('DEBUG_INTERFACE_NC')
+            >>> 
+            >>> # Create with initial connections
+            >>> boot_nc = NCNet('BOOT_PINS', mcu['BOOT0'], mcu['BOOT1'])
+            >>> 
+            >>> # Different NC nets for different purposes
+            >>> test_nc = NCNet('TEST_POINTS_NC')       # Test/debug pins
+            >>> feature_nc = NCNet('UNUSED_FEATURES')   # Unimplemented features
+            >>> reserved_nc = NCNet('RESERVED_PINS')    # Future expansion
+
+        Automatic Properties:
+            The NCNet constructor automatically sets appropriate properties:
+            - Drive strength: Set to NOCONNECT to indicate no driving capability
+            - ERC checking: Disabled to prevent floating pin warnings
+            - Netlist generation: Configured to exclude from output netlists
+
+        Pin Assignment:
+            Pins connected to NCNet are marked as intentionally unconnected:
+            - Removes pins from any existing nets they were connected to
+            - Marks pins with no-connect status for ERC purposes
+            - Documents design intent for unconnected pins
+
+        Circuit Integration:
+            NCNet objects are registered with their circuit like regular nets
+            but are handled specially during ERC checking and netlist generation
+            to reflect their special no-connect semantics.
+        """
         from .pin import pin_drives
 
         super().__init__(name=name, circuit=circuit, *pins_nets_buses, **attribs)
@@ -1144,13 +1716,50 @@ class NCNet(Net):
 
     def generate_netlist_net(self, tool=None):
         """
-        Generate empty string as NO_CONNECT nets don't appear in netlists.
+        Generate netlist representation for no-connect nets.
         
+        No-connect nets intentionally do not appear in circuit netlists since
+        they represent the explicit absence of electrical connections rather
+        than actual circuit connections. This method always returns an empty
+        string to exclude NCNet objects from netlist output.
+
         Args:
-            tool (str, optional): The netlist generation tool.
-            
+            tool (str, optional): The target netlist generation tool (e.g., 'kicad',
+                'altium', 'eagle'). Parameter is accepted for compatibility but
+                ignored since NC nets are excluded from all netlist formats.
+                
         Returns:
-            str: Always returns an empty string.
+            str: Always returns an empty string. No-connect nets do not generate
+                netlist entries since they represent intentionally unconnected pins
+                rather than actual electrical connections.
+
+        Examples:
+            >>> nc_net = NCNet('UNUSED_PINS')
+            >>> nc_net += mcu['PA7'], mcu['PA8']
+            >>> 
+            >>> # NC nets don't appear in netlists
+            >>> netlist_entry = nc_net.generate_netlist_net('kicad')
+            >>> print(repr(netlist_entry))              # ''
+            >>> 
+            >>> # Compare with regular net
+            >>> vcc_net = Net('VCC')
+            >>> vcc_net += mcu['VCC']
+            >>> vcc_entry = vcc_net.generate_netlist_net('kicad')
+            >>> print(len(vcc_entry) > 0)               # True
+
+        Tool Integration:
+            Different PCB tools handle no-connect pins through special mechanisms:
+            - Pin-level no-connect flags rather than net-level connections
+            - Special symbols or annotations in schematic capture
+            - ERC rule exclusions for intentionally unconnected pins
+            - Design rule checking modifications for NC pins
+
+        Design Verification:
+            While NC nets don't appear in netlists, they can still be verified:
+            - Pin assignment reports can show NC pin assignments
+            - ERC reports can list pins marked as no-connect
+            - Design review outputs can document intentional non-connections
+            - BOM generation can identify unused pin functionality
         """
         return ""
 
@@ -1159,9 +1768,53 @@ class NCNet(Net):
         """
         Get the drive strength of this no-connect net.
         
-        The drive strength is always NOCONNECT_DRIVE for NCNets and cannot be changed.
-        
+        No-connect nets have a fixed drive strength of NOCONNECT that cannot
+        be modified. This special drive value indicates that the net represents
+        intentionally unconnected pins rather than an actual electrical signal.
+
+        The NOCONNECT drive strength serves several purposes:
+        - Identifies the net as representing non-connections
+        - Excludes the net from drive conflict checking during ERC
+        - Indicates to tools that this net should not appear in netlists
+        - Documents design intent for unconnected pins
+
         Returns:
-            int: The NOCONNECT drive strength value.
+            int: Always returns pin_drives.NOCONNECT. This value cannot be
+                changed for NCNet objects since it represents their fundamental
+                characteristic as no-connect nets.
+
+        Examples:
+            >>> from skidl.pin import pin_drives
+            >>> 
+            >>> nc_net = NCNet('UNUSED_PINS')
+            >>> print(nc_net.drive == pin_drives.NOCONNECT)  # True
+            >>> 
+            >>> # Compare with regular net drive
+            >>> reg_net = Net('SIGNAL')
+            >>> reg_net += driver_pin, receiver_pin
+            >>> print(reg_net.drive != pin_drives.NOCONNECT)  # True
+            >>> 
+            >>> # Drive strength cannot be changed for NC nets
+            >>> try:
+            ...     nc_net.drive = pin_drives.STRONG   # This won't work
+            ... except AttributeError:
+            ...     print("NCNet drive cannot be modified")
+
+        ERC Integration:
+            The NOCONNECT drive strength integrates with electrical rule checking:
+            - Pins on NCNet are excluded from floating pin detection
+            - No drive conflict checking is performed for NC nets  
+            - ERC reports can identify and verify no-connect assignments
+            - Design verification can confirm intentional non-connections
+
+        Immutability:
+            The drive property for NCNet objects is read-only. Attempting to
+            set or delete the drive strength will not work since the NOCONNECT
+            drive is fundamental to the NCNet's purpose and behavior.
+
+        Tool Compatibility:
+            The NOCONNECT drive strength is recognized by netlist generators
+            and ERC systems to provide appropriate handling of no-connect nets
+            across different PCB design tools and workflows.
         """
         return self._drive

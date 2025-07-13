@@ -73,8 +73,12 @@ def test_netclass_3():
     n1, n2 = Net("a"), Net("b")
     n1.netclass = NetClass("class1", priority=1)  # Assign netclass to n1.
     n2.netclass = NetClass("class2", priority=2)  # Assign netclass to n2.
-    with pytest.raises(ValueError):
-        n1 += n2  # Merging nets with different netclasses should raise error.
+    n1 += n2  # Merge nets.
+    assert n1.netclass == n2.netclass  # Netclass should be the same after merging.
+    assert len(n1.netclass) == 2
+    nt_cls_names = list(default_circuit.netclasses)
+    assert "class1" in nt_cls_names  # Netclass 'class1' should be present.
+    assert "class2" in nt_cls_names  # Netclass 'class2' should also be present.
 
 
 def test_netclass_4():
@@ -83,8 +87,12 @@ def test_netclass_4():
     n1 += n2  # Merge nets.
     n1.netclass = NetClass("class1", priority=1)  # Assign netclass to merged net.
     assert n2.netclass.name == "class1"  # Netclass should propagate.
-    with pytest.raises(ValueError):
-        n2.netclass = NetClass("class2", priority=2)  # Reassigning netclass should raise error.
+    n2.netclass = NetClass("class2", priority=2)  # Adding another netclass.
+    assert len(n2.netclass) == 2  # Netclass list should contain both netclasses.
+    assert len(n1.netclass) == 2  # Netclass list should propagate to connected net.
+    nt_cls_names = list(default_circuit.netclasses)
+    assert "class1" in nt_cls_names  # Netclass 'class1' should be present.
+    assert "class2" in nt_cls_names  # Netclass 'class2' should also be present.
 
 
 def test_drive_1():
