@@ -393,9 +393,9 @@ class NetClassList(list):
 
     def by_priority(self):
         """
-        Get a list of netclasses sorted by priority.
+        Get a list of netclass names sorted by their priority.
 
         Returns:
-            list: A list of netclasses sorted by their priority.
+            list: A list of netclass names in ascending order of their priority.
         """
-        return sorted(self, key=lambda nc: nc.priority)
+        return [nc.name for nc in sorted(self, key=lambda nc: nc.priority)]

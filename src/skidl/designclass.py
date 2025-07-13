@@ -67,8 +67,8 @@ Classes:
 """
 
 import sys
-from skidl.logger import active_logger
-from skidl.utilities import export_to_all
+from .logger import active_logger
+from .utilities import export_to_all, flatten
 
 
 @export_to_all
@@ -153,6 +153,7 @@ class DesignClass(dict):
         Raises:
             KeyError: If no object with the given name exists
         """
+        names = flatten(names)
         if len(names) == 1:
             try:
                 return super().__getitem__(names[0])

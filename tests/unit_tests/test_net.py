@@ -102,9 +102,25 @@ def test_netclass_5():
     n1.netclass = NetClass("class1", priority=1)  # Assign netclass to merged net.
     assert n2.netclass.name == "class1"  # Netclass should propagate.
     n2.netclass = NetClass("class2", priority=2)  # Adding another netclass.
-    prioritized = n2.netclass.by_priority()  # Sort netclasses by priority.
-    assert prioritized[-1].priority == 2
-    assert prioritized[-2].priority == 1
+    prioritized_names = n2.netclass.by_priority()  # Sort netclasses by priority.
+    assert prioritized_names[-1] == "class2"  # Last netclass should be 'class2'.
+    assert prioritized_names[-2] == "class1"  # First netclass should be 'class1'.
+    netclasses = n1.circuit.netclasses[prioritized_names]
+    assert netclasses[-1].priority == 2
+    assert netclasses[-2].priority == 1
+
+
+def test_netclass_6():
+    """Test netclass single and multiple indexing."""
+    n1 = Net("a")
+    n1.netclass = NetClass("class1", priority=1)  # Assign netclass to merged net.
+    n1.netclass = NetClass("class2", priority=2)  # Adding another netclass.
+    netclass = n1.circuit.netclasses["class1"]
+    assert netclass.priority == 1
+    netclasses = n1.circuit.netclasses["class1", "class2"]
+    assert netclasses[0].priority == 1
+    assert netclasses[1].priority == 2
+
 
 def test_drive_1():
     """Test drive strength propagation after merging nets."""
