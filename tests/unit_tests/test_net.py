@@ -95,6 +95,17 @@ def test_netclass_4():
     assert "class2" in nt_cls_names  # Netclass 'class2' should also be present.
 
 
+def test_netclass_5():
+    """Test netclass priority sorting."""
+    n1, n2 = Net("a"), Net("b")
+    n1 += n2  # Merge nets.
+    n1.netclass = NetClass("class1", priority=1)  # Assign netclass to merged net.
+    assert n2.netclass.name == "class1"  # Netclass should propagate.
+    n2.netclass = NetClass("class2", priority=2)  # Adding another netclass.
+    prioritized = n2.netclass.by_priority()  # Sort netclasses by priority.
+    assert prioritized[-1].priority == 2
+    assert prioritized[-2].priority == 1
+
 def test_drive_1():
     """Test drive strength propagation after merging nets."""
     n1, n2 = Net("a"), Net("b")

@@ -390,3 +390,12 @@ class NetClassList(list):
             # Add the netclass to the list if it's not already present.
             if cls not in self:
                 self.append(cls)
+
+    def by_priority(self):
+        """
+        Get a list of netclasses sorted by priority.
+
+        Returns:
+            list: A list of netclasses sorted by their priority.
+        """
+        return sorted(self, key=lambda nc: nc.priority)
