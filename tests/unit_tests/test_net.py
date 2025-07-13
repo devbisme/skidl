@@ -86,7 +86,7 @@ def test_netclass_4():
     n1, n2 = Net("a"), Net("b")
     n1 += n2  # Merge nets.
     n1.netclass = NetClass("class1", priority=1)  # Assign netclass to merged net.
-    assert n2.netclass.name == "class1"  # Netclass should propagate.
+    assert n2.netclass[0].name == "class1"  # Netclass should propagate.
     n2.netclass = NetClass("class2", priority=2)  # Adding another netclass.
     assert len(n2.netclass) == 2  # Netclass list should contain both netclasses.
     assert len(n1.netclass) == 2  # Netclass list should propagate to connected net.
@@ -100,7 +100,7 @@ def test_netclass_5():
     n1, n2 = Net("a"), Net("b")
     n1 += n2  # Merge nets.
     n1.netclass = NetClass("class1", priority=1)  # Assign netclass to merged net.
-    assert n2.netclass.name == "class1"  # Netclass should propagate.
+    assert n2.netclass[0].name == "class1"  # Netclass should propagate.
     n2.netclass = NetClass("class2", priority=2)  # Adding another netclass.
     prioritized_names = n2.netclass.by_priority()  # Sort netclasses by priority.
     assert prioritized_names[-1] == "class2"  # Last netclass should be 'class2'.
@@ -120,6 +120,16 @@ def test_netclass_6():
     netclasses = n1.circuit.netclasses["class1", "class2"]
     assert netclasses[0].priority == 1
     assert netclasses[1].priority == 2
+
+
+def test_netclass_7():
+    """Test netclass duplication."""
+    n1 = Net("a")
+    ntcls1 = NetClass("class1", priority=1)
+    n1.netclass = ntcls1
+    n1.netclass = ntcls1  # Reassigning should be ignored and not raise error.
+    with pytest.raises(KeyError):
+        NetClass("class1", priority=1)  # Duplicating netclass for circuit should raise error.
 
 
 def test_drive_1():
