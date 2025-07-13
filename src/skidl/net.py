@@ -1316,70 +1316,93 @@ connections to nets while         prohibiting direct assignment. Python
         """
         Get or set the net class(es) assigned to this net and connected segments.
         
-        Net classes define electrical and physical properties for PCB routing
-        such as trace widths, clearances, via sizes, and design priorities.
-        A net can belong to zero, one, or multiple net classes depending on
-        design requirements.
+        Net classes define PCB routing rules including trace widths, clearances,
+        via sizes, and electrical properties. They control how nets are routed
+        during PCB layout and enforce design constraints. A net can be assigned
+        to multiple net classes for complex routing requirements.
 
-        This property provides access to the net class assignment(s) for this
-        net and all electrically connected net segments. When setting net
-        classes, the assignment propagates to all connected segments to
-        maintain electrical consistency.
+        When setting net classes, the assignment automatically propagates to all
+        electrically connected net segments, ensuring consistent routing rules
+        across the entire electrical connection. This maintains design integrity
+        when nets are merged or split during circuit construction.
 
         Returns:
-            None, NetClass, or NetClassList: 
-                - None: No net classes assigned
-                - NetClass: Single net class assigned
-                - NetClassList: Multiple net classes assigned
+            NetClassList: Container holding zero or more NetClass objects.
+            An empty list indicates no net class assignments. The container
+            supports iteration, indexing, and membership testing for
+            convenient access to assigned classes.
 
         Examples:
-            >>> # Check current net class assignment
+            >>> # Check current net class assignments
             >>> power_net = Net('VCC')
-            >>> print(power_net.netclass)              # None initially
+            >>> print(len(power_net.netclass))          # 0 (no classes assigned)
             >>> 
             >>> # Assign single net class
             >>> power_class = NetClass('Power', trace_width=0.5, clearance=0.2)
             >>> power_net.netclass = power_class
-            >>> print(type(power_net.netclass))        # <class 'NetClass'>
+            >>> print(len(power_net.netclass))          # 1
+            >>> print(power_net.netclass[0].name)       # 'Power'
             >>> 
             >>> # Assign multiple net classes
-            >>> high_speed_class = NetClass('HighSpeed', via_dia=0.4)
-            >>> power_net.netclass = power_class, high_speed_class
-            >>> print(type(power_net.netclass))        # <class 'NetClassList'>
+            >>> critical_class = NetClass('Critical', priority=1)
+            >>> power_net.netclass = power_class, critical_class
+            >>> print(len(power_net.netclass))          # 2
             >>> 
-            >>> # Access net class properties
-            >>> if power_net.netclass:
-            ...     if hasattr(power_net.netclass, 'trace_width'):
-            ...         print(f"Trace width: {power_net.netclass.trace_width}mm")
-            ...     else:
-            ...         for nc in power_net.netclass:
-            ...             if hasattr(nc, 'trace_width'):
-            ...                 print(f"Trace width: {nc.trace_width}mm")
+            >>> # Check for specific class membership
+            >>> if power_class in power_net.netclass:
+            ...     print(f"Net uses {power_class.name} routing rules")
+            >>> 
+            >>> # Iterate through assigned classes
+            >>> for nc in power_net.netclass:
+            ...     print(f"Class: {nc.name}, Width: {nc.trace_width}mm")
 
-        Multi-segment Behavior:
-            When nets are electrically connected (merged), all segments share
-            the same net class assignments. Setting the net class on any
-            segment updates all connected segments simultaneously.
+        Multi-segment Propagation:
+            When nets are electrically connected through shared pins, all
+            segments automatically share the same net class assignments:
+            
+            >>> net1 = Net('SIG_A')
+            >>> net2 = Net('SIG_B')
+            >>> net1.netclass = power_class          # Assign to net1
+            >>> shared_pin = mcu['PA1']
+            >>> net1 += shared_pin                   # Connect pin to net1
+            >>> net2 += shared_pin                   # Merges nets, shares classes
+            >>> print(net2.netclass == net1.netclass)  # True
 
         Class Conflict Resolution:
-            When multiple net classes are assigned that have conflicting
-            properties, the resolution depends on the specific PCB tool and
-            net class priorities. Generally, classes with lower priority
-            numbers take precedence over higher priority numbers.
+            Multiple net classes with conflicting properties are resolved based
+            on priority levels and tool-specific rules. Classes with higher
+            priority numbers typically override lower priority classes:
+            
+            >>> low_priority = NetClass('Critical', priority=1, trace_width=0.8)
+            >>> high_priority = NetClass('Standard', priority=10, trace_width=0.3)
+            >>> signal_net.netclass = high_priority, low_priority
+            >>> # PCB tool will likely use 0.8mm width from high_priority class
+
+        Assignment Operations:
+            Net class assignments are additive by default - new classes are
+            added to existing assignments rather than replacing them:
+            
+            >>> signal_net.netclass = class1         # Assign first class
+            >>> signal_net.netclass = class2         # Add second class
+            >>> print(len(signal_net.netclass))      # 2 (both classes assigned)
+            >>> 
+            >>> # To replace all classes, delete first
+            >>> del signal_net.netclass              # Clear all classes
+            >>> signal_net.netclass = new_class      # Assign replacement
 
         PCB Tool Integration:
-            Net class assignments are exported to PCB design tools during
-            netlist generation, where they become design rules and routing
-            constraints. Different tools may interpret multiple net classes
-            differently.
+            Net class assignments are exported during netlist generation and
+            become design rules in PCB layout tools. Different tools handle
+            multiple classes differently - some merge properties, others use
+            priority-based selection, and some apply all rules simultaneously.
+
+        Design Rule Checking:
+            Net classes enable automated design rule checking (DRC) during
+            PCB layout. Violations of trace width, clearance, or via size
+            rules generate errors that must be resolved before manufacturing.
         """
         self.test_validity()
-        if len(self._netclass) == 0:
-            return None
-        elif len(self._netclass) == 1:
-            return self._netclass[0]
-        else:
-            return self._netclass
+        return self._netclass
 
     @netclass.setter
     def netclass(self, *netclasses):
