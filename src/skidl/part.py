@@ -18,6 +18,7 @@ from random import randint
 
 from .erc import dflt_part_erc
 from .logger import active_logger
+from .partclass import PartClass, PartClassList
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import (
     add_unique_attr,
@@ -235,6 +236,7 @@ class Part(SkidlBaseObject):
         self.tool = tool  # Initial type of part (SKIDL, KICAD, etc.)
         self.circuit = None  # Part starts off unassociated with any circuit.
         self.match_pin_regex = False  # Don't allow regex matches of pin names.
+        self._partclass = PartClassList()  # List of part classes this part belongs to.
 
         # Create a Part from a library entry.
         if lib:
@@ -1515,6 +1517,18 @@ class Part(SkidlBaseObject):
         Delete the part footprint.
         """
         del self._foot
+
+    @property
+    def partclass(self):
+        return self._partclass
+
+    @partclass.setter
+    def partclass(self, *partclasses):
+        self._partclass.add(*partclasses)
+
+    @partclass.deleter
+    def partclass(self):
+        self._partclass = PartClassList()
 
     @property
     def match_pin_regex(self):

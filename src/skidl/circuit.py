@@ -152,7 +152,7 @@ class Circuit(SkidlBaseObject):
         self.buses = []
         self.interfaces = []
         self.netclasses = DesignClass()
-        self.compclasses = DesignClass()
+        self.partclasses = DesignClass()
         self.nodes = set()  # Set of all nodes in the circuit hierarchy.
         self.active_node = None
         self.active_node = self.activate(name="", tag="")
@@ -234,6 +234,15 @@ class Circuit(SkidlBaseObject):
             netclass (NetClass): The net class to add to the circuit.
         """
         self.netclasses.add(netclass)
+
+    def add_partclass(self, partclass):
+        """
+        Add a part class to the circuit.
+        
+        Args:
+            partclass (PartClass): The part class to add to the circuit.
+        """
+        self.partclasses.add(partclass)
 
     def add_parts(self, *parts):
         """

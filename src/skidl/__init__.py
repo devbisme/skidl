@@ -53,7 +53,8 @@ from .group import Group, SubCircuit, subcircuit  # Grouping related components
 from .interface import Interface  # Standardized connections between subcircuits
 from .logger import erc_logger  # Logger for ERC (Electrical Rule Checking)
 from .net import Net  # Class for electrical connections between pins
-from .netclass import NetClass  # Class for assigning properties to groups of nets
+from .partclass import PartClass, PartClassList  # Class for assigning properties to groups of parts
+from .netclass import NetClass, NetClassList  # Class for assigning properties to groups of nets
 from .netlist_to_skidl import netlist_to_skidl  # Function to import netlists
 from .network import Network, tee  # Network management and connection splitting
 from .part import LIBRARY, NETLIST, TEMPLATE, Part, PartTmplt, SkidlPart  # Component handling
