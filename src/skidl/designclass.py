@@ -120,7 +120,7 @@ class DesignClass(dict):
         Raises:
             AttributeError: If object doesn't have a 'name' attribute
             ValueError: If priority is not within valid range
-            KeyError: If an object with the same name already exists
+            KeyError: If an object with the same name already exists and has differing attributes
         """
         if not hasattr(obj, "name"):
             active_logger.raise_(AttributeError, "Object must have a 'name' attribute")
@@ -132,9 +132,11 @@ class DesignClass(dict):
                 )
 
         if obj.name in self:
-            active_logger.raise_(
-                KeyError, f"Object with name '{obj.name}' already exists"
-            )
+            if self[obj.name] != obj:
+                typ = lambda obj: str(type(obj)).split('.')[-1].replace("'>", "").replace("<class '", "")
+                active_logger.raise_(
+                    KeyError, f"Cannot change attributes of existing {typ(self[obj.name])} with name '{obj.name}'"
+                )
 
         if priority != None:
             obj.priority = priority

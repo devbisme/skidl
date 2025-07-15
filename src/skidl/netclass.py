@@ -215,6 +215,29 @@ class NetClass(object):
         # Add netclass to circuit. Duplicate netclasses will be flagged.
         circuit.add_netclass(self)
 
+    def __eq__(self, ntcls):
+        """
+        Compare two NetClass objects for equality based on their attributes.
+
+        Args:
+            ntcls (NetClass): Another NetClass object to compare against.
+
+        Returns:
+            bool: True if both NetClass objects have identical attributes,
+                False otherwise.
+        """
+        if not isinstance(ntcls, NetClass):
+            return False
+        
+        # Compare all attributes of both objects
+        return vars(self) == vars(ntcls)
+
+    # Since an __eq__ method was defined, a __hash__ method is also needed
+    # to maintain the hashability of NetClass objects.
+    # This allows them to be used in sets or as dictionary keys.
+    def __hash__(self):
+        """Hash based on name (assuming name is immutable)."""
+        return hash(self.name)
 
 class NetClassList(list):
     """

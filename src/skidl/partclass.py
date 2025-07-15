@@ -32,6 +32,30 @@ class PartClass(object):
         # Add part class to circuit. Duplicate part classes will be flagged.
         circuit.add_partclass(self)
 
+    def __eq__(self, prtcls):
+        """
+        Compare two PartClass objects for equality based on their attributes.
+
+        Args:
+            prtcls (PartClass): Another PartClass object to compare against.
+
+        Returns:
+            bool: True if both PartClass objects have identical attributes,
+                False otherwise.
+        """
+        if not isinstance(prtcls, PartClass):
+            return False
+        
+        # Compare all attributes of both objects
+        return vars(self) == vars(prtcls)
+
+    # Since an __eq__ method was defined, a __hash__ method is also needed
+    # to maintain the hashability of PartClass objects.
+    # This allows them to be used in sets or as dictionary keys.
+    def __hash__(self):
+        """Hash based on name (assuming name is immutable)."""
+        return hash(self.name)
+
 
 class PartClassList(list):
 
