@@ -1447,7 +1447,7 @@ connections to nets while         prohibiting direct assignment. Python
         """
         self.test_validity()
         for net in self.nets:
-            net._netclass.add(*netclasses)
+            net._netclass.add(*netclasses, circuit=net.circuit)
 
     @netclass.deleter
     def netclass(self):

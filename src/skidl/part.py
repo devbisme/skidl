@@ -1524,7 +1524,7 @@ class Part(SkidlBaseObject):
 
     @partclass.setter
     def partclass(self, *partclasses):
-        self._partclass.add(*partclasses)
+        self._partclass.add(*partclasses, circuit=part.circuit)
 
     @partclass.deleter
     def partclass(self):
