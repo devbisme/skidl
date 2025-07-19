@@ -2,6 +2,14 @@
 
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
+"""
+Node class for storing circuit hierarchy.
+
+This module provides the Node class which represents a hierarchical structure
+for organizing circuit components. Nodes can have parent-child relationships
+and contain parts, allowing for structured circuit design and organization.
+"""
+
 from collections import defaultdict
 
 from skidl.scriptinfo import get_skidl_trace
@@ -9,14 +17,15 @@ from skidl.skidlbaseobj import SkidlBaseObject
 from skidl.utilities import export_to_all, get_unique_name
 
 
-"""
-Node class for storing circuit hierarchy.
-"""
-
-
 @export_to_all
 class Node(SkidlBaseObject):
-    """Data structure for holding information about a node in the circuit hierarchy."""
+    """
+    Data structure for holding information about a node in the circuit hierarchy.
+    
+    A Node represents a hierarchical container that can hold circuit parts and
+    maintain parent-child relationships with other nodes. This enables organized
+    circuit design with clear structural relationships.
+    """
 
     def __init__(
         self,
@@ -25,6 +34,18 @@ class Node(SkidlBaseObject):
         parent=None,
         circuit=None
     ):
+        """
+        Initialize a new Node instance.
+        
+        Args:
+            name (str): The name for this node. If None, defaults to "NODE".
+                       Names are automatically made unique within the parent's children.
+            tag (Any, optional): An optional tag for categorizing or identifying the node.
+            parent (Node, optional): The parent node. If provided, this node becomes
+                                   a child of the parent.
+            circuit (Circuit, optional): The circuit this node belongs to. If None,
+                                        uses the default circuit.
+        """
         super().__init__()
 
         # Store the circuit this node belongs to.
@@ -52,11 +73,34 @@ class Node(SkidlBaseObject):
         self.parts = []
 
     @property
-    def hiertuple(self):
-        """Return a tuple of the node's hierarchy path."""
+    def hiernodes(self):
+        """
+        Return a tuple of the chain of nodes from the top-most node to this one (self).
+        
+        This property traverses up the hierarchy from the current node to the root,
+        then reverses the order to provide a path from root to current node.
+        
+        Returns:
+            tuple: A tuple of Node objects representing the hierarchical path
+                  from the root node to this node, inclusive.
+        """
         n = self
-        path = [n.name]
+        path = [n]
         while n.parent:
             n = n.parent
-            path.append(n.name)
+            path.append(n)
         return tuple(reversed(path))
+
+    @property
+    def hiertuple(self):
+        """
+        Return a tuple of the node's hierarchy path names from top-most node to this one (self).
+        
+        This provides a string representation of the hierarchical path by extracting
+        the names from each node in the hierarchy chain.
+        
+        Returns:
+            tuple: A tuple of strings representing the names of nodes in the
+                  hierarchical path from root to this node.
+        """
+        return tuple(n.name for n in self.hiernodes)
