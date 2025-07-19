@@ -156,7 +156,11 @@ class Circuit(SkidlBaseObject):
         self.nodes = set()  # Set of all nodes in the circuit hierarchy.
         self.active_node = None
         self.active_node = self.activate(name="", tag="")
-        self.circuit_stack = deque()  # Stack of circuits defined within circuits.
+        if not hasattr(self, "circuit_stack"):
+            # Initialize the circuit stack if it doesn't exist.
+            # Otherwise, leave it alone since we might need to get back to the
+            # parent Circuit object.
+            self.circuit_stack = deque()
         self.erc_assertion_list = []
         self.no_files = False  # Allow creation of files for netlists, ERC, libs, etc.
 
