@@ -6,8 +6,6 @@ import pytest
 
 from skidl import search
 
-from .setup_teardown import setup_function, teardown_function
-
 
 def test_search_1(capfd):
     search("ESP32")  # Find matches in RF_Module library.

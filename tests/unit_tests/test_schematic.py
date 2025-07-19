@@ -27,7 +27,6 @@ from skidl import (
 from skidl.schematics.place import PlacementFailure
 from skidl.schematics.route import RoutingFailure
 
-from .setup_teardown import setup_function, teardown_function
 
 sch_options = {}
 # seed = int(time.time())

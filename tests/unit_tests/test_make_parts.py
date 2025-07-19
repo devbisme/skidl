@@ -19,8 +19,6 @@ from skidl import (
 )
 from skidl.pin import pin_types
 
-from .setup_teardown import setup_function, teardown_function
-
 
 def test_subcircuit_1():
     """Test subcircuit creation and connection."""

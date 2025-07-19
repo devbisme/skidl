@@ -6,8 +6,6 @@ import pytest
 
 from skidl import TEMPLATE, Part, generate_netlist
 
-from .setup_teardown import setup_function, teardown_function
-
 
 def test_skidl_loc():
     """Test the creation of parts and netlist generation in SKiDL."""

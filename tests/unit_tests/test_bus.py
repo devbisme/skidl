@@ -6,8 +6,6 @@ import pytest
 
 from skidl import Bus, Net, Pin
 
-from .setup_teardown import setup_function, teardown_function
-
 
 def test_bus_1():
     # Test creating a bus with a specified range.

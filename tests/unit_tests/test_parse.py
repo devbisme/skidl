@@ -6,8 +6,6 @@ import pytest
 
 from skidl import Part, netlist_to_skidl, generate_netlist, TEMPLATE, Net, subcircuit
 
-from .setup_teardown import setup_function, teardown_function
-
 
 def test_parser_1():
     """Test the parser with a simple netlist."""

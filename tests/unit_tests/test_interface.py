@@ -8,8 +8,6 @@ import pytest
 
 from skidl import TEMPLATE, Bus, Circuit, Interface, Net, Part, Pin, subcircuit
 
-from .setup_teardown import setup_function, teardown_function
-
 
 def test_interface_1():
     """Test interface."""

@@ -9,8 +9,6 @@ import pytest
 from skidl import ERC, Net, Part, PartTmplt, erc_logger, generate_netlist
 from skidl.utilities import to_list, Rgx
 
-from .setup_teardown import setup_function, teardown_function
-
 
 def test_part_1():
     """Test connecting all part pins to a net."""

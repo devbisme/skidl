@@ -20,8 +20,6 @@ from skidl import (
 )
 from skidl.pin import pin_types
 
-from .setup_teardown import setup_function, teardown_function
-
 
 # A default handler was added that logs errors when a part has an empty footprint.
 # These ERC tests were made before that and now fail because of the footprint errors.

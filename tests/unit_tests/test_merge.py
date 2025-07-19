@@ -6,8 +6,6 @@ import pytest
 
 from skidl import Net, Pin
 
-from .setup_teardown import setup_function, teardown_function
-
 
 def test_net_merge_1():
     """Test merging of two nets."""

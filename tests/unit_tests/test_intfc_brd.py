@@ -6,8 +6,6 @@ import pytest
 
 from skidl import ERC, POWER, TEMPLATE, Bus, Net, Part, generate_netlist
 
-from .setup_teardown import setup_function, teardown_function
-
 
 def test_intfc_brd():
     # Create a simple interface board for a microcontroller.

@@ -10,9 +10,6 @@ import json
 import re
 from contextlib import contextmanager
 
-# Add the src directory to the path so we can import skidl
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'src'))
-
 from skidl.utilities import (
     export_to_all, detect_os, Rgx, sgn, debug_trace, consistent_hash,
     num_to_chars, rmv_quotes, add_quotes, cnvt_to_var_name, to_list,
@@ -33,7 +30,7 @@ class TestExportToAll:
         mock_module = Mock()
         mock_module.__all__ = ['existing_func']
         
-        with patch('sys.modules', {'test_utilities': mock_module}):
+        with patch('sys.modules', {'unit_tests.ai_tests.test_utilities': mock_module}):
             @export_to_all
             def test_func():
                 pass
@@ -49,7 +46,7 @@ class TestExportToAll:
         mock_module = Mock(spec=[])  # Module without __all__
         del mock_module.__all__  # Ensure __all__ doesn't exist
         
-        with patch('sys.modules', {'test_utilities': mock_module}):
+        with patch('sys.modules', {'unit_tests.ai_tests.test_utilities': mock_module}):
             @export_to_all
             def test_func():
                 pass

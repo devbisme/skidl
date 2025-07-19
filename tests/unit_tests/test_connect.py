@@ -6,7 +6,6 @@ import pytest
 
 from skidl import Bus, Net, Part, Pin
 
-from .setup_teardown import setup_function, teardown_function
 
 def test_connect_1():
     """

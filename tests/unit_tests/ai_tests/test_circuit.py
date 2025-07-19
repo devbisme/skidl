@@ -15,7 +15,8 @@ from unittest.mock import Mock, patch, mock_open
 
 import pytest
 
-from skidl import Circuit, Net, Part, Bus, NCNet, SchLib, SKIDL
+from skidl import Circuit, Net, Part, Bus, SchLib, SKIDL
+from skidl.net import NCNet
 from skidl.netclass import NetClass
 from skidl.node import Node
 from skidl.pin import Pin
@@ -443,7 +444,7 @@ class TestOutputGeneration:
             # Add a simple part and net for testing
             part = Part("Device", "R")
             net = Net("VCC")
-            net += part[1]
+            net += part[1,2]
             circuit += part, net
             result = circuit.generate_svg()
             
@@ -459,19 +460,31 @@ class TestOutputGeneration:
             # Add a simple part and net for testing
             part = Part("Device", "R")
             net = Net("VCC")
-            net += part[1]
+            net += part[1,2]
             circuit += part, net
             result = circuit.generate_dot()
 
     def test_generate_pcb(self):
         """Test PCB generation."""
-        circuit = Circuit(name="TestCircuit")
-        circuit.generate_pcb()
+        with Circuit(name="TestCircuit") as circuit:
+            
+            # Add a simple part and net for testing
+            part = Part("Device", "R", footprint="Resistor_SMD:R_0805_2012Metric")
+            net = Net("VCC")
+            net += part[1,2]
+            circuit += part, net
+            circuit.generate_pcb()
 
     def test_generate_schematic(self):
         """Test schematic generation."""
-        circuit = Circuit(name="TestCircuit")
-        circuit.generate_schematic()
+        with Circuit(name="TestCircuit") as circuit:
+            
+            # Add a simple part and net for testing
+            part = Part("Device", "R")
+            net = Net("VCC")
+            net += part[1,2]
+            circuit += part, net
+            circuit.generate_schematic()
 
 
 class TestSpecializedMethods:

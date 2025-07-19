@@ -18,8 +18,6 @@ from skidl import (
     subcircuit,
 )
 
-from .setup_teardown import setup_function, teardown_function
-
 def test_subcircuit_1():
     """Test a simple resistor divider subcircuit."""
     class Resistor(Part):

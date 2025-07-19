@@ -19,8 +19,6 @@ from skidl import (
 )
 from skidl.skidlbaseobj import HIER_SEP
 
-from .setup_teardown import setup_function, teardown_function
-
 
 def test_group_1():
     """Test the grouping of parts in a circuit."""

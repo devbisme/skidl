@@ -20,8 +20,6 @@ from skidl import (
     subcircuit,
 )
 
-from .setup_teardown import setup_function, teardown_function
-
 
 def test_subcircuit_1():
     """Test subcircuit creation and connection."""

@@ -6,8 +6,6 @@ import pytest
 
 from skidl import TEMPLATE, Net, Network, Part, tee
 
-from .setup_teardown import setup_function, teardown_function
-
 
 def test_ntwk_1():
     """Test a common-emitter amplifier."""

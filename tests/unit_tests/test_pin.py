@@ -7,8 +7,6 @@ import pytest
 from skidl import Part, Pin
 from skidl.pin import pin_types
 
-from .setup_teardown import setup_function, teardown_function
-
 
 def test_pin_names_1():
     """Test pin name access."""

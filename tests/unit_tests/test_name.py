@@ -8,8 +8,6 @@ from skidl import Bus, Net, Part, Pin
 from skidl.bus import BUS_PREFIX
 from skidl.net import NET_PREFIX
 
-from .setup_teardown import setup_function, teardown_function
-
 
 def test_name_1():
     """Test naming of parts, buses, and nets."""

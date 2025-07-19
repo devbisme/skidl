@@ -29,7 +29,6 @@ from skidl import (
     subcircuit,
 )
 
-from .setup_teardown import setup_function, teardown_function
 
 @subcircuit
 def flat_circuit():

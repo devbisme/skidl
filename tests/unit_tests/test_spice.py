@@ -25,7 +25,6 @@ from skidl.pyspice import (
     subcircuit,
 )
 
-from .setup_teardown import setup_function, teardown_function
 
 from skidl.pyspice import *  # isort:skip
 

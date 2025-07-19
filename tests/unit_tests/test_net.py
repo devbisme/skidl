@@ -6,8 +6,6 @@ import pytest
 
 from skidl import Net, NetClass, Part, Pin
 
-from .setup_teardown import setup_function, teardown_function
-
 
 def test_nets_1():
     """Test basic net operations."""
@@ -126,10 +124,11 @@ def test_netclass_7():
     """Test netclass duplication."""
     n1 = Net("a")
     ntcls1 = NetClass("class1", priority=1)
+    NetClass("class1", priority=1)  # Netclass with same name and same attributes doesn't raise error.
     n1.netclass = ntcls1
     n1.netclass = ntcls1  # Reassigning should be ignored and not raise error.
     with pytest.raises(KeyError):
-        NetClass("class1", priority=1)  # Duplicating netclass for circuit should raise error.
+        NetClass("class1", priority=2)  # Netclass with same name but different attributes should raise error.
 
 
 def test_drive_1():

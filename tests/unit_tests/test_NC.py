@@ -7,8 +7,6 @@ import pytest
 from skidl import SKIDL, TEMPLATE, Circuit, Part, Pin, subcircuit
 from skidl.pin import pin_types
 
-from .setup_teardown import setup_function, teardown_function
-
 
 def test_NC_1():
     """Test the NC (No Connect) functionality."""

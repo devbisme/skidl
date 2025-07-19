@@ -6,8 +6,6 @@ import pytest
 
 from skidl import Part
 
-from .setup_teardown import setup_function, teardown_function
-
 
 def test_note_1():
     """Test adding notes to parts and pins."""

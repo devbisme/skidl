@@ -6,8 +6,6 @@ import pytest
 
 from skidl import Part
 
-from .setup_teardown import setup_function, teardown_function
-
 
 def test_fields_1():
     """Test field creation and manipulation."""

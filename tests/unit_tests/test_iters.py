@@ -6,8 +6,6 @@ import pytest
 
 from skidl import Bus, Net, Part
 
-from .setup_teardown import setup_function, teardown_function
-
 
 def test_iters_1():
     """Test bus iterator."""
