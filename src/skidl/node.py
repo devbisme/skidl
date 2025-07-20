@@ -32,7 +32,8 @@ class Node(SkidlBaseObject):
         name,
         tag=None,
         parent=None,
-        circuit=None
+        circuit=None,
+        **attrs
     ):
         """
         Initialize a new Node instance.
@@ -45,6 +46,7 @@ class Node(SkidlBaseObject):
                                    a child of the parent.
             circuit (Circuit, optional): The circuit this node belongs to. If None,
                                         uses the default circuit.
+            **attrs: Additional attributes to store in the node.
         """
         super().__init__()
 
@@ -71,6 +73,10 @@ class Node(SkidlBaseObject):
 
         # Create a list to hold the parts that are instantiated in this this node.
         self.parts = []
+
+        # Store any additional attributes.
+        for k, v in attrs.items():
+            setattr(self, k, v)
 
     @property
     def hiernodes(self):

@@ -15,6 +15,7 @@ import functools
 
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import export_to_all
+from .partclass import PartClassList
 
 
 __all__ = ["subcircuit"]
@@ -31,34 +32,39 @@ class Group(SkidlBaseObject):
     
     Args:
         name (str): Name for the hierarchical group.
-        **kwargs: Additional keyword arguments.
-        
-    Keyword Args:
         circuit (Circuit, optional): The circuit this group belongs to.
         tag (str, optional): Tag to distinguish multiple instances with the same name.
+        **attrs: Additional attributes to store in the node.
         
     Examples:
         >>> with Group('amplifier'):
         ...     r1 = Part('Device', 'R', value='10K')  # r1 is in the 'amplifier' group
     """
 
-    def __init__(self, name, **kwargs):
+    def __init__(self, name, **attrs):
         """Initialize a hierarchical group with a name and optional attributes."""
         super().__init__()
         self.name = name
-        self.circuit = kwargs.pop("circuit", default_circuit)
-        self.tag = kwargs.pop("tag", None)
+        self.circuit = attrs.pop("circuit", default_circuit)
+        self.tag = attrs.pop("tag", None)
+        self.partclass = attrs.pop("partclass", PartClassList())
+        self.node = None  # Placeholder for Node class, to be set in __enter__.
+
+        # Store any additional attributes.
+        for k, v in attrs.items():
+            setattr(self, k, v)
 
     def __enter__(self):
         """
         Create a context for hierarchical grouping of parts and nets.
         
         This activates the group in the circuit, making it the current hierarchical context.
+        The hierarchical Node object is stored for later use.
         
         Returns:
             Group: The group instance (self).
         """
-        self.circuit.activate(self.name, self.tag)
+        self.node = self.circuit.activate(name=self.name, tag=self.tag)
         return self
 
     def __exit__(self, type, value, traceback):

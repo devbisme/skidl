@@ -73,12 +73,12 @@ class Circuit(SkidlBaseObject):
     # Set the default ERC functions for all Circuit instances.
     erc_list = [dflt_circuit_erc]
 
-    def __init__(self, **kwargs):
+    def __init__(self, **attrs):
         """
         Initialize a new Circuit object.
         
         Args:
-            **kwargs: Arbitrary keyword arguments to set as attributes of the circuit.
+            **attrs: Arbitrary keyword arguments to set as attributes of the circuit.
         """
         super().__init__()
 
@@ -90,7 +90,7 @@ class Circuit(SkidlBaseObject):
         self.reset(init=True)
 
         # Set passed-in attributes for the circuit.
-        for k, v in list(kwargs.items()):
+        for k, v in list(attrs.items()):
             setattr(self, k, v)
 
     def __iadd__(self, *stuff):
@@ -207,12 +207,24 @@ class Circuit(SkidlBaseObject):
         """
         return (node.hiertuple for node in self.nodes)
 
-    def activate(self, name, tag):
+    def activate(self, name, tag, **attrs):
         """
-        Activate a new hierarchical node as a child of the currently active node.
+        Creates a new Node instance using the provided group's name and tag, sets it as a child
+        of the current active node, adds it to the circuit, and makes it the new active node.
+        
+        Args:
+            name (str): The name for the new node. If None, defaults to "NODE".
+            tag (str): The tag for identifying the node.
+            attrs (**attrs): Additional attributes to store in the node.
+        
+        Returns:
+            Node: The newly created and activated node instance.
+        
+        Note:
+            If no active node exists, the new node will have no parent (root node).
         """
 
-        new_node = Node(circuit=self, name=name, tag=tag, parent=getattr(self, "active_node", None))
+        new_node = Node(circuit=self, name=name, tag=tag, parent=getattr(self, "active_node", None), **attrs)
         self.add_node(new_node)
         self.active_node = new_node
         return new_node
