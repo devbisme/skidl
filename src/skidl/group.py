@@ -18,26 +18,27 @@ from .utilities import export_to_all
 from .partclass import PartClassList
 
 
-__all__ = ["SubCircuit", "subcircuit"]
+__all__ = ["subcircuit", "Group"]
 
 
 @export_to_all
-class Group(SkidlBaseObject):
+class SubCircuit(SkidlBaseObject):
     """
-    Context manager for hierarchical grouping of circuit components.
+    Class for managing hierarchical grouping of circuit components.
     
-    The Group class creates a named hierarchical level in a circuit design.
-    Components created within the group context will be assigned to this 
+    This class creates a named hierarchical group in a circuit design.
+    Parts created within the group context will be assigned to this 
     hierarchical level, making them easier to manage in complex designs.
     
     Args:
-        name (str): Name for the hierarchical group.
-        circuit (Circuit, optional): The circuit this group belongs to.
-        tag (str, optional): Tag to distinguish multiple instances with the same name.
-        **attrs: Additional attributes to store in the node.
+        name_or_func (str or callable): Name for the hierarchical group or a function to be decorated.
+        **attrs: Additional attributes to store in the group including:
+            circuit (Circuit, optional): The circuit this group belongs to.
+            tag (str, optional): Tag to distinguish multiple instances with the same name.
+            partclass (PartClassList, optional): List of part classes to use for parts created in this group.
         
     Examples:
-        >>> with Group('amplifier'):
+        >>> with Subcircuit('amplifier'):
         ...     r1 = Part('Device', 'R', value='10K')  # r1 is in the 'amplifier' group
     """
 
@@ -45,14 +46,21 @@ class Group(SkidlBaseObject):
         """Initialize a hierarchical group with a name and optional attributes."""
         super().__init__()
         if callable(func_or_name):
+            # If this arg is a function, then the class is being used as a decorator.
+            # Store the function and use its name as the group name.
             self.func = func_or_name
-            self.name = func_or_name.__name__  # Use function name as the group name.
+            self.name = func_or_name.__name__
+            # Use the function signature from the SKiDL code when __call__() is run.
+            # This is useful for debugging and introspection.
             functools.update_wrapper(self, self.func)
         else:
+            # If this arg is a string, then the class is being used as a class or context manager.
             self.name = func_or_name
-        self.circuit = attrs.pop("circuit", default_circuit)
-        self.tag = attrs.pop("tag", None)
-        self.partclass = attrs.pop("partclass", PartClassList())
+
+        self.circuit = attrs.pop("circuit", default_circuit)  # The circuit this group belongs to.
+        self.tag = attrs.pop("tag", None)  # Tag to distinguish multiple instances of the group.
+        self.partclass = attrs.pop("partclass", PartClassList())  # Part classes for parts in this group.
+
         self.node = None  # Placeholder for Node class, to be set in __enter__.
 
         # Store any additional attributes.
@@ -86,92 +94,29 @@ class Group(SkidlBaseObject):
         self.circuit.deactivate()
 
     def __call__(self, *args, **kwargs):
+
         circuit = kwargs.pop("circuit", default_circuit)
-        # circuit = kwargs.pop("circuit", self.circuit)
         tag = kwargs.pop("tag", self.tag)
 
         # Most likely the group is being created within the current Circuit, but
         # enter the context just in case it's a different Circuit. This won't hurt 
         # anything if it's the same Circuit.
         with circuit:
-            # Then create a hierarchical group context and call the function within it.
+            # Enter the hierarchical group context and call the function within it.
             with self:
-
                 # Call the function to create whatever circuitry it handles.
                 # The arguments to the function are usually nets to be connected to the
                 # parts instantiated in the function, but they may also be user-specific
                 # and have no effect on the mechanics of adding parts or nets although
                 # they may direct the function as to what parts and nets get created.
-                # Store any results it returns as a list. These results are user-specific
+                # Store any results it returns. These results are user-specific
                 # and have no effect on the mechanics of adding parts or nets.
                 results = self.func(*args, **kwargs)
 
-        # At this point, we've popped out of the group and Circuit contexts
-        # and can return the results of the function call.
+        # At this point, we've popped out of the SubCircuit and Circuit contexts
+        # and can return any results of the function call.
         return results
 
-SubCircuit = Group  # Alias for Group to maintain backward compatibility.
-
-
-# @export_to_all
-# def SubCircuit(f):
-#     """
-#     Decorator for creating hierarchical subcircuits.
-    
-#     When applied to a function, this decorator creates a hierarchical context
-#     around the function's execution, placing all components created within
-#     the function into a hierarchical group named after the function.
-    
-#     Args:
-#         f (function): The function to decorate.
-        
-#     Returns:
-#         function: Decorated function that creates components within a hierarchical group.
-        
-#     Examples:
-#         >>> @SubCircuit
-#         >>> def amplifier(in_net, out_net):
-#         ...     r1 = Part('Device', 'R', value='10K')
-#         ...     # All parts created here are in the 'amplifier' group
-#     """
-
-#     @functools.wraps(f)
-#     def sub_f(*args, **kwargs):
-#         """
-#         Wrapper function that executes the decorated function within a hierarchical group.
-        
-#         Args:
-#             *args: Arguments to pass to the decorated function.
-#             **kwargs: Keyword arguments to pass to the decorated function.
-            
-#         Returns:
-#             Any: The return value from the decorated function.
-#         """
-#         circuit = kwargs.pop("circuit", default_circuit)
-#         tag = kwargs.pop("tag", None)
-
-#         # Most likely the group is being created within the current Circuit, but
-#         # enter the context just in case it's a different Circuit. This won't hurt 
-#         # anything if it's the same Circuit.
-#         with circuit:
-#             # Then create a hierarchical group context and call the function within it.
-#             with Group(name=f.__name__, tag=tag, circuit=circuit):
-
-#                 # Call the function to create whatever circuitry it handles.
-#                 # The arguments to the function are usually nets to be connected to the
-#                 # parts instantiated in the function, but they may also be user-specific
-#                 # and have no effect on the mechanics of adding parts or nets although
-#                 # they may direct the function as to what parts and nets get created.
-#                 # Store any results it returns as a list. These results are user-specific
-#                 # and have no effect on the mechanics of adding parts or nets.
-#                 results = f(*args, **kwargs)
-
-#         # At this point, we've popped out of the group and Circuit contexts
-#         # and can return the results of the function call.
-#         return results
-
-#     return sub_f
-
-
-# The decorator can also be called as "@subcircuit".
+# Aliases for SubCircuit to maintain backward compatibility.
+Group = SubCircuit
 subcircuit = SubCircuit
