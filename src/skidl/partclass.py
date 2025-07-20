@@ -29,7 +29,7 @@ class PartClass(object):
         for k, v in list(attribs.items()):
             setattr(self, k, v)
 
-        # Add part class to circuit. Duplicate part classes will be flagged.
+        # Add part class to circuit. Duplicate part classes will be ignored.
         circuit.add_partclass(self)
 
     def __eq__(self, prtcls):
@@ -86,7 +86,7 @@ class PartClassList(list):
                     TypeError,
                     f"Expected PartClassList, PartClass or string, got {type(cls)}",
                 )
-            # Add the part class to the list if it's not already present.
+            # Add the partclass to the list if it's not already present.
             if cls not in self:
                 self.append(cls)
 

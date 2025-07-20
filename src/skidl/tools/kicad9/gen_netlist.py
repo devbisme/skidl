@@ -181,6 +181,11 @@ def gen_netlist_comp(part, **kwargs):
     sheetpath_tstamp = gen_sheetpath_tstamp(part.hiertuple)
     part_tstamp = gen_part_tstamp(part)
 
+    part_classes = part.partclass.by_priority()
+    component_classes = Sexp(["component_classes"])
+    for cls in reversed(part_classes):
+        component_classes.append(Sexp(["class", cls.name]))
+
     fields = Sexp(["fields"])
     part_fields = list(part.fields.items())
     part_fields += list(
@@ -210,6 +215,7 @@ def gen_netlist_comp(part, **kwargs):
         fields,
         ["libsource", ["lib", lib_filename], ["part", part_name]],
         ["sheetpath", ["names", sheetpath], ["tstamps", sheetpath_tstamp]],
+        component_classes,
         ["tstamps", part_tstamp],
     ])
 
