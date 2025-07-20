@@ -18,7 +18,7 @@ from .utilities import export_to_all
 from .partclass import PartClassList
 
 
-__all__ = ["subcircuit"]
+__all__ = ["SubCircuit", "subcircuit"]
 
 
 @export_to_all
@@ -41,10 +41,14 @@ class Group(SkidlBaseObject):
         ...     r1 = Part('Device', 'R', value='10K')  # r1 is in the 'amplifier' group
     """
 
-    def __init__(self, name, **attrs):
+    def __init__(self, func_or_name, **attrs):
         """Initialize a hierarchical group with a name and optional attributes."""
         super().__init__()
-        self.name = name
+        if callable(func_or_name):
+            self.func = func_or_name
+            self.name = func_or_name.__name__  # Use function name as the group name.
+        else:
+            self.name = func_or_name
         self.circuit = attrs.pop("circuit", default_circuit)
         self.tag = attrs.pop("tag", None)
         self.partclass = attrs.pop("partclass", PartClassList())
@@ -80,50 +84,17 @@ class Group(SkidlBaseObject):
         """
         self.circuit.deactivate()
 
-
-@export_to_all
-def SubCircuit(f):
-    """
-    Decorator for creating hierarchical subcircuits.
-    
-    When applied to a function, this decorator creates a hierarchical context
-    around the function's execution, placing all components created within
-    the function into a hierarchical group named after the function.
-    
-    Args:
-        f (function): The function to decorate.
-        
-    Returns:
-        function: Decorated function that creates components within a hierarchical group.
-        
-    Examples:
-        >>> @SubCircuit
-        >>> def amplifier(in_net, out_net):
-        ...     r1 = Part('Device', 'R', value='10K')
-        ...     # All parts created here are in the 'amplifier' group
-    """
-
-    @functools.wraps(f)
-    def sub_f(*args, **kwargs):
-        """
-        Wrapper function that executes the decorated function within a hierarchical group.
-        
-        Args:
-            *args: Arguments to pass to the decorated function.
-            **kwargs: Keyword arguments to pass to the decorated function.
-            
-        Returns:
-            Any: The return value from the decorated function.
-        """
+    def __call__(self, *args, **kwargs):
         circuit = kwargs.pop("circuit", default_circuit)
-        tag = kwargs.pop("tag", None)
+        # circuit = kwargs.pop("circuit", self.circuit)
+        tag = kwargs.pop("tag", self.tag)
 
         # Most likely the group is being created within the current Circuit, but
         # enter the context just in case it's a different Circuit. This won't hurt 
         # anything if it's the same Circuit.
         with circuit:
             # Then create a hierarchical group context and call the function within it.
-            with Group(name=f.__name__, tag=tag, circuit=circuit):
+            with self:
 
                 # Call the function to create whatever circuitry it handles.
                 # The arguments to the function are usually nets to be connected to the
@@ -132,13 +103,73 @@ def SubCircuit(f):
                 # they may direct the function as to what parts and nets get created.
                 # Store any results it returns as a list. These results are user-specific
                 # and have no effect on the mechanics of adding parts or nets.
-                results = f(*args, **kwargs)
+                results = self.func(*args, **kwargs)
 
         # At this point, we've popped out of the group and Circuit contexts
         # and can return the results of the function call.
         return results
 
-    return sub_f
+SubCircuit = Group  # Alias for Group to maintain backward compatibility.
+
+
+# @export_to_all
+# def SubCircuit(f):
+#     """
+#     Decorator for creating hierarchical subcircuits.
+    
+#     When applied to a function, this decorator creates a hierarchical context
+#     around the function's execution, placing all components created within
+#     the function into a hierarchical group named after the function.
+    
+#     Args:
+#         f (function): The function to decorate.
+        
+#     Returns:
+#         function: Decorated function that creates components within a hierarchical group.
+        
+#     Examples:
+#         >>> @SubCircuit
+#         >>> def amplifier(in_net, out_net):
+#         ...     r1 = Part('Device', 'R', value='10K')
+#         ...     # All parts created here are in the 'amplifier' group
+#     """
+
+#     @functools.wraps(f)
+#     def sub_f(*args, **kwargs):
+#         """
+#         Wrapper function that executes the decorated function within a hierarchical group.
+        
+#         Args:
+#             *args: Arguments to pass to the decorated function.
+#             **kwargs: Keyword arguments to pass to the decorated function.
+            
+#         Returns:
+#             Any: The return value from the decorated function.
+#         """
+#         circuit = kwargs.pop("circuit", default_circuit)
+#         tag = kwargs.pop("tag", None)
+
+#         # Most likely the group is being created within the current Circuit, but
+#         # enter the context just in case it's a different Circuit. This won't hurt 
+#         # anything if it's the same Circuit.
+#         with circuit:
+#             # Then create a hierarchical group context and call the function within it.
+#             with Group(name=f.__name__, tag=tag, circuit=circuit):
+
+#                 # Call the function to create whatever circuitry it handles.
+#                 # The arguments to the function are usually nets to be connected to the
+#                 # parts instantiated in the function, but they may also be user-specific
+#                 # and have no effect on the mechanics of adding parts or nets although
+#                 # they may direct the function as to what parts and nets get created.
+#                 # Store any results it returns as a list. These results are user-specific
+#                 # and have no effect on the mechanics of adding parts or nets.
+#                 results = f(*args, **kwargs)
+
+#         # At this point, we've popped out of the group and Circuit contexts
+#         # and can return the results of the function call.
+#         return results
+
+#     return sub_f
 
 
 # The decorator can also be called as "@subcircuit".
