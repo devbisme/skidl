@@ -47,6 +47,7 @@ class Group(SkidlBaseObject):
         if callable(func_or_name):
             self.func = func_or_name
             self.name = func_or_name.__name__  # Use function name as the group name.
+            functools.update_wrapper(self, self.func)
         else:
             self.name = func_or_name
         self.circuit = attrs.pop("circuit", default_circuit)
