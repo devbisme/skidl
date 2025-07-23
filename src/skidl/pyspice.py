@@ -15,7 +15,7 @@ This module configures SKiDL to work with SPICE simulations by:
 import sys
 
 from .bus import Bus
-from .group import subcircuit
+from .subcircuit import subcircuit
 from .interface import Interface
 from .logger import active_logger
 from .net import Net

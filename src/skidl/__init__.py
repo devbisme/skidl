@@ -49,7 +49,7 @@ from .pckg_info import __version__
 from .alias import Alias  # Class for creating aliases for part names
 from .bus import Bus  # Class for managing groups of related nets
 from .circuit import Circuit  # Circuit management
-from .group import Group, SubCircuit, subcircuit  # Grouping related components
+from .subcircuit import Group, SubCircuit, subcircuit  # Grouping related components
 from .interface import Interface  # Standardized connections between subcircuits
 from .logger import erc_logger  # Logger for ERC (Electrical Rule Checking)
 from .net import Net  # Class for electrical connections between pins
