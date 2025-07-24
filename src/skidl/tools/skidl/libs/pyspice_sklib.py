@@ -56,10 +56,10 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(
             pyspice={
                 "name": "B",
                 "kw": {
-                    "i": "i_expression",
-                    "i_expression": "i_expression",
-                    "v": "v_expression",
-                    "v_expression": "v_expression",
+                    "i": "current_expression",
+                    "current_expression": "current_expression",
+                    "v": "voltage_expression",
+                    "voltage_expression": "voltage_expression",
                     "tc1": "tc1",
                     "tc2": "tc2",
                     "temp": "temperature",
