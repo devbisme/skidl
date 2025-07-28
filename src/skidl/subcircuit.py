@@ -45,14 +45,20 @@ class SubCircuit(SkidlBaseObject):
     def __init__(self, func_or_name, **attrs):
         """Initialize a hierarchical group with a name and optional attributes."""
         super().__init__()
+
         if callable(func_or_name):
             # If this arg is a function, then the class is being used as a decorator.
             # Store the function and use its name as the group name.
             self.func = func_or_name
             self.name = func_or_name.__name__
+
+            # Use the function docstring as a description of what the group does.
+            attrs["description"] = func_or_name.__doc__
+            
             # Use the function signature from the SKiDL code when __call__() is run.
             # This is useful for debugging and introspection.
             functools.update_wrapper(self, self.func)
+
         else:
             # If this arg is a string, then the class is being used as a class or context manager.
             self.name = func_or_name
@@ -60,6 +66,8 @@ class SubCircuit(SkidlBaseObject):
         self.circuit = attrs.pop("circuit", default_circuit)  # The circuit this group belongs to.
         self.tag = attrs.pop("tag", None)  # Tag to distinguish multiple instances of the group.
         self.partclass = attrs.pop("partclass", PartClassList())  # Part classes for parts in this group.
+        self.description = attrs.pop("description", None)  # Description of the general purpose of the group.
+        self.purpose = attrs.pop("purpose", None)  # A specific purpose for this instantiation of the group.
 
         self.node = None  # Placeholder for Node class, to be set in __enter__.
 
@@ -71,13 +79,17 @@ class SubCircuit(SkidlBaseObject):
         """
         Create a context for hierarchical grouping of parts and nets.
         
-        This activates the group in the circuit, making it the current hierarchical context.
-        The hierarchical Node object is stored for later use.
+        This activates the group as a child of the currently active node in the circuit, 
+        making it the current hierarchical context. The hierarchical Node object is stored for later use.
         
         Returns:
             Group: The group instance (self).
         """
         self.node = self.circuit.activate(name=self.name, tag=self.tag)
+        # The following assignments set the attributes in the node (see _setattr__ below).
+        self.partclass = self.partclass
+        self.description = self.description
+        self.purpose = self.purpose
         return self
 
     def __exit__(self, type, value, traceback):
@@ -92,6 +104,27 @@ class SubCircuit(SkidlBaseObject):
             traceback: Traceback if an exception occurred.
         """
         self.circuit.deactivate()
+
+    def __setattr__(self, key, value):
+        """
+        Set an attribute on the group instance with special handling for certain keys.
+        
+        This allows setting attributes on the group instance using the syntax:
+        `group.key = value`. If the key is one of the special attributes
+        (`tag`, `partclass`, `description`, `purpose`), it will also set
+        the attribute on the node associated with the group if it exists.
+        
+        Args:
+            key: The name of the attribute to set.
+            value: The value to assign to the attribute.
+        """
+        # First, store the attribute in the object itself
+        super().__setattr__(key, value)
+        
+        # Then, if it's a special attribute and node exists, also set it on the node
+        if key in ("tag", "partclass", "description", "purpose"):
+            if getattr(self, "node", None):
+                setattr(self.node, key, value)
 
     def __call__(self, *args, **kwargs):
 
