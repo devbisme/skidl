@@ -9,6 +9,15 @@ Handler for reading SPICE libraries.
 import os.path
 import re
 
+# InSpice may not be installed because of Python version.
+try:
+    from InSpice.Spice.Library import SpiceLibrary
+    from InSpice.Spice.Netlist import (
+        Circuit as PySpiceCircuit,  # Avoid clash with Circuit class below.
+    )
+except ImportError:
+    pass
+
 from skidl import Alias, Net, LIBRARY, Part, Pin
 from skidl.logger import active_logger
 from skidl.utilities import (
@@ -20,15 +29,6 @@ from skidl.utilities import (
 
 
 __all__ = ["lib_suffix", "DeviceModel", "XspiceModel", "Parameters"]
-
-# InSpice may not be installed because of Python version.
-try:
-    from InSpice.Spice.Library import SpiceLibrary
-    from InSpice.Spice.Netlist import (
-        Circuit as PySpiceCircuit,  # Avoid clash with Circuit class below.
-    )
-except ImportError:
-    pass
 
 # These aren't used here, but they are used in modules
 # that include this module.

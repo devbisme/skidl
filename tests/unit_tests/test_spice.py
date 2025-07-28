@@ -4,6 +4,17 @@
 
 import pytest
 
+# Check if spice tests should run
+import sys
+spice_tests_enabled = False
+for i, arg in enumerate(sys.argv):
+    if arg == "-m":
+        if sys.argv[i + 1] == "spice":
+            spice_tests_enabled = True
+            break
+if not spice_tests_enabled:
+    pytest.skip("Spice tests not enabled", allow_module_level=True)
+
 try:
     import matplotlib.pyplot as plt
 except ModuleNotFoundError:
@@ -11,22 +22,8 @@ except ModuleNotFoundError:
     # are not being run anyway. So just eat the exception.
     pass
 
-from skidl import SKIDL, SPICE, Interface
-from skidl.pyspice import (
-    TEMPLATE,
-    Parameters,
-    Part,
-    XspiceModel,
-    generate_netlist,
-    generate_svg,
-    lib_search_paths,
-    node,
-    reset,
-    subcircuit,
-)
-
-
-from skidl.pyspice import *  # isort:skip
+from skidl import *
+from skidl.pyspice import *
 
 
 show_plots = False
@@ -162,7 +159,7 @@ def test_part_convert_for_spice():
 
 @pytest.mark.spice
 def test_subcircuit_1():
-    from skidl.pyspice import gnd
+    global gnd
 
     set_default_tool(SPICE)
 

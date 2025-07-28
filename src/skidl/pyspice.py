@@ -14,31 +14,30 @@ This module configures SKiDL to work with SPICE simulations by:
 
 import sys
 
-from .bus import Bus
-from .subcircuit import subcircuit
-from .interface import Interface
-from .logger import active_logger
-from .net import Net
-from .part import TEMPLATE, Part
-from .schlib import SchLib
-from .skidl import (
-    generate_netlist,
-    generate_svg,
-    lib_search_paths,
-    reset,
-    set_default_tool,
-)
-from .tools.spice import Parameters, XspiceModel, node
+from skidl.logger import active_logger
+def abort_if_spice_unavailable():
+    if "InSpice" not in sys.modules:
+        msg = "InSpice package is not available. SPICE simulation is not possible."
+        if sys.version_info < (3, 11):
+            # InSpice is not available for Python 3.10 or earlier.
+            msg += " Upgrade to Python 3.11 or later and install InSpice to enable SPICE simulation."
+        else:
+            # InSpice is not installed, so raise an ImportError.
+            msg += " Install InSpice to enable SPICE simulation."
+        active_logger.raise_(ImportError, msg)
 
 # InSpice may not be installed because of Python version.
 try:
     from InSpice import *
     from InSpice.Unit import *
 except ImportError:
+    abort_if_spice_unavailable()
     pass
 
-from skidl import SKIDL, SPICE
+from skidl import *
+from .tools.spice import *
 from .tools.skidl.libs.pyspice_sklib import *
+
 
 _splib = SchLib("pyspice", tool=SKIDL)  # Read-in the SPICE part library.
 
