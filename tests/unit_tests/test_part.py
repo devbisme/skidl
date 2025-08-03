@@ -6,7 +6,7 @@ from builtins import super
 
 import pytest
 
-from skidl import ERC, Net, Part, PartTmplt, erc_logger, generate_netlist
+from skidl import ERC, Net, Part, PartTmplt, erc_logger, generate_netlist, PartClass
 from skidl.utilities import to_list, Rgx
 
 
@@ -220,3 +220,63 @@ def test_alias_rename():
     assert u2.name == "LTC6082xGN"
     assert u2.value == "LTC6082xGN"
     assert len(u1.get_pins()) == len(u2.get_pins())
+
+
+def test_partclass_1():
+    """Test assigning partclass to a part."""
+    led = Part("Device", "LED_ARBG")
+    led.partclass = PartClass("my_part", a=1, b=2, c=3, priority=1)  # Assign partclass.
+    assert led.partclass[0].name == "my_part"  # Check partclass name.
+    assert led.partclass[0].a == 1  # Check partclass attribute 'a'.
+
+
+def test_partclass_2():
+    """Test reassigning partclass to a part."""
+    led = Part("Device", "LED_ARBG")
+    led.netclass = PartClass("my_part", a=1, b=2, c=3, priority=2)  # Assign partclass.
+    with pytest.raises(KeyError):
+        led.partclass = PartClass("my_part", a=5, b=6, c=7, priority=1)  # Reassign partclass should raise error.
+
+
+def test_netclass_5():
+    """Test partclass priority sorting."""
+    led = Part("Device", "LED_ARBG")
+    led.partclass = PartClass("class1", priority=1)  # Adding another partclass.
+    led.partclass = PartClass("class2", priority=2)  # Adding another partclass.
+    prioritized_names = led.partclass.by_priority()  # Sort partclasses by priority.
+    assert prioritized_names[-1] == "class2"  # Last netclass should be 'class2'.
+    assert prioritized_names[-2] == "class1"  # First netclass should be 'class1'.
+    partclasses = led.circuit.partclasses[prioritized_names]
+    assert partclasses[-1].priority == 2
+    assert partclasses[-2].priority == 1
+
+
+def test_partclass_6():
+    """Test partclass single and multiple indexing."""
+    led = Part("Device", "LED_ARBG")
+    led.partclass = PartClass("class1", priority=1)  # Adding another partclass.
+    led.partclass = PartClass("class2", priority=2)  # Adding another partclass.
+    partclass = led.circuit.partclasses["class1"]
+    assert partclass.priority == 1
+    partclasses = led.circuit.partclasses["class1", "class2"]
+    assert partclasses[0].priority == 1
+    assert partclasses[1].priority == 2
+
+
+def test_partclass_7():
+    """Test partclass duplication."""
+    led = Part("Device", "LED_ARBG")
+    prtcls1 = PartClass("class1", priority=1)
+    PartClass("class1", priority=1)  # Part class with same name and same attributes doesn't raise error.
+    led.partclass = prtcls1
+    led.partclass = prtcls1  # Reassigning should be ignored and not raise error.
+    with pytest.raises(KeyError):
+        PartClass("class1", priority=2)  # Part class with same name but different attributes should raise error.
+
+def test_partclass_8():
+    """Test partclass multiple assignment."""
+    led = Part("Device", "LED_ARBG")
+    del led.partclass
+    led.partclass = PartClass("class1", priority=1), PartClass("class2", priority=2)
+    assert led.partclass[0].name == "class1"
+    assert led.partclass[1].name == "class2"
