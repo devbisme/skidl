@@ -82,7 +82,7 @@ Priority System:
 """
 
 from .logger import active_logger
-from .utilities import export_to_all
+from .utilities import export_to_all, flatten
 
 DEFAULT_NETCLASS = 0
 
@@ -394,7 +394,7 @@ class NetClassList(list):
             net class collection. The lookup is case-sensitive and must match
             exactly. If no circuit is provided, the default circuit is used.
         """
-        for cls in netclasses:
+        for cls in flatten(netclasses):
             if cls is None:
                 continue
             elif isinstance(cls, NetClassList):

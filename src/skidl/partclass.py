@@ -2,7 +2,7 @@
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 from .logger import active_logger
-from .utilities import export_to_all
+from .utilities import export_to_all, flatten
 
 DEFAULT_PARTCLASS = 0
 
@@ -12,7 +12,6 @@ __all__ = ["DEFAULT_PARTCLASS"]
 @export_to_all
 class PartClass(object):
     def __init__(self, name, circuit=None, **attribs):
-        from .circuit import default_circuit
 
         # This object will belong to the default Circuit object or the one
         # that's passed as a parameter.
@@ -67,7 +66,7 @@ class PartClassList(list):
         return set(self) == set(pt_cls_lst)
 
     def add(self, *partclasses, circuit=None):
-        for cls in partclasses:
+        for cls in flatten(partclasses):
             if cls is None:
                 continue
             elif isinstance(cls, PartClassList):
