@@ -7,7 +7,14 @@ History
 2.0.2 (2025-XX-XX)
 ______________________
 - Fixed #238: tstamps were incorrectly generated for netlist files.
-- `netlist_to_skidl` no generates SKiDL code that mirrors the hierarchy found in the netlist.
+- `netlist_to_skidl` now generates hierarchical SKiDL code that mirrors the hierarchy found in the netlist.
+- PartClass objects can now be used to create new Part objects with the same attributes as the PartClass.
+- NetClass objects can now be used to create new Net objects with the same attributes as the NetClass.
+- Replace Group with SubCircuit.
+- KICAD9 tool identifier added to support KiCad 9.
+- track_src, track_abs_path
+- InSpice for using modern ngspice
+- Circuits now include a tree of Node objects that represent the hierarchy of parts in the circuit.
 
 
 2.0.1 (2024-12-11)
