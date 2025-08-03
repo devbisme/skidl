@@ -803,10 +803,11 @@ class Part(SkidlBaseObject):
 
             # Remove any existing Pin and PartUnit attributes so new ones
             # can be made in the copy without generating warning messages.
+            # Also remove PartClassList attributes so they can be redefined in the copy.
             rmv_attrs = [
                 k
                 for k, v in list(cpy.__dict__.items())
-                if isinstance(v, (Pin, PartUnit))
+                if isinstance(v, (Pin, PartUnit, PartClassList))
             ]
             for attr in rmv_attrs:
                 delattr(cpy, attr)
@@ -832,6 +833,9 @@ class Part(SkidlBaseObject):
 
             # Copy part units from the original to the copy.
             cpy.copy_units(self)
+
+            # Copy the part class list from the original to the copy.
+            cpy._partclass = copy(self._partclass)
 
             # Clear the part reference of the copied part so a unique reference
             # can be assigned when the part is added to the circuit.
@@ -1528,7 +1532,7 @@ class Part(SkidlBaseObject):
 
     @partclass.setter
     def partclass(self, *partclasses):
-        self._partclass.add(*partclasses, circuit=part.circuit)
+        self._partclass.add(*partclasses, circuit=self.circuit)
 
     @partclass.deleter
     def partclass(self):
