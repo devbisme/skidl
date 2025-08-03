@@ -4,7 +4,7 @@ History
 -------
 
 
-2.0.2 (2025-XX-XX)
+2.1.0 (2025-XX-XX)
 ______________________
 - Fixed #238: tstamps were incorrectly generated for netlist files.
 - `netlist_to_skidl` now generates hierarchical SKiDL code that mirrors the hierarchy found in the netlist.
