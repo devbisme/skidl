@@ -242,23 +242,65 @@ class Circuit(SkidlBaseObject):
     def add_node(self, node):
         self.nodes.add(node)
 
-    def add_netclass(self, netclass):
+    def add_netclass(self, *netclasses):
         """
-        Add a net class to the circuit.
+        Add one or more net classes to the circuit.
         
         Args:
-            netclass (NetClass): The net class to add to the circuit.
+            netclasses (list[NetClass]): One or more net classes to add to the circuit.
         """
-        self.netclasses.add(netclass)
+        self.netclasses.add(*netclasses)
 
-    def add_partclass(self, partclass):
+    @property
+    def netclass(self):
+        return self.netclasses
+
+    @netclass.setter
+    def netclass(self, *netclasses):
         """
-        Add a part class to the circuit.
+        Add one or more net classes to the circuit.
         
         Args:
-            partclass (PartClass): The part class to add to the circuit.
+            netclasses (list[NetClass]): One or more net classes to add to the circuit.
         """
-        self.partclasses.add(partclass)
+        self.netclasses.add(*netclasses)
+
+    @netclass.deleter
+    def netclass(self):
+        """
+        Remove all net classes from the circuit.
+        """
+        del self.netclasses
+
+    def add_partclass(self, *partclasses):
+        """
+        Add one or more part classes to the circuit.
+        
+        Args:
+            partclass (list[PartClass]): One or more part classes to add to the circuit.
+        """
+        self.partclasses.add(*partclasses)
+
+    @property
+    def partclass(self):
+        return self.partclasses
+
+    @partclass.setter
+    def partclass(self, *partclasses):
+        """
+        Add one or more part classes to the circuit.
+
+        Args:
+            partclasses (list[PartClass]): One or more part classes to add to the circuit.
+        """
+        self.partclasses.add(*partclasses)
+
+    @partclass.deleter
+    def partclass(self):
+        """
+        Remove all part classes from the circuit.
+        """
+        del self.partclasses
 
     def add_parts(self, *parts):
         """
