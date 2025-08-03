@@ -276,7 +276,6 @@ def test_partclass_7():
 def test_partclass_8():
     """Test partclass multiple assignment."""
     led = Part("Device", "LED_ARBG")
-    del led.partclass
     led.partclass = PartClass("class1", priority=1), PartClass("class2", priority=2)
     assert led.partclass[0].name == "class1"
     assert led.partclass[1].name == "class2"
