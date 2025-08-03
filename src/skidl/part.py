@@ -11,8 +11,7 @@ to form complete circuits.
 """
 
 import functools
-import os.path
-import re
+from collections.abc import Iterable
 from copy import copy
 from random import randint
 
@@ -791,8 +790,15 @@ class Part(SkidlBaseObject):
         copies = []
         for i in range(num_copies):
 
-            # Make a shallow copy of the part.
-            cpy = copy(self)
+            # Make a copy of the part.
+            cpy = copy(self)  # Start with shallow copy.
+            for k,v in self.__dict__.items():
+                if isinstance(v, (Pin, PartUnit)):
+                    # These require special handling later.
+                    continue
+                if isinstance(v, Iterable) and not isinstance(v, str):
+                    # Copy the list with shallow copies of its items to the copy.
+                    setattr(cpy, k, copy(v))
 
             # Remove any existing part tag so the copy won't be linked to the
             # same footprint in the PCB as the source.
@@ -807,7 +813,7 @@ class Part(SkidlBaseObject):
             rmv_attrs = [
                 k
                 for k, v in list(cpy.__dict__.items())
-                if isinstance(v, (Pin, PartUnit, PartClassList))
+                if isinstance(v, (Pin, PartUnit))
             ]
             for attr in rmv_attrs:
                 delattr(cpy, attr)
@@ -833,9 +839,6 @@ class Part(SkidlBaseObject):
 
             # Copy part units from the original to the copy.
             cpy.copy_units(self)
-
-            # Copy the part class list from the original to the copy.
-            cpy._partclass = copy(self._partclass)
 
             # Clear the part reference of the copied part so a unique reference
             # can be assigned when the part is added to the circuit.
