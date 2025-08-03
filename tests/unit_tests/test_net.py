@@ -111,7 +111,7 @@ def test_netclass_5():
 def test_netclass_6():
     """Test netclass single and multiple indexing."""
     n1 = Net("a")
-    n1.netclass = NetClass("class1", priority=1)  # Assign netclass to merged net.
+    n1.netclass = NetClass("class1", priority=1)  # Assign netclass to net.
     n1.netclass = NetClass("class2", priority=2)  # Adding another netclass.
     netclass = n1.circuit.netclasses["class1"]
     assert netclass.priority == 1
@@ -130,6 +130,12 @@ def test_netclass_7():
     with pytest.raises(KeyError):
         NetClass("class1", priority=2)  # Netclass with same name but different attributes should raise error.
 
+def test_netclass_8():
+    """Test netclass multiple assignment."""
+    n1 = Net("a")
+    n1.netclass = NetClass("class1", priority=1), NetClass("class2", priority=2)
+    assert n1.netclass[0].name == "class1"
+    assert n1.netclass[1].name == "class2"
 
 def test_drive_1():
     """Test drive strength propagation after merging nets."""
