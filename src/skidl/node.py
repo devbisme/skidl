@@ -12,6 +12,7 @@ and contain parts, allowing for structured circuit design and organization.
 
 from collections import defaultdict
 
+from skidl.partclass import PartClassList
 from skidl.scriptinfo import get_skidl_trace
 from skidl.skidlbaseobj import SkidlBaseObject
 from skidl.utilities import export_to_all, get_unique_name
@@ -74,6 +75,9 @@ class Node(SkidlBaseObject):
         # Create a list to hold the parts that are instantiated in this this node.
         self.parts = []
 
+        # Create a list for part classes that are instantiated in this node.
+        self._partclass = PartClassList()
+
         # Store any additional attributes.
         for k, v in attrs.items():
             setattr(self, k, v)
@@ -110,3 +114,26 @@ class Node(SkidlBaseObject):
                   hierarchical path from root to this node.
         """
         return tuple(n.name for n in self.hiernodes)
+    
+    @property
+    def partclass(self):
+        """Return a list of part classes directly assigned to this node."""
+        return self._partclass
+
+    @partclass.setter
+    def partclass(self, *partclasses):
+        """
+        Set the part classes for this node.
+        
+        This method allows assigning one or more PartClass objects to this node.
+        It adds the provided part classes to the node's part class list.
+        
+        Args:
+            *partclasses: One or more PartClass objects to assign to this node.
+        """
+        self._partclass.add(*partclasses, circuit=self.circuit)
+
+    @partclass.deleter
+    def partclass(self):
+        """Delete the part classes for this node."""
+        self._partclass = PartClassList()
