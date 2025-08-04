@@ -341,6 +341,14 @@ class SkidlBaseObject(object):
             pass
 
     @property
+    def hiernodes(self):
+        """Return a tuple of the chain of nodes from the top-most node to this object, inclusive."""
+        try:
+            return self.node.hiernodes
+        except AttributeError:
+            return tuple()
+
+    @property
     def hiertuple(self):
         """Return a tuple containing the hierarchical path of this object."""
         try:
