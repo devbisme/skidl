@@ -8,6 +8,7 @@ Handler for reading SPICE libraries.
 
 import os.path
 import re
+from copy import copy
 
 # InSpice may not be installed because of Python version.
 try:
@@ -503,7 +504,7 @@ class Parameters(dict):
         super().__init__(**params)
 
     def __copy__(self):
-        return {k: copy(v) for k, v in self}
+        return Parameters(**{k: copy(v) for k, v in self.items()})
 
 
 @export_to_all
