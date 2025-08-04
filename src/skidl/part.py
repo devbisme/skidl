@@ -1530,7 +1530,7 @@ class Part(SkidlBaseObject):
         # Add all the part classes for all the hierarchical nodes surrounding this part.
         total_partclass = PartClassList(circuit=self.circuit)
         total_partclass.add(*self._partclass)
-        for node in self.hiertuple:
+        for node in self.hiernodes:
             if hasattr(node, "partclass"):
                 total_partclass.add(*node.partclass)
         return total_partclass
