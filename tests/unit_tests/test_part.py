@@ -6,7 +6,7 @@ from builtins import super
 
 import pytest
 
-from skidl import ERC, Net, Part, PartTmplt, erc_logger, generate_netlist, PartClass
+from skidl import ERC, Net, Part, PartTmplt, erc_logger, generate_netlist, PartClass, SubCircuit
 from skidl.utilities import to_list, Rgx
 
 
@@ -238,7 +238,7 @@ def test_partclass_2():
         led.partclass = PartClass("my_part", a=5, b=6, c=7, priority=1)  # Reassign partclass should raise error.
 
 
-def test_netclass_5():
+def test_netclass_3():
     """Test partclass priority sorting."""
     led = Part("Device", "LED_ARBG")
     led.partclass = PartClass("class1", priority=1)  # Adding another partclass.
@@ -251,7 +251,7 @@ def test_netclass_5():
     assert partclasses[-2].priority == 1
 
 
-def test_partclass_6():
+def test_partclass_4():
     """Test partclass single and multiple indexing."""
     led = Part("Device", "LED_ARBG")
     led.partclass = PartClass("class1", priority=1)  # Adding another partclass.
@@ -263,7 +263,7 @@ def test_partclass_6():
     assert partclasses[1].priority == 2
 
 
-def test_partclass_7():
+def test_partclass_5():
     """Test partclass duplication."""
     led = Part("Device", "LED_ARBG")
     prtcls1 = PartClass("class1", priority=1)
@@ -273,9 +273,23 @@ def test_partclass_7():
     with pytest.raises(KeyError):
         PartClass("class1", priority=2)  # Part class with same name but different attributes should raise error.
 
-def test_partclass_8():
+
+def test_partclass_6():
     """Test partclass multiple assignment."""
     led = Part("Device", "LED_ARBG")
     led.partclass = PartClass("class1", priority=1), PartClass("class2", priority=2)
     assert led.partclass[0].name == "class1"
     assert led.partclass[1].name == "class2"
+
+def test_partclass_7():
+    """Test partclass for part surrounded by hierarchical part classes."""
+    # Create a hierarchical part class.
+    with SubCircuit("lvl0", partclass=PartClass("class1",priority=1)):
+        with SubCircuit("lvl1"):
+            with SubCircuit("lvl2", partclass=PartClass("class3",priority=3)):
+                led = Part("Device", "LED_ARBG")
+                led.partclass = PartClass("class2", priority=2)
+                partclasses = led.partclass.by_priority()
+                assert partclasses[0] == "class1"
+                assert partclasses[1] == "class2"
+                assert partclasses[2] == "class3"
