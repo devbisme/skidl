@@ -18,7 +18,7 @@ from .config_ import SkidlConfig
 from .part import default_empty_footprint_handler
 from .pin import pin_drives
 from .utilities import export_to_all
-from skidl import KICAD8
+from skidl import KICAD9
 
 
 __all__ = [
@@ -54,7 +54,7 @@ except NameError:
 ###############################################################################
 
 # Get SKiDL configuration and set global search paths.
-KICAD = KICAD8 # Reference to the latest version of KiCad.
+KICAD = KICAD9 # Reference to the latest version of KiCad.
 config = SkidlConfig(KICAD) # Sets default tool.
 lib_search_paths = config.lib_search_paths
 footprint_search_paths = config.footprint_search_paths
