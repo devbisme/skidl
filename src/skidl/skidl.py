@@ -40,14 +40,6 @@ __all__ = [
     "KICAD",
 ]
 
-try:
-    # Set char encoding to UTF-8 in Python 2.
-    reload(sys)  # Causes exception in Python 3.
-    sys.setdefaultencoding("utf8")
-except NameError:
-    # Do nothing with char encoding in Python 3.
-    pass
-
 
 ###############################################################################
 # Globals that are used by everything else.
