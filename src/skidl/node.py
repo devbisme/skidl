@@ -13,6 +13,7 @@ and contain parts, allowing for structured circuit design and organization.
 from collections import defaultdict
 
 from skidl.partclass import PartClassList
+from skidl.netclass import NetClassList
 from skidl.scriptinfo import get_skidl_trace
 from skidl.skidlbaseobj import SkidlBaseObject
 from skidl.utilities import export_to_all, get_unique_name
@@ -72,11 +73,13 @@ class Node(SkidlBaseObject):
         # Store the stack trace for where this node was instantiated.
         self.skidl_trace = get_skidl_trace()
 
-        # Create a list to hold the parts that are instantiated in this this node.
+        # Create lists to hold the parts and nets that are instantiated in this this node.
         self.parts = []
+        self.nets = []
 
-        # Create a list for part classes that are instantiated in this node.
+        # Create lists for part and net classes that are instantiated in this node.
         self._partclass = PartClassList()
+        self._netclass = NetClassList()
 
         # Store any additional attributes.
         for k, v in attrs.items():
@@ -137,3 +140,26 @@ class Node(SkidlBaseObject):
     def partclass(self):
         """Delete the part classes for this node."""
         self._partclass = PartClassList()
+
+    @property
+    def netclass(self):
+        """Return a list of net classes directly assigned to this node."""
+        return self._netclass
+
+    @netclass.setter
+    def netclass(self, *netclasses):
+        """
+        Set the net classes for this node.
+        
+        This method allows assigning one or more NetClass objects to this node.
+        It adds the provided net classes to the node's net class list.
+        
+        Args:
+            *netclasses: One or more NetClass objects to assign to this node.
+        """
+        self._netclass.add(*netclasses, circuit=self.circuit)
+
+    @netclass.deleter
+    def netclass(self):
+        """Delete the net classes for this node."""
+        self._netclass = NetClassList()

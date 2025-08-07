@@ -16,6 +16,7 @@ import functools
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import export_to_all
 from .partclass import PartClassList
+from .netclass import NetClassList
 
 
 __all__ = ["subcircuit", "Group"]
@@ -66,6 +67,7 @@ class SubCircuit(SkidlBaseObject):
         self.circuit = attrs.pop("circuit", default_circuit)  # The circuit this group belongs to.
         self.tag = attrs.pop("tag", None)  # Tag to distinguish multiple instances of the group.
         self.partclass = attrs.pop("partclass", PartClassList())  # Part classes for parts in this group.
+        self.netclass = attrs.pop("netclass", NetClassList())  # Net classes for nets in this group.
         self.description = attrs.pop("description", None)  # Description of the general purpose of the group.
         self.purpose = attrs.pop("purpose", None)  # A specific purpose for this instantiation of the group.
 
@@ -88,6 +90,7 @@ class SubCircuit(SkidlBaseObject):
         self.node = self.circuit.activate(name=self.name, tag=self.tag)
         # The following assignments set the attributes in the node (see _setattr__ below).
         self.partclass = self.partclass
+        self.netclass = self.netclass
         self.description = self.description
         self.purpose = self.purpose
         return self
@@ -111,7 +114,7 @@ class SubCircuit(SkidlBaseObject):
         
         This allows setting attributes on the group instance using the syntax:
         `group.key = value`. If the key is one of the special attributes
-        (`tag`, `partclass`, `description`, `purpose`), it will also set
+        (`tag`, `partclass`, 'netclass', `description`, `purpose`), it will also set
         the attribute on the node associated with the group if it exists.
         
         Args:
@@ -122,7 +125,7 @@ class SubCircuit(SkidlBaseObject):
         super().__setattr__(key, value)
         
         # Then, if it's a special attribute and node exists, also set it on the node
-        if key in ("tag", "partclass", "description", "purpose"):
+        if key in ("tag", "partclass", "netclass", "description", "purpose"):
             if getattr(self, "node", None):
                 setattr(self.node, key, value)
 

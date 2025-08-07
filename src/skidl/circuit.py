@@ -330,7 +330,6 @@ class Circuit(SkidlBaseObject):
                     self.active_node.parts.append(part)
                     part.node = self.active_node
 
-
                     # Store part instantiation trace.
                     part.skidl_trace = get_skidl_trace()
 
@@ -394,6 +393,13 @@ class Circuit(SkidlBaseObject):
                     net.circuit = self  # Record the Circuit object the net belongs to.
                     net.name = net.name
 
+                    # Add the net to the currently active node.
+                    self.active_node.nets.append(net)
+                    net.node = self.active_node
+
+                    # Store net instantiation trace.
+                    net.skidl_trace = get_skidl_trace()
+
                     self.nets.append(net)
 
                 else:
@@ -415,6 +421,8 @@ class Circuit(SkidlBaseObject):
         for net in nets:
             if net.is_movable():
                 if net.circuit == self and net in self.nets:
+                    net.node.nets.remove(net)
+                    net.node = None
                     net.circuit = None
                     net.hierarchy = None
                     self.nets.remove(net)

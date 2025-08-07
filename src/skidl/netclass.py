@@ -313,7 +313,7 @@ class NetClassList(list):
             - String names that don't exist in circuit raise lookup errors
         """
         super().__init__()
-        self.add(*netclasses, circuit)
+        self.add(*netclasses, circuit=circuit)
 
     def __eq__(self, nt_cls_lst):
         """

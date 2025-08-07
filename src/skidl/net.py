@@ -86,6 +86,7 @@ Integration:
 """
 
 import collections
+from collections.abc import Iterable
 import re
 from copy import copy, deepcopy
 
@@ -825,24 +826,12 @@ connections to nets while         prohibiting direct assignment. Python
             # Create a new net to store the copy.
             cpy = Net(circuit=circuit)
 
-            # Deep copy attributes from the source net to the copy.
-            for k in copy_attrs:
-                setattr(cpy, k, deepcopy(getattr(self, k)))
-
-            # Add other attributes to the net copy.
-            for k, v in list(attribs.items()):
-                if isinstance(v, (list, tuple)):
-                    try:
-                        v = v[i]
-                    except IndexError:
-                        active_logger.raise_(
-                            ValueError,
-                            (
-                                "{num_copies} copies of net {self.name} were requested, but too "
-                                "few elements in attribute {k}!"
-                            )
-                        )
-                setattr(cpy, k, v)
+            # Make a copy of the net.
+            cpy = copy(self)  # Start with shallow copy.
+            for k,v in self.__dict__.items():
+                if isinstance(v, Iterable) and not isinstance(v, str):
+                    # Copy the list with shallow copies of its items to the copy.
+                    setattr(cpy, k, copy(v))
 
             # Place the copy into the list of copies.
             copies.append(cpy)
@@ -1402,7 +1391,13 @@ connections to nets while         prohibiting direct assignment. Python
             rules generate errors that must be resolved before manufacturing.
         """
         self.test_validity()
-        return self._netclass
+        # Add all the net classes for all the hierarchical nodes surrounding this net.
+        total_netclass = NetClassList(circuit=self.circuit)
+        total_netclass.add(*self._netclass)
+        for node in self.hiernodes:
+            if hasattr(node, "netclass"):
+                total_netclass.add(*node.netclass)
+        return total_netclass
 
     @netclass.setter
     def netclass(self, *netclasses):
