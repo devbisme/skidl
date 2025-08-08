@@ -242,7 +242,7 @@ class Circuit(SkidlBaseObject):
     def add_node(self, node):
         self.nodes.add(node)
 
-    def add_netclass(self, *netclasses):
+    def add_netclasses(self, *netclasses):
         """
         Add one or more net classes to the circuit.
         
@@ -272,7 +272,7 @@ class Circuit(SkidlBaseObject):
         """
         del self.netclasses
 
-    def add_partclass(self, *partclasses):
+    def add_partclasses(self, *partclasses):
         """
         Add one or more part classes to the circuit.
         

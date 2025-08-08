@@ -211,24 +211,24 @@ class TestComponentManagement:
 class TestNetClassManagement:
     """Test net class management functionality."""
 
-    def test_add_netclass(self):
+    def test_add_netclasses(self):
         """Test adding net classes to the circuit."""
         circuit = Circuit()
         netclass = NetClass("Power", trace_width=0.5)
         
-        circuit.add_netclass(netclass)
+        circuit.add_netclasses(netclass)
         
         assert "Power" in circuit.netclasses
         assert circuit.netclasses["Power"] is netclass
 
-    def test_add_partclass(self):
+    def test_add_partclasses(self):
         """Test adding part classes to the circuit."""
         circuit = Circuit()
         # Create a mock part class
         partclass = Mock()
         partclass.name = "Resistors"
         
-        circuit.add_partclass(partclass)
+        circuit.add_partclasses(partclass)
         
         assert "Resistors" in circuit.partclasses
         assert circuit.partclasses["Resistors"] is partclass

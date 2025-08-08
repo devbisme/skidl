@@ -213,7 +213,7 @@ class NetClass(object):
             setattr(self, k, v)
 
         # Add netclass to circuit. Duplicate netclasses will be ignored.
-        circuit.add_netclass(self)
+        circuit.add_netclasses(self)
 
     def __eq__(self, ntcls):
         """

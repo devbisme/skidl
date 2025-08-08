@@ -29,7 +29,7 @@ class PartClass(object):
             setattr(self, k, v)
 
         # Add part class to circuit. Duplicate part classes will be ignored.
-        circuit.add_partclass(self)
+        circuit.add_partclasses(self)
 
     def __eq__(self, prtcls):
         """
