@@ -85,7 +85,7 @@ class SubCircuit(SkidlBaseObject):
         making it the current hierarchical context. The hierarchical Node object is stored for later use.
         
         Returns:
-            Group: The group instance (self).
+            Node: The Node object corresponding to this subcircuit.
         """
         self.node = self.circuit.activate(name=self.name, tag=self.tag)
         # The following assignments set the attributes in the node (see _setattr__ below).
@@ -93,7 +93,7 @@ class SubCircuit(SkidlBaseObject):
         self.netclass = self.netclass
         self.description = self.description
         self.purpose = self.purpose
-        return self
+        return self.node
 
     def __exit__(self, type, value, traceback):
         """
