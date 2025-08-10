@@ -241,8 +241,7 @@ class TestHierarchicalNodes:
         """Test activating a new hierarchical node."""
         circuit = Circuit()
         initial_node = circuit.active_node
-        
-        new_node = circuit.activate("SubCircuit", "tag1")
+        new_node = circuit.activate(Node("SubCircuit", circuit=circuit, tag="tag1"))
         
         assert circuit.active_node is new_node
         assert new_node.parent is initial_node
@@ -254,8 +253,9 @@ class TestHierarchicalNodes:
         """Test deactivating a hierarchical node."""
         circuit = Circuit()
         initial_node = circuit.active_node
+        child_node = Node("SubCircuit", circuit=circuit, tag="tag1")
         
-        sub_node = circuit.activate("SubCircuit", "tag1")
+        sub_node = circuit.activate(child_node)
         circuit.deactivate()
         
         assert circuit.active_node is initial_node
@@ -263,10 +263,13 @@ class TestHierarchicalNodes:
     def test_get_node_names(self):
         """Test getting hierarchical node names."""
         circuit = Circuit()
+        initial_node = circuit.active_node
+        child_node = Node("SubCircuit", circuit=circuit, tag="tag1")
+        child_child_node = Node("SubCircuit", circuit=circuit, tag="tag1")
         
         # Create some nodes
-        circuit.activate("Sub1", "tag1")
-        circuit.activate("Sub2", "tag2")
+        circuit.activate(child_node)
+        circuit.activate(child_child_node)
         
         node_names = list(circuit.get_node_names())
         
@@ -412,7 +415,8 @@ class TestFootprintAndTagChecking:
         # Create part and node
         part = Part("Device", "R")
         circuit += part
-        node = circuit.activate("TestNode", "")
+        child_node = Node("TestNode", circuit=circuit, tag="")
+        node = circuit.activate(child_node)
         circuit.check_tags()
 
 
@@ -611,7 +615,8 @@ class TestCircuitIntegration:
         circuit += main_part
         
         # Create subcircuit
-        sub_node = circuit.activate("SubCircuit", "sub_tag")
+        sub_node = Node("SubCircuit", circuit=circuit, tag="sub_tag")
+        sub_node = circuit.activate(sub_node)
         sub_part = Part("Device", "R")
         circuit += sub_part
         

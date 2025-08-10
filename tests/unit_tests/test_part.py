@@ -225,25 +225,25 @@ def test_alias_rename():
 def test_partclass_1():
     """Test assigning partclass to a part."""
     led = Part("Device", "LED_ARBG")
-    led.partclass = PartClass("my_part", a=1, b=2, c=3, priority=1)  # Assign partclass.
-    assert led.partclass[0].name == "my_part"  # Check partclass name.
-    assert led.partclass[0].a == 1  # Check partclass attribute 'a'.
+    led.partclasses = PartClass("my_part", a=1, b=2, c=3, priority=1)  # Assign part class.
+    assert led.partclasses[0].name == "my_part"  # Check part class name.
+    assert led.partclasses[0].a == 1  # Check part class attribute 'a'.
 
 
 def test_partclass_2():
     """Test reassigning partclass to a part."""
     led = Part("Device", "LED_ARBG")
-    led.netclass = PartClass("my_part", a=1, b=2, c=3, priority=2)  # Assign partclass.
+    led.partclasses = PartClass("my_part", a=1, b=2, c=3, priority=2)  # Assign part class.
     with pytest.raises(KeyError):
-        led.partclass = PartClass("my_part", a=5, b=6, c=7, priority=1)  # Reassign partclass should raise error.
+        led.partclasses = PartClass("my_part", a=5, b=6, c=7, priority=1)  # Reassign part class should raise error.
 
 
 def test_netclass_3():
     """Test partclass priority sorting."""
     led = Part("Device", "LED_ARBG")
-    led.partclass = PartClass("class1", priority=1)  # Adding another partclass.
-    led.partclass = PartClass("class2", priority=2)  # Adding another partclass.
-    prioritized_names = led.partclass.by_priority()  # Sort partclasses by priority.
+    led.partclasses = PartClass("class1", priority=1)  # Adding another partclass.
+    led.partclasses = PartClass("class2", priority=2)  # Adding another partclass.
+    prioritized_names = led.partclasses.by_priority()  # Sort partclasses by priority.
     assert prioritized_names[-1] == "class2"  # Last netclass should be 'class2'.
     assert prioritized_names[-2] == "class1"  # First netclass should be 'class1'.
     partclasses = led.circuit.partclasses[prioritized_names]
@@ -254,7 +254,7 @@ def test_netclass_3():
 def test_partclass_4():
     """Test partclass single and multiple indexing."""
     led = Part("Device", "LED_ARBG")
-    led.partclass = PartClass("class1", priority=1)  # Adding another partclass.
+    led.partclasses = PartClass("class1", priority=1)  # Adding another partclass.
     led.partclass = PartClass("class2", priority=2)  # Adding another partclass.
     partclass = led.circuit.partclasses["class1"]
     assert partclass.priority == 1
@@ -268,8 +268,8 @@ def test_partclass_5():
     led = Part("Device", "LED_ARBG")
     prtcls1 = PartClass("class1", priority=1)
     PartClass("class1", priority=1)  # Part class with same name and same attributes doesn't raise error.
-    led.partclass = prtcls1
-    led.partclass = prtcls1  # Reassigning should be ignored and not raise error.
+    led.partclasses = prtcls1
+    led.partclasses = prtcls1  # Reassigning should be ignored and not raise error.
     with pytest.raises(KeyError):
         PartClass("class1", priority=2)  # Part class with same name but different attributes should raise error.
 
@@ -277,19 +277,19 @@ def test_partclass_5():
 def test_partclass_6():
     """Test partclass multiple assignment."""
     led = Part("Device", "LED_ARBG")
-    led.partclass = PartClass("class1", priority=1), PartClass("class2", priority=2)
-    assert led.partclass[0].name == "class1"
-    assert led.partclass[1].name == "class2"
+    led.partclasses = PartClass("class1", priority=1), PartClass("class2", priority=2)
+    assert led.partclasses[0].name == "class1"
+    assert led.partclasses[1].name == "class2"
 
 def test_partclass_7():
     """Test partclass for part surrounded by hierarchical part classes."""
     # Create a hierarchical part class.
-    with SubCircuit("lvl0", partclass=PartClass("class1",priority=1)):
+    with SubCircuit("lvl0", partclasses=PartClass("class1",priority=1)):
         with SubCircuit("lvl1"):
-            with SubCircuit("lvl2", partclass=PartClass("class3",priority=3)):
+            with SubCircuit("lvl2", partclasses=PartClass("class3",priority=3)):
                 led = Part("Device", "LED_ARBG")
-                led.partclass = PartClass("class2", priority=2)
-                partclasses = led.partclass.by_priority()
+                led.partclasses = PartClass("class2", priority=2)
+                partclasses = led.partclasses.by_priority()
                 assert partclasses[0] == "class1"
                 assert partclasses[1] == "class2"
                 assert partclasses[2] == "class3"
