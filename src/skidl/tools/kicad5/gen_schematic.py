@@ -208,7 +208,7 @@ def power_part_to_eeschema(part, tx=Tx()):
     for pin in part.pins:
         try:
             if not (pin.net is None):
-                if pin.net.netclass == "Power":
+                if "Power" in pin.net.netclasses:
                     # strip out the '_...' section from power nets
                     t = pin.net.name
                     u = t.split("_")
