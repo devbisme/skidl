@@ -142,7 +142,21 @@ class Circuit(SkidlBaseObject):
         builtins.NC = default_circuit.NC
 
     def mini_reset(self, init=False):
-        """Clear any circuitry but don't erase any loaded part libraries."""
+        """Reset the circuit to its initial state while preserving certain attributes.
+        This method reinitializes most circuit attributes to their default values,
+        including clearing parts, nets, buses, interfaces, and design classes. It
+        also resets counters and creates a new no-connect net.
+        Args:
+            init (bool, optional): If True, indicates this is being called during
+                initialization. If False (default), additional setup is performed
+                for the default circuit's global no-connect net.
+        Note:
+            - The circuit_stack is only initialized if it doesn't already exist
+            - When init=False and this is the default circuit, the global NC
+              (no-connect) net is updated
+            - All unique name heaps are cleared via reset_get_unique_name()
+        """
+
 
         self.group_name_cntr = Counter()
 
@@ -151,11 +165,11 @@ class Circuit(SkidlBaseObject):
         self.nets = []
         self.buses = []
         self.interfaces = []
-        self.netclasses = DesignClass()
-        self.partclasses = DesignClass()
+        self._netclasses = DesignClass()
+        self._partclasses = DesignClass()
         self.nodes = set()  # Set of all nodes in the circuit hierarchy.
         self.active_node = None
-        self.active_node = self.activate(name="", tag="")
+        self.active_node = self.activate(Node(func_or_name="", tag="", circuit=self))
         if not hasattr(self, "circuit_stack"):
             # Initialize the circuit stack if it doesn't exist.
             # Otherwise, leave it alone since we might need to get back to the
@@ -207,31 +221,46 @@ class Circuit(SkidlBaseObject):
         """
         return (node.hiertuple for node in self.nodes)
 
-    def activate(self, name, tag, **attrs):
+    def activate(self, node):
         """
-        Creates a new Node instance using the provided group's name and tag, sets it as a child
-        of the current active node, adds it to the circuit, and makes it the new active node.
+        Activate a node in the circuit hierarchy.
+        
+        This method adds the given node to the circuit's node set, establishes
+        parent-child relationships in the hierarchy, and sets it as the current
+        active node.
         
         Args:
-            name (str): The name for the new node. If None, defaults to "NODE".
-            tag (str): The tag for identifying the node.
-            attrs (**attrs): Additional attributes to store in the node.
-        
+            node (Node): The node instance to activate.
+            
         Returns:
-            Node: The newly created and activated node instance.
-        
+            Node: The activated node instance.
+            
         Note:
-            If no active node exists, the new node will have no parent (root node).
+            If an active node already exists, the new node becomes its child.
+            The new node then becomes the active node for subsequent operations.
         """
 
-        new_node = Node(circuit=self, name=name, tag=tag, parent=getattr(self, "active_node", None), **attrs)
-        self.add_node(new_node)
-        self.active_node = new_node
-        return new_node
+        self.nodes.add(node)
+        if self.active_node:
+            self.active_node.add_child(node)
+        self.active_node = node
+        return node
 
     def deactivate(self):
         """
-        Deactivate the current hierarchical node and return to the previous one.
+        Deactivate the current hierarchical node and return to its parent.
+
+        This method moves up one level in the circuit hierarchy by setting the
+        active node to its parent. The circuitry created within the current
+        hierarchical level remains intact in the part and net lists, but the
+        hierarchical context is restored to the previous level.
+
+        Returns:
+            None
+
+        Note:
+            This method does not remove any circuit components or connections
+            that were added while the current node was active.
         """
 
         # Restore the hierarchy that existed before this one was created.
@@ -239,68 +268,84 @@ class Circuit(SkidlBaseObject):
         # added to the part and net lists.
         self.active_node = self.active_node.parent
 
-    def add_node(self, node):
-        self.nodes.add(node)
-
     def add_netclasses(self, *netclasses):
         """
         Add one or more net classes to the circuit.
         
         Args:
-            netclasses (list[NetClass]): One or more net classes to add to the circuit.
+            *netclasses: One or more net classes to add to the circuit.
         """
         self.netclasses.add(*netclasses)
 
     @property
-    def netclass(self):
-        return self.netclasses
-
-    @netclass.setter
-    def netclass(self, *netclasses):
+    def netclasses(self):
         """
-        Add one or more net classes to the circuit.
+        Get the netclasses dictionary for this circuit.
+
+        Returns:
+            dict: A dictionary containing the netclasses defined for this circuit.
+        """
+        return self._netclasses
+
+    @netclasses.setter
+    def netclasses(self, *netclasses):
+        """
+        Set net classes for the circuit.
         
         Args:
-            netclasses (list[NetClass]): One or more net classes to add to the circuit.
+            *netclasses: One or more net classes to add to the circuit.
         """
-        self.netclasses.add(*netclasses)
+        self._netclasses.add(*netclasses)
 
-    @netclass.deleter
-    def netclass(self):
+    @netclasses.deleter
+    def netclasses(self):
         """
-        Remove all net classes from the circuit.
+        Clear all net classes from the circuit.
+        
+        This removes all netclass definitions from the circuit, clearing
+        the netclasses dictionary.
         """
-        del self.netclasses
+        del self._netclasses
 
     def add_partclasses(self, *partclasses):
         """
         Add one or more part classes to the circuit.
         
         Args:
-            partclass (list[PartClass]): One or more part classes to add to the circuit.
+            *partclasses: One or more part classes to add to the circuit.
         """
         self.partclasses.add(*partclasses)
 
     @property
-    def partclass(self):
-        return self.partclasses
-
-    @partclass.setter
-    def partclass(self, *partclasses):
+    def partclasses(self):
         """
-        Add one or more part classes to the circuit.
+        Get the dictionary of part classes available in this circuit.
 
+        Returns:
+            dict: A dictionary mapping part class names to their corresponding 
+                  part class objects.
+        """
+        return self._partclasses
+
+    @partclasses.setter
+    def partclasses(self, *partclasses):
+        """
+        Set part classes for the circuit.
+        
         Args:
-            partclasses (list[PartClass]): One or more part classes to add to the circuit.
+            *partclasses: One or more part classes to add to the circuit.
         """
-        self.partclasses.add(*partclasses)
+        self._partclasses.add(*partclasses)
 
-    @partclass.deleter
-    def partclass(self):
+    @partclasses.deleter
+    def partclasses(self):
         """
-        Remove all part classes from the circuit.
+        Clear all part classes from the circuit.
+        
+        This removes all partclass definitions from the circuit, clearing
+        the partclasses dictionary.
         """
-        del self.partclasses
+        del self._partclasses
 
     def add_parts(self, *parts):
         """

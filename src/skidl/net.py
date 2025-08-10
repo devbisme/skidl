@@ -279,7 +279,7 @@ class Net(SkidlBaseObject):
         self._drive = pin_drives.NONE
         self._pins = []
         self.circuit = None
-        self._netclass = NetClassList()  # Default net class list.
+        self._netclasses = NetClassList()  # Net classes directly assigned to this net.
         self.code = None  # This is the net number used in a KiCad netlist file.
         self.stub = False  # Net is not a stub for schematic generation.
 
@@ -970,8 +970,8 @@ connections to nets while         prohibiting direct assignment. Python
             # Update the net class of the joined nets. The following two
             # operations will set each net's class to the same value, or
             # throw an error if they are in different classes.
-            self.netclass = net.netclass
-            net.netclass = self.netclass
+            self.netclasses = net.netclasses
+            net.netclasses = self.netclasses
 
         def connect_pin(pin):
             """Connect a pin to this net."""
@@ -1301,7 +1301,7 @@ connections to nets while         prohibiting direct assignment. Python
         return self.get_nets()
 
     @property
-    def netclass(self):
+    def netclasses(self):
         """
         Get or set the net class(es) assigned to this net and connected segments.
         
@@ -1391,16 +1391,18 @@ connections to nets while         prohibiting direct assignment. Python
             rules generate errors that must be resolved before manufacturing.
         """
         self.test_validity()
-        # Add all the net classes for all the hierarchical nodes surrounding this net.
-        total_netclass = NetClassList(circuit=self.circuit)
-        total_netclass.add(*self._netclass)
-        for node in self.hiernodes:
-            if hasattr(node, "netclass"):
-                total_netclass.add(*node.netclass)
-        return total_netclass
 
-    @netclass.setter
-    def netclass(self, *netclasses):
+        # Add all the net classes for all the hierarchical nodes surrounding this net.
+        total_netclasses = self.node.netclasses
+        
+        # Add net classes directly assigned to all the nets comprising this one.
+        for net in self.nets:
+            total_netclasses.add(*net._netclasses)
+        
+        return total_netclasses
+
+    @netclasses.setter
+    def netclasses(self, *netclasses):
         """
         Assign one or more net classes to this net and all connected segments.
         
@@ -1442,10 +1444,10 @@ connections to nets while         prohibiting direct assignment. Python
         """
         self.test_validity()
         for net in self.nets:
-            net._netclass.add(*netclasses, circuit=net.circuit)
+            net._netclasses.add(*netclasses, circuit=net.circuit)
 
-    @netclass.deleter
-    def netclass(self):
+    @netclasses.deleter
+    def netclasses(self):
         """
         Remove all net class assignments from this net and connected segments.
         
@@ -1468,7 +1470,7 @@ connections to nets while         prohibiting direct assignment. Python
         self.test_validity()
         nets = self.nets  # Get all interconnected subnets.
         for n in nets:
-            n._netclass = NetClassList()
+            n._netclasses = NetClassList()
 
     @property
     def drive(self):

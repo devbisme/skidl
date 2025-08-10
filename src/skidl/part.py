@@ -235,7 +235,7 @@ class Part(SkidlBaseObject):
         self.tool = tool  # Initial type of part (SKIDL, KICAD, etc.)
         self.circuit = None  # Part starts off unassociated with any circuit.
         self.match_pin_regex = False  # Don't allow regex matches of pin names.
-        self._partclass = PartClassList()  # List of part classes this part belongs to.
+        self._partclasses = PartClassList()  # List of part classes this part belongs to.
 
         # Create a Part from a library entry.
         if lib:
@@ -1526,22 +1526,48 @@ class Part(SkidlBaseObject):
         del self._foot
 
     @property
-    def partclass(self):
+    def partclasses(self):
+        """
+        Get all part classes associated with this part.
+
+        Returns the combined set of part classes from both the hierarchical nodes
+        surrounding this part and the part classes directly assigned to this part.
+
+        Returns:
+            set: A set containing all part classes from the node hierarchy and 
+                the part's directly assigned classes.
+        """
         # Add all the part classes for all the hierarchical nodes surrounding this part.
-        total_partclass = PartClassList(circuit=self.circuit)
-        total_partclass.add(*self._partclass)
-        for node in self.hiernodes:
-            if hasattr(node, "partclass"):
-                total_partclass.add(*node.partclass)
-        return total_partclass
+        total_partclasses = self.node.partclasses
+        # Add the part classes directly assigned to this part.
+        total_partclasses.add(*self._partclasses)
+        return total_partclasses
 
-    @partclass.setter
-    def partclass(self, *partclasses):
-        self._partclass.add(*partclasses, circuit=self.circuit)
+    @partclasses.setter
+    def partclasses(self, *partclasses):
+        """
+        Add one or more part classes to this part's collection of part classes.
 
-    @partclass.deleter
-    def partclass(self):
-        self._partclass = PartClassList()
+        Args:
+            *partclasses: Variable number of part class objects to be added to this part's
+                         part classes collection. Each part class will be associated with
+                         this part's circuit.
+
+        Returns:
+            None
+
+        Note:
+            The part classes are added to the internal _partclasses collection and
+            automatically associated with the current circuit context.
+        """
+        self._partclasses.add(*partclasses, circuit=self.circuit)
+
+    @partclasses.deleter
+    def partclasses(self):
+        """
+        Replace existing list of part classes with an empty PartClassList.
+        """
+        self._partclasses = PartClassList()
 
     @property
     def match_pin_regex(self):
