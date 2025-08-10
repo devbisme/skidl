@@ -241,7 +241,7 @@ def gen_netlist_net(net, **kwargs):
               its code, name, and associated pins with their part references
               and pin numbers.
     """
-    net_classes = net.netclass.by_priority()
+    net_classes = net.netclasses.by_priority()
     net_class_str = ",".join(reversed(net_classes))
     nt_lst = Sexp(["net", ["code", net.code], ["name", net.name], ["class", net_class_str]])
     for p in sorted(net.pins, key=str):
@@ -296,7 +296,7 @@ def gen_netlist(circuit, **kwargs):
 
     # Add the Default netclass to all the nets.
     for net in circuit.get_nets():
-        net.netclass = "Default"
+        net.netclasses = "Default"
 
     scr_dict = scriptinfo()
     src_file = os.path.join(scr_dict["dir"], scr_dict["source"])
