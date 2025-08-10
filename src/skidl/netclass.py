@@ -343,6 +343,27 @@ class NetClassList(list):
         """
         return set(self) == set(nt_cls_lst)
 
+    # Since an __eq__ method was defined, a __hash__ method is also needed
+    # to maintain the hashability of NetClass objects.
+    # This allows them to be used in sets or as dictionary keys.
+    def __hash__(self):
+        """Hash based on name (assuming name is immutable)."""
+        return hash(self.name)
+
+    def __contains__(self, netclass):
+        """
+        Check if a NetClass is contained within this NetClassList.
+        
+        Args:
+            netclass (NetClass, str): The object to check for membership.
+            
+        Returns:
+            bool: True if the net class is in the list, False otherwise.
+        """
+        if isinstance(netclass, str):
+            netclass = default_circuit.netclasses.get(netclass, None)
+        return super().__contains__(netclass)
+
     def add(self, *netclasses, circuit=None):
         """
         Add one or more NetClass objects to the list with automatic deduplication.

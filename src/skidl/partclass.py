@@ -55,6 +55,20 @@ class PartClass(object):
         """Hash based on name (assuming name is immutable)."""
         return hash(self.name)
 
+    def __contains__(self, partclass):
+        """
+        Check if a PartClass is contained within this PartClassList.
+
+        Args:
+            partclass (PartClass, str): The object to check for membership.
+            
+        Returns:
+            bool: True if the part class is in the list, False otherwise.
+        """
+        if isinstance(partclass, str):
+            partclass = default_circuit.partclasses.get(partclass, None)
+        return super().__contains__(partclass)
+
 
 class PartClassList(list):
 

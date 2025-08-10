@@ -166,6 +166,20 @@ class DesignClass(dict):
         else:
             return [self[name] for name in names if name in self]
 
+    def __contains__(self, cls):
+        """
+        Check if a NetClass or PartClass is contained within this DesignClassList.
+        
+        Args:
+            cls (NetClass, PartClass, str): The object to check for membership.
+            
+        Returns:
+            bool: True if the net or part class is in the list, False otherwise.
+        """
+        if isinstance(cls, str):
+            return cls in self.keys()
+        return cls in self.values()
+
     def by_priority(self, *names):
         """
         Return class names sorted by their priorities given a list of names.
