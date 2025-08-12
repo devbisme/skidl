@@ -11,15 +11,14 @@ electrical characteristics for related nets.
 
 Key Features:
     - Group nets with similar electrical or routing requirements
-    - Define trace width, clearance, and via specifications
-    - Set differential pair characteristics
     - Establish priority hierarchies for design rule checking
     - Support multiple net classes per net for complex designs
+    - Attach arbitrary net class attributes
 
 Classes:
-    NetClass: Represents a single net class with properties and routing rules.
-        Stores electrical and physical parameters like trace width, clearance,
-        via dimensions, and priority levels.
+    NetClass: Represents a single net class with properties and categorization rules.
+        Stores characteristics, priorities, and custom attributes for
+        a group of nets.
         
     NetClassList: A specialized list container for managing multiple NetClass 
         objects. Enables nets to belong to multiple classes simultaneously
@@ -27,7 +26,7 @@ Classes:
 
 Constants:
     DEFAULT_NETCLASS: Default priority value (0) for standard net classes.
-        Lower priority values indicate higher precedence in design rule
+        Lower priority values indicate lower precedence in design rule
         checking and conflict resolution.
 
 Common Use Cases:
@@ -43,12 +42,12 @@ Example Usage:
     ...                       trace_width=0.5,     # 0.5mm traces
     ...                       clearance=0.2,       # 0.2mm clearance  
     ...                       via_dia=0.8,         # 0.8mm via diameter
-    ...                       priority=1)          # High priority
+    ...                       priority=10)         # High priority
     >>> 
     >>> signal_class = NetClass('Signal',
     ...                        trace_width=0.15,   # 0.15mm traces
     ...                        clearance=0.1,      # 0.1mm clearance
-    ...                        priority=10)        # Lower priority
+    ...                        priority=1)         # Lower priority
     >>> 
     >>> # Create differential pair class
     >>> diff_class = NetClass('DiffPair',
@@ -62,23 +61,17 @@ Example Usage:
     >>> 
     >>> # Apply to nets
     >>> vcc_net = Net('VCC')
-    >>> vcc_net.netclass = power_class
+    >>> vcc_net.netclasses = power_class
     >>> 
     >>> data_p = Net('DATA_P')  
     >>> data_n = Net('DATA_N')
-    >>> data_p.netclass = diff_class
-    >>> data_n.netclass = diff_class
-
-Design Rule Integration:
-    Net classes integrate with PCB design tools to automatically apply
-    routing rules and constraints. When exporting to tools like KiCad,
-    Altium, or Eagle, the net class properties are translated into
-    appropriate design rule formats.
+    >>> data_p.netclasses = diff_class
+    >>> data_n.netclasses = diff_class
 
 Priority System:
-    Lower numeric priority values indicate higher precedence. When nets
+    Higher numeric priority values indicate higher precedence. When nets
     belong to multiple classes or when classes conflict, the class with
-    the lowest priority number takes precedence for rule resolution.
+    the highest priority number takes precedence for rule resolution.
 """
 
 from .logger import active_logger
@@ -92,7 +85,7 @@ __all__ = ["DEFAULT_NETCLASS"]
 @export_to_all
 class NetClass(object):
     """
-    Defines a group of nets sharing common electrical and physical properties.
+    Defines a class for nets sharing common electrical and physical properties.
 
     Net classes provide a mechanism for organizing nets with similar routing
     requirements, electrical characteristics, or design constraints. They enable
@@ -108,27 +101,12 @@ class NetClass(object):
         name (str): Unique identifier for the net class within the circuit.
             Used for referencing and organizing net classes.
         priority (int): Precedence level for design rule conflicts (default: 0).
-            Lower values indicate higher priority when resolving conflicts.
-        trace_width (float, optional): Default trace width in mm for nets in this class.
-        clearance (float, optional): Minimum spacing in mm from other objects.
-        via_dia (float, optional): Via outer diameter in mm for this net class.
-        via_drill (float, optional): Via drill diameter in mm for this net class.
-        uvia_dia (float, optional): Microvia outer diameter in mm.
-        uvia_drill (float, optional): Microvia drill diameter in mm.
-        diff_pair_width (float, optional): Trace width in mm for differential pairs.
-        diff_pair_gap (float, optional): Spacing in mm between differential pair traces.
-        circuit (Circuit): Reference to the circuit containing this net class.
-
-    Design Rule Examples:
-        - Power nets: Wide traces (0.5mm+), large clearances (0.2mm+)
-        - Signal nets: Standard traces (0.15mm), normal clearances (0.1mm)
-        - High-speed nets: Controlled impedance, specific via sizes
-        - Differential pairs: Matched trace widths and coupling gaps
+            Higher values indicate higher priority when resolving conflicts.
     """
 
-    def __init__(self, name, **attribs):
+    def __init__(self, name, circuit=None, **attribs):
         """
-        Create a new net class with specified name and electrical properties.
+        Create a new net class with specified name, priority, and other attributes.
 
         Initializes a net class with the given name and applies any additional
         electrical or physical attributes. The net class is automatically added
@@ -141,30 +119,15 @@ class NetClass(object):
                 'HighSpeed', 'DiffPair').
 
         Keyword Args:
-            priority (int, optional): Design rule priority (default: 0).
-                Lower values have higher precedence in conflict resolution.
-            trace_width (float, optional): Default trace width in mm.
-                Typical values: 0.1-1.0mm depending on current requirements.
-            clearance (float, optional): Minimum clearance to other objects in mm.
-                Typical values: 0.1-0.5mm based on voltage and frequency.
-            via_dia (float, optional): Via outer diameter in mm.
-                Should be larger than via_drill by manufacturing constraints.
-            via_drill (float, optional): Via drill diameter in mm.
-                Limited by PCB manufacturer capabilities (typically ≥0.2mm).
-            uvia_dia (float, optional): Microvia outer diameter in mm.
-                Used for high-density designs with small vias.
-            uvia_drill (float, optional): Microvia drill diameter in mm.
-                Smaller than standard vias for dense routing.
-            diff_pair_width (float, optional): Differential pair trace width in mm.
-                Often smaller than single-ended traces for impedance control.
-            diff_pair_gap (float, optional): Gap between differential pair traces in mm.
-                Critical for maintaining differential impedance.
             circuit (Circuit, optional): Target circuit for the net class.
                 Defaults to the currently active default circuit.
+            priority (int, optional): Design rule priority (default: 0).
+                Lower values have lower precedence in conflict resolution.
+            **attribs: Additional custom attributes for the net class.
 
         Raises:
-            Warning: If a net class with the same name already exists in the circuit.
-                The existing net class will be replaced with the new one.
+            ValueError: If a net class with the same name but different attributes or priority
+                already exists in the circuit.
 
         Examples:
             >>> # Create power supply net class
@@ -173,7 +136,7 @@ class NetClass(object):
             ...                      clearance=0.25,       # Extra clearance for safety
             ...                      via_dia=1.0,          # Large vias for current
             ...                      via_drill=0.6,        # Corresponding drill size
-            ...                      priority=1)           # High priority rules
+            ...                      priority=10)          # High priority rules
             
             >>> # Create high-speed signal class  
             >>> hs_signals = NetClass('HighSpeed',
@@ -189,17 +152,10 @@ class NetClass(object):
             ...                      diff_pair_gap=0.18,   # 100-ohm differential
             ...                      clearance=0.2,        # Isolation from others
             ...                      priority=3)
-
-        PCB Tool Integration:
-            The net class properties are exported to PCB design tools:
-            - KiCad: .rules files and board setup
-            - Altium: Design rules and class assignments  
-            - Eagle: Net classes and design rules
-            - Other tools: Via tool-specific export functions
         """
         # This object will belong to the default Circuit object or the one
         # that's passed as a parameter.
-        circuit = attribs.pop("circuit", default_circuit)
+        circuit = circuit or default_circuit
 
         # Assign net class name.
         self.name = name
@@ -236,7 +192,36 @@ class NetClass(object):
     # to maintain the hashability of NetClass objects.
     # This allows them to be used in sets or as dictionary keys.
     def __hash__(self):
-        """Hash based on name (assuming name is immutable)."""
+        """
+        Generate a hash value for the NetClass object based on its name.
+
+        Creates a hash value that allows NetClass objects to be used in sets,
+        as dictionary keys, and in other hash-based collections. The hash is
+        based solely on the name attribute, assuming that names are immutable
+        and unique within a circuit context.
+
+        Returns:
+            int: Hash value based on the net class name.
+                Objects with the same name will have the same hash value,
+                enabling efficient lookup and deduplication operations.
+
+        Examples:
+            >>> nc1 = NetClass('Power', priority=1)
+            >>> nc2 = NetClass('Power', priority=5)  # Same name, different priority
+            >>> nc3 = NetClass('Signal', priority=1)
+            >>> 
+            >>> hash(nc1) == hash(nc2)  # True - same name
+            >>> hash(nc1) == hash(nc3)  # False - different names
+            >>> 
+            >>> # Can be used in sets and dictionaries
+            >>> net_set = {nc1, nc2, nc3}  # nc1 and nc2 are considered same due to hash
+            >>> net_dict = {nc1: 'power_rules', nc3: 'signal_rules'}
+
+        Note:
+            This implementation assumes that net class names are immutable after
+            creation and unique within their circuit context. Modifying the name
+            after creation may lead to inconsistent hash behavior.
+        """
         return hash(self.name)
 
 class NetClassList(list):
@@ -343,13 +328,6 @@ class NetClassList(list):
         """
         return set(self) == set(nt_cls_lst)
 
-    # Since an __eq__ method was defined, a __hash__ method is also needed
-    # to maintain the hashability of NetClass objects.
-    # This allows them to be used in sets or as dictionary keys.
-    def __hash__(self):
-        """Hash based on name (assuming name is immutable)."""
-        return hash(self.name)
-
     def __contains__(self, netclass):
         """
         Check if a NetClass is contained within this NetClassList.
@@ -437,9 +415,15 @@ class NetClassList(list):
 
     def by_priority(self):
         """
-        Get a list of netclass names sorted by their priority.
+        Get a list of net class names sorted by their priority values.
+
+        Returns the names of all net classes in the list, sorted in ascending
+        order by their priority values. This is useful for applying design rules
+        in the correct precedence order, where higher priority numbers indicate
+        higher precedence.
 
         Returns:
-            list: A list of netclass names in ascending order of their priority.
+            list[str]: A list of net class names sorted by priority (lowest first).
+                Empty list if no net classes are present.
         """
         return [nc.name for nc in sorted(self, key=lambda nc: nc.priority)]
