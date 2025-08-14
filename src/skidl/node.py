@@ -13,11 +13,11 @@ and contain parts, allowing for structured circuit design and organization.
 import functools
 from simp_sexp import Sexp
 
-from skidl.partclass import PartClassList
-from skidl.netclass import NetClassList
-from skidl.scriptinfo import get_skidl_trace
-from skidl.skidlbaseobj import SkidlBaseObject
-from skidl.utilities import export_to_all, get_unique_name
+from .design_class import PartClasses
+from .design_class import NetClasses
+from .scriptinfo import get_skidl_trace
+from .skidlbaseobj import SkidlBaseObject
+from .utilities import export_to_all, get_unique_name
 
 
 __all__ = ["SubCircuit", "subcircuit", "Group"]
@@ -87,10 +87,10 @@ class Node(SkidlBaseObject):
         self.nets = []
 
         # Create lists for part and net classes that are directly assigned to this node.
-        self._partclasses = PartClassList()
-        self.partclasses = attrs.pop("partclasses", PartClassList())
-        self._netclasses = NetClassList()
-        self.netclasses = attrs.pop("netclasses", NetClassList())
+        self._partclasses = PartClasses()
+        self.partclasses = attrs.pop("partclasses", PartClasses())
+        self._netclasses = NetClasses()
+        self.netclasses = attrs.pop("netclasses", NetClasses())
 
         # Set the description and purpose of the circuitry in this node.
         self.description = attrs.pop("description", "")
@@ -267,9 +267,9 @@ class Node(SkidlBaseObject):
         Aggregates part classes from this node and all ancestor nodes in the hierarchy.
         
         Returns:
-            PartClassList: Combined part classes from this node and its ancestors.
+            PartClasses: Combined part classes from this node and its ancestors.
         """
-        total_partclasses = PartClassList()
+        total_partclasses = PartClasses()
         for node in self.hiernodes:
             total_partclasses.add(node._partclasses)
         return total_partclasses
@@ -290,7 +290,7 @@ class Node(SkidlBaseObject):
     @partclasses.deleter
     def partclasses(self):
         """Delete the part classes for this node."""
-        self._partclasses = PartClassList()
+        self._partclasses = PartClasses()
 
     @property
     def netclasses(self):
@@ -300,9 +300,9 @@ class Node(SkidlBaseObject):
         Aggregates net classes from this node and all ancestor nodes in the hierarchy.
         
         Returns:
-            NetClassList: Combined net classes from this node and its ancestors.
+            NetClasses: Combined net classes from this node and its ancestors.
         """
-        total_netclasses = NetClassList()
+        total_netclasses = NetClasses()
         for node in self.hiernodes:
             total_netclasses.add(node._netclasses)
         return total_netclasses
@@ -323,7 +323,7 @@ class Node(SkidlBaseObject):
     @netclasses.deleter
     def netclasses(self):
         """Delete the net classes for this node."""
-        self._netclasses = NetClassList()
+        self._netclasses = NetClasses()
 
 
 # Aliases for SubCircuit to maintain backward compatibility.

@@ -17,7 +17,7 @@ from random import randint
 
 from .erc import dflt_part_erc
 from .logger import active_logger
-from .partclass import PartClass, PartClassList
+from .design_class import PartClass, PartClasses
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import (
     add_unique_attr,
@@ -235,7 +235,7 @@ class Part(SkidlBaseObject):
         self.tool = tool  # Initial type of part (SKIDL, KICAD, etc.)
         self.circuit = None  # Part starts off unassociated with any circuit.
         self.match_pin_regex = False  # Don't allow regex matches of pin names.
-        self._partclasses = PartClassList()  # List of part classes this part belongs to.
+        self._partclasses = PartClasses()  # List of part classes this part belongs to.
 
         # Create a Part from a library entry.
         if lib:
@@ -809,7 +809,6 @@ class Part(SkidlBaseObject):
 
             # Remove any existing Pin and PartUnit attributes so new ones
             # can be made in the copy without generating warning messages.
-            # Also remove PartClassList attributes so they can be redefined in the copy.
             rmv_attrs = [
                 k
                 for k, v in list(cpy.__dict__.items())
@@ -1567,9 +1566,9 @@ class Part(SkidlBaseObject):
     @partclasses.deleter
     def partclasses(self):
         """
-        Replace existing list of part classes with an empty PartClassList.
+        Replace existing list of part classes with an empty PartClasses.
         """
-        self._partclasses = PartClassList()
+        self._partclasses = PartClasses()
 
     @property
     def match_pin_regex(self):

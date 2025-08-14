@@ -92,7 +92,7 @@ from copy import copy, deepcopy
 
 from .erc import dflt_net_erc
 from .logger import active_logger
-from .netclass import NetClass, NetClassList
+from .design_class import NetClass, NetClasses
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import (
     expand_buses,
@@ -279,7 +279,7 @@ class Net(SkidlBaseObject):
         self._drive = pin_drives.NONE
         self._pins = []
         self.circuit = None
-        self._netclasses = NetClassList()  # Net classes directly assigned to this net.
+        self._netclasses = NetClasses()  # Net classes directly assigned to this net.
         self.code = None  # This is the net number used in a KiCad netlist file.
         self.stub = False  # Net is not a stub for schematic generation.
 
@@ -1316,7 +1316,7 @@ connections to nets while         prohibiting direct assignment. Python
         when nets are merged or split during circuit construction.
 
         Returns:
-            NetClassList: Container holding zero or more NetClass objects.
+            NetClasses: Container holding zero or more NetClass objects.
             An empty list indicates no net class assignments. The container
             supports iteration, indexing, and membership testing for
             convenient access to assigned classes.
@@ -1411,7 +1411,7 @@ connections to nets while         prohibiting direct assignment. Python
         consistent routing rules across the entire electrical connection.
 
         Args:
-            *netclasses: One or more NetClass objects or NetClassList objects
+            *netclasses: One or more NetClass objects or NetClasses objects
                 to assign to this net. Multiple classes can be assigned
                 simultaneously by passing multiple arguments.
 
@@ -1427,7 +1427,7 @@ connections to nets while         prohibiting direct assignment. Python
             >>> power_net.netclass = power_class, critical_class
             >>> 
             >>> # Assign from list
-            >>> class_list = NetClassList(power_class, critical_class)
+            >>> class_list = NetClasses(power_class, critical_class)
             >>> power_net.netclass = class_list
 
         Propagation:
@@ -1470,7 +1470,7 @@ connections to nets while         prohibiting direct assignment. Python
         self.test_validity()
         nets = self.nets  # Get all interconnected subnets.
         for n in nets:
-            n._netclasses = NetClassList()
+            n._netclasses = NetClasses()
 
     @property
     def drive(self):

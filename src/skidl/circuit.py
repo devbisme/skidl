@@ -26,8 +26,7 @@ except ImportError:
     pass
 
 from .bus import Bus
-from .partclass import PartClassList
-from .netclass import NetClassList
+from .design_class import NetClasses, PartClasses
 from .erc import dflt_circuit_erc
 from .logger import active_logger, erc_logger, stop_log_file_output
 from .net import NCNet, Net
@@ -166,8 +165,8 @@ class Circuit(SkidlBaseObject):
         self.nets = []
         self.buses = []
         self.interfaces = []
-        self._netclasses = NetClassList()
-        self._partclasses = PartClassList()
+        self._netclasses = NetClasses()
+        self._partclasses = PartClasses()
         self.nodes = set()  # Set of all nodes in the circuit hierarchy.
         self.active_node = None
         self.active_node = self.activate(Node(func_or_name="", tag="", circuit=self))
@@ -306,7 +305,7 @@ class Circuit(SkidlBaseObject):
         This removes all netclass definitions from the circuit, clearing
         the netclasses dictionary.
         """
-        self._netclasses = NetClassList()
+        self._netclasses = NetClasses()
 
     def add_partclasses(self, *partclasses):
         """
@@ -346,7 +345,7 @@ class Circuit(SkidlBaseObject):
         This removes all partclass definitions from the circuit, clearing
         the partclasses dictionary.
         """
-        self._partclasses = PartClassList()
+        self._partclasses = PartClasses()
 
     def add_parts(self, *parts):
         """

@@ -11,7 +11,7 @@ import time
 import uuid
 from simp_sexp import Sexp
 
-from skidl.netclass import NetClass
+from skidl.design_class import NetClass
 from skidl.pckg_info import __version__
 from skidl.scriptinfo import scriptinfo, get_script_dir
 from skidl.utilities import export_to_all
