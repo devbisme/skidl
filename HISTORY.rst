@@ -4,17 +4,17 @@ History
 -------
 
 
-2.1.0 (2025-XX-XX)
+2.1.0 (2025-08-XX)
 ______________________
 - Fixed #238: tstamps were incorrectly generated for netlist files.
 - `netlist_to_skidl` now generates hierarchical SKiDL code that mirrors the hierarchy found in the netlist.
-- PartClass objects can now be used to create new Part objects with the same attributes as the PartClass.
-- NetClass objects can now be used to create new Net objects with the same attributes as the NetClass.
-- Replace Group with SubCircuit.
-- KICAD9 tool identifier added to support KiCad 9.
-- track_src, track_abs_path
-- InSpice for using modern ngspice
-- Circuits now include a tree of Node objects that represent the hierarchy of parts in the circuit.
+- Parts can be assigned a part class that stores attributes for a set of parts.
+- Nets can be assigned a net class that stores attributes for a set of nets.
+- `SubCircuits` have taken over the `Group` functionality. (`Group` has been maintained for backwards compatibility.)
+- `Circuits` now include a tree of `Node` objects that stores the hierarchical structure.
+- Improved tracking of netlist objects back to the source line where they were instantiated.
+- InSpice has replaced PySpice to allow the use of newer versions of the ngspice simulator.
+- `KICAD9` tool identifier added to support KiCad 9.
 
 
 2.0.1 (2024-12-11)
@@ -27,7 +27,7 @@ ______________________
 ______________________
 - No longer compatible with Python 2.
 - `@package` decorator removed.
-- Additional `Part`` attributes can be specified when exporting libraries.
+- Additional `Part` attributes can be specified when exporting libraries.
 - Added `unexpio` dict to `Interface` objects for accessing I/O without buses expanded into individual nets.
 - Added connect() and __iadd__() methods to interconnect `Interface` objects. 
 - Part libraries are pickled when first loaded for faster access on subsequent accesses.
