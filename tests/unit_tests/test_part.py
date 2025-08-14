@@ -226,15 +226,15 @@ def test_partclass_1():
     """Test assigning partclass to a part."""
     led = Part("Device", "LED_ARBG")
     led.partclasses = PartClass("my_part", a=1, b=2, c=3, priority=1)  # Assign part class.
-    assert led.partclasses[0].name == "my_part"  # Check part class name.
-    assert led.partclasses[0].a == 1  # Check part class attribute 'a'.
+    assert "my_part" in led.partclasses  # Check part class name.
+    assert led.partclasses["my_part"].a == 1  # Check part class attribute 'a'.
 
 
 def test_partclass_2():
     """Test reassigning partclass to a part."""
     led = Part("Device", "LED_ARBG")
     led.partclasses = PartClass("my_part", a=1, b=2, c=3, priority=2)  # Assign part class.
-    with pytest.raises(KeyError):
+    with pytest.raises(ValueError):
         led.partclasses = PartClass("my_part", a=5, b=6, c=7, priority=1)  # Reassign part class should raise error.
 
 
@@ -270,7 +270,7 @@ def test_partclass_5():
     PartClass("class1", priority=1)  # Part class with same name and same attributes doesn't raise error.
     led.partclasses = prtcls1
     led.partclasses = prtcls1  # Reassigning should be ignored and not raise error.
-    with pytest.raises(KeyError):
+    with pytest.raises(ValueError):
         PartClass("class1", priority=2)  # Part class with same name but different attributes should raise error.
 
 
@@ -278,8 +278,8 @@ def test_partclass_6():
     """Test partclass multiple assignment."""
     led = Part("Device", "LED_ARBG")
     led.partclasses = PartClass("class1", priority=1), PartClass("class2", priority=2)
-    assert led.partclasses[0].name == "class1"
-    assert led.partclasses[1].name == "class2"
+    assert "class1" in led.partclasses
+    assert "class2" in led.partclasses
 
 def test_partclass_7():
     """Test partclass for part surrounded by hierarchical part classes."""

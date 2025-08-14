@@ -54,7 +54,7 @@ def test_netclass_1():
     n1 = Net()
     n1 += led[1, 2, 3, 4]  # Add LED pins to net.
     n1.netclasses = NetClass("my_net", a=1, b=2, c=3, priority=1)  # Assign netclass.
-    assert n1.netclasses[0].name == "my_net"
+    assert "my_net" in n1.netclasses
 
 
 def test_netclass_2():
@@ -63,7 +63,7 @@ def test_netclass_2():
     n1 = Net()
     n1 += led[1, 2, 3, 4]  # Add pins to net.
     n1.netclasses = NetClass("my_net", a=1, b=2, c=3, priority=2)  # Assign netclass.
-    with pytest.raises(KeyError):
+    with pytest.raises(ValueError):
         n1.netclasses = NetClass("my_net", a=5, b=6, c=7, priority=1)  # Reassign netclass should raise error.
 
 
@@ -85,7 +85,7 @@ def test_netclass_4():
     n1, n2 = Net("a"), Net("b")
     n1 += n2  # Merge nets.
     n1.netclasses = NetClass("class1", priority=1)  # Assign netclass to merged net.
-    assert n2.netclasses[0].name == "class1"  # Netclass should propagate.
+    assert "class1" in n2.netclasses  # Netclass should propagate.
     n2.netclasses = NetClass("class2", priority=2)  # Adding another netclass.
     assert len(n2.netclasses) == 2  # Netclass list should contain both netclasses.
     assert len(n1.netclasses) == 2  # Netclass list should propagate to connected net.
@@ -99,7 +99,7 @@ def test_netclass_5():
     n1, n2 = Net("a"), Net("b")
     n1 += n2  # Merge nets.
     n1.netclasses = NetClass("class1", priority=1)  # Assign netclass to merged net.
-    assert n2.netclasses[0].name == "class1"  # Netclass should propagate.
+    assert "class1" in n2.netclasses  # Netclass should propagate.
     n2.netclasses = NetClass("class2", priority=2)  # Adding another netclass.
     prioritized_names = n2.netclasses.by_priority()  # Sort netclasses by priority.
     assert prioritized_names[-1] == "class2"  # Last netclass should be 'class2'.
@@ -128,19 +128,20 @@ def test_netclass_7():
     NetClass("class1", priority=1)  # Netclass with same name and same attributes doesn't raise error.
     n1.netclasses = ntcls1
     n1.netclasses = ntcls1  # Reassigning should be ignored and not raise error.
-    with pytest.raises(KeyError):
+    with pytest.raises(ValueError):
         NetClass("class1", priority=2)  # Netclass with same name but different attributes should raise error.
 
 def test_netclass_8():
     """Test netclass multiple assignment."""
     n1 = Net("a")
     n1.netclasses = NetClass("class1", priority=1), NetClass("class2", priority=2)
-    assert n1.netclasses[0].name == "class1"
-    assert n1.netclasses[1].name == "class2"
+    assert "class1" in n1.netclasses
+    assert "class2" in n1.netclasses
 
 def test_netclass_9():
     """Test netclass for net surrounded by hierarchical net classes."""
     # Create a hierarchical net class.
+    glbl_netclass = NetClass("class0", priority=0)
     with SubCircuit("lvl0", netclasses=NetClass("class1",priority=1)):
         outer_net = Net("outer")
         with SubCircuit("lvl1"):
@@ -154,6 +155,7 @@ def test_netclass_9():
         netclasses = outer_net.netclasses.by_priority()
         assert len(netclasses) == 1
         assert netclasses[0] == "class1"
+    assert set(default_circuit.netclasses) == {"class0", "class1", "class2", "class3"}
 
 def test_netclass_10():
     """Test netclass for net surrounded by hierarchical net classes."""

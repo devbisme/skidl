@@ -15,9 +15,8 @@ from unittest.mock import Mock, patch, mock_open
 
 import pytest
 
-from skidl import Circuit, Net, Part, Bus, SchLib, SKIDL
+from skidl import Circuit, Net, Part, Bus, SchLib, SKIDL, PartClass, NetClass
 from skidl.net import NCNet
-from skidl.netclass import NetClass
 from skidl.node import Node
 from skidl.pin import Pin
 
@@ -224,8 +223,7 @@ class TestNetClassManagement:
     def test_add_partclasses(self):
         """Test adding part classes to the circuit."""
         circuit = Circuit()
-        # Create a mock part class
-        partclass = Mock()
+        partclass = PartClass("Resistors", priority=5, circuit=circuit)
         partclass.name = "Resistors"
         
         circuit.add_partclasses(partclass)

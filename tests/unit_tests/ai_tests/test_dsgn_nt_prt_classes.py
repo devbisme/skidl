@@ -3,9 +3,7 @@
 import pytest
 import sys
 from skidl import Circuit, Part, Net, Pin
-from skidl.partclass import PartClass, PartClassList, DEFAULT_PARTCLASS
-from skidl.netclass import NetClass, NetClassList, DEFAULT_NETCLASS
-from skidl.designclass import DesignClass
+from skidl.design_class import NetClass, PartClass, NetClasses, PartClasses, DEFAULT_PRIORITY
 
 
 class TestPartClass:
@@ -17,7 +15,7 @@ class TestPartClass:
         pc = PartClass("TestPartClass", circuit=circuit)
         
         assert pc.name == "TestPartClass"
-        assert pc.priority == DEFAULT_PARTCLASS
+        assert pc.priority == DEFAULT_PRIORITY
         assert pc in circuit.partclasses.values()
         
     def test_partclass_creation_with_priority(self):
@@ -47,9 +45,9 @@ class TestPartClass:
         circuit = Circuit()
         pc1 = PartClass("TestClass", priority=5, attr="value", circuit=circuit)
         pc2 = PartClass("TestClass", priority=5, attr="value", circuit=circuit)
-        with pytest.raises(KeyError):
+        with pytest.raises(ValueError):
             pc3 = PartClass("TestClass", priority=10, attr="value", circuit=circuit)
-        with pytest.raises(KeyError):
+        with pytest.raises(ValueError):
             pc3 = PartClass("TestClass", priority=5, attr="new_value", circuit=circuit)
         pc4 = PartClass("DifferentClass", priority=5, attr="value", circuit=circuit)
         
@@ -77,20 +75,20 @@ class TestPartClass:
 
 
 class TestPartClassList:
-    """Test PartClassList functionality."""
+    """Test PartClasses functionality."""
     
     def test_partclasslist_creation_empty(self):
-        """Test creating empty PartClassList."""
-        pcl = PartClassList()
+        """Test creating empty PartClasses."""
+        pcl = PartClasses()
         assert len(pcl) == 0
         
     def test_partclasslist_creation_with_classes(self):
-        """Test creating PartClassList with initial classes."""
+        """Test creating PartClasses with initial classes."""
         circuit = Circuit()
         pc1 = PartClass("Class1", priority=1, circuit=circuit)
         pc2 = PartClass("Class2", priority=2, circuit=circuit)
         
-        pcl = PartClassList(pc1, pc2, circuit=circuit)
+        pcl = PartClasses(pc1, pc2, circuit=circuit)
         assert len(pcl) == 2
         assert pc1 in pcl
         assert pc2 in pcl
@@ -100,20 +98,20 @@ class TestPartClassList:
         circuit = Circuit()
         pc1 = PartClass("Class1", priority=1, circuit=circuit)
         
-        pcl = PartClassList(circuit=circuit)
+        pcl = PartClasses(circuit=circuit)
         pcl.add("Class1", circuit=circuit)
         
         assert len(pcl) == 1
         assert pc1 in pcl
         
     def test_partclasslist_add_mixed_types(self):
-        """Test adding various types to PartClassList."""
+        """Test adding various types to PartClasses."""
         circuit = Circuit()
         pc1 = PartClass("Class1", priority=1, circuit=circuit)
         pc2 = PartClass("Class2", priority=2, circuit=circuit)
         
-        pcl1 = PartClassList(pc1, circuit=circuit)
-        pcl2 = PartClassList(circuit=circuit)
+        pcl1 = PartClasses(pc1, circuit=circuit)
+        pcl2 = PartClasses(circuit=circuit)
         pcl2.add(pc2, "Class1", pcl1, None, circuit=circuit)
         
         assert len(pcl2) == 2
@@ -121,37 +119,37 @@ class TestPartClassList:
         assert pc2 in pcl2
         
     def test_partclasslist_deduplication(self):
-        """Test that PartClassList prevents duplicates."""
+        """Test that PartClasses prevents duplicates."""
         circuit = Circuit()
         pc1 = PartClass("Class1", priority=1, circuit=circuit)
         
-        pcl = PartClassList(pc1, pc1, circuit=circuit)
+        pcl = PartClasses(pc1, pc1, circuit=circuit)
         assert len(pcl) == 1
         
         pcl.add(pc1, circuit=circuit)
         assert len(pcl) == 1
         
     def test_partclasslist_equality(self):
-        """Test PartClassList equality comparison."""
+        """Test PartClasses equality comparison."""
         circuit = Circuit()
         pc1 = PartClass("Class1", priority=1, circuit=circuit)
         pc2 = PartClass("Class2", priority=2, circuit=circuit)
         
-        pcl1 = PartClassList(pc1, pc2, circuit=circuit)
-        pcl2 = PartClassList(pc2, pc1, circuit=circuit)  # Different order
-        pcl3 = PartClassList(pc1, circuit=circuit)
+        pcl1 = PartClasses(pc1, pc2, circuit=circuit)
+        pcl2 = PartClasses(pc2, pc1, circuit=circuit)  # Different order
+        pcl3 = PartClasses(pc1, circuit=circuit)
         
         assert pcl1 == pcl2  # Order doesn't matter
         assert pcl1 != pcl3  # Different contents
         
     def test_partclasslist_by_priority(self):
-        """Test sorting PartClassList by priority."""
+        """Test sorting PartClasses by priority."""
         circuit = Circuit()
         pc1 = PartClass("HighPriority", priority=1, circuit=circuit)
         pc2 = PartClass("MediumPriority", priority=5, circuit=circuit)
         pc3 = PartClass("LowPriority", priority=10, circuit=circuit)
         
-        pcl = PartClassList(pc3, pc1, pc2, circuit=circuit)
+        pcl = PartClasses(pc3, pc1, pc2, circuit=circuit)
         sorted_names = pcl.by_priority()
         
         assert sorted_names == ["HighPriority", "MediumPriority", "LowPriority"]
@@ -159,7 +157,7 @@ class TestPartClassList:
     def test_partclasslist_invalid_type_error(self):
         """Test error handling for invalid types."""
         circuit = Circuit()
-        pcl = PartClassList(circuit=circuit)
+        pcl = PartClasses(circuit=circuit)
         
         with pytest.raises(TypeError):
             pcl.add(123, circuit=circuit)
@@ -174,7 +172,7 @@ class TestNetClass:
         nc = NetClass("TestNetClass", circuit=circuit)
         
         assert nc.name == "TestNetClass"
-        assert nc.priority == DEFAULT_NETCLASS
+        assert nc.priority == DEFAULT_PRIORITY
         assert nc in circuit.netclasses.values()
         
     def test_netclass_creation_with_routing_params(self):
@@ -211,7 +209,7 @@ class TestNetClass:
         circuit = Circuit()
         nc1 = NetClass("TestClass", priority=5, trace_width=0.15, circuit=circuit)
         nc2 = NetClass("TestClass", priority=5, trace_width=0.15, circuit=circuit)
-        with pytest.raises(KeyError):
+        with pytest.raises(ValueError):
             nc3 = NetClass("TestClass", priority=10, trace_width=0.15, circuit=circuit)
         nc4 = NetClass("DifferentClass", priority=15, trace_width=0.15, circuit=circuit)
         
@@ -236,20 +234,20 @@ class TestNetClass:
 
 
 class TestNetClassList:
-    """Test NetClassList functionality."""
+    """Test NetClasses functionality."""
     
     def test_netclasslist_creation_empty(self):
-        """Test creating empty NetClassList."""
-        ncl = NetClassList()
+        """Test creating empty NetClasses."""
+        ncl = NetClasses()
         assert len(ncl) == 0
         
     def test_netclasslist_creation_with_classes(self):
-        """Test creating NetClassList with initial classes."""
+        """Test creating NetClasses with initial classes."""
         circuit = Circuit()
         nc1 = NetClass("Class1", priority=1, circuit=circuit)
         nc2 = NetClass("Class2", priority=2, circuit=circuit)
         
-        ncl = NetClassList(nc1, nc2, circuit=circuit)
+        ncl = NetClasses(nc1, nc2, circuit=circuit)
         assert len(ncl) == 2
         assert nc1 in ncl
         assert nc2 in ncl
@@ -259,198 +257,31 @@ class TestNetClassList:
         circuit = Circuit()
         nc1 = NetClass("Class1", priority=1, circuit=circuit)
         
-        ncl = NetClassList(circuit=circuit)
+        ncl = NetClasses(circuit=circuit)
         ncl.add("Class1", circuit=circuit)
         
         assert len(ncl) == 1
         assert nc1 in ncl
         
     def test_netclasslist_deduplication(self):
-        """Test that NetClassList prevents duplicates."""
+        """Test that NetClasses prevents duplicates."""
         circuit = Circuit()
         nc1 = NetClass("Class1", priority=1, circuit=circuit)
         
-        ncl = NetClassList(nc1, nc1, circuit=circuit)
+        ncl = NetClasses(nc1, nc1, circuit=circuit)
         assert len(ncl) == 1
         
     def test_netclasslist_by_priority(self):
-        """Test sorting NetClassList by priority."""
+        """Test sorting NetClasses by priority."""
         circuit = Circuit()
         nc1 = NetClass("HighPriority", priority=1, circuit=circuit)
         nc2 = NetClass("MediumPriority", priority=5, circuit=circuit)
         nc3 = NetClass("LowPriority", priority=10, circuit=circuit)
         
-        ncl = NetClassList(nc3, nc1, nc2, circuit=circuit)
+        ncl = NetClasses(nc3, nc1, nc2, circuit=circuit)
         sorted_names = ncl.by_priority()
         
         assert sorted_names == ["HighPriority", "MediumPriority", "LowPriority"]
-
-
-class TestDesignClass:
-    """Test DesignClass base functionality."""
-    
-    def test_designclass_creation(self):
-        """Test basic DesignClass creation."""
-        dc = DesignClass()
-        assert len(dc) == 0
-        
-    def test_designclass_add_object_with_name(self):
-        """Test adding objects with name attribute."""
-        dc = DesignClass()
-        
-        # Create a simple object with name attribute
-        class TestObj:
-            def __init__(self, name):
-                self.name = name
-                
-        obj = TestObj("test_object")
-        dc.add(obj, priority=5)
-        
-        assert len(dc) == 1
-        assert "test_object" in dc
-        assert dc["test_object"] == obj
-        assert obj.priority == 5
-        
-    def test_designclass_add_without_name_error(self):
-        """Test error when adding object without name attribute."""
-        dc = DesignClass()
-        
-        class NoNameObj:
-            pass
-            
-        obj = NoNameObj()
-        
-        with pytest.raises(AttributeError):
-            dc.add(obj)
-            
-    def test_designclass_invalid_priority_error(self):
-        """Test error handling for invalid priority values."""
-        dc = DesignClass()
-        
-        class TestObj:
-            def __init__(self, name):
-                self.name = name
-                
-        obj = TestObj("test")
-        
-        with pytest.raises(ValueError):
-            dc.add(obj, priority=-1)
-            
-        with pytest.raises(ValueError):
-            dc.add(obj, priority=sys.maxsize + 1)
-            
-        with pytest.raises(ValueError):
-            dc.add(obj, priority="invalid")
-            
-    def test_designclass_duplicate_name_with_same_object(self):
-        """Test adding same object twice should succeed."""
-        dc = DesignClass()
-        
-        class TestObj:
-            def __init__(self, name):
-                self.name = name
-                
-        obj = TestObj("test")
-        dc.add(obj, priority=5)
-        dc.add(obj, priority=10)  # Should succeed, same object
-        
-        assert len(dc) == 1
-        assert dc["test"] == obj
-        
-    def test_designclass_duplicate_name_different_object_error(self):
-        """Test error when adding different object with same name."""
-        dc = DesignClass()
-        
-        class TestObj:
-            def __init__(self, name):
-                self.name = name
-                
-            def __eq__(self, other):
-                return False  # Force objects to be different
-                
-        obj1 = TestObj("test")
-        obj2 = TestObj("test")
-        
-        dc.add(obj1, priority=5)
-        
-        with pytest.raises(KeyError):
-            dc.add(obj2, priority=5)
-            
-    def test_designclass_getitem_single(self):
-        """Test retrieving single object by name."""
-        dc = DesignClass()
-        
-        class TestObj:
-            def __init__(self, name):
-                self.name = name
-                
-        obj = TestObj("test")
-        dc.add(obj)
-        
-        retrieved = dc["test"]
-        assert retrieved == obj
-        
-    def test_designclass_getitem_multiple(self):
-        """Test retrieving multiple objects by name."""
-        dc = DesignClass()
-        
-        class TestObj:
-            def __init__(self, name):
-                self.name = name
-                
-        obj1 = TestObj("test1")
-        obj2 = TestObj("test2")
-        obj3 = TestObj("test3")
-        
-        dc.add(obj1)
-        dc.add(obj2)
-        dc.add(obj3)
-        
-        retrieved = dc["test1", "test2", "nonexistent"]
-        assert len(retrieved) == 2
-        assert obj1 in retrieved
-        assert obj2 in retrieved
-        
-    def test_designclass_getitem_nonexistent_error(self):
-        """Test error when retrieving nonexistent object."""
-        dc = DesignClass()
-        
-        with pytest.raises(KeyError):
-            dc["nonexistent"]
-            
-    def test_designclass_by_priority(self):
-        """Test sorting objects by priority."""
-        dc = DesignClass()
-        
-        class TestObj:
-            def __init__(self, name):
-                self.name = name
-                
-        obj1 = TestObj("high")
-        obj2 = TestObj("medium")
-        obj3 = TestObj("low")
-        
-        dc.add(obj1, priority=1)
-        dc.add(obj2, priority=5)
-        dc.add(obj3, priority=10)
-        
-        sorted_names = dc.by_priority("high", "medium", "low")
-        assert sorted_names == ["high", "medium", "low"]
-        
-    def test_designclass_contains(self):
-        """Test __contains__ method for both strings and objects."""
-        dc = DesignClass()
-        
-        class TestObj:
-            def __init__(self, name):
-                self.name = name
-                
-        obj = TestObj("test")
-        dc.add(obj)
-        
-        assert "test" in dc
-        assert obj in dc
-        assert "nonexistent" not in dc
 
 
 class TestCircuitIntegration:
@@ -516,7 +347,7 @@ class TestCircuitIntegration:
         sensitive = NetClass("Sensitive", priority=2, clearance=0.3, circuit=circuit)
         
         # Create net class list
-        special_rules = NetClassList(high_current, sensitive, circuit=circuit)
+        special_rules = NetClasses(high_current, sensitive, circuit=circuit)
         
         # Create net and assign multiple classes
         power_rail = Net("POWER_RAIL", circuit=circuit)
@@ -578,15 +409,11 @@ class TestCircuitIntegration:
         normal = PartClass("Normal", priority=10, circuit=circuit)
         
         # Create part class list
-        pcl = PartClassList(normal, critical, important, circuit=circuit)
+        pcl = PartClasses(normal, critical, important, circuit=circuit)
         
         # Test sorting
         sorted_names = pcl.by_priority()
         assert sorted_names == ["Critical", "Important", "Normal"]
-        
-        # Test circuit-level sorting
-        circuit_sorted = circuit.partclasses.by_priority("Normal", "Critical", "Important")
-        assert circuit_sorted == ["Critical", "Important", "Normal"]
         
     def test_class_assignment_persistence(self):
         """Test that class assignments persist through circuit operations."""
