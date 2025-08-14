@@ -160,6 +160,7 @@ def test_netclass_9():
 def test_netclass_10():
     """Test netclass for net surrounded by hierarchical net classes."""
     # Create a hierarchical net class.
+    default_circuit.root.netclasses = NetClass("class0", priority=0)
     with SubCircuit("lvl0") as outer:
         outer.netclasses = NetClass("class1", priority=1)
         outer_net = Net("outer")
@@ -168,12 +169,9 @@ def test_netclass_10():
                 inner_net = Net("inner")
                 inner_net.netclasses = NetClass("class2", priority=2)
                 netclasses = inner_net.netclasses.by_priority()
-                assert netclasses[0] == "class1"
-                assert netclasses[1] == "class2"
-                assert netclasses[2] == "class3"
+                assert netclasses == ["class0", "class1", "class2", "class3"]
         netclasses = outer_net.netclasses.by_priority()
-        assert len(netclasses) == 1
-        assert netclasses[0] == "class1"
+        assert netclasses == ["class0", "class1"]
 
 def test_drive_1():
     """Test drive strength propagation after merging nets."""
