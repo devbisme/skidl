@@ -26,7 +26,8 @@ except ImportError:
     pass
 
 from .bus import Bus
-from .designclass import DesignClass
+from .partclass import PartClassList
+from .netclass import NetClassList
 from .erc import dflt_circuit_erc
 from .logger import active_logger, erc_logger, stop_log_file_output
 from .net import NCNet, Net
@@ -165,8 +166,8 @@ class Circuit(SkidlBaseObject):
         self.nets = []
         self.buses = []
         self.interfaces = []
-        self._netclasses = DesignClass()
-        self._partclasses = DesignClass()
+        self._netclasses = NetClassList()
+        self._partclasses = PartClassList()
         self.nodes = set()  # Set of all nodes in the circuit hierarchy.
         self.active_node = None
         self.active_node = self.activate(Node(func_or_name="", tag="", circuit=self))
@@ -275,7 +276,7 @@ class Circuit(SkidlBaseObject):
         Args:
             *netclasses: One or more net classes to add to the circuit.
         """
-        self.netclasses.add(*netclasses)
+        self._netclasses.add(netclasses)
 
     @property
     def netclasses(self):
@@ -290,12 +291,12 @@ class Circuit(SkidlBaseObject):
     @netclasses.setter
     def netclasses(self, *netclasses):
         """
-        Set net classes for the circuit.
+        Add net classes for the circuit.
         
         Args:
             *netclasses: One or more net classes to add to the circuit.
         """
-        self._netclasses.add(*netclasses)
+        self.add_netclasses(netclasses)
 
     @netclasses.deleter
     def netclasses(self):
@@ -305,7 +306,7 @@ class Circuit(SkidlBaseObject):
         This removes all netclass definitions from the circuit, clearing
         the netclasses dictionary.
         """
-        del self._netclasses
+        self._netclasses = NetClassList()
 
     def add_partclasses(self, *partclasses):
         """
@@ -314,7 +315,7 @@ class Circuit(SkidlBaseObject):
         Args:
             *partclasses: One or more part classes to add to the circuit.
         """
-        self.partclasses.add(*partclasses)
+        self._partclasses.add(partclasses)
 
     @property
     def partclasses(self):
@@ -330,12 +331,12 @@ class Circuit(SkidlBaseObject):
     @partclasses.setter
     def partclasses(self, *partclasses):
         """
-        Set part classes for the circuit.
+        Add part classes for the circuit.
         
         Args:
             *partclasses: One or more part classes to add to the circuit.
         """
-        self._partclasses.add(*partclasses)
+        self.add_partclasses(partclasses)
 
     @partclasses.deleter
     def partclasses(self):
@@ -345,7 +346,7 @@ class Circuit(SkidlBaseObject):
         This removes all partclass definitions from the circuit, clearing
         the partclasses dictionary.
         """
-        del self._partclasses
+        self._partclasses = PartClassList()
 
     def add_parts(self, *parts):
         """

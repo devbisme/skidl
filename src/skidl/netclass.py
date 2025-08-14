@@ -74,6 +74,8 @@ Priority System:
     the highest priority number takes precedence for rule resolution.
 """
 
+import sys
+
 from .logger import active_logger
 from .utilities import export_to_all, flatten
 
@@ -161,15 +163,23 @@ class NetClass(object):
         self.name = name
 
         # Assign default priority if not specified.
-        if "priority" not in attribs:
-            attribs["priority"] = DEFAULT_NETCLASS
+        priority = attribs.get("priority", DEFAULT_NETCLASS)
 
-        # Assign the other attributes to this object.
+        # Check priority.
+        if not isinstance(priority, int) or priority < 0 or priority > sys.maxsize:
+            active_logger.raise_(
+                ValueError, f"Priority must be an integer between 0 and {sys.maxsize}"
+            )
+        
+        # Place priority into attribs so it will get stored in this object.
+        attribs["priority"] = priority
+
+        # Assign the attributes to this object.
         for k, v in list(attribs.items()):
             setattr(self, k, v)
 
         # Add netclass to circuit. Duplicate netclasses will be ignored.
-        circuit.add_netclasses(self)
+        circuit.netclasses = self
 
     def __eq__(self, ntcls):
         """
@@ -224,7 +234,7 @@ class NetClass(object):
         """
         return hash(self.name)
 
-class NetClassList(list):
+class NetClassList(dict):
     """
     A specialized list container for managing multiple NetClass objects.
 
@@ -298,7 +308,7 @@ class NetClassList(list):
             - String names that don't exist in circuit raise lookup errors
         """
         super().__init__()
-        self.add(*netclasses, circuit=circuit)
+        self.add(netclasses, circuit=circuit)
 
     def __eq__(self, nt_cls_lst):
         """
@@ -326,7 +336,9 @@ class NetClassList(list):
             >>> list1 == list2  # True - same contents, different order
             >>> list1 == list3  # False - different contents
         """
-        return set(self) == set(nt_cls_lst)
+        if isinstance(nt_cls_lst, NetClassList):
+            return vars(self) == vars(nt_cls_lst)
+        return False
 
     def __contains__(self, netclass):
         """
@@ -339,8 +351,32 @@ class NetClassList(list):
             bool: True if the net class is in the list, False otherwise.
         """
         if isinstance(netclass, str):
-            netclass = default_circuit.netclasses.get(netclass, None)
-        return super().__contains__(netclass)
+            return netclass in self.keys()
+        return netclass in self.values()
+
+    def __getitem__(self, *names):
+        """
+        Retrieve an object by its name.
+
+        Args:
+            names (list[str]): Names of the objects to retrieve
+
+        Returns:
+            The object with the given name or a list of objects if multiple names are provided
+
+        Raises:
+            KeyError: If no object with the given name exists
+        """
+        names = flatten(names)
+        if len(names) == 1:
+            try:
+                return super().__getitem__(names[0])
+            except KeyError:
+                active_logger.raise_(
+                    KeyError, f"No NetClass with name '{names[0]}' found"
+                )
+        else:
+            return [self[name] for name in names if name in self]
 
     def add(self, *netclasses, circuit=None):
         """
@@ -393,13 +429,23 @@ class NetClassList(list):
             net class collection. The lookup is case-sensitive and must match
             exactly. If no circuit is provided, the default circuit is used.
         """
-        for cls in flatten(netclasses):
+        for cls in netclasses:
             if cls is None:
                 continue
             elif isinstance(cls, NetClassList):
-                self.add(*cls, circuit=circuit)  # Recursively add netclasses from another NetClassList.
+                self.add(*cls.values(), circuit=circuit)  # Recursively add netclasses from another NetClassList.
+                continue
+            elif isinstance(cls, (list, tuple)):
+                self.add(*cls, circuit=circuit)  # Recursively add netclasses from a list or tuple.
                 continue
             elif isinstance(cls, NetClass):
+                if cls in self:
+                    continue
+                if cls.name in self.keys():
+                    # A NetClass with the same name exists but the attributes differ.
+                    active_logger.raise_(
+                        ValueError, f"Cannot add NetClass '{cls.name}' with differing attributes"
+                    )
                 pass
             elif isinstance(cls, str):
                 # The name of a netclass was passed, so look it up in the circuit.
@@ -411,7 +457,7 @@ class NetClassList(list):
                 )
             # Add the netclass to the list if it's not already present.
             if cls not in self:
-                self.append(cls)
+                self[cls.name] = cls
 
     def by_priority(self):
         """
@@ -426,4 +472,4 @@ class NetClassList(list):
             list[str]: A list of net class names sorted by priority (lowest first).
                 Empty list if no net classes are present.
         """
-        return [nc.name for nc in sorted(self, key=lambda nc: nc.priority)]
+        return [nc.name for nc in sorted(self.values(), key=lambda nc: nc.priority)]

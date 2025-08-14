@@ -187,7 +187,7 @@ class PartClass(object):
             setattr(self, k, v)
 
         # Add part class to circuit. Duplicate part classes will be ignored.
-        circuit.add_partclasses(self)
+        circuit.partclasses = self
 
     def __eq__(self, prtcls):
         """
@@ -263,7 +263,7 @@ class PartClass(object):
         return hash(self.name)
 
 
-class PartClassList(list):
+class PartClassList(dict):
     """
     A specialized list container for managing multiple PartClass objects.
 
@@ -350,7 +350,7 @@ class PartClassList(list):
             - String names that don't exist in circuit raise lookup errors
         """
         super().__init__()
-        self.add(*partclasses, circuit=circuit)
+        self.add(partclasses, circuit=circuit)
 
     def __eq__(self, pt_cls_lst):
         """
@@ -380,7 +380,9 @@ class PartClassList(list):
             >>> list1 == list2  # True - same contents, different order
             >>> list1 == list3  # False - different contents
         """
-        return set(self) == set(pt_cls_lst)
+        if isinstance(pt_cls_lst, PartClassList):
+            return vars(self) == vars(pt_cls_lst)
+        return False
 
     def __contains__(self, partclass):
         """Check if a PartClass is contained within this PartClassList.
@@ -393,8 +395,32 @@ class PartClassList(list):
             bool: True if the PartClass is found in the list, False otherwise.
         """
         if isinstance(partclass, str):
-            partclass = default_circuit.partclasses.get(partclass, None)
-        return super().__contains__(partclass)
+            return partclass in self.keys()
+        return partclass in self.values()
+
+    def __getitem__(self, *names):
+        """
+        Retrieve an object by its name.
+
+        Args:
+            names (list[str]): Names of the objects to retrieve
+
+        Returns:
+            The object with the given name or a list of objects if multiple names are provided
+
+        Raises:
+            KeyError: If no object with the given name exists
+        """
+        names = flatten(names)
+        if len(names) == 1:
+            try:
+                return super().__getitem__(names[0])
+            except KeyError:
+                active_logger.raise_(
+                    KeyError, f"No NetClass with name '{names[0]}' found"
+                )
+        else:
+            return [self[name] for name in names if name in self]
 
     def add(self, *partclasses, circuit=None):
         """
@@ -447,15 +473,23 @@ class PartClassList(list):
             part class collection. The lookup is case-sensitive and must match
             exactly. If no circuit is provided, the default circuit is used.
         """
-        for cls in flatten(partclasses):
+        for cls in partclasses:
             if cls is None:
                 continue
             elif isinstance(cls, PartClassList):
-                self.add(
-                    *cls, circuit=circuit
-                )  # Recursively add part classes from another PartClassList.
+                self.add(*cls.values(), circuit=circuit)  # Recursively add part classes from another PartClassList.
+                continue
+            elif isinstance(cls, (list, tuple)):
+                self.add(*cls, circuit=circuit)  # Recursively add part classes from a list or tuple.
                 continue
             elif isinstance(cls, PartClass):
+                if cls in self:
+                    continue
+                if cls.name in self.keys():
+                    # A NetClass with the same name exists but the attributes differ.
+                    active_logger.raise_(
+                        ValueError, f"Cannot add PartClass '{cls.name}' with differing attributes"
+                    )
                 pass
             elif isinstance(cls, str):
                 # The name of a part class was passed, so look it up in the circuit.
@@ -468,7 +502,7 @@ class PartClassList(list):
                 )
             # Add the partclass to the list if it's not already present.
             if cls not in self:
-                self.append(cls)
+                self[cls.name] = cls
 
     def by_priority(self):
         """
@@ -492,4 +526,4 @@ class PartClassList(list):
             >>> sorted_names = classes.by_priority()
             >>> print(sorted_names)  # ['Standard', 'Important', 'Critical']
         """
-        return [pc.name for pc in sorted(self, key=lambda pc: pc.priority)]
+        return [pc.name for pc in sorted(self.values(), key=lambda pc: pc.priority)]

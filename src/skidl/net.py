@@ -1397,7 +1397,7 @@ connections to nets while         prohibiting direct assignment. Python
         
         # Add net classes directly assigned to all the nets comprising this one.
         for net in self.nets:
-            total_netclasses.add(*net._netclasses)
+            total_netclasses.add(net._netclasses)
         
         return total_netclasses
 
@@ -1444,7 +1444,7 @@ connections to nets while         prohibiting direct assignment. Python
         """
         self.test_validity()
         for net in self.nets:
-            net._netclasses.add(*netclasses, circuit=net.circuit)
+            net._netclasses.add(netclasses, circuit=net.circuit)
 
     @netclasses.deleter
     def netclasses(self):

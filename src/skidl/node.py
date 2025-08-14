@@ -271,7 +271,7 @@ class Node(SkidlBaseObject):
         """
         total_partclasses = PartClassList()
         for node in self.hiernodes:
-            total_partclasses.add(*node._partclasses)
+            total_partclasses.add(node._partclasses)
         return total_partclasses
 
     @partclasses.setter
@@ -285,7 +285,7 @@ class Node(SkidlBaseObject):
         Args:
             *partclasses: One or more PartClass objects to assign to this node.
         """
-        self._partclasses.add(*partclasses, circuit=self.circuit)
+        self._partclasses.add(partclasses, circuit=self.circuit)
 
     @partclasses.deleter
     def partclasses(self):
@@ -304,7 +304,7 @@ class Node(SkidlBaseObject):
         """
         total_netclasses = NetClassList()
         for node in self.hiernodes:
-            total_netclasses.add(*node._netclasses)
+            total_netclasses.add(node._netclasses)
         return total_netclasses
 
     @netclasses.setter
@@ -318,7 +318,7 @@ class Node(SkidlBaseObject):
         Args:
             *netclasses: One or more NetClass objects to assign to this node.
         """
-        self._netclasses.add(*netclasses, circuit=self.circuit)
+        self._netclasses.add(netclasses, circuit=self.circuit)
 
     @netclasses.deleter
     def netclasses(self):

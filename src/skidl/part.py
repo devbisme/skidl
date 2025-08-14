@@ -1539,8 +1539,10 @@ class Part(SkidlBaseObject):
         """
         # Add all the part classes for all the hierarchical nodes surrounding this part.
         total_partclasses = self.node.partclasses
+
         # Add the part classes directly assigned to this part.
-        total_partclasses.add(*self._partclasses)
+        total_partclasses.add(self._partclasses)
+        
         return total_partclasses
 
     @partclasses.setter
@@ -1560,7 +1562,7 @@ class Part(SkidlBaseObject):
             The part classes are added to the internal _partclasses collection and
             automatically associated with the current circuit context.
         """
-        self._partclasses.add(*partclasses, circuit=self.circuit)
+        self._partclasses.add(partclasses, circuit=self.circuit)
 
     @partclasses.deleter
     def partclasses(self):
