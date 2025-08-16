@@ -12,6 +12,8 @@ Buses are essential for handling multi-bit signals like data paths or address li
 """
 
 import re
+from copy import copy
+from collections.abc import Iterable
 
 try:
     from future import standard_library
@@ -23,6 +25,7 @@ except ImportError:
 from .alias import Alias
 from .logger import active_logger
 from .net import NET_PREFIX, Net
+from .design_class import NetClasses
 from .netpinlist import NetPinList
 from .pin import Pin
 from .skidlbaseobj import SkidlBaseObject
@@ -78,10 +81,9 @@ class Bus(SkidlBaseObject):
         # Define the member storing the nets so it's present, but it starts empty.
         self.nets = []
 
-        # For Bus objects, the circuit object the bus is a member of is passed
-        # in with all the other attributes. If a circuit object isn't provided,
-        # then the default circuit object is added to the attributes.
-        attribs["circuit"] = attribs.get("circuit", default_circuit)
+        self.do_erc = True
+        self.circuit = None
+        self._netclasses = NetClasses()  # Net classes directly assigned to this net.
 
         # Scan through the kwargs and args to see if there is a name for this bus.
         name = attribs.pop("name", None)
@@ -97,18 +99,23 @@ class Bus(SkidlBaseObject):
                 # No explicit bus name found, so generate an implicit one.
                 name = None
 
+        # Set the net name directly to the passed-in name without any adjustment.
+        # The net name will be adjusted when it is added to the circuit which
+        # may already have a net with the same name.
+        self._name = name
+
+        # For Bus objects, the circuit object that the bus is a member of is passed
+        # in with all the other attributes. If a circuit object isn't provided,
+        # then use the default circuit object.
+        circuit = attribs.pop("circuit", default_circuit)
+
+        # Add the bus to the circuit.
+        circuit += self
+
         # Attach additional attributes to the bus. (The Circuit object also gets
         # set here.)
         for k, v in list(attribs.items()):
             setattr(self, k, v)
-
-        # The bus name is set after the circuit is assigned so the name can be
-        # checked against the other bus names already in that circuit.
-        self.name = name
-
-        # Add the bus to the circuit.
-        self.circuit = None  # Make sure bus isn't seen as part of circuit.
-        attribs["circuit"] += self  # Add bus to circuit (also sets self.circuit).
 
         # Build the bus from net widths, existing nets, nets of pins, other buses.
         self.extend(args)
@@ -374,6 +381,9 @@ class Bus(SkidlBaseObject):
                 # Net names are the bus name with the index appended.
                 net.name = self.name + sep + str(i)
 
+        # Add the net class of the bus to each net it contains. 
+        self.propagate_netclasses()
+
     def extend(self, *objects):
         """
         Extend the bus by adding nets to the end (MSB).
@@ -429,19 +439,12 @@ class Bus(SkidlBaseObject):
         copies = []
         for i in range(num_copies):
 
-            cpy = Bus(self.name, self)
-
-            # Attach additional attributes to the bus.
-            for k, v in list(attribs.items()):
-                if isinstance(v, (list, tuple)):
-                    try:
-                        v = v[i]
-                    except IndexError:
-                        active_logger.raise_(
-                            ValueError,
-                            f"{num_copies} copies of bus {self.name} were requested, but too few elements in attribute {k}!",
-                        )
-                setattr(cpy, k, v)
+            # Make a copy of the bus.
+            cpy = copy(self)  # Start with shallow copy.
+            for k,v in self.__dict__.items():
+                if isinstance(v, Iterable) and not isinstance(v, str):
+                    # Copy the list with shallow copies of its items to the copy.
+                    setattr(cpy, k, copy(v))
 
             copies.append(cpy)
 
@@ -509,7 +512,53 @@ class Bus(SkidlBaseObject):
         """
         nets = NetPinList(self.nets)
         nets += pins_nets_buses
+
+        # Propagate net classes in any buses that were connected.
+        self.propagate_netclasses()
+        for pnb in pins_nets_buses:
+            if isinstance(pnb, Bus):
+                pnb.propagate_netclasses()
+
         return self
+    
+    def propagate_netclasses(self):
+
+        # Nothing to do if bus has no nets.
+        if not self.nets:
+            return
+
+        # Propagate the bus net class to all its constituent nets.
+        for net in self.nets:
+            net.netclasses = self._netclasses
+
+        # Update the bus net classes with the net classes that all its nets have in common.
+        # Don't call self.netclasses or you'll get infinite recursion!
+        self._netclasses.add(set.intersection(*(set(n.netclasses) for n in self.nets)))
+
+
+    @property
+    def netclasses(self):
+        # Add all the net classes for all the hierarchical nodes surrounding this bus.
+        total_netclasses = self.node.netclasses
+
+        # Add the netclasses directly assigned to this bus.
+        total_netclasses.add(self._netclasses)
+
+        return total_netclasses
+    
+    @netclasses.setter
+    def netclasses(self, *netclasses):
+        # Add the passed-in net classes.
+        self._netclasses.add(netclasses, circuit=self.circuit)
+
+        # Propagate the netclasses to all the nets in the bus.
+        self.propagate_netclasses()
+
+    @netclasses.deleter
+    def netclasses(self):
+        self._netclasses = NetClasses()
+        for net in self.nets:
+            del net.netclasses
 
     @property
     def name(self):
