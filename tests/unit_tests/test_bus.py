@@ -4,7 +4,7 @@
 
 import pytest
 
-from skidl import Bus, Net, Pin
+from skidl import Bus, Net, Pin, NetClass, Part, SubCircuit
 
 
 def test_bus_1():
@@ -223,3 +223,59 @@ def test_bus_get_pull_1():
     assert id(bus3) == id(bus2)
     # Ensure no additional buses are added to the default circuit.
     assert len(default_circuit.buses) == 1
+
+
+def test_bus_netclass_1():
+    """Test assigning netclass to a bus."""
+    led = Part("Device", "LED_ARBG")
+    b1 = Bus(4)
+    b1 += led[1, 2, 3, 4]  # Attach LED pins to the bus.
+    b1.netclasses = NetClass("my_net", a=1, b=2, c=3, priority=1)  # Assign netclass.
+    assert "my_net" in b1.netclasses
+    for n in b1:
+        assert "my_net" in n.netclasses
+
+def test_bus_netclass_2():
+    """Test reassigning netclass to a bus."""
+    led = Part("Device", "LED_ARBG")
+    b1 = Bus(4)
+    b1 += led[1, 2, 3, 4]  # Attach LED pins to the bus.
+    b1.netclasses = NetClass("my_net", a=1, b=2, c=3, priority=1)  # Assign netclass.
+    with pytest.raises(ValueError):
+        b1.netclasses = NetClass("my_net", a=5, b=6, c=7, priority=1)  # Reassign netclass should raise error.
+
+def test_bus_netclass_3():
+    """Test merging buses with different netclasses."""
+    b1, b2 = Bus("a", 4), Bus("b", 4)
+    b1.netclasses = NetClass("class1", priority=1)  # Assign netclass to n1.
+    b2.netclasses = NetClass("class2", priority=2)  # Assign netclass to n2.
+    b1 += b2  # Merge nets.
+    for n in b1:
+        assert set(n.netclasses) == {"class1", "class2"}
+    for n in b2:
+        assert set(n.netclasses) == {"class1", "class2"}
+    assert b1.netclasses == b2.netclasses  # Netclass should be the same after merging.
+    assert {"class1", "class2"} == set(b1.netclasses)
+    assert {"class1", "class2"} == set(b2.netclasses)
+
+def test_bus_netclass_4():
+    """Test netclass multiple assignment."""
+    b1 = Bus("b", 4)
+    b1.netclasses = NetClass("class1", priority=1), NetClass("class2", priority=2)
+    assert set(b1.netclasses) == {"class1", "class2"}
+
+def test_bus_netclass_5():
+    """Test netclass for bus surrounded by hierarchical net classes."""
+    # Create a hierarchical net class.
+    default_circuit.root.netclasses = NetClass("class0", priority=0)
+    with SubCircuit("lvl0", netclasses=NetClass("class1",priority=1)):
+        outer_bus = Bus("outer", 4)
+        with SubCircuit("lvl1"):
+            with SubCircuit("lvl2", netclasses=NetClass("class3",priority=3)):
+                inner_bus = Bus("inner", 4)
+                inner_bus.netclasses = NetClass("class2", priority=2)
+                netclasses = inner_bus.netclasses.by_priority()
+                assert netclasses == ["class0", "class1", "class2", "class3"]
+        netclasses = outer_bus.netclasses.by_priority()
+        assert netclasses == ["class0", "class1"]
+    assert set(default_circuit.netclasses) == {"class0", "class1", "class2", "class3"}
