@@ -434,8 +434,10 @@ class Circuit(SkidlBaseObject):
                     if isinstance(net.circuit, Circuit):
                         net.circuit -= net
 
-                    # Add the net to this circuit.
-                    net.circuit = self  # Record the Circuit object the net belongs to.
+                    # Save the Circuit object the net belongs to.
+                    net.circuit = self
+
+                    # Self-reassign to make the net name unique.
                     net.name = net.name
 
                     # Add the net to the currently active node.
@@ -502,11 +504,23 @@ class Circuit(SkidlBaseObject):
                     if isinstance(bus.circuit, Circuit):
                         bus.circuit -= bus
 
-                    # Add the bus to this circuit.
+                    # Save the Circuit object the bus belongs to.
                     bus.circuit = self
+
+                    # Self-reassign to make the bus name unique.
                     bus.name = bus.name
 
+                    # Add the bus to the currently active node.
+                    self.active_node.buses.append(bus)
+                    bus.node = self.active_node
+
+                    # Store bus instantiation trace.
+                    bus.skidl_trace = get_skidl_trace()
+
+                    # Add the bus to the circuit.
                     self.buses.append(bus)
+
+                    # Add the individual bus nets to the circuit.
                     for net in bus.nets:
                         self += net
 
@@ -523,6 +537,8 @@ class Circuit(SkidlBaseObject):
         for bus in buses:
             if bus.is_movable():
                 if bus.circuit == self and bus in self.buses:
+                    bus.node.buses.remove(bus)
+                    bus.node = None
                     bus.circuit = None
                     bus.hierarchy = None
                     self.buses.remove(bus)
