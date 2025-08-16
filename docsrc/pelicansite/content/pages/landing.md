@@ -35,11 +35,14 @@ create a finished circuit board.
   - [Making Serial, Parallel, and Tee Networks](#making-serial-parallel-and-tee-networks)
   - [Aliases](#aliases)
   - [Units Within Parts](#units-within-parts)
+  - [Part and Net Classes](#part-and-net-classes)
+    - [Individual Part and Net Classes](#individual-part-and-net-classes)
+    - [Hierarchical Part and Net Class Inheritance](#hierarchical-part-and-net-class-inheritance)
   - [Part Fields](#part-fields)
   - [Hierarchy](#hierarchy)
-    - [Subcircuits](#subcircuits)
-    - [Interfaces](#interfaces)
-    - [Groups](#groups)
+    - [Method 1: SubCircuit Decorator with Interface Return](#method-1-subcircuit-decorator-with-interface-return)
+    - [Method 2: SubCircuit Subclassing with I/O Attributes](#method-2-subcircuit-subclassing-with-io-attributes)
+    - [Method 3: Context-Based Hierarchy with SubCircuit](#method-3-context-based-hierarchy-with-subcircuit)
   - [Libraries](#libraries)
   - [Doodads](#doodads)
     - [No Connects](#no-connects)
@@ -136,7 +139,7 @@ vout += r1[2], r2[1] # Output comes from the connection of the two resistors.
 # vin && r1 && vout && r2 && gnd
 
 # Output the netlist to a file.
-generate_netlist(tool=KICAD8)
+generate_netlist(tool=KICAD9)
 ```
 
 And this is the netlist output that is passed to `PCBNEW` to
@@ -968,7 +971,7 @@ an `Rgx` like this:
 ```terminal
 >>> pic10[3].name = 'GP1/AN1/ICSPCLK'
 >>> pic10[Rgx('.*/AN1/.*')] += Net('analog1')  # No need to manually enable regular expression matching!
-``````
+```
 
 
 Since you may access pins by number or by name using strings or regular expressions, it's worth
@@ -1286,7 +1289,7 @@ ntwk_ce = vcc & r1 & outp & q1['C,E'] & gnd  # Connect net outp to the junction 
 ntwk_b = inp & r2 & q1['B']  # Connect net inp to the resistor driving the transistor base.
 ```
 
-After that's done, the `inp` and `outp` nets can be connected to other points in the circuit.
+After that, the `inp` and `outp` nets can be connected to other points in the circuit.
 
 Not all networks are composed of parts in series or parallel, for example the
 [*Pi matching network*](https://www.eeweb.com/tools/pi-match).
@@ -1397,6 +1400,81 @@ using their names as attributes:
 ```
 
 
+## Part and Net Classes
+
+SKiDL supports part and net classes for applying attributes to groups of components and nets.
+Classes provide a systematic, consistent way to manage design constraints, manufacturing requirements,
+and electrical characteristics across complex hierarchical designs.
+
+Classes can be assigned individually to parts and nets, or hierarchically through the circuit
+structure.
+
+### Individual Part and Net Classes
+
+You can assign classes directly to individual parts and nets to specify design attributes like
+manufacturing requirements or electrical characteristics. Multiple classes can be assigned
+with higher priority classes taking precedence over those with lower priority.
+
+```py
+from skidl import *
+
+# Create part classes for different component categories.
+passive_parts = PartClass("passive_parts", priority=1, tolerance="5%")
+active_parts = PartClass("active_parts", priority=5)
+power_parts = PartClass("power_parts", priority=10, tolerance="1%", temp_rating="125C")
+critical = PartClass("critical", priority=10, review_required=True)
+commercial = PartClass("commercial", priority=3)
+
+# Create net classes for different signal types.
+high_speed = NetClass("high_speed", priority=2, width="0.1mm", impedance="50ohm")
+clock_nets = NetClass("clocks", priority=3, width="0.08mm")
+power_nets = NetClass("power_nets", priority=4, width="0.5mm", clearance="0.3mm")
+
+# Create parts and assign classes during instantiation or separately.
+resistor = Part("Device", "R", value="1K", partclasses=(passive_parts,commercial))
+vreg = Part("Regulator_Linear", "AMS1117-3.3")
+vreg.partclasses = power_parts, active_parts, critical
+
+# Create nets and assign classes.
+vcc_5v = Net("VCC_5V", netclasses=power_nets)
+data_bus = Bus("DATA", 8, netclasses=high_speed)
+data_bus[0].netclasses = clock_nets  # Assign additional class to individual bus line
+```
+
+### Hierarchical Part and Net Class Inheritance
+
+Classes can be assigned at different levels of circuit hierarchy,
+with parts and nets at lower levels inheriting classes from higher levels:
+
+```py
+from skidl import *
+
+# Assign global part class to root level (applies to entire circuit)
+default_circuit.root.partclasses = PartClass("global", priority=0, vendor="TI")
+
+# Create hierarchical design with class inheritance
+with SubCircuit("power_supply") as psu:
+    # Power supply specific classes
+    psu.partclasses = PartClass("psu_parts", priority=1, efficiency=">90%")
+    
+    # Components inherit both global and PSU classes
+    reg = Part("Regulator_Switching", "LM2596T-ADJ")
+    cap = Part("Device", "C", value="470uF")
+
+with SubCircuit("analog_frontend") as afe:
+    # Analog-specific classes
+    afe.partclasses = PartClass("precision", priority=1, tolerance="0.1%")
+    
+    with SubCircuit("amplifier_stage") as amp:
+        # Nested hierarchy - inherits both global and precision part classes
+        opamp = Part("Amplifier_Operational", "OPA690xD")
+
+# Access circuit-wide class collections
+all_part_classes = default_circuit.partclasses
+print(f"{all_part_classes=}")
+```
+
+
 ## Part Fields
 
 Parts typically have *fields* that store additional information such as
@@ -1439,296 +1517,222 @@ as a part attribute:
 
 ## Hierarchy
 
-SKiDL supports several types of hierarchy: [*subcircuits*](#subcircuits), [*packages*](#packages), and [*Groups*](#groups).
+SKiDL supports hierarchical design through three different approaches: decorated functions that return interfaces, subclassed modules with I/O attributes, and context-based hierarchy. Each approach offers different advantages depending on your design style and requirements.
 
-### Subcircuits
+### Method 1: SubCircuit Decorator with Interface Return
 
-SKiDL supports the encapsulation of parts, nets and buses into modules
-that can be replicated to reduce design effort, and can be used in
-other modules to create a functional hierarchy.
-It does this using Python's built-in machinery for defining and calling functions
-so there's almost nothing new to learn.
-
-As an example, here's the voltage divider as a module:
+The most functional approach uses the `@SubCircuit` decorator on functions that return an `Interface` object containing the subcircuit's I/O connections. This approach treats subcircuits as pure functions that transform inputs to outputs.
 
 ```py
 from skidl import *
-import sys
 
 # Define a global resistor template.
 r = Part('Device', 'R', footprint='Resistor_SMD.pretty:R_0805_2012Metric', dest=TEMPLATE)
+opamp = Part('Amplifier_Operational', 'LM358', dest=TEMPLATE)
 
-# Define the voltage divider module. The @subcircuit decorator 
-# handles some SKiDL housekeeping that needs to be done.
-@subcircuit
-def vdiv(inp, outp):
-    """Divide inp voltage by 3 and place it on outp net."""
-    inp & r(value='1K') & outp & r(value='500') & gnd
+@SubCircuit
+def voltage_reference():
+    """Creates a 2.5V voltage reference using a voltage divider."""
+    vcc, gnd = Net('VCC'), Net('GND')
+    
+    # Create voltage divider
+    r_upper = r(value='10K')
+    r_lower = r(value='10K')
+    vcc & r_upper & r_lower & gnd
+    
+    # Return interface with the reference voltage
+    return Interface(
+        vref = r_upper[2],  # Junction between resistors
+        vcc = vcc,
+        gnd = gnd
+    )
 
-# Declare the input, output and ground nets.
-input_net, output_net, gnd = Net('IN'), Net('OUT'), Net('GND')
+@SubCircuit
+def amplifier(gain=10):
+    """Non-inverting amplifier with configurable gain."""
+    op = opamp()
+    r_feedback = r(value=f'{(gain-1)*1000}')  # Gain = 1 + Rf/Rin
+    r_input = r(value='1K')
+    
+    # Build non-inverting amplifier
+    op['V-'] & r_input & gnd
+    op['V-'] & r_feedback & op['V+']
+    
+    return Interface(
+        inp = op['V+'],      # Non-inverting input
+        out = op['V+'],      # Output
+        vcc = op['V+'],      # Positive supply
+        gnd = gnd            # Ground reference
+    )
 
-# Instantiate the voltage divider and connect it to the input & output nets.
-vdiv(input_net, output_net)
+# Create and connect the subcircuits
+vref_if = voltage_reference()
+amp_if = amplifier(gain=5)
 
-generate_netlist(file_=sys.stdout)
+# Connect the voltage reference to the amplifier
+amp_if.inp += vref_if.vref
+amp_if.vcc += vref_if.vcc
+amp_if.gnd += vref_if.gnd
+
+# Connect to external nets
+input_signal = Net('INPUT')
+output_signal = Net('OUTPUT')
+power_5v = Net('5V')
+system_gnd = Net('SYSTEM_GND')
+
+input_signal += amp_if.inp
+output_signal += amp_if.out
+power_5v += vref_if.vcc
+system_gnd += vref_if.gnd
 ```
 
-For the most part, `vdiv` is just a standard Python function:
-it accepts inputs, it performs operations on them, and it could return
-results (but in this case, it doesn't need to).
-Other than the `@subcircuit` decorator that appears before the function definition,
-`vdiv` is just a Python function and it can do anything that a Python function can do.
+### Method 2: SubCircuit Subclassing with I/O Attributes
 
-Here's the netlist that's generated:
-
-```text
-(export (version D)
-  (design
-    (source "C:\TEMP\skidl tests\hier_example.py")
-    (date "04/20/2017 09:39 AM")
-    (tool "SKiDL (0.0.12)"))
-  (components
-    (comp (ref R1)
-      (value 1K)
-      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
-      (fields
-        (field (name keywords) "r res resistor")
-        (field (name description) Resistor))
-      (libsource (lib device) (part R)))
-    (comp (ref R2)
-      (value 500)
-      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
-      (fields
-        (field (name keywords) "r res resistor")
-        (field (name description) Resistor))
-      (libsource (lib device) (part R))))
-  (nets
-    (net (code 0) (name GND)
-      (node (ref R2) (pin 2)))
-    (net (code 1) (name IN)
-      (node (ref R1) (pin 1)))
-    (net (code 2) (name OUT)
-      (node (ref R1) (pin 2))
-      (node (ref R2) (pin 1))))
-)
-```
-
-For an example of a multi-level hierarchy, the `multi_vdiv` module shown below
-can use the `vdiv` module to divide a voltage multiple times:
-
-<a name="multilevel_hierarchy_example"></a>
-
-```py
-from skidl import *
-import sys
-
-r = Part('Device', 'R', footprint='Resistor_SMD.pretty:R_0805_2012Metric', dest=TEMPLATE)
-
-@subcircuit
-def vdiv(inp, outp):
-    inp & r(value='1K') & outp & r(value='500') & gnd
-
-input_net, output_net, gnd = Net('IN'), Net('OUT'), Net('GND')
-
-@subcircuit
-def multi_vdiv(repeat, inp, outp):
-    """Divide inp voltage by (3 * repeat) and place it on outp net."""
-    for _ in range(repeat):
-        out_net = Net()     # Create an output net for the current stage.
-        vdiv(inp, out_net)  # Instantiate a divider stage.
-        inp = out_net       # The output net becomes the input net for the next stage.
-    outp += out_net         # Connect the output from the last stage to the module output net.
-
-
-input_net, output_net, gnd = Net('IN'), Net('OUT'), Net('GND')
-
-multi_vdiv(3, input_net, output_net)  # Run the input through 3 voltage dividers.
-
-generate_netlist(file_=sys.stdout)
-```
-
-(For the EE's out there: yes, I *know* cascading three simple voltage dividers
-will not multiplicatively scale the input voltage because of the
-input and output impedances of each stage!
-It's just the simplest example I could use to show hierarchy.)
-
-Subcircuits can also be *configurable* (after all, they're just functions).
-The ratio of the voltage divider could be set with a parameter:
-
-```py
-# Pass the division ratio as a parameter.
-@subcircuit
-def vdiv(inp, outp, ratio):
-    inp & r(value=1000) & outp & r(value=1000*ratio/(1-ratio)) & gnd
-
-...
-
-# Instantiate the voltage divider with a ratio of 1/3.
-vdiv(inp, outp, ratio=0.33)
-```
-
-
-### Interfaces
-
-Passing nets between hierarchically-organized subcircuit modules can lead to long
-lists of arguments.
-To make the code easier to write and understand, SKiDL supports *interfaces*
-which are simply dictionaries that encapsulate a number of `Bus`, `Net`, or `Pin` objects.
-For example, here is an interface for a memory:
-
-```py
-mem_intfc = Interface(
-  rd = Net('MEM_RD#'),
-  wr = Net('MEM_WR#'),
-  addr = Bus('MEM_ADDR', 20),
-  data = Bus('MEM_DATA', 16)
-)
-```
-
-This interface can be passed to a RAM module and a microcontroller that uses it:
-
-```py
-mem_module(mem_intfc)
-uc_module(clk, mem_intfc, io_intfc)
-```
-
-Inside the `mem_module`, the interface signals are connected to a RAM chip:
-
-```py
-@subcircuit
-def mem_module(intfc):
-  ram = Part('Memory_RAM', 'AS6C1616')
-  ram['A[0:19]'] += intfc.addr
-  ram['DQ[0:15]'] += intfc.data
-  ram['WE#'] += intfc.wr
-  ram['OE#'] += intfc['rd']  # Interface members are also accessible using []'s.
-  ...
-```
-
-A similar set of statements is used to make connections to the microcontroller inside the `uc_module`
-with the `mem_intfc` argument.
-
-Instead of defining an interface external to the subcircuit modules, you can also
-have a module return an interface that can be passed to other modules.
-Here's an example of the `mem_module` that returns an interface:
-
-```py
-@subcircuit
-def mem_module():
-  ram = Part('Memory_RAM', 'AS6C1616')
-  mem_intfc = Interface(
-    rd = ram['OE#'],
-    wr = ram['WE#'],
-    addr = ram['A[0:19]'],
-    data = ram['DQ[0:15]']
-  )
-  ...
-  return mem_intfc
-```
-
-Then this interface can be passed to the `uc_module` to connect the memory and microcontroller:
-
-```py
-mem_intfc = mem_module()
-uc_module(clk, mem_intfc, io_intfc)
-```
-
-
-<!--
-### Packages
-
-The `@subcircuit` decorator lets you create a hierarchical circuit where the
-subcircuits are instantiated using function calls with arguments.
-The `@package` decorator is an alternative that *packages* a subcircuit into
-a part-like object with its own input and output pins that can be connected
-to other components.
-In essence, you've encapsulated a subcircuit into its own package with I/O pins.
-
-```py
-from skidl import *
-import sys
-
-r = Part('Device', 'R', footprint='Resistor_SMD.pretty:R_0805_2012Metric', dest=TEMPLATE)
-
-# Define the voltage divider module. The @package decorator 
-# creates an interface that acts like I/O pins.
-@package
-def vdiv(inp, outp):
-    inp & r(value='1K') & outp & r(value='500') & gnd
-
-input_net, output_net, gnd = Net('IN'), Net('OUT'), Net('GND')
-
-# Instantiate the voltage divider as a package.
-divider = vdiv()
-
-# Now connect the I/O pins of the instantiated package to the input & output nets.
-divider.inp += input_net
-divider.outp += output_net
-
-generate_netlist(file_=sys.stdout)
-```
-
-Subcircuits defined with `@package` are also customizable via parameters:
-
-```py
-from skidl import *
-import sys
-
-r = Part('Device', 'R', footprint='Resistor_SMD.pretty:R_0805_2012Metric', dest=TEMPLATE)
-
-# Voltage divider with a parameterized division ratio.
-@package
-def vdiv(inp, outp, ratio):
-    inp & r(value=1000) & outp & r(value=1000*ratio/(1-ratio)) & gnd
-
-input_net, output_net, gnd = Net('IN'), Net('OUT'), Net('GND')
-
-# Instantiate the voltage divider with a ratio of 1/3.
-divider = vdiv(ratio=1.0/3)
-
-divider.inp += input_net
-divider.outp += output_net
-
-# You can also override the division ratio. Note that a standard
-# assignment operator is used instead of += because ratio is not an I/O pin.
-divider.ratio = 0.5
-
-generate_netlist(file_=sys.stdout)
-```
--->
-
-
-### Groups
-
-If you want to inject some hierarchy in your design but don't want
-to bother with creating and calling a function, then *groups* are for you!
-Just place parts within a `Group` context and they will appear at the
-appropriate level of the hierarchy:
+The object-oriented approach involves subclassing `SubCircuit` to create reusable modules with well-defined I/O attributes. This approach is ideal for creating libraries of standard circuit blocks.
 
 ```py
 from skidl import *
 
-r = Part("Device", "R")
+class VoltageRegulator(SubCircuit):
+    """3.3V linear voltage regulator module."""
+    
+    def __init__(self, input_voltage=5.0):
+        super().__init__()
+        
+        # Create the regulator circuit
+        reg = Part('Regulator_Linear', 'AMS1117-3.3')
+        c_in = Part('Device', 'C', value='100nF')
+        c_out = Part('Device', 'C', value='10uF')
+        
+        # Build regulator circuit
+        self.vin & c_in & gnd
+        self.vin & reg['VI']
+        reg['VO'] & c_out & gnd
+        reg['GND'] & gnd
+        
+        # Define I/O attributes
+        self.vin = reg['VI']      # Voltage input
+        self.vout = reg['VO']     # Regulated output
+        self.gnd = reg['GND']     # Ground connection
 
-with Group("A"):
-    c = Part("Device", "C")
+class MotorDriver(SubCircuit):
+    """H-bridge motor driver module."""
+    
+    def __init__(self):
+        super().__init__()
+        
+        # Create H-bridge with MOSFETs
+        q1, q2, q3, q4 = Part('Device', 'Q_NMOS_GSD', dest=TEMPLATE)(4)
+        
+        # Build H-bridge topology
+        self.vcc & q1['D'] & q3['D']
+        q1['S'] & q2['D'] & self.motor_a
+        q3['S'] & q4['D'] & self.motor_b  
+        q2['S'] & q4['S'] & self.gnd
+        
+        # Define I/O attributes
+        self.vcc = Net()          # Motor supply voltage
+        self.gnd = Net()          # Ground
+        self.motor_a = Net()      # Motor terminal A
+        self.motor_b = Net()      # Motor terminal B
+        self.ctrl1 = q1['G']      # Control signal 1
+        self.ctrl2 = q2['G']      # Control signal 2
+        self.ctrl3 = q3['G']      # Control signal 3
+        self.ctrl4 = q4['G']      # Control signal 4
 
-    with Group("B"):
-        l = Part("Device", "L")
+# Instantiate and connect modules
+regulator = VoltageRegulator()
+motor = MotorDriver()
 
-for part in default_circuit.parts:
-    print(f"{part.ref} {part.hierarchy}")
+# Connect power distribution
+power_12v = Net('12V_IN')
+power_3v3 = Net('3V3')
+system_gnd = Net('GND')
+
+power_12v += regulator.vin
+power_3v3 += regulator.vout
+system_gnd += regulator.gnd, motor.gnd
+
+# Connect motor power from 12V rail
+power_12v += motor.vcc
+
+# Connect control signals
+mcu = Part('MCU_ST_STM32F1', 'STM32F103C8Tx')
+mcu['PA0,PA1,PA2,PA3'] += motor.ctrl1, motor.ctrl2, motor.ctrl3, motor.ctrl4
 ```
 
-The output shows the components are arranged in a nested hierarchy that
-reflects the nesting of the `Group` contexts:
+### Method 3: Context-Based Hierarchy with SubCircuit
 
-```text
-R1 top
-C1 top.A0
-L1 top.A0.B0
+The simplest approach uses `SubCircuit` as a context manager to create hierarchical groupings without defining functions or classes. This method is ideal for organizing complex designs into logical sections.
+
+```py
+from skidl import *
+
+# Create main system nets
+vcc_5v = Net('VCC_5V')
+vcc_3v3 = Net('VCC_3V3') 
+gnd = Net('GND')
+spi_clk = Net('SPI_CLK')
+spi_mosi = Net('SPI_MOSI')
+spi_miso = Net('SPI_MISO')
+
+# Power supply section
+with SubCircuit('power_supply') as power:
+    # 5V to 3.3V regulator
+    reg = Part('Regulator_Linear', 'AMS1117-3.3')
+    c1 = Part('Device', 'C', value='100nF')
+    c2 = Part('Device', 'C', value='10uF')
+    
+    vcc_5v & c1 & gnd
+    vcc_5v & reg['VI']
+    reg['VO'] & c2 & gnd
+    reg['VO'] & vcc_3v3
+    reg['GND'] & gnd
+
+# Microcontroller section  
+with SubCircuit('microcontroller') as mcu_section:
+    mcu = Part('MCU_ST_STM32F1', 'STM32F103C8Tx')
+    
+    # Power connections
+    mcu['VDD,VDDA'] += vcc_3v3
+    mcu['VSS,VSSA'] += gnd
+    
+    # SPI peripheral connections
+    mcu['PA5'] += spi_clk   # SPI1_SCK
+    mcu['PA6'] += spi_miso  # SPI1_MISO  
+    mcu['PA7'] += spi_mosi  # SPI1_MOSI
+
+# Sensor interface section
+with SubCircuit('sensors') as sensor_section:
+    # SPI temperature sensor
+    temp_sensor = Part('Sensor_Temperature', 'MAX31855')
+    
+    # SPI connections
+    temp_sensor['SCK'] += spi_clk
+    temp_sensor['SO'] += spi_miso
+    temp_sensor['CS'] += mcu['PA4']  # Chip select
+    
+    # Power connections
+    temp_sensor['VCC'] += vcc_3v3
+    temp_sensor['GND'] += gnd
+
+# Display section
+with SubCircuit('display') as display_section:
+    lcd = Part('Display_Character', 'HD44780')
+    
+    # Connect to microcontroller
+    mcu['PB0,PB1,PB2,PB3,PB4,PB5'] += lcd['D4,D5,D6,D7,E,RS']
+    lcd['VSS,RW'] += gnd
+    lcd['VDD'] += vcc_3v3
 ```
+
+Each approach has its strengths:
+
+- **Decorated functions** excel at creating reusable, parameterizable modules that clearly define their interfaces
+- **Subclassed modules** provide the most structured approach with explicit I/O definitions, ideal for complex reusable blocks  
+- **Context-based hierarchy** offers the simplest syntax for organizing designs without the overhead of function definitions
+
+You can mix and match these approaches within the same design as needed. For example, you might use subclassed modules for complex reusable blocks like motor drivers, decorated functions for parameterizable filters, and context-based hierarchy for organizing the top-level system architecture.
 
 
 ## Libraries
@@ -1743,7 +1747,8 @@ Currently, SKiDL supports the library formats for the following ECAD tools:
 * `KICAD6`: Schematic part libraries for KiCad version 6.
 * `KICAD7`: Schematic part libraries for KiCad version 7.
 * `KICAD8`: Schematic part libraries for KiCad version 8.
-* `KICAD`: Generic KiCad schematic part libraries that currently mirrors `KICAD8`.
+* `KICAD9`: Schematic part libraries for KiCad version 9.
+* `KICAD`: Generic KiCad schematic part libraries that currently mirrors `KICAD9`.
 * `SKIDL`: Schematic parts stored as SKiDL/Python modules.
 
 You may set the default library format you want to use in your SKiDL script like so:
@@ -1761,7 +1766,7 @@ lib_search_paths[SKIDL] = ['.', '..', 'C:\\temp']
 lib_search_paths[KICAD].append('C:\\my\\kicad\\libs')
 ```
 
-You may also access libraries stored in online repositories just by placing their
+You may also access a library stored in an online repository just by placing its
 URL in the list of libraries:
 
 ```py
