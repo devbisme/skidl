@@ -82,9 +82,10 @@ class Node(SkidlBaseObject):
         # Store the stack trace for where this node was instantiated.
         self.skidl_trace = get_skidl_trace()
 
-        # Create lists to hold the parts and nets that are instantiated in this node.
+        # Create lists to hold the parts, nets, and buses that are instantiated in this node.
         self.parts = []
         self.nets = []
+        self.buses = []
 
         # Create lists for part and net classes that are directly assigned to this node.
         self._partclasses = PartClasses()
