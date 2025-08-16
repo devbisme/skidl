@@ -231,8 +231,8 @@ class DesignClasses(ABC, dict):
             elif isinstance(cls, DesignClasses):
                 self.add(*cls.values(), circuit=circuit)  # Recursively add classes from another DesignClasses object.
                 continue
-            elif isinstance(cls, (list, tuple)):
-                self.add(*cls, circuit=circuit)  # Recursively add classes from a list or tuple.
+            elif isinstance(cls, (list, tuple, set)):
+                self.add(*cls, circuit=circuit)  # Recursively add classes from a list, tuple, or set.
                 continue
             elif isinstance(cls, DesignClass):
                 if cls in self:
