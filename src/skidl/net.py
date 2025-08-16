@@ -436,7 +436,7 @@ class Net(SkidlBaseObject):
         Prohibit direct assignment to nets. Use the += operator instead.
         
         This method is a work-around that allows the use of the += for making
-connections to nets while         prohibiting direct assignment. Python
+        connections to nets while prohibiting direct assignment. Python
         processes something like net[0] += Pin() as follows::
 
             1. Net.__getitem__ is called with '0' as the index. This
