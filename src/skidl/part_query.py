@@ -15,7 +15,7 @@ import os.path
 import re
 
 from .logger import active_logger
-from .utilities import export_to_all, fullmatch, rmv_quotes, to_list
+from .utilities import export_to_all, fullmatch, rmv_quotes, to_list, expand_path
 
 
 __all__ = ["search", "show"]
@@ -244,7 +244,7 @@ class FootprintCache(dict):
         """
 
         # Expand any env. vars and/or user in the path.
-        path = os.path.expandvars(os.path.expanduser(path))
+        path = expand_path(path)
 
         # Read contents of footprint library file into a single string.
         try:
@@ -298,7 +298,7 @@ class FootprintCache(dict):
             nickname = rmv_quotes(nickname)
 
             # Expand environment variables and ~ in the URI.
-            uri = os.path.expandvars(os.path.expanduser(uri))
+            uri = expand_path(uri)
 
             # Look for unexpanded env vars and skip this loop iteration if found.
             def get_env_vars(s):

@@ -18,6 +18,7 @@ from skidl.geometry import mils_per_mm, BBox
 from skidl.utilities import (
     export_to_all,
     find_and_open_file,
+    get_abs_filename,
     num_to_chars,
     to_list,
     add_unique_attr,
@@ -50,21 +51,25 @@ def default_lib_paths():
 
 @export_to_all
 def get_fp_lib_tbl_dir():
-    """Get the path to where the global fp-lib-table file is found."""
+    """Get the path where the global fp-lib-table file is found."""
 
     paths = (
+        "$HOME/.config/kicad/9.0",
+        "~/.config/kicad/9.0",
+        "%APPDATA%/kicad/9.0",
+        "$HOME/Library/Preferences/kicad/9.0",
+        "~/Library/Preferences/kicad/9.0",
         "$HOME/.config/kicad",
         "~/.config/kicad",
         "%APPDATA%/kicad",
         "$HOME/Library/Preferences/kicad",
         "~/Library/Preferences/kicad",
     )
-
-    for path in paths:
-        path = os.path.normpath(os.path.expanduser(os.path.expandvars(path)))
-        if os.path.lexists(path):
-            return path
-    return ""
+    path = get_abs_filename("fp-lib-table", paths=paths, ext=None, allow_failure=True, descend=0)
+    if not path:
+        active_logger.bare_warning("fp-lib-table file was not found. Component footprints are not available.")
+        return ""
+    return os.path.dirname(path)
 
 
 @export_to_all

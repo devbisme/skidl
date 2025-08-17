@@ -14,6 +14,7 @@ import hashlib
 import json
 import os
 import os.path
+from os.path import normpath, expandvars, expanduser
 import platform
 import re
 import sys
@@ -963,6 +964,9 @@ def is_binary_file(filename):
     except (IOError, FileNotFoundError, TypeError):
         return False
 
+@export_to_all
+def expand_path(path):
+    return normpath(expandvars(expanduser(path)))
 
 @export_to_all
 def is_url(s):
@@ -1028,7 +1032,10 @@ def find_and_open_file(
         # If an explicit file extension was given, just use that.
         exts = [suffix]
     else:
-        exts = to_list(ext)
+        if ext:
+            exts = to_list(ext)
+        else:
+            exts = [""]
 
     # Search through the directory paths for a file whose name matches the regular expression.
     for path in paths:
@@ -1047,7 +1054,7 @@ def find_and_open_file(
 
             # Search through the files in a particular directory path.
             descent_ctr = descend  # Controls the descent through the path.
-            for root, dirnames, filenames in os.walk(path):
+            for root, dirnames, filenames in os.walk(expand_path(path)):
                 # Get files in the current directory whose names match the regular expression.
                 for fn in [f for f in filenames if re.match(match_name, f)]:
                     abs_filename = os.path.join(root, fn)
