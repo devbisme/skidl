@@ -108,7 +108,7 @@ def search_parts_iter(terms, tool=None):
         try:
             files = os.listdir(lib_dir)
         except (FileNotFoundError, OSError):
-            active_logger.warning(f"Could not open directory '{lib_dir}'")
+            active_logger.bare_warning(f"Could not open directory '{lib_dir}'")
             files = []
 
         files = [(lib_dir, l) for l in files if l.endswith(lib_suffixes)]
@@ -310,18 +310,22 @@ class FootprintCache(dict):
 
             unexpanded_vars = get_env_vars(uri)
             if unexpanded_vars:
-                active_logger.warning(
+                active_logger.bare_warning(
                     f"There are some undefined environment variables: {' '.join(unexpanded_vars)}"
                 )
                 continue
 
             # Get a list of all the footprint module files in the top-level of the library URI.
-            filenames = [
-                fn
-                for fn in os.listdir(uri)
-                if os.path.isfile(os.path.join(uri, fn))
-                and fn.lower().endswith(".kicad_mod")
-            ]
+            try:
+                filenames = [
+                    fn
+                    for fn in os.listdir(uri)
+                    if os.path.isfile(os.path.join(uri, fn))
+                    and fn.lower().endswith(".kicad_mod")
+                ]
+            except FileNotFoundError:
+                active_logger.bare_warning(f"Library directory not found: {uri}")
+                continue
 
             # Create an entry in the cache for this nickname. (This will overwrite
             # any previous nickname entry, so make sure to scan fp-lib-tables in order of
@@ -367,8 +371,7 @@ def search_footprints_iter(terms, tool=None):
     # footprint files from all the directories in the search paths.
     if not footprint_cache.valid:
         footprint_cache.clear()
-        for path in skidl.footprint_search_paths[tool]:
-            footprint_cache.load(path)
+        footprint_cache.load(skidl.footprint_search_paths[tool])
 
     # Get the number of footprint libraries to be searched..
     num_fp_libs = len(footprint_cache)
@@ -481,27 +484,7 @@ def search_footprints(terms, tool=None):
 
 @export_to_all
 def show_footprint(lib, module_name, tool=None):
-    """
-    Print the pads for a given module in a library.
-    
-    Creates a Module object that can be inspected to see its pads and properties.
-
-    Args:
-        lib (str): The name of a library.
-        module_name (str): The name of the footprint in the library.
-        tool (str, optional): The ECAD tool format for the library.
-                             Defaults to the currently configured tool.
-
-    Returns:
-        Module: A Module object representing the footprint.
-    """
-
-    import skidl
-
-    tool = tool or skidl.config.tool
-
-    os.environ["KISYSMOD"] = os.pathsep.join(skidl.footprint_search_paths[tool])
-    return pym.Module.from_library(lib, module_name)
+    active_logger.bare_warning("Footprint display has not been implemented.")
 
 
 # Define some shortcuts.
