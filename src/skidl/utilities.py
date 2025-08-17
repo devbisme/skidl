@@ -532,6 +532,26 @@ def get_unique_name(lst, attrib, prefix, initial=None):
 
 
 @export_to_all
+def rmv_unique_name(lst, attrib, name):
+    """
+    Remove a unique name from the heap.
+    
+    This function is used to remove a name that was previously generated
+    by get_unique_name() when it is no longer needed.
+    
+    Args:
+        lst: The list of objects containing names.
+        attrib (str): The attribute in each object containing the name.
+        name (str): The name to remove from the heap.
+    """
+    lst_id = str(id(lst))
+    try:
+        name_heap.remove(lst_id + str(name))
+    except KeyError:
+        pass
+
+
+@export_to_all
 def fullmatch(regex, string, flags=0):
     """
     Emulate python-3.4 re.fullmatch() function.

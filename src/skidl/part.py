@@ -28,6 +28,7 @@ from .utilities import (
     flatten,
     from_iadd,
     get_unique_name,
+    rmv_unique_name,
     list_or_scalar,
     rmv_iadd,
     to_list,
@@ -1450,7 +1451,7 @@ class Part(SkidlBaseObject):
         """
         # Remove the existing reference so it doesn't cause a collision if the
         # object is renamed with its existing name.
-        self._ref = None
+        del self.ref
 
         # Now name the object with the given reference or some variation
         # of it that doesn't collide with anything else in the list.
@@ -1462,6 +1463,7 @@ class Part(SkidlBaseObject):
         """
         Delete the part reference.
         """
+        rmv_unique_name(self.circuit.parts, "ref", self._ref)
         self._ref = None
 
     @property
