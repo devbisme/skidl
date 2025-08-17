@@ -17,6 +17,7 @@ import sys
 import traceback
 
 from .utilities import export_to_all
+import __main__
 
 
 @export_to_all
@@ -43,6 +44,11 @@ def scriptinfo():
     # ---------------------------------------------------------------------------
     # scan through call stack for caller information
     # ---------------------------------------------------------------------------
+    # Check if we're in interactive mode (like IPython, REPL, etc.)
+    if not hasattr(__main__, '__file__'):
+        # In interactive mode, return current working directory
+        return {"dir": os.getcwd(), "name": "skidl_REPL", "source": "<interactive>"}
+    
     trc = "skidl"  # Make sure this gets set to something when in interactive mode.
     for teil in inspect.stack():
         # skip system calls
