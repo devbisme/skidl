@@ -457,7 +457,7 @@ def get_unique_name(lst, attrib, prefix, initial=None):
         str: A unique name that doesn't exist in the list.
     """
     # Use the list id to disambiguate names of objects on different lists (e.g., parts & nets).
-    lst_id = str(id(lst))
+    lst_id = f"{id(lst)}:"
 
     name = initial
 
