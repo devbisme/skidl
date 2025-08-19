@@ -342,9 +342,10 @@ class Part(SkidlBaseObject):
             setattr(self, k, v)
 
         # If the part was found using an alias, then substitute the alias for the name in the part.
-        # (This only seems necessary when using KiCad 5.)
-        part_name = self.name
-        if name and part_name != name:
+        # Only make the substitution if the name is one of the aliases. (It's possible the part was
+        # found using a regex and we don't want that entered as an alias.)
+        if self.name != name and name in self.aliases:
+            part_name = self.name
             for k,v in vars(self).items():
                 if v == part_name:
                     setattr(self, k, name)
@@ -354,7 +355,7 @@ class Part(SkidlBaseObject):
 
         # Make sure the part name is also included in the list of aliases
         # because part searching only checks the aliases for name matches.
-        self.aliases += name
+        self.aliases += self.name
 
     def __str__(self):
         """
