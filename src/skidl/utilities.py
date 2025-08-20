@@ -516,15 +516,15 @@ def get_unique_name(lst, attrib, prefix, initial=None):
         return name
 
     # There are name conflicts, so we need to find the next available index to attach to the name.
+    if name[-1].isdigit():
+        # If the name ends with a digit, append an underscore to separate it from any
+        # disambiguating number that will be appended below.
+        name = name + '_'
     name_conflicts = {n for n in unique_names if n.startswith(name)}
     next_avail_num = max(
             [int(n[len(name) :]) for n in name_conflicts if n[len(name) :].isdigit()],
             default=0,
     ) + 1
-    # If the original name ends with a digit, then append an underscore to it to
-    # separate it from the appended number.
-    if name[-1].isdigit():
-        name += "_"
     name = name + str(next_avail_num)
     name_heap.add(lst_id + name)
     prefix_counts[lst_id + prefix] = next_avail_num
