@@ -167,7 +167,7 @@ class SkidlConfig(Config):
 
         # If no configuration files were found, set base name of default backup part library.
         if "backup_lib_name" not in self:
-            self.backup_lib_name = get_script_name() + "_lib"
+            self.backup_lib_name = get_script_name()
         if "backup_lib_file_name" not in self:
             self.backup_lib_file_name = self.backup_lib_name + lib_suffixes[SKIDL]
         if "query_backup_lib" not in self:
