@@ -198,6 +198,10 @@ class Pin(SkidlBaseObject):
         aliases (list): Alternative names for this pin.
     """
 
+    types = pin_types
+    funcs = pin_types  # A synonym for types.
+    drives = pin_drives
+
     def __init__(self, **attribs):
         super().__init__()
 
