@@ -52,14 +52,14 @@ def gen_part_tstamp(part):
 
     Args:
         part: An object representing the part. It is expected to have a
-              'hierarchical_name' attribute that uniquely identifies the part
+              'hiername' attribute that uniquely identifies the part
               within its hierarchy.
 
     Returns:
         str: A string representation of the generated UUID.
     """
 
-    part_tstamp = str(uuid.uuid5(namespace_uuid, part.hierarchical_name))
+    part_tstamp = str(uuid.uuid5(namespace_uuid, part.hiername))
     return part_tstamp
 
 

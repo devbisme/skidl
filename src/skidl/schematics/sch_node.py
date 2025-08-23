@@ -91,7 +91,7 @@ class SchNode(Placer, Router):
 
         from skidl.skidlbaseobj import HIER_SEP
 
-        level_names = part.hierarchical_name.split(HIER_SEP)
+        level_names = part.hiername.split(HIER_SEP)
         node = self
         for lvl_nm in level_names[1:]:
             node = node.children[lvl_nm]
@@ -109,7 +109,7 @@ class SchNode(Placer, Router):
         from skidl.skidlbaseobj import HIER_SEP
 
         # Get list of names of hierarchical levels (in order) leading to this part.
-        level_names = part.hierarchical_name.split(HIER_SEP)
+        level_names = part.hiername.split(HIER_SEP)
 
         # Get depth in hierarchy for this part.
         part_level = len(level_names) - 1
@@ -161,7 +161,7 @@ class SchNode(Placer, Router):
 
             # Search for pins in different nodes.
             for pin1, pin2 in zip(net.pins[:-1], net.pins[1:]):
-                if pin1.part.hierarchical_name != pin2.part.hierarchical_name:
+                if pin1.part.hiername != pin2.part.hiername:
                     # Found pins in different nodes, so break and add terminals to nodes below.
                     break
             else:
@@ -185,7 +185,7 @@ class SchNode(Placer, Router):
 
                 part = pin.part
 
-                if part.hierarchical_name in visited:
+                if part.hiername in visited:
                     # Already added a terminal to this node, so don't add another.
                     continue
 
@@ -193,7 +193,7 @@ class SchNode(Placer, Router):
                 self.find_node_with_part(part).add_terminal(net)
 
                 # Record that this hierarchical node was visited.
-                visited.append(part.hierarchical_name)
+                visited.append(part.hiername)
 
         # Flatten the hierarchy as specified by the flatness parameter.
         self.flatten(self.flatness)

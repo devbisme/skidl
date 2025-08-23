@@ -1415,16 +1415,6 @@ class Part(SkidlBaseObject):
         return sorted(self.pins)
 
     @property
-    def hierarchical_name(self):
-        """
-        Return the hierarchical name of the part.
-        
-        Returns:
-            str: The hierarchical name including hierarchy prefix and tag.
-        """
-        return self.hiername
-
-    @property
     def ref(self):
         """
         Get the part reference.
