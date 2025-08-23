@@ -393,13 +393,14 @@ class Bus(SkidlBaseObject):
         """
         self.insert(len(self.nets), objects)
 
-    def copy(self, num_copies=None, **attribs):
+    def copy(self, num_copies=None, circuit=None, **attribs):
         """
         Create one or more copies of this bus.
         
         Args:
             num_copies (int, optional): Number of copies to create.
                 If None, a single copy will be made.
+            circuit (Circuit, optional): The circuit the copies will be added to.
             **attribs: Attributes for the copies. If values are lists/tuples,
                 each copy gets the corresponding value.
                 
@@ -436,15 +437,37 @@ class Bus(SkidlBaseObject):
                 f"Can't make a negative number ({num_copies}) of copies of a bus!",
             )
 
+        # If circuit is not specified, then create the copies within circuit of the
+        # original, or in the default circuit.
+        circuit = circuit or self.circuit or default_circuit
+
+        # If a name is not specified, then copy the name from the original.
+        # This will get disambiguated when the copy is created.
+        name = attribs.pop("name", self.name)
+
+        # Skip some Bus attributes that would cause an infinite recursion exception
+        # or bus naming clashes.
+        skip_attrs = ("circuit", "_name", "_aliases")
+
         copies = []
         for i in range(num_copies):
 
-            # Make a copy of the bus.
-            cpy = copy(self)  # Start with shallow copy.
+            # Create a new bus to store the copy.
+            cpy = Bus(name=name, circuit=circuit)
+
+            # Copy stuff from the original bus to the copy.
             for k,v in self.__dict__.items():
+                if k in skip_attrs:
+                    continue
                 if isinstance(v, Iterable) and not isinstance(v, str):
                     # Copy the list with shallow copies of its items to the copy.
                     setattr(cpy, k, copy(v))
+                else:
+                    setattr(cpy, k, v)
+
+            # Attach additional attributes to the bus.
+            for k, v in list(attribs.items()):
+                setattr(cpy, k, v)
 
             copies.append(cpy)
 

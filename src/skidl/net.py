@@ -804,6 +804,10 @@ class Net(SkidlBaseObject):
         # original, or in the default circuit.
         circuit = circuit or self.circuit or default_circuit
 
+        # If a name is not specified, then copy the name from the original.
+        # This will get disambiguated when the copy is created.
+        name = attribs.pop("name", self.name)
+
         # Can't make a distinct copy of a net which already has pins on it
         # because what happens if a pin is connected to the copy? Then we have
         # to search for all the other copies to add the pin to those.
@@ -814,24 +818,25 @@ class Net(SkidlBaseObject):
                 "Can't make copies of a net that already has " "pins attached to it!",
             )
 
-        # Create a list of copies of this net.
-        copies = []
-
         # Skip some Net attributes that would cause an infinite recursion exception
         # or net naming clashes.
-        copy_attrs = vars(self).keys() - ["circuit", "traversal", "_name", "_aliases"]
+        skip_attrs = ("circuit", "traversal", "_name", "_aliases")
         
+        copies = []
         for i in range(num_copies):
 
             # Create a new net to store the copy.
-            cpy = Net(circuit=circuit)
+            cpy = Net(name=name, circuit=circuit)
 
-            # Make a copy of the net.
-            cpy = copy(self)  # Start with shallow copy.
+            # Copy stuff from the original net to the copy.
             for k,v in self.__dict__.items():
+                if k in skip_attrs:
+                    continue
                 if isinstance(v, Iterable) and not isinstance(v, str):
                     # Copy the list with shallow copies of its items to the copy.
                     setattr(cpy, k, copy(v))
+                else:
+                    setattr(cpy, k, v)
 
             # Place the copy into the list of copies.
             copies.append(cpy)
