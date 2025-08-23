@@ -14,6 +14,7 @@ import random
 import re
 import sys
 from collections import defaultdict
+from collections.abc import Iterable
 from copy import copy
 from enum import IntEnum
 from functools import total_ordering
@@ -198,6 +199,9 @@ class Pin(SkidlBaseObject):
         aliases (list): Alternative names for this pin.
     """
 
+    # Maximum allowable pin number.
+    MAX_PIN_NUM = sys.maxsize >> 3
+
     types = pin_types
     funcs = pin_types  # A synonym for types.
     drives = pin_drives
@@ -213,10 +217,12 @@ class Pin(SkidlBaseObject):
         self.do_erc = True
         self.func = pin_types.UNSPEC  # Pin function defaults to unspecified.
 
-        # Set pin number as a random integer so that calling Pin() multiple
-        # times will give pins that are distinct according to __eq__.
+        # Set pin number as a random integer so if Pin() is called multiple
+        # times it will give pins that are distinct according to __eq__.
         # This pin number gets overridden if the num is set in attribs.
-        self.num = random.randint(100000, sys.maxsize)
+        # Checking the pin number will also detect if the pin has been
+        # assigned a real pin number for a part.
+        self.num = random.randint(self.MAX_PIN_NUM+1, sys.maxsize)
 
         # Attach additional attributes to the pin.
         for k, v in list(attribs.items()):
@@ -505,14 +511,31 @@ class Pin(SkidlBaseObject):
                 f"Can't make a negative number ({num_copies}) of copies of a pin!"
             )
 
+        # Skip some Pin attributes that would cause an infinite recursion exception
+        # or naming clashes.
+        skip_attrs = ('nets', 'num')
+
         copies = []
         for _ in range(num_copies):
 
-            # Make a shallow copy of the pin.
-            cpy = copy(self)
+            # Create a new pin to store the copy.
+            cpy = Pin()
 
-            # The copy is not on a net, yet.
-            cpy.nets = []
+            # Copy stuff from the original pin to the copy.
+            for k,v in self.__dict__.items():
+                if k in skip_attrs:
+                    continue
+                if isinstance(v, Iterable) and not isinstance(v, str):
+                    # Copy the list with shallow copies of its items to the copy.
+                    setattr(cpy, k, copy(v))
+                else:
+                    setattr(cpy, k, v)
+
+            # Copy gets the same pin number if the source is an actual pin.
+            # Otherwise, the copy will keep the random pin number it was given
+            # when it was created.
+            if self.is_assigned():
+                cpy.num = self.num
 
             # Attach additional attributes to the pin.
             for k, v in list(attribs.items()):
@@ -522,15 +545,25 @@ class Pin(SkidlBaseObject):
             if self.nets:
                 self.nets[0] += cpy
 
-            # Copy the aliases for the pin if it has them.
-            cpy.aliases = self.aliases
-
             copies.append(cpy)
 
         # Return a list of the copies made or just a single copy.
         if return_list:
             return copies
         return copies[0]
+
+    def is_assigned(self):
+        """
+        Return true if the pin has been assigned a valid pin number.
+
+        Returns:
+            bool: True if the pin is assigned (either has a non-integer number or 
+                  an integer number less than or equal to MAX_PIN_SIZE), False otherwise.
+        Note:
+            A pin is considered assigned if it has either a string/non-integer identifier
+            or an integer pin number within the valid range (1 to MAX_PIN_SIZE).
+        """
+        return not isinstance(self.num, int) or self.num <= self.MAX_PIN_NUM
 
     def is_connected(self):
         """
