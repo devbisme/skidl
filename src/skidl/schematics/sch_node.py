@@ -8,7 +8,7 @@ from itertools import chain
 
 from skidl.utilities import export_to_all
 from skidl.geometry import BBox, Point, Tx, Vector
-from skidl.node import Node
+from skidl.node import Node, HIER_SEP
 from .place import Placer
 from .route import Router
 
@@ -89,8 +89,6 @@ class SchNode(Placer, Router):
             Node: The Node object containing the part.
         """
 
-        from skidl.skidlbaseobj import HIER_SEP
-
         level_names = part.hiername.split(HIER_SEP)
         node = self
         for lvl_nm in level_names[1:]:
@@ -105,8 +103,6 @@ class SchNode(Placer, Router):
             part (Part): Part to be added to this node or one of its children.
             level (int, optional): The current level (depth) of the node in the hierarchy. Defaults to 0.
         """
-
-        from skidl.skidlbaseobj import HIER_SEP
 
         # Get list of names of hierarchical levels (in order) leading to this part.
         level_names = part.hiername.split(HIER_SEP)
@@ -205,7 +201,6 @@ class SchNode(Placer, Router):
             net (Net): The net to be added to this node.
         """
 
-        from skidl.skidlbaseobj import HIER_SEP
         from .net_terminal import NetTerminal
 
         nt = NetTerminal(net, self.tool_module)

@@ -20,8 +20,10 @@ from .skidlbaseobj import SkidlBaseObject
 from .utilities import export_to_all, get_unique_name
 
 
-__all__ = ["SubCircuit", "subcircuit", "Group"]
+__all__ = ["SubCircuit", "subcircuit", "Group", "HIER_SEP"]
 
+
+HIER_SEP = "."  # Separator for hierarchical names.
 
 @export_to_all
 class Node(SkidlBaseObject):
@@ -245,6 +247,19 @@ class Node(SkidlBaseObject):
             n = n.parent
             path.append(n)
         return tuple(reversed(path))
+    
+    @property
+    def tag_or_name(self):
+        """
+        Return the tag of the node if it exists, otherwise return the name.
+        
+        This property provides a way to access the node's identifier, preferring
+        the tag over the name if both are present.
+        
+        Returns:
+            str: The tag or name of the node.
+        """
+        return self.tag or self.name
 
     @property
     def hiertuple(self):
@@ -258,7 +273,7 @@ class Node(SkidlBaseObject):
             tuple: A tuple of strings representing the names of nodes in the
                   hierarchical path from root to this node.
         """
-        return tuple(n.name for n in self.hiernodes)
+        return tuple(n.tag_or_name for n in self.hiernodes)
     
     @property
     def partclasses(self):

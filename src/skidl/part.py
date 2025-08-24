@@ -15,9 +15,10 @@ from collections.abc import Iterable
 from copy import copy
 from random import randint
 
+from .design_class import PartClass, PartClasses
 from .erc import dflt_part_erc
 from .logger import active_logger
-from .design_class import PartClass, PartClasses
+from .node import HIER_SEP
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import (
     add_unique_attr,
@@ -1518,6 +1519,45 @@ class Part(SkidlBaseObject):
         del self._foot
 
     @property
+    def hiertuple(self):
+        """
+        Return a tuple of the node's hierarchy path names from top-most node to this one (self).
+        
+        This provides a string representation of the hierarchical path by extracting
+        the names from each node in the hierarchy chain.
+        
+        Returns:
+            tuple: A tuple of strings representing the names of nodes in the
+                  hierarchical path from root to this node.
+        """
+        return self.node.hiertuple
+
+    @property
+    def tag_ref_name(self):
+        """
+        Return the tag, reference, or name of an object.
+
+        This provides a way to retrieve the most relevant identifier for the object.
+        If the tag is set, it will be returned. Otherwise, if the reference is set,
+        it will be returned. If all else fails, the name will be returned.
+
+        Returns:
+            str: The tag, reference, or name of the object.
+        """
+        return getattr(self, "tag", None) or getattr(self, "ref", None) or getattr(self, "name")
+
+    @property
+    def hiername(self):
+        """
+        Return the hierarchical name of the part.
+        
+        Returns:
+            str: The hierarchical name including hierarchy prefix and tag.
+        """
+
+        return HIER_SEP.join(self.node.hiertuple + (self.tag_ref_name,))
+
+    @property
     def partclasses(self):
         """
         Get all part classes associated with this part.
@@ -1772,8 +1812,6 @@ class PartUnit(Part):
         Returns:
             str: Reference in the form "parent_ref.label"
         """
-        from .skidlbaseobj import HIER_SEP
-
         return HIER_SEP.join((self.parent.ref, self.label))
 
 

@@ -20,7 +20,7 @@ from skidl import (
     SubCircuit,
     Group
 )
-from skidl.skidlbaseobj import HIER_SEP
+from skidl.node import HIER_SEP
 
 
 def test_subcircuit_1():
@@ -183,9 +183,9 @@ def test_hierarchical_names_1():
     assert len(default_circuit.get_nets()) == 6  # Check the number of nets.
 
     assert r1s[0].hiername == ".resdiv1.resistor1"  # Check hierarchical name.
-    assert r1s[1].hiername == ".resdiv2.resistor1"  # Check hierarchical name.
+    assert r1s[1].hiername == ".divider1.resistor1"  # Check hierarchical name.
     assert r2s[0].hiername == ".resdiv1.resistor2"  # Check hierarchical name.
-    assert r2s[1].hiername == ".resdiv2.resistor2"  # Check hierarchical name.
+    assert r2s[1].hiername == ".divider1.resistor2"  # Check hierarchical name.
     assert r_top.hiername == ".resistor_top"  # Check top-level resistor name.
 
     ERC()  # Run electrical rules check.

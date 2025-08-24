@@ -747,7 +747,7 @@ class Circuit(SkidlBaseObject):
         for part in self.parts:
             part.check_tag(create_if_missing=True)
         for node in self.nodes:
-            node.check_tag(create_if_missing=True)
+            node.check_tag(create_if_missing=False)
 
     def generate_netlist(self, **kwargs):
         """

@@ -441,7 +441,7 @@ def node_to_eeschema(node, sheet_tx=Tx()):
         str: EESCHEMA text for the node circuitry.
     """
 
-    from skidl.skidlbaseobj import HIER_SEP
+    from skidl.node import HIER_SEP
 
     # List to hold all the EESCHEMA code for this node.
     eeschema_code = []
