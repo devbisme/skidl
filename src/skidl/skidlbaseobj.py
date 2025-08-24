@@ -342,7 +342,13 @@ class SkidlBaseObject(object):
 
     @property
     def hiernodes(self):
-        """Return a tuple of the chain of nodes from the top-most node to this object, inclusive."""
+        """
+        Return a tuple of the chain of nodes from the top-most node to this object, inclusive.
+        
+        Returns:
+            tuple: A tuple of Node objects representing the hierarchical path
+                  from the root node to this node, inclusive.
+        """
         try:
             return self.node.hiernodes
         except AttributeError:
@@ -350,7 +356,16 @@ class SkidlBaseObject(object):
 
     @property
     def hiertuple(self):
-        """Return a tuple containing the hierarchical path of this object."""
+        """
+        Return a tuple of the node's hierarchy path names from top-most node to this one (self).
+        
+        This provides a string representation of the hierarchical path by extracting
+        the names from each node in the hierarchy chain.
+        
+        Returns:
+            tuple: A tuple of strings representing the names of nodes in the
+                  hierarchical path from root to this node.
+        """
         try:
             return self.node.hiertuple
         except AttributeError:
@@ -373,7 +388,6 @@ class SkidlBaseObject(object):
 
         return self.hierpath + HIER_SEP + (getattr(self, "tag", None) or getattr(self, "ref", self.name))
 
-                
     def src_line(self, track_abs_path=False):
         """
         Return the file name and line number where the object was instantiated.
