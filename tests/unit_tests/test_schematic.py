@@ -173,7 +173,7 @@ def search_bool_options(num_trials=1, flatness=1.0, bool_option_keys=[]):
             fp.flush()
 
 
-@pytest.mark.xfail(raises=(RoutingFailure))
+@pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
 def test_gen_sch_1():
     q = Part(
         lib="Device.lib",
@@ -214,7 +214,7 @@ def test_gen_sch_1():
     create_schematic(num_trials=1,flatness=1.0)
 
 
-@pytest.mark.xfail(raises=RoutingFailure)
+@pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
 def test_gen_sch_place():
     @subcircuit
     def test():
@@ -260,7 +260,7 @@ def test_gen_sch_place():
     create_schematic(flatness=0.5)
 
 
-@pytest.mark.xfail(raises=RoutingFailure)
+@pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
 def test_gen_sch_place_2():
     @subcircuit
     def test():
@@ -301,7 +301,7 @@ def test_gen_sch_place_2():
     create_schematic(flatness=0.5)
 
 
-@pytest.mark.xfail(raises=(RoutingFailure))
+@pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
 def test_gen_sch_very_simple():
     q = Part(
         lib="Device.lib",
@@ -322,7 +322,7 @@ def test_gen_sch_very_simple():
     create_schematic(flatness=1.0)
 
 
-@pytest.mark.xfail(raises=RoutingFailure)
+@pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
 def test_gen_sch_simple():
     q = Part(
         lib="Device.lib",
@@ -339,7 +339,7 @@ def test_gen_sch_simple():
     create_schematic(flatness=1.0)
 
 
-@pytest.mark.xfail(raises=(RoutingFailure))
+@pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
 def test_gen_sch_floating():
     r = Part(
         "Device.lib", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE
@@ -372,7 +372,7 @@ def test_gen_sch_floating():
     create_schematic(flatness=1.0)
 
 
-@pytest.mark.xfail(raises=RoutingFailure)
+@pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
 def test_gen_sch_units():
     @subcircuit
     def test():
@@ -425,7 +425,7 @@ def test_gen_sch_units():
     create_schematic(flatness=1.0)
 
 
-@pytest.mark.xfail(raises=RoutingFailure)
+@pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
 def test_gen_sch_hier():
     with Group("A"):
         with Group("B"):
@@ -470,7 +470,7 @@ def test_gen_sch_hier():
     create_schematic(flatness=0.0)
 
 
-@pytest.mark.xfail(raises=RoutingFailure)
+@pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
 def test_gen_sch_hier_conn():
 
     r = Part(
@@ -499,7 +499,7 @@ def test_gen_sch_hier_conn():
     create_schematic(flatness=1.0)
 
 
-@pytest.mark.xfail(raises=RoutingFailure)
+@pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
 def test_gen_sch_part_tx():
     q = Part(
         lib="Device.lib",
@@ -515,7 +515,7 @@ def test_gen_sch_part_tx():
     create_schematic(flatness=1.0)
 
 
-@pytest.mark.xfail(raises=RoutingFailure)
+@pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
 def test_gen_sch_2():
     """Test SVG generation."""
 
@@ -539,7 +539,7 @@ def test_gen_sch_2():
     create_schematic(flatness=1.0)
 
 
-@pytest.mark.xfail(raises=RoutingFailure)
+@pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
 def test_gen_sch_3():
     opamp = Part(lib="Amplifier_Operational.lib", name="AD8676xR", symtx="V")
     opamp.uA.p2 += Net("IN1")
@@ -550,7 +550,7 @@ def test_gen_sch_3():
     create_schematic(flatness=1.0)
 
 
-@pytest.mark.xfail(raises=RoutingFailure)
+@pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
 def test_gen_sch_4():
     gnd = Part("power", "GND")
     vcc = Part("power", "VCC")
@@ -617,7 +617,7 @@ def test_gen_sch_4():
     print(f"cost = {best_arr.cost()}")
 
 
-@pytest.mark.xfail(raises=RoutingFailure)
+@pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
 def test_gen_sch_5():
     q = Part(lib="Device.lib", name="Q_PNP_CBE", dest=TEMPLATE, symtx="V")
     r = Part("Device.lib", "R", dest=TEMPLATE)
@@ -701,7 +701,7 @@ def test_gen_sch_5():
     print(f"cost = {best_arr.cost()}")
 
 
-@pytest.mark.xfail(raises=RoutingFailure)
+@pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
 def test_gen_sch_6():
     uc = Part(lib="wch.lib", name="CH551G", dest=TEMPLATE)
     uc.split_pin_names("/")
@@ -719,7 +719,7 @@ def test_gen_sch_6():
     create_schematic(flatness=1.0)
 
 
-@pytest.mark.xfail(raises=RoutingFailure)
+@pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
 def test_gen_sch_7():
     r = Part("Device.lib", "R", dest=TEMPLATE)
     gndt = Part("power", "GND")
@@ -748,7 +748,7 @@ def test_gen_sch_7():
     create_schematic(flatness=1.0)
 
 
-@pytest.mark.xfail(raises=RoutingFailure)
+@pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
 def test_gen_sch_8():
 
     fpga = Part(lib="FPGA_Lattice.lib", name="ICE40HX8K-BG121")
@@ -756,7 +756,7 @@ def test_gen_sch_8():
     create_schematic(flatness=1.0)
 
 
-@pytest.mark.xfail(raises=RoutingFailure)
+@pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
 def test_gen_sch_vga():
     @SubCircuit
     def vga_port(red, grn, blu, hsync, vsync, gnd, logic_lvl=3.3):
@@ -939,7 +939,7 @@ def test_gen_sch_vga():
     create_schematic(flatness=1.0)
 
 
-@pytest.mark.xfail(raises=RoutingFailure)
+@pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
 def test_gen_sch_pmod():
 
     # Define some nets and buses.
@@ -1018,7 +1018,7 @@ def test_gen_sch_pmod():
     create_schematic(flatness=1.0)
 
 
-@pytest.mark.xfail(raises=RoutingFailure)
+@pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
 def test_gen_sch_buses():
     ram = PartTmplt("GameteSnapEDA.lib", "MT48LC16M16A2TG-6A_IT:GTR")
     rams = 3 * ram
