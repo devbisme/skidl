@@ -731,18 +731,20 @@ def gen_schematic(
             # Route parts.
             node.route(**options)
 
-        except PlacementFailure:
+        except PlacementFailure as e:
             # Placement failed, so clean up ...
             finalize_parts_and_nets(circuit, **options)
             # ... and try again.
+            failure_type = e
             continue
 
-        except RoutingFailure:
+        except RoutingFailure as e:
             # Routing failed, so clean up ...
             finalize_parts_and_nets(circuit, **options)
             # ... and expand routing area ...
             expansion_factor *= 1.5  # HACK: Ad-hoc increase of expansion factor.
             # ... and try again.
+            failure_type = e
             continue
 
         # Generate EESCHEMA code for the schematic.
@@ -770,4 +772,4 @@ def gen_schematic(
     finalize_parts_and_nets(circuit, **options)
 
     # Exited the loop without successful routing.
-    raise (RoutingFailure)
+    raise (failure_type)
