@@ -15,7 +15,7 @@ from itertools import chain, zip_longest
 
 from skidl import Part
 from skidl.utilities import export_to_all, rmv_attr
-from .debug_draw import draw_end, draw_endpoint, draw_routing, draw_seg, draw_start
+from .debug_draw import draw_end, draw_endpoint, draw_routing, draw_seg, draw_start, draw_text
 from skidl.geometry import BBox, Point, Segment, Tx, Vector, tx_rot_90
 
 
