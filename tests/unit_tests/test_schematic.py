@@ -54,7 +54,7 @@ if os.getenv("DEBUG_DRAW"):
     # These options control debugging output.
     # To view schematic debugging output, use the command:
     #    DEBUG_DRAW=1 pytest ...
-    sch_options["draw_placement"] = True
+    # sch_options["draw_placement"] = True
     # sch_options["draw_all_terminals"] = True
     # sch_options["show_capacities"] = True
     # sch_options["draw_routing_channels"] = True
@@ -62,6 +62,7 @@ if os.getenv("DEBUG_DRAW"):
     # sch_options["draw_assigned_terminals"] = True
     # sch_options["draw_switchbox_boundary"] = True
     # sch_options["draw_switchbox_routing"] = True
+    pass
 
 
 def create_schematic(num_trials=1, flatness=1.0, script_stack_level=1, report_failures=True):
