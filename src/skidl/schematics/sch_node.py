@@ -8,7 +8,6 @@ from itertools import chain
 
 from skidl.utilities import export_to_all
 from skidl.geometry import BBox, Point, Tx, Vector
-from skidl.node import Node, HIER_SEP
 from .place import Placer
 from .route import Router
 
@@ -89,7 +88,7 @@ class SchNode(Placer, Router):
             Node: The Node object containing the part.
         """
 
-        level_names = part.hiername.split(HIER_SEP)
+        level_names = list(part.hiertuple)
         node = self
         for lvl_nm in level_names[1:]:
             node = node.children[lvl_nm]
@@ -105,7 +104,7 @@ class SchNode(Placer, Router):
         """
 
         # Get list of names of hierarchical levels (in order) leading to this part.
-        level_names = part.hiername.split(HIER_SEP)
+        level_names = list(part.hiertuple)
 
         # Get depth in hierarchy for this part.
         part_level = len(level_names) - 1
@@ -157,7 +156,7 @@ class SchNode(Placer, Router):
 
             # Search for pins in different nodes.
             for pin1, pin2 in zip(net.pins[:-1], net.pins[1:]):
-                if pin1.part.hiername != pin2.part.hiername:
+                if pin1.part.hiertuple != pin2.part.hiertuple:
                     # Found pins in different nodes, so break and add terminals to nodes below.
                     break
             else:
@@ -181,7 +180,7 @@ class SchNode(Placer, Router):
 
                 part = pin.part
 
-                if part.hiername in visited:
+                if part.hiertuple in visited:
                     # Already added a terminal to this node, so don't add another.
                     continue
 
@@ -189,7 +188,7 @@ class SchNode(Placer, Router):
                 self.find_node_with_part(part).add_terminal(net)
 
                 # Record that this hierarchical node was visited.
-                visited.append(part.hiername)
+                visited.append(part.hiertuple)
 
         # Flatten the hierarchy as specified by the flatness parameter.
         self.flatten(self.flatness)

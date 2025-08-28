@@ -1545,6 +1545,10 @@ class Part(SkidlBaseObject):
             str: The tag, reference, or name of the object.
         """
         return getattr(self, "tag", None) or getattr(self, "ref", None) or getattr(self, "name")
+    
+    @property
+    def hiertuple(self):
+        return self.node.hiertuple
 
     @property
     def hiername(self):
@@ -1555,7 +1559,7 @@ class Part(SkidlBaseObject):
             str: The hierarchical name including hierarchy prefix and tag.
         """
 
-        return HIER_SEP.join(self.node.hiertuple + (self.tag_ref_name,))
+        return HIER_SEP.join(self.hiertuple + (self.tag_ref_name,))
 
     @property
     def partclasses(self):
@@ -1813,6 +1817,10 @@ class PartUnit(Part):
             str: Reference in the form "parent_ref.label"
         """
         return HIER_SEP.join((self.parent.ref, self.label))
+    
+    @property
+    def hiertuple(self):
+        return self.parent.hiertuple
 
 
 PartTmplt = functools.partial(Part, dest=TEMPLATE)
