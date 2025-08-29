@@ -1,7 +1,9 @@
 from skidl import *
 
+set_default_tool(KICAD5)
+
 # Create part templates.
-q = Part(lib="Transistor_BJT", name="Q_PNP_CBE", dest=TEMPLATE, symtx="V")
+q = Part(lib="Device", name="Q_PNP_CBE", dest=TEMPLATE, symtx="V")
 r = Part("Device", "R", dest=TEMPLATE)
 
 # Create nets.
@@ -32,6 +34,7 @@ q2.E.symio = "i"  # Signal enters Q2 on E and B terminals.
 q2.B.symio = "i"
 q2.C.symio = "o"  # Signal exits Q2 on C terminal.
 
-generate_svg()
-generate_dot(file_='and_gate.dot')
-
+generate_schematic(
+                # allow_routing_failure=True, draw=True, draw_all_terminals=True, show_capacities=False,
+                # draw_switchbox=True, draw_routing=True, draw_channels=True, draw_placement=True
+)

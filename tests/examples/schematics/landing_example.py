@@ -1,6 +1,6 @@
 from skidl import *
 
-set_default_tool(KICAD6)
+set_default_tool(KICAD5)
 
 def my_empty_footprint_handler(part):
     part.fields["footprint"] = ":"
@@ -10,7 +10,7 @@ import skidl
 skidl.empty_footprint_handler = my_empty_footprint_handler
 
 # Create part templates.
-q = PartTmplt(lib="Device", name="Q_PNP_CBE", symtx="V")
+q = PartTmplt(lib="Transistor_BJT", name="Q_PNP_CBE", symtx="V")
 r = PartTmplt("Device", "R")
 
 # Create nets.
@@ -31,5 +31,5 @@ q1["C"] & r3 & gnd
 vcc += q1["E"], q2["E"], vcct
 gnd += gndt
 
-generate_svg()
-# generate_schematic(draw=True, fanout_attenuation=True)
+# generate_svg()
+generate_schematic(draw=True, fanout_attenuation=True)
