@@ -114,7 +114,8 @@ class SchNode(Placer, Router):
         self.name = level_names[level]
 
         # File name for storing the schematic for this node.
-        base_filename = "_".join([self.top_name] + level_names[0 : level + 1]) + ".sch"
+        # The top level always has a blank name, so skip over it.
+        base_filename = "_".join([self.top_name] + level_names[1 : level + 1]) + ".sch"
         self.sheet_filename = base_filename
 
         if part_level == level:
