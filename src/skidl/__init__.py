@@ -79,6 +79,7 @@ from .skidl import (  # Core SKiDL functionality
     erc_assert,
     footprint_search_paths,
     generate_graph,
+    generate_dot,
     generate_netlist,
     generate_pcb,
     generate_schematic,

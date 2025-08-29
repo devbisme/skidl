@@ -33,6 +33,7 @@ __all__ = [
     "generate_schematic",
     "generate_svg",
     "generate_graph",
+    "generate_dot",
     "reset",
     "backup_parts",
     "empty_footprint_handler",
@@ -66,6 +67,7 @@ generate_xml = default_circuit.generate_xml
 generate_schematic = default_circuit.generate_schematic
 generate_svg = default_circuit.generate_svg
 generate_graph = default_circuit.generate_graph
+generate_dot = generate_graph
 reset = default_circuit.reset
 backup_parts = default_circuit.backup_parts
 no_files = default_circuit.no_files
