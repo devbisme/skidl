@@ -3,8 +3,8 @@ skidl.tools.skidl package
 
 .. automodule:: skidl.tools.skidl
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Subpackages
 -----------

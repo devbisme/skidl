@@ -7,12 +7,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.tools.kicad8.gen_netlist module &#8212; SKiDL 2.0.1 documentation</title>
+    <title>skidl.tools.kicad8.gen_netlist module &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -24,7 +24,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../"><img src="../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad8.gen_netlist module</a></li> 
       </ul>
     </div>  
@@ -45,22 +45,35 @@
             
   <section id="module-skidl.tools.kicad8.gen_netlist">
 <span id="skidl-tools-kicad8-gen-netlist-module"></span><h1>skidl.tools.kicad8.gen_netlist module<a class="headerlink" href="#module-skidl.tools.kicad8.gen_netlist" title="Link to this heading">¶</a></h1>
-<p>Generate KiCad 5 netlist.</p>
+<p>Generate KiCad 8 netlist.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.tools.kicad8.gen_netlist.gen_netlist">
-<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad8.gen_netlist.</span></span><span class="sig-name descname"><span class="pre">gen_netlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad8/gen_netlist.html#gen_netlist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad8.gen_netlist.gen_netlist" title="Link to this definition">¶</a></dt>
-<dd><p>Generate a netlist from a Circuit object.</p>
+<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad8.gen_netlist.</span></span><span class="sig-name descname"><span class="pre">gen_netlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad8/gen_netlist.html#gen_netlist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad8.gen_netlist.gen_netlist" title="Link to this definition">¶</a></dt>
+<dd><p>Generate a netlist for a given circuit.</p>
+<p>This function creates a netlist representation of the circuit, which includes
+information about components, nets, and design metadata. The netlist is formatted
+as a nested list structure and converted to S-expression format using the Sexp class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>circuit</strong> (<a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit" title="skidl.circuit.Circuit"><em>Circuit</em></a>) – Circuit object.</p>
+<dd class="field-odd"><p><strong>circuit</strong> (<a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit" title="skidl.circuit.Circuit"><em>Circuit</em></a>) – The circuit object containing parts, nets, and other
+design information.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>String containing netlist text.</p>
+<dd class="field-even"><p>The netlist in S-expression format.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The function performs checks for empty footprints and randomly-assigned
+part tags to ensure the netlist is stable and usable for PCB design.</p></li>
+<li><p>The netlist includes metadata such as the source file, date, and tool
+version.</p></li>
+<li><p>Components and nets are sorted for consistent output.</p></li>
+<li><p>The Sexp class is used to create a properly formatted S-expression.</p></li>
+</ul>
 </dd></dl>
 
 </section>
@@ -70,7 +83,7 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
   <div>
     <h3><a href="../index.html">Table of Contents</a></h3>
@@ -103,7 +116,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -112,13 +125,13 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad8.gen_netlist module</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

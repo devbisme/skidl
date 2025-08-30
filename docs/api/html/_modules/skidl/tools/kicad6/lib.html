@@ -6,12 +6,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.tools.kicad6.lib &#8212; SKiDL 2.0.1 documentation</title>
+    <title>skidl.tools.kicad6.lib &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../../../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -23,7 +23,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../../../../"><img src="../../../../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad6.lib</a></li> 
       </ul>
@@ -54,7 +54,7 @@
 
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span><span class="p">,</span> <span class="n">OrderedDict</span>
-<span class="kn">import</span> <span class="nn">sexpdata</span>
+<span class="kn">from</span> <span class="nn">simp_sexp</span> <span class="kn">import</span> <span class="n">Sexp</span>
 
 <span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="n">Alias</span>
 <span class="kn">from</span> <span class="nn">skidl.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
@@ -64,6 +64,7 @@
 <span class="kn">from</span> <span class="nn">skidl.utilities</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">export_to_all</span><span class="p">,</span>
     <span class="n">find_and_open_file</span><span class="p">,</span>
+    <span class="n">get_abs_filename</span><span class="p">,</span>
     <span class="n">num_to_chars</span><span class="p">,</span>
     <span class="n">to_list</span><span class="p">,</span>
     <span class="n">add_unique_attr</span><span class="p">,</span>
@@ -101,21 +102,25 @@
 <a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad6.lib.html#skidl.tools.kicad6.lib.get_fp_lib_tbl_dir">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">get_fp_lib_tbl_dir</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the path to where the global fp-lib-table file is found.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the path where the global fp-lib-table file is found.&quot;&quot;&quot;</span>
 
     <span class="n">paths</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;$HOME/.config/kicad/6.0&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;~/.config/kicad/6.0&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;%APPDATA%/kicad/6.0&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;$HOME/Library/Preferences/kicad/6.0&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;~/Library/Preferences/kicad/6.0&quot;</span><span class="p">,</span>
         <span class="s2">&quot;$HOME/.config/kicad&quot;</span><span class="p">,</span>
         <span class="s2">&quot;~/.config/kicad&quot;</span><span class="p">,</span>
         <span class="s2">&quot;%APPDATA%/kicad&quot;</span><span class="p">,</span>
         <span class="s2">&quot;$HOME/Library/Preferences/kicad&quot;</span><span class="p">,</span>
         <span class="s2">&quot;~/Library/Preferences/kicad&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expandvars</span><span class="p">(</span><span class="n">path</span><span class="p">)))</span>
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">lexists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">path</span>
-    <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">get_abs_filename</span><span class="p">(</span><span class="s2">&quot;fp-lib-table&quot;</span><span class="p">,</span> <span class="n">paths</span><span class="o">=</span><span class="n">paths</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_failure</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">descend</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">bare_warning</span><span class="p">(</span><span class="s2">&quot;fp-lib-table file was not found. Component footprints are not available.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
 
 
 
@@ -152,7 +157,7 @@
             <span class="k">break</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">f</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
-            <span class="s2">&quot;Unable to open KiCad Schematic Library File </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="sa">f</span><span class="s2">&quot;Unable to open KiCad Schematic Library File </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span>
 
     <span class="c1"># Parse the library and return a nested list of library parts.</span>
@@ -163,79 +168,60 @@
         <span class="c1"># File contents were already decoded.</span>
         <span class="k">pass</span>
 
-    <span class="c1"># Convert S-expression library into a list of symbols.</span>
+    <span class="c1"># Convert library text into an S-expression object.</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">lib_list</span> <span class="o">=</span> <span class="n">sexpdata</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">lib_txt</span><span class="p">)</span>
+        <span class="n">lib_sexp</span> <span class="o">=</span> <span class="n">Sexp</span><span class="p">(</span><span class="n">lib_txt</span><span class="p">)</span>
     <span class="k">except</span><span class="p">:</span>
         <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
             <span class="ne">RuntimeError</span><span class="p">,</span>
-            <span class="s2">&quot;The file </span><span class="si">{}</span><span class="s2"> is not a KiCad Schematic Library File.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">),</span>
+            <span class="sa">f</span><span class="s2">&quot;The file </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2"> is not a KiCad Schematic Library File.</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="p">)</span>
 
-    <span class="c1"># Skip over the &#39;kicad_symbol_lib&#39; label and extract symbols into a dictionary with</span>
-    <span class="c1"># symbol names as keys. Use an ordered dictionary to keep parts in the same order as</span>
-    <span class="c1"># they appeared in the library file because in KiCad V6 library symbols can &quot;extend&quot;</span>
+    <span class="c1"># Extract symbols into a dictionary with symbol names as keys. </span>
+    <span class="c1"># Use an ordered dictionary to keep parts in the same order as</span>
+    <span class="c1"># they appeared in the library file because in KiCad V6+ library symbols can &quot;extend&quot;</span>
     <span class="c1"># previous symbols which should be processed before those that extend them.</span>
     <span class="n">symbols</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">(</span>
         <span class="p">[</span>
-            <span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
-            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">lib_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
-            <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;symbol&quot;</span>
+            <span class="p">(</span><span class="n">symbol</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">symbol</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">lib_sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/kicad_symbol_lib/symbol&quot;</span><span class="p">,</span> <span class="n">ignore_case</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="p">]</span>
     <span class="p">)</span>
 
     <span class="c1"># Create Part objects for each symbol in the library.</span>
-    <span class="k">for</span> <span class="n">part_name</span><span class="p">,</span> <span class="n">part_defn</span> <span class="ow">in</span> <span class="n">symbols</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">symbol_name</span><span class="p">,</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">symbols</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+
+        <span class="c1"># Get symbol properties</span>
         <span class="n">properties</span> <span class="o">=</span> <span class="p">{}</span>
-
-        <span class="c1"># See if this symbol extends a previous parent symbol.</span>
-        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">part_defn</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;extends&quot;</span><span class="p">:</span>
-                <span class="c1"># Get the properties from the parent symbol.</span>
-                <span class="n">parent_part</span> <span class="o">=</span> <span class="n">lib</span><span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
-                <span class="k">if</span> <span class="n">parent_part</span><span class="o">.</span><span class="n">part_defn</span><span class="p">:</span>
-                    <span class="c1"># Properties are stored as lists: [&quot;property&quot;, name, value].</span>
-                    <span class="n">properties</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-                        <span class="p">{</span>
-                            <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-                            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">parent_part</span><span class="o">.</span><span class="n">part_defn</span>
-                            <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;property&quot;</span>
-                        <span class="p">}</span>
-                    <span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">properties</span><span class="p">[</span><span class="s2">&quot;ki_keywords&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent_part</span><span class="o">.</span><span class="n">keywords</span>
-                    <span class="n">properties</span><span class="p">[</span><span class="s2">&quot;ki_description&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent_part</span><span class="o">.</span><span class="n">description</span>
-                    <span class="n">properties</span><span class="p">[</span><span class="s2">&quot;datasheet&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent_part</span><span class="o">.</span><span class="n">datasheet</span>
-
-                <span class="k">break</span>  <span class="c1"># At most one extends clause in part def.</span>
-
-        <span class="c1"># Get symbol properties, primarily to get the reference id.</span>
-        <span class="c1"># Properties are stored as lists: [&quot;property&quot;, name, value].</span>
-        <span class="n">properties</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-            <span class="p">{</span>
-                <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">part_defn</span>
-                <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;property&quot;</span>
-            <span class="p">}</span>
-        <span class="p">)</span>
+        <span class="n">extends</span> <span class="o">=</span> <span class="n">symbol</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/symbol/extends&quot;</span><span class="p">,</span> <span class="n">ignore_case</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">extends</span><span class="p">:</span>
+            <span class="c1"># If the current symbol extends a previous parent symbol,</span>
+            <span class="c1"># use the properties from the parent symbol as properties for this one.</span>
+            <span class="n">parent_name</span> <span class="o">=</span> <span class="n">extends</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">parent</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">[</span><span class="n">parent_name</span><span class="p">]</span>
+            <span class="n">parent_properties</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/symbol/property&quot;</span><span class="p">,</span> <span class="n">ignore_case</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">properties</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">parent_properties</span><span class="p">}</span>
+        <span class="c1"># Update properties with those from the current symbol.</span>
+        <span class="n">current_properties</span> <span class="o">=</span> <span class="n">symbol</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/symbol/property&quot;</span><span class="p">,</span> <span class="n">ignore_case</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">properties</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">current_properties</span><span class="p">})</span>
 
         <span class="c1"># Get part properties.</span>
         <span class="n">keywords</span> <span class="o">=</span> <span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ki_keywords&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="n">datasheet</span> <span class="o">=</span> <span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;datasheet&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="n">description</span> <span class="o">=</span> <span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ki_description&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 
         <span class="c1"># Join the various text pieces by newlines so the ^ and $ special characters</span>
         <span class="c1"># can be used to detect the start and end of a piece of text during RE searches.</span>
-        <span class="n">search_text</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">filename</span><span class="p">,</span> <span class="n">part_name</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">keywords</span><span class="p">])</span>
+        <span class="n">search_text</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">filename</span><span class="p">,</span> <span class="n">symbol_name</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">keywords</span><span class="p">])</span>
 
         <span class="c1"># Create a Part object and add it to the library object.</span>
         <span class="n">lib</span><span class="o">.</span><span class="n">add_parts</span><span class="p">(</span>
             <span class="n">Part</span><span class="p">(</span>
-                <span class="n">part_defn</span><span class="o">=</span><span class="n">part_defn</span><span class="p">,</span>  <span class="c1"># A list of lists that define the part.</span>
+                <span class="n">part_defn</span><span class="o">=</span><span class="n">symbol</span><span class="p">,</span>  <span class="c1"># A list of lists that define the part.</span>
                 <span class="n">tool</span><span class="o">=</span><span class="n">KICAD6</span><span class="p">,</span>
                 <span class="n">dest</span><span class="o">=</span><span class="n">LIBRARY</span><span class="p">,</span>
                 <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
-                <span class="n">name</span><span class="o">=</span><span class="n">part_name</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">symbol_name</span><span class="p">,</span>
                 <span class="n">aliases</span><span class="o">=</span><span class="nb">list</span><span class="p">(),</span>  <span class="c1"># No aliases in KiCad V6?</span>
                 <span class="n">keywords</span><span class="o">=</span><span class="n">keywords</span><span class="p">,</span>
                 <span class="n">datasheet</span><span class="o">=</span><span class="n">datasheet</span><span class="p">,</span>
@@ -273,6 +259,8 @@
     <span class="c1"># If a part def already exists, the name has already been set, so exit.</span>
     <span class="k">if</span> <span class="n">partial_parse</span><span class="p">:</span>
         <span class="k">return</span>
+    
+    <span class="n">part_defn</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">part_defn</span>
 
     <span class="n">part</span><span class="o">.</span><span class="n">aliases</span> <span class="o">=</span> <span class="n">Alias</span><span class="p">()</span>  <span class="c1"># Part aliases.</span>
     <span class="n">part</span><span class="o">.</span><span class="n">fplist</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Footprint list.</span>
@@ -281,54 +269,53 @@
     <span class="p">)</span>  <span class="c1"># Drawing commands for the part and any units, including pins.</span>
 
     <span class="c1"># Search for a parent that this part inherits from.</span>
-    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">part_defn</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;extends&quot;</span><span class="p">:</span>
+    <span class="n">extends</span> <span class="o">=</span> <span class="n">part_defn</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/symbol/extends&quot;</span><span class="p">,</span> <span class="n">ignore_case</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">extends</span><span class="p">:</span>
 
-            <span class="c1"># Make a copy of the parent part from the library.</span>
-            <span class="n">parent_part</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">lib</span><span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
+        <span class="c1"># Make a copy of the parent part from the library.</span>
+        <span class="n">parent_name</span> <span class="o">=</span> <span class="n">extends</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">parent_part</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">lib</span><span class="p">[</span><span class="n">parent_name</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
 
-            <span class="c1"># Remove parent attributes that we don&#39;t want to overwrite in the child.</span>
-            <span class="n">parent_part_dict</span> <span class="o">=</span> <span class="n">parent_part</span><span class="o">.</span><span class="vm">__dict__</span>
-            <span class="k">for</span> <span class="n">property_key</span> <span class="ow">in</span> <span class="p">(</span>
-                <span class="s2">&quot;part_defn&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;_name&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;_aliases&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;description&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;datasheet&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;keywords&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;search_text&quot;</span><span class="p">,</span>
-            <span class="p">):</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="k">del</span> <span class="n">parent_part_dict</span><span class="p">[</span><span class="n">property_key</span><span class="p">]</span>
-                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-                    <span class="k">pass</span>
+        <span class="c1"># Remove parent attributes that we don&#39;t want to overwrite in the child.</span>
+        <span class="n">parent_part_dict</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">(</span><span class="n">parent_part</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">property_key</span> <span class="ow">in</span> <span class="p">(</span>
+            <span class="s2">&quot;part_defn&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;_name&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;_aliases&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;datasheet&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;keywords&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;search_text&quot;</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">parent_part_dict</span><span class="p">[</span><span class="n">property_key</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">pass</span>
 
-            <span class="c1"># Overwrite child with the parent part.</span>
-            <span class="n">part</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">parent_part_dict</span><span class="p">)</span>
+        <span class="c1"># Overwrite child with the parent part.</span>
+        <span class="nb">vars</span><span class="p">(</span><span class="n">part</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">parent_part_dict</span><span class="p">)</span>
 
-            <span class="c1"># Make sure all the pins have a valid reference to the child.</span>
-            <span class="n">part</span><span class="o">.</span><span class="n">associate_pins</span><span class="p">()</span>
+        <span class="c1"># Make sure all the pins have a valid reference to the child.</span>
+        <span class="n">part</span><span class="o">.</span><span class="n">associate_pins</span><span class="p">()</span>
 
-            <span class="c1"># Copy part units so all the pin and part references stay valid.</span>
-            <span class="n">part</span><span class="o">.</span><span class="n">copy_units</span><span class="p">(</span><span class="n">parent_part</span><span class="p">)</span>
+        <span class="c1"># Copy part units so all the pin and part references stay valid.</span>
+        <span class="n">part</span><span class="o">.</span><span class="n">copy_units</span><span class="p">(</span><span class="n">parent_part</span><span class="p">)</span>
 
-            <span class="c1"># Perform some operations on the child part.</span>
-            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">part_defn</span><span class="p">:</span>
-                <span class="n">cmd</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-                <span class="k">if</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s2">&quot;del&quot;</span><span class="p">:</span>
-                    <span class="n">part</span><span class="o">.</span><span class="n">rmv_pins</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-                <span class="k">elif</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s2">&quot;swap&quot;</span><span class="p">:</span>
-                    <span class="n">part</span><span class="o">.</span><span class="n">swap_pins</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-                <span class="k">elif</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s2">&quot;renum&quot;</span><span class="p">:</span>
-                    <span class="n">part</span><span class="o">.</span><span class="n">renumber_pin</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-                <span class="k">elif</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s2">&quot;rename&quot;</span><span class="p">:</span>
-                    <span class="n">part</span><span class="o">.</span><span class="n">rename_pin</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-                <span class="k">elif</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s2">&quot;property_del&quot;</span><span class="p">:</span>
-                    <span class="k">del</span> <span class="n">part</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
-                <span class="k">elif</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s2">&quot;alternate&quot;</span><span class="p">:</span>
-                    <span class="k">pass</span>
-
-            <span class="k">break</span>
+        <span class="c1"># Perform some operations on the child part.</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">part_defn</span><span class="p">:</span>
+            <span class="n">cmd</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s2">&quot;del&quot;</span><span class="p">:</span>
+                <span class="n">part</span><span class="o">.</span><span class="n">rmv_pins</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">elif</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s2">&quot;swap&quot;</span><span class="p">:</span>
+                <span class="n">part</span><span class="o">.</span><span class="n">swap_pins</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="k">elif</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s2">&quot;renum&quot;</span><span class="p">:</span>
+                <span class="n">part</span><span class="o">.</span><span class="n">renumber_pin</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="k">elif</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s2">&quot;rename&quot;</span><span class="p">:</span>
+                <span class="n">part</span><span class="o">.</span><span class="n">rename_pin</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="k">elif</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s2">&quot;property_del&quot;</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">part</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+            <span class="k">elif</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s2">&quot;alternate&quot;</span><span class="p">:</span>
+                <span class="k">pass</span>
 
     <span class="k">def</span> <span class="nf">parse_pins</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">unit</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Parse the pins within a symbol and add them to the Part object.&quot;&quot;&quot;</span>
@@ -350,19 +337,19 @@
         <span class="p">}</span>
 
         <span class="c1"># Get the pins for this symbol.</span>
-        <span class="n">symbol_pins</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">symbol</span> <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;pin&quot;</span><span class="p">]</span>
+        <span class="n">symbol_pins</span> <span class="o">=</span> <span class="n">symbol</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/symbol/pin&quot;</span><span class="p">,</span> <span class="n">ignore_case</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="c1"># Process the pins for the symbol.</span>
         <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">symbol_pins</span><span class="p">:</span>
             <span class="c1"># Pin electrical type immediately follows the &quot;pin&quot; tag.</span>
-            <span class="n">pin_func</span> <span class="o">=</span> <span class="n">pin_io_type_translation</span><span class="p">[</span><span class="n">pin</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+            <span class="n">pin_func</span> <span class="o">=</span> <span class="n">pin_io_type_translation</span><span class="p">[</span><span class="n">pin</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
 
             <span class="c1"># Find the pin name, number, and X/Y position.</span>
             <span class="n">pin_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
             <span class="n">pin_number</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">pin</span><span class="p">:</span>
                 <span class="n">item</span> <span class="o">=</span> <span class="n">to_list</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-                <span class="n">token_name</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="n">token_name</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
                 <span class="k">if</span> <span class="n">token_name</span> <span class="o">==</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span>
                     <span class="n">pin_name</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
                 <span class="k">elif</span> <span class="n">token_name</span> <span class="o">==</span> <span class="s2">&quot;number&quot;</span><span class="p">:</span>
@@ -401,19 +388,17 @@
         <span class="k">return</span> <span class="p">[</span>
             <span class="n">item</span>
             <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">symbol</span>
-            <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
             <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;arc&quot;</span><span class="p">,</span> <span class="s2">&quot;bezier&quot;</span><span class="p">,</span> <span class="s2">&quot;circle&quot;</span><span class="p">,</span> <span class="s2">&quot;pin&quot;</span><span class="p">,</span> <span class="s2">&quot;polyline&quot;</span><span class="p">,</span> <span class="s2">&quot;rectangle&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">)</span>
         <span class="p">]</span>
 
     <span class="c1"># Parse top-level pins. (Any units with pins are parsed later.)</span>
-    <span class="n">top_has_pins</span> <span class="o">=</span> <span class="n">parse_pins</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">part_defn</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">top_has_pins</span> <span class="o">=</span> <span class="n">parse_pins</span><span class="p">(</span><span class="n">part_defn</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-    <span class="c1"># Find all the units within a symbol. Skip the first item which is the</span>
-    <span class="c1"># &#39;symbol&#39; marking the start of the entire part definition.</span>
+    <span class="c1"># Make dict of all the units within a symbol, keyed by unit id.</span>
     <span class="n">units</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
-        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">part_defn</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
-        <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;symbol&quot;</span>
+        <span class="n">unit</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">unit</span>
+        <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">part_defn</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/symbol/symbol&quot;</span><span class="p">,</span> <span class="n">ignore_case</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="p">}</span>
 
     <span class="c1"># I&#39;m assuming a part will not have both pins at the top level and units with pins.</span>
@@ -508,11 +493,20 @@
         <span class="n">add_unique_attr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">unit_label</span><span class="p">,</span> <span class="n">part</span><span class="p">)</span>
 
     <span class="c1"># Populate part fields from symbol properties. Properties will also be included below in drawing commands.</span>
+    <span class="c1"># Some default properties in case they&#39;re missing from the part.</span>
     <span class="n">props</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">prop</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span> <span class="n">prop</span>
-        <span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">part_defn</span>
-        <span class="k">if</span> <span class="n">prop</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;property&quot;</span>
+        <span class="s2">&quot;reference&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;footprint&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;datasheet&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
     <span class="p">}</span>
+    <span class="c1"># Overwrite defaults with any existing properties from the part definition.</span>
+    <span class="n">props</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="n">prop</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span> <span class="n">prop</span>
+            <span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="n">part_defn</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/symbol/property&quot;</span><span class="p">,</span> <span class="n">ignore_case</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
     <span class="n">part</span><span class="o">.</span><span class="n">ref_prefix</span> <span class="o">=</span> <span class="n">props</span><span class="p">[</span><span class="s2">&quot;reference&quot;</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
     <span class="n">part</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">props</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
     <span class="n">part</span><span class="o">.</span><span class="n">fplist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">props</span><span class="p">[</span><span class="s2">&quot;footprint&quot;</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
@@ -520,10 +514,11 @@
     <span class="n">part</span><span class="o">.</span><span class="n">draw_cmds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">props</span><span class="p">[</span><span class="s2">&quot;reference&quot;</span><span class="p">],</span> <span class="n">props</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]])</span>
 
     <span class="c1"># Construct the rest of the part attribute space, avoid part attributes that are already defined.</span>
+    <span class="n">already_defined</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">(</span><span class="n">part</span><span class="p">)</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
     <span class="n">part_dict</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">k</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">):</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">props</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="n">part</span><span class="p">)</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">already_defined</span>
     <span class="p">}</span>
     <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">part_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="nb">setattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
@@ -537,7 +532,7 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
@@ -553,7 +548,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -562,14 +557,14 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad6.lib</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

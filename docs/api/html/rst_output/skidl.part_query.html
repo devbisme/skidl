@@ -7,12 +7,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.part_query module &#8212; SKiDL 2.0.1 documentation</title>
+    <title>skidl.part_query module &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -24,7 +24,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../"><img src="../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.part_query module</a></li> 
       </ul>
     </div>  
@@ -46,50 +46,145 @@
   <section id="module-skidl.part_query">
 <span id="skidl-part-query-module"></span><h1>skidl.part_query module<a class="headerlink" href="#module-skidl.part_query" title="Link to this heading">¶</a></h1>
 <p>Functions for finding/displaying parts and footprints.</p>
+<p>This module provides utilities to search for electronic parts and footprints
+across libraries, and to display their details. It includes support for
+regular expression searches and filtering on different properties.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.part_query.search">
 <span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part_query.search" title="Link to this definition">¶</a></dt>
 <dd><p>Print a list of parts with the regex terms within their name, alias, description or keywords.</p>
+<p>Searches through all available libraries for parts matching the given terms and prints
+the results to the console.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>terms</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Space-separated search terms to match against part attributes.</p></li>
+<li><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The ECAD tool format for the libraries to search.
+Defaults to the currently configured tool.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Results are printed to the console.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.part_query.search_footprints">
 <span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">search_footprints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#search_footprints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.search_footprints" title="Link to this definition">¶</a></dt>
 <dd><p>Print a list of footprints with the regex term within their description/tags.</p>
+<p>Searches through all available footprint libraries for footprints matching
+the given terms and prints the results to the console.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>terms</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Space-separated search terms to match against footprint attributes.</p></li>
+<li><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The ECAD tool format for the libraries to search.
+Defaults to the currently configured tool.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Results are printed to the console.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.part_query.search_footprints_iter">
 <span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">search_footprints_iter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#search_footprints_iter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.search_footprints_iter" title="Link to this definition">¶</a></dt>
-<dd><p>Return a list of (lib, footprint) sequences that match a regex term.</p>
+<dd><p>Return an iterator over footprints that match the regex terms.</p>
+<p>This generator function yields information about libraries being searched and footprints
+found that match the search terms.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>terms</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Space-separated search terms to match against footprint attributes.</p></li>
+<li><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The ECAD tool format for the footprint libraries to search.
+Defaults to the currently configured tool.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Yields<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>tuple</em> –</p>
+<dl class="simple">
+<dt>Either progress information as (“LIB”, lib_name, index, total)</dt><dd><p>or footprint information as (“MODULE”, lib_name, module_text, module_name).</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.part_query.search_parts">
 <span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">search_parts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#search_parts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.search_parts" title="Link to this definition">¶</a></dt>
 <dd><p>Print a list of parts with the regex terms within their name, alias, description or keywords.</p>
+<p>Searches through all available libraries for parts matching the given terms and prints
+the results to the console.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>terms</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Space-separated search terms to match against part attributes.</p></li>
+<li><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The ECAD tool format for the libraries to search.
+Defaults to the currently configured tool.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Results are printed to the console.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.part_query.search_parts_iter">
 <span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">search_parts_iter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#search_parts_iter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.search_parts_iter" title="Link to this definition">¶</a></dt>
-<dd><p>Return a list of (lib, part) sequences that match a regex term.</p>
+<dd><p>Return an iterator of (lib, part) sequences that match regex terms.</p>
+<p>This generator function yields information about libraries being searched and parts
+found that match the search terms.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>terms</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Space-separated search terms to match against part attributes.</p></li>
+<li><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The ECAD tool format for the libraries to search.
+Defaults to the currently configured tool.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Yields<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>tuple</em> –</p>
+<dl class="simple">
+<dt>Either progress information as (“LIB”, lib_file, index, total)</dt><dd><p>or part information as (“PART”, lib_file, part_obj, part_alias).</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.part_query.show">
 <span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">part_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part_query.show" title="Link to this definition">¶</a></dt>
 <dd><p>Print the I/O pins for a given part in a library.</p>
+<p>Creates a template Part object that can be inspected to see its pins and properties.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>lib</strong> – Either a SchLib object or the name of a library.</p></li>
-<li><p><strong>part_name</strong> – The name of the part in the library.</p></li>
-<li><p><strong>tool</strong> – The ECAD tool format for the library.</p></li>
+<li><p><strong>part_name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The name of the part in the library.</p></li>
+<li><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The ECAD tool format for the library.
+Defaults to the currently configured tool.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A Part object.</p>
+<dd class="field-even"><p>A template Part object if found, otherwise None.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="skidl.part.html#skidl.part.Part" title="skidl.part.Part">Part</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -97,35 +192,27 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.part_query.show_footprint">
 <span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">show_footprint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#show_footprint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.show_footprint" title="Link to this definition">¶</a></dt>
-<dd><p>Print the pads for a given module in a library.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>lib</strong> – The name of a library.</p></li>
-<li><p><strong>module_name</strong> – The name of the footprint in the library.</p></li>
-<li><p><strong>tool</strong> – The ECAD tool format for the library.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A Part object.</p>
-</dd>
-</dl>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.part_query.show_part">
 <span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">show_part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">part_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#show_part"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.show_part" title="Link to this definition">¶</a></dt>
 <dd><p>Print the I/O pins for a given part in a library.</p>
+<p>Creates a template Part object that can be inspected to see its pins and properties.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>lib</strong> – Either a SchLib object or the name of a library.</p></li>
-<li><p><strong>part_name</strong> – The name of the part in the library.</p></li>
-<li><p><strong>tool</strong> – The ECAD tool format for the library.</p></li>
+<li><p><strong>part_name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The name of the part in the library.</p></li>
+<li><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The ECAD tool format for the library.
+Defaults to the currently configured tool.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A Part object.</p>
+<dd class="field-even"><p>A template Part object if found, otherwise None.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="skidl.part.html#skidl.part.Part" title="skidl.part.Part">Part</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -137,7 +224,7 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
   <div>
     <h3><a href="../index.html">Table of Contents</a></h3>
@@ -177,7 +264,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -186,13 +273,13 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.part_query module</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

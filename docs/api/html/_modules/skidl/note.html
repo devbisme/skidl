@@ -6,12 +6,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.note &#8212; SKiDL 2.0.1 documentation</title>
+    <title>skidl.note &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -23,7 +23,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../../"><img src="../../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.note</a></li> 
       </ul>
@@ -50,6 +50,11 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Supports user-specified notes that can be attached to other SKiDL objects.</span>
+
+<span class="sd">This module provides the Note class that allows textual annotations to be</span>
+<span class="sd">attached to various SKiDL objects such as parts, pins, nets, and buses.</span>
+<span class="sd">Notes can be used for documentation purposes or to provide additional</span>
+<span class="sd">information about design elements.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span>
@@ -59,36 +64,62 @@
 <a class="viewcode-back" href="../../rst_output/skidl.note.html#skidl.note.Note">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">class</span> <span class="nc">Note</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Stores one or more strings as notes.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Stores one or more strings as notes.</span>
+<span class="sd">    </span>
+<span class="sd">    The Note class extends the Python list to store textual annotations.</span>
+<span class="sd">    Notes can be attached to SKiDL objects to provide additional information</span>
+<span class="sd">    or documentation about the design.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">notes</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a note.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a note object containing one or more text strings.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            notes: Either a string or an iterable containing multiple strings.</span>
+<span class="sd">                  Each string becomes an element in the Note list.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            A Note object containing note strings.</span>
+<span class="sd">            </span>
+<span class="sd">        Examples:</span>
+<span class="sd">            note1 = Note(&quot;This is a note&quot;)</span>
+<span class="sd">            note2 = Note(&quot;First line&quot;, &quot;Second line&quot;)</span>
+<span class="sd">            note3 = Note([&quot;Line 1&quot;, &quot;Line 2&quot;])</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="fm">__iadd__</span><span class="p">(</span><span class="o">*</span><span class="n">notes</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return notes as a concatenated set of strings.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return notes as a concatenated set of strings.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            A string made up of the concatenated notes in the object joined by newlines.</span>
+<span class="sd">            </span>
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; print(Note(&quot;Line 1&quot;, &quot;Line 2&quot;))</span>
+<span class="sd">            Line 1</span>
+<span class="sd">            Line 2</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">notes</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add new notes to a Note object.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add new notes to a Note object.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            notes: Either a string or an iterable containing multiple strings.</span>
+<span class="sd">                  These will be added to the existing notes.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            A Note object containing note strings.</span>
+<span class="sd">            A Note object containing the original and new note strings.</span>
+<span class="sd">            </span>
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; n = Note(&quot;Original note&quot;)</span>
+<span class="sd">            &gt;&gt;&gt; n += &quot;Additional note&quot;</span>
+<span class="sd">            &gt;&gt;&gt; n += [&quot;Multiple&quot;, &quot;Notes&quot;]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">note</span> <span class="ow">in</span> <span class="n">notes</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">note</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">set</span><span class="p">)):</span>
@@ -103,7 +134,7 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
@@ -119,7 +150,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -128,14 +159,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.note</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

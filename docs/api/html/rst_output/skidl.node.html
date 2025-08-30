@@ -1,0 +1,285 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>skidl.node module &#8212; SKiDL 2.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../"><img src="../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.node module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-skidl.node">
+<span id="skidl-node-module"></span><h1>skidl.node module<a class="headerlink" href="#module-skidl.node" title="Link to this heading">¶</a></h1>
+<p>Node class for storing circuit hierarchy.</p>
+<p>This module provides the Node class which represents a hierarchical structure
+for organizing circuit components. Nodes can have parent-child relationships
+and contain parts, allowing for structured circuit design and organization.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="skidl.node.Group">
+<span class="sig-prename descclassname"><span class="pre">skidl.node.</span></span><span class="sig-name descname"><span class="pre">Group</span></span><a class="headerlink" href="#skidl.node.Group" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#skidl.node.Node" title="skidl.node.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="skidl.node.Node">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.node.</span></span><span class="sig-name descname"><span class="pre">Node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attrs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/node.html#Node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.node.Node" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject" title="skidl.skidlbaseobj.SkidlBaseObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">SkidlBaseObject</span></code></a></p>
+<p>Data structure for holding information about a node in the circuit hierarchy.</p>
+<p>A Node represents a hierarchical container that can hold circuit parts and
+maintain parent-child relationships with other nodes. This enables organized
+circuit design with clear structural relationships.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.node.Node.add_child">
+<span class="sig-name descname"><span class="pre">add_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">child</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/node.html#Node.add_child"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.node.Node.add_child" title="Link to this definition">¶</a></dt>
+<dd><p>Add a child node to this node.</p>
+<p>Establishes a parent-child relationship between this node and the provided
+child node. Ensures the child has a unique name among siblings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>child</strong> (<a class="reference internal" href="#skidl.node.Node" title="skidl.node.Node"><em>Node</em></a>) – The child node to add to this node.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="skidl.node.Node.hiernodes">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">hiernodes</span></span><a class="headerlink" href="#skidl.node.Node.hiernodes" title="Link to this definition">¶</a></dt>
+<dd><p>Return a tuple of the chain of nodes from the top-most node to this one (self).</p>
+<p>This property traverses up the hierarchy from the current node to the root,
+then reverses the order to provide a path from root to current node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>A tuple of Node objects representing the hierarchical path</dt><dd><p>from the root node to this node, inclusive.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)">tuple</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="skidl.node.Node.hiertuple">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">hiertuple</span></span><a class="headerlink" href="#skidl.node.Node.hiertuple" title="Link to this definition">¶</a></dt>
+<dd><p>Return a tuple of the node’s hierarchy path names from top-most node to this one (self).</p>
+<p>This provides a string representation of the hierarchical path by extracting
+the names from each node in the hierarchy chain.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>A tuple of strings representing the names of nodes in the</dt><dd><p>hierarchical path from root to this node.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)">tuple</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="skidl.node.Node.netclasses">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">netclasses</span></span><a class="headerlink" href="#skidl.node.Node.netclasses" title="Link to this definition">¶</a></dt>
+<dd><p>Return a list of net classes assigned to this node and its ancestors.</p>
+<p>Aggregates net classes from this node and all ancestor nodes in the hierarchy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Combined net classes from this node and its ancestors.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>NetClasses</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="skidl.node.Node.partclasses">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">partclasses</span></span><a class="headerlink" href="#skidl.node.Node.partclasses" title="Link to this definition">¶</a></dt>
+<dd><p>Return a list of part classes assigned to this node and its ancestors.</p>
+<p>Aggregates part classes from this node and all ancestor nodes in the hierarchy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Combined part classes from this node and its ancestors.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>PartClasses</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.node.Node.spin_off">
+<span class="sig-name descname"><span class="pre">spin_off</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/node.html#Node.spin_off"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.node.Node.spin_off" title="Link to this definition">¶</a></dt>
+<dd><p>Create a new node for the purpose of spinning off a subcircuit.</p>
+<p>Creates a copy of this node with potentially modified attributes,
+typically used when creating instances of a node template.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>**kwargs</strong> – Keyword arguments to override node attributes.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new Node instance based on this node.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#skidl.node.Node" title="skidl.node.Node">Node</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="skidl.node.Node.tag_or_name">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tag_or_name</span></span><a class="headerlink" href="#skidl.node.Node.tag_or_name" title="Link to this definition">¶</a></dt>
+<dd><p>Return the tag of the node if it exists, otherwise return the name.</p>
+<p>This property provides a way to access the node’s identifier, preferring
+the tag over the name if both are present.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The tag or name of the node.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.node.Node.to_tuple">
+<span class="sig-name descname"><span class="pre">to_tuple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/node.html#Node.to_tuple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.node.Node.to_tuple" title="Link to this definition">¶</a></dt>
+<dd><p>Convert the node and its children to a tuple representation.</p>
+<p>Creates a nested tuple structure representing this node and all its
+children, including their names, tags, parts, and hierarchical structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A tuple containing (name, tag, parts_refs, children_tuples).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)">tuple</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="skidl.node.SubCircuit">
+<span class="sig-prename descclassname"><span class="pre">skidl.node.</span></span><span class="sig-name descname"><span class="pre">SubCircuit</span></span><a class="headerlink" href="#skidl.node.SubCircuit" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#skidl.node.Node" title="skidl.node.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="skidl.node.subcircuit">
+<span class="sig-prename descclassname"><span class="pre">skidl.node.</span></span><span class="sig-name descname"><span class="pre">subcircuit</span></span><a class="headerlink" href="#skidl.node.subcircuit" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#skidl.node.Node" title="skidl.node.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">skidl.node module</a><ul>
+<li><a class="reference internal" href="#skidl.node.Group"><code class="docutils literal notranslate"><span class="pre">Group</span></code></a></li>
+<li><a class="reference internal" href="#skidl.node.Node"><code class="docutils literal notranslate"><span class="pre">Node</span></code></a><ul>
+<li><a class="reference internal" href="#skidl.node.Node.add_child"><code class="docutils literal notranslate"><span class="pre">Node.add_child()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.node.Node.hiernodes"><code class="docutils literal notranslate"><span class="pre">Node.hiernodes</span></code></a></li>
+<li><a class="reference internal" href="#skidl.node.Node.hiertuple"><code class="docutils literal notranslate"><span class="pre">Node.hiertuple</span></code></a></li>
+<li><a class="reference internal" href="#skidl.node.Node.netclasses"><code class="docutils literal notranslate"><span class="pre">Node.netclasses</span></code></a></li>
+<li><a class="reference internal" href="#skidl.node.Node.partclasses"><code class="docutils literal notranslate"><span class="pre">Node.partclasses</span></code></a></li>
+<li><a class="reference internal" href="#skidl.node.Node.spin_off"><code class="docutils literal notranslate"><span class="pre">Node.spin_off()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.node.Node.tag_or_name"><code class="docutils literal notranslate"><span class="pre">Node.tag_or_name</span></code></a></li>
+<li><a class="reference internal" href="#skidl.node.Node.to_tuple"><code class="docutils literal notranslate"><span class="pre">Node.to_tuple()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#skidl.node.SubCircuit"><code class="docutils literal notranslate"><span class="pre">SubCircuit</span></code></a></li>
+<li><a class="reference internal" href="#skidl.node.subcircuit"><code class="docutils literal notranslate"><span class="pre">subcircuit</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rst_output/skidl.node.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.node module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>

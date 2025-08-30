@@ -7,12 +7,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.skidl module &#8212; SKiDL 2.0.1 documentation</title>
+    <title>skidl.skidl module &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -24,7 +24,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../"><img src="../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.skidl module</a></li> 
       </ul>
     </div>  
@@ -45,24 +45,37 @@
             
   <section id="module-skidl.skidl">
 <span id="skidl-skidl-module"></span><h1>skidl.skidl module<a class="headerlink" href="#module-skidl.skidl" title="Link to this heading">¶</a></h1>
+<p>SKiDL: A Python-Based Schematic Design Language</p>
+<p>This module is the main entry point for SKiDL and provides global functions
+and configuration for creating electronic circuit designs programmatically.
+It initializes the default circuit and provides functions that operate on it.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.skidl.ERC">
 <span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">ERC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.ERC" title="Link to this definition">¶</a></dt>
-<dd><p>Run class-wide and local ERC functions on this circuit.</p>
+<dd><p>Perform Electrical Rule Checking on the circuit.</p>
+<p>This method runs both the class-wide ERC functions and any local ERC functions
+defined for this circuit. It checks for issues like unconnected pins, pin type
+conflicts, etc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*args</strong> – Arguments to pass to the ERC functions.</p></li>
+<li><p><strong>**kwargs</strong> – Keyword arguments to pass to the ERC functions.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.skidl.backup_parts">
 <span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">backup_parts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.backup_parts" title="Link to this definition">¶</a></dt>
-<dd><p>Saves parts in circuit as a SKiDL library in a file.</p>
+<dd><p>Save all parts in the circuit as a SKiDL library file.</p>
+<p>This creates a backup library that can be used to restore the parts
+in the circuit.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>file</strong> – Either a file object that can be written to, or a string
-containing a file name, or None. If None, a standard library
-file will be used.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Nothing.</p>
+<dd class="field-odd"><p><strong>file</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><em>file object</em><em>, </em><em>optional</em>) – File to write the library to.
+If None, a standard library file will be used.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -87,32 +100,74 @@ for particular types of parts (such as using an 0805 footprint for a resistor).<
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.skidl.erc_assert">
 <span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">erc_assert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fail_msg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'FAILED'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">severity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ERROR</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.erc_assert" title="Link to this definition">¶</a></dt>
-<dd><p>Add an ERC assertion to a class or class instance.</p>
+<dd><p>Add an ERC assertion to this object or its class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>assertion</strong> – A string containing a Python expression that should evaluate to True.</p></li>
+<li><p><strong>fail_msg</strong> – Message to display if assertion fails.</p></li>
+<li><p><strong>severity</strong> – Level of severity (ERROR, WARNING, or OK) if assertion fails.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.skidl.generate_dot">
+<span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">generate_dot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">engine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'neato'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rankdir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'LR'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">part_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rectangle'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'point'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">splines</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_anon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_nets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['GND']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_parts_ref</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.generate_dot" title="Link to this definition">¶</a></dt>
+<dd><p>Generate a Graphviz DOT visualization of the circuit.</p>
+<p>Creates a graphical representation of the circuit as a graph where parts
+and nets are nodes, and connections are edges.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – File to write the DOT data to.</p></li>
+<li><p><strong>engine</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Graphviz layout engine to use. Default is “neato”.</p></li>
+<li><p><strong>rankdir</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Direction of graph layout. Default is “LR” (left to right).</p></li>
+<li><p><strong>part_shape</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Shape to use for part nodes. Default is “rectangle”.</p></li>
+<li><p><strong>net_shape</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Shape to use for net nodes. Default is “point”.</p></li>
+<li><p><strong>splines</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Style for the edges. Try “ortho” for schematic-like feel.</p></li>
+<li><p><strong>show_values</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Show part values as labels. Default is True.</p></li>
+<li><p><strong>show_anon</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Show anonymous net names. Default is False.</p></li>
+<li><p><strong>split_nets</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>, </em><em>optional</em>) – List of net names to split in visualization. Default is [“GND”].</p></li>
+<li><p><strong>split_parts_ref</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>, </em><em>optional</em>) – List of part references to split in visualization.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A Graphviz graph object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>graphviz.Digraph</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.skidl.generate_graph">
-<span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">generate_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">engine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'neato'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rankdir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'LR'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">part_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rectangle'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'point'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">splines</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_anon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_nets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['GND']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_parts_ref</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.generate_graph" title="Link to this definition">¶</a></dt>
-<dd><p>Returns a graphviz graph as graphviz object and can also write it to a file/stream.
-When used in ipython the graphviz object will drawn as an SVG in the output.</p>
-<p>See <a class="reference external" href="https://graphviz.readthedocs.io/en/stable/">https://graphviz.readthedocs.io/en/stable/</a> and <a class="reference external" href="http://graphviz.org/doc/info/attrs.html">http://graphviz.org/doc/info/attrs.html</a></p>
+<span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">generate_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rankdir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'neato'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">part_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'LR'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rectangle'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">splines</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'point'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_anon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_nets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_parts_ref</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['GND']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.generate_graph" title="Link to this definition">¶</a></dt>
+<dd><p>Generate a Graphviz DOT visualization of the circuit.</p>
+<p>Creates a graphical representation of the circuit as a graph where parts
+and nets are nodes, and connections are edges.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> – A string containing a file name, or None.</p></li>
-<li><p><strong>engine</strong> – See graphviz documentation</p></li>
-<li><p><strong>rankdir</strong> – See graphviz documentation</p></li>
-<li><p><strong>part_shape</strong> – Shape of the part nodes</p></li>
-<li><p><strong>net_shape</strong> – Shape of the net nodes</p></li>
-<li><p><strong>splines</strong> – Style for the edges, try ‘ortho’ for a schematic like feel</p></li>
-<li><p><strong>show_values</strong> – Show values as external labels on part nodes</p></li>
-<li><p><strong>show_anon</strong> – Show anonymous net names</p></li>
-<li><p><strong>split_nets</strong> – splits up the plot for the given list of net names</p></li>
-<li><p><strong>split_parts_ref</strong> – splits up the plot for all pins for the given list of part refs</p></li>
+<li><p><strong>file</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – File to write the DOT data to.</p></li>
+<li><p><strong>engine</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Graphviz layout engine to use. Default is “neato”.</p></li>
+<li><p><strong>rankdir</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Direction of graph layout. Default is “LR” (left to right).</p></li>
+<li><p><strong>part_shape</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Shape to use for part nodes. Default is “rectangle”.</p></li>
+<li><p><strong>net_shape</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Shape to use for net nodes. Default is “point”.</p></li>
+<li><p><strong>splines</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Style for the edges. Try “ortho” for schematic-like feel.</p></li>
+<li><p><strong>show_values</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Show part values as labels. Default is True.</p></li>
+<li><p><strong>show_anon</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Show anonymous net names. Default is False.</p></li>
+<li><p><strong>split_nets</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>, </em><em>optional</em>) – List of net names to split in visualization. Default is [“GND”].</p></li>
+<li><p><strong>split_parts_ref</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>, </em><em>optional</em>) – List of part references to split in visualization.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>graphviz.Digraph</p>
+<dd class="field-even"><p>A Graphviz graph object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>graphviz.Digraph</p>
 </dd>
 </dl>
 </dd></dl>
@@ -120,18 +175,21 @@ When used in ipython the graphviz object will drawn as an SVG in the output.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.skidl.generate_netlist">
 <span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">generate_netlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.generate_netlist" title="Link to this definition">¶</a></dt>
-<dd><p>Return a netlist and also write it to a file/stream.</p>
+<dd><p>Generate a netlist for the circuit.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> – Either a file object that can be written to, or a string
-containing a file name, or None.</p></li>
-<li><p><strong>tool</strong> – The EDA tool the netlist will be generated for.</p></li>
-<li><p><strong>do_backup</strong> – If true, create a library with all the parts in the circuit.</p></li>
+<li><p><strong>file</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><em>file object</em><em>, </em><em>optional</em>) – File to write netlist to.</p></li>
+<li><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The EDA tool to generate the netlist for.</p></li>
+<li><p><strong>do_backup</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, create a library with all parts in the circuit.</p></li>
+<li><p><strong>**kwargs</strong> – Additional arguments passed to the tool-specific netlist generator.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A netlist.</p>
+<dd class="field-even"><p>The generated netlist as a string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -143,15 +201,12 @@ containing a file name, or None.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> – Either a file object that can be written to, or a string
-containing a file name, or None.</p></li>
-<li><p><strong>tool</strong> – The EDA tool the netlist will be generated for.</p></li>
-<li><p><strong>do_backup</strong> – If true, create a library with all the parts in the circuit.</p></li>
-<li><p><strong>fp_libs</strong> – List of directories containing footprint libraries.</p></li>
+<li><p><strong>file</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><em>file object</em><em>, </em><em>optional</em>) – File to write PCB data to.</p></li>
+<li><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The EDA tool to generate the PCB for.</p></li>
+<li><p><strong>do_backup</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, create a library with all parts in the circuit.</p></li>
+<li><p><strong>fp_libs</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>, </em><em>optional</em>) – List of directories containing footprint libraries.</p></li>
+<li><p><strong>**kwargs</strong> – Additional arguments passed to the tool-specific PCB generator.</p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -159,27 +214,35 @@ containing a file name, or None.</p></li>
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.skidl.generate_schematic">
 <span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">generate_schematic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.generate_schematic" title="Link to this definition">¶</a></dt>
-<dd><p>Create a schematic from a Circuit.</p>
+<dd><p>Create a schematic file from the circuit.</p>
+<p>This generates a visual representation of the circuit that can be
+opened in an EDA tool like KiCad’s Eeschema.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>**kwargs</strong> – Arguments for the schematic generator including:
+empty_footprint_handler (function, optional): Custom handler for parts without footprints.
+tool (str, optional): The EDA tool to generate the schematic for.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.skidl.generate_svg">
 <span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">generate_svg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.generate_svg" title="Link to this definition">¶</a></dt>
-<dd><p>Create an SVG file displaying the circuit schematic and
-return the dictionary that can be displayed by netlistsvg.</p>
+<dd><p>Create an SVG visualization of the circuit and return the netlistsvg input data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> (<em>_type_</em><em>, </em><em>optional</em>) – Filename to store SVG. Defaults to None.</p></li>
-<li><p><strong>tool</strong> (<em>_type_</em><em>, </em><em>optional</em>) – Backend tool. Defaults to None.</p></li>
-<li><p><strong>layout_options</strong> (<em>_type_</em><em>, </em><em>optional</em>) – Options to control netlistsvg/ELK layout algorithm. Defaults to None.</p></li>
+<li><p><strong>file</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Base filename to store SVG and intermediate files.</p></li>
+<li><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Backend tool to use.</p></li>
+<li><p><strong>layout_options</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Options to control netlistsvg/ELK layout algorithm.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>JSON dictionary for input to netlistsvg.</p>
+<dd class="field-even"><p>JSON dictionary that can be used as input to netlistsvg.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#dict" title="(in Python v3.13)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -187,17 +250,19 @@ return the dictionary that can be displayed by netlistsvg.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.skidl.generate_xml">
 <span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">generate_xml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.generate_xml" title="Link to this definition">¶</a></dt>
-<dd><p>Return netlist as an XML string and also write it to a file/stream.</p>
+<dd><p>Generate an XML representation of the circuit.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> – Either a file object that can be written to, or a string
-containing a file name, or None.</p></li>
-<li><p><strong>tool</strong> – Backend tool such as KICAD.</p></li>
+<li><p><strong>file</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><em>file object</em><em>, </em><em>optional</em>) – File to write XML data to.</p></li>
+<li><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Backend tool to use for XML generation.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A string containing the netlist.</p>
+<dd class="field-even"><p>The generated XML as a string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -206,18 +271,33 @@ containing a file name, or None.</p></li>
 <dt class="sig sig-object py" id="skidl.skidl.get_default_tool">
 <span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">get_default_tool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/skidl.html#get_default_tool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.skidl.get_default_tool" title="Link to this definition">¶</a></dt>
 <dd><p>Get the ECAD tool that will be used by default.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The currently configured default ECAD tool.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.skidl.reset">
 <span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.reset" title="Link to this definition">¶</a></dt>
 <dd><p>Clear any circuitry and cached part libraries and start over.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>init</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – True if this is being called during initialization.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.skidl.set_default_tool">
 <span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">set_default_tool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tool</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/skidl.html#set_default_tool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.skidl.set_default_tool" title="Link to this definition">¶</a></dt>
 <dd><p>Set the ECAD tool that will be used by default.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tool</strong> – The ECAD tool to use as the default.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -227,7 +307,7 @@ containing a file name, or None.</p></li>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
   <div>
     <h3><a href="../index.html">Table of Contents</a></h3>
@@ -237,6 +317,7 @@ containing a file name, or None.</p></li>
 <li><a class="reference internal" href="#skidl.skidl.backup_parts"><code class="docutils literal notranslate"><span class="pre">backup_parts()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.skidl.empty_footprint_handler"><code class="docutils literal notranslate"><span class="pre">empty_footprint_handler()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.skidl.erc_assert"><code class="docutils literal notranslate"><span class="pre">erc_assert()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.skidl.generate_dot"><code class="docutils literal notranslate"><span class="pre">generate_dot()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.skidl.generate_graph"><code class="docutils literal notranslate"><span class="pre">generate_graph()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.skidl.generate_netlist"><code class="docutils literal notranslate"><span class="pre">generate_netlist()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.skidl.generate_pcb"><code class="docutils literal notranslate"><span class="pre">generate_pcb()</span></code></a></li>
@@ -272,7 +353,7 @@ containing a file name, or None.</p></li>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -281,13 +362,13 @@ containing a file name, or None.</p></li>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.skidl module</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

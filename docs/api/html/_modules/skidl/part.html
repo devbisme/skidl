@@ -6,12 +6,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.part &#8212; SKiDL 2.0.1 documentation</title>
+    <title>skidl.part &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -23,7 +23,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../../"><img src="../../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.part</a></li> 
       </ul>
@@ -49,16 +49,22 @@
 <span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Handles parts.</span>
+<span class="sd">Handles parts in a circuit.</span>
+
+<span class="sd">This module provides classes and functions for creating, managing, and connecting electronic parts</span>
+<span class="sd">in a circuit. Parts can be instantiated from libraries, customized with attributes, and connected</span>
+<span class="sd">to form complete circuits.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">functools</span>
-<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterable</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span>
 <span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
 
+<span class="kn">from</span> <span class="nn">.design_class</span> <span class="kn">import</span> <span class="n">PartClass</span><span class="p">,</span> <span class="n">PartClasses</span>
 <span class="kn">from</span> <span class="nn">.erc</span> <span class="kn">import</span> <span class="n">dflt_part_erc</span>
 <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
+<span class="kn">from</span> <span class="nn">.node</span> <span class="kn">import</span> <span class="n">HIER_SEP</span>
 <span class="kn">from</span> <span class="nn">.skidlbaseobj</span> <span class="kn">import</span> <span class="n">SkidlBaseObject</span>
 <span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">add_unique_attr</span><span class="p">,</span>
@@ -69,6 +75,7 @@
     <span class="n">flatten</span><span class="p">,</span>
     <span class="n">from_iadd</span><span class="p">,</span>
     <span class="n">get_unique_name</span><span class="p">,</span>
+    <span class="n">rmv_unique_name</span><span class="p">,</span>
     <span class="n">list_or_scalar</span><span class="p">,</span>
     <span class="n">rmv_iadd</span><span class="p">,</span>
     <span class="n">to_list</span><span class="p">,</span>
@@ -77,15 +84,6 @@
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;NETLIST&quot;</span><span class="p">,</span> <span class="s2">&quot;LIBRARY&quot;</span><span class="p">,</span> <span class="s2">&quot;TEMPLATE&quot;</span><span class="p">,</span> <span class="s2">&quot;PartTmplt&quot;</span><span class="p">,</span> <span class="s2">&quot;SkidlPart&quot;</span><span class="p">]</span>
-
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">PySpice.Unit.Unit</span> <span class="kn">import</span> <span class="n">UnitValue</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="c1"># PySpice is not supported in Python 2, so need to make a dummy class</span>
-    <span class="c1"># to replicate a class from PySpice.</span>
-    <span class="k">class</span> <span class="nc">UnitValue</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-        <span class="k">pass</span>
 
 
 <span class="c1"># Places where parts can be stored.</span>
@@ -97,15 +95,36 @@
 
 <span class="k">class</span> <span class="nc">PinNumberSearch</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A class for restricting part pin indexing to only pin numbers</span>
-<span class="sd">    while ignoring pin names.</span>
+<span class="sd">    A class for restricting part pin indexing to only pin numbers while ignoring pin names.</span>
+<span class="sd">    </span>
+<span class="sd">    This class enables accessing pins by their number only, even when pins</span>
+<span class="sd">    might have both numbers and names.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        part (Part): The part whose pins this object searches through.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the pin number search object.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            part (Part): The part whose pins will be searched by number.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Store the part this object belongs to.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">part</span> <span class="o">=</span> <span class="n">part</span>
 
     <span class="k">def</span> <span class="nf">get_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">pin_ids</span><span class="p">,</span> <span class="o">**</span><span class="n">criteria</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get pins from a part using only pin numbers.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            pin_ids: ID numbers of the pins to get from the part.</span>
+<span class="sd">            criteria: Additional criteria for selecting pins.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Pin or list: The selected pins.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Add criteria that restricts pin searching to only numbers.</span>
         <span class="n">criteria</span><span class="p">[</span><span class="s2">&quot;only_search_numbers&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
@@ -121,14 +140,35 @@
 
 <span class="k">class</span> <span class="nc">PinNameSearch</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A class for restricting part pin indexing to only pin names</span>
-<span class="sd">    while ignoring pin numbers.</span>
+<span class="sd">    A class for restricting part pin indexing to only pin names while ignoring pin numbers.</span>
+<span class="sd">    </span>
+<span class="sd">    This class enables accessing pins by their name only, even when pins</span>
+<span class="sd">    might have both numbers and names.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        part (Part): The part whose pins this object searches through.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the pin name search object.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            part (Part): The part whose pins will be searched by name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">part</span> <span class="o">=</span> <span class="n">part</span>
 
     <span class="k">def</span> <span class="nf">get_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">pin_ids</span><span class="p">,</span> <span class="o">**</span><span class="n">criteria</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get pins from a part using only pin names.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            pin_ids: Names of the pins to get from the part.</span>
+<span class="sd">            criteria: Additional criteria for selecting pins.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Pin or list: The selected pins.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Add criteria that restricts pin searching to only names.</span>
         <span class="n">criteria</span><span class="p">[</span><span class="s2">&quot;only_search_names&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
@@ -148,23 +188,27 @@
 <span class="k">class</span> <span class="nc">Part</span><span class="p">(</span><span class="n">SkidlBaseObject</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class for storing a definition of a schematic part.</span>
+<span class="sd">    </span>
+<span class="sd">    This class represents electronic components in a schematic. Parts can be</span>
+<span class="sd">    instantiated from libraries, customized with attributes, and connected</span>
+<span class="sd">    together to form circuits.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        lib: Either a SchLib object or a schematic part library file name.</span>
-<span class="sd">        name: A string with name of the part to find in the library, or to assign to</span>
+<span class="sd">        lib (str or SchLib, optional): Either a SchLib object or a schematic part library file name.</span>
+<span class="sd">        name (str, optional): A string with name of the part to find in the library, or to assign to</span>
 <span class="sd">            the part defined by the part definition.</span>
-<span class="sd">        dest: String that indicates where the part is destined for (e.g., LIBRARY).</span>
-<span class="sd">        tool: The format for the library file or part definition (e.g., KICAD).</span>
-<span class="sd">        connections: A dictionary with part pin names/numbers as keys and the</span>
+<span class="sd">        dest (str, optional): String that indicates where the part is destined for (e.g., NETLIST).</span>
+<span class="sd">        tool (str, optional): The format for the library file or part definition (e.g., KICAD).</span>
+<span class="sd">        connections (dict, optional): A dictionary with part pin names/numbers as keys and the</span>
 <span class="sd">            nets to which they will be connected as values. For example:</span>
 <span class="sd">            { &#39;IN-&#39;:a_in, &#39;IN+&#39;:gnd, &#39;1&#39;:AMPED_OUTPUT, &#39;14&#39;:vcc, &#39;7&#39;:gnd }</span>
-<span class="sd">        part_defn: A list of strings that define the part (usually read from a</span>
+<span class="sd">        part_defn (list, optional): A list of strings that define the part (usually read from a</span>
 <span class="sd">            schematic library file).</span>
-<span class="sd">        circuit: The Circuit object this Part belongs to.</span>
-<span class="sd">        ref_prefix: Prefix for part references such as &#39;U&#39; or &#39;J&#39;.</span>
-<span class="sd">        ref: A specific part reference to be assigned.</span>
-<span class="sd">        tag: A specific tag to tie the part to its footprint in the PCB.</span>
-<span class="sd">        pin_splitters: String of characters that split long pin names into shorter aliases.</span>
+<span class="sd">        circuit (Circuit, optional): The Circuit object this Part belongs to.</span>
+<span class="sd">        ref_prefix (str, optional): Prefix for part references such as &#39;U&#39; or &#39;J&#39;.</span>
+<span class="sd">        ref (str, optional): A specific part reference to be assigned.</span>
+<span class="sd">        tag (str, optional): A specific tag to tie the part to its footprint in the PCB.</span>
+<span class="sd">        pin_splitters (str, optional): String of characters that split long pin names into shorter aliases.</span>
 
 <span class="sd">    Keyword Args:</span>
 <span class="sd">        kwargs: Name/value pairs for setting attributes for the part.</span>
@@ -172,8 +216,17 @@
 <span class="sd">            named &#39;manf_num&#39; for the part and assign it the value &#39;LM4808MP-8&#39;.</span>
 
 <span class="sd">    Raises:</span>
-<span class="sd">        * Exception if the part library and definition are both missing.</span>
-<span class="sd">        * Exception if an unknown file format is requested.</span>
+<span class="sd">        ValueError: If the part library and definition are both missing.</span>
+<span class="sd">        ValueError: If an unknown file format is requested.</span>
+<span class="sd">        </span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        name (str): The part name.</span>
+<span class="sd">        description (str): Description of the part.</span>
+<span class="sd">        ref (str): Reference designator for the part (e.g., &#39;R1&#39;, &#39;U3&#39;).</span>
+<span class="sd">        ref_prefix (str): Prefix for the reference (e.g., &#39;R&#39;, &#39;U&#39;).</span>
+<span class="sd">        pins (list): List of Pin objects for this part.</span>
+<span class="sd">        unit (dict): Dictionary for storing subunits of the part.</span>
+<span class="sd">        circuit (Circuit): The circuit this part belongs to.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Set the default ERC functions for all Part instances.</span>
@@ -194,7 +247,25 @@
         <span class="n">pin_splitters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">):</span>
-
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a part with the given parameters.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            lib (str or SchLib, optional): Library containing the part.</span>
+<span class="sd">            name (str, optional): Part name to search for in the library.</span>
+<span class="sd">            dest (str, optional): Destination for the part (NETLIST, LIBRARY, TEMPLATE).</span>
+<span class="sd">            tool (str, optional): Tool format (KICAD, SPICE, etc.).</span>
+<span class="sd">            connections (dict, optional): Pre-defined connections for the part&#39;s pins.</span>
+<span class="sd">            part_defn (list, optional): List of strings defining the part.</span>
+<span class="sd">            circuit (Circuit, optional): Circuit the part belongs to.</span>
+<span class="sd">            ref_prefix (str, optional): Prefix for the part reference (e.g., &#39;R&#39;, &#39;U&#39;).</span>
+<span class="sd">            ref (str, optional): Specific reference designator.</span>
+<span class="sd">            tag (str, optional): Tag for associating with PCB footprint.</span>
+<span class="sd">            pin_splitters (str, optional): Characters for splitting pin names into aliases.</span>
+<span class="sd">            </span>
+<span class="sd">        Keyword Args:</span>
+<span class="sd">            kwargs: Additional attributes for the part.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">import</span> <span class="nn">skidl</span>
         <span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="n">SchLib</span><span class="p">,</span> <span class="n">SKIDL</span>
         <span class="kn">from</span> <span class="nn">skidl.tools.spice</span> <span class="kn">import</span> <span class="n">add_xspice_io</span>
@@ -214,21 +285,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tool</span> <span class="o">=</span> <span class="n">tool</span>  <span class="c1"># Initial type of part (SKIDL, KICAD, etc.)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Part starts off unassociated with any circuit.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">match_pin_regex</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Don&#39;t allow regex matches of pin names.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_partclasses</span> <span class="o">=</span> <span class="n">PartClasses</span><span class="p">()</span>  <span class="c1"># List of part classes this part belongs to.</span>
 
         <span class="c1"># Create a Part from a library entry.</span>
         <span class="k">if</span> <span class="n">lib</span><span class="p">:</span>
             <span class="c1"># If the lib argument is a string, then create a library using the</span>
             <span class="c1"># string as the library file name.</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                 <span class="n">libname</span> <span class="o">=</span> <span class="n">lib</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">lib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">libname</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="n">tool</span><span class="p">)</span>
                 <span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">query_backup_lib</span><span class="p">:</span>
                         <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                            <span class="s1">&#39;Could not load KiCad schematic library &quot;</span><span class="si">{}</span><span class="s1">&quot;, falling back to backup library.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                                <span class="n">libname</span>
-                            <span class="p">)</span>
+                            <span class="sa">f</span><span class="s1">&#39;Could not load KiCad schematic library &quot;</span><span class="si">{</span><span class="n">libname</span><span class="si">}</span><span class="s1">&quot;, falling back to backup library.&#39;</span>
                         <span class="p">)</span>
                         <span class="n">lib</span> <span class="o">=</span> <span class="n">skidl</span><span class="o">.</span><span class="n">load_backup_lib</span><span class="p">()</span>
                         <span class="k">if</span> <span class="ow">not</span> <span class="n">lib</span><span class="p">:</span>
@@ -272,7 +342,7 @@
         <span class="c1"># Setup the tag for tieing the part to a footprint in a pcb editor.</span>
         <span class="c1"># Do this before adding the part to the circuit or an exception will occur</span>
         <span class="c1"># because the part can&#39;t give its hierarchical name to the circuit.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="n">tag</span> <span class="ow">or</span> <span class="nb">str</span><span class="p">(</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="mi">64</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="n">tag</span>
 
         <span class="c1"># Override the reference prefix if it was passed as a parameter.</span>
         <span class="c1"># If nothing was set, default to using &quot;U&quot;.</span>
@@ -321,9 +391,10 @@
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
 
         <span class="c1"># If the part was found using an alias, then substitute the alias for the name in the part.</span>
-        <span class="c1"># (This only seems necessary when using KiCad 5.)</span>
-        <span class="n">part_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="ow">and</span> <span class="n">part_name</span> <span class="o">!=</span> <span class="n">name</span><span class="p">:</span>
+        <span class="c1"># Only make the substitution if the name is one of the aliases. (It&#39;s possible the part was</span>
+        <span class="c1"># found using a regex and we don&#39;t want that entered as an alias.)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">name</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">aliases</span><span class="p">:</span>
+            <span class="n">part_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
             <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="n">part_name</span><span class="p">:</span>
                     <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
@@ -333,10 +404,15 @@
 
         <span class="c1"># Make sure the part name is also included in the list of aliases</span>
         <span class="c1"># because part searching only checks the aliases for name matches.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">aliases</span> <span class="o">+=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">aliases</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a description of the pins on this part as a string.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a description of the pins on this part as a string.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: A formatted string showing the part name, aliases, description and pins.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> </span><span class="si">{name}</span><span class="s2"> (</span><span class="si">{aliases}</span><span class="s2">): </span><span class="si">{desc}</span><span class="se">\n</span><span class="s2">    </span><span class="si">{pins}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
             <span class="n">aliases</span><span class="o">=</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">aliases</span><span class="p">),</span>
@@ -347,35 +423,44 @@
     <span class="fm">__repr__</span> <span class="o">=</span> <span class="fm">__str__</span>
 
     <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Any valid Part is True&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Any valid Part is True.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: Always returns True for valid Part objects.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="kc">True</span>
 
     <span class="n">__nonzero__</span> <span class="o">=</span> <span class="fm">__bool__</span>  <span class="c1"># Python 2 compatibility.</span>
 
     <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the number of pins in this part.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the number of pins in this part.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            int: The number of pins in this part.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span>
 
     <span class="c1"># Make copies with the multiplication operator or by calling the object.</span>
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_copies</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">NETLIST</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">io</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Make zero or more copies of this part while maintaining all pin/net</span>
-<span class="sd">        connections.</span>
+<span class="sd">        Make zero or more copies of this part while maintaining all pin/net connections.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            num_copies: Number of copies to make of this part.</span>
-<span class="sd">            dest: Indicates where the copy is destined for (e.g., NETLIST).</span>
-<span class="sd">            circuit: The circuit this part should be added to.</span>
-<span class="sd">            io: XSPICE I/O names.</span>
+<span class="sd">            num_copies (int, optional): Number of copies to make of this part.</span>
+<span class="sd">            dest (str, optional): Indicates where the copy is destined for (e.g., NETLIST).</span>
+<span class="sd">            circuit (Circuit, optional): The circuit this part should be added to.</span>
+<span class="sd">            io (list, optional): XSPICE I/O names.</span>
 
 <span class="sd">        Keyword Args:</span>
 <span class="sd">            attribs: Name/value pairs for setting attributes for the copy.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            A list of Part copies or a single Part if num_copies==1.</span>
+<span class="sd">            Part or list: A list of Part copies or a single Part if num_copies==1.</span>
 
 <span class="sd">        Raises:</span>
-<span class="sd">            Exception if the requested number of copies is a non-integer or negative.</span>
+<span class="sd">            ValueError: If the requested number of copies is a non-integer or negative.</span>
 
 <span class="sd">        Notes:</span>
 <span class="sd">            An instance of a part can be copied just by calling it like so::</span>
@@ -393,6 +478,15 @@
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_copies</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create multiple copies of a part using the * operator.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            num_copies (int): Number of copies to make.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list: List of part copies.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">num_copies</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">num_copies</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">num_copies</span><span class="o">=</span><span class="n">num_copies</span><span class="p">)</span>
@@ -400,29 +494,69 @@
     <span class="fm">__rmul__</span> <span class="o">=</span> <span class="fm">__mul__</span>
 
     <span class="k">def</span> <span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">pins</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add one or more pins to a part and return the part.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add one or more pins to a part and return the part.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            *pins: Pin objects to add to the part.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Part: The part with added pins.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_pins</span><span class="p">(</span><span class="o">*</span><span class="n">pins</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Attach a part and another part/pin/net in serial.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Attach a part and another part/pin/net in serial.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            obj: The object to connect in series with this part.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Network: A network representing the series connection.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
 
         <span class="k">return</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">obj</span>
 
     <span class="k">def</span> <span class="fm">__rand__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Attach a part and another part/pin/net in serial.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Attach a part and another part/pin/net in serial (right-side operation).</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            obj: The object to connect in series with this part.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Network: A network representing the series connection.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
 
         <span class="k">return</span> <span class="n">obj</span> <span class="o">&amp;</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Attach a part and another part/pin/net in parallel.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Attach a part and another part/pin/net in parallel.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            obj: The object to connect in parallel with this part.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Network: A network representing the parallel connection.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
 
         <span class="k">return</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">|</span> <span class="n">obj</span>
 
     <span class="k">def</span> <span class="fm">__ror__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Attach a part and another part/pin/net in parallel.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Attach a part and another part/pin/net in parallel (right-side operation).</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            obj: The object to connect in parallel with this part.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Network: A network representing the parallel connection.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
 
         <span class="k">return</span> <span class="n">obj</span> <span class="o">|</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -442,9 +576,9 @@
 <span class="sd">                pins must have in order to be selected.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            A list of pins matching the given IDs and satisfying all the criteria,</span>
-<span class="sd">            or just a single Pin object if only a single match was found.</span>
-<span class="sd">            Or None if no match was found.</span>
+<span class="sd">            Pin or list: A list of pins matching the given IDs and satisfying all the criteria,</span>
+<span class="sd">                or just a single Pin object if only a single match was found.</span>
+<span class="sd">                Or None if no match was found.</span>
 
 <span class="sd">        Notes:</span>
 <span class="sd">            Pins can be selected from a part by using brackets like so::</span>
@@ -475,6 +609,13 @@
 <span class="sd">               as part of processing the += operator. If there is no</span>
 <span class="sd">               iadd_flag attribute, then __setitem__ was entered as a result</span>
 <span class="sd">               of using a direct assignment, which is not allowed.</span>
+<span class="sd">               </span>
+<span class="sd">        Args:</span>
+<span class="sd">            ids: Pin IDs being assigned to</span>
+<span class="sd">            pins_nets_buses: Object being assigned to the pins</span>
+<span class="sd">            </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            TypeError: If direct assignment is attempted</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># If the iadd_flag is set, then it&#39;s OK that we got</span>
@@ -488,7 +629,18 @@
         <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t assign to a part! Use the += operator.&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Normal attribute wasn&#39;t found, so check pin aliases.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Normal attribute wasn&#39;t found, so check pin aliases.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            attr (str): Attribute name to look for</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Pin or NetPinList: The pin(s) with matching alias</span>
+<span class="sd">            </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            AttributeError: If no pin aliases match and the attribute doesn&#39;t exist</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">skidl.netpinlist</span> <span class="kn">import</span> <span class="n">NetPinList</span>
 
         <span class="c1"># Look for the attribute name in the list of pin aliases.</span>
@@ -510,6 +662,9 @@
     <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return an iterator for stepping thru individual pins of the part.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            iterator: Iterator providing access to the part&#39;s pins.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Get the list pf pins for this part using the getattribute for the</span>
@@ -527,16 +682,16 @@
 <span class="sd">        Get the part with the given text from a circuit, or return None.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            text: A text string that will be searched for in the list of</span>
+<span class="sd">            text (str): A text string that will be searched for in the list of</span>
 <span class="sd">                parts.</span>
 
 <span class="sd">        Keyword Args:</span>
-<span class="sd">            circuit: The circuit whose parts will be searched. If set to None,</span>
+<span class="sd">            circuit (Circuit, optional): The circuit whose parts will be searched. If set to None,</span>
 <span class="sd">                then the parts in the default_circuit will be searched.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            A list of parts or a single part that match the text string with</span>
-<span class="sd">            either their reference, name, alias, or their description.</span>
+<span class="sd">            Part or list: A list of parts or a single part that match the text string with</span>
+<span class="sd">                either their reference, name, alias, or their description.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">circuit</span> <span class="o">=</span> <span class="n">circuit</span> <span class="ow">or</span> <span class="n">default_circuit</span>
@@ -560,7 +715,12 @@
 <div class="viewcode-block" id="Part.value_to_str">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.value_to_str">[docs]</a>
     <span class="k">def</span> <span class="nf">value_to_str</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return value of part as a string.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return value of part as a string.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: String representation of the part&#39;s value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_prefix</span><span class="p">))</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
 
@@ -568,14 +728,15 @@
 <div class="viewcode-block" id="Part.similarity">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.similarity">[docs]</a>
     <span class="k">def</span> <span class="nf">similarity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a measure of how similar two parts are.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a measure of how similar two parts are.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            part (Part): The part to compare to for similarity.</span>
 <span class="sd">            options (dict): Dictionary of options and settings affecting similarity computation.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            Float value for similarity (larger means more similar).</span>
+<span class="sd">            float: Value for similarity (larger means more similar).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">def</span> <span class="nf">score_pins</span><span class="p">():</span>
@@ -612,8 +773,8 @@
 <span class="sd">        Create a part from its stored part definition.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            partial_parse: When true, just get the name and aliases for the</span>
-<span class="sd">                part. Leave the rest unparsed.</span>
+<span class="sd">            partial_parse (bool, optional): When true, just get the name and aliases for the</span>
+<span class="sd">                part. Leave the rest unparsed. Defaults to False.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="n">tool_modules</span>
@@ -627,6 +788,8 @@
     <span class="k">def</span> <span class="nf">associate_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Make sure all the pins in a part have valid references to the part.</span>
+<span class="sd">        </span>
+<span class="sd">        This updates each pin&#39;s part attribute to point to this part object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
             <span class="n">p</span><span class="o">.</span><span class="n">part</span> <span class="o">=</span> <span class="bp">self</span></div>
@@ -636,23 +799,22 @@
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.copy">[docs]</a>
     <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_copies</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">NETLIST</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">io</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Make zero or more copies of this part while maintaining all pin/net</span>
-<span class="sd">        connections.</span>
+<span class="sd">        Make zero or more copies of this part while maintaining all pin/net connections.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            num_copies: Number of copies to make of this part.</span>
-<span class="sd">            dest: Indicates where the copy is destined for (e.g., NETLIST).</span>
-<span class="sd">            circuit: The circuit this part should be added to.</span>
-<span class="sd">            io: XSPICE I/O names.</span>
+<span class="sd">            num_copies (int, optional): Number of copies to make of this part.</span>
+<span class="sd">            dest (str, optional): Indicates where the copy is destined for (e.g., NETLIST).</span>
+<span class="sd">            circuit (Circuit, optional): The circuit this part should be added to.</span>
+<span class="sd">            io (list, optional): XSPICE I/O names.</span>
 
 <span class="sd">        Keyword Args:</span>
 <span class="sd">            attribs: Name/value pairs for setting attributes for the copy.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            A list of Part copies or a single Part if num_copies==1.</span>
+<span class="sd">            Part or list: A list of Part copies or a single Part if num_copies==1.</span>
 
 <span class="sd">        Raises:</span>
-<span class="sd">            Exception if the requested number of copies is a non-integer or negative.</span>
+<span class="sd">            ValueError: If the requested number of copies is a non-integer or negative.</span>
 
 <span class="sd">        Notes:</span>
 <span class="sd">            An instance of a part can be copied just by calling it like so::</span>
@@ -684,24 +846,34 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">num_copies</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
             <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                 <span class="ne">ValueError</span><span class="p">,</span>
-                <span class="s2">&quot;Can&#39;t make a non-integer number (</span><span class="si">{}</span><span class="s2">) of copies of a part!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">num_copies</span>
-                <span class="p">),</span>
+                <span class="sa">f</span><span class="s2">&quot;Can&#39;t make a non-integer number (</span><span class="si">{</span><span class="n">num_copies</span><span class="si">}</span><span class="s2">) of copies of a part!&quot;</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">num_copies</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                 <span class="ne">ValueError</span><span class="p">,</span>
-                <span class="s2">&quot;Can&#39;t make a negative number (</span><span class="si">{}</span><span class="s2">) of copies of a part!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">num_copies</span>
-                <span class="p">),</span>
+                <span class="s2">&quot;Can&#39;t make a negative number (</span><span class="si">{num_copies}</span><span class="s2">) of copies of a part!&quot;</span>
             <span class="p">)</span>
 
         <span class="c1"># Now make copies of the part one-by-one.</span>
         <span class="n">copies</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_copies</span><span class="p">):</span>
 
-            <span class="c1"># Make a shallow copy of the part.</span>
-            <span class="n">cpy</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="c1"># Make a copy of the part.</span>
+            <span class="n">cpy</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>  <span class="c1"># Start with shallow copy.</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="n">Pin</span><span class="p">,</span> <span class="n">PartUnit</span><span class="p">)):</span>
+                    <span class="c1"># These require special handling later.</span>
+                    <span class="k">continue</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                    <span class="c1"># Copy the list with shallow copies of its items to the copy.</span>
+                    <span class="nb">setattr</span><span class="p">(</span><span class="n">cpy</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">copy</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+
+            <span class="c1"># Remove any existing part tag so the copy won&#39;t be linked to the</span>
+            <span class="c1"># same footprint in the PCB as the source.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">cpy</span><span class="o">.</span><span class="n">tag</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">pass</span>
 
             <span class="c1"># Remove any existing Pin and PartUnit attributes so new ones</span>
             <span class="c1"># can be made in the copy without generating warning messages.</span>
@@ -744,12 +916,6 @@
             <span class="c1"># Copied part starts off not being in any circuit.</span>
             <span class="n">cpy</span><span class="o">.</span><span class="n">circuit</span> <span class="o">=</span> <span class="kc">None</span>
 
-            <span class="c1"># Reset the tag to a random generated one.  We</span>
-            <span class="c1"># are careful to do this after setting the circuit to</span>
-            <span class="c1"># None so we don&#39;t corrupt the hierarchical name index</span>
-            <span class="c1"># maintained in circuit.</span>
-            <span class="k">del</span> <span class="n">cpy</span><span class="o">.</span><span class="n">tag</span>
-
             <span class="c1"># If copy is destined for a netlist, then add it to the Circuit its</span>
             <span class="c1"># source came from or else add it to the default Circuit object.</span>
             <span class="k">if</span> <span class="n">dest</span> <span class="o">==</span> <span class="n">NETLIST</span><span class="p">:</span>
@@ -770,9 +936,7 @@
                     <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
                         <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                             <span class="ne">ValueError</span><span class="p">,</span>
-                            <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> copies of part </span><span class="si">{}</span><span class="s2"> were requested, but too few elements in attribute </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                                <span class="n">num_copies</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">k</span>
-                            <span class="p">),</span>
+                            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">num_copies</span><span class="si">}</span><span class="s2"> copies of part </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> were requested, but too few elements in attribute </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">!&quot;</span>
                         <span class="p">)</span>
                 <span class="nb">setattr</span><span class="p">(</span><span class="n">cpy</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
 
@@ -788,7 +952,12 @@
 <div class="viewcode-block" id="Part.validate">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.validate">[docs]</a>
     <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check that pins and units reference the correct part that owns them.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check that pins and units reference the correct part that owns them.</span>
+<span class="sd">        </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            AssertionError: If pins or units don&#39;t properly reference this part.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
             <span class="k">assert</span> <span class="n">pin</span><span class="o">.</span><span class="n">part</span> <span class="o">==</span> <span class="bp">self</span>
         <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
@@ -800,7 +969,15 @@
 <div class="viewcode-block" id="Part.copy_units">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.copy_units">[docs]</a>
     <span class="k">def</span> <span class="nf">copy_units</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Make copies of the units from the source part.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Make copies of the units from the source part.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            src (Part): The source part containing units to copy.</span>
+<span class="sd">            </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            Exception: If an illegal unit type is encountered.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">unit</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Remove references to any existing units.</span>
         <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">src</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">PartUnit</span><span class="p">):</span>
@@ -815,13 +992,21 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="p">[</span><span class="n">label</span><span class="p">]</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">unit</span><span class="o">.</span><span class="n">num</span>
                 <span class="n">add_unique_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Illegal unit type (</span><span class="si">{}</span><span class="s2">).&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">unit</span><span class="p">)))</span></div>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Illegal unit type (</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span><span class="si">}</span><span class="s2">).&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Part.add_pins">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.add_pins">[docs]</a>
     <span class="k">def</span> <span class="nf">add_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">pins</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add one or more pins to a part and return the part.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add one or more pins to a part and return the part.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            *pins: Pin objects to add to the part.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Part: The part with pins added.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">flatten</span><span class="p">(</span><span class="n">pins</span><span class="p">):</span>
             <span class="n">pin</span><span class="o">.</span><span class="n">part</span> <span class="o">=</span> <span class="bp">self</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
@@ -835,7 +1020,12 @@
 <div class="viewcode-block" id="Part.rmv_pins">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.rmv_pins">[docs]</a>
     <span class="k">def</span> <span class="nf">rmv_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">pin_ids</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove one or more pins from a part.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove one or more pins from a part.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            *pin_ids: IDs (names or numbers) of pins to remove.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pins</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pin</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pins</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">num</span> <span class="ow">in</span> <span class="n">pin_ids</span> <span class="ow">or</span> <span class="n">pin</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">pin_ids</span><span class="p">:</span>
@@ -845,7 +1035,13 @@
 <div class="viewcode-block" id="Part.swap_pins">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.swap_pins">[docs]</a>
     <span class="k">def</span> <span class="nf">swap_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin_id1</span><span class="p">,</span> <span class="n">pin_id2</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Swap pin name/number between two pins of a part.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Swap pin name/number between two pins of a part.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            pin_id1: ID of first pin (name or number)</span>
+<span class="sd">            pin_id2: ID of second pin (name or number)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pins</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span>
         <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pin</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pins</span><span class="p">):</span>
@@ -868,7 +1064,13 @@
 <div class="viewcode-block" id="Part.rename_pin">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.rename_pin">[docs]</a>
     <span class="k">def</span> <span class="nf">rename_pin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin_id</span><span class="p">,</span> <span class="n">new_pin_name</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Assign a new name to a pin of a part.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Assign a new name to a pin of a part.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            pin_id: ID of pin to rename (name or number)</span>
+<span class="sd">            new_pin_name (str): New name for the pin</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">pin_id</span> <span class="ow">in</span> <span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">num</span><span class="p">,</span> <span class="n">pin</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
                 <span class="n">pin</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">new_pin_name</span>
@@ -878,7 +1080,13 @@
 <div class="viewcode-block" id="Part.renumber_pin">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.renumber_pin">[docs]</a>
     <span class="k">def</span> <span class="nf">renumber_pin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin_id</span><span class="p">,</span> <span class="n">new_pin_num</span><span class="p">):</span>
-        <span class="s2">&quot;Assign a new number to a pin of a part.&quot;</span> <span class="s2">&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Assign a new number to a pin of a part.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            pin_id: ID of pin to renumber (name or number)</span>
+<span class="sd">            new_pin_num: New number for the pin</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">pin_id</span> <span class="ow">in</span> <span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">num</span><span class="p">,</span> <span class="n">pin</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
                 <span class="n">pin</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">new_pin_num</span>
@@ -899,19 +1107,18 @@
 <span class="sd">        Keyword Args:</span>
 <span class="sd">            criteria: Key/value pairs that specify attribute values the</span>
 <span class="sd">                pins must have in order to be selected.</span>
+<span class="sd">            silent (bool, optional): If True, don&#39;t issue error messages. Defaults to False.</span>
+<span class="sd">            only_search_numbers (bool, optional): Only search for pins by number. Defaults to False.</span>
+<span class="sd">            only_search_names (bool, optional): Only search for pins by name. Defaults to False.</span>
+<span class="sd">            match_regex (bool, optional): Allow regex pattern matching for pin names. Defaults to False.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            A list of pins matching the given IDs and satisfying all the criteria,</span>
-<span class="sd">            or just a single Pin object if only a single match was found.</span>
-<span class="sd">            Or None if no match was found.</span>
-
-<span class="sd">        Notes:</span>
-<span class="sd">            Pins can be selected from a part by using brackets like so::</span>
-
-<span class="sd">                atmega = Part(&#39;atmel&#39;, &#39;ATMEGA16U2&#39;)</span>
-<span class="sd">                net = Net()</span>
-<span class="sd">                atmega[1] += net  # Connects pin 1 of chip to the net.</span>
-<span class="sd">                net += atmega[&#39;RESET&#39;]  # Connects reset pin to the net.</span>
+<span class="sd">            Pin or list: A list of pins matching the given IDs and satisfying all the criteria,</span>
+<span class="sd">                or just a single Pin object if only a single match was found.</span>
+<span class="sd">                Or None if no match was found and silent=True.</span>
+<span class="sd">                </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If pins can&#39;t be found and silent=False.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="kn">from</span> <span class="nn">.alias</span> <span class="kn">import</span> <span class="n">Alias</span>
@@ -994,9 +1201,7 @@
         <span class="c1"># Log an error if no pins were selected using the pin ids.</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">pins</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">silent</span><span class="p">:</span>
             <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="s2">&quot;No pins found using </span><span class="si">{self.name}</span><span class="s2">:</span><span class="si">{self.ref}</span><span class="s2">[</span><span class="si">{pin_ids}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="o">**</span><span class="nb">locals</span><span class="p">()</span>
-                <span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;No pins found using </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="si">}</span><span class="s2">[</span><span class="si">{</span><span class="n">pin_ids</span><span class="si">}</span><span class="s2">]&quot;</span>
             <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">list_or_scalar</span><span class="p">(</span><span class="n">pins</span><span class="p">)</span></div>
@@ -1005,8 +1210,11 @@
 <div class="viewcode-block" id="Part.disconnect">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.disconnect">[docs]</a>
     <span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Disconnect all the part&#39;s pins from nets.&quot;&quot;&quot;</span>
-
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Disconnect all the part&#39;s pins from nets.</span>
+<span class="sd">        </span>
+<span class="sd">        This removes all connections to the part&#39;s pins.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
             <span class="n">pin</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span></div>
 
@@ -1021,6 +1229,9 @@
 <span class="sd">        this method will return False. Otherwise, it will return True even if</span>
 <span class="sd">        the part has no pins (which can be the case for mechanical parts,</span>
 <span class="sd">        silkscreen logos, or other non-electrical schematic elements).</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the part is connected or has no pins, False otherwise.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Assume parts without pins (like mech. holes) are always connected.</span>
@@ -1039,7 +1250,15 @@
 <div class="viewcode-block" id="Part.attached_to">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.attached_to">[docs]</a>
     <span class="k">def</span> <span class="nf">attached_to</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nets</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return True if any part pin is connected to a net in the list.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return True if any part pin is connected to a net in the list.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            nets (list, optional): List of nets to check for connection.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if part is connected to any of the nets, False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">nets</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
 
@@ -1061,6 +1280,9 @@
 <span class="sd">            2) the part has pins but none of them are connected to nets, or</span>
 <span class="sd">            3) the part has no pins (which can be the case for mechanical parts,</span>
 <span class="sd">               silkscreen logos, or other non-electrical schematic elements).</span>
+<span class="sd">               </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the part can be moved to another circuit, False otherwise.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.circuit</span> <span class="kn">import</span> <span class="n">Circuit</span>
 
@@ -1074,7 +1296,12 @@
 <div class="viewcode-block" id="Part.split_pin_names">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.split_pin_names">[docs]</a>
     <span class="k">def</span> <span class="nf">split_pin_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delimiters</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Use chars in delimiters to split pin names and add as aliases to each pin.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Use chars in delimiters to split pin names and add as aliases to each pin.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            delimiters (str): String of characters to use as delimiters for splitting pin names.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">delimiters</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
                 <span class="c1"># Split pin name and add subnames as aliases to the pin.</span>
@@ -1091,7 +1318,7 @@
 <span class="sd">        acts like a Part but contains only a subset of the pins of the Part.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            label: The label used to identify the PartUnit.</span>
+<span class="sd">            label (str): The label used to identify the PartUnit.</span>
 <span class="sd">            pin_ids: A list of strings containing pin names, numbers,</span>
 <span class="sd">                regular expressions, slices, lists or tuples.</span>
 
@@ -1100,16 +1327,17 @@
 <span class="sd">                pin must have in order to be selected.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            The PartUnit.</span>
+<span class="sd">            PartUnit: The newly created part unit.</span>
+<span class="sd">            </span>
+<span class="sd">        Warning:</span>
+<span class="sd">            Will issue a warning if the unit label collides with any part pin names.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Warn if the unit label collides with any of the part&#39;s pin names.</span>
         <span class="n">collisions</span> <span class="o">=</span> <span class="p">[</span><span class="n">pin</span> <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span> <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">aliases</span> <span class="o">==</span> <span class="n">label</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">collisions</span><span class="p">:</span>
             <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                <span class="s2">&quot;Using a label (</span><span class="si">{}</span><span class="s2">) for a unit of </span><span class="si">{}</span><span class="s2"> that matches one or more of it&#39;s pin names (</span><span class="si">{}</span><span class="s2">)!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">(),</span> <span class="n">collisions</span>
-                <span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;Using a label (</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">) for a unit of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">()</span><span class="si">}</span><span class="s2"> that matches one or more of it&#39;s pin names (</span><span class="si">{</span><span class="n">collisions</span><span class="si">}</span><span class="s2">)!&quot;</span>
             <span class="p">)</span>
 
         <span class="c1"># Create the part unit.</span>
@@ -1124,7 +1352,12 @@
 <div class="viewcode-block" id="Part.rmv_unit">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.rmv_unit">[docs]</a>
     <span class="k">def</span> <span class="nf">rmv_unit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove a PartUnit from a Part.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove a PartUnit from a Part.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            label (str): Label of unit to remove.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">delattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
         <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="p">[</span><span class="n">label</span><span class="p">]</span></div>
 
@@ -1132,7 +1365,11 @@
 <div class="viewcode-block" id="Part.grab_pins">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.grab_pins">[docs]</a>
     <span class="k">def</span> <span class="nf">grab_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Grab pins back from PartUnits.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Grab pins back from PartUnits.</span>
+<span class="sd">        </span>
+<span class="sd">        Makes each unit release its pins back to the part that contains it.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Make each unit release its pins back to the part that contains it.</span>
         <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
@@ -1142,7 +1379,9 @@
 <div class="viewcode-block" id="Part.release_pins">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.release_pins">[docs]</a>
     <span class="k">def</span> <span class="nf">release_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;A Part can&#39;t release pins back to its PartUnits, so do nothing.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A Part can&#39;t release pins back to its PartUnits, so do nothing.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">pass</span></div>
 
@@ -1150,7 +1389,15 @@
 <div class="viewcode-block" id="Part.create_network">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.create_network">[docs]</a>
     <span class="k">def</span> <span class="nf">create_network</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a network from the pins of a part.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a network from the pins of a part.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Network: A network containing the part&#39;s pins.</span>
+<span class="sd">            </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            Exception: If the part has more than 2 pins.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
 
         <span class="n">ntwk</span> <span class="o">=</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">[:])</span>  <span class="c1"># An error will occur if part has more than 2 pins.</span>
@@ -1162,6 +1409,14 @@
     <span class="k">def</span> <span class="nf">generate_svg_component</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symtx</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">net_stubs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate the SVG for displaying a part in an SVG schematic.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            symtx (str, optional): Transform for the SVG symbol. Defaults to &quot;&quot;.</span>
+<span class="sd">            tool (str, optional): Tool format to use for SVG generation. Defaults to config.tool.</span>
+<span class="sd">            net_stubs (list, optional): List of net stubs to include in the SVG.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: SVG representation of the component.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="kn">import</span> <span class="nn">skidl</span>
@@ -1176,19 +1431,23 @@
 <div class="viewcode-block" id="Part.erc_desc">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.erc_desc">[docs]</a>
     <span class="k">def</span> <span class="nf">erc_desc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create description of part for ERC and other error reporting.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{p.name}</span><span class="s2">/</span><span class="si">{p.ref}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
-
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span></div>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create description of part for ERC and other error reporting.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: A string description in the form &quot;name/ref&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="si">}</span><span class="s2">&quot;</span></div>
 
 
 <div class="viewcode-block" id="Part.export">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.export">[docs]</a>
     <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addtl_part_attrs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a string to recreate a Part object.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a string to recreate a Part object.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            addtl_part_attrs (list): List of additional part attribute names to include in export.</span>
+<span class="sd">            addtl_part_attrs (list, optional): List of additional part attribute names to include in export.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            str: String that can be evaluated to rebuild the Part object.</span>
@@ -1215,14 +1474,14 @@
 
         <span class="c1"># Export the part as a SKiDL template.</span>
         <span class="n">attribs</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">attribs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39;:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)))</span>
+        <span class="n">attribs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;name&#39;:</span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">attribs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&#39;dest&#39;:TEMPLATE&quot;</span><span class="p">)</span>
         <span class="n">attribs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&#39;tool&#39;:SKIDL&quot;</span><span class="p">)</span>
 
         <span class="c1"># Collect all the part attributes and the list of pins and units as Python code.</span>
         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
             <span class="n">v</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="n">attribs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39;:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">v</span><span class="p">)))</span>
+            <span class="n">attribs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&#39;:</span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
             <span class="n">pin_strs</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">export</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">]</span>
             <span class="n">attribs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&#39;pins&#39;:[</span><span class="si">{}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pin_strs</span><span class="p">)))</span>
@@ -1243,7 +1502,8 @@
 <div class="viewcode-block" id="Part.convert_for_spice">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.convert_for_spice">[docs]</a>
     <span class="k">def</span> <span class="nf">convert_for_spice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spice_part</span><span class="p">,</span> <span class="n">pin_map</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert a Part object for use with SPICE.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert a Part object for use with SPICE.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            spice_part (Part): The type of SPICE Part to be converted to.</span>
@@ -1255,7 +1515,12 @@
 
 
     <span class="k">def</span> <span class="nf">_find_min_max_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the minimum and maximum pin numbers for the part.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the minimum and maximum pin numbers for the part.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: A tuple containing (min_pin_num, max_pin_num)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pin_nums</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
@@ -1274,63 +1539,43 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ordered_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the pins of the part in a sorted order.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list: Sorted list of the part&#39;s pins.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">hierarchical_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">.circuit</span> <span class="kn">import</span> <span class="n">HIER_SEP</span>
-
-        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;hierarchy&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">HIER_SEP</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tag</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">tag</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the part&#39;s tag.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tag</span>
-
-    <span class="nd">@tag</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">tag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the part&#39;s tag.&quot;&quot;&quot;</span>
-        <span class="c1"># Remove the part&#39;s old hierarchical name from the index.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">rmv_hierarchical_name</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hierarchical_name</span><span class="p">)</span>
-
-        <span class="c1"># Update the part&#39;s tag.</span>
-        <span class="n">str_tag</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[^a-zA-Z0-9\-_]&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">str_tag</span><span class="p">):</span>
-            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
-                <span class="ne">ValueError</span><span class="p">,</span>
-                <span class="s2">&quot;Can&#39;t set part tag to </span><span class="si">{}</span><span class="s2"> it contains disallowed characters.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">str_tag</span>
-                <span class="p">),</span>
-            <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_tag</span> <span class="o">=</span> <span class="n">str_tag</span>
-
-        <span class="c1"># Add the udpated hierarchical name back to the index.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">add_hierarchical_name</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hierarchical_name</span><span class="p">)</span>
-
-    <span class="nd">@tag</span><span class="o">.</span><span class="n">deleter</span>
-    <span class="k">def</span> <span class="nf">tag</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete the part tag.&quot;&quot;&quot;</span>
-        <span class="c1"># Part&#39;s can&#39;t have a None tag, so set a new random tag.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="mi">64</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ref</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get, set and delete the part reference.</span>
+<span class="sd">        Get the part reference.</span>
 
 <span class="sd">        When setting the part reference, if another part with the same</span>
 <span class="sd">        reference is found, the reference for this part is adjusted to make</span>
 <span class="sd">        it unique.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The part&#39;s reference designator.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ref</span>
 
     <span class="nd">@ref</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">ref</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the part&#39;s reference.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            r (str): The reference to assign to the part.</span>
+<span class="sd">            </span>
+<span class="sd">        Notes:</span>
+<span class="sd">            If the reference would conflict with another part, a unique</span>
+<span class="sd">            variation will be generated.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Remove the existing reference so it doesn&#39;t cause a collision if the</span>
         <span class="c1"># object is renamed with its existing name.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_ref</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span>
 
         <span class="c1"># Now name the object with the given reference or some variation</span>
         <span class="c1"># of it that doesn&#39;t collide with anything else in the list.</span>
@@ -1339,18 +1584,22 @@
 
     <span class="nd">@ref</span><span class="o">.</span><span class="n">deleter</span>
     <span class="k">def</span> <span class="nf">ref</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete the part reference.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete the part reference.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rmv_unique_name</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">parts</span><span class="p">,</span> <span class="s2">&quot;ref&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ref</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ref</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get, set and delete the part value.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the part value.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The part&#39;s value, or part name if no value is set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">UnitValue</span><span class="p">):</span>
-                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
             <span class="c1"># If part has no value, return its part name as the value. This is</span>
             <span class="c1"># done in KiCad where a resistor value is set to &#39;R&#39; if no</span>
@@ -1359,37 +1608,158 @@
 
     <span class="nd">@value</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the part value.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the part value.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            value: The value to assign to the part.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@value</span><span class="o">.</span><span class="n">deleter</span>
     <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete the part value.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete the part value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">foot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get, set and delete the part footprint.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the part footprint.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The part&#39;s footprint.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_foot</span>
 
     <span class="nd">@foot</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">foot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">footprint</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the part footprint.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the part footprint.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            footprint (str): The footprint to assign to the part.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_foot</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">footprint</span><span class="p">)</span>
 
     <span class="nd">@foot</span><span class="o">.</span><span class="n">deleter</span>
     <span class="k">def</span> <span class="nf">foot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete the part footprint.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete the part footprint.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_foot</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">hiertuple</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a tuple of the node&#39;s hierarchy path names from top-most node to this one (self).</span>
+<span class="sd">        </span>
+<span class="sd">        This provides a string representation of the hierarchical path by extracting</span>
+<span class="sd">        the names from each node in the hierarchy chain.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: A tuple of strings representing the names of nodes in the</span>
+<span class="sd">                  hierarchical path from root to this node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">hiertuple</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tag_ref_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the tag, reference, or name of an object.</span>
+
+<span class="sd">        This provides a way to retrieve the most relevant identifier for the object.</span>
+<span class="sd">        If the tag is set, it will be returned. Otherwise, if the reference is set,</span>
+<span class="sd">        it will be returned. If all else fails, the name will be returned.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The tag, reference, or name of the object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;tag&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;ref&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">)</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">hiertuple</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">hiertuple</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">hiername</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the hierarchical name of the part.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The hierarchical name including hierarchy prefix and tag.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">HIER_SEP</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hiertuple</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tag_ref_name</span><span class="p">,))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">partclasses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get all part classes associated with this part.</span>
+
+<span class="sd">        Returns the combined set of part classes from both the hierarchical nodes</span>
+<span class="sd">        surrounding this part and the part classes directly assigned to this part.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            set: A set containing all part classes from the node hierarchy and </span>
+<span class="sd">                the part&#39;s directly assigned classes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Add all the part classes for all the hierarchical nodes surrounding this part.</span>
+        <span class="n">total_partclasses</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">partclasses</span>
+
+        <span class="c1"># Add the part classes directly assigned to this part.</span>
+        <span class="n">total_partclasses</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_partclasses</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">total_partclasses</span>
+
+    <span class="nd">@partclasses</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">partclasses</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">partclasses</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add one or more part classes to this part&#39;s collection of part classes.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            *partclasses: Variable number of part class objects to be added to this part&#39;s</span>
+<span class="sd">                         part classes collection. Each part class will be associated with</span>
+<span class="sd">                         this part&#39;s circuit.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            The part classes are added to the internal _partclasses collection and</span>
+<span class="sd">            automatically associated with the current circuit context.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_partclasses</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">partclasses</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="p">)</span>
+
+    <span class="nd">@partclasses</span><span class="o">.</span><span class="n">deleter</span>
+    <span class="k">def</span> <span class="nf">partclasses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Replace existing list of part classes with an empty PartClasses.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_partclasses</span> <span class="o">=</span> <span class="n">PartClasses</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">match_pin_regex</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get, set and delete the enable/disable of pin regular-expression matching.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the enable/disable flag for pin regular-expression matching.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: Current state of regex matching flag.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_match_pin_regex</span>
 
     <span class="nd">@match_pin_regex</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">match_pin_regex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flag</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the regex matching flag.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the regex matching flag.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            flag (bool): True to enable regex matching for pins, False to disable.</span>
+<span class="sd">            </span>
+<span class="sd">        Notes:</span>
+<span class="sd">            This also sets the flag for all units of the part.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_match_pin_regex</span> <span class="o">=</span> <span class="n">flag</span>
 
         <span class="c1"># Also set flag for units of the part.</span>
@@ -1398,12 +1768,11 @@
 
     <span class="nd">@match_pin_regex</span><span class="o">.</span><span class="n">deleter</span>
     <span class="k">def</span> <span class="nf">match_pin_regex</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete the regex matching flag.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete the regex matching flag.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_match_pin_regex</span></div>
 
-
-
-<span class="c1">##############################################################################</span>
 
 
 <div class="viewcode-block" id="PartUnit">
@@ -1419,7 +1788,8 @@
 <span class="sd">    cannot store any other unique data.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        part: This is the parent Part whose pins the PartUnit is built from.</span>
+<span class="sd">        part (Part): This is the parent Part whose pins the PartUnit is built from.</span>
+<span class="sd">        label (str): A unique label for this unit.</span>
 <span class="sd">        pin_ids: A list of strings containing pin names, numbers,</span>
 <span class="sd">            regular expressions, slices, lists or tuples. If empty, it</span>
 <span class="sd">            will match *every* pin of the part.</span>
@@ -1427,6 +1797,7 @@
 <span class="sd">    Keyword Args:</span>
 <span class="sd">        criteria: Key/value pairs that specify attribute values the</span>
 <span class="sd">            pin must have in order to be selected.</span>
+<span class="sd">        unit (int): Unit number assigned to this PartUnit. Defaults to 1.</span>
 
 <span class="sd">    Examples:</span>
 <span class="sd">        This will return unit 1 from a part::</span>
@@ -1440,6 +1811,18 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="o">*</span><span class="n">pin_ids</span><span class="p">,</span> <span class="o">**</span><span class="n">criteria</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a PartUnit with pins selected from a parent part.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            parent (Part): Parent part to get pins from.</span>
+<span class="sd">            label (str): Label for this unit.</span>
+<span class="sd">            pin_ids: Pin names/numbers to include in this unit.</span>
+<span class="sd">            </span>
+<span class="sd">        Keyword Args:</span>
+<span class="sd">            criteria: Key/value pairs for selecting pins.</span>
+<span class="sd">            unit (int): Unit number. Defaults to 1.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">Pin</span>
 
@@ -1497,6 +1880,12 @@
     <span class="k">def</span> <span class="nf">add_pins_from_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">pin_ids</span><span class="p">,</span> <span class="o">**</span><span class="n">criteria</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add selected pins from the parent to the part unit.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            pin_ids: Pin names/numbers to add from parent.</span>
+<span class="sd">            </span>
+<span class="sd">        Keyword Args:</span>
+<span class="sd">            criteria: Key/value pairs for selecting pins.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Get new pins selected from the parent.</span>
@@ -1519,8 +1908,12 @@
 <div class="viewcode-block" id="PartUnit.validate">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.PartUnit.validate">[docs]</a>
     <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check that unit pins point to the parent part.&quot;&quot;&quot;</span>
-
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check that unit pins point to the parent part.</span>
+<span class="sd">        </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            AssertionError: If pins don&#39;t refer to the parent part.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
             <span class="k">assert</span> <span class="nb">id</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">part</span><span class="p">)</span> <span class="o">==</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span></div>
 
@@ -1528,8 +1921,11 @@
 <div class="viewcode-block" id="PartUnit.grab_pins">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.PartUnit.grab_pins">[docs]</a>
     <span class="k">def</span> <span class="nf">grab_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Grab pin from Part and assign to PartUnit.&quot;&quot;&quot;</span>
-
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Grab pin from Part and assign to PartUnit.</span>
+<span class="sd">        </span>
+<span class="sd">        This changes each pin&#39;s part reference to point to this unit.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
             <span class="n">pin</span><span class="o">.</span><span class="n">part</span> <span class="o">=</span> <span class="bp">self</span></div>
 
@@ -1537,8 +1933,11 @@
 <div class="viewcode-block" id="PartUnit.release_pins">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.PartUnit.release_pins">[docs]</a>
     <span class="k">def</span> <span class="nf">release_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return PartUnit pins to parent Part.&quot;&quot;&quot;</span>
-
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return PartUnit pins to parent Part.</span>
+<span class="sd">        </span>
+<span class="sd">        This changes each pin&#39;s part reference to point back to the parent part.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
             <span class="n">pin</span><span class="o">.</span><span class="n">part</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span></div>
 
@@ -1546,8 +1945,12 @@
 <div class="viewcode-block" id="PartUnit.export">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.PartUnit.export">[docs]</a>
     <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a string describing the PartUnit for exporting purposes.&quot;&quot;&quot;</span>
-
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a string describing the PartUnit for exporting purposes.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: Dictionary representation of the unit as a string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="n">d</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span>
         <span class="n">d</span><span class="p">[</span><span class="s2">&quot;num&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num</span>
@@ -1557,22 +1960,32 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ref</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">.circuit</span> <span class="kn">import</span> <span class="n">HIER_SEP</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the unit&#39;s hierarchical reference.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: Reference in the form &quot;parent_ref.label&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">HIER_SEP</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">))</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">hiertuple</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">hiertuple</span></div>
 
-        <span class="k">return</span> <span class="n">HIER_SEP</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">))</span></div>
-
-
-
-<span class="c1">##############################################################################</span>
 
 
 <span class="n">PartTmplt</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">Part</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
-<span class="n">PartTmplt</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Shortcut for creating a Part template.&quot;&quot;&quot;</span>
+<span class="n">PartTmplt</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    Shortcut for creating a Part template.</span>
+<span class="s2">    </span>
+<span class="s2">    Creates a Part that is not added to the default circuit.</span>
+<span class="s2">    &quot;&quot;&quot;</span>
 
 <span class="n">SkidlPart</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">Part</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="s2">&quot;skidl&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
 <span class="n">SkidlPart</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot; </span>
-<span class="s2">    A class for storing a SKiDL definition of a schematic part. It&#39;s identical</span>
-<span class="s2">    to its Part superclass except:</span>
+<span class="s2">    A class for storing a SKiDL definition of a schematic part.</span>
+<span class="s2">    </span>
+<span class="s2">    It&#39;s identical to its Part superclass except:</span>
 
 <span class="s2">    + The tool defaults to SKIDL.</span>
 <span class="s2">    + The destination defaults to TEMPLATE so that it&#39;s easier to start</span>
@@ -1580,14 +1993,12 @@
 <span class="s2">    &quot;&quot;&quot;</span>
 
 
-<span class="c1">##############################################################################</span>
-
-
 <div class="viewcode-block" id="default_empty_footprint_handler">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.default_empty_footprint_handler">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">default_empty_footprint_handler</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Handle the situation of a Part with no footprint when generating netlist/PCB.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handle the situation of a Part with no footprint when generating netlist/PCB.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        part (Part): The part with no footprint.</span>
@@ -1600,8 +2011,8 @@
 
     <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
 
-    <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-        <span class="s2">&quot;No footprint for </span><span class="si">{part}</span><span class="s2">/</span><span class="si">{ref}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">part</span><span class="o">=</span><span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="p">)</span>
+    <span class="n">active_logger</span><span class="o">.</span><span class="n">bare_error</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;No footprint for </span><span class="si">{</span><span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="si">}</span><span class="s2"> added at </span><span class="si">{</span><span class="n">part</span><span class="o">.</span><span class="n">src_line</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
     <span class="p">)</span></div>
 
 </pre></div>
@@ -1610,7 +2021,7 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
@@ -1626,7 +2037,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -1635,14 +2046,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.part</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

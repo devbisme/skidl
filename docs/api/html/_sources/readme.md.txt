@@ -1,6 +1,6 @@
 # SKiDL
 
-[SKiDL](http://devbisme.github.io/skidl) source code decoumentation.
+[SKiDL](http://devbisme.github.io/skidl) source code documentation.
 
 
 ## Description

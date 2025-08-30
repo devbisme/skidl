@@ -6,12 +6,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.scriptinfo &#8212; SKiDL 2.0.1 documentation</title>
+    <title>skidl.scriptinfo &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -23,7 +23,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../../"><img src="../../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.scriptinfo</a></li> 
       </ul>
@@ -49,7 +49,12 @@
 <span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Routines for getting information about a script.</span>
+<span class="sd">Routines for getting information about a running script.</span>
+
+<span class="sd">This module provides functions to determine information about the currently</span>
+<span class="sd">executing Python script, such as its name, directory, and call stack. These </span>
+<span class="sd">functions are useful for generating file names based on the script name and</span>
+<span class="sd">for debugging purposes.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">inspect</span>
@@ -58,6 +63,7 @@
 <span class="kn">import</span> <span class="nn">traceback</span>
 
 <span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span>
+<span class="kn">import</span> <span class="nn">__main__</span>
 
 
 <div class="viewcode-block" id="scriptinfo">
@@ -65,25 +71,32 @@
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">scriptinfo</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns a dictionary with information about the running top level Python</span>
-<span class="sd">    script:</span>
-<span class="sd">    ---------------------------------------------------------------------------</span>
-<span class="sd">    dir:    directory containing script or compiled executable</span>
-<span class="sd">    name:   name of script or executable</span>
-<span class="sd">    source: name of source code file</span>
-<span class="sd">    ---------------------------------------------------------------------------</span>
-<span class="sd">    `name` and `source` are identical if and only if running interpreted code.</span>
-<span class="sd">    When running code compiled by `py2exe` or `cx_freeze`, `source` contains</span>
-<span class="sd">    the name of the originating Python script.</span>
-<span class="sd">    If compiled by PyInstaller, `source` contains no meaningful information.</span>
-
-<span class="sd">    Downloaded from:</span>
-<span class="sd">    http://code.activestate.com/recipes/579018-python-determine-name-and-directory-of-the-top-lev/</span>
+<span class="sd">    Get information about the running top-level Python script.</span>
+<span class="sd">    </span>
+<span class="sd">    This function identifies the top-level script that is currently running,</span>
+<span class="sd">    whether it&#39;s an interpreted Python script or a compiled executable.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: A dictionary with the following keys:</span>
+<span class="sd">            - &#39;dir&#39;: Directory containing the script or compiled executable</span>
+<span class="sd">            - &#39;name&#39;: Name of script or executable</span>
+<span class="sd">            - &#39;source&#39;: Name of source code file</span>
+<span class="sd">            </span>
+<span class="sd">    Notes:</span>
+<span class="sd">        &#39;name&#39; and &#39;source&#39; are identical if and only if running interpreted code.</span>
+<span class="sd">        When running code compiled by `py2exe` or `cx_freeze`, `source` contains</span>
+<span class="sd">        the name of the originating Python script.</span>
+<span class="sd">        If compiled by PyInstaller, `source` contains no meaningful information.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># ---------------------------------------------------------------------------</span>
     <span class="c1"># scan through call stack for caller information</span>
     <span class="c1"># ---------------------------------------------------------------------------</span>
+    <span class="c1"># Check if we&#39;re in interactive mode (like IPython, REPL, etc.)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">__main__</span><span class="p">,</span> <span class="s1">&#39;__file__&#39;</span><span class="p">):</span>
+        <span class="c1"># In interactive mode, return current working directory</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;dir&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;skidl_REPL&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;interactive&gt;&quot;</span><span class="p">}</span>
+    
     <span class="n">trc</span> <span class="o">=</span> <span class="s2">&quot;skidl&quot;</span>  <span class="c1"># Make sure this gets set to something when in interactive mode.</span>
     <span class="k">for</span> <span class="n">teil</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">():</span>
         <span class="c1"># skip system calls</span>
@@ -109,12 +122,34 @@
     <span class="k">return</span> <span class="n">scr_dict</span></div>
 
 
+<div class="viewcode-block" id="get_script_dir">
+<a class="viewcode-back" href="../../rst_output/skidl.scriptinfo.html#skidl.scriptinfo.get_script_dir">[docs]</a>
+<span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">get_script_dir</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the directory of the top-level script.</span>
+<span class="sd">    </span>
+<span class="sd">    This function retrieves the directory where the top-level script is located.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The directory of the top-level script.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">scriptinfo</span><span class="p">()[</span><span class="s2">&quot;dir&quot;</span><span class="p">]</span></div>
+
 
 <div class="viewcode-block" id="get_script_name">
 <a class="viewcode-back" href="../../rst_output/skidl.scriptinfo.html#skidl.scriptinfo.get_script_name">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">get_script_name</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the name of the top-level script.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the name of the top-level script without the file extension.</span>
+<span class="sd">    </span>
+<span class="sd">    This function gets the name of the top-level script that is currently running</span>
+<span class="sd">    and removes any file extension.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The name of the top-level script without file extension.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">scriptinfo</span><span class="p">()[</span><span class="s2">&quot;name&quot;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span></div>
 
 
@@ -124,7 +159,16 @@
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">get_skidl_trace</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Return a list containing the source line trace where a SKiDL object was instantiated.</span>
+<span class="sd">    Get a trace of function calls excluding internal SKiDL functions.</span>
+<span class="sd">    </span>
+<span class="sd">    This function examines the current call stack and creates a trace that</span>
+<span class="sd">    excludes calls to internal SKiDL library functions. The resulting trace</span>
+<span class="sd">    is useful for debugging and for identifying where SKiDL objects were created</span>
+<span class="sd">    in user code.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        list: A list of tuples containing (file_path, line_number) for each relevant</span>
+<span class="sd">              call in the stack, ordered from the oldest call to the most recent.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># To determine where this object was created, trace the function</span>
@@ -141,8 +185,8 @@
         <span class="n">skidl_dir</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">call_stack</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
 
     <span class="c1"># Record file_name:line_num starting from the bottom of the stack</span>
-    <span class="c1"># and terminate as soon as a function is found that&#39;s in the</span>
-    <span class="c1"># SKiDL library (no use recording internal calls).</span>
+    <span class="c1"># while skipping every function found in the SKiDL package</span>
+    <span class="c1"># (no use recording internal calls).</span>
     <span class="n">skidl_trace</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">call_stack</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
@@ -151,15 +195,11 @@
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
             <span class="n">filename</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
             <span class="n">lineno</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">skidl_dir</span><span class="p">:</span>
-            <span class="c1"># Found function in SKiDL library, so trace is complete.</span>
-            <span class="k">break</span>
+        <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">skidl_dir</span><span class="p">):</span>
+            <span class="c1"># Skip functions in the SKiDL package.</span>
+            <span class="k">continue</span>
 
-        <span class="c1"># Get the absolute path to the file containing the function</span>
-        <span class="c1"># and the line number of the call in the file. Append these</span>
-        <span class="c1"># to the trace.</span>
-        <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-        <span class="n">skidl_trace</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">filepath</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">lineno</span><span class="p">))))</span>
+        <span class="n">skidl_trace</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">filename</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">lineno</span><span class="p">)))</span>
 
     <span class="k">return</span> <span class="n">skidl_trace</span></div>
 
@@ -169,7 +209,7 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
@@ -185,7 +225,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -194,14 +234,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.scriptinfo</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

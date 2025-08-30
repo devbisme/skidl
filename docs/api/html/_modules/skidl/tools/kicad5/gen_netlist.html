@@ -6,12 +6,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.tools.kicad5.gen_netlist &#8212; SKiDL 2.0.1 documentation</title>
+    <title>skidl.tools.kicad5.gen_netlist &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../../../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -23,7 +23,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../../../../"><img src="../../../../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad5.gen_netlist</a></li> 
       </ul>
@@ -49,124 +49,338 @@
 <span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Generate KiCad 5 netlist.</span>
+<span class="sd">Generate KiCad 8 netlist.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">os.path</span>
 <span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+<span class="kn">from</span> <span class="nn">simp_sexp</span> <span class="kn">import</span> <span class="n">Sexp</span>
 
 <span class="kn">from</span> <span class="nn">skidl.pckg_info</span> <span class="kn">import</span> <span class="n">__version__</span>
-<span class="kn">from</span> <span class="nn">skidl.scriptinfo</span> <span class="kn">import</span> <span class="n">scriptinfo</span>
-<span class="kn">from</span> <span class="nn">skidl.utilities</span> <span class="kn">import</span> <span class="n">add_quotes</span><span class="p">,</span> <span class="n">export_to_all</span>
+<span class="kn">from</span> <span class="nn">skidl.scriptinfo</span> <span class="kn">import</span> <span class="n">scriptinfo</span><span class="p">,</span> <span class="n">get_script_dir</span>
+<span class="kn">from</span> <span class="nn">skidl.utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span>
+
+<span class="c1"># This UUID was generated using uuidgen for passing as the namespace argument to uuid.uuid5().</span>
+<span class="n">namespace_uuid</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">(</span><span class="s2">&quot;7026fcc6-e1a0-409e-aaf4-6a17ea82654f&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">gen_netlist_comp</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate the netlist text describing a component.</span>
+<span class="k">def</span> <span class="nf">gen_sheetpath</span><span class="p">(</span><span class="n">hierarchy</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate a sheetpath string from a hierarchical path tuple.</span>
+
+<span class="sd">    A sheetpath is a string representation of the hierarchical path</span>
+<span class="sd">    in a KiCad project. This function converts the given hierarchy</span>
+<span class="sd">    tuple into a valid sheetpath format by joining the elements of the</span>
+<span class="sd">    hierarchy tuple with &#39;/&#39; and ensuring it starts and ends with &#39;/&#39;.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        part (Part): Part object.</span>
+<span class="sd">        hierarchy (tuple): A tuple of strings with the name of each level</span>
+<span class="sd">            of the hierarchy.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str: String containing component netlist description.</span>
+<span class="sd">        str: The generated sheetpath string. If the input hierarchy</span>
+<span class="sd">             is empty or None, the function returns &quot;/&quot;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="kn">from</span> <span class="nn">skidl.circuit</span> <span class="kn">import</span> <span class="n">HIER_SEP</span>
+    <span class="k">assert</span> <span class="n">hierarchy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;Top level of hierarchy must be an empty string.&quot;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">hierarchy</span><span class="p">)</span><span class="si">}</span><span class="s2">/&quot;</span>
 
-    <span class="n">ref</span> <span class="o">=</span> <span class="n">add_quotes</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="p">)</span>
 
-    <span class="n">value</span> <span class="o">=</span> <span class="n">add_quotes</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">value_to_str</span><span class="p">())</span>
+<span class="k">def</span> <span class="nf">gen_part_tstamp</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate a unique timestamp for a given part based on its hierarchical name.</span>
 
+<span class="sd">    This function uses a UUID version 5 (SHA-1 hash) to create a deterministic</span>
+<span class="sd">    and unique identifier for the part. The UUID is generated using a namespace</span>
+<span class="sd">    UUID and the hierarchical name of the part.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        part: An object representing the part. It is expected to have a</span>
+<span class="sd">              &#39;hiername&#39; attribute that uniquely identifies the part</span>
+<span class="sd">              within its hierarchy.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: A string representation of the generated UUID.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">part_tstamp</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid5</span><span class="p">(</span><span class="n">namespace_uuid</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">hiername</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">part_tstamp</span>
+
+
+<span class="k">def</span> <span class="nf">gen_sheetpath_tstamp</span><span class="p">(</span><span class="n">hierarchy</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate a timestamp from a hierarchical path tuple.</span>
+
+<span class="sd">    This function creates a unique timestamp for a hierarchical path</span>
+<span class="sd">    in a KiCad project. If the hierarchy is empty, the timestamp</span>
+<span class="sd">    will be &quot;/&quot;. Otherwise, it generates a UUID for each</span>
+<span class="sd">    entry of the tuple and combines them into a single timestamp.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        hierarchy (tuple): A tuple of strings with the name of each level</span>
+<span class="sd">            of the hierarchy.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: A timestamp for the sheetpath. For the root path, it returns &quot;/&quot;.</span>
+<span class="sd">             For other paths, it returns a UUID-based timestamp in the format</span>
+<span class="sd">             &quot;/&lt;UUID&gt;/&lt;UUID&gt;/.../&lt;UUID&gt;/&quot;, where each UUID corresponds to a</span>
+<span class="sd">             segment of the sheetpath.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">assert</span> <span class="n">hierarchy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;Top level of hierarchy must be an empty string.&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">hierarchy</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">tstamp</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tstamp</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid5</span><span class="p">(</span><span class="n">namespace_uuid</span><span class="p">,</span> <span class="n">level</span><span class="p">))</span> <span class="k">for</span> <span class="n">level</span> <span class="ow">in</span> <span class="n">hierarchy</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]</span>
+        <span class="p">)</span>
+        <span class="n">tstamp</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">tstamp</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span>
+    <span class="k">return</span> <span class="n">tstamp</span>
+
+
+<span class="k">def</span> <span class="nf">gen_netlist_sheet</span><span class="p">(</span><span class="n">hierarchy</span><span class="p">,</span> <span class="n">number</span><span class="p">,</span> <span class="n">src_file</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate a netlist sheet representation for a KiCad project.</span>
+
+<span class="sd">    This function creates a hierarchical representation of a sheet in a KiCad</span>
+<span class="sd">    netlist, including its path, timestamp, and title block information.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        hierarchy (list): A list representing the hierarchical structure of the sheet.</span>
+<span class="sd">        number (int): The sheet number in the hierarchy.</span>
+<span class="sd">        src_file (str): The source file associated with the sheet.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: A nested list structure representing the netlist sheet, including</span>
+<span class="sd">              its metadata and title block information.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sheetpath</span> <span class="o">=</span> <span class="n">gen_sheetpath</span><span class="p">(</span><span class="n">hierarchy</span><span class="p">)</span>
+    <span class="n">sheetpath_tstamp</span> <span class="o">=</span> <span class="n">gen_sheetpath_tstamp</span><span class="p">(</span><span class="n">hierarchy</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;track_abs_path&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="c1"># If track_abs_path is True, use the absolute path of the source filename.</span>
+        <span class="n">src_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">src_file</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># If track_abs_path is False, use the path of the source filename relative to the script.</span>
+        <span class="n">src_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">src_file</span><span class="p">,</span> <span class="n">get_script_dir</span><span class="p">())</span>
+
+    <span class="n">sheet</span> <span class="o">=</span> <span class="n">Sexp</span><span class="p">([</span>
+        <span class="s2">&quot;sheet&quot;</span><span class="p">,</span>
+        <span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="n">number</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">sheetpath</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;tstamps&quot;</span><span class="p">,</span> <span class="n">sheetpath_tstamp</span><span class="p">],</span>
+        <span class="p">[</span>
+            <span class="s2">&quot;title_block&quot;</span><span class="p">,</span>
+            <span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;company&quot;</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;rev&quot;</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="n">src_file</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;comment&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]],</span>
+            <span class="p">[</span><span class="s2">&quot;comment&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]],</span>
+            <span class="p">[</span><span class="s2">&quot;comment&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]],</span>
+            <span class="p">[</span><span class="s2">&quot;comment&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="s2">&quot;4&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]],</span>
+            <span class="p">[</span><span class="s2">&quot;comment&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="s2">&quot;5&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]],</span>
+            <span class="p">[</span><span class="s2">&quot;comment&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="s2">&quot;6&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]],</span>
+            <span class="p">[</span><span class="s2">&quot;comment&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="s2">&quot;7&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]],</span>
+            <span class="p">[</span><span class="s2">&quot;comment&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="s2">&quot;8&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]],</span>
+            <span class="p">[</span><span class="s2">&quot;comment&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="s2">&quot;9&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]],</span>
+        <span class="p">],</span>
+    <span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">sheet</span>
+
+
+<span class="k">def</span> <span class="nf">gen_netlist_comp</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate a netlist component representation for a given part.</span>
+
+<span class="sd">    This function takes a part object and generates a hierarchical representation</span>
+<span class="sd">    of the part&#39;s attributes and metadata in a format suitable for inclusion in</span>
+<span class="sd">    a KiCad netlist. The generated structure includes information such as the</span>
+<span class="sd">    part&#39;s reference, value, footprint, description, datasheet, and additional</span>
+<span class="sd">    fields.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        part (Part): The part object containing attributes such as name, reference,</span>
+<span class="sd">                     value, footprint, description, datasheet, and other metadata.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: A nested list structure representing the netlist component,</span>
+<span class="sd">              including fields like reference, value, description, library source,</span>
+<span class="sd">              sheetpath, timestamps, and custom fields.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">part_name</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">name</span>
+    <span class="n">ref</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">ref</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">value_to_str</span><span class="p">()</span>
     <span class="n">footprint</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;footprint&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-    <span class="n">footprint</span> <span class="o">=</span> <span class="n">add_quotes</span><span class="p">(</span><span class="n">footprint</span><span class="p">)</span>
-
+    <span class="n">description</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">datasheet</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;datasheet&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
     <span class="n">lib_filename</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="s2">&quot;filename&quot;</span><span class="p">,</span> <span class="s2">&quot;NO_LIB&quot;</span><span class="p">)</span>
-    <span class="n">part_name</span> <span class="o">=</span> <span class="n">add_quotes</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
-    <span class="c1"># Embed the hierarchy along with a random integer into the sheetpath for each component.</span>
+    <span class="c1"># Embed the part hierarchy as a set of UUIDs into the sheetpath for each component.</span>
     <span class="c1"># This enables hierarchical selection in pcbnew.</span>
-    <span class="n">hierarchy</span> <span class="o">=</span> <span class="n">add_quotes</span><span class="p">(</span><span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">part</span><span class="o">.</span><span class="n">hierarchical_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">HIER_SEP</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">))</span>
-    <span class="n">tstamps</span> <span class="o">=</span> <span class="n">hierarchy</span>
+    <span class="n">sheetpath</span> <span class="o">=</span> <span class="n">gen_sheetpath</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">hiertuple</span><span class="p">)</span>
+    <span class="n">sheetpath_tstamp</span> <span class="o">=</span> <span class="n">gen_sheetpath_tstamp</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">hiertuple</span><span class="p">)</span>
+    <span class="n">part_tstamp</span> <span class="o">=</span> <span class="n">gen_part_tstamp</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
 
-    <span class="n">fields</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">fld_name</span><span class="p">,</span> <span class="n">fld_value</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">fld_name</span> <span class="o">=</span> <span class="n">add_quotes</span><span class="p">(</span><span class="n">fld_name</span><span class="p">)</span>
-        <span class="n">fld_value</span> <span class="o">=</span> <span class="n">add_quotes</span><span class="p">(</span><span class="n">fld_value</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">fld_value</span><span class="p">:</span>
-            <span class="n">fields</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">        (field (name </span><span class="si">{fld_name}</span><span class="s2">) </span><span class="si">{fld_value}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="o">**</span><span class="nb">locals</span><span class="p">()</span>
-            <span class="p">)</span>
-    <span class="k">if</span> <span class="n">fields</span><span class="p">:</span>
-        <span class="n">fields</span> <span class="o">=</span> <span class="s2">&quot;      (fields&quot;</span> <span class="o">+</span> <span class="n">fields</span>
-        <span class="n">fields</span> <span class="o">+=</span> <span class="s2">&quot;)</span><span class="se">\n</span><span class="s2">&quot;</span>
-
-    <span class="n">template</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="s2">&quot;    (comp (ref </span><span class="si">{ref}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span>
-        <span class="o">+</span> <span class="s2">&quot;      (value </span><span class="si">{value}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span>
-        <span class="o">+</span> <span class="s2">&quot;      (footprint </span><span class="si">{footprint}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span>
-        <span class="o">+</span> <span class="s2">&quot;</span><span class="si">{fields}</span><span class="s2">&quot;</span>
-        <span class="o">+</span> <span class="s2">&quot;      (libsource (lib </span><span class="si">{lib_filename}</span><span class="s2">) (part </span><span class="si">{part_name}</span><span class="s2">))</span><span class="se">\n</span><span class="s2">&quot;</span>
-        <span class="o">+</span> <span class="s2">&quot;      (sheetpath (names </span><span class="si">{hierarchy}</span><span class="s2">) (tstamps </span><span class="si">{tstamps}</span><span class="s2">)))&quot;</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="n">Sexp</span><span class="p">([</span><span class="s2">&quot;fields&quot;</span><span class="p">])</span>
+    <span class="n">part_fields</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+    <span class="n">part_fields</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;Description&quot;</span><span class="p">:</span> <span class="n">description</span><span class="p">,</span>
+            <span class="s2">&quot;Footprint&quot;</span><span class="p">:</span> <span class="n">footprint</span><span class="p">,</span>
+            <span class="s2">&quot;Datasheet&quot;</span><span class="p">:</span> <span class="n">datasheet</span><span class="p">,</span>
+        <span class="p">}</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
     <span class="p">)</span>
-    <span class="n">txt</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
-    <span class="k">return</span> <span class="n">txt</span>
+    <span class="n">part_fields</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s2">&quot;SKiDL Tag&quot;</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">tag</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;track_src&quot;</span><span class="p">]:</span>
+        <span class="n">part_fields</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s2">&quot;SKiDL Line&quot;</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">src_line</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;track_abs_path&quot;</span><span class="p">])])</span>
+    <span class="k">for</span> <span class="n">fld_name</span><span class="p">,</span> <span class="n">fld_value</span> <span class="ow">in</span> <span class="n">part_fields</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">fld_value</span><span class="p">:</span>
+            <span class="n">field</span> <span class="o">=</span> <span class="n">Sexp</span><span class="p">([</span><span class="s2">&quot;field&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">fld_name</span><span class="p">],</span> <span class="n">fld_value</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">field</span> <span class="o">=</span> <span class="n">Sexp</span><span class="p">([</span><span class="s2">&quot;field&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">fld_name</span><span class="p">]])</span>
+        <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">field</span><span class="p">)</span>
+
+    <span class="n">comp</span> <span class="o">=</span> <span class="n">Sexp</span><span class="p">([</span>
+        <span class="s2">&quot;comp&quot;</span><span class="p">,</span>
+        <span class="p">[</span><span class="s2">&quot;ref&quot;</span><span class="p">,</span> <span class="n">ref</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="n">description</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;footprint&quot;</span><span class="p">,</span> <span class="n">footprint</span><span class="p">],</span>
+        <span class="c1"># [&quot;datasheet&quot;, datasheet],</span>
+        <span class="n">fields</span><span class="p">,</span>
+        <span class="p">[</span><span class="s2">&quot;libsource&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">lib_filename</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;part&quot;</span><span class="p">,</span> <span class="n">part_name</span><span class="p">]],</span>
+        <span class="p">[</span><span class="s2">&quot;sheetpath&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;names&quot;</span><span class="p">,</span> <span class="n">sheetpath</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;tstamps&quot;</span><span class="p">,</span> <span class="n">sheetpath_tstamp</span><span class="p">]],</span>
+        <span class="p">[</span><span class="s2">&quot;tstamps&quot;</span><span class="p">,</span> <span class="n">part_tstamp</span><span class="p">],</span>
+    <span class="p">])</span>
+
+    <span class="c1"># If part has a &#39;dnp&#39; attribute set to True, add the dnp property</span>
+    <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;dnp&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="n">comp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Sexp</span><span class="p">([</span><span class="s2">&quot;property&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;dnp&quot;</span><span class="p">]]))</span>
+    
+    <span class="c1"># If part has an &#39;exclude_from_bom&#39; attribute set to True, add the exclude_from_bom property</span>
+    <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;exclude_from_bom&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="n">comp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Sexp</span><span class="p">([</span><span class="s2">&quot;property&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;exclude_from_bom&quot;</span><span class="p">]]))</span>
+
+    <span class="k">return</span> <span class="n">comp</span>
 
 
-<span class="k">def</span> <span class="nf">gen_netlist_net</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate the netlist text describing a net.</span>
+<span class="k">def</span> <span class="nf">gen_netlist_net</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate a netlist representation for a given net.</span>
+
+<span class="sd">    This function creates a hierarchical list structure representing a net</span>
+<span class="sd">    in a KiCad netlist. The netlist includes the net&#39;s code, name, and the</span>
+<span class="sd">    associated pins sorted by their string representation.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        part (Net): Net object.</span>
+<span class="sd">        net (Net): The net object containing information about the net&#39;s</span>
+<span class="sd">                   code, name, and associated pins.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str: String containing net netlist description.</span>
+<span class="sd">        list: A nested list structure representing the net, including</span>
+<span class="sd">              its code, name, and associated pins with their part references</span>
+<span class="sd">              and pin numbers.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">code</span> <span class="o">=</span> <span class="n">add_quotes</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">code</span><span class="p">)</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="n">add_quotes</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-    <span class="n">txt</span> <span class="o">=</span> <span class="s2">&quot;    (net (code </span><span class="si">{code}</span><span class="s2">) (name </span><span class="si">{name}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+
+    <span class="n">nt_lst</span> <span class="o">=</span> <span class="n">Sexp</span><span class="p">([</span><span class="s2">&quot;net&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">,</span> <span class="n">net</span><span class="o">.</span><span class="n">code</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">]])</span>
     <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">str</span><span class="p">):</span>
-        <span class="n">part_ref</span> <span class="o">=</span> <span class="n">add_quotes</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="p">)</span>
-        <span class="n">pin_num</span> <span class="o">=</span> <span class="n">add_quotes</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">num</span><span class="p">)</span>
-        <span class="n">txt</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">      (node (ref </span><span class="si">{part_ref}</span><span class="s2">) (pin </span><span class="si">{pin_num}</span><span class="s2">))&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
-    <span class="n">txt</span> <span class="o">+=</span> <span class="s2">&quot;)&quot;</span>
-    <span class="k">return</span> <span class="n">txt</span>
+        <span class="n">nt_lst</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s2">&quot;node&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;ref&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;pin&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">num</span><span class="p">]])</span>
+
+    <span class="k">return</span> <span class="n">nt_lst</span>
 
 
 <div class="viewcode-block" id="gen_netlist">
 <a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad5.gen_netlist.html#skidl.tools.kicad5.gen_netlist.gen_netlist">[docs]</a>
 <span class="nd">@export_to_all</span>
-<span class="k">def</span> <span class="nf">gen_netlist</span><span class="p">(</span><span class="n">circuit</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a netlist from a Circuit object.</span>
+<span class="k">def</span> <span class="nf">gen_netlist</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate a netlist for a given circuit.</span>
+
+<span class="sd">    This function creates a netlist representation of the circuit, which includes</span>
+<span class="sd">    information about components, nets, and design metadata. The netlist is formatted</span>
+<span class="sd">    as a nested list structure and converted to S-expression format using the Sexp class.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        circuit (Circuit): Circuit object.</span>
+<span class="sd">        circuit (Circuit): The circuit object containing parts, nets, and other</span>
+<span class="sd">            design information.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str: String containing netlist text.</span>
+<span class="sd">        str: The netlist in S-expression format.</span>
+
+<span class="sd">    Notes:</span>
+<span class="sd">        - The function performs checks for empty footprints and randomly-assigned</span>
+<span class="sd">          part tags to ensure the netlist is stable and usable for PCB design.</span>
+<span class="sd">        - The netlist includes metadata such as the source file, date, and tool</span>
+<span class="sd">          version.</span>
+<span class="sd">        - Components and nets are sorted for consistent output.</span>
+<span class="sd">        - The Sexp class is used to create a properly formatted S-expression.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># If track_src, track_abs_path is not specified in kwargs, use values from the circuit attributes.</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;track_src&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;track_src&quot;</span><span class="p">,</span> <span class="n">circuit</span><span class="o">.</span><span class="n">track_src</span><span class="p">)</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;track_abs_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;track_abs_path&quot;</span><span class="p">,</span> <span class="n">circuit</span><span class="o">.</span><span class="n">track_abs_path</span><span class="p">)</span>
+
+    <span class="c1"># Check for some things that can cause problems if the netlist is</span>
+    <span class="c1"># used to create a PCB.</span>
+
+    <span class="c1"># Check for parts with no physical footprint to place on the PCB.</span>
+    <span class="n">circuit</span><span class="o">.</span><span class="n">check_for_empty_footprints</span><span class="p">()</span>
+
+    <span class="c1"># Check for any missing tags since those will lead to</span>
+    <span class="c1"># unstable associations between parts and PCB footprints.</span>
+    <span class="n">circuit</span><span class="o">.</span><span class="n">check_tags</span><span class="p">()</span>
 
     <span class="n">scr_dict</span> <span class="o">=</span> <span class="n">scriptinfo</span><span class="p">()</span>
     <span class="n">src_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">scr_dict</span><span class="p">[</span><span class="s2">&quot;dir&quot;</span><span class="p">],</span> <span class="n">scr_dict</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;track_abs_path&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="c1"># If track_abs_path is True, use the absolute path of the source filename.</span>
+        <span class="n">src_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">src_file</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># If track_abs_path is False, use the path of the source filename relative to the script.</span>
+        <span class="n">src_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">src_file</span><span class="p">,</span> <span class="n">get_script_dir</span><span class="p">())</span>
+
     <span class="n">date</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%m/</span><span class="si">%d</span><span class="s2">/%Y %I:%M %p&quot;</span><span class="p">)</span>
-    <span class="n">tool</span> <span class="o">=</span> <span class="s2">&quot;SKiDL (&quot;</span> <span class="o">+</span> <span class="n">__version__</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
-    <span class="n">template</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="s2">&quot;(export (version D)</span><span class="se">\n</span><span class="s2">&quot;</span>
-        <span class="o">+</span> <span class="s2">&quot;  (design</span><span class="se">\n</span><span class="s2">&quot;</span>
-        <span class="o">+</span> <span class="s1">&#39;    (source &quot;</span><span class="si">{src_file}</span><span class="s1">&quot;)</span><span class="se">\n</span><span class="s1">&#39;</span>
-        <span class="o">+</span> <span class="s1">&#39;    (date &quot;</span><span class="si">{date}</span><span class="s1">&quot;)</span><span class="se">\n</span><span class="s1">&#39;</span>
-        <span class="o">+</span> <span class="s1">&#39;    (tool &quot;</span><span class="si">{tool}</span><span class="s1">&quot;))</span><span class="se">\n</span><span class="s1">&#39;</span>
-    <span class="p">)</span>
-    <span class="n">netlist</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
-    <span class="n">netlist</span> <span class="o">+=</span> <span class="s2">&quot;  (components&quot;</span>
+    <span class="n">tool</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SKiDL (</span><span class="si">{</span><span class="n">__version__</span><span class="si">}</span><span class="s2">)&quot;</span>
+
+    <span class="n">sheets</span> <span class="o">=</span> <span class="n">Sexp</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">num</span><span class="p">,</span> <span class="n">node_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">circuit</span><span class="o">.</span><span class="n">get_node_names</span><span class="p">(),</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">sheets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gen_netlist_sheet</span><span class="p">(</span><span class="n">node_name</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="n">src_file</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+
+    <span class="n">components</span> <span class="o">=</span> <span class="n">Sexp</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">circuit</span><span class="o">.</span><span class="n">parts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">ref</span><span class="p">)):</span>
-        <span class="n">netlist</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">gen_netlist_comp</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-    <span class="n">netlist</span> <span class="o">+=</span> <span class="s2">&quot;)</span><span class="se">\n</span><span class="s2">&quot;</span>
-    <span class="n">netlist</span> <span class="o">+=</span> <span class="s2">&quot;  (nets&quot;</span>
+        <span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gen_netlist_comp</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+
+    <span class="n">nets</span> <span class="o">=</span> <span class="n">Sexp</span><span class="p">()</span>
     <span class="n">sorted_nets</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">circuit</span><span class="o">.</span><span class="n">get_nets</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">code</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sorted_nets</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
-        <span class="n">n</span><span class="o">.</span><span class="n">code</span> <span class="o">=</span> <span class="n">code</span>
-        <span class="n">netlist</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">gen_netlist_net</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-    <span class="n">netlist</span> <span class="o">+=</span> <span class="s2">&quot;)</span><span class="se">\n</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span>
-    <span class="k">return</span> <span class="n">netlist</span></div>
+    <span class="k">for</span> <span class="n">code</span><span class="p">,</span> <span class="n">net</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sorted_nets</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">net</span><span class="o">.</span><span class="n">code</span> <span class="o">=</span> <span class="n">code</span>
+        <span class="n">nets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gen_netlist_net</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+
+    <span class="n">netlist</span> <span class="o">=</span> <span class="n">Sexp</span><span class="p">([</span>
+        <span class="s2">&quot;export&quot;</span><span class="p">,</span>
+        <span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">],</span>
+        <span class="p">[</span>
+            <span class="s2">&quot;design&quot;</span><span class="p">,</span>
+            <span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="n">src_file</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">date</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;tool&quot;</span><span class="p">,</span> <span class="n">tool</span><span class="p">],</span>
+            <span class="o">*</span><span class="n">sheets</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;components&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">components</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;nets&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">nets</span><span class="p">],</span>
+    <span class="p">])</span>
+
+    <span class="c1"># Add quotes to all strings following the initial keyword in each S-expression of the netlist.</span>
+    <span class="n">netlist</span><span class="o">.</span><span class="n">add_quotes</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># For some reason, KiCad&#39;s PCBNEW expects a space after the beginning export keyword</span>
+    <span class="c1"># or else it rejects the netlist file.</span>
+    <span class="k">return</span> <span class="n">netlist</span><span class="o">.</span><span class="n">to_str</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;(export</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;(export </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div>
 
 </pre></div>
 
@@ -174,7 +388,7 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
@@ -190,7 +404,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -199,14 +413,14 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad5.gen_netlist</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

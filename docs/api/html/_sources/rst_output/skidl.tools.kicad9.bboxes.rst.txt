@@ -1,0 +1,7 @@
+skidl.tools.kicad9.bboxes module
+================================
+
+.. automodule:: skidl.tools.kicad9.bboxes
+   :members:
+   :show-inheritance:
+   :undoc-members:

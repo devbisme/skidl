@@ -7,12 +7,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.scriptinfo module &#8212; SKiDL 2.0.1 documentation</title>
+    <title>skidl.scriptinfo module &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -24,7 +24,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../"><img src="../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.scriptinfo module</a></li> 
       </ul>
     </div>  
@@ -45,35 +45,91 @@
             
   <section id="module-skidl.scriptinfo">
 <span id="skidl-scriptinfo-module"></span><h1>skidl.scriptinfo module<a class="headerlink" href="#module-skidl.scriptinfo" title="Link to this heading">¶</a></h1>
-<p>Routines for getting information about a script.</p>
+<p>Routines for getting information about a running script.</p>
+<p>This module provides functions to determine information about the currently
+executing Python script, such as its name, directory, and call stack. These
+functions are useful for generating file names based on the script name and
+for debugging purposes.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.scriptinfo.get_script_dir">
+<span class="sig-prename descclassname"><span class="pre">skidl.scriptinfo.</span></span><span class="sig-name descname"><span class="pre">get_script_dir</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/scriptinfo.html#get_script_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.scriptinfo.get_script_dir" title="Link to this definition">¶</a></dt>
+<dd><p>Return the directory of the top-level script.</p>
+<p>This function retrieves the directory where the top-level script is located.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The directory of the top-level script.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.scriptinfo.get_script_name">
 <span class="sig-prename descclassname"><span class="pre">skidl.scriptinfo.</span></span><span class="sig-name descname"><span class="pre">get_script_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/scriptinfo.html#get_script_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.scriptinfo.get_script_name" title="Link to this definition">¶</a></dt>
-<dd><p>Return the name of the top-level script.</p>
+<dd><p>Return the name of the top-level script without the file extension.</p>
+<p>This function gets the name of the top-level script that is currently running
+and removes any file extension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The name of the top-level script without file extension.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.scriptinfo.get_skidl_trace">
 <span class="sig-prename descclassname"><span class="pre">skidl.scriptinfo.</span></span><span class="sig-name descname"><span class="pre">get_skidl_trace</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/scriptinfo.html#get_skidl_trace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.scriptinfo.get_skidl_trace" title="Link to this definition">¶</a></dt>
-<dd><p>Return a list containing the source line trace where a SKiDL object was instantiated.</p>
+<dd><p>Get a trace of function calls excluding internal SKiDL functions.</p>
+<p>This function examines the current call stack and creates a trace that
+excludes calls to internal SKiDL library functions. The resulting trace
+is useful for debugging and for identifying where SKiDL objects were created
+in user code.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>A list of tuples containing (file_path, line_number) for each relevant</dt><dd><p>call in the stack, ordered from the oldest call to the most recent.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.scriptinfo.scriptinfo">
 <span class="sig-prename descclassname"><span class="pre">skidl.scriptinfo.</span></span><span class="sig-name descname"><span class="pre">scriptinfo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/scriptinfo.html#scriptinfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.scriptinfo.scriptinfo" title="Link to this definition">¶</a></dt>
-<dd><p>Returns a dictionary with information about the running top level Python
-script:
-—————————————————————————
-dir:    directory containing script or compiled executable
-name:   name of script or executable
-source: name of source code file
-—————————————————————————
-<cite>name</cite> and <cite>source</cite> are identical if and only if running interpreted code.
+<dd><p>Get information about the running top-level Python script.</p>
+<p>This function identifies the top-level script that is currently running,
+whether it’s an interpreted Python script or a compiled executable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>A dictionary with the following keys:</dt><dd><ul class="simple">
+<li><p>’dir’: Directory containing the script or compiled executable</p></li>
+<li><p>’name’: Name of script or executable</p></li>
+<li><p>’source’: Name of source code file</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#dict" title="(in Python v3.13)">dict</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>‘name’ and ‘source’ are identical if and only if running interpreted code.
 When running code compiled by <cite>py2exe</cite> or <cite>cx_freeze</cite>, <cite>source</cite> contains
 the name of the originating Python script.
 If compiled by PyInstaller, <cite>source</cite> contains no meaningful information.</p>
-<p>Downloaded from:
-<a class="reference external" href="http://code.activestate.com/recipes/579018-python-determine-name-and-directory-of-the-top-lev/">http://code.activestate.com/recipes/579018-python-determine-name-and-directory-of-the-top-lev/</a></p>
 </dd></dl>
 
 </section>
@@ -83,12 +139,13 @@ If compiled by PyInstaller, <cite>source</cite> contains no meaningful informati
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
   <div>
     <h3><a href="../index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">skidl.scriptinfo module</a><ul>
+<li><a class="reference internal" href="#skidl.scriptinfo.get_script_dir"><code class="docutils literal notranslate"><span class="pre">get_script_dir()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.scriptinfo.get_script_name"><code class="docutils literal notranslate"><span class="pre">get_script_name()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.scriptinfo.get_skidl_trace"><code class="docutils literal notranslate"><span class="pre">get_skidl_trace()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.scriptinfo.scriptinfo"><code class="docutils literal notranslate"><span class="pre">scriptinfo()</span></code></a></li>
@@ -118,7 +175,7 @@ If compiled by PyInstaller, <cite>source</cite> contains no meaningful informati
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -127,13 +184,13 @@ If compiled by PyInstaller, <cite>source</cite> contains no meaningful informati
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.scriptinfo module</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

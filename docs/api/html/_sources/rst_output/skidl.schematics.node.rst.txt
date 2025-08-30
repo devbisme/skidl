@@ -1,7 +1,0 @@
-skidl.schematics.node module
-============================
-
-.. automodule:: skidl.schematics.node
-   :members:
-   :undoc-members:
-   :show-inheritance:

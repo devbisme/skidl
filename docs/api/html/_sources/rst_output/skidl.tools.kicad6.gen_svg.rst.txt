@@ -3,5 +3,5 @@ skidl.tools.kicad6.gen\_svg module
 
 .. automodule:: skidl.tools.kicad6.gen_svg
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

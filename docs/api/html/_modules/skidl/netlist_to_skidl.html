@@ -6,12 +6,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.netlist_to_skidl &#8212; SKiDL 2.0.1 documentation</title>
+    <title>skidl.netlist_to_skidl &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -23,7 +23,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../../"><img src="../../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.netlist_to_skidl</a></li> 
       </ul>
@@ -46,167 +46,733 @@
   <h1>Source code for skidl.netlist_to_skidl</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
-
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Convert a netlist into an equivalent SKiDL program.</span>
+<span class="sd">Convert a KiCad netlist into equivalent hierarchical SKiDL programs.</span>
+
+<span class="sd">This module enables the conversion of KiCad netlists to SKiDL Python scripts,</span>
+<span class="sd">preserving the hierarchical structure. The resulting SKiDL scripts can be used</span>
+<span class="sd">to regenerate the circuit or as a starting point for circuit modifications.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">kinparse</span> <span class="kn">import</span> <span class="n">parse_netlist</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">simp_sexp</span> <span class="kn">import</span> <span class="n">Sexp</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Set</span>
+<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>  <span class="c1"># Import the active_logger</span>
 
-<span class="kn">from</span> <span class="nn">.part</span> <span class="kn">import</span> <span class="n">TEMPLATE</span>
-<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span>
+
+<div class="viewcode-block" id="Sheet">
+<a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.Sheet">[docs]</a>
+<span class="k">class</span> <span class="nc">Sheet</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a hierarchical sheet from a KiCad schematic.</span>
+
+<span class="sd">    This object stores information about a sheet in the schematic hierarchy,</span>
+<span class="sd">    including its components, nets, and relationship to other sheets.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        number (str): Sheet number in the hierarchy</span>
+<span class="sd">        name (str): Sheet name</span>
+<span class="sd">        path (str): Full hierarchical path to the sheet</span>
+<span class="sd">        components (List): Components contained in this sheet</span>
+<span class="sd">        local_nets (Set[str]): Nets that originate in this sheet</span>
+<span class="sd">        imported_nets (Set[str]): Nets that are imported from parent/other sheets</span>
+<span class="sd">        parent (str): Path to the parent sheet, or None for top-level sheets</span>
+<span class="sd">        children (List[str]): Paths to the child sheets of this sheet</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a Sheet object with the given attributes.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            **attribs: Attributes to initialize the Sheet object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">attribs</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="legalize_name">
+<a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.legalize_name">[docs]</a>
+<span class="k">def</span> <span class="nf">legalize_name</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">is_filename</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a version of name that is a legal Python identifier.</span>
+
+<span class="sd">    This function converts arbitrary strings to valid Python identifiers by replacing</span>
+<span class="sd">    illegal characters with underscores and handling special cases for names</span>
+<span class="sd">    starting with numbers or containing special symbols.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (str): The original name to convert</span>
+<span class="sd">        is_filename (bool, optional): Whether the name will be used as a filename.</span>
+<span class="sd">                                     Defaults to False.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: A legal Python identifier derived from the input name</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; legalize_name(&quot;1wire&quot;)</span>
+<span class="sd">        &quot;_1wire&quot;</span>
+<span class="sd">        &gt;&gt;&gt; legalize_name(&quot;5V+&quot;)</span>
+<span class="sd">        &quot;_5V_p&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot;/ &quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;+&quot;</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_p&quot;</span>
+    <span class="k">elif</span> <span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_n&quot;</span>
+    <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;+&quot;</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;_p_&quot;</span> <span class="o">+</span> <span class="n">name</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="k">elif</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;_n_&quot;</span> <span class="o">+</span> <span class="n">name</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">legalized</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[^a-zA-Z0-9_]&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">legalized</span> <span class="ow">and</span> <span class="n">legalized</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+        <span class="n">legalized</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">legalized</span>
+    <span class="k">return</span> <span class="n">legalized</span></div>
+
+
+
+<div class="viewcode-block" id="find_common_path_prefix">
+<a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.find_common_path_prefix">[docs]</a>
+<span class="k">def</span> <span class="nf">find_common_path_prefix</span><span class="p">(</span><span class="n">path1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">path2</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the common path prefix of two paths.</span>
+
+<span class="sd">    This function finds the longest common hierarchical path prefix between two paths.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        path1 (str): First path</span>
+<span class="sd">        path2 (str): Second path</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The common path prefix including the trailing separator</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; find_common_path_prefix(&quot;/path/to/sheet1/&quot;, &quot;/path/to/sheet2/&quot;)</span>
+<span class="sd">        &quot;/path/to/&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Collect path prefix until the two paths differ.</span>
+    <span class="n">path_prefix</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">path1</span><span class="p">,</span> <span class="n">path2</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">c1</span> <span class="o">!=</span> <span class="n">c2</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">path_prefix</span> <span class="o">+=</span> <span class="n">c1</span>
+
+    <span class="c1"># Truncate the path prefix up to the last separator.</span>
+    <span class="n">last_sep_index</span> <span class="o">=</span> <span class="n">path_prefix</span><span class="o">.</span><span class="n">rindex</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+    <span class="n">path_prefix</span> <span class="o">=</span> <span class="n">path_prefix</span><span class="p">[:</span> <span class="n">last_sep_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">path_prefix</span></div>
+
+
+
+<div class="viewcode-block" id="SheetSexp">
+<a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.SheetSexp">[docs]</a>
+<span class="k">class</span> <span class="nc">SheetSexp</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class delivers attributes from a sheet S-expression.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sexp</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/sheet/number&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/sheet/name&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span></div>
+
+
+
+<div class="viewcode-block" id="PartSexp">
+<a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.PartSexp">[docs]</a>
+<span class="k">class</span> <span class="nc">PartSexp</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class delivers attributes from a component S-expression.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sexp</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sheetpath</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/comp/sheetpath/names&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/comp/ref&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/comp/value&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">footprint</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/comp/footprint&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/comp/libsource/part&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lib</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/comp/libsource/lib&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">properties</span> <span class="o">=</span> <span class="p">[</span><span class="n">PropertySexp</span><span class="p">(</span><span class="n">prop</span><span class="p">)</span> <span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/comp/property&quot;</span><span class="p">)]</span></div>
+
+
+
+<div class="viewcode-block" id="PropertySexp">
+<a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.PropertySexp">[docs]</a>
+<span class="k">class</span> <span class="nc">PropertySexp</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class delivers attributes from a property S-expression.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sexp</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/property/name&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/property/value&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span></div>
+
+
+
+<div class="viewcode-block" id="PinSexp">
+<a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.PinSexp">[docs]</a>
+<span class="k">class</span> <span class="nc">PinSexp</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class delivers attributes from a pin S-expression.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sexp</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/node/ref&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/node/pin&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span></div>
+
+
+
+<div class="viewcode-block" id="NetSexp">
+<a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.NetSexp">[docs]</a>
+<span class="k">class</span> <span class="nc">NetSexp</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class delivers attributes from a net S-expression.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sexp</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/net/name&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pins</span> <span class="o">=</span> <span class="p">[</span><span class="n">PinSexp</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/net/node&quot;</span><span class="p">)]</span></div>
+
+
+
+<div class="viewcode-block" id="NetlistSexp">
+<a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.NetlistSexp">[docs]</a>
+<span class="k">class</span> <span class="nc">NetlistSexp</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a KiCad netlist.</span>
+
+<span class="sd">    This class encapsulates the structure of a KiCad netlist, including its parts,</span>
+<span class="sd">    nets, and sheets. It provides methods to access and manipulate the netlist data.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        parts (List): List of components in the netlist</span>
+<span class="sd">        nets (List): List of electrical nets in the netlist</span>
+<span class="sd">        sheets (List): List of hierarchical sheets in the netlist</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sexp</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span> <span class="o">=</span> <span class="p">[</span><span class="n">SheetSexp</span><span class="p">(</span><span class="n">sht</span><span class="p">)</span> <span class="k">for</span> <span class="n">sht</span> <span class="ow">in</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;design/sheet&quot;</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parts</span> <span class="o">=</span> <span class="p">[</span><span class="n">PartSexp</span><span class="p">(</span><span class="n">comp</span><span class="p">)</span> <span class="k">for</span> <span class="n">comp</span> <span class="ow">in</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;components/comp&quot;</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nets</span> <span class="o">=</span> <span class="p">[</span><span class="n">NetSexp</span><span class="p">(</span><span class="n">net</span><span class="p">)</span> <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;nets/net&quot;</span><span class="p">)]</span></div>
+
+
+
+<div class="viewcode-block" id="HierarchicalConverter">
+<a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter">[docs]</a>
+<span class="k">class</span> <span class="nc">HierarchicalConverter</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts a KiCad netlist into hierarchical SKiDL Python scripts.</span>
+
+<span class="sd">    This class analyzes a KiCad netlist and generates equivalent SKiDL scripts</span>
+<span class="sd">    that preserve the hierarchical structure of the original schematic.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the converter with a KiCad netlist.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            src: Path to a KiCad netlist file or a string containing netlist data</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;latin_1&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="n">src</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">netlist</span> <span class="o">=</span> <span class="n">NetlistSexp</span><span class="p">(</span><span class="n">Sexp</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">4</span>
+
+
+<div class="viewcode-block" id="HierarchicalConverter.find_lowest_common_ancestor">
+<a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.find_lowest_common_ancestor">[docs]</a>
+    <span class="k">def</span> <span class="nf">find_lowest_common_ancestor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sheet1</span><span class="p">,</span> <span class="n">sheet2</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the lowest common ancestor (LCA) of two sheets.</span>
+
+<span class="sd">        This method finds the sheet that is the closest common parent of two sheets</span>
+<span class="sd">        in the schematic hierarchy.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sheet1 (str): Path to the first sheet</span>
+<span class="sd">            sheet2 (str): Path to the second sheet</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: Path to the lowest common ancestor sheet</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">find_common_path_prefix</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span><span class="p">[</span><span class="n">sheet1</span><span class="p">]</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span><span class="p">[</span><span class="n">sheet2</span><span class="p">]</span><span class="o">.</span><span class="n">path</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="HierarchicalConverter.extract_sheet_info">
+<a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.extract_sheet_info">[docs]</a>
+    <span class="k">def</span> <span class="nf">extract_sheet_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Populate self.sheets with Sheet objects built from the netlist.</span>
+
+<span class="sd">        This method examines the netlist to identify all sheets and their</span>
+<span class="sd">        hierarchical relationships, creating Sheet objects to represent them.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;=== Extracting Sheet Info ===&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">netlist</span><span class="p">,</span> <span class="s2">&quot;sheets&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="n">sheet_numbers_paths</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="p">(</span><span class="n">sheet</span><span class="o">.</span><span class="n">num</span><span class="p">,</span> <span class="n">sheet</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">sheet</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">netlist</span><span class="o">.</span><span class="n">sheets</span>
+            <span class="p">]</span>
+            <span class="n">sheet_paths</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">sheet_number_path</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">sheet_number_path</span> <span class="ow">in</span> <span class="n">sheet_numbers_paths</span>
+            <span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sheet_paths</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="n">part</span><span class="o">.</span><span class="n">sheetpath</span> <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">netlist</span><span class="o">.</span><span class="n">parts</span><span class="p">]))</span>
+            <span class="n">sheet_numbers_paths</span> <span class="o">=</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sheet_paths</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">sheet_number</span><span class="p">,</span> <span class="n">sheet_path</span> <span class="ow">in</span> <span class="n">sheet_numbers_paths</span><span class="p">:</span>
+            <span class="n">parent</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">sheet_path</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">parent</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">parent</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">):</span>
+                    <span class="n">parent</span> <span class="o">+=</span> <span class="s2">&quot;/&quot;</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">sheet_path</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">sheet</span> <span class="o">=</span> <span class="n">Sheet</span><span class="p">(</span>
+                <span class="n">number</span><span class="o">=</span><span class="n">sheet_number</span><span class="p">,</span>
+                <span class="n">path</span><span class="o">=</span><span class="n">sheet_path</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                <span class="n">parent</span><span class="o">=</span><span class="n">parent</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="p">[],</span>
+                <span class="n">local_nets</span><span class="o">=</span><span class="nb">set</span><span class="p">(),</span>
+                <span class="n">imported_nets</span><span class="o">=</span><span class="nb">set</span><span class="p">(),</span>
+                <span class="n">children</span><span class="o">=</span><span class="p">[],</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">parent</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">top_sheet</span> <span class="o">=</span> <span class="n">sheet</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span><span class="p">[</span><span class="n">sheet_path</span><span class="p">]</span> <span class="o">=</span> <span class="n">sheet</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;  Found sheet: original_name=&#39;</span><span class="si">{</span><span class="n">sheet</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">&#39;, final=&#39;</span><span class="si">{</span><span class="n">sheet</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;, parent=&#39;</span><span class="si">{</span><span class="n">sheet</span><span class="o">.</span><span class="n">parent</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Set up parent-child relationships</span>
+        <span class="k">for</span> <span class="n">sheet</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">parent_sheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">sheet</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">parent_sheet</span><span class="p">:</span>
+                <span class="n">parent_sheet</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sheet</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">sheet_path</span><span class="p">,</span> <span class="n">sheet</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;   sheet path=&#39;</span><span class="si">{</span><span class="n">sheet_path</span><span class="si">}</span><span class="s2">&#39;, parent=&#39;</span><span class="si">{</span><span class="n">sheet</span><span class="o">.</span><span class="n">parent</span><span class="si">}</span><span class="s2">&#39;, children=</span><span class="si">{</span><span class="n">sheet</span><span class="o">.</span><span class="n">children</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;=== Completed extracting sheet info ===&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="HierarchicalConverter.assign_components_to_sheets">
+<a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.assign_components_to_sheets">[docs]</a>
+    <span class="k">def</span> <span class="nf">assign_components_to_sheets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Assign each component from the netlist to its appropriate sheet.</span>
+
+<span class="sd">        This method assigns components to their respective sheets based on the</span>
+<span class="sd">        sheet path information in the netlist.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;=== Assigning Components to Sheets ===&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">comp</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">netlist</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+            <span class="n">sheet_path</span> <span class="o">=</span> <span class="n">comp</span><span class="o">.</span><span class="n">sheetpath</span>
+            <span class="k">if</span> <span class="n">sheet_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span><span class="p">[</span><span class="n">sheet_path</span><span class="p">]</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">comp</span><span class="p">)</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;  Assigning component </span><span class="si">{</span><span class="n">comp</span><span class="o">.</span><span class="n">ref</span><span class="si">}</span><span class="s2"> to sheet </span><span class="si">{</span><span class="n">sheet_path</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Sheet </span><span class="si">{</span><span class="n">sheet_path</span><span class="si">}</span><span class="s2"> not found for component </span><span class="si">{</span><span class="n">comp</span><span class="o">.</span><span class="n">ref</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;=== Completed assigning components to sheets ===&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="HierarchicalConverter.analyze_nets">
+<a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.analyze_nets">[docs]</a>
+    <span class="k">def</span> <span class="nf">analyze_nets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Analyze net usage to determine origins and required connections.</span>
+
+<span class="sd">        This method examines how nets are used across sheets to determine which</span>
+<span class="sd">        sheets need to pass nets to their children, which nets are local, and</span>
+<span class="sd">        which are imported.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">find_net_src_dests</span><span class="p">(</span><span class="n">net_sheets</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Return the top-most sheet where the net is used and a list of all</span>
+<span class="sd">            sheets that the net passes through to its stopping points.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+
+            <span class="n">src</span> <span class="o">=</span> <span class="n">net_sheets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">sheet</span> <span class="ow">in</span> <span class="n">net_sheets</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                <span class="n">src</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_lowest_common_ancestor</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">sheet</span><span class="p">)</span>
+
+            <span class="n">dests</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="n">src_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">sheet</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">net_sheets</span><span class="p">)</span> <span class="o">-</span> <span class="p">{</span><span class="n">src</span><span class="p">}:</span>
+                <span class="n">sheet</span> <span class="o">=</span> <span class="n">sheet</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+                <span class="n">path_src_to_sheet</span> <span class="o">=</span> <span class="n">sheet</span><span class="p">[</span><span class="n">src_len</span><span class="p">:]</span>
+                <span class="n">path_pieces</span> <span class="o">=</span> <span class="n">path_src_to_sheet</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+                <span class="n">path</span> <span class="o">=</span> <span class="n">src</span>
+                <span class="k">for</span> <span class="n">piece</span> <span class="ow">in</span> <span class="n">path_pieces</span><span class="p">:</span>
+                    <span class="n">path</span> <span class="o">+=</span> <span class="n">piece</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span>
+                    <span class="n">dests</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">src</span><span class="p">,</span> <span class="n">dests</span>
+
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;=== Starting Net Analysis ===&quot;</span><span class="p">)</span>
+
+        <span class="n">net_usage</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">))</span>
+
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;1. Mapping Net Usage Across Sheets:&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Map which nets are used in which sheets</span>
+        <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">netlist</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Analyzing net: </span><span class="si">{</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">comp</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">netlist</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">comp</span><span class="o">.</span><span class="n">ref</span> <span class="o">==</span> <span class="n">pin</span><span class="o">.</span><span class="n">ref</span><span class="p">:</span>
+                        <span class="n">comp_sht_pth</span> <span class="o">=</span> <span class="n">comp</span><span class="o">.</span><span class="n">sheetpath</span>
+                        <span class="n">net_usage</span><span class="p">[</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">][</span><span class="n">comp_sht_pth</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">comp</span><span class="o">.</span><span class="n">ref</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">pin</span><span class="o">.</span><span class="n">num</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;  - Used in sheet &#39;</span><span class="si">{</span><span class="n">comp_sht_pth</span><span class="si">}</span><span class="s2">&#39; by pin </span><span class="si">{</span><span class="n">comp</span><span class="o">.</span><span class="n">ref</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">pin</span><span class="o">.</span><span class="n">num</span><span class="si">}</span><span class="s2">&quot;</span>
+                        <span class="p">)</span>
+
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;2. Analyzing Net Origins and Hierarchy:&quot;</span><span class="p">)</span>
+
+        <span class="n">net_hierarchy</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">net_name</span><span class="p">,</span> <span class="n">sheet_pins</span> <span class="ow">in</span> <span class="n">net_usage</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">used_sheets</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">sheet_pins</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="n">origin_sheet</span><span class="p">,</span> <span class="n">destination_sheets</span> <span class="o">=</span> <span class="n">find_net_src_dests</span><span class="p">(</span><span class="n">used_sheets</span><span class="p">)</span>
+            <span class="n">destination_sheets</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">used_sheets</span><span class="p">)</span> <span class="o">-</span> <span class="p">{</span><span class="n">origin_sheet</span><span class="p">})</span>
+            <span class="n">net_hierarchy</span><span class="p">[</span><span class="n">net_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;origin_sheet&quot;</span><span class="p">:</span> <span class="n">origin_sheet</span><span class="p">,</span>
+                <span class="s2">&quot;destination_sheets&quot;</span><span class="p">:</span> <span class="n">destination_sheets</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Net: </span><span class="si">{</span><span class="n">net_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - Origin sheet: </span><span class="si">{</span><span class="n">origin_sheet</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - Destination sheets: </span><span class="si">{</span><span class="n">destination_sheets</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;3. Classifying local vs imported nets:&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Clear any existing net classifications</span>
+        <span class="k">for</span> <span class="n">sheet</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">sheet</span><span class="o">.</span><span class="n">local_nets</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="n">sheet</span><span class="o">.</span><span class="n">imported_nets</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">net_name</span><span class="p">,</span> <span class="n">hierarchy</span> <span class="ow">in</span> <span class="n">net_hierarchy</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">net_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;unconnected&quot;</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span><span class="p">[</span><span class="n">hierarchy</span><span class="p">[</span><span class="s2">&quot;origin_sheet&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">local_nets</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">net_name</span><span class="p">)</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;  Net </span><span class="si">{</span><span class="n">net_name</span><span class="si">}</span><span class="s2"> is local to sheet </span><span class="si">{</span><span class="n">hierarchy</span><span class="p">[</span><span class="s1">&#39;origin_sheet&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">dest_sheet</span> <span class="ow">in</span> <span class="n">hierarchy</span><span class="p">[</span><span class="s2">&quot;destination_sheets&quot;</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span><span class="p">[</span><span class="n">dest_sheet</span><span class="p">]</span><span class="o">.</span><span class="n">imported_nets</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">net_name</span><span class="p">)</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;  Net </span><span class="si">{</span><span class="n">net_name</span><span class="si">}</span><span class="s2"> is imported in sheet </span><span class="si">{</span><span class="n">dest_sheet</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">net_hierarchy</span> <span class="o">=</span> <span class="n">net_hierarchy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">net_usage</span> <span class="o">=</span> <span class="n">net_usage</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;=== Completed net analysis ===&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Print summary for each sheet</span>
+        <span class="k">for</span> <span class="n">sheet_path</span><span class="p">,</span> <span class="n">sheet</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Sheet &#39;</span><span class="si">{</span><span class="n">sheet_path</span><span class="si">}</span><span class="s2">&#39;: local_nets=</span><span class="si">{</span><span class="n">sheet</span><span class="o">.</span><span class="n">local_nets</span><span class="si">}</span><span class="s2">, imported_nets=</span><span class="si">{</span><span class="n">sheet</span><span class="o">.</span><span class="n">imported_nets</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="HierarchicalConverter.cull_from_top">
+<a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.cull_from_top">[docs]</a>
+    <span class="k">def</span> <span class="nf">cull_from_top</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove top-level sheets that are not needed.</span>
+
+<span class="sd">        This method simplifies the hierarchy by removing unnecessary empty top-level</span>
+<span class="sd">        sheets, making the resulting SKiDL code more concise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">top_sheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_sheet</span>
+        <span class="k">while</span> <span class="p">(</span>
+            <span class="ow">not</span> <span class="n">top_sheet</span><span class="o">.</span><span class="n">parent</span>
+            <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="n">top_sheet</span><span class="o">.</span><span class="n">components</span> <span class="ow">or</span> <span class="n">top_sheet</span><span class="o">.</span><span class="n">local_nets</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">top_sheet</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="p">):</span>
+            <span class="n">top_sheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">top_sheet</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+            <span class="n">top_sheet</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_sheet</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">top_sheet</span><span class="o">.</span><span class="n">path</span><span class="p">]</span>
+            <span class="n">top_sheet</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">top_sheet</span> <span class="o">=</span> <span class="n">top_sheet</span>
+
+        <span class="n">sheet_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">sheet</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">sheet</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">sheet</span><span class="o">.</span><span class="n">parent</span><span class="p">]</span>
+        <span class="n">top_sheet_name</span> <span class="o">=</span> <span class="s2">&quot;top&quot;</span>
+        <span class="k">while</span> <span class="n">top_sheet_name</span> <span class="ow">in</span> <span class="n">sheet_names</span><span class="p">:</span>
+            <span class="n">top_sheet_name</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">top_sheet</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">top_sheet_name</span></div>
+
+
+<div class="viewcode-block" id="HierarchicalConverter.component_to_skidl">
+<a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.component_to_skidl">[docs]</a>
+    <span class="k">def</span> <span class="nf">component_to_skidl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">comp</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a SKiDL instantiation string for a component.</span>
+
+<span class="sd">        This method generates SKiDL code to instantiate a component with all its</span>
+<span class="sd">        relevant properties preserved.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            comp (object): A component object from the netlist</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: SKiDL code to instantiate the component</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ref</span> <span class="o">=</span> <span class="n">comp</span><span class="o">.</span><span class="n">ref</span>
+        <span class="n">props</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">props</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">comp</span><span class="o">.</span><span class="n">lib</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="n">props</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">comp</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">comp</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+            <span class="n">props</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;value=&#39;</span><span class="si">{</span><span class="n">comp</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">comp</span><span class="o">.</span><span class="n">footprint</span><span class="p">:</span>
+            <span class="n">props</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;footprint=&#39;</span><span class="si">{</span><span class="n">comp</span><span class="o">.</span><span class="n">footprint</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">p</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">comp</span><span class="o">.</span><span class="n">properties</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;Description&quot;</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">desc</span><span class="p">:</span>
+            <span class="n">props</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;description=&#39;</span><span class="si">{</span><span class="n">desc</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="n">props</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ref=&#39;</span><span class="si">{</span><span class="n">ref</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="n">extra_fields</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">comp</span><span class="p">,</span> <span class="s2">&quot;properties&quot;</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="n">comp</span><span class="o">.</span><span class="n">properties</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">prop</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span>
+                    <span class="s2">&quot;Reference&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Value&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Footprint&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Datasheet&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Description&quot;</span><span class="p">,</span>
+                <span class="p">]:</span>
+                    <span class="n">extra_fields</span><span class="p">[</span><span class="n">prop</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">prop</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">if</span> <span class="n">extra_fields</span><span class="p">:</span>
+            <span class="n">props</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;fields=</span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">extra_fields</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tab</span><span class="si">}{</span><span class="n">legalize_name</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span><span class="si">}</span><span class="s2"> = Part(</span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">props</span><span class="p">)</span><span class="si">}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span></div>
+
+
+<div class="viewcode-block" id="HierarchicalConverter.net_to_skidl">
+<a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.net_to_skidl">[docs]</a>
+    <span class="k">def</span> <span class="nf">net_to_skidl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">net</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">sheet</span><span class="p">:</span> <span class="n">Sheet</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a SKiDL connection string for a net within a given sheet.</span>
+
+<span class="sd">        This method generates SKiDL code to connect pins to a net within a sheet.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            net (object): A net object from the netlist</span>
+<span class="sd">            sheet (Sheet): The sheet context for this net connection</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: SKiDL code to connect pins to the net, or an empty string if</span>
+<span class="sd">                 no connections are needed in this sheet</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">net_name</span> <span class="o">=</span> <span class="n">legalize_name</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">net_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;unconnected&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">pins</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">comp</span><span class="o">.</span><span class="n">ref</span> <span class="o">==</span> <span class="n">pin</span><span class="o">.</span><span class="n">ref</span> <span class="k">for</span> <span class="n">comp</span> <span class="ow">in</span> <span class="n">sheet</span><span class="o">.</span><span class="n">components</span><span class="p">):</span>
+                <span class="n">comp_name</span> <span class="o">=</span> <span class="n">legalize_name</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">ref</span><span class="p">)</span>
+                <span class="n">pins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">comp_name</span><span class="si">}</span><span class="s2">[&#39;</span><span class="si">{</span><span class="n">pin</span><span class="o">.</span><span class="n">num</span><span class="si">}</span><span class="s2">&#39;]&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pins</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tab</span><span class="si">}{</span><span class="n">net_name</span><span class="si">}</span><span class="s2"> += </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pins</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="HierarchicalConverter.generate_sheet_code">
+<a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.generate_sheet_code">[docs]</a>
+    <span class="k">def</span> <span class="nf">generate_sheet_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sheet</span><span class="p">:</span> <span class="n">Sheet</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate the SKiDL code for a given sheet.</span>
+
+<span class="sd">        This method creates a complete SKiDL subcircuit function for a sheet,</span>
+<span class="sd">        including component instantiation, connections, and calls to child subcircuits.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sheet (Sheet): The sheet to generate code for</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: Complete SKiDL Python code for the sheet as a subcircuit</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;=== generate_sheet_code for sheet &#39;</span><span class="si">{</span><span class="n">sheet</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; ===&quot;</span><span class="p">)</span>
+
+        <span class="n">code</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;# -*- coding: utf-8 -*-</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;from skidl import *</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">]</span>
+
+        <span class="c1"># Import child subcircuits</span>
+        <span class="k">for</span> <span class="n">child_path</span> <span class="ow">in</span> <span class="n">sheet</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+            <span class="n">child_sheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span><span class="p">[</span><span class="n">child_path</span><span class="p">]</span>
+            <span class="n">module_name</span> <span class="o">=</span> <span class="n">legalize_name</span><span class="p">(</span><span class="n">child_sheet</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">code</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;from </span><span class="si">{</span><span class="n">module_name</span><span class="si">}</span><span class="s2"> import </span><span class="si">{</span><span class="n">module_name</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Start function definition</span>
+        <span class="n">code</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">@subcircuit</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Determine required nets that need to be passed in</span>
+        <span class="n">required_nets</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">net_name</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">sheet</span><span class="o">.</span><span class="n">imported_nets</span><span class="p">):</span>
+            <span class="c1"># Verify net really needs to be imported</span>
+            <span class="c1"># (used by this sheet or needed by children)</span>
+            <span class="k">if</span> <span class="n">sheet</span><span class="o">.</span><span class="n">path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">net_usage</span><span class="p">[</span><span class="n">net_name</span><span class="p">]</span> <span class="ow">or</span> <span class="nb">any</span><span class="p">(</span>
+                <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">net_usage</span><span class="p">[</span><span class="n">net_name</span><span class="p">]</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">sheet</span><span class="o">.</span><span class="n">children</span>
+            <span class="p">):</span>
+                <span class="n">required_nets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">legalize_name</span><span class="p">(</span><span class="n">net_name</span><span class="p">))</span>
+
+        <span class="n">func_name</span> <span class="o">=</span> <span class="n">legalize_name</span><span class="p">(</span><span class="n">sheet</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">code</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;def </span><span class="si">{</span><span class="n">func_name</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">required_nets</span><span class="p">)</span><span class="si">}</span><span class="s2">):</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Create local nets</span>
+        <span class="n">local_nets</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">sheet</span><span class="o">.</span><span class="n">local_nets</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">local_nets</span><span class="p">:</span>
+            <span class="n">code</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tab</span><span class="si">}</span><span class="s2"># Local nets</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">local_nets</span><span class="p">:</span>
+                <span class="n">legal_name</span> <span class="o">=</span> <span class="n">legalize_name</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>
+                <span class="n">code</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tab</span><span class="si">}{</span><span class="n">legal_name</span><span class="si">}</span><span class="s2"> = Net(&#39;</span><span class="si">{</span><span class="n">net</span><span class="si">}</span><span class="s2">&#39;)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">code</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Create components</span>
+        <span class="k">if</span> <span class="n">sheet</span><span class="o">.</span><span class="n">components</span><span class="p">:</span>
+            <span class="n">code</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tab</span><span class="si">}</span><span class="s2"># Components</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">comp</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">sheet</span><span class="o">.</span><span class="n">components</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">ref</span><span class="p">):</span>
+                <span class="n">code</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">component_to_skidl</span><span class="p">(</span><span class="n">comp</span><span class="p">))</span>
+            <span class="n">code</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Create subcircuits</span>
+        <span class="k">if</span> <span class="n">sheet</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+            <span class="n">code</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tab</span><span class="si">}</span><span class="s2"># Hierarchical subcircuits</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">child_path</span> <span class="ow">in</span> <span class="n">sheet</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+                <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span><span class="p">[</span><span class="n">child_path</span><span class="p">]</span>
+                <span class="n">child_func</span> <span class="o">=</span> <span class="n">legalize_name</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+                <span class="c1"># Determine which nets to pass to child</span>
+                <span class="n">child_params</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">net_name</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">imported_nets</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">child_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">net_usage</span><span class="p">[</span><span class="n">net_name</span><span class="p">]</span> <span class="ow">or</span> <span class="nb">any</span><span class="p">(</span>
+                        <span class="n">grandchild</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">net_usage</span><span class="p">[</span><span class="n">net_name</span><span class="p">]</span>
+                        <span class="k">for</span> <span class="n">grandchild</span> <span class="ow">in</span> <span class="n">child</span><span class="o">.</span><span class="n">children</span>
+                    <span class="p">):</span>
+                        <span class="n">child_params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">legalize_name</span><span class="p">(</span><span class="n">net_name</span><span class="p">))</span>
+
+                <span class="n">code</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tab</span><span class="si">}{</span><span class="n">child_func</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">child_params</span><span class="p">)</span><span class="si">}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Create connections</span>
+        <span class="k">if</span> <span class="n">sheet</span><span class="o">.</span><span class="n">components</span><span class="p">:</span>
+            <span class="n">code</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tab</span><span class="si">}</span><span class="s2"># Connections</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">netlist</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
+                <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">net_to_skidl</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">sheet</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">conn</span><span class="p">:</span>
+                    <span class="n">code</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+
+        <span class="n">code</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tab</span><span class="si">}</span><span class="s2">return</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">generated_code</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Generated code for sheet &#39;</span><span class="si">{</span><span class="n">sheet</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;:</span><span class="se">\n</span><span class="si">{</span><span class="n">generated_code</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">generated_code</span></div>
+
+
+<div class="viewcode-block" id="HierarchicalConverter.generate_main_code">
+<a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.generate_main_code">[docs]</a>
+    <span class="k">def</span> <span class="nf">generate_main_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate the code for the main.py file that creates nets and calls subcircuits.</span>
+
+<span class="sd">        This method creates the top-level Python script that imports and calls the</span>
+<span class="sd">        top-level subcircuit and generates the final netlist.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: SKiDL Python code for the main script</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;# -*- coding: utf-8 -*-&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;from skidl import *&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;from </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">top_sheet</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> import </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">top_sheet</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">top_sheet</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">()&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;generate_netlist()&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">code</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="HierarchicalConverter.convert">
+<a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.convert">[docs]</a>
+    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Run the complete conversion and write files if output_dir is provided.</span>
+
+<span class="sd">        This method performs the full netlist-to-SKiDL conversion process and</span>
+<span class="sd">        optionally writes the generated Python files to a directory.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            output_dir (str, optional): Directory to write the generated Python files.</span>
+<span class="sd">                                       If None, files are not written.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: If output_dir is None, returns the main sheet code as a string.</span>
+<span class="sd">                 Otherwise, returns an empty string after writing files.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extract_sheet_info</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assign_components_to_sheets</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyze_nets</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cull_from_top</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">output_dir</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generating files in </span><span class="si">{</span><span class="n">output_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">sheet</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">sheet</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;main&quot;</span><span class="p">:</span>
+                    <span class="n">filename</span> <span class="o">=</span> <span class="n">legalize_name</span><span class="p">(</span><span class="n">sheet</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">is_filename</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.py&quot;</span>
+                    <span class="n">sheet_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">output_dir</span><span class="p">)</span> <span class="o">/</span> <span class="n">filename</span>
+                    <span class="n">sheet_path</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generate_sheet_code</span><span class="p">(</span><span class="n">sheet</span><span class="p">))</span>
+                    <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Created sheet file: </span><span class="si">{</span><span class="n">sheet_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">main_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">output_dir</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;main.py&quot;</span>
+            <span class="n">main_path</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generate_main_code</span><span class="p">())</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Conversion completed successfully&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">main_sheet</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">s</span><span class="o">.</span><span class="n">parent</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">main_sheet</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_sheet_code</span><span class="p">(</span><span class="n">main_sheet</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
+</div>
+
 
 
 <div class="viewcode-block" id="netlist_to_skidl">
 <a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.netlist_to_skidl">[docs]</a>
-<span class="nd">@export_to_all</span>
-<span class="k">def</span> <span class="nf">netlist_to_skidl</span><span class="p">(</span><span class="n">netlist_src</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">netlist_to_skidl</span><span class="p">(</span><span class="n">netlist_src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert a KiCad netlist to hierarchical SKiDL Python files.</span>
 
-    <span class="n">tab</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">4</span>
+<span class="sd">    This function creates a HierarchicalConverter and uses it to convert</span>
+<span class="sd">    a KiCad netlist into SKiDL Python scripts.</span>
 
-    <span class="k">def</span> <span class="nf">legalize</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Make a string into a legal python variable name.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;[^a-zA-Z0-9_]&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="sd">    Args:</span>
+<span class="sd">        netlist_src (str): Path to a KiCad netlist file or a string containing netlist data</span>
+<span class="sd">        output_dir (str, optional): Directory to write the generated Python files.</span>
+<span class="sd">                                   If None, files are not written.</span>
 
-    <span class="k">def</span> <span class="nf">comp_key</span><span class="p">(</span><span class="n">comp</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create an ID key from component&#39;s major characteristics.&quot;&quot;&quot;</span>
-        <span class="n">chars</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="n">comp</span><span class="o">.</span><span class="n">lib</span><span class="p">,</span> <span class="n">comp</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">comp</span><span class="o">.</span><span class="n">footprint</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">)]</span>
-        <span class="k">return</span> <span class="n">legalize</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chars</span><span class="p">))</span>
-
-    <span class="k">def</span> <span class="nf">template_comp_to_skidl</span><span class="p">(</span><span class="n">template_comp</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Instantiate a component that will be used as a template.&quot;&quot;&quot;</span>
-        <span class="n">ltab</span> <span class="o">=</span> <span class="n">tab</span>
-
-        <span class="c1"># Instantiate component template.</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="n">comp_key</span><span class="p">(</span><span class="n">template_comp</span><span class="p">)</span>  <span class="c1"># python variable name for template.</span>
-        <span class="n">lib</span> <span class="o">=</span> <span class="n">template_comp</span><span class="o">.</span><span class="n">lib</span>
-        <span class="n">part</span> <span class="o">=</span> <span class="n">template_comp</span><span class="o">.</span><span class="n">name</span>
-        <span class="n">tmpl</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{ltab}{name}</span><span class="s2"> = Part(&#39;</span><span class="si">{lib}</span><span class="s2">&#39;, &#39;</span><span class="si">{part}</span><span class="s2">&#39;, dest=TEMPLATE&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
-        <span class="n">footprint</span> <span class="o">=</span> <span class="n">template_comp</span><span class="o">.</span><span class="n">footprint</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">footprint</span><span class="p">):</span>
-            <span class="n">tmpl</span> <span class="o">+=</span> <span class="s2">&quot;, footprint=&#39;</span><span class="si">{footprint}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
-        <span class="n">tmpl</span> <span class="o">+=</span> <span class="s2">&quot;)</span><span class="se">\n</span><span class="s2">&quot;</span>
-
-        <span class="c1"># Set attributes of template using the component fields.</span>
-        <span class="k">for</span> <span class="n">fld</span> <span class="ow">in</span> <span class="n">template_comp</span><span class="o">.</span><span class="n">fields</span><span class="p">:</span>
-            <span class="n">tmpl</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="si">{ltab}</span><span class="s2">setattr(</span><span class="si">{name}</span><span class="s2">, &#39;</span><span class="si">{fld.name}</span><span class="s2">&#39;, &#39;</span><span class="si">{fld.value}</span><span class="s2">&#39;)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="o">**</span><span class="nb">locals</span><span class="p">()</span>
-            <span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">tmpl</span>
-
-    <span class="k">def</span> <span class="nf">comp_to_skidl</span><span class="p">(</span><span class="n">comp</span><span class="p">,</span> <span class="n">template_comps</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Instantiate components using the component templates.&quot;&quot;&quot;</span>
-        <span class="n">ltab</span> <span class="o">=</span> <span class="n">tab</span>
-
-        <span class="c1"># Use the component key to get the template that matches this component.</span>
-        <span class="n">template_comp_name</span> <span class="o">=</span> <span class="n">comp_key</span><span class="p">(</span><span class="n">comp</span><span class="p">)</span>
-        <span class="n">template_comp</span> <span class="o">=</span> <span class="n">template_comps</span><span class="p">[</span><span class="n">template_comp_name</span><span class="p">]</span>
-
-        <span class="c1"># Get the fields for the template.</span>
-        <span class="n">template_comp_fields</span> <span class="o">=</span> <span class="p">{</span><span class="n">fld</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">fld</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">fld</span> <span class="ow">in</span> <span class="n">template_comp</span><span class="o">.</span><span class="n">fields</span><span class="p">}</span>
-
-        <span class="c1"># Create a legal python variable for storing the instantiated component.</span>
-        <span class="n">ref</span> <span class="o">=</span> <span class="n">comp</span><span class="o">.</span><span class="n">ref</span>
-        <span class="n">legal_ref</span> <span class="o">=</span> <span class="n">legalize</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
-
-        <span class="c1"># Instantiate the component and its value (if any).</span>
-        <span class="n">inst</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{ltab}{legal_ref}</span><span class="s2"> = </span><span class="si">{template_comp_name}</span><span class="s2">(ref=&#39;</span><span class="si">{ref}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">comp</span><span class="o">.</span><span class="n">value</span><span class="p">):</span>
-            <span class="n">inst</span> <span class="o">+=</span> <span class="s2">&quot;, value=&#39;</span><span class="si">{comp.value}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
-        <span class="n">inst</span> <span class="o">+=</span> <span class="s2">&quot;)</span><span class="se">\n</span><span class="s2">&quot;</span>
-
-        <span class="c1"># Set the fields of the instantiated component if they differ from the values in the template.</span>
-        <span class="k">for</span> <span class="n">fld</span> <span class="ow">in</span> <span class="n">comp</span><span class="o">.</span><span class="n">fields</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">fld</span><span class="o">.</span><span class="n">value</span> <span class="o">!=</span> <span class="n">template_comp_fields</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">fld</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
-                <span class="n">inst</span> <span class="o">+=</span> <span class="p">(</span>
-                    <span class="s2">&quot;</span><span class="si">{ltab}</span><span class="s2">setattr(</span><span class="si">{legal_ref}</span><span class="s2">, &#39;</span><span class="si">{fld.name}</span><span class="s2">&#39;, &#39;</span><span class="si">{fld.value}</span><span class="s2">&#39;)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                        <span class="o">**</span><span class="nb">locals</span><span class="p">()</span>
-                    <span class="p">)</span>
-                <span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">inst</span>
-
-    <span class="k">def</span> <span class="nf">net_to_skidl</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Instantiate the nets between components.&quot;&quot;&quot;</span>
-
-        <span class="c1"># Build a list of component pins attached to the net.</span>
-        <span class="n">pins</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
-            <span class="n">comp</span> <span class="o">=</span> <span class="n">legalize</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">ref</span><span class="p">)</span>  <span class="c1"># Name of Python variable storing component.</span>
-            <span class="n">pin_num</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">num</span>  <span class="c1"># Pin number of component attached to net.</span>
-            <span class="n">pins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{comp}</span><span class="s2">[&#39;</span><span class="si">{pin_num}</span><span class="s2">&#39;]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">()))</span>
-        <span class="n">pins</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pins</span><span class="p">)</span>  <span class="c1"># String the pins into an argument list.</span>
-
-        <span class="n">ltab</span> <span class="o">=</span> <span class="n">tab</span>
-
-        <span class="c1"># Instantiate the net, connect the pins to it, and return it.</span>
-        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{ltab}</span><span class="s2">Net(&#39;</span><span class="si">{net.name}</span><span class="s2">&#39;).connect(</span><span class="si">{pins}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
-
-    <span class="c1"># Parse the netlist into a list of components and nets.</span>
-    <span class="n">ntlst</span> <span class="o">=</span> <span class="n">parse_netlist</span><span class="p">(</span><span class="n">netlist_src</span><span class="p">)</span>
-
-    <span class="c1"># Convert a netlist into a skidl script with the following equence of operations:</span>
-    <span class="c1">#   1. Create a template for each component having a given library, part name and footprint.</span>
-    <span class="c1">#   2. Instantiate each component using its matching template. Also, set any attributes</span>
-    <span class="c1">#      for the component that don&#39;t match those in the template.</span>
-    <span class="c1">#   3. Instantiate the nets connecting the component pins.</span>
-    <span class="c1">#   4. Call the script to instantiate the complete circuit.</span>
-    <span class="c1">#   5. Generate the netlist for the circuit.</span>
-
-    <span class="c1"># Create header.</span>
-    <span class="n">skidl</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-    <span class="n">skidl</span> <span class="o">+=</span> <span class="s2">&quot;# -*- coding: utf-8 -*-</span><span class="se">\n\n</span><span class="s2">&quot;</span>
-    <span class="n">skidl</span> <span class="o">+=</span> <span class="s2">&quot;from skidl import *</span><span class="se">\n\n\n</span><span class="s2">&quot;</span>
-
-    <span class="c1"># Create the beginning of the circuit function.</span>
-    <span class="n">circuit_name</span> <span class="o">=</span> <span class="n">legalize</span><span class="p">(</span><span class="n">ntlst</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
-    <span class="n">skidl</span> <span class="o">+=</span> <span class="s2">&quot;def </span><span class="si">{circuit_name}</span><span class="s2">():&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
-
-    <span class="c1"># Indent the contents of the circuit function.</span>
-    <span class="n">ltab</span> <span class="o">=</span> <span class="n">tab</span>
-
-    <span class="c1"># Template for divider between function sections.</span>
-    <span class="n">section_div</span> <span class="o">=</span> <span class="s2">&quot;#&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">79</span>
-    <span class="n">section_comment</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="s2">&quot;</span><span class="se">\n\n</span><span class="si">{ltab}{section_div}</span><span class="se">\n</span><span class="si">{ltab}</span><span class="s2"># </span><span class="si">{section_desc}</span><span class="se">\n</span><span class="si">{ltab}{section_div}</span><span class="se">\n\n</span><span class="s2">&quot;</span>
-    <span class="p">)</span>
-
-    <span class="c1"># Component template section.</span>
-    <span class="n">section_desc</span> <span class="o">=</span> <span class="s2">&quot;Component templates.&quot;</span>
-    <span class="n">skidl</span> <span class="o">+=</span> <span class="n">section_comment</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
-    <span class="n">comp_templates</span> <span class="o">=</span> <span class="p">{</span><span class="n">comp_key</span><span class="p">(</span><span class="n">comp</span><span class="p">):</span> <span class="n">comp</span> <span class="k">for</span> <span class="n">comp</span> <span class="ow">in</span> <span class="n">ntlst</span><span class="o">.</span><span class="n">parts</span><span class="p">}</span>
-    <span class="n">template_statements</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
-        <span class="p">[</span><span class="n">template_comp_to_skidl</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">comp_templates</span><span class="o">.</span><span class="n">values</span><span class="p">())]</span>
-    <span class="p">)</span>
-    <span class="n">skidl</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">template_statements</span><span class="p">)</span>
-
-    <span class="c1"># Component instantiation section.</span>
-    <span class="n">section_desc</span> <span class="o">=</span> <span class="s2">&quot;Component instantiations.&quot;</span>
-    <span class="n">skidl</span> <span class="o">+=</span> <span class="n">section_comment</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
-    <span class="n">comp_inst_statements</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
-        <span class="p">[</span><span class="n">comp_to_skidl</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">comp_templates</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">ntlst</span><span class="o">.</span><span class="n">parts</span><span class="p">]</span>
-    <span class="p">)</span>
-    <span class="n">skidl</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">comp_inst_statements</span><span class="p">)</span>
-
-    <span class="c1"># Net instantiation section.</span>
-    <span class="n">section_desc</span> <span class="o">=</span> <span class="s2">&quot;Net interconnections between instantiated components.&quot;</span>
-    <span class="n">skidl</span> <span class="o">+=</span> <span class="n">section_comment</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
-    <span class="n">net_statements</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">net_to_skidl</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ntlst</span><span class="o">.</span><span class="n">nets</span><span class="p">])</span>
-    <span class="n">skidl</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">net_statements</span><span class="p">)</span>
-
-    <span class="c1"># End of circuit function. Now call it to instantiate the circuit and generate the netlist.</span>
-    <span class="n">ltab</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-    <span class="n">section_desc</span> <span class="o">=</span> <span class="s2">&quot;Instantiate the circuit and generate the netlist.&quot;</span>
-    <span class="n">skidl</span> <span class="o">+=</span> <span class="n">section_comment</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
-    <span class="n">ltab</span> <span class="o">=</span> <span class="n">tab</span>
-    <span class="n">skidl</span> <span class="o">+=</span> <span class="s1">&#39;if __name__ == &quot;__main__&quot;:</span><span class="se">\n</span><span class="s1">&#39;</span>
-    <span class="n">skidl</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="si">{ltab}{circuit_name}</span><span class="s2">()</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
-    <span class="n">skidl</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="si">{ltab}</span><span class="s2">generate_netlist()</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
-
-    <span class="k">return</span> <span class="n">skidl</span></div>
+<span class="sd">    Returns:</span>
+<span class="sd">        str: If output_dir is None, returns the main sheet code as a string.</span>
+<span class="sd">             Otherwise, returns an empty string after writing files.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">converter</span> <span class="o">=</span> <span class="n">HierarchicalConverter</span><span class="p">(</span><span class="n">netlist_src</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">converter</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">output_dir</span><span class="p">)</span></div>
 
 </pre></div>
 
@@ -214,7 +780,7 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
@@ -230,7 +796,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -239,14 +805,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.netlist_to_skidl</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

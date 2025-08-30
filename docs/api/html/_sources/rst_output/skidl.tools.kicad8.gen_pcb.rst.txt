@@ -3,5 +3,5 @@ skidl.tools.kicad8.gen\_pcb module
 
 .. automodule:: skidl.tools.kicad8.gen_pcb
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

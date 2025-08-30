@@ -1,0 +1,7 @@
+skidl.design\_class module
+==========================
+
+.. automodule:: skidl.design_class
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -6,12 +6,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.utilities &#8212; SKiDL 2.0.1 documentation</title>
+    <title>skidl.utilities &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -23,7 +23,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../../"><img src="../../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.utilities</a></li> 
       </ul>
@@ -50,6 +50,9 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Utility functions used by the rest of SKiDL.</span>
+
+<span class="sd">This module provides various helper functions and classes that support the main SKiDL functionality,</span>
+<span class="sd">including string manipulation, list operations, file handling, and other utility operations.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">collections</span>
@@ -57,6 +60,7 @@
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">os.path</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">normpath</span><span class="p">,</span> <span class="n">expandvars</span><span class="p">,</span> <span class="n">expanduser</span>
 <span class="kn">import</span> <span class="nn">platform</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -75,13 +79,17 @@
 <div class="viewcode-block" id="export_to_all">
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.export_to_all">[docs]</a>
 <span class="k">def</span> <span class="nf">export_to_all</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a function to the __all__ list of this module.</span>
-
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add a function to the __all__ list of this module.</span>
+<span class="sd">    </span>
+<span class="sd">    This decorator adds the decorated function&#39;s name to the module&#39;s __all__ list,</span>
+<span class="sd">    making it available when using &quot;from module import *&quot;.</span>
+<span class="sd">    </span>
 <span class="sd">    Args:</span>
 <span class="sd">        fn (function): The function to be added to the __all__ list of this module.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        function: The function that was passed in.</span>
+<span class="sd">        function: The function that was passed in, unchanged.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mod</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">fn</span><span class="o">.</span><span class="vm">__module__</span><span class="p">]</span>
     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="s2">&quot;__all__&quot;</span><span class="p">):</span>
@@ -96,6 +104,15 @@
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.detect_os">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">detect_os</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Detect the operating system.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The name of the operating system (&#39;Windows&#39;, &#39;Linux&#39;, or &#39;MacOS&#39;).</span>
+<span class="sd">        </span>
+<span class="sd">    Raises:</span>
+<span class="sd">        Exception: If the operating system cannot be identified.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">os_name</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">os_name</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;Windows&quot;</span>
@@ -112,7 +129,12 @@
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.Rgx">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">class</span> <span class="nc">Rgx</span><span class="p">(</span><span class="nb">str</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Same as a string but the class makes it recognizable as as a regular expression.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    String subclass that represents a regular expression.</span>
+<span class="sd">    </span>
+<span class="sd">    This class is used to distinguish regular expressions from normal strings</span>
+<span class="sd">    in functions that need to process both types differently.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
         <span class="nb">str</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></div>
@@ -123,7 +145,15 @@
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.sgn">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">sgn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return -1,0,1 if x&lt;0, x==0, x&gt;0.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the sign of a number.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        x (numeric): The number to check.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        int: -1 if x&lt;0, 1 if x&gt;0, 0 if x==0.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">(</span><span class="mi">1</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span></div>
 
 
@@ -132,11 +162,24 @@
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.debug_trace">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">debug_trace</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Decorator to print tracing info when debugging execution.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Decorator to print tracing info when debugging execution.</span>
+<span class="sd">    </span>
+<span class="sd">    When the decorated function is called with debug_trace=True,</span>
+<span class="sd">    it will print the function name before execution.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        fn (function): The function to be decorated.</span>
+<span class="sd">        *args: Variable length argument list.</span>
+<span class="sd">        **kwargs: Arbitrary keyword arguments.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        function: The decorated function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">traced_fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;debug_trace&quot;</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Doing </span><span class="si">{}</span><span class="s2"> ...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;debug_trace&quot;</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Doing </span><span class="si">{</span><span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> ...&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">traced_fn</span></div>
@@ -147,7 +190,18 @@
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.consistent_hash">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">consistent_hash</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a hash value for a text string.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a hash value for a text string.</span>
+<span class="sd">    </span>
+<span class="sd">    This function generates a deterministic, consistent hash value for a given string</span>
+<span class="sd">    using SHA-256 algorithm.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        text (str): The input string to hash.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        str: A 16-character hexadecimal hash string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Create a SHA-256 hash object</span>
     <span class="n">hash_object</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">()</span>
@@ -164,7 +218,15 @@
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.num_to_chars">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">num_to_chars</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a string like &#39;AB&#39; when given a number like 28.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert a number to a spreadsheet-style column identifier.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        num (int): A positive integer.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        str: A string like &#39;A&#39; for 1, &#39;B&#39; for 2, &#39;Z&#39; for 26, &#39;AA&#39; for 27, etc.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">num</span> <span class="o">-=</span> <span class="mi">1</span>
     <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
     <span class="k">while</span> <span class="n">num</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
@@ -178,9 +240,17 @@
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.rmv_quotes">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">rmv_quotes</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Remove starting and ending quotes from a string.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove starting and ending quotes from a string.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        s (str or other): Input string or non-string object.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        str or other: String with quotes removed, or the original object if not a string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">s</span>
 
     <span class="n">mtch</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^\s*&quot;(.*)&quot;\s*$&#39;</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
@@ -198,9 +268,17 @@
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.add_quotes">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">add_quotes</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return string with added quotes if it contains whitespace or parens.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return string with added quotes using JSON formatting.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        s (str or other): Input string or non-string object.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        str or other: String with quotes added, or the original object if not a string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">s</span>
     
     <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
@@ -211,7 +289,17 @@
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.cnvt_to_var_name">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">cnvt_to_var_name</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a string to a legal Python variable name and return it.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert a string to a legal Python variable name.</span>
+<span class="sd">    </span>
+<span class="sd">    Replaces illegal characters with underscores to create a valid Python identifier.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        s (str): The string to convert.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        str: A valid Python variable name.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\W|^(?=\d)&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span></div>
 
 
@@ -221,7 +309,13 @@
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">to_list</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Return x if it is already a list, or return a list containing x if x is a scalar.</span>
+<span class="sd">    Convert a scalar value to a list or return x if it is already a list-like object.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        x: Input value (scalar or list-like).</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        list, tuple, or set: The original list-like input or a new list containing the scalar value.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="nb">set</span><span class="p">)):</span>
         <span class="k">return</span> <span class="n">x</span>  <span class="c1"># Already a list, so just return it.</span>
@@ -234,11 +328,11 @@
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">list_or_scalar</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Return a list if passed a multi-element list, otherwise return a single scalar.</span>
-
+<span class="sd">    Return a list or scalar depending on the input.</span>
+<span class="sd">    </span>
 <span class="sd">    Args:</span>
-<span class="sd">        lst: Either a list or a scalar.</span>
-
+<span class="sd">        lst: Either a list/tuple or a scalar value.</span>
+<span class="sd">        </span>
 <span class="sd">    Returns:</span>
 <span class="sd">        * A list if passed a multi-element list.</span>
 <span class="sd">        * The list element if passed a single-element list.</span>
@@ -260,7 +354,13 @@
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="n">nested_list</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Return a flattened list of items from a nested list.</span>
+<span class="sd">    Recursively flatten a nested list structure.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        nested_list: A list that may contain other lists, tuples, or sets as items.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        list: A flat list containing all items from the nested structure.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">lst</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">nested_list</span><span class="p">:</span>
@@ -276,7 +376,14 @@
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.set_attr">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">set_attr</span><span class="p">(</span><span class="n">objs</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Set an attribute in a list of objects.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set an attribute to a value in one or more objects.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        objs: A single object or list of objects.</span>
+<span class="sd">        attr (str): Name of the attribute to set.</span>
+<span class="sd">        value: Value to assign to the attribute.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">to_list</span><span class="p">(</span><span class="n">objs</span><span class="p">):</span>
         <span class="nb">setattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
@@ -286,7 +393,13 @@
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.rmv_attr">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">rmv_attr</span><span class="p">(</span><span class="n">objs</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Remove a list of attributes from a list of objects.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove one or more attributes from one or more objects.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        objs: A single object or list of objects.</span>
+<span class="sd">        attrs: A string or list of strings naming attributes to remove.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">to_list</span><span class="p">(</span><span class="n">objs</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">to_list</span><span class="p">(</span><span class="n">attrs</span><span class="p">):</span>
             <span class="k">try</span><span class="p">:</span>
@@ -300,7 +413,16 @@
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.add_unique_attr">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">add_unique_attr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">check_dup</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create an attribute if the attribute name isn&#39;t already used.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create an attribute if the attribute name isn&#39;t already used.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        obj: Object to which the attribute will be added.</span>
+<span class="sd">        name (str): Name of the attribute to add.</span>
+<span class="sd">        value: Value to assign to the attribute.</span>
+<span class="sd">        check_dup (bool, optional): If True, warns if attribute already exists but doesn&#39;t modify it.</span>
+<span class="sd">                                   If False, overwrites existing attribute. Defaults to False.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
 
     <span class="k">try</span><span class="p">:</span>
@@ -326,7 +448,15 @@
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.from_iadd">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">from_iadd</span><span class="p">(</span><span class="n">objs</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return True if one or more objects have attribute iadd_flag set to True.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check if one or more objects have the iadd_flag attribute set to True.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        objs: A single object or list of objects to check.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        bool: True if any object has iadd_flag set to True, False otherwise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">objs</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="s2">&quot;iadd_flag&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
@@ -341,7 +471,13 @@
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.set_iadd">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">set_iadd</span><span class="p">(</span><span class="n">objs</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Set iadd_flag with T/F value for a list of objects.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set the iadd_flag attribute in one or more objects.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        objs: A single object or list of objects.</span>
+<span class="sd">        value (bool): Value to assign to the iadd_flag attribute.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">set_attr</span><span class="p">(</span><span class="n">objs</span><span class="p">,</span> <span class="s2">&quot;iadd_flag&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
 
@@ -350,7 +486,12 @@
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.rmv_iadd">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">rmv_iadd</span><span class="p">(</span><span class="n">objs</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Delete iadd_flag attribute from a list of objects.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove the iadd_flag attribute from one or more objects.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        objs: A single object or list of objects.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">rmv_attr</span><span class="p">(</span><span class="n">objs</span><span class="p">,</span> <span class="s2">&quot;iadd_flag&quot;</span><span class="p">)</span></div>
 
 
@@ -360,21 +501,25 @@
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">merge_dicts</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span> <span class="n">merge_dct</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Dict merge that recurses through both dicts and updates keys.</span>
-
+<span class="sd">    Recursively merge two dictionaries, updating keys in the first with values from the second.</span>
+<span class="sd">    </span>
+<span class="sd">    This function modifies the first dictionary in-place to include keys from the second.</span>
+<span class="sd">    If a key exists in both dictionaries and both values are dictionaries, it recursively</span>
+<span class="sd">    merges those nested dictionaries.</span>
+<span class="sd">    </span>
 <span class="sd">    Args:</span>
-<span class="sd">        dct: The dict that will be updated.</span>
-<span class="sd">        merge_dct: The dict whose values will be inserted into dct.</span>
+<span class="sd">        dct (dict): The target dictionary that will be updated.</span>
+<span class="sd">        merge_dct (dict): The dictionary whose values will be merged into dct.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        Nothing.</span>
+<span class="sd">        Nothing. The first dictionary is modified in-place.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">merge_dct</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="n">k</span> <span class="ow">in</span> <span class="n">dct</span>
             <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dct</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="nb">dict</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">merge_dct</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">collections</span><span class="o">.</span><span class="n">Mapping</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">merge_dct</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Mapping</span><span class="p">)</span>
         <span class="p">):</span>
             <span class="n">merge_dicts</span><span class="p">(</span><span class="n">dct</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">merge_dct</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
@@ -391,88 +536,85 @@
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.reset_get_unique_name">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">reset_get_unique_name</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reset the heaps that store previously-assigned names.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reset the heaps that store previously-assigned names.</span>
+<span class="sd">    </span>
+<span class="sd">    This function clears the internal storage used by get_unique_name() to track</span>
+<span class="sd">    previously generated names.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">global</span> <span class="n">name_heap</span><span class="p">,</span> <span class="n">prefix_counts</span>
     <span class="n">name_heap</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="kc">None</span><span class="p">])</span>
     <span class="n">prefix_counts</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">()</span></div>
 
 
 
-<span class="c1"># TODO: Rework get_unique_name().</span>
 <div class="viewcode-block" id="get_unique_name">
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.get_unique_name">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">get_unique_name</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">attrib</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Return a name that doesn&#39;t collide with another in a list.</span>
-
-<span class="sd">    This subrcurrent_leveline is used to generate unique part references (e.g., &quot;R12&quot;)</span>
-<span class="sd">    or unique net names (e.g., &quot;N$5&quot;).</span>
-
+<span class="sd">    Generate a unique name within a list of objects.</span>
+<span class="sd">    </span>
+<span class="sd">    This function is used to generate unique part references (e.g., &quot;R12&quot;)</span>
+<span class="sd">    or unique net names (e.g., &quot;N$5&quot;) that don&#39;t collide with existing names.</span>
+<span class="sd">    </span>
 <span class="sd">    Args:</span>
 <span class="sd">        lst: The list of objects containing names.</span>
-<span class="sd">        attrib: The attribute in each object containing the name.</span>
-<span class="sd">        prefix: The prefix attached to each name.</span>
+<span class="sd">        attrib (str): The attribute in each object containing the name.</span>
+<span class="sd">        prefix (str): The prefix attached to each name.</span>
 <span class="sd">        initial: The initial setting of the name (can be None or empty string).</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        A string containing the unique name.</span>
+<span class="sd">        str: A unique name that doesn&#39;t exist in the list.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="c1"># Use the list id to disambiguate names of objects on different lists (e.g., parts &amp; nets).</span>
-    <span class="n">lst_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">lst</span><span class="p">))</span>
+    <span class="n">lst_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">id</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span><span class="si">}</span><span class="s2">:&quot;</span>
 
     <span class="n">name</span> <span class="o">=</span> <span class="n">initial</span>
+
+    <span class="c1"># If the prefix ends with a number, then append an underscore in case another</span>
+    <span class="c1"># number is appended to the prefix when forming a unique name.</span>
+    <span class="k">if</span> <span class="n">prefix</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+        <span class="n">prefix</span> <span class="o">+=</span> <span class="s2">&quot;_&quot;</span>
 
     <span class="c1"># Fast processing for names that haven&#39;t been seen before.</span>
     <span class="c1"># This speeds up the most common cases for finding a new name, but doesn&#39;t</span>
     <span class="c1"># really hurt the less common cases.</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="p">:</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">prefix_counts</span><span class="p">[</span><span class="n">lst_id</span> <span class="o">+</span> <span class="n">prefix</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">lst_id</span> <span class="o">+</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">name_heap</span><span class="p">:</span>
-            <span class="n">name_heap</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">lst_id</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
+        <span class="n">probe_name</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">prefix_counts</span><span class="p">[</span><span class="n">lst_id</span> <span class="o">+</span> <span class="n">prefix</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">lst_id</span> <span class="o">+</span> <span class="n">probe_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">name_heap</span><span class="p">:</span>
+            <span class="n">name_heap</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">lst_id</span> <span class="o">+</span> <span class="n">probe_name</span><span class="p">)</span>
             <span class="n">prefix_counts</span><span class="p">[</span><span class="n">lst_id</span> <span class="o">+</span> <span class="n">prefix</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="k">return</span> <span class="n">name</span>
+            <span class="k">return</span> <span class="n">probe_name</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">lst_id</span> <span class="o">+</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">name_heap</span><span class="p">:</span>
-            <span class="n">name_heap</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">lst_id</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
+            <span class="n">probe_name</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">probe_name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">if</span> <span class="n">lst_id</span> <span class="o">+</span> <span class="n">probe_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">name_heap</span><span class="p">:</span>
+            <span class="n">name_heap</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">lst_id</span> <span class="o">+</span> <span class="n">probe_name</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">name</span>
 
     <span class="c1"># Get the unique names used in the list.</span>
-    <span class="n">unique_names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="nb">getattr</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">attrib</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">])</span>
+    <span class="n">unique_names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">attrib</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">])</span>
+    <span class="n">unique_names</span> <span class="o">-=</span> <span class="p">{</span><span class="kc">None</span><span class="p">}</span>
 
     <span class="c1"># If the initial name is None, then create a name based on the prefix</span>
-    <span class="c1"># and the smallest unused number that&#39;s available for that prefix.</span>
+    <span class="c1"># and the largest unused number that&#39;s available for that prefix.</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="p">:</span>
-        <span class="c1"># Do a binary search for a unique name formed from the prefix + number.</span>
-        <span class="n">n</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Starting number to append to the prefix.</span>
-        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="c1"># Step forward in larger and larger increments looking for a name</span>
-            <span class="c1"># that isn&#39;t in the list.</span>
-            <span class="n">step</span> <span class="o">=</span> <span class="mi">1</span>
-            <span class="k">while</span> <span class="n">prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="ow">in</span> <span class="n">unique_names</span><span class="p">:</span>
-                <span class="n">n</span> <span class="o">+=</span> <span class="n">step</span>
-                <span class="n">step</span> <span class="o">*=</span> <span class="mi">2</span>
-            <span class="c1"># If the step is 1, then the first name tried was available, so take it.</span>
-            <span class="c1"># If the step is two, the next sequential name after the first name tried</span>
-            <span class="c1"># was available, so take that.</span>
-            <span class="k">if</span> <span class="n">step</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
-                <span class="n">name</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-                <span class="k">break</span>
-            <span class="c1"># For larger step sizes, there may be non-existent names preceding</span>
-            <span class="c1"># the current value of n. So search backward starting with a large step</span>
-            <span class="c1"># and making it smaller and smaller until an existing name is found.</span>
-            <span class="k">while</span> <span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">unique_names</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">step</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
-                <span class="n">step</span> <span class="o">//=</span> <span class="mi">2</span>
-                <span class="n">n</span> <span class="o">-=</span> <span class="n">step</span>
-            <span class="c1"># Go back to the start of the loop and search forward from this value</span>
-            <span class="c1"># of n looking for an unused slot.</span>
-
-            <span class="c1"># Bump prefix counter to the newest index.</span>
-            <span class="n">prefix_counts</span><span class="p">[</span><span class="n">lst_id</span> <span class="o">+</span> <span class="n">prefix</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span>
-
+        <span class="c1"># Get every name in the list that starts with the prefix.</span>
+        <span class="n">prefix_names</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">unique_names</span> <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">prefix</span><span class="p">)}</span>
+        <span class="c1"># Find the next available number that&#39;s greater than the largest used number.</span>
+        <span class="n">next_avail_num</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span>
+            <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="p">:])</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">prefix_names</span> <span class="k">if</span> <span class="n">n</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="p">:]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()],</span>
+            <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="c1"># Now form the name from the prefix appended with the next available number.</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">next_avail_num</span><span class="p">)</span>
+        <span class="n">name_heap</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">lst_id</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
+        <span class="n">prefix_counts</span><span class="p">[</span><span class="n">lst_id</span> <span class="o">+</span> <span class="n">prefix</span><span class="p">]</span> <span class="o">=</span> <span class="n">next_avail_num</span>
+        <span class="k">return</span> <span class="n">name</span>
+    
     <span class="c1"># If the initial name is just a number, then prepend the prefix to it.</span>
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
         <span class="n">name</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
@@ -481,17 +623,46 @@
     <span class="c1"># If the name is unique, then return it.</span>
     <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">unique_names</span><span class="p">:</span>
         <span class="n">name_heap</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">lst_id</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
+        <span class="n">prefix_counts</span><span class="p">[</span><span class="n">lst_id</span> <span class="o">+</span> <span class="n">prefix</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="n">name</span>
 
-    <span class="c1"># Otherwise, determine how many copies of the name are in the list and</span>
-    <span class="c1"># append a number to make this name unique.</span>
-    <span class="n">filter_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">attrib</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;_\d+&quot;</span><span class="p">}</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">filter_list</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="o">**</span><span class="n">filter_dict</span><span class="p">))</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># There are name conflicts, so we need to find the next available index to attach to the name.</span>
+    <span class="k">if</span> <span class="n">name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+        <span class="c1"># If the name ends with a digit, append an underscore to separate it from any</span>
+        <span class="c1"># disambiguating number that will be appended below.</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span>
+    <span class="n">name_conflicts</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">unique_names</span> <span class="k">if</span> <span class="n">n</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">name</span><span class="p">)}</span>
+    <span class="n">next_avail_num</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span>
+            <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="p">:])</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">name_conflicts</span> <span class="k">if</span> <span class="n">n</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="p">:]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()],</span>
+            <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">next_avail_num</span><span class="p">)</span>
+    <span class="n">name_heap</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">lst_id</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
+    <span class="n">prefix_counts</span><span class="p">[</span><span class="n">lst_id</span> <span class="o">+</span> <span class="n">prefix</span><span class="p">]</span> <span class="o">=</span> <span class="n">next_avail_num</span>
+    <span class="k">return</span> <span class="n">name</span></div>
 
-    <span class="c1"># Recursively call this rcurrent_leveline using the newly-generated name to</span>
-    <span class="c1"># make sure it&#39;s unique. Eventually, a unique name will be returned.</span>
-    <span class="k">return</span> <span class="n">get_unique_name</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">attrib</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="rmv_unique_name">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.rmv_unique_name">[docs]</a>
+<span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">rmv_unique_name</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">attrib</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove a unique name from the heap.</span>
+<span class="sd">    </span>
+<span class="sd">    This function is used to remove a name that was previously generated</span>
+<span class="sd">    by get_unique_name() when it is no longer needed.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        lst: The list of objects containing names.</span>
+<span class="sd">        attrib (str): The attribute in each object containing the name.</span>
+<span class="sd">        name (str): The name to remove from the heap.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">lst_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">lst</span><span class="p">))</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">name_heap</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">lst_id</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">pass</span></div>
 
 
 
@@ -499,7 +670,17 @@
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.fullmatch">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">fullmatch</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Emulate python-3.4 re.fullmatch().&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Emulate python-3.4 re.fullmatch() function.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        regex (str): Regular expression pattern.</span>
+<span class="sd">        string (str): String to match against the pattern.</span>
+<span class="sd">        flags (int, optional): Flags to pass to the regex engine. Defaults to 0.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Match object or None: Match object if the string matches the pattern fully, None otherwise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;(?:&quot;</span> <span class="o">+</span> <span class="n">regex</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;)\Z&quot;</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">)</span></div>
 
 
@@ -510,13 +691,13 @@
 <span class="k">def</span> <span class="nf">filter_list</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="o">**</span><span class="n">criteria</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return a list of objects whose attributes match a set of criteria.</span>
-
-<span class="sd">    Return a list of objects extracted from a list whose attributes match a</span>
-<span class="sd">    set of criteria. The match is done using regular expressions.</span>
+<span class="sd">    </span>
+<span class="sd">    This function filters a list based on attribute values using regular expressions.</span>
+<span class="sd">    </span>
 <span class="sd">    Example: filter_list(pins, name=&#39;io[0-9]+&#39;, direction=&#39;bidir&#39;) will</span>
 <span class="sd">    return all the bidirectional pins of the component that have pin names</span>
 <span class="sd">    starting with &#39;io&#39; followed by a number (e.g., &#39;IO45&#39;).</span>
-
+<span class="sd">    </span>
 <span class="sd">    If an attribute of the lst object is a list or tuple, each entry in the</span>
 <span class="sd">    list/tuple will be checked for a match. Only one entry needs to match to</span>
 <span class="sd">    consider the entire attribute a match. This feature is useful when</span>
@@ -525,16 +706,18 @@
 <span class="sd">    Args:</span>
 <span class="sd">        lst: The list from which objects will be extracted.</span>
 
-<span class="sd">    Keywords Args:</span>
+<span class="sd">    Keyword Args:</span>
 <span class="sd">        criteria: Keyword-argument pairs. The keyword specifies the attribute</span>
 <span class="sd">            name while the argument contains the desired value of the attribute.</span>
 <span class="sd">            Regardless of what type the argument is, it is always compared as if</span>
 <span class="sd">            it was a string. The argument can also be a regular expression that</span>
 <span class="sd">            must match the entire string created from the attribute of the list</span>
 <span class="sd">            object.</span>
+<span class="sd">            </span>
+<span class="sd">            Special keyword &#39;do_str_match&#39;: If True, use string matching instead of regex.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        A list of objects whose attributes match *all* the criteria.</span>
+<span class="sd">        list: A list of objects whose attributes match *all* the criteria.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">strmatch</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">flags</span><span class="p">):</span>
@@ -586,7 +769,7 @@
                     <span class="c1"># the extract list.</span>
                     <span class="k">break</span>
 
-            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">basestring</span><span class="p">)):</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">)):</span>
                 <span class="c1"># Loop through the list of attribute values. If at least one</span>
                 <span class="c1"># value matches the current criterium, then break from the</span>
                 <span class="c1"># criteria loop and extract this item.</span>
@@ -628,21 +811,24 @@
 <span class="k">def</span> <span class="nf">expand_indices</span><span class="p">(</span><span class="n">slice_min</span><span class="p">,</span> <span class="n">slice_max</span><span class="p">,</span> <span class="n">match_regex</span><span class="p">,</span> <span class="o">*</span><span class="n">indices</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Expand a list of indices into a list of integers and strings.</span>
-
+<span class="sd">    </span>
 <span class="sd">    This function takes the indices used to select pins of parts and</span>
 <span class="sd">    lines of buses and returns a flat list of numbers and strings.</span>
 <span class="sd">    String and integer indices are put in the list unchanged, but</span>
 <span class="sd">    slices are expanded into a list of integers before entering the</span>
-<span class="sd">    final list.</span>
-
+<span class="sd">    final list. It also handles bus notation expressions.</span>
+<span class="sd">    </span>
 <span class="sd">    Args:</span>
-<span class="sd">        slice_min: The minimum possible index.</span>
-<span class="sd">        slice_max: The maximum possible index (used for slice indices).</span>
-<span class="sd">        match_regex: If true,</span>
-<span class="sd">        indices: A list of indices made up of numbers, slices, text strings.</span>
+<span class="sd">        slice_min (int): The minimum possible index.</span>
+<span class="sd">        slice_max (int): The maximum possible index (used for slice indices).</span>
+<span class="sd">        match_regex (bool): If true, adjust regex patterns for pin/bus matches.</span>
+<span class="sd">        *indices: A list of indices made up of numbers, slices, text strings.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        A linear list of all the indices made up only of numbers and strings.</span>
+<span class="sd">        list: A linear list of all the indices made up only of numbers and strings.</span>
+<span class="sd">        </span>
+<span class="sd">    Raises:</span>
+<span class="sd">        IndexError: If a slice index is out of valid range.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
@@ -660,9 +846,7 @@
             <span class="k">if</span> <span class="n">slc</span><span class="o">.</span><span class="n">start</span> <span class="ow">and</span> <span class="n">slc</span><span class="o">.</span><span class="n">start</span> <span class="o">&gt;</span> <span class="n">slice_max</span><span class="p">:</span>
                 <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">IndexError</span><span class="p">,</span>
-                    <span class="s2">&quot;Index current_level of range (</span><span class="si">{}</span><span class="s2"> &gt; </span><span class="si">{}</span><span class="s2">)!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                        <span class="n">slc</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">slice_max</span>
-                    <span class="p">),</span>
+                    <span class="sa">f</span><span class="s2">&quot;Index current_level of range (</span><span class="si">{</span><span class="n">slc</span><span class="o">.</span><span class="n">start</span><span class="si">}</span><span class="s2"> &gt; </span><span class="si">{</span><span class="n">slice_max</span><span class="si">}</span><span class="s2">)!&quot;</span>
                 <span class="p">)</span>
             <span class="c1"># Count down from start to stop.</span>
             <span class="n">stop</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">-</span> <span class="n">step</span>
@@ -673,9 +857,7 @@
             <span class="k">if</span> <span class="n">slc</span><span class="o">.</span><span class="n">stop</span> <span class="ow">and</span> <span class="n">slc</span><span class="o">.</span><span class="n">stop</span> <span class="o">&gt;</span> <span class="n">slice_max</span><span class="p">:</span>
                 <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">IndexError</span><span class="p">,</span>
-                    <span class="s2">&quot;Index current_level of range (</span><span class="si">{}</span><span class="s2"> &gt; </span><span class="si">{}</span><span class="s2">)!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                        <span class="n">slc</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="n">slice_max</span>
-                    <span class="p">),</span>
+                    <span class="sa">f</span><span class="s2">&quot;Index current_level of range (</span><span class="si">{</span><span class="n">slc</span><span class="o">.</span><span class="n">stop</span><span class="si">}</span><span class="s2"> &gt; </span><span class="si">{</span><span class="n">slice_max</span><span class="si">}</span><span class="s2">)!&quot;</span>
                 <span class="p">)</span>
             <span class="c1"># Count up from start to stop</span>
             <span class="n">stop</span> <span class="o">+=</span> <span class="n">step</span>
@@ -694,10 +876,10 @@
 <span class="sd">        in a one-element list.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            bus_str: A string containing a bus expression like &quot;D[0:3]&quot;.</span>
+<span class="sd">            bus_str (str): A string containing a bus expression like &quot;D[0:3]&quot;.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            A list of bus lines like [&#39;D0&#39;, &#39;D1&#39;, &#39;D2&#39;, &#39;D3&#39;] or a one-element</span>
+<span class="sd">            list: A list of bus lines like [&#39;D0&#39;, &#39;D1&#39;, &#39;D2&#39;, &#39;D3&#39;] or a one-element</span>
 <span class="sd">            list with the original input string if it&#39;s not a valid bus expression.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -752,7 +934,7 @@
                 <span class="c1"># are added to the list of ids. If not, the original id is</span>
                 <span class="c1"># added to the list.</span>
                 <span class="n">ids</span><span class="o">.</span><span class="n">extend</span><span class="p">((</span><span class="n">Rgx</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">explode</span><span class="p">(</span><span class="nb">id</span><span class="o">.</span><span class="n">strip</span><span class="p">())))</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">indx</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">indx</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="c1"># String might contain multiple indices with a separator.</span>
             <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">INDEX_SEPARATOR</span><span class="p">,</span> <span class="n">indx</span><span class="p">):</span>
                 <span class="c1"># If the id is a valid bus expression, then the exploded bus lines</span>
@@ -761,7 +943,7 @@
                 <span class="n">ids</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">explode</span><span class="p">(</span><span class="nb">id</span><span class="o">.</span><span class="n">strip</span><span class="p">()))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
-                <span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;Unknown type in index: </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">indx</span><span class="p">))</span>
+                <span class="ne">TypeError</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Unknown type in index: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">indx</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
             <span class="p">)</span>
 
     <span class="c1"># Return the completely expanded list of indices.</span>
@@ -775,6 +957,15 @@
 <span class="k">def</span> <span class="nf">expand_buses</span><span class="p">(</span><span class="n">pins_nets_buses</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Take list of pins, nets, and buses and return a list of only pins and nets.</span>
+<span class="sd">    </span>
+<span class="sd">    This function flattens a list containing both buses and their nets/pins</span>
+<span class="sd">    into a flat list of just nets/pins.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        pins_nets_buses (list): List containing pins, nets, and buses.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        list: A flattened list containing only pins and nets.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># This relies on the fact that a bus is an iterable of its nets,</span>
@@ -792,7 +983,12 @@
 <span class="k">def</span> <span class="nf">find_num_copies</span><span class="p">(</span><span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return the number of copies to make based on the number of attribute values.</span>
-
+<span class="sd">    </span>
+<span class="sd">    This function examines keyword arguments to determine how many copies of an object</span>
+<span class="sd">    should be created. If all values are scalar or lists/tuples of length 1, only one</span>
+<span class="sd">    copy is needed. If there are lists/tuples of greater length, the maximum length</span>
+<span class="sd">    determines the number of copies.</span>
+<span class="sd">    </span>
 <span class="sd">    Keyword Args:</span>
 <span class="sd">        attribs: Dict of Keyword/Value pairs for setting object attributes.</span>
 <span class="sd">            If the value is a scalar, then the number of copies is one.</span>
@@ -800,10 +996,10 @@
 <span class="sd">            length of the list/tuple.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        The length of the longest value in the dict of attributes.</span>
+<span class="sd">        int: The length of the longest value in the dict of attributes.</span>
 
 <span class="sd">    Raises:</span>
-<span class="sd">        Exception if there are two or more list/tuple values with different</span>
+<span class="sd">        ValueError: If there are two or more list/tuple values with different</span>
 <span class="sd">        lengths that are greater than 1. (All attribute values must be scalars</span>
 <span class="sd">        or lists/tuples of the same length.)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -821,12 +1017,12 @@
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">num_copies</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
         <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
             <span class="ne">ValueError</span><span class="p">,</span>
-            <span class="s2">&quot;Mismatched lengths of attributes: </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_copies</span><span class="p">),</span>
+            <span class="sa">f</span><span class="s2">&quot;Mismatched lengths of attributes: </span><span class="si">{</span><span class="n">num_copies</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">num_copies</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">min</span><span class="p">(</span><span class="n">num_copies</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
             <span class="ne">ValueError</span><span class="p">,</span>
-            <span class="s2">&quot;Mismatched lengths of attributes: </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_copies</span><span class="p">),</span>
+            <span class="sa">f</span><span class="s2">&quot;Mismatched lengths of attributes: </span><span class="si">{</span><span class="n">num_copies</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="k">try</span><span class="p">:</span>
@@ -840,18 +1036,23 @@
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.norecurse">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">norecurse</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Decorator that keeps a function from recursively calling itself.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    f: function</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Decorator that keeps a function from recursively calling itself.</span>
+<span class="sd">    </span>
+<span class="sd">    This decorator checks the call stack to prevent recursive calls</span>
+<span class="sd">    to the decorated function.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        f (function): The function to decorate.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        function: A wrapper function that checks for recursion.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="c1"># If a function&#39;s name is on the stack twice (once for the current call</span>
-        <span class="c1"># and a second time for the previous call), then return withcurrent_level</span>
+        <span class="c1"># If a function&#39;s name is already on the stack, then return without</span>
         <span class="c1"># executing the function.</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">([</span><span class="mi">1</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">traceback</span><span class="o">.</span><span class="n">extract_stack</span><span class="p">()</span> <span class="k">if</span> <span class="n">l</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="n">f</span><span class="o">.</span><span class="vm">__name__</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">([</span><span class="mi">1</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">traceback</span><span class="o">.</span><span class="n">extract_stack</span><span class="p">()</span> <span class="k">if</span> <span class="n">l</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="n">f</span><span class="o">.</span><span class="vm">__name__</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
 
         <span class="c1"># Otherwise, not a recursive call so execute the function and return result.</span>
@@ -865,9 +1066,20 @@
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.TriggerDict">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">class</span> <span class="nc">TriggerDict</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;This dict triggers a function when one of its entries changes.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dictionary that triggers a function when one of its entries changes.</span>
+<span class="sd">    </span>
+<span class="sd">    This dictionary subclass allows custom functions to be executed when</span>
+<span class="sd">    specific keys are modified.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a TriggerDict.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            *args, **kwargs: Arguments passed to the parent dict constructor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="c1"># Create a dict of functions that will be run if their associated</span>
@@ -876,8 +1088,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">trigger_funcs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set a key&#39;s value and trigger any associated function if the value changed.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            k: The dictionary key.</span>
+<span class="sd">            v: The value to set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">trigger_funcs</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">v</span> <span class="o">!=</span> <span class="bp">self</span><span class="p">[</span><span class="n">k</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">v</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">trigger_funcs</span><span class="p">[</span><span class="n">k</span><span class="p">](</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span></div>
 
@@ -887,7 +1106,15 @@
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.is_binary_file">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">is_binary_file</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return true if a file contains binary (non-text) characters.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return true if a file contains binary (non-text) characters.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        filename (str): Path to the file to check.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        bool: True if the file contains binary data, False otherwise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">text_chars</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">({</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">27</span><span class="p">}</span> <span class="o">|</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mh">0x20</span><span class="p">,</span> <span class="mh">0x100</span><span class="p">))</span> <span class="o">-</span> <span class="p">{</span><span class="mh">0x7F</span><span class="p">})</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
@@ -896,11 +1123,26 @@
         <span class="k">return</span> <span class="kc">False</span></div>
 
 
+<div class="viewcode-block" id="expand_path">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.expand_path">[docs]</a>
+<span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">expand_path</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">normpath</span><span class="p">(</span><span class="n">expandvars</span><span class="p">(</span><span class="n">expanduser</span><span class="p">(</span><span class="n">path</span><span class="p">)))</span></div>
+
 
 <div class="viewcode-block" id="is_url">
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.is_url">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">is_url</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check if a string is a valid HTTP/HTTPS URL.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        s (str): String to check.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        bool: True if the string is a valid HTTP/HTTPS URL, False otherwise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlparse</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">scheme</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;http&quot;</span><span class="p">,</span> <span class="s2">&quot;https&quot;</span><span class="p">}</span></div>
 
 
@@ -913,19 +1155,25 @@
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Search for a file in list of paths, open it and return file pointer and full file name.</span>
-
+<span class="sd">    </span>
+<span class="sd">    This function searches for a file in various locations, including URLs, and returns</span>
+<span class="sd">    an open file pointer and the complete path to the file.</span>
+<span class="sd">    </span>
 <span class="sd">    Args:</span>
-<span class="sd">        filename: Base file name (e.g., &quot;my_file&quot;).</span>
-<span class="sd">        paths: List of paths to search for the file.</span>
-<span class="sd">        ext: The extension for the file (e.g., &quot;.txt&quot;) or a list of extensions.</span>
-<span class="sd">        allow_failure: If false, failure to find file raises and exception.</span>
-<span class="sd">        exclude_binary: If true, skip files that contain binary data.</span>
-<span class="sd">        descend: If 0, don&#39;t search lower-level directories. If positive, search</span>
+<span class="sd">        filename (str): Base file name (e.g., &quot;my_file&quot;).</span>
+<span class="sd">        paths (list, optional): List of paths to search for the file. Defaults to current directory.</span>
+<span class="sd">        ext (str or list, optional): The extension for the file (e.g., &quot;.txt&quot;) or a list of extensions.</span>
+<span class="sd">        allow_failure (bool, optional): If False, failure to find file raises an exception. Defaults to False.</span>
+<span class="sd">        exclude_binary (bool, optional): If True, skip files that contain binary data. Defaults to False.</span>
+<span class="sd">        descend (int, optional): If 0, don&#39;t search lower-level directories. If positive, search</span>
 <span class="sd">                 that many levels down for the file. If negative, descend into</span>
-<span class="sd">                 subdirectories withcurrent_level limit.</span>
+<span class="sd">                 subdirectories without limit. Defaults to 0.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        File pointer and file name or None, None if file could not be opened.</span>
+<span class="sd">        tuple: (file_pointer, file_name) or (None, None) if file could not be opened and allow_failure is True.</span>
+<span class="sd">        </span>
+<span class="sd">    Raises:</span>
+<span class="sd">        FileNotFoundError: If the file couldn&#39;t be found and allow_failure is False.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
@@ -951,7 +1199,10 @@
         <span class="c1"># If an explicit file extension was given, just use that.</span>
         <span class="n">exts</span> <span class="o">=</span> <span class="p">[</span><span class="n">suffix</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">exts</span> <span class="o">=</span> <span class="n">to_list</span><span class="p">(</span><span class="n">ext</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ext</span><span class="p">:</span>
+            <span class="n">exts</span> <span class="o">=</span> <span class="n">to_list</span><span class="p">(</span><span class="n">ext</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">exts</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">]</span>
 
     <span class="c1"># Search through the directory paths for a file whose name matches the regular expression.</span>
     <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
@@ -970,7 +1221,7 @@
 
             <span class="c1"># Search through the files in a particular directory path.</span>
             <span class="n">descent_ctr</span> <span class="o">=</span> <span class="n">descend</span>  <span class="c1"># Controls the descent through the path.</span>
-            <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirnames</span><span class="p">,</span> <span class="n">filenames</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirnames</span><span class="p">,</span> <span class="n">filenames</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">expand_path</span><span class="p">(</span><span class="n">path</span><span class="p">)):</span>
                 <span class="c1"># Get files in the current directory whose names match the regular expression.</span>
                 <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filenames</span> <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">match_name</span><span class="p">,</span> <span class="n">f</span><span class="p">)]:</span>
                     <span class="n">abs_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span>
@@ -991,7 +1242,7 @@
         <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
-            <span class="ne">FileNotFoundError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t open file: </span><span class="si">{}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="ne">FileNotFoundError</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Can&#39;t open file: </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="p">)</span></div>
 
 
@@ -1002,20 +1253,24 @@
 <span class="k">def</span> <span class="nf">find_and_read_file</span><span class="p">(</span>
     <span class="n">filename</span><span class="p">,</span> <span class="n">paths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_failure</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">exclude_binary</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">descend</span><span class="o">=</span><span class="mi">0</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Search for a file in list of paths, open it and return its contents.</span>
-
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Search for a file in list of paths, open it and return its contents.</span>
+<span class="sd">    </span>
 <span class="sd">    Args:</span>
-<span class="sd">        filename: Base file name (e.g., &quot;my_file&quot;).</span>
-<span class="sd">        paths: List of paths to search for the file.</span>
-<span class="sd">        ext: The extension for the file (e.g., &quot;.txt&quot;) or a list of extensions.</span>
-<span class="sd">        allow_failure: If false, failure to find file raises and exception.</span>
-<span class="sd">        exclude_binary: If true, skip files that contain binary data.</span>
-<span class="sd">        descend: If 0, don&#39;t search lower-level directories. If positive, search</span>
+<span class="sd">        filename (str): Base file name (e.g., &quot;my_file&quot;).</span>
+<span class="sd">        paths (list, optional): List of paths to search for the file. Defaults to current directory.</span>
+<span class="sd">        ext (str or list, optional): The extension for the file (e.g., &quot;.txt&quot;) or a list of extensions.</span>
+<span class="sd">        allow_failure (bool, optional): If False, failure to find file raises an exception. Defaults to False.</span>
+<span class="sd">        exclude_binary (bool, optional): If True, skip files that contain binary data. Defaults to False.</span>
+<span class="sd">        descend (int, optional): If 0, don&#39;t search lower-level directories. If positive, search</span>
 <span class="sd">                 that many levels down for the file. If negative, descend into</span>
-<span class="sd">                 subdirectories withcurrent_level limit.</span>
+<span class="sd">                 subdirectories without limit. Defaults to 0.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        File contents and file name or None, None if file could not be opened.</span>
+<span class="sd">        tuple: (file_contents, file_name) or (None, None) if file could not be opened and allow_failure is True.</span>
+<span class="sd">        </span>
+<span class="sd">    Raises:</span>
+<span class="sd">        FileNotFoundError: If the file couldn&#39;t be found and allow_failure is False.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span> <span class="o">=</span> <span class="n">find_and_open_file</span><span class="p">(</span>
@@ -1038,19 +1293,23 @@
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.get_abs_filename">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">get_abs_filename</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">paths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_failure</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">descend</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Search for a file in list of paths, and return its absolute file name.</span>
-
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Search for a file in list of paths, and return its absolute file name.</span>
+<span class="sd">    </span>
 <span class="sd">    Args:</span>
-<span class="sd">        filename: Base file name (e.g., &quot;my_file&quot;).</span>
-<span class="sd">        paths: List of paths to search for the file.</span>
-<span class="sd">        ext: The extension for the file (e.g., &quot;.txt&quot;).</span>
-<span class="sd">        allow_failure: If false, failure to find file raises and exception.</span>
-<span class="sd">        descend: If 0, don&#39;t search lower-level directories. If positive, search</span>
+<span class="sd">        filename (str): Base file name (e.g., &quot;my_file&quot;).</span>
+<span class="sd">        paths (list, optional): List of paths to search for the file. Defaults to current directory.</span>
+<span class="sd">        ext (str or list, optional): The extension for the file (e.g., &quot;.txt&quot;) or a list of extensions.</span>
+<span class="sd">        allow_failure (bool, optional): If False, failure to find file raises an exception. Defaults to False.</span>
+<span class="sd">        descend (int, optional): If 0, don&#39;t search lower-level directories. If positive, search</span>
 <span class="sd">                 that many levels down for the file. If negative, descend into</span>
-<span class="sd">                 subdirectories withcurrent_level limit.</span>
+<span class="sd">                 subdirectories without limit. Defaults to 0.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        File name if file exists, otherwise None.</span>
+<span class="sd">        str: Absolute file name if file exists, otherwise None.</span>
+<span class="sd">        </span>
+<span class="sd">    Raises:</span>
+<span class="sd">        FileNotFoundError: If the file couldn&#39;t be found and allow_failure is False.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span> <span class="o">=</span> <span class="n">find_and_open_file</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span> <span class="n">ext</span><span class="p">,</span> <span class="n">allow_failure</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">descend</span><span class="p">)</span>
@@ -1071,15 +1330,23 @@
 <span class="nd">@contextmanager</span>
 <span class="k">def</span> <span class="nf">opened</span><span class="p">(</span><span class="n">f_or_fn</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Yields an opened file or file-like object.</span>
-
+<span class="sd">    Context manager that yields an opened file or file-like object.</span>
+<span class="sd">    </span>
+<span class="sd">    This context manager handles both filenames and file objects, ensuring</span>
+<span class="sd">    proper opening and closing of files.</span>
+<span class="sd">    </span>
 <span class="sd">    Args:</span>
-<span class="sd">       file_or_filename: Either an already opened file or file-like</span>
-<span class="sd">           object, or a filename to open.</span>
-<span class="sd">       mode: The mode to open the file in.</span>
+<span class="sd">       f_or_fn: Either an already opened file or file-like object, or a filename to open.</span>
+<span class="sd">       mode (str): The mode to open the file in.</span>
+<span class="sd">       </span>
+<span class="sd">    Yields:</span>
+<span class="sd">       file: An opened file object.</span>
+<span class="sd">       </span>
+<span class="sd">    Raises:</span>
+<span class="sd">       TypeError: If f_or_fn is neither a string nor a file-like object.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f_or_fn</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f_or_fn</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">f_or_fn</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="k">yield</span> <span class="n">f</span>
     <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">f_or_fn</span><span class="p">,</span> <span class="s2">&quot;fileno&quot;</span><span class="p">):</span>
@@ -1092,10 +1359,9 @@
                 <span class="k">yield</span> <span class="n">f</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-            <span class="s2">&quot;argument must be a filename or a file-like object (is: </span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="nb">type</span><span class="p">(</span><span class="n">f_or_fn</span><span class="p">)</span>
-            <span class="p">)</span>
+            <span class="sa">f</span><span class="s2">&quot;argument must be a filename or a file-like object (is: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">f_or_fn</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span>
         <span class="p">)</span></div>
+
 
 </pre></div>
 
@@ -1103,7 +1369,7 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
@@ -1119,7 +1385,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -1128,14 +1394,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.utilities</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

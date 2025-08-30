@@ -6,12 +6,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.net &#8212; SKiDL 2.0.1 documentation</title>
+    <title>skidl.net &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -23,7 +23,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../../"><img src="../../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.net</a></li> 
       </ul>
@@ -49,15 +49,96 @@
 <span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Handles nets.</span>
+<span class="sd">Network connection management for SKiDL circuit design.</span>
+
+<span class="sd">This module provides comprehensive electrical connection management through the Net</span>
+<span class="sd">class and its specialized subclass NCNet. These classes represent electrical</span>
+<span class="sd">connections between component pins, enabling circuit designers to model, analyze,</span>
+<span class="sd">and verify electrical connectivity in their designs.</span>
+
+<span class="sd">Key Capabilities:</span>
+<span class="sd">    - Electrical connection modeling between component pins</span>
+<span class="sd">    - Named and anonymous net creation with automatic naming</span>
+<span class="sd">    - Net merging and electrical rule checking (ERC)</span>
+<span class="sd">    - Drive strength management and conflict detection  </span>
+<span class="sd">    - Net class assignment for PCB routing rules</span>
+<span class="sd">    - Hierarchical net traversal and connectivity analysis</span>
+<span class="sd">    - No-connect (NC) net support for unconnected pins</span>
+<span class="sd">    - Integration with netlist generation and PCB tools</span>
+
+<span class="sd">Core Classes:</span>
+<span class="sd">    Net: Primary class representing electrical connections between pins.</span>
+<span class="sd">        Supports naming, drive strength, net classes, ERC, and connection</span>
+<span class="sd">        management. Handles automatic net merging when pins are connected.</span>
+<span class="sd">        </span>
+<span class="sd">    NCNet: Specialized Net subclass for explicitly unconnected pins.</span>
+<span class="sd">        Marks pins as intentionally not connected to suppress ERC warnings</span>
+<span class="sd">        while maintaining design intent documentation.</span>
+
+<span class="sd">Connection Model:</span>
+<span class="sd">    Nets use a pin-centric connection model where pins can belong to multiple</span>
+<span class="sd">    nets simultaneously, enabling complex electrical relationships. When nets</span>
+<span class="sd">    are joined (via pin connections), they form electrically connected segments</span>
+<span class="sd">    that share properties like drive strength and net classes.</span>
+
+<span class="sd">Electrical Rules:</span>
+<span class="sd">    The module supports comprehensive electrical rule checking (ERC) including:</span>
+<span class="sd">    - Drive strength conflicts (multiple drivers on one net)</span>
+<span class="sd">    - Floating pin detection (inputs without drivers)</span>
+<span class="sd">    - No-connect verification (intentionally unconnected pins)</span>
+<span class="sd">    - Net class rule validation and conflict resolution</span>
+
+<span class="sd">Example Usage:</span>
+<span class="sd">    &gt;&gt;&gt; # Create named and anonymous nets</span>
+<span class="sd">    &gt;&gt;&gt; vcc = Net(&#39;VCC&#39;)                    # Named power net</span>
+<span class="sd">    &gt;&gt;&gt; gnd = Net(&#39;GND&#39;)                    # Named ground net  </span>
+<span class="sd">    &gt;&gt;&gt; data = Net()                        # Anonymous net (auto-named)</span>
+<span class="sd">    &gt;&gt;&gt; </span>
+<span class="sd">    &gt;&gt;&gt; # Connect component pins to nets</span>
+<span class="sd">    &gt;&gt;&gt; vcc += mcu[&#39;VCC&#39;], regulator[&#39;OUT&#39;] # Multiple connections</span>
+<span class="sd">    &gt;&gt;&gt; gnd += mcu[&#39;GND&#39;], regulator[&#39;GND&#39;] # Ground connections</span>
+<span class="sd">    &gt;&gt;&gt; data += mcu[&#39;PA0&#39;], sensor[&#39;DATA&#39;]  # Data connection</span>
+<span class="sd">    &gt;&gt;&gt; </span>
+<span class="sd">    &gt;&gt;&gt; # Create no-connect nets for unused pins</span>
+<span class="sd">    &gt;&gt;&gt; nc = NCNet()                        # No-connect net</span>
+<span class="sd">    &gt;&gt;&gt; nc += mcu[&#39;UNUSED1&#39;], mcu[&#39;UNUSED2&#39;] # Mark pins as NC</span>
+<span class="sd">    &gt;&gt;&gt; </span>
+<span class="sd">    &gt;&gt;&gt; # Apply net classes for PCB routing</span>
+<span class="sd">    &gt;&gt;&gt; power_class = NetClass(&#39;Power&#39;, trace_width=0.5, clearance=0.2)</span>
+<span class="sd">    &gt;&gt;&gt; vcc.netclass = power_class          # Apply to power nets</span>
+<span class="sd">    &gt;&gt;&gt; </span>
+<span class="sd">    &gt;&gt;&gt; # Check electrical connectivity</span>
+<span class="sd">    &gt;&gt;&gt; print(f&quot;VCC has {len(vcc)} pins connected&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; print(f&quot;Data net name: {data.name}&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; if vcc.is_attached(mcu[&#39;VCC&#39;]):</span>
+<span class="sd">    ...     print(&quot;MCU VCC pin is connected to VCC net&quot;)</span>
+
+<span class="sd">Advanced Features:</span>
+<span class="sd">    - Multi-segment nets with automatic name merging</span>
+<span class="sd">    - Drive strength propagation and conflict detection</span>
+<span class="sd">    - Hierarchical net traversal for complex connectivity</span>
+<span class="sd">    - Stub net support for schematic generation</span>
+<span class="sd">    - Network object creation for circuit analysis</span>
+<span class="sd">    - XML and netlist export for PCB tools</span>
+<span class="sd">    - Deep copying with automatic name adjustment</span>
+
+<span class="sd">Integration:</span>
+<span class="sd">    Nets integrate seamlessly with other SKiDL components:</span>
+<span class="sd">    - Parts: Automatic connection via pin assignments</span>
+<span class="sd">    - Buses: Multi-bit connection management  </span>
+<span class="sd">    - Circuits: Automatic net registration and naming</span>
+<span class="sd">    - ERC: Built-in electrical rule checking</span>
+<span class="sd">    - Tools: Export to KiCad, Altium, Eagle, etc.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterable</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span><span class="p">,</span> <span class="n">deepcopy</span>
 
 <span class="kn">from</span> <span class="nn">.erc</span> <span class="kn">import</span> <span class="n">dflt_net_erc</span>
 <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
+<span class="kn">from</span> <span class="nn">.design_class</span> <span class="kn">import</span> <span class="n">NetClass</span><span class="p">,</span> <span class="n">NetClasses</span>
 <span class="kn">from</span> <span class="nn">.skidlbaseobj</span> <span class="kn">import</span> <span class="n">SkidlBaseObject</span>
 <span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">expand_buses</span><span class="p">,</span>
@@ -86,24 +167,157 @@
 <span class="nd">@export_to_all</span>
 <span class="k">class</span> <span class="nc">Net</span><span class="p">(</span><span class="n">SkidlBaseObject</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Lists of connected pins are stored as nets using this class.</span>
+<span class="sd">    Represents an electrical connection between component pins in a circuit.</span>
+<span class="sd">    </span>
+<span class="sd">    The Net class is the fundamental building block for electrical connectivity</span>
+<span class="sd">    in SKiDL circuits. It manages collections of pins that are electrically</span>
+<span class="sd">    connected, handles net naming and drive strength management, supports net</span>
+<span class="sd">    classes for PCB routing rules, and provides electrical rule checking (ERC).</span>
+<span class="sd">    </span>
+<span class="sd">    Nets can be created with explicit names or receive automatically generated</span>
+<span class="sd">    names. They support dynamic connection and disconnection of pins, automatic</span>
+<span class="sd">    merging when nets are joined through common pins, and property propagation</span>
+<span class="sd">    across connected net segments.</span>
 
+<span class="sd">    Connection Management:</span>
+<span class="sd">        Nets use the += operator for intuitive pin connection syntax. When pins</span>
+<span class="sd">        are connected to nets, the nets automatically merge if the pins were</span>
+<span class="sd">        previously connected to other nets, creating larger electrically</span>
+<span class="sd">        connected groups.</span>
+
+<span class="sd">    Drive Strength:</span>
+<span class="sd">        Nets automatically track and manage drive strength based on connected</span>
+<span class="sd">        pins. Drive conflicts (multiple strong drivers) are detected and can</span>
+<span class="sd">        be flagged during ERC. The net&#39;s drive strength is always the maximum</span>
+<span class="sd">        of all connected pins.</span>
+
+<span class="sd">    Net Classes:</span>
+<span class="sd">        Nets can be assigned to one or more net classes that define PCB routing</span>
+<span class="sd">        rules, trace widths, clearances, via sizes, and other physical</span>
+<span class="sd">        properties. These are used during PCB layout and design rule checking.</span>
+
+<span class="sd">    Electrical Rules:</span>
+<span class="sd">        Built-in ERC functions check for common electrical problems including</span>
+<span class="sd">        floating inputs, drive conflicts, and design rule violations. Custom</span>
+<span class="sd">        ERC functions can be added for specific design requirements.</span>
+<span class="sd">    </span>
 <span class="sd">    Args:</span>
-<span class="sd">        name: A string with the name of the net. If None or &#39;&#39;, then</span>
-<span class="sd">            a unique net name will be assigned.</span>
-<span class="sd">        circuit: The Circuit object this net belongs to.</span>
-<span class="sd">        *pins_nets_buses: One or more Pin, Net, or Bus objects or</span>
-<span class="sd">            lists/tuples of them to be connected to this net.</span>
-
+<span class="sd">        name (str, optional): Explicit name for the net. If None or empty,</span>
+<span class="sd">            an automatically generated unique name will be assigned using</span>
+<span class="sd">            the NET_PREFIX pattern (e.g., &quot;N$1&quot;, &quot;N$2&quot;, etc.).</span>
+<span class="sd">        circuit (Circuit, optional): The circuit this net belongs to.</span>
+<span class="sd">            If None, the net is added to the default active circuit.</span>
+<span class="sd">        *pins_nets_buses: Initial pins, nets, or buses to connect to this net.</span>
+<span class="sd">            Can be individual objects or collections. Nets will be merged</span>
+<span class="sd">            if pins connect previously separate nets.</span>
+<span class="sd">        </span>
 <span class="sd">    Keyword Args:</span>
-<span class="sd">        attribs: A dictionary of attributes and values to attach to</span>
-<span class="sd">            the Net object.</span>
+<span class="sd">        attribs: Arbitrary keyword=value attributes to attach to the net.</span>
+<span class="sd">            Common attributes include drive strength overrides, ERC flags,</span>
+<span class="sd">            documentation strings, and tool-specific properties.</span>
+<span class="sd">        </span>
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; # Create named nets for power and ground</span>
+<span class="sd">        &gt;&gt;&gt; vcc = Net(&#39;VCC&#39;)           # 3.3V power rail</span>
+<span class="sd">        &gt;&gt;&gt; gnd = Net(&#39;GND&#39;)           # Ground reference</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; # Create anonymous nets (auto-named)</span>
+<span class="sd">        &gt;&gt;&gt; data_net = Net()           # Becomes &quot;N$1&quot; </span>
+<span class="sd">        &gt;&gt;&gt; clock_net = Net()          # Becomes &quot;N$2&quot;</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; # Connect pins during creation</span>
+<span class="sd">        &gt;&gt;&gt; spi_clk = Net(&#39;SPI_CLK&#39;, mcu[&#39;SCK&#39;], flash[&#39;CLK&#39;])</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; # Connect pins after creation</span>
+<span class="sd">        &gt;&gt;&gt; data_net += mcu[&#39;PA0&#39;]     # Connect single pin</span>
+<span class="sd">        &gt;&gt;&gt; data_net += sensor[&#39;OUT&#39;], led[&#39;IN&#39;]  # Connect multiple pins</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; # Apply net classes for PCB routing</span>
+<span class="sd">        &gt;&gt;&gt; power_class = NetClass(&#39;Power&#39;, trace_width=0.5)</span>
+<span class="sd">        &gt;&gt;&gt; vcc.netclass = power_class</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; # Check connections and properties</span>
+<span class="sd">        &gt;&gt;&gt; print(f&quot;VCC net has {len(vcc)} pins&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; print(f&quot;Drive strength: {vcc.drive}&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; if vcc.is_attached(mcu[&#39;VCC&#39;]):</span>
+<span class="sd">        ...     print(&quot;MCU VCC pin is on VCC net&quot;)</span>
+
+<span class="sd">    Advanced Usage:</span>
+<span class="sd">        &gt;&gt;&gt; # Create multiple copies for arrays</span>
+<span class="sd">        &gt;&gt;&gt; data_buses = 8 * Net(&#39;DATA&#39;)  # Creates DATA_0 through DATA_7</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; # Merge nets by connecting common pins</span>
+<span class="sd">        &gt;&gt;&gt; net1 = Net(&#39;SIGNAL_A&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; net2 = Net(&#39;SIGNAL_B&#39;) </span>
+<span class="sd">        &gt;&gt;&gt; shared_pin = mcu[&#39;PA1&#39;]</span>
+<span class="sd">        &gt;&gt;&gt; net1 += shared_pin     # Pin on net1</span>
+<span class="sd">        &gt;&gt;&gt; net2 += shared_pin     # Merges net1 and net2</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; # Use in network analysis</span>
+<span class="sd">        &gt;&gt;&gt; network = net1.create_network()  # Convert to Network object</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; # Export for PCB tools</span>
+<span class="sd">        &gt;&gt;&gt; netlist_data = vcc.generate_netlist_net(&#39;kicad&#39;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Set the default ERC functions for all Net instances.</span>
     <span class="n">erc_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">dflt_net_erc</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">pins_nets_buses</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a new Net object with optional name and connections.</span>
+
+<span class="sd">        Creates a new net with the specified name (or auto-generated name) and</span>
+<span class="sd">        optionally connects it to the provided pins, nets, or buses. The net</span>
+<span class="sd">        is automatically added to the specified circuit or the default circuit.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name (str, optional): Desired name for the net. Must be unique within</span>
+<span class="sd">                the circuit. If None, empty, or conflicts with existing names,</span>
+<span class="sd">                a unique name will be automatically generated using NET_PREFIX.</span>
+<span class="sd">            circuit (Circuit, optional): Target circuit for the net. If None,</span>
+<span class="sd">                the net is added to the currently active default circuit.</span>
+<span class="sd">            *pins_nets_buses: Initial objects to connect to this net:</span>
+<span class="sd">                - Pin objects: Individual pins from parts</span>
+<span class="sd">                - Net objects: Other nets to merge with this one</span>
+<span class="sd">                - Bus objects: Multi-bit collections (expanded to individual nets)</span>
+<span class="sd">                - Lists/tuples: Collections of the above objects</span>
+
+<span class="sd">        Keyword Args:</span>
+<span class="sd">            attribs: Additional attributes to set on the net:</span>
+<span class="sd">                - drive: Override automatic drive strength calculation</span>
+<span class="sd">                - do_erc: Enable/disable ERC checking (default: True)</span>
+<span class="sd">                - stub: Mark as stub net for schematic generation</span>
+<span class="sd">                - Custom attributes for documentation or tool integration</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If attempting to connect objects from different circuits.</span>
+<span class="sd">            TypeError: If attempting to connect unsupported object types.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; # Basic net creation</span>
+<span class="sd">            &gt;&gt;&gt; vcc = Net(&#39;VCC&#39;)                    # Named power net</span>
+<span class="sd">            &gt;&gt;&gt; data = Net()                        # Auto-named net</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Create with initial connections</span>
+<span class="sd">            &gt;&gt;&gt; spi_clk = Net(&#39;SPI_CLK&#39;, mcu[&#39;SCK&#39;], flash[&#39;CLK&#39;])</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Create with attributes</span>
+<span class="sd">            &gt;&gt;&gt; test_net = Net(&#39;TEST&#39;, do_erc=False, drive=pin_drives.STRONG)</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Create in specific circuit</span>
+<span class="sd">            &gt;&gt;&gt; sub_net = Net(&#39;SUB_SIGNAL&#39;, circuit=subcircuit)</span>
+
+<span class="sd">        Automatic Naming:</span>
+<span class="sd">            If no name is provided or the name conflicts with existing nets,</span>
+<span class="sd">            an automatic name is generated using the pattern &quot;N$1&quot;, &quot;N$2&quot;, etc.</span>
+<span class="sd">            This ensures all nets have unique, valid names within their circuit.</span>
+
+<span class="sd">        Circuit Integration:</span>
+<span class="sd">            The new net is automatically registered with its circuit, making it</span>
+<span class="sd">            available for name lookups, ERC checking, and netlist generation.</span>
+<span class="sd">            The circuit maintains references to all nets for global operations.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">pin_drives</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -113,6 +327,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_drive</span> <span class="o">=</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">NONE</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_pins</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_netclasses</span> <span class="o">=</span> <span class="n">NetClasses</span><span class="p">()</span>  <span class="c1"># Net classes directly assigned to this net.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">code</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># This is the net number used in a KiCad netlist file.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stub</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Net is not a stub for schematic generation.</span>
 
@@ -134,13 +349,23 @@
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Any valid Net is True&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return True if this is a valid net.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: Always True for valid nets.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="kc">True</span>
 
     <span class="n">__nonzero__</span> <span class="o">=</span> <span class="fm">__bool__</span>  <span class="c1"># Python 2 compatibility.</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of the pins on this net as a string.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a string representation of the net and its connected pins.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: Net name followed by the pins connected to it, sorted alphabetically.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
         <span class="n">pins</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span>
         <span class="k">return</span> <span class="p">(</span>
@@ -151,48 +376,97 @@
 
     <span class="c1"># Use += to connect to nets.</span>
     <span class="k">def</span> <span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">pins_nets_buses</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the net after connecting other pins, nets, and buses to it.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Connect pins, nets, or buses to this net.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            *pins_nets_buses: One or more Pin, Net, or Bus objects to connect.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Net: Updated net with new connections.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="o">*</span><span class="n">pins_nets_buses</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Attach a net and another part/pin/net in serial.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Connect this net and another object in series.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            obj: Another part, pin, or net to connect in series with this net.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Network: A series network containing this net and the other object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
 
         <span class="k">return</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">obj</span>
 
     <span class="k">def</span> <span class="fm">__rand__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Attach a net and another part/pin/net in serial.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Connect another object and this net in series.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            obj: Another part, pin, or net to connect in series with this net.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Network: A series network containing the other object and this net.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
 
         <span class="k">return</span> <span class="n">obj</span> <span class="o">&amp;</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Attach a net and another part/pin/net in parallel.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Connect this net and another object in parallel.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            obj: Another part, pin, or net to connect in parallel with this net.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Network: A parallel network containing this net and the other object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
 
         <span class="k">return</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">|</span> <span class="n">obj</span>
 
     <span class="k">def</span> <span class="fm">__ror__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Attach a net and another part/pin/net in parallel.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Connect another object and this net in parallel.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            obj: Another part, pin, or net to connect in parallel with this net.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Network: A parallel network containing the other object and this net.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
 
         <span class="k">return</span> <span class="n">obj</span> <span class="o">|</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the number of pins attached to this net.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the number of pins attached to this net.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            int: Number of pins connected to this net.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">ids</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the net if the indices resolve to a single index of 0.</span>
-
+<span class="sd">        </span>
+<span class="sd">        A net only has one element (itself), so the only valid index is 0.</span>
+<span class="sd">        </span>
 <span class="sd">        Args:</span>
-<span class="sd">            ids: A list of indices. These can be individual</span>
-<span class="sd">                numbers, net names, nested lists, or slices.</span>
-
+<span class="sd">            *ids: A list of indices to apply to the net.</span>
+<span class="sd">            </span>
 <span class="sd">        Returns:</span>
-<span class="sd">            The net, otherwise None or raises an Exception.</span>
+<span class="sd">            Net: This net if the index is 0, otherwise None or raises an exception.</span>
+<span class="sd">            </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If multiple indices or a non-zero index is used.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Resolve the indices.</span>
@@ -207,8 +481,8 @@
 
     <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="o">*</span><span class="n">pins_nets_buses</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        You can&#39;t assign to Nets. You must use the += operator.</span>
-
+<span class="sd">        Prohibit direct assignment to nets. Use the += operator instead.</span>
+<span class="sd">        </span>
 <span class="sd">        This method is a work-around that allows the use of the += for making</span>
 <span class="sd">        connections to nets while prohibiting direct assignment. Python</span>
 <span class="sd">        processes something like net[0] += Pin() as follows::</span>
@@ -239,16 +513,39 @@
     <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return an iterator for stepping through the net.</span>
+<span class="sd">        </span>
+<span class="sd">        A net iterator only yields the net itself because a net has only one element.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            iterator: Generator that yields this net.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># You can only iterate a Net one time.</span>
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># Return generator expr.</span>
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_copies</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Make one or more copies of this net.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create one or more copies of this net.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            num_copies (int, optional): Number of copies to create.</span>
+<span class="sd">            circuit (Circuit, optional): Circuit to add the copies to.</span>
+<span class="sd">            **attribs: Additional attributes to apply to the copies.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Net or list[Net]: Single net or list of net copies.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">num_copies</span><span class="o">=</span><span class="n">num_copies</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_copies</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Use multiplication operator to make copies of a net.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create multiple copies of this net using the multiplication operator.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            num_copies (int): Number of copies to create.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list[Net]: List of net copies.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">num_copies</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">num_copies</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">num_copies</span><span class="o">=</span><span class="n">num_copies</span><span class="p">)</span>
@@ -259,8 +556,72 @@
 <a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.get">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the net with the given name from a circuit, or return None.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve an existing net by name from a circuit.</span>
+<span class="sd">        </span>
+<span class="sd">        Searches the specified circuit (or default circuit) for a net with the</span>
+<span class="sd">        given name or alias. This provides a convenient way to access existing</span>
+<span class="sd">        nets without maintaining explicit references, especially useful in</span>
+<span class="sd">        hierarchical designs or when working with imported netlists.</span>
 
+<span class="sd">        The search examines both primary net names and any assigned aliases,</span>
+<span class="sd">        using string matching to find the best match. Case-sensitive exact</span>
+<span class="sd">        matching is performed for reliable net identification.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            name (str): Name or alias of the net to find. Must match exactly</span>
+<span class="sd">                (case-sensitive) either the net&#39;s primary name or one of its</span>
+<span class="sd">                assigned aliases.</span>
+<span class="sd">            circuit (Circuit, optional): Circuit to search for the net.</span>
+<span class="sd">                If None, searches the currently active default circuit.</span>
+<span class="sd">                </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Net or None: The found Net object if a match is found, otherwise</span>
+<span class="sd">                None. For nets with multiple interconnected segments, returns</span>
+<span class="sd">                the first segment found (all segments share the same name).</span>
+<span class="sd">            </span>
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; # Find nets by primary name</span>
+<span class="sd">            &gt;&gt;&gt; vcc = Net.get(&#39;VCC&#39;)                    # Find VCC net</span>
+<span class="sd">            &gt;&gt;&gt; ground = Net.get(&#39;GND&#39;, my_circuit)     # Find in specific circuit</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Find nets by alias</span>
+<span class="sd">            &gt;&gt;&gt; power = Net.get(&#39;POWER_RAIL&#39;)           # Might be alias for VCC</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Handle missing nets gracefully</span>
+<span class="sd">            &gt;&gt;&gt; test_net = Net.get(&#39;TEST_SIGNAL&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; if test_net is None:</span>
+<span class="sd">            ...     print(&quot;Test signal net not found&quot;)</span>
+<span class="sd">            ... else:</span>
+<span class="sd">            ...     print(f&quot;Found net with {len(test_net)} pins&quot;)</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Use in conditional operations</span>
+<span class="sd">            &gt;&gt;&gt; existing_clk = Net.get(&#39;CLK&#39;) or Net(&#39;CLK&#39;)  # Get or create</span>
+
+<span class="sd">        Search Strategy:</span>
+<span class="sd">            The method searches in the following order:</span>
+<span class="sd">            1. Primary net names (exact string match)</span>
+<span class="sd">            2. Net aliases (exact string match)</span>
+<span class="sd">            3. Returns None if no matches found</span>
+
+<span class="sd">        Multi-segment Nets:</span>
+<span class="sd">            For nets composed of multiple interconnected segments (created by</span>
+<span class="sd">            merging nets), the search returns the first segment found. All</span>
+<span class="sd">            segments of a multi-segment net share the same name, so any</span>
+<span class="sd">            segment provides access to the complete electrical group.</span>
+
+<span class="sd">        Circuit Context:</span>
+<span class="sd">            Each circuit maintains its own namespace for net names. The same</span>
+<span class="sd">            name can exist in different circuits without conflict. Always</span>
+<span class="sd">            specify the circuit parameter when working with multiple circuits</span>
+<span class="sd">            to ensure you get the net from the correct context.</span>
+
+<span class="sd">        Performance:</span>
+<span class="sd">            The search is optimized for typical circuit sizes but may be slower</span>
+<span class="sd">            for very large circuits with thousands of nets. Consider maintaining</span>
+<span class="sd">            direct references for frequently accessed nets in performance-critical</span>
+<span class="sd">            applications.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.alias</span> <span class="kn">import</span> <span class="n">Alias</span>
 
         <span class="n">circuit</span> <span class="o">=</span> <span class="n">circuit</span> <span class="ow">or</span> <span class="n">default_circuit</span>
@@ -282,10 +643,87 @@
 
 <div class="viewcode-block" id="Net.fetch">
 <a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.fetch">[docs]</a>
-    <span class="nd">@classmethod</span>
+    <span class="nd">@classmethod</span>  
     <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the net with the given name from a circuit, or create it if not found.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get an existing net by name, or create it if not found.</span>
+<span class="sd">        </span>
+<span class="sd">        This convenience method combines the functionality of get() and __init__()</span>
+<span class="sd">        to provide a &quot;get-or-create&quot; pattern. It first attempts to find an existing</span>
+<span class="sd">        net with the specified name, and if not found, creates a new net with that</span>
+<span class="sd">        name and the provided parameters.</span>
 
+<span class="sd">        This is particularly useful for building circuits where you want to</span>
+<span class="sd">        reference nets by name without worrying about whether they already exist,</span>
+<span class="sd">        such as when importing from netlists or building circuits procedurally.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            name (str): Name of the net to fetch or create. Used for both</span>
+<span class="sd">                the search (if net exists) and the name parameter (if creating).</span>
+<span class="sd">            *args: Additional positional arguments passed to Net() constructor</span>
+<span class="sd">                if creation is needed. Ignored if net already exists.</span>
+<span class="sd">            **attribs: Keyword arguments passed to Net() constructor if creation</span>
+<span class="sd">                is needed. The &#39;circuit&#39; parameter is used for both search</span>
+<span class="sd">                and creation contexts.</span>
+<span class="sd">                </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Net: Either the existing net with the specified name, or a newly</span>
+<span class="sd">                created net if no existing net was found. The returned net</span>
+<span class="sd">                is guaranteed to have the requested name (or a unique variant).</span>
+<span class="sd">            </span>
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; # Basic fetch-or-create pattern</span>
+<span class="sd">            &gt;&gt;&gt; vcc = Net.fetch(&#39;VCC&#39;)                  # Creates if not exists</span>
+<span class="sd">            &gt;&gt;&gt; vcc2 = Net.fetch(&#39;VCC&#39;)                 # Returns existing net</span>
+<span class="sd">            &gt;&gt;&gt; assert vcc is vcc2                     # Same object</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Fetch with creation parameters</span>
+<span class="sd">            &gt;&gt;&gt; power = Net.fetch(&#39;POWER_RAIL&#39;,</span>
+<span class="sd">            ...                   mcu[&#39;VCC&#39;], regulator[&#39;OUT&#39;],  # Initial connections</span>
+<span class="sd">            ...                   do_erc=True,                   # ERC enabled</span>
+<span class="sd">            ...                   circuit=main_circuit)          # Specific circuit</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Use in circuit building</span>
+<span class="sd">            &gt;&gt;&gt; def connect_power(part):</span>
+<span class="sd">            ...     vcc = Net.fetch(&#39;VCC&#39;)              # Always get VCC net</span>
+<span class="sd">            ...     gnd = Net.fetch(&#39;GND&#39;)              # Always get GND net  </span>
+<span class="sd">            ...     vcc += part[&#39;VCC&#39;]                  # Connect power</span>
+<span class="sd">            ...     gnd += part[&#39;GND&#39;]                  # Connect ground</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Procedural circuit construction</span>
+<span class="sd">            &gt;&gt;&gt; for i in range(8):</span>
+<span class="sd">            ...     data_net = Net.fetch(f&#39;DATA_{i}&#39;)</span>
+<span class="sd">            ...     data_net += processor[f&#39;D{i}&#39;], memory[f&#39;D{i}&#39;]</span>
+
+<span class="sd">        Creation vs. Retrieval:</span>
+<span class="sd">            - If a net with the specified name exists: Returns existing net,</span>
+<span class="sd">              ignores all other parameters</span>
+<span class="sd">            - If no net exists: Creates new net with all provided parameters</span>
+<span class="sd">            - Circuit context: Used for both search and creation</span>
+
+<span class="sd">        Name Uniqueness:</span>
+<span class="sd">            If the requested name conflicts with existing nets during creation,</span>
+<span class="sd">            the new net will receive a modified name (e.g., &quot;VCC_1&quot;, &quot;VCC_2&quot;)</span>
+<span class="sd">            to maintain uniqueness within the circuit.</span>
+
+<span class="sd">        Circuit Handling:</span>
+<span class="sd">            The &#39;circuit&#39; parameter serves dual purposes:</span>
+<span class="sd">            - Search context: Where to look for existing nets</span>
+<span class="sd">            - Creation context: Where to create new nets if needed</span>
+<span class="sd">            - If not specified, uses the default circuit for both operations</span>
+
+<span class="sd">        Error Handling:</span>
+<span class="sd">            Creation errors (invalid parameters, circuit conflicts, etc.) are</span>
+<span class="sd">            passed through from the Net() constructor. Retrieval errors are</span>
+<span class="sd">            rare since get() returns None for missing nets rather than raising</span>
+<span class="sd">            exceptions.</span>
+
+<span class="sd">        Use Cases:</span>
+<span class="sd">            - Importing circuits from external netlists</span>
+<span class="sd">            - Procedural circuit generation with named nets</span>
+<span class="sd">            - Building reusable circuit functions that reference standard nets</span>
+<span class="sd">            - Interactive circuit construction where net existence is uncertain</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">circuit</span> <span class="o">=</span> <span class="n">attribs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;circuit&quot;</span><span class="p">,</span> <span class="n">default_circuit</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="n">circuit</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">cls</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">)</span></div>
 
@@ -293,7 +731,13 @@
 <div class="viewcode-block" id="Net.get_pins">
 <a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.get_pins">[docs]</a>
     <span class="k">def</span> <span class="nf">get_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of pins attached to this net.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get all pins connected to this net.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list: List of pins attached to this net, including pins attached</span>
+<span class="sd">                 to electrically connected segments.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_traverse</span><span class="p">()</span><span class="o">.</span><span class="n">pins</span></div>
 
@@ -301,7 +745,12 @@
 <div class="viewcode-block" id="Net.get_nets">
 <a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.get_nets">[docs]</a>
     <span class="k">def</span> <span class="nf">get_nets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of nets attached to this net, including this net.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get all connected net segments including this one.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list: List of all net segments connected to this net, including this net.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_traverse</span><span class="p">()</span><span class="o">.</span><span class="n">nets</span></div>
 
@@ -309,7 +758,18 @@
 <div class="viewcode-block" id="Net.is_attached">
 <a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.is_attached">[docs]</a>
     <span class="k">def</span> <span class="nf">is_attached</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin_net_bus</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return true if the pin, net or bus is attached to this one.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if a pin, net, or bus is electrically connected to this net.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            pin_net_bus: A Pin, Net, or Bus object to check for attachment.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the object is electrically connected to this net.</span>
+<span class="sd">            </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            TypeError: If the given object is not a Pin, Net, or Bus.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pin_net_bus</span><span class="p">,</span> <span class="n">Net</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">pin_net_bus</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pin_net_bus</span><span class="p">,</span> <span class="n">Pin</span><span class="p">):</span>
@@ -320,7 +780,7 @@
                     <span class="k">return</span> <span class="kc">True</span>
             <span class="k">return</span> <span class="kc">False</span>
         <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
-            <span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;Nets can&#39;t be attached to </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">pin_net_bus</span><span class="p">))</span>
+            <span class="ne">TypeError</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Nets can&#39;t be attached to </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">pin_net_bus</span><span class="p">)</span><span class="si">}</span><span class="s2">!&quot;</span>
         <span class="p">)</span></div>
 
 
@@ -328,10 +788,13 @@
 <a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.is_movable">[docs]</a>
     <span class="k">def</span> <span class="nf">is_movable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return true if the net is movable to another circuit.</span>
-
-<span class="sd">        A net is movable if it&#39;s not part of a Circuit or if there are no pins</span>
+<span class="sd">        Check if the net can be moved to another circuit.</span>
+<span class="sd">        </span>
+<span class="sd">        A net is movable if it&#39;s not part of a Circuit or if it has no pins</span>
 <span class="sd">        attached to it.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the net is movable.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="kn">from</span> <span class="nn">.circuit</span> <span class="kn">import</span> <span class="n">Circuit</span>
@@ -342,12 +805,19 @@
 <div class="viewcode-block" id="Net.is_implicit">
 <a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.is_implicit">[docs]</a>
     <span class="k">def</span> <span class="nf">is_implicit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return true if the net name is implicit.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if the net has an implicitly generated name.</span>
+<span class="sd">        </span>
+<span class="sd">        Implicit net names start with NET_PREFIX or BUS_PREFIX.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the net name is implicitly generated.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="kn">from</span> <span class="nn">.bus</span> <span class="kn">import</span> <span class="n">BUS_PREFIX</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
-        <span class="n">prefix_re</span> <span class="o">=</span> <span class="s2">&quot;(</span><span class="si">{}</span><span class="s2">|</span><span class="si">{}</span><span class="s2">)+&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">NET_PREFIX</span><span class="p">),</span> <span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">BUS_PREFIX</span><span class="p">))</span>
+        <span class="n">prefix_re</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">NET_PREFIX</span><span class="p">)</span><span class="si">}</span><span class="s2">|</span><span class="si">{</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">BUS_PREFIX</span><span class="p">)</span><span class="si">}</span><span class="s2">)+&quot;</span>
         <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">prefix_re</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
 
 
@@ -355,29 +825,25 @@
 <a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.copy">[docs]</a>
     <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_copies</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Make zero or more copies of this net.</span>
-
+<span class="sd">        Create one or more copies of this net.</span>
+<span class="sd">        </span>
 <span class="sd">        Args:</span>
-<span class="sd">            num_copies: Number of copies to make of this net.</span>
-
-<span class="sd">        Keyword Args:</span>
-<span class="sd">            attribs: Name/value pairs for setting attributes for the copy.</span>
-
+<span class="sd">            num_copies (int, optional): Number of copies to create.</span>
+<span class="sd">                If None, a single copy will be made.</span>
+<span class="sd">            circuit (Circuit, optional): The circuit the copies will be added to.</span>
+<span class="sd">            **attribs: Attributes to apply to the copies.</span>
+<span class="sd">                </span>
 <span class="sd">        Returns:</span>
-<span class="sd">            A list of Net copies or a Net if num_copies==1.</span>
-
+<span class="sd">            Net or list[Net]: A single Net copy or list of copies.</span>
+<span class="sd">            </span>
 <span class="sd">        Raises:</span>
-<span class="sd">            Exception if the requested number of copies is a non-integer or negative.</span>
-
-<span class="sd">        Notes:</span>
-<span class="sd">            An instance of a net can be copied just by calling it like so::</span>
-
-<span class="sd">                n = Net(&#39;A&#39;)    # Create a net.</span>
-<span class="sd">                n_copy = n()    # Copy the net.</span>
-
-<span class="sd">            You can also use the multiplication operator to make copies::</span>
-
-<span class="sd">                n = 10 * Net(&#39;A&#39;)  # Create an array of nets.</span>
+<span class="sd">            ValueError: If num_copies is not a non-negative integer.</span>
+<span class="sd">            ValueError: If trying to copy a net that already has pins attached.</span>
+<span class="sd">            </span>
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; n = Net(&#39;A&#39;)    # Create a net.</span>
+<span class="sd">            &gt;&gt;&gt; n_copy = n()    # Copy the net.</span>
+<span class="sd">            &gt;&gt;&gt; n_array = 10 * Net(&#39;A&#39;)  # Create an array of 10 nets.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
@@ -396,18 +862,22 @@
             <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                 <span class="ne">ValueError</span><span class="p">,</span>
                 <span class="s2">&quot;Can&#39;t make a non-integer number &quot;</span>
-                <span class="s2">&quot;(</span><span class="si">{}</span><span class="s2">) of copies of a net!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_copies</span><span class="p">),</span>
+                <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">num_copies</span><span class="si">}</span><span class="s2">) of copies of a net!&quot;</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">num_copies</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                 <span class="ne">ValueError</span><span class="p">,</span>
                 <span class="s2">&quot;Can&#39;t make a negative number &quot;</span>
-                <span class="s2">&quot;(</span><span class="si">{}</span><span class="s2">) of copies of a net!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_copies</span><span class="p">),</span>
+                <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">num_copies</span><span class="si">}</span><span class="s2">) of copies of a net!&quot;</span><span class="p">,</span>
             <span class="p">)</span>
 
         <span class="c1"># If circuit is not specified, then create the copies within circuit of the</span>
         <span class="c1"># original, or in the default circuit.</span>
         <span class="n">circuit</span> <span class="o">=</span> <span class="n">circuit</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span> <span class="ow">or</span> <span class="n">default_circuit</span>
+
+        <span class="c1"># If a name is not specified, then copy the name from the original.</span>
+        <span class="c1"># This will get disambiguated when the copy is created.</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">attribs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
         <span class="c1"># Can&#39;t make a distinct copy of a net which already has pins on it</span>
         <span class="c1"># because what happens if a pin is connected to the copy? Then we have</span>
@@ -419,33 +889,25 @@
                 <span class="s2">&quot;Can&#39;t make copies of a net that already has &quot;</span> <span class="s2">&quot;pins attached to it!&quot;</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="c1"># Create a list of copies of this net.</span>
+        <span class="c1"># Skip some Net attributes that would cause an infinite recursion exception</span>
+        <span class="c1"># or net naming clashes.</span>
+        <span class="n">skip_attrs</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;circuit&quot;</span><span class="p">,</span> <span class="s2">&quot;traversal&quot;</span><span class="p">,</span> <span class="s2">&quot;_name&quot;</span><span class="p">,</span> <span class="s2">&quot;_aliases&quot;</span><span class="p">)</span>
+        
         <span class="n">copies</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_copies</span><span class="p">):</span>
 
             <span class="c1"># Create a new net to store the copy.</span>
-            <span class="n">cpy</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="n">circuit</span><span class="o">=</span><span class="n">circuit</span><span class="p">)</span>
+            <span class="n">cpy</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="n">circuit</span><span class="p">)</span>
 
-            <span class="c1"># Deep copy attributes from the source net to the copy.</span>
-            <span class="c1"># Skip some attributes that would cause an infinite recursion exception.</span>
-            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;circuit&quot;</span><span class="p">,</span> <span class="s2">&quot;traversal&quot;</span><span class="p">]:</span>
-                    <span class="nb">setattr</span><span class="p">(</span><span class="n">cpy</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
-
-            <span class="c1"># Add other attributes to the net copy.</span>
-            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">attribs</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
-                    <span class="k">try</span><span class="p">:</span>
-                        <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-                    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
-                        <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
-                            <span class="ne">ValueError</span><span class="p">,</span>
-                            <span class="p">(</span>
-                                <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> copies of net </span><span class="si">{}</span><span class="s2"> were requested, but too &quot;</span>
-                                <span class="s2">&quot;few elements in attribute </span><span class="si">{}</span><span class="s2">!&quot;</span>
-                            <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_copies</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">k</span><span class="p">),</span>
-                        <span class="p">)</span>
-                <span class="nb">setattr</span><span class="p">(</span><span class="n">cpy</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="c1"># Copy stuff from the original net to the copy.</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">skip_attrs</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                    <span class="c1"># Copy the list with shallow copies of its items to the copy.</span>
+                    <span class="nb">setattr</span><span class="p">(</span><span class="n">cpy</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">copy</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">setattr</span><span class="p">(</span><span class="n">cpy</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
 
             <span class="c1"># Place the copy into the list of copies.</span>
             <span class="n">copies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cpy</span><span class="p">)</span>
@@ -460,23 +922,81 @@
 <a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.connect">[docs]</a>
     <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">pins_nets_buses</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return the net after connecting other pins, nets, and buses to it.</span>
+<span class="sd">        Connect pins, nets, and buses to this net, creating electrical connections.</span>
+<span class="sd">        </span>
+<span class="sd">        This is the primary method for building electrical connectivity in SKiDL</span>
+<span class="sd">        circuits. It handles connecting individual pins, merging nets, and expanding</span>
+<span class="sd">        buses into individual connections. When nets are connected through common</span>
+<span class="sd">        pins, they automatically merge into larger electrically connected groups.</span>
 
+<span class="sd">        The method supports the += operator for intuitive connection syntax and</span>
+<span class="sd">        handles all the complexity of maintaining electrical connectivity, drive</span>
+<span class="sd">        strength propagation, and net class inheritance across connected segments.</span>
+<span class="sd">        </span>
 <span class="sd">        Args:</span>
-<span class="sd">            *pins_nets_buses: One or more Pin, Net, or Bus objects or</span>
-<span class="sd">                lists/tuples of them to be connected to this net.</span>
+<span class="sd">            *pins_nets_buses: Objects to connect to this net:</span>
+<span class="sd">                - Pin: Individual component pins to attach</span>
+<span class="sd">                - Net: Other nets to merge with this one  </span>
+<span class="sd">                - Bus: Multi-bit collections (individual nets extracted)</span>
+<span class="sd">                - Lists/tuples: Collections of the above objects</span>
+<span class="sd">                - None values: Ignored for programming convenience</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            The updated net with the new connections.</span>
+<span class="sd">            Net: This net object (supports method chaining and += operator).</span>
+<span class="sd">            </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If attempting to connect nets from different circuits.</span>
+<span class="sd">                All connected objects must belong to the same circuit context.</span>
+<span class="sd">            ValueError: If attempting to connect parts from different circuits.</span>
+<span class="sd">                Component pins must be from parts in the same circuit.</span>
+<span class="sd">            TypeError: If attempting to connect unsupported object types.</span>
+<span class="sd">                Only Pin, Net, and Bus objects can be connected to nets.</span>
+<span class="sd">            </span>
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; # Connect individual pins</span>
+<span class="sd">            &gt;&gt;&gt; vcc = Net(&#39;VCC&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; vcc.connect(mcu[&#39;VCC&#39;], regulator[&#39;OUT&#39;])</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Use += operator (equivalent to connect)</span>
+<span class="sd">            &gt;&gt;&gt; gnd = Net(&#39;GND&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; gnd += mcu[&#39;GND&#39;], regulator[&#39;GND&#39;], capacitor[2]</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Connect nets (automatic merging)</span>
+<span class="sd">            &gt;&gt;&gt; signal_a = Net(&#39;SIG_A&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; signal_b = Net(&#39;SIG_B&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; shared_pin = buffer[&#39;OUT&#39;]</span>
+<span class="sd">            &gt;&gt;&gt; signal_a += shared_pin        # Pin on signal_a</span>
+<span class="sd">            &gt;&gt;&gt; signal_b += shared_pin        # Merges signal_a and signal_b</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Connect buses (expanded automatically)</span>
+<span class="sd">            &gt;&gt;&gt; data_bus = Bus(&#39;DATA&#39;, 8)     # 8-bit bus</span>
+<span class="sd">            &gt;&gt;&gt; control_net = Net(&#39;CTRL&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; control_net += data_bus[0]    # Connect to bit 0 of bus</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Chain connections</span>
+<span class="sd">            &gt;&gt;&gt; clock_net = Net(&#39;CLK&#39;).connect(mcu[&#39;CLK&#39;], rtc[&#39;CLK_OUT&#39;])</span>
 
-<span class="sd">        Notes:</span>
-<span class="sd">            Connections to nets can also be made using the += operator like so::</span>
+<span class="sd">        Net Merging:</span>
+<span class="sd">            When connecting nets that already have pins attached, the nets</span>
+<span class="sd">            automatically merge into a single electrical group. All properties</span>
+<span class="sd">            like drive strength and net classes are combined according to</span>
+<span class="sd">            precedence rules (maximum drive, class union, etc.).</span>
 
-<span class="sd">                atmega = Part(&#39;atmel&#39;, &#39;ATMEGA16U2&#39;)</span>
-<span class="sd">                net = Net()</span>
-<span class="sd">                net += atmega[1]  # Connects pin 1 of chip to the net.</span>
+<span class="sd">        Drive Strength:</span>
+<span class="sd">            Connected pins contribute their drive strength to the net. The net&#39;s</span>
+<span class="sd">            overall drive is the maximum of all connected pins. Drive conflicts</span>
+<span class="sd">            (multiple strong drivers) are detected during ERC checking.</span>
+
+<span class="sd">        Net Classes:</span>
+<span class="sd">            When nets are merged, their net classes are combined. If conflicting</span>
+<span class="sd">            net classes are detected, warnings may be issued depending on the</span>
+<span class="sd">            specific class definitions and priority levels.</span>
+
+<span class="sd">        Circuit Validation:</span>
+<span class="sd">            All connected objects must belong to the same circuit. Cross-circuit</span>
+<span class="sd">            connections are not allowed and will raise ValueError exceptions.</span>
+<span class="sd">            This maintains circuit encapsulation and prevents invalid topologies.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">PhantomPin</span><span class="p">,</span> <span class="n">Pin</span>
 
         <span class="k">def</span> <span class="nf">join</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
@@ -490,13 +1010,13 @@
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">NCNet</span><span class="p">):</span>
                 <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">ValueError</span><span class="p">,</span>
-                    <span class="s2">&quot;Can&#39;t join with a no-connect net </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
+                    <span class="sa">f</span><span class="s2">&quot;Can&#39;t join with a no-connect net </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">,</span>
                 <span class="p">)</span>
 
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">NCNet</span><span class="p">):</span>
                 <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">ValueError</span><span class="p">,</span>
-                    <span class="s2">&quot;Can&#39;t join with a no-connect net </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
+                    <span class="sa">f</span><span class="s2">&quot;Can&#39;t join with a no-connect net </span><span class="si">{</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">,</span>
                 <span class="p">)</span>
 
             <span class="c1"># No need to do anything if merging a net with itself.</span>
@@ -529,8 +1049,8 @@
             <span class="c1"># Update the net class of the joined nets. The following two</span>
             <span class="c1"># operations will set each net&#39;s class to the same value, or</span>
             <span class="c1"># throw an error if they are in different classes.</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">netclass</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">netclass</span>
-            <span class="n">net</span><span class="o">.</span><span class="n">netclass</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">netclass</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">netclasses</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">netclasses</span>
+            <span class="n">net</span><span class="o">.</span><span class="n">netclasses</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">netclasses</span>
 
         <span class="k">def</span> <span class="nf">connect_pin</span><span class="p">(</span><span class="n">pin</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;Connect a pin to this net.&quot;&quot;&quot;</span>
@@ -553,38 +1073,28 @@
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                         <span class="ne">ValueError</span><span class="p">,</span>
-                        <span class="s2">&quot;Can&#39;t attach nets in different circuits (</span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">)!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                            <span class="n">pn</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">name</span>
-                        <span class="p">),</span>
+                        <span class="sa">f</span><span class="s2">&quot;Can&#39;t attach nets in different circuits (</span><span class="si">{</span><span class="n">pn</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">)!&quot;</span>
                     <span class="p">)</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pn</span><span class="p">,</span> <span class="n">Pin</span><span class="p">):</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">pn</span><span class="o">.</span><span class="n">part</span> <span class="ow">or</span> <span class="n">pn</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">circuit</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="p">:</span>
                     <span class="k">if</span> <span class="ow">not</span> <span class="n">pn</span><span class="o">.</span><span class="n">part</span><span class="p">:</span>
                         <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                            <span class="s2">&quot;Attaching non-part Pin </span><span class="si">{}</span><span class="s2"> to a Net </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                                <span class="n">pn</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
-                            <span class="p">)</span>
+                            <span class="sa">f</span><span class="s2">&quot;Attaching non-part Pin </span><span class="si">{</span><span class="n">pn</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> to a Net </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.&quot;</span>
                         <span class="p">)</span>
                     <span class="n">connect_pin</span><span class="p">(</span><span class="n">pn</span><span class="p">)</span>
                 <span class="k">elif</span> <span class="ow">not</span> <span class="n">pn</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">circuit</span><span class="p">:</span>
                     <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                        <span class="s2">&quot;Attaching part template Pin </span><span class="si">{}</span><span class="s2"> to a Net </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                            <span class="n">pn</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
-                        <span class="p">)</span>
+                        <span class="sa">f</span><span class="s2">&quot;Attaching part template Pin </span><span class="si">{</span><span class="n">pn</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> to a Net </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.&quot;</span>
                     <span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                         <span class="ne">ValueError</span><span class="p">,</span>
-                        <span class="s2">&quot;Can&#39;t attach a part to a net in different circuits (</span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">)!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                            <span class="n">pn</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">name</span>
-                        <span class="p">),</span>
+                        <span class="sa">f</span><span class="s2">&quot;Can&#39;t attach a part to a net in different circuits (</span><span class="si">{</span><span class="n">pn</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">)!&quot;</span>
                     <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">TypeError</span><span class="p">,</span>
-                    <span class="s2">&quot;Cannot attach non-Pin/non-Net </span><span class="si">{}</span><span class="s2"> to Net </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                        <span class="nb">type</span><span class="p">(</span><span class="n">pn</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
-                    <span class="p">),</span>
+                    <span class="sa">f</span><span class="s2">&quot;Cannot attach non-Pin/non-Net </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">pn</span><span class="p">)</span><span class="si">}</span><span class="s2"> to Net </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">,</span>
                 <span class="p">)</span>
 
         <span class="c1"># If something has been connected to a net, then recompute its traversal so the</span>
@@ -608,7 +1118,12 @@
 <div class="viewcode-block" id="Net.disconnect">
 <a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.disconnect">[docs]</a>
     <span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove the pin from this net but not any other nets it&#39;s attached to.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove a pin from this net but not from other nets it&#39;s attached to.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            pin (Pin): The pin to disconnect from this net.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_pins</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
@@ -625,7 +1140,13 @@
 <div class="viewcode-block" id="Net.merge_names">
 <a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.merge_names">[docs]</a>
     <span class="k">def</span> <span class="nf">merge_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;For multi-segment nets, select a common name for all the segments.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        For multi-segment nets, select a common name for all segments.</span>
+<span class="sd">        </span>
+<span class="sd">        When nets are joined, they can have different names. This method</span>
+<span class="sd">        chooses the best name among connected net segments and assigns</span>
+<span class="sd">        it to all of them.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">def</span> <span class="nf">select_name</span><span class="p">(</span><span class="n">nets</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;Return the net with the best name among a list of nets.&quot;&quot;&quot;</span>
@@ -651,9 +1172,7 @@
                 <span class="k">if</span> <span class="n">fixed0</span> <span class="ow">and</span> <span class="n">fixed1</span><span class="p">:</span>
                     <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                         <span class="ne">ValueError</span><span class="p">,</span>
-                        <span class="s2">&quot;Cannot merge two nets with fixed names: </span><span class="si">{}</span><span class="s2"> and </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                            <span class="n">name0</span><span class="p">,</span> <span class="n">name1</span>
-                        <span class="p">),</span>
+                        <span class="sa">f</span><span class="s2">&quot;Cannot merge two nets with fixed names: </span><span class="si">{</span><span class="n">name0</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">name1</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">,</span>
                     <span class="p">)</span>
                 <span class="k">if</span> <span class="n">nets</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">is_implicit</span><span class="p">():</span>
                     <span class="k">return</span> <span class="n">nets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -661,9 +1180,7 @@
                     <span class="k">return</span> <span class="n">nets</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
                 <span class="k">if</span> <span class="n">name0</span> <span class="o">!=</span> <span class="n">name1</span><span class="p">:</span>
                     <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                        <span class="s2">&quot;Merging two named nets (</span><span class="si">{name0}</span><span class="s2"> and </span><span class="si">{name1}</span><span class="s2">) into </span><span class="si">{name0}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                            <span class="o">**</span><span class="nb">locals</span><span class="p">()</span>
-                        <span class="p">)</span>
+                        <span class="sa">f</span><span class="s2">&quot;Merging two named nets (</span><span class="si">{</span><span class="n">name0</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">name1</span><span class="si">}</span><span class="s2">) into </span><span class="si">{</span><span class="n">name0</span><span class="si">}</span><span class="s2">.&quot;</span>
                     <span class="p">)</span>
                 <span class="k">return</span> <span class="n">nets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
@@ -687,7 +1204,12 @@
 <div class="viewcode-block" id="Net.create_network">
 <a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.create_network">[docs]</a>
     <span class="k">def</span> <span class="nf">create_network</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a network from a single net.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a Network object containing just this net.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Network: A network containing this net.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
 
         <span class="n">ntwk</span> <span class="o">=</span> <span class="n">Network</span><span class="p">()</span>
@@ -700,9 +1222,12 @@
     <span class="k">def</span> <span class="nf">generate_netlist_net</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate the net information for inclusion in a netlist.</span>
-
+<span class="sd">        </span>
 <span class="sd">        Args:</span>
-<span class="sd">            tool: The format for the netlist file (e.g., KICAD).</span>
+<span class="sd">            tool (str, optional): The format for the netlist file (e.g., KICAD).</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The net information formatted for the specified tool.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="kn">import</span> <span class="nn">skidl</span>
@@ -725,9 +1250,12 @@
     <span class="k">def</span> <span class="nf">generate_xml_net</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate the net information for inclusion in an XML file.</span>
-
+<span class="sd">        </span>
 <span class="sd">        Args:</span>
-<span class="sd">            tool: The format for the XML file (e.g., KICAD).</span>
+<span class="sd">            tool (str, optional): The format for the XML file (e.g., KICAD).</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The net information formatted as XML for the specified tool.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="kn">import</span> <span class="nn">skidl</span>
@@ -746,7 +1274,15 @@
 
 
     <span class="k">def</span> <span class="nf">_traverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return all the nets and pins attached to this net, including itself.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Traverse all nets and pins connected to this net.</span>
+<span class="sd">        </span>
+<span class="sd">        This method builds a complete list of all pins and nets that are</span>
+<span class="sd">        electrically connected to this net, either directly or indirectly.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Traversal: A namedtuple containing lists of all connected nets and pins.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">traversal</span>  <span class="c1"># Return pre-existing traversal.</span>
@@ -792,22 +1328,36 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return width of a Net, which is always 1.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the width of the net.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            int: Always 1 for a Net object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="mi">1</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get, set and delete the name of this net.</span>
-
+<span class="sd">        Get or set the name of this net.</span>
+<span class="sd">        </span>
 <span class="sd">        When setting the net name, if another net with the same name</span>
-<span class="sd">        is found, the name for this net is adjusted to make it unique.</span>
+<span class="sd">        exists in the circuit, the name for this net will be adjusted</span>
+<span class="sd">        to make it unique.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: Net name.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
 
     <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the name of this net.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            name (str): The new name for the net.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
         <span class="c1"># Remove the existing name so it doesn&#39;t cause a collision if the</span>
         <span class="c1"># object is renamed with its existing name.</span>
@@ -815,94 +1365,219 @@
 
         <span class="c1"># Now name the object with the given name or some variation</span>
         <span class="c1"># of it that doesn&#39;t collide with anything else in the list.</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span> <span class="n">get_unique_name</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">nets</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">NET_PREFIX</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
         <span class="p">)</span>
 
     <span class="nd">@name</span><span class="o">.</span><span class="n">deleter</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete the net name.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">fdel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">fdel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">pins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the pins attached to this net.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list: List of pins attached to this net.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pins</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">nets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get all net segments connected to this net.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list: List of all net segments electrically connected to this net.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_nets</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">netclass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">netclasses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get, set and delete the net class assigned to this net.</span>
+<span class="sd">        Get or set the net class(es) assigned to this net and connected segments.</span>
+<span class="sd">        </span>
+<span class="sd">        Net classes define PCB routing rules including trace widths, clearances,</span>
+<span class="sd">        via sizes, and electrical properties. They control how nets are routed</span>
+<span class="sd">        during PCB layout and enforce design constraints. A net can be assigned</span>
+<span class="sd">        to multiple net classes for complex routing requirements.</span>
 
-<span class="sd">        If not net class is set, then reading the net class returns None.</span>
+<span class="sd">        When setting net classes, the assignment automatically propagates to all</span>
+<span class="sd">        electrically connected net segments, ensuring consistent routing rules</span>
+<span class="sd">        across the entire electrical connection. This maintains design integrity</span>
+<span class="sd">        when nets are merged or split during circuit construction.</span>
 
-<span class="sd">        You can&#39;t overwrite the net class of a net once it&#39;s set.</span>
-<span class="sd">        You&#39;ll have to delete it and then set it to a new value.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            NetClasses: Container holding zero or more NetClass objects.</span>
+<span class="sd">            An empty list indicates no net class assignments. The container</span>
+<span class="sd">            supports iteration, indexing, and membership testing for</span>
+<span class="sd">            convenient access to assigned classes.</span>
 
-<span class="sd">        Also, assigning a net class of None will have no affect on the</span>
-<span class="sd">        existing net class of a net.</span>
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; # Check current net class assignments</span>
+<span class="sd">            &gt;&gt;&gt; power_net = Net(&#39;VCC&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; print(len(power_net.netclass))          # 0 (no classes assigned)</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Assign single net class</span>
+<span class="sd">            &gt;&gt;&gt; power_class = NetClass(&#39;Power&#39;, trace_width=0.5, clearance=0.2)</span>
+<span class="sd">            &gt;&gt;&gt; power_net.netclass = power_class</span>
+<span class="sd">            &gt;&gt;&gt; print(len(power_net.netclass))          # 1</span>
+<span class="sd">            &gt;&gt;&gt; print(power_net.netclass[0].name)       # &#39;Power&#39;</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Assign multiple net classes</span>
+<span class="sd">            &gt;&gt;&gt; critical_class = NetClass(&#39;Critical&#39;, priority=1)</span>
+<span class="sd">            &gt;&gt;&gt; power_net.netclass = power_class, critical_class</span>
+<span class="sd">            &gt;&gt;&gt; print(len(power_net.netclass))          # 2</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Check for specific class membership</span>
+<span class="sd">            &gt;&gt;&gt; if power_class in power_net.netclass:</span>
+<span class="sd">            ...     print(f&quot;Net uses {power_class.name} routing rules&quot;)</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Iterate through assigned classes</span>
+<span class="sd">            &gt;&gt;&gt; for nc in power_net.netclass:</span>
+<span class="sd">            ...     print(f&quot;Class: {nc.name}, Width: {nc.trace_width}mm&quot;)</span>
+
+<span class="sd">        Multi-segment Propagation:</span>
+<span class="sd">            When nets are electrically connected through shared pins, all</span>
+<span class="sd">            segments automatically share the same net class assignments:</span>
+<span class="sd">            </span>
+<span class="sd">            &gt;&gt;&gt; net1 = Net(&#39;SIG_A&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; net2 = Net(&#39;SIG_B&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; net1.netclass = power_class          # Assign to net1</span>
+<span class="sd">            &gt;&gt;&gt; shared_pin = mcu[&#39;PA1&#39;]</span>
+<span class="sd">            &gt;&gt;&gt; net1 += shared_pin                   # Connect pin to net1</span>
+<span class="sd">            &gt;&gt;&gt; net2 += shared_pin                   # Merges nets, shares classes</span>
+<span class="sd">            &gt;&gt;&gt; print(net2.netclass == net1.netclass)  # True</span>
+
+<span class="sd">        Class Conflict Resolution:</span>
+<span class="sd">            Multiple net classes with conflicting properties are resolved based</span>
+<span class="sd">            on priority levels and tool-specific rules. Classes with higher</span>
+<span class="sd">            priority numbers typically override lower priority classes:</span>
+<span class="sd">            </span>
+<span class="sd">            &gt;&gt;&gt; low_priority = NetClass(&#39;Critical&#39;, priority=1, trace_width=0.8)</span>
+<span class="sd">            &gt;&gt;&gt; high_priority = NetClass(&#39;Standard&#39;, priority=10, trace_width=0.3)</span>
+<span class="sd">            &gt;&gt;&gt; signal_net.netclass = high_priority, low_priority</span>
+<span class="sd">            &gt;&gt;&gt; # PCB tool will likely use 0.8mm width from high_priority class</span>
+
+<span class="sd">        Assignment Operations:</span>
+<span class="sd">            Net class assignments are additive by default - new classes are</span>
+<span class="sd">            added to existing assignments rather than replacing them:</span>
+<span class="sd">            </span>
+<span class="sd">            &gt;&gt;&gt; signal_net.netclass = class1         # Assign first class</span>
+<span class="sd">            &gt;&gt;&gt; signal_net.netclass = class2         # Add second class</span>
+<span class="sd">            &gt;&gt;&gt; print(len(signal_net.netclass))      # 2 (both classes assigned)</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # To replace all classes, delete first</span>
+<span class="sd">            &gt;&gt;&gt; del signal_net.netclass              # Clear all classes</span>
+<span class="sd">            &gt;&gt;&gt; signal_net.netclass = new_class      # Assign replacement</span>
+
+<span class="sd">        PCB Tool Integration:</span>
+<span class="sd">            Net class assignments are exported during netlist generation and</span>
+<span class="sd">            become design rules in PCB layout tools. Different tools handle</span>
+<span class="sd">            multiple classes differently - some merge properties, others use</span>
+<span class="sd">            priority-based selection, and some apply all rules simultaneously.</span>
+
+<span class="sd">        Design Rule Checking:</span>
+<span class="sd">            Net classes enable automated design rule checking (DRC) during</span>
+<span class="sd">            PCB layout. Violations of trace width, clearance, or via size</span>
+<span class="sd">            rules generate errors that must be resolved before manufacturing.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
-        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_netclass&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
-    <span class="nd">@netclass</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">netclass</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netclass</span><span class="p">):</span>
+        <span class="c1"># Add all the net classes for all the hierarchical nodes surrounding this net.</span>
+        <span class="n">total_netclasses</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">netclasses</span>
+        
+        <span class="c1"># Add net classes directly assigned to all the nets comprising this one.</span>
+        <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
+            <span class="n">total_netclasses</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">_netclasses</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">total_netclasses</span>
+
+    <span class="nd">@netclasses</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">netclasses</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">netclasses</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Assign one or more net classes to this net and all connected segments.</span>
+<span class="sd">        </span>
+<span class="sd">        Sets the net class assignment(s) for this net, automatically propagating</span>
+<span class="sd">        the assignment to all electrically connected net segments. This ensures</span>
+<span class="sd">        consistent routing rules across the entire electrical connection.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            *netclasses: One or more NetClass objects or NetClasses objects</span>
+<span class="sd">                to assign to this net. Multiple classes can be assigned</span>
+<span class="sd">                simultaneously by passing multiple arguments.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; power_net = Net(&#39;VCC&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; power_class = NetClass(&#39;Power&#39;, trace_width=0.5)</span>
+<span class="sd">            &gt;&gt;&gt; critical_class = NetClass(&#39;Critical&#39;, priority=1)</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Assign single class</span>
+<span class="sd">            &gt;&gt;&gt; power_net.netclass = power_class</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Assign multiple classes</span>
+<span class="sd">            &gt;&gt;&gt; power_net.netclass = power_class, critical_class</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Assign from list</span>
+<span class="sd">            &gt;&gt;&gt; class_list = NetClasses(power_class, critical_class)</span>
+<span class="sd">            &gt;&gt;&gt; power_net.netclass = class_list</span>
+
+<span class="sd">        Propagation:</span>
+<span class="sd">            The assignment automatically propagates to all nets that are</span>
+<span class="sd">            electrically connected to this net through shared pins. This</span>
+<span class="sd">            maintains consistency across multi-segment nets.</span>
+
+<span class="sd">        Additive Behavior:</span>
+<span class="sd">            Net class assignments are additive - existing classes are retained</span>
+<span class="sd">            when new classes are added. To replace all classes, delete the</span>
+<span class="sd">            existing assignment first:</span>
+<span class="sd">            &gt;&gt;&gt; del power_net.netclass      # Clear existing classes</span>
+<span class="sd">            &gt;&gt;&gt; power_net.netclass = new_class  # Assign new class</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
+            <span class="n">net</span><span class="o">.</span><span class="n">_netclasses</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">netclasses</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="n">net</span><span class="o">.</span><span class="n">circuit</span><span class="p">)</span>
 
-        <span class="c1"># Just leave the existing net class at its current value if setting the</span>
-        <span class="c1"># net class to None. This is useful when merging nets because you just</span>
-        <span class="c1"># assign each net the net class of the other and they should both get</span>
-        <span class="c1"># the same net class (either None or the value of the net class of one,</span>
-        <span class="c1"># the other, or both.)</span>
-        <span class="k">if</span> <span class="n">netclass</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span>
+    <span class="nd">@netclasses</span><span class="o">.</span><span class="n">deleter</span>
+    <span class="k">def</span> <span class="nf">netclasses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove all net class assignments from this net and connected segments.</span>
+<span class="sd">        </span>
+<span class="sd">        Clears all net class assignments from this net and all electrically</span>
+<span class="sd">        connected net segments. After deletion, the nets will have no routing</span>
+<span class="sd">        rules or design constraints beyond default values.</span>
 
-        <span class="c1"># A net class can only be assigned if there is no existing net class</span>
-        <span class="c1"># or if the existing net class matches the net class parameter (in</span>
-        <span class="c1"># which case this is redundant).</span>
-        <span class="n">nets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span>  <span class="c1"># Get all interconnected subnets.</span>
-        <span class="n">netclasses</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="nb">getattr</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="s2">&quot;_netclass&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nets</span><span class="p">])</span>
-        <span class="n">netclasses</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">netclasses</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">pass</span>
-        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">netclasses</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">netclass</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">netclasses</span><span class="p">:</span>
-                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
-                    <span class="ne">ValueError</span><span class="p">,</span>
-                    <span class="s2">&quot;Can&#39;t assign net class </span><span class="si">{netclass.name}</span><span class="s2"> to net </span><span class="si">{self.name}</span><span class="s2"> that&#39;s already assigned net class </span><span class="si">{netclasses}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                        <span class="o">**</span><span class="nb">locals</span><span class="p">()</span>
-                    <span class="p">),</span>
-                <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
-                <span class="ne">ValueError</span><span class="p">,</span>
-                <span class="s2">&quot;Too many netclasses assigned to net </span><span class="si">{self.name}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">()),</span>
-            <span class="p">)</span>
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; power_net = Net(&#39;VCC&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; power_net.netclass = NetClass(&#39;Power&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; print(power_net.netclass)              # &lt;NetClass &#39;Power&#39;&gt;</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; del power_net.netclass                 # Remove all classes</span>
+<span class="sd">            &gt;&gt;&gt; print(power_net.netclass)              # None</span>
 
-        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nets</span><span class="p">:</span>
-            <span class="n">n</span><span class="o">.</span><span class="n">_netclass</span> <span class="o">=</span> <span class="n">netclass</span>
-
-    <span class="nd">@netclass</span><span class="o">.</span><span class="n">deleter</span>
-    <span class="k">def</span> <span class="nf">netclass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="sd">        Multi-segment Behavior:</span>
+<span class="sd">            The deletion propagates to all electrically connected net segments,</span>
+<span class="sd">            ensuring consistent behavior across the entire electrical connection.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
         <span class="n">nets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span>  <span class="c1"># Get all interconnected subnets.</span>
         <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nets</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_netclass</span>
-            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-                <span class="k">pass</span>
+            <span class="n">n</span><span class="o">.</span><span class="n">_netclasses</span> <span class="o">=</span> <span class="n">NetClasses</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get, set and delete the drive strength of this net.</span>
-
-<span class="sd">        The drive strength cannot be set to a value less than its current</span>
-<span class="sd">        value. So as pins are added to a net, the drive strength reflects the</span>
-<span class="sd">        maximum drive value of the pins currently on the net.</span>
+<span class="sd">        Get, set or delete the drive strength of this net.</span>
+<span class="sd">        </span>
+<span class="sd">        The drive strength represents the electrical driving capability of the net.</span>
+<span class="sd">        It is automatically set to the maximum drive value of any pin connected to</span>
+<span class="sd">        the net, and cannot be set to a lower value than the current maximum.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            int: The drive strength value.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
         <span class="n">nets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span>  <span class="c1"># Get all interconnected subnets.</span>
@@ -911,6 +1586,13 @@
 
     <span class="nd">@drive</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drive</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the drive strength for this net.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            drive (int): The new drive strength value. If less than the current</span>
+<span class="sd">                         value, the current value will be maintained.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
         <span class="n">nets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span>  <span class="c1"># Get all interconnected subnets.</span>
         <span class="n">max_drive</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">nets</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">n</span><span class="o">.</span><span class="n">_drive</span><span class="p">)</span><span class="o">.</span><span class="n">_drive</span>
@@ -920,6 +1602,7 @@
 
     <span class="nd">@drive</span><span class="o">.</span><span class="n">deleter</span>
     <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete the drive strength from this net.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
         <span class="n">nets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span>  <span class="c1"># Get all interconnected subnets.</span>
         <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nets</span><span class="p">:</span>
@@ -927,31 +1610,64 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">stub</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get or set the stub status of this net.</span>
+<span class="sd">        </span>
+<span class="sd">        A stub net is not routed in schematic generation, but</span>
+<span class="sd">        is represented as a short stub connected to the pin.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if this is a stub net.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span>
 
     <span class="nd">@stub</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">stub</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the stub status for this net.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            val (bool): True to make this a stub net, False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span> <span class="o">=</span> <span class="n">val</span>
         <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pins</span><span class="p">():</span>
             <span class="n">pin</span><span class="o">.</span><span class="n">stub</span> <span class="o">=</span> <span class="n">val</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">valid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if this net is still valid.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the net is valid, False if it has been invalidated.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_valid</span>
 
     <span class="nd">@valid</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the validity status of this net.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            val (bool): True to mark the net as valid, False to invalidate it.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_valid</span> <span class="o">=</span> <span class="n">val</span>
 
 <div class="viewcode-block" id="Net.test_validity">
 <a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.test_validity">[docs]</a>
     <span class="k">def</span> <span class="nf">test_validity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test if the net is valid for use.</span>
+<span class="sd">        </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If the net is no longer valid.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
             <span class="ne">ValueError</span><span class="p">,</span>
-            <span class="s2">&quot;Net </span><span class="si">{}</span><span class="s2"> is no longer valid. Do not use it!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
+            <span class="sa">f</span><span class="s2">&quot;Net </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> is no longer valid. Do not use it!&quot;</span><span class="p">,</span>
         <span class="p">)</span></div>
 </div>
 
@@ -962,26 +1678,157 @@
 <span class="nd">@export_to_all</span>
 <span class="k">class</span> <span class="nc">NCNet</span><span class="p">(</span><span class="n">Net</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Lists of unconnected pins are stored using this Net subclass.</span>
+<span class="sd">    A specialized Net subclass for explicitly marking pins as not connected.</span>
+<span class="sd">    </span>
+<span class="sd">    NCNet (No Connect Net) is used to explicitly mark component pins as</span>
+<span class="sd">    intentionally unconnected. This serves two important purposes:</span>
+<span class="sd">    </span>
+<span class="sd">    1. Design Intent Documentation: Clearly indicates that leaving pins</span>
+<span class="sd">       unconnected is intentional rather than an oversight.</span>
+<span class="sd">       </span>
+<span class="sd">    2. ERC Suppression: Prevents electrical rule checking from flagging</span>
+<span class="sd">       these pins as floating or unconnected errors.</span>
 
-<span class="sd">    This is a netlist subclass used for storing lists of pins which are</span>
-<span class="sd">    explicitly specified as not being connected. This means the ERC won&#39;t</span>
-<span class="sd">    flag these pins as floating, but no net connections for these pins</span>
-<span class="sd">    will be placed in the netlist so there will actually be no</span>
-<span class="sd">    connections to these pins in the physical circuit.</span>
+<span class="sd">    NCNet objects behave like regular nets for connection purposes but have</span>
+<span class="sd">    special properties that distinguish them from normal electrical connections.</span>
+<span class="sd">    They don&#39;t appear in netlists since they represent the absence of</span>
+<span class="sd">    electrical connections rather than actual connections.</span>
 
+<span class="sd">    Common Use Cases:</span>
+<span class="sd">        - Unused input pins on digital logic devices</span>
+<span class="sd">        - Reserved pins on microcontrollers not used in current design</span>
+<span class="sd">        - Optional features not implemented in current circuit variant</span>
+<span class="sd">        - Test points or debugging pins not connected in production</span>
+<span class="sd">        - Analog inputs not used in specific application configurations</span>
+
+<span class="sd">    ERC Behavior:</span>
+<span class="sd">        NCNet objects are excluded from normal ERC checking since they</span>
+<span class="sd">        explicitly represent intentionally unconnected pins. This prevents</span>
+<span class="sd">        false warnings about floating inputs or undriven nets while maintaining</span>
+<span class="sd">        design verification for actual electrical connections.</span>
+
+<span class="sd">    Netlist Generation:</span>
+<span class="sd">        NCNet objects do not generate entries in netlists or connection lists</span>
+<span class="sd">        since they represent the explicit absence of connections. PCB tools</span>
+<span class="sd">        typically handle no-connect markers through special annotations rather</span>
+<span class="sd">        than actual net connections.</span>
+<span class="sd">    </span>
 <span class="sd">    Args:</span>
-<span class="sd">        name: A string with the name of the net. If None or &#39;&#39;, then</span>
-<span class="sd">            a unique net name will be assigned.</span>
-<span class="sd">        *pins_nets_buses: One or more Pin, Net, or Bus objects or</span>
-<span class="sd">            lists/tuples of them to be connected to this net.</span>
-
+<span class="sd">        name (str, optional): Name for the no-connect net. If None, an</span>
+<span class="sd">            automatically generated name will be assigned. Multiple pins</span>
+<span class="sd">            can share the same NCNet or use separate NCNet instances.</span>
+<span class="sd">        circuit (Circuit, optional): The circuit this no-connect net belongs to.</span>
+<span class="sd">            If None, uses the default circuit.</span>
+<span class="sd">        *pins_nets_buses: Pins, nets, or buses to mark as not connected.</span>
+<span class="sd">            These will be connected to this NCNet to indicate their</span>
+<span class="sd">            no-connect status.</span>
+<span class="sd">        </span>
 <span class="sd">    Keyword Args:</span>
-<span class="sd">        attribs: A dictionary of attributes and values to attach to</span>
-<span class="sd">            the object.</span>
+<span class="sd">        attribs: Additional attributes for the no-connect net. Note that</span>
+<span class="sd">            some attributes like drive strength are automatically set to</span>
+<span class="sd">            appropriate values for no-connect nets.</span>
+<span class="sd">            </span>
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; # Mark individual unused pins as no-connect</span>
+<span class="sd">        &gt;&gt;&gt; nc1 = NCNet()</span>
+<span class="sd">        &gt;&gt;&gt; nc1 += mcu[&#39;UNUSED_PA5&#39;], mcu[&#39;UNUSED_PA6&#39;]</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; # Use separate NC nets for different pin groups</span>
+<span class="sd">        &gt;&gt;&gt; analog_nc = NCNet(&#39;ANALOG_NC&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; digital_nc = NCNet(&#39;DIGITAL_NC&#39;) </span>
+<span class="sd">        &gt;&gt;&gt; analog_nc += adc[&#39;AIN3&#39;], adc[&#39;AIN4&#39;]</span>
+<span class="sd">        &gt;&gt;&gt; digital_nc += mcu[&#39;PB7&#39;], mcu[&#39;PB8&#39;]</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; # Mark test points as no-connect in production</span>
+<span class="sd">        &gt;&gt;&gt; test_nc = NCNet(&#39;TEST_NC&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; test_nc += test_point_1[&#39;PIN&#39;], test_point_2[&#39;PIN&#39;]</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; # Create during component instantiation</span>
+<span class="sd">        &gt;&gt;&gt; mcu = Part(&#39;MCU&#39;, &#39;STM32F401&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; nc_net = NCNet()</span>
+<span class="sd">        &gt;&gt;&gt; nc_net += mcu[&#39;BOOT0&#39;], mcu[&#39;NRST&#39;]  # Not used in this design</span>
+
+<span class="sd">    Design Verification:</span>
+<span class="sd">        While NCNet pins are excluded from standard ERC checking, they can</span>
+<span class="sd">        still be verified for design intent:</span>
+<span class="sd">        - Confirm all NC pins are intentionally unconnected</span>
+<span class="sd">        - Verify no required pins are accidentally marked as NC</span>
+<span class="sd">        - Check that NC assignments match design specifications</span>
+
+<span class="sd">    Tool Integration:</span>
+<span class="sd">        Different PCB tools handle no-connect markers differently:</span>
+<span class="sd">        - KiCad: No-connect flags on pins, excluded from netlist</span>
+<span class="sd">        - Altium: No ERC markers, special netlist handling</span>
+<span class="sd">        - Eagle: No-connect symbols, netlist exclusion</span>
+<span class="sd">        - Other tools: Tool-specific no-connect representations</span>
+
+<span class="sd">    Best Practices:</span>
+<span class="sd">        - Use descriptive names for NC nets to document intent</span>
+<span class="sd">        - Group related NC pins on the same NC net when appropriate</span>
+<span class="sd">        - Document why specific pins are marked as no-connect</span>
+<span class="sd">        - Review NC assignments during design reviews</span>
+<span class="sd">        - Consider future design variants that might use NC pins</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">pins_nets_buses</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a new no-connect net for unconnected pins.</span>
+
+<span class="sd">        Creates a specialized net that marks pins as intentionally not connected,</span>
+<span class="sd">        suppressing ERC warnings while documenting design intent. The NC net</span>
+<span class="sd">        automatically sets appropriate drive characteristics and ERC flags.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name (str, optional): Name for the no-connect net. If None, an</span>
+<span class="sd">                auto-generated name will be assigned. Using descriptive names</span>
+<span class="sd">                helps document which pins are intentionally unconnected.</span>
+<span class="sd">            circuit (Circuit, optional): Target circuit for the NC net.</span>
+<span class="sd">                If None, the NC net is added to the default circuit.</span>
+<span class="sd">            *pins_nets_buses: Initial pins to mark as no-connect:</span>
+<span class="sd">                - Pin objects: Individual component pins to mark as NC</span>
+<span class="sd">                - Collections: Lists or tuples of pins to mark together</span>
+<span class="sd">                - Note: Connecting nets or buses to NCNet is unusual</span>
+
+<span class="sd">        Keyword Args:</span>
+<span class="sd">            attribs: Additional attributes for the NC net. Some attributes</span>
+<span class="sd">                are automatically set to appropriate values:</span>
+<span class="sd">                - drive: Set to NOCONNECT to indicate no driving capability</span>
+<span class="sd">                - do_erc: Disabled to suppress ERC warnings</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; # Basic no-connect net creation</span>
+<span class="sd">            &gt;&gt;&gt; nc = NCNet()                            # Auto-named NC net</span>
+<span class="sd">            &gt;&gt;&gt; nc += mcu[&#39;UNUSED1&#39;], mcu[&#39;UNUSED2&#39;]    # Mark pins as NC</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Named no-connect nets for documentation</span>
+<span class="sd">            &gt;&gt;&gt; analog_nc = NCNet(&#39;ANALOG_UNUSED&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; debug_nc = NCNet(&#39;DEBUG_INTERFACE_NC&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Create with initial connections</span>
+<span class="sd">            &gt;&gt;&gt; boot_nc = NCNet(&#39;BOOT_PINS&#39;, mcu[&#39;BOOT0&#39;], mcu[&#39;BOOT1&#39;])</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Different NC nets for different purposes</span>
+<span class="sd">            &gt;&gt;&gt; test_nc = NCNet(&#39;TEST_POINTS_NC&#39;)       # Test/debug pins</span>
+<span class="sd">            &gt;&gt;&gt; feature_nc = NCNet(&#39;UNUSED_FEATURES&#39;)   # Unimplemented features</span>
+<span class="sd">            &gt;&gt;&gt; reserved_nc = NCNet(&#39;RESERVED_PINS&#39;)    # Future expansion</span>
+
+<span class="sd">        Automatic Properties:</span>
+<span class="sd">            The NCNet constructor automatically sets appropriate properties:</span>
+<span class="sd">            - Drive strength: Set to NOCONNECT to indicate no driving capability</span>
+<span class="sd">            - ERC checking: Disabled to prevent floating pin warnings</span>
+<span class="sd">            - Netlist generation: Configured to exclude from output netlists</span>
+
+<span class="sd">        Pin Assignment:</span>
+<span class="sd">            Pins connected to NCNet are marked as intentionally unconnected:</span>
+<span class="sd">            - Removes pins from any existing nets they were connected to</span>
+<span class="sd">            - Marks pins with no-connect status for ERC purposes</span>
+<span class="sd">            - Documents design intent for unconnected pins</span>
+
+<span class="sd">        Circuit Integration:</span>
+<span class="sd">            NCNet objects are registered with their circuit like regular nets</span>
+<span class="sd">            but are handled specially during ERC checking and netlist generation</span>
+<span class="sd">            to reflect their special no-connect semantics.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">pin_drives</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="n">circuit</span><span class="p">,</span> <span class="o">*</span><span class="n">pins_nets_buses</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">)</span>
@@ -991,17 +1838,108 @@
 <div class="viewcode-block" id="NCNet.generate_netlist_net">
 <a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.NCNet.generate_netlist_net">[docs]</a>
     <span class="k">def</span> <span class="nf">generate_netlist_net</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;NO_CONNECT nets don&#39;t generate anything for netlists.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate netlist representation for no-connect nets.</span>
+<span class="sd">        </span>
+<span class="sd">        No-connect nets intentionally do not appear in circuit netlists since</span>
+<span class="sd">        they represent the explicit absence of electrical connections rather</span>
+<span class="sd">        than actual circuit connections. This method always returns an empty</span>
+<span class="sd">        string to exclude NCNet objects from netlist output.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            tool (str, optional): The target netlist generation tool (e.g., &#39;kicad&#39;,</span>
+<span class="sd">                &#39;altium&#39;, &#39;eagle&#39;). Parameter is accepted for compatibility but</span>
+<span class="sd">                ignored since NC nets are excluded from all netlist formats.</span>
+<span class="sd">                </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: Always returns an empty string. No-connect nets do not generate</span>
+<span class="sd">                netlist entries since they represent intentionally unconnected pins</span>
+<span class="sd">                rather than actual electrical connections.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; nc_net = NCNet(&#39;UNUSED_PINS&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; nc_net += mcu[&#39;PA7&#39;], mcu[&#39;PA8&#39;]</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # NC nets don&#39;t appear in netlists</span>
+<span class="sd">            &gt;&gt;&gt; netlist_entry = nc_net.generate_netlist_net(&#39;kicad&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; print(repr(netlist_entry))              # &#39;&#39;</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Compare with regular net</span>
+<span class="sd">            &gt;&gt;&gt; vcc_net = Net(&#39;VCC&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; vcc_net += mcu[&#39;VCC&#39;]</span>
+<span class="sd">            &gt;&gt;&gt; vcc_entry = vcc_net.generate_netlist_net(&#39;kicad&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; print(len(vcc_entry) &gt; 0)               # True</span>
+
+<span class="sd">        Tool Integration:</span>
+<span class="sd">            Different PCB tools handle no-connect pins through special mechanisms:</span>
+<span class="sd">            - Pin-level no-connect flags rather than net-level connections</span>
+<span class="sd">            - Special symbols or annotations in schematic capture</span>
+<span class="sd">            - ERC rule exclusions for intentionally unconnected pins</span>
+<span class="sd">            - Design rule checking modifications for NC pins</span>
+
+<span class="sd">        Design Verification:</span>
+<span class="sd">            While NC nets don&#39;t appear in netlists, they can still be verified:</span>
+<span class="sd">            - Pin assignment reports can show NC pin assignments</span>
+<span class="sd">            - ERC reports can list pins marked as no-connect</span>
+<span class="sd">            - Design review outputs can document intentional non-connections</span>
+<span class="sd">            - BOM generation can identify unused pin functionality</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
 
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the drive strength of this net.</span>
+<span class="sd">        Get the drive strength of this no-connect net.</span>
+<span class="sd">        </span>
+<span class="sd">        No-connect nets have a fixed drive strength of NOCONNECT that cannot</span>
+<span class="sd">        be modified. This special drive value indicates that the net represents</span>
+<span class="sd">        intentionally unconnected pins rather than an actual electrical signal.</span>
 
-<span class="sd">        The drive strength is always NOCONNECT_DRIVE. It can&#39;t be changed.</span>
-<span class="sd">        The drive strength cannot be deleted.</span>
+<span class="sd">        The NOCONNECT drive strength serves several purposes:</span>
+<span class="sd">        - Identifies the net as representing non-connections</span>
+<span class="sd">        - Excludes the net from drive conflict checking during ERC</span>
+<span class="sd">        - Indicates to tools that this net should not appear in netlists</span>
+<span class="sd">        - Documents design intent for unconnected pins</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: Always returns pin_drives.NOCONNECT. This value cannot be</span>
+<span class="sd">                changed for NCNet objects since it represents their fundamental</span>
+<span class="sd">                characteristic as no-connect nets.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; from skidl.pin import pin_drives</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; nc_net = NCNet(&#39;UNUSED_PINS&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; print(nc_net.drive == pin_drives.NOCONNECT)  # True</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Compare with regular net drive</span>
+<span class="sd">            &gt;&gt;&gt; reg_net = Net(&#39;SIGNAL&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; reg_net += driver_pin, receiver_pin</span>
+<span class="sd">            &gt;&gt;&gt; print(reg_net.drive != pin_drives.NOCONNECT)  # True</span>
+<span class="sd">            &gt;&gt;&gt; </span>
+<span class="sd">            &gt;&gt;&gt; # Drive strength cannot be changed for NC nets</span>
+<span class="sd">            &gt;&gt;&gt; try:</span>
+<span class="sd">            ...     nc_net.drive = pin_drives.STRONG   # This won&#39;t work</span>
+<span class="sd">            ... except AttributeError:</span>
+<span class="sd">            ...     print(&quot;NCNet drive cannot be modified&quot;)</span>
+
+<span class="sd">        ERC Integration:</span>
+<span class="sd">            The NOCONNECT drive strength integrates with electrical rule checking:</span>
+<span class="sd">            - Pins on NCNet are excluded from floating pin detection</span>
+<span class="sd">            - No drive conflict checking is performed for NC nets  </span>
+<span class="sd">            - ERC reports can identify and verify no-connect assignments</span>
+<span class="sd">            - Design verification can confirm intentional non-connections</span>
+
+<span class="sd">        Immutability:</span>
+<span class="sd">            The drive property for NCNet objects is read-only. Attempting to</span>
+<span class="sd">            set or delete the drive strength will not work since the NOCONNECT</span>
+<span class="sd">            drive is fundamental to the NCNet&#39;s purpose and behavior.</span>
+
+<span class="sd">        Tool Compatibility:</span>
+<span class="sd">            The NOCONNECT drive strength is recognized by netlist generators</span>
+<span class="sd">            and ERC systems to provide appropriate handling of no-connect nets</span>
+<span class="sd">            across different PCB design tools and workflows.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_drive</span></div>
 
@@ -1011,7 +1949,7 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
@@ -1027,7 +1965,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -1036,14 +1974,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.net</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

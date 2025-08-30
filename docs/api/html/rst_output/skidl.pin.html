@@ -7,12 +7,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.pin module &#8212; SKiDL 2.0.1 documentation</title>
+    <title>skidl.pin module &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -24,7 +24,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../"><img src="../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.pin module</a></li> 
       </ul>
     </div>  
@@ -45,59 +45,144 @@
             
   <section id="module-skidl.pin">
 <span id="skidl-pin-module"></span><h1>skidl.pin module<a class="headerlink" href="#module-skidl.pin" title="Link to this heading">¶</a></h1>
-<p>Handles part pins.</p>
+<p>Handles part pins and their connections to nets.</p>
+<p>This module provides the Pin class which represents electronic component pins.
+Pins can be connected to nets and other pins, and have various electrical properties
+like input, output, bidirectional, etc.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.pin.PhantomPin">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.pin.</span></span><span class="sig-name descname"><span class="pre">PhantomPin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/pin.html#PhantomPin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.pin.PhantomPin" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.pin.</span></span><span class="sig-name descname"><span class="pre">PhantomPin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/pin.html#PhantomPin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.pin.PhantomPin" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#skidl.pin.Pin" title="skidl.pin.Pin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pin</span></code></a></p>
-<p>A pin type that exists solely to tie two pinless nets together.
-It will not participate in generating any netlists.</p>
+<p>A pin type that exists solely to tie two pinless nets together.</p>
+<p>It will not participate in generating any netlists.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.pin.Pin">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.pin.</span></span><span class="sig-name descname"><span class="pre">Pin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/pin.html#Pin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.pin.Pin" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.pin.</span></span><span class="sig-name descname"><span class="pre">Pin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/pin.html#Pin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.pin.Pin" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject" title="skidl.skidlbaseobj.SkidlBaseObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">SkidlBaseObject</span></code></a></p>
-<p>A class for storing data about pins for a part.</p>
+<p>A class for storing data about pins for electronic parts.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>attribs</strong> – Key/value pairs of attributes to add to the library.</p>
+<dd class="field-odd"><p><strong>attribs</strong> – Key/value pairs of attributes to add to the pin.</p>
 </dd>
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.nets">
 <span class="sig-name descname"><span class="pre">nets</span></span><a class="headerlink" href="#skidl.pin.Pin.nets" title="Link to this definition">¶</a></dt>
 <dd><p>The electrical nets this pin is connected to (can be &gt;1).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.part">
 <span class="sig-name descname"><span class="pre">part</span></span><a class="headerlink" href="#skidl.pin.Pin.part" title="Link to this definition">¶</a></dt>
 <dd><p>Link to the Part object this pin belongs to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="skidl.part.html#skidl.part.Part" title="skidl.part.Part">Part</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="skidl.pin.Pin.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#skidl.pin.Pin.name" title="Link to this definition">¶</a></dt>
+<dd><p>Name of the pin (e.g., “GND”, “VCC”).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="skidl.pin.Pin.num">
+<span class="sig-name descname"><span class="pre">num</span></span><a class="headerlink" href="#skidl.pin.Pin.num" title="Link to this definition">¶</a></dt>
+<dd><p>Pin number (e.g., “1”, “2”, “A5”).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.func">
 <span class="sig-name descname"><span class="pre">func</span></span><a class="headerlink" href="#skidl.pin.Pin.func" title="Link to this definition">¶</a></dt>
-<dd><p>Pin function such as PinType.types.INPUT.</p>
+<dd><p>Pin function from pin_types enum (e.g., INPUT, OUTPUT, BIDIR).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.do_erc">
 <span class="sig-name descname"><span class="pre">do_erc</span></span><a class="headerlink" href="#skidl.pin.Pin.do_erc" title="Link to this definition">¶</a></dt>
-<dd><p>When false, the pin is not checked for ERC violations.</p>
+<dd><p>When False, the pin is not checked for ERC violations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="skidl.pin.Pin.stub">
+<span class="sig-name descname"><span class="pre">stub</span></span><a class="headerlink" href="#skidl.pin.Pin.stub" title="Link to this definition">¶</a></dt>
+<dd><p>When True, the pin is only for internal schematic connections.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="skidl.pin.Pin.aliases">
+<span class="sig-name descname"><span class="pre">aliases</span></span><a class="headerlink" href="#skidl.pin.Pin.aliases" title="Link to this definition">¶</a></dt>
+<dd><p>Alternative names for this pin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="skidl.pin.Pin.MAX_PIN_NUM">
+<span class="sig-name descname"><span class="pre">MAX_PIN_NUM</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1152921504606846975</span></em><a class="headerlink" href="#skidl.pin.Pin.MAX_PIN_NUM" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.pin.Pin.chk_conflict">
 <span class="sig-name descname"><span class="pre">chk_conflict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other_pin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/pin.html#Pin.chk_conflict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.pin.Pin.chk_conflict" title="Link to this definition">¶</a></dt>
 <dd><p>Check for electrical rule conflicts between this pin and another.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other_pin</strong> (<a class="reference internal" href="#skidl.pin.Pin" title="skidl.pin.Pin"><em>Pin</em></a>) – The other pin to check against</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.pin.Pin.circuit">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">circuit</span></span><a class="headerlink" href="#skidl.pin.Pin.circuit" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">circuit</span></span><a class="headerlink" href="#skidl.pin.Pin.circuit" title="Link to this definition">¶</a></dt>
 <dd><p>Return the circuit of the part the pin belongs to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The circuit containing the parent part</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit" title="skidl.circuit.Circuit">Circuit</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -111,6 +196,9 @@ lists/tuples of them.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The updated pin with the new connections.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#skidl.pin.Pin" title="skidl.pin.Pin">Pin</a></p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
@@ -128,10 +216,16 @@ lists/tuples of them.</p>
 <dd><p>Return copy or list of copies of a pin including any net connection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>num_copies</strong> – Number of copies to make of pin.</p>
+<dd class="field-odd"><p><strong>num_copies</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – Number of copies to make of pin.</p>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>attribs</strong> – Name/value pairs for setting attributes for the pin.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A single copy or a list of copies.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#skidl.pin.Pin" title="skidl.pin.Pin">Pin</a> or <a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference internal" href="#skidl.pin.Pin" title="skidl.pin.Pin">Pin</a>]</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
@@ -146,6 +240,14 @@ lists/tuples of them.</p>
 <dt class="sig sig-object py" id="skidl.pin.Pin.create_network">
 <span class="sig-name descname"><span class="pre">create_network</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/pin.html#Pin.create_network"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.pin.Pin.create_network" title="Link to this definition">¶</a></dt>
 <dd><p>Create a network from a single pin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A network containing just this pin</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="skidl.network.html#skidl.network.Network" title="skidl.network.Network">Network</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -156,49 +258,158 @@ lists/tuples of them.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.pin.Pin.drive">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">drive</span></span><a class="headerlink" href="#skidl.pin.Pin.drive" title="Link to this definition">¶</a></dt>
-<dd><p>Get, set and delete the drive strength of this pin.</p>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">drive</span></span><a class="headerlink" href="#skidl.pin.Pin.drive" title="Link to this definition">¶</a></dt>
+<dd><p>Get the drive strength of this pin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Drive strength value from pin_drives enum</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="skidl.pin.Pin.drives">
+<span class="sig-name descname"><span class="pre">drives</span></span><a class="headerlink" href="#skidl.pin.Pin.drives" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">pin_drives</span></code></p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.pin.Pin.erc_desc">
 <span class="sig-name descname"><span class="pre">erc_desc</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/pin.html#Pin.erc_desc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.pin.Pin.erc_desc" title="Link to this definition">¶</a></dt>
 <dd><p>Return a string describing this pin for ERC.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Description string for the pin</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.pin.Pin.export">
 <span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/pin.html#Pin.export"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.pin.Pin.export" title="Link to this definition">¶</a></dt>
 <dd><p>Return a string to recreate a Pin object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Python code string that recreates the pin when evaluated</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="skidl.pin.Pin.funcs">
+<span class="sig-name descname"><span class="pre">funcs</span></span><a class="headerlink" href="#skidl.pin.Pin.funcs" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">pin_types</span></code></p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.pin.Pin.get_nets">
 <span class="sig-name descname"><span class="pre">get_nets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/pin.html#Pin.get_nets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.pin.Pin.get_nets" title="Link to this definition">¶</a></dt>
 <dd><p>Return a list containing the Net objects connected to this pin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of Net objects connected to this pin</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.pin.Pin.get_pin_info">
 <span class="sig-name descname"><span class="pre">get_pin_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/pin.html#Pin.get_pin_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.pin.Pin.get_pin_info" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get basic pin information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(pin number, pin names/aliases, pin function)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)">tuple</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.pin.Pin.get_pins">
 <span class="sig-name descname"><span class="pre">get_pins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/pin.html#Pin.get_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.pin.Pin.get_pins" title="Link to this definition">¶</a></dt>
 <dd><p>Return a list containing this pin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List containing just this pin</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.pin.Pin.is_assigned">
+<span class="sig-name descname"><span class="pre">is_assigned</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/pin.html#Pin.is_assigned"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.pin.Pin.is_assigned" title="Link to this definition">¶</a></dt>
+<dd><p>Return true if the pin has been assigned a valid pin number.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>True if the pin is assigned (either has a non-integer number or</dt><dd><p>an integer number less than or equal to MAX_PIN_SIZE), False otherwise.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A pin is considered assigned if it has either a string/non-integer identifier
+or an integer pin number within the valid range (1 to MAX_PIN_SIZE).</p>
+</div>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.pin.Pin.is_attached">
 <span class="sig-name descname"><span class="pre">is_attached</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin_net_bus</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/pin.html#Pin.is_attached"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.pin.Pin.is_attached" title="Link to this definition">¶</a></dt>
 <dd><p>Return true if this pin is attached to the given pin, net or bus.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pin_net_bus</strong> – A Pin, Net or Bus object</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if attached, False otherwise</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If attempting to check attachment to an invalid object type</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.pin.Pin.is_connected">
 <span class="sig-name descname"><span class="pre">is_connected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/pin.html#Pin.is_connected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.pin.Pin.is_connected" title="Link to this definition">¶</a></dt>
 <dd><p>Return true if a pin is connected to a net (but not a no-connect net).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if connected to a normal net, False otherwise</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If pin is connected to both normal and no-connect nets</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -214,31 +425,75 @@ lists/tuples of them.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.pin.Pin.net">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">net</span></span><a class="headerlink" href="#skidl.pin.Pin.net" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">net</span></span><a class="headerlink" href="#skidl.pin.Pin.net" title="Link to this definition">¶</a></dt>
 <dd><p>Return one of the nets the pin is connected to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The first net the pin is connected to, or None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="skidl.net.html#skidl.net.Net" title="skidl.net.Net">Net</a> or None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.pin.Pin.pins">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pins</span></span><a class="headerlink" href="#skidl.pin.Pin.pins" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pins</span></span><a class="headerlink" href="#skidl.pin.Pin.pins" title="Link to this definition">¶</a></dt>
+<dd><p>Get a list of pins (just this pin for a Pin object).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List containing just this pin</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.pin.Pin.ref">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ref</span></span><a class="headerlink" href="#skidl.pin.Pin.ref" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ref</span></span><a class="headerlink" href="#skidl.pin.Pin.ref" title="Link to this definition">¶</a></dt>
 <dd><p>Return the reference of the part the pin belongs to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Reference designator of the parent part</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.pin.Pin.split_name">
 <span class="sig-name descname"><span class="pre">split_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delimiters</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/pin.html#Pin.split_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.pin.Pin.split_name" title="Link to this definition">¶</a></dt>
 <dd><p>Use chars in divider to split a pin name and add substrings to aliases.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>delimiters</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – String of characters used to split pin names</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="skidl.pin.Pin.types">
+<span class="sig-name descname"><span class="pre">types</span></span><a class="headerlink" href="#skidl.pin.Pin.types" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">pin_types</span></code></p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.pin.Pin.width">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">width</span></span><a class="headerlink" href="#skidl.pin.Pin.width" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">width</span></span><a class="headerlink" href="#skidl.pin.Pin.width" title="Link to this definition">¶</a></dt>
 <dd><p>Return width of a Pin, which is always 1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Always 1</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -250,7 +505,7 @@ lists/tuples of them.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
   <div>
     <h3><a href="../index.html">Table of Contents</a></h3>
@@ -260,8 +515,13 @@ lists/tuples of them.</p>
 <li><a class="reference internal" href="#skidl.pin.Pin"><code class="docutils literal notranslate"><span class="pre">Pin</span></code></a><ul>
 <li><a class="reference internal" href="#skidl.pin.Pin.nets"><code class="docutils literal notranslate"><span class="pre">Pin.nets</span></code></a></li>
 <li><a class="reference internal" href="#skidl.pin.Pin.part"><code class="docutils literal notranslate"><span class="pre">Pin.part</span></code></a></li>
+<li><a class="reference internal" href="#skidl.pin.Pin.name"><code class="docutils literal notranslate"><span class="pre">Pin.name</span></code></a></li>
+<li><a class="reference internal" href="#skidl.pin.Pin.num"><code class="docutils literal notranslate"><span class="pre">Pin.num</span></code></a></li>
 <li><a class="reference internal" href="#skidl.pin.Pin.func"><code class="docutils literal notranslate"><span class="pre">Pin.func</span></code></a></li>
 <li><a class="reference internal" href="#skidl.pin.Pin.do_erc"><code class="docutils literal notranslate"><span class="pre">Pin.do_erc</span></code></a></li>
+<li><a class="reference internal" href="#skidl.pin.Pin.stub"><code class="docutils literal notranslate"><span class="pre">Pin.stub</span></code></a></li>
+<li><a class="reference internal" href="#skidl.pin.Pin.aliases"><code class="docutils literal notranslate"><span class="pre">Pin.aliases</span></code></a></li>
+<li><a class="reference internal" href="#skidl.pin.Pin.MAX_PIN_NUM"><code class="docutils literal notranslate"><span class="pre">Pin.MAX_PIN_NUM</span></code></a></li>
 <li><a class="reference internal" href="#skidl.pin.Pin.chk_conflict"><code class="docutils literal notranslate"><span class="pre">Pin.chk_conflict()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.pin.Pin.circuit"><code class="docutils literal notranslate"><span class="pre">Pin.circuit</span></code></a></li>
 <li><a class="reference internal" href="#skidl.pin.Pin.connect"><code class="docutils literal notranslate"><span class="pre">Pin.connect()</span></code></a></li>
@@ -269,11 +529,14 @@ lists/tuples of them.</p>
 <li><a class="reference internal" href="#skidl.pin.Pin.create_network"><code class="docutils literal notranslate"><span class="pre">Pin.create_network()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.pin.Pin.disconnect"><code class="docutils literal notranslate"><span class="pre">Pin.disconnect()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.pin.Pin.drive"><code class="docutils literal notranslate"><span class="pre">Pin.drive</span></code></a></li>
+<li><a class="reference internal" href="#skidl.pin.Pin.drives"><code class="docutils literal notranslate"><span class="pre">Pin.drives</span></code></a></li>
 <li><a class="reference internal" href="#skidl.pin.Pin.erc_desc"><code class="docutils literal notranslate"><span class="pre">Pin.erc_desc()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.pin.Pin.export"><code class="docutils literal notranslate"><span class="pre">Pin.export()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.pin.Pin.funcs"><code class="docutils literal notranslate"><span class="pre">Pin.funcs</span></code></a></li>
 <li><a class="reference internal" href="#skidl.pin.Pin.get_nets"><code class="docutils literal notranslate"><span class="pre">Pin.get_nets()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.pin.Pin.get_pin_info"><code class="docutils literal notranslate"><span class="pre">Pin.get_pin_info()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.pin.Pin.get_pins"><code class="docutils literal notranslate"><span class="pre">Pin.get_pins()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.pin.Pin.is_assigned"><code class="docutils literal notranslate"><span class="pre">Pin.is_assigned()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.pin.Pin.is_attached"><code class="docutils literal notranslate"><span class="pre">Pin.is_attached()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.pin.Pin.is_connected"><code class="docutils literal notranslate"><span class="pre">Pin.is_connected()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.pin.Pin.move"><code class="docutils literal notranslate"><span class="pre">Pin.move()</span></code></a></li>
@@ -281,6 +544,7 @@ lists/tuples of them.</p>
 <li><a class="reference internal" href="#skidl.pin.Pin.pins"><code class="docutils literal notranslate"><span class="pre">Pin.pins</span></code></a></li>
 <li><a class="reference internal" href="#skidl.pin.Pin.ref"><code class="docutils literal notranslate"><span class="pre">Pin.ref</span></code></a></li>
 <li><a class="reference internal" href="#skidl.pin.Pin.split_name"><code class="docutils literal notranslate"><span class="pre">Pin.split_name()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.pin.Pin.types"><code class="docutils literal notranslate"><span class="pre">Pin.types</span></code></a></li>
 <li><a class="reference internal" href="#skidl.pin.Pin.width"><code class="docutils literal notranslate"><span class="pre">Pin.width</span></code></a></li>
 </ul>
 </li>
@@ -310,7 +574,7 @@ lists/tuples of them.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -319,13 +583,13 @@ lists/tuples of them.</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.pin module</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

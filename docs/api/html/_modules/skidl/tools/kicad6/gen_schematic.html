@@ -6,12 +6,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.tools.kicad6.gen_schematic &#8212; SKiDL 2.0.1 documentation</title>
+    <title>skidl.tools.kicad6.gen_schematic &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../../../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -23,7 +23,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../../../../"><img src="../../../../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad6.gen_schematic</a></li> 
       </ul>
@@ -48,21 +48,9 @@
 
 <span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
 
-<span class="kn">import</span> <span class="nn">datetime</span>
-<span class="kn">import</span> <span class="nn">os.path</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">OrderedDict</span>
 
 <span class="kn">from</span> <span class="nn">skidl.scriptinfo</span> <span class="kn">import</span> <span class="n">get_script_name</span>
-<span class="kn">from</span> <span class="nn">skidl.geometry</span> <span class="kn">import</span> <span class="n">BBox</span><span class="p">,</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Tx</span><span class="p">,</span> <span class="n">Vector</span>
-<span class="kn">from</span> <span class="nn">skidl.schematics.net_terminal</span> <span class="kn">import</span> <span class="n">NetTerminal</span>
 <span class="kn">from</span> <span class="nn">skidl.utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span>
-<span class="kn">from</span> <span class="nn">.constants</span> <span class="kn">import</span> <span class="n">BLK_INT_PAD</span><span class="p">,</span> <span class="n">BOX_LABEL_FONT_SIZE</span><span class="p">,</span> <span class="n">GRID</span><span class="p">,</span> <span class="n">PIN_LABEL_FONT_SIZE</span>
-<span class="kn">from</span> <span class="nn">.bboxes</span> <span class="kn">import</span> <span class="n">calc_symbol_bbox</span><span class="p">,</span> <span class="n">calc_hier_label_bbox</span>
-<span class="kn">from</span> <span class="nn">skidl.schematics.place</span> <span class="kn">import</span> <span class="n">PlacementFailure</span>
-<span class="kn">from</span> <span class="nn">skidl.schematics.route</span> <span class="kn">import</span> <span class="n">RoutingFailure</span>
-<span class="kn">from</span> <span class="nn">skidl.utilities</span> <span class="kn">import</span> <span class="n">rmv_attr</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[]</span>
@@ -70,662 +58,6 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Functions for generating a KiCad EESCHEMA schematic.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-
-
-<span class="k">def</span> <span class="nf">bbox_to_eeschema</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a bounding box using EESCHEMA graphic lines.&quot;&quot;&quot;</span>
-
-    <span class="c1"># Make sure the box corners are integers.</span>
-    <span class="n">bbox</span> <span class="o">=</span> <span class="p">(</span><span class="n">bbox</span> <span class="o">*</span> <span class="n">tx</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">()</span>
-
-    <span class="n">graphic_box</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">if</span> <span class="n">name</span><span class="p">:</span>
-        <span class="c1"># Place name at the lower-left corner of the box.</span>
-        <span class="n">name_pt</span> <span class="o">=</span> <span class="n">bbox</span><span class="o">.</span><span class="n">ul</span>
-        <span class="n">graphic_box</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="s2">&quot;Text Notes </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> 0    </span><span class="si">{}</span><span class="s2">  ~ 20</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="n">name_pt</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">name_pt</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">BOX_LABEL_FONT_SIZE</span><span class="p">,</span> <span class="n">name</span>
-            <span class="p">)</span>
-        <span class="p">)</span>
-
-    <span class="n">graphic_box</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Wire Notes Line&quot;</span><span class="p">)</span>
-    <span class="n">graphic_box</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="s2">&quot;	</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bbox</span><span class="o">.</span><span class="n">ll</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">ll</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">lr</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">lr</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
-    <span class="p">)</span>
-    <span class="n">graphic_box</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Wire Notes Line&quot;</span><span class="p">)</span>
-    <span class="n">graphic_box</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="s2">&quot;	</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bbox</span><span class="o">.</span><span class="n">lr</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">lr</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">ur</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">ur</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
-    <span class="p">)</span>
-    <span class="n">graphic_box</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Wire Notes Line&quot;</span><span class="p">)</span>
-    <span class="n">graphic_box</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="s2">&quot;	</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bbox</span><span class="o">.</span><span class="n">ur</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">ur</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">ul</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">ul</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
-    <span class="p">)</span>
-    <span class="n">graphic_box</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Wire Notes Line&quot;</span><span class="p">)</span>
-    <span class="n">graphic_box</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="s2">&quot;	</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bbox</span><span class="o">.</span><span class="n">ul</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">ul</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">ll</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">ll</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
-    <span class="p">)</span>
-    <span class="n">graphic_box</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>  <span class="c1"># For blank line at end.</span>
-
-    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">graphic_box</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">net_to_eeschema</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tx</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate the EESCHEMA code for the net terminal.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        tx (Tx): Transformation matrix for the node containing this net terminal.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        str: EESCHEMA code string.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stub</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="s2">&quot;R&quot;</span>
-    <span class="k">return</span> <span class="n">pin_label_to_eeschema</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">tx</span><span class="p">)</span>
-    <span class="c1"># return pin_label_to_eeschema(self.pins[0], tx) + bbox_to_eeschema(self.bbox, self.tx * tx)</span>
-
-
-<span class="k">def</span> <span class="nf">part_to_eeschema</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">tx</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create EESCHEMA code for a part.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        part (Part): SKiDL part.</span>
-<span class="sd">        tx (Tx): Transformation matrix.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        string: EESCHEMA code for the part.</span>
-
-<span class="sd">    Notes:</span>
-<span class="sd">        https://en.wikibooks.org/wiki/Kicad/file_formats#Schematic_Files_Format</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">tx</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">tx</span> <span class="o">*</span> <span class="n">tx</span>
-    <span class="n">origin</span> <span class="o">=</span> <span class="n">tx</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">round</span><span class="p">()</span>
-    <span class="n">time_hex</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()))[</span><span class="mi">2</span><span class="p">:]</span>
-    <span class="n">unit_num</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;num&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-
-    <span class="n">eeschema</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">eeschema</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;$Comp&quot;</span><span class="p">)</span>
-    <span class="n">lib</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">filename</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">eeschema</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;L </span><span class="si">{}</span><span class="s2">:</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="p">))</span>
-    <span class="n">eeschema</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;U </span><span class="si">{}</span><span class="s2"> 1 </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit_num</span><span class="p">,</span> <span class="n">time_hex</span><span class="p">))</span>
-    <span class="n">eeschema</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;P </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">y</span><span class="p">)))</span>
-
-    <span class="c1"># Add part symbols. For now we are only adding the designator</span>
-    <span class="n">n_F0</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">)):</span>
-        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;^DrawF0&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">i</span><span class="p">])):</span>
-            <span class="n">n_F0</span> <span class="o">=</span> <span class="n">i</span>
-            <span class="k">break</span>
-    <span class="n">eeschema</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="s1">&#39;F 0 &quot;</span><span class="si">{}</span><span class="s1">&quot; </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span>
-            <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">n_F0</span><span class="p">]</span><span class="o">.</span><span class="n">orientation</span><span class="p">,</span>
-            <span class="nb">str</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">n_F0</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">),</span>
-            <span class="nb">str</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">n_F0</span><span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">),</span>
-            <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">n_F0</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
-            <span class="s2">&quot;000&quot;</span><span class="p">,</span>  <span class="c1"># TODO: Refine this to match part def.</span>
-            <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">n_F0</span><span class="p">]</span><span class="o">.</span><span class="n">halign</span><span class="p">,</span>
-            <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">n_F0</span><span class="p">]</span><span class="o">.</span><span class="n">valign</span><span class="p">,</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
-
-    <span class="c1"># Part value.</span>
-    <span class="n">n_F1</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">)):</span>
-        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;^DrawF1&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">i</span><span class="p">])):</span>
-            <span class="n">n_F1</span> <span class="o">=</span> <span class="n">i</span>
-            <span class="k">break</span>
-    <span class="n">eeschema</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="s1">&#39;F 1 &quot;</span><span class="si">{}</span><span class="s1">&quot; </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="nb">str</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">value</span><span class="p">),</span>
-            <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">n_F1</span><span class="p">]</span><span class="o">.</span><span class="n">orientation</span><span class="p">,</span>
-            <span class="nb">str</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">n_F1</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">),</span>
-            <span class="nb">str</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">n_F1</span><span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">),</span>
-            <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">n_F1</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
-            <span class="s2">&quot;000&quot;</span><span class="p">,</span>  <span class="c1"># TODO: Refine this to match part def.</span>
-            <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">n_F1</span><span class="p">]</span><span class="o">.</span><span class="n">halign</span><span class="p">,</span>
-            <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">n_F1</span><span class="p">]</span><span class="o">.</span><span class="n">valign</span><span class="p">,</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
-
-    <span class="c1"># Part footprint.</span>
-    <span class="n">n_F2</span> <span class="o">=</span> <span class="mi">2</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">)):</span>
-        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;^DrawF2&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">i</span><span class="p">])):</span>
-            <span class="n">n_F2</span> <span class="o">=</span> <span class="n">i</span>
-            <span class="k">break</span>
-    <span class="n">eeschema</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="s1">&#39;F 2 &quot;</span><span class="si">{}</span><span class="s1">&quot; </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">part</span><span class="o">.</span><span class="n">footprint</span><span class="p">,</span>
-            <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">n_F2</span><span class="p">]</span><span class="o">.</span><span class="n">orientation</span><span class="p">,</span>
-            <span class="nb">str</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">n_F2</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">),</span>
-            <span class="nb">str</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">n_F2</span><span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">),</span>
-            <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">n_F2</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
-            <span class="s2">&quot;001&quot;</span><span class="p">,</span>  <span class="c1"># TODO: Refine this to match part def.</span>
-            <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">n_F2</span><span class="p">]</span><span class="o">.</span><span class="n">halign</span><span class="p">,</span>
-            <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">n_F2</span><span class="p">]</span><span class="o">.</span><span class="n">valign</span><span class="p">,</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
-    <span class="n">eeschema</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;   1   </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">y</span><span class="p">)))</span>
-    <span class="n">eeschema</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;   </span><span class="si">{}</span><span class="s2">  </span><span class="si">{}</span><span class="s2">  </span><span class="si">{}</span><span class="s2">  </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">tx</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="n">tx</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">tx</span><span class="o">.</span><span class="n">d</span><span class="p">))</span>
-    <span class="n">eeschema</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;$EndComp&quot;</span><span class="p">)</span>
-    <span class="n">eeschema</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>  <span class="c1"># For blank line at end.</span>
-
-    <span class="c1"># For debugging: draws a bounding box around a part.</span>
-    <span class="c1"># eeschema.append(bbox_to_eeschema(part.bbox, tx))</span>
-    <span class="c1"># eeschema.append(bbox_to_eeschema(part.place_bbox, tx))</span>
-
-    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eeschema</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">wire_to_eeschema</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">wire</span><span class="p">,</span> <span class="n">tx</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create EESCHEMA code for a multi-segment wire.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        net (Net): Net associated with the wire.</span>
-<span class="sd">        wire (list): List of Segments for a wire.</span>
-<span class="sd">        tx (Tx): transformation matrix for each point in the wire.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        string: Text to be placed into EESCHEMA file.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">eeschema</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">segment</span> <span class="ow">in</span> <span class="n">wire</span><span class="p">:</span>
-        <span class="n">eeschema</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Wire Wire Line&quot;</span><span class="p">)</span>
-        <span class="n">w</span> <span class="o">=</span> <span class="p">(</span><span class="n">segment</span> <span class="o">*</span> <span class="n">tx</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">()</span>
-        <span class="n">eeschema</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;  </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">p1</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">w</span><span class="o">.</span><span class="n">p1</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">.</span><span class="n">p2</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">w</span><span class="o">.</span><span class="n">p2</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
-    <span class="n">eeschema</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>  <span class="c1"># For blank line at end.</span>
-    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eeschema</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">junction_to_eeschema</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">junctions</span><span class="p">,</span> <span class="n">tx</span><span class="p">):</span>
-    <span class="n">eeschema</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">junction</span> <span class="ow">in</span> <span class="n">junctions</span><span class="p">:</span>
-        <span class="n">pt</span> <span class="o">=</span> <span class="p">(</span><span class="n">junction</span> <span class="o">*</span> <span class="n">tx</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">()</span>
-        <span class="n">eeschema</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Connection ~ </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
-    <span class="n">eeschema</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>  <span class="c1"># For blank line at end.</span>
-    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eeschema</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">power_part_to_eeschema</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="n">Tx</span><span class="p">()):</span>
-    <span class="k">return</span> <span class="s2">&quot;&quot;</span>  <span class="c1"># REMOVE: Remove this.</span>
-    <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">net</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
-                <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">netclass</span> <span class="o">==</span> <span class="s2">&quot;Power&quot;</span><span class="p">:</span>
-                    <span class="c1"># strip out the &#39;_...&#39; section from power nets</span>
-                    <span class="n">t</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">name</span>
-                    <span class="n">u</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span>
-                    <span class="n">symbol_name</span> <span class="o">=</span> <span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                    <span class="c1"># find the stub in the part</span>
-                    <span class="n">time_hex</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()))[</span><span class="mi">2</span><span class="p">:]</span>
-                    <span class="n">pin_pt</span> <span class="o">=</span> <span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">origin</span> <span class="o">+</span> <span class="n">offset</span> <span class="o">+</span> <span class="n">Point</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pin</span><span class="o">.</span><span class="n">y</span><span class="p">))</span><span class="o">.</span><span class="n">round</span><span class="p">()</span>
-                    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">pin_pt</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pin_pt</span><span class="o">.</span><span class="n">y</span>
-                    <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;$Comp</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-                    <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;L power:</span><span class="si">{}</span><span class="s2"> #PWR?</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">symbol_name</span><span class="p">))</span>
-                    <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;U 1 1 </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time_hex</span><span class="p">))</span>
-                    <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;P </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)))</span>
-                    <span class="c1"># Add part symbols. For now we are only adding the designator</span>
-                    <span class="n">n_F0</span> <span class="o">=</span> <span class="mi">1</span>
-                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">)):</span>
-                        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;^DrawF0&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">i</span><span class="p">])):</span>
-                            <span class="n">n_F0</span> <span class="o">=</span> <span class="n">i</span>
-                            <span class="k">break</span>
-                    <span class="n">part_orientation</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">n_F0</span><span class="p">]</span><span class="o">.</span><span class="n">orientation</span>
-                    <span class="n">part_horizontal_align</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">n_F0</span><span class="p">]</span><span class="o">.</span><span class="n">halign</span>
-                    <span class="n">part_vertical_align</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">n_F0</span><span class="p">]</span><span class="o">.</span><span class="n">valign</span>
-
-                    <span class="c1"># check if the pin orientation will clash with the power part</span>
-                    <span class="k">if</span> <span class="s2">&quot;+&quot;</span> <span class="ow">in</span> <span class="n">symbol_name</span><span class="p">:</span>
-                        <span class="c1"># voltage sources face up, so check if the pin is facing down (opposite logic y-axis)</span>
-                        <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;U&quot;</span><span class="p">:</span>
-                            <span class="n">orientation</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-                    <span class="k">elif</span> <span class="s2">&quot;gnd&quot;</span> <span class="ow">in</span> <span class="n">symbol_name</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
-                        <span class="c1"># gnd points down so check if the pin is facing up (opposite logic y-axis)</span>
-                        <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span>
-                            <span class="n">orientation</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-                    <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                        <span class="s1">&#39;F 0 &quot;</span><span class="si">{}</span><span class="s1">&quot; </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                            <span class="s2">&quot;#PWR?&quot;</span><span class="p">,</span>
-                            <span class="n">part_orientation</span><span class="p">,</span>
-                            <span class="nb">str</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">25</span><span class="p">),</span>
-                            <span class="nb">str</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="mi">25</span><span class="p">),</span>
-                            <span class="nb">str</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span>
-                            <span class="s2">&quot;001&quot;</span><span class="p">,</span>
-                            <span class="n">part_horizontal_align</span><span class="p">,</span>
-                            <span class="n">part_vertical_align</span><span class="p">,</span>
-                        <span class="p">)</span>
-                    <span class="p">)</span>
-                    <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                        <span class="s1">&#39;F 1 &quot;</span><span class="si">{}</span><span class="s1">&quot; </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                            <span class="n">symbol_name</span><span class="p">,</span>
-                            <span class="n">part_orientation</span><span class="p">,</span>
-                            <span class="nb">str</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">25</span><span class="p">),</span>
-                            <span class="nb">str</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="mi">25</span><span class="p">),</span>
-                            <span class="nb">str</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span>
-                            <span class="s2">&quot;000&quot;</span><span class="p">,</span>
-                            <span class="n">part_horizontal_align</span><span class="p">,</span>
-                            <span class="n">part_vertical_align</span><span class="p">,</span>
-                        <span class="p">)</span>
-                    <span class="p">)</span>
-                    <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;   1   </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)))</span>
-                    <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                        <span class="s2">&quot;   </span><span class="si">{}</span><span class="s2">   </span><span class="si">{}</span><span class="s2">  </span><span class="si">{}</span><span class="s2">  </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                            <span class="n">orientation</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                            <span class="n">orientation</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                            <span class="n">orientation</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-                            <span class="n">orientation</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
-                        <span class="p">)</span>
-                    <span class="p">)</span>
-                    <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;$EndComp</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">inst</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">inst</span><span class="p">))</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">inst</span><span class="p">)</span>
-    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
-
-
-<span class="c1"># Sizes of EESCHEMA schematic pages from smallest to largest. Dimensions in mils.</span>
-<span class="n">A_sizes_list</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s2">&quot;A4&quot;</span><span class="p">,</span> <span class="n">BBox</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">11693</span><span class="p">,</span> <span class="mi">8268</span><span class="p">))),</span>
-    <span class="p">(</span><span class="s2">&quot;A3&quot;</span><span class="p">,</span> <span class="n">BBox</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">16535</span><span class="p">,</span> <span class="mi">11693</span><span class="p">))),</span>
-    <span class="p">(</span><span class="s2">&quot;A2&quot;</span><span class="p">,</span> <span class="n">BBox</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">23386</span><span class="p">,</span> <span class="mi">16535</span><span class="p">))),</span>
-    <span class="p">(</span><span class="s2">&quot;A1&quot;</span><span class="p">,</span> <span class="n">BBox</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">33110</span><span class="p">,</span> <span class="mi">23386</span><span class="p">))),</span>
-    <span class="p">(</span><span class="s2">&quot;A0&quot;</span><span class="p">,</span> <span class="n">BBox</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">46811</span><span class="p">,</span> <span class="mi">33110</span><span class="p">))),</span>
-<span class="p">]</span>
-
-<span class="c1"># Create bounding box for each A size sheet.</span>
-<span class="n">A_sizes</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="n">A_sizes_list</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">get_A_size</span><span class="p">(</span><span class="n">bbox</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the A-size page needed to fit the given bounding box.&quot;&quot;&quot;</span>
-
-    <span class="n">width</span> <span class="o">=</span> <span class="n">bbox</span><span class="o">.</span><span class="n">w</span>
-    <span class="n">height</span> <span class="o">=</span> <span class="n">bbox</span><span class="o">.</span><span class="n">h</span> <span class="o">*</span> <span class="mf">1.25</span>  <span class="c1"># HACK: why 1.25?</span>
-    <span class="k">for</span> <span class="n">A_size</span><span class="p">,</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">A_sizes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="k">if</span> <span class="n">width</span> <span class="o">&lt;</span> <span class="n">page</span><span class="o">.</span><span class="n">w</span> <span class="ow">and</span> <span class="n">height</span> <span class="o">&lt;</span> <span class="n">page</span><span class="o">.</span><span class="n">h</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">A_size</span>
-    <span class="k">return</span> <span class="s2">&quot;A0&quot;</span>  <span class="c1"># Nothing fits, so use the largest available.</span>
-
-
-<span class="k">def</span> <span class="nf">calc_sheet_tx</span><span class="p">(</span><span class="n">bbox</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the page size and positioning for this sheet.&quot;&quot;&quot;</span>
-    <span class="n">A_size</span> <span class="o">=</span> <span class="n">get_A_size</span><span class="p">(</span><span class="n">bbox</span><span class="p">)</span>
-    <span class="n">page_bbox</span> <span class="o">=</span> <span class="n">bbox</span> <span class="o">*</span> <span class="n">Tx</span><span class="p">(</span><span class="n">d</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">move_to_ctr</span> <span class="o">=</span> <span class="n">A_sizes</span><span class="p">[</span><span class="n">A_size</span><span class="p">]</span><span class="o">.</span><span class="n">ctr</span><span class="o">.</span><span class="n">snap</span><span class="p">(</span><span class="n">GRID</span><span class="p">)</span> <span class="o">-</span> <span class="n">page_bbox</span><span class="o">.</span><span class="n">ctr</span><span class="o">.</span><span class="n">snap</span><span class="p">(</span><span class="n">GRID</span><span class="p">)</span>
-    <span class="n">move_tx</span> <span class="o">=</span> <span class="n">Tx</span><span class="p">(</span><span class="n">d</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">move_to_ctr</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">move_tx</span>
-
-
-<span class="k">def</span> <span class="nf">calc_pin_dir</span><span class="p">(</span><span class="n">pin</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate pin direction accounting for part transformation matrix.&quot;&quot;&quot;</span>
-
-    <span class="c1"># Copy the part trans. matrix, but remove the translation vector, leaving only scaling/rotation stuff.</span>
-    <span class="n">tx</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">tx</span>
-    <span class="n">tx</span> <span class="o">=</span> <span class="n">Tx</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">tx</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">tx</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">tx</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="n">tx</span><span class="o">.</span><span class="n">d</span><span class="p">)</span>
-
-    <span class="c1"># Use the pin orientation to compute the pin direction vector.</span>
-    <span class="n">pin_vector</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-        <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
-        <span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-        <span class="s2">&quot;R&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-    <span class="p">}[</span><span class="n">pin</span><span class="o">.</span><span class="n">orientation</span><span class="p">]</span>
-
-    <span class="c1"># Rotate the direction vector using the part rotation matrix.</span>
-    <span class="n">pin_vector</span> <span class="o">=</span> <span class="n">pin_vector</span> <span class="o">*</span> <span class="n">tx</span>
-
-    <span class="c1"># Create an integer tuple from the rotated direction vector.</span>
-    <span class="n">pin_vector</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">pin_vector</span><span class="o">.</span><span class="n">x</span><span class="p">)),</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">pin_vector</span><span class="o">.</span><span class="n">y</span><span class="p">)))</span>
-
-    <span class="c1"># Return the pin orientation based on its rotated direction vector.</span>
-    <span class="k">return</span> <span class="p">{</span>
-        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span> <span class="s2">&quot;U&quot;</span><span class="p">,</span>
-        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span>
-        <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span> <span class="s2">&quot;L&quot;</span><span class="p">,</span>
-        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span>
-    <span class="p">}[</span><span class="n">pin_vector</span><span class="p">]</span>
-
-
-<div class="viewcode-block" id="pin_label_to_eeschema">
-<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad6.gen_schematic.html#skidl.tools.kicad6.gen_schematic.pin_label_to_eeschema">[docs]</a>
-<span class="nd">@export_to_all</span>
-<span class="k">def</span> <span class="nf">pin_label_to_eeschema</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">tx</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create EESCHEMA text of net label attached to a pin.&quot;&quot;&quot;</span>
-
-    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">stub</span> <span class="ow">is</span> <span class="kc">False</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">pin</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
-        <span class="c1"># No label if pin is not connected or is connected to an explicit wire.</span>
-        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-
-    <span class="n">label_type</span> <span class="o">=</span> <span class="s2">&quot;HLabel&quot;</span>
-    <span class="k">for</span> <span class="n">pn</span> <span class="ow">in</span> <span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">hierarchy</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">pn</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">hierarchy</span><span class="p">):</span>
-            <span class="k">continue</span>
-        <span class="k">if</span> <span class="n">pn</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">hierarchy</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">hierarchy</span><span class="p">):</span>
-            <span class="k">continue</span>
-        <span class="n">label_type</span> <span class="o">=</span> <span class="s2">&quot;GLabel&quot;</span>
-        <span class="k">break</span>
-
-    <span class="n">part_tx</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">tx</span> <span class="o">*</span> <span class="n">tx</span>
-    <span class="n">pt</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">pt</span> <span class="o">*</span> <span class="n">part_tx</span>
-
-    <span class="n">pin_dir</span> <span class="o">=</span> <span class="n">calc_pin_dir</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
-    <span class="n">orientation</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;R&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-        <span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-    <span class="p">}[</span><span class="n">pin_dir</span><span class="p">]</span>
-
-    <span class="k">return</span> <span class="s2">&quot;Text </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">    </span><span class="si">{}</span><span class="s2">   UnSpc ~ 0</span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">label_type</span><span class="p">,</span>
-        <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">x</span><span class="p">)),</span>
-        <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">y</span><span class="p">)),</span>
-        <span class="n">orientation</span><span class="p">,</span>
-        <span class="n">PIN_LABEL_FONT_SIZE</span><span class="p">,</span>
-        <span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-    <span class="p">)</span></div>
-
-
-
-<span class="k">def</span> <span class="nf">create_eeschema_file</span><span class="p">(</span>
-    <span class="n">filename</span><span class="p">,</span>
-    <span class="n">contents</span><span class="p">,</span>
-    <span class="n">cur_sheet_num</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">total_sheet_num</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Default&quot;</span><span class="p">,</span>
-    <span class="n">rev_major</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-    <span class="n">rev_minor</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">year</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">year</span><span class="p">,</span>
-    <span class="n">month</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">month</span><span class="p">,</span>
-    <span class="n">day</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">day</span><span class="p">,</span>
-    <span class="n">A_size</span><span class="o">=</span><span class="s2">&quot;A2&quot;</span><span class="p">,</span>
-<span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Write EESCHEMA header, contents, and footer to a file.&quot;&quot;&quot;</span>
-
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
-            <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                <span class="p">(</span>
-                    <span class="s2">&quot;EESchema Schematic File Version 4&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;EELAYER 30 0&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;EELAYER END&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;$Descr </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                        <span class="n">A_size</span><span class="p">,</span> <span class="n">A_sizes</span><span class="p">[</span><span class="n">A_size</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">A_sizes</span><span class="p">[</span><span class="n">A_size</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">y</span>
-                    <span class="p">),</span>
-                    <span class="s2">&quot;encoding utf-8&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;Sheet </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cur_sheet_num</span><span class="p">,</span> <span class="n">total_sheet_num</span><span class="p">),</span>
-                    <span class="s1">&#39;Title &quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">title</span><span class="p">),</span>
-                    <span class="s1">&#39;Date &quot;</span><span class="si">{}</span><span class="s1">-</span><span class="si">{}</span><span class="s1">-</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">),</span>
-                    <span class="s1">&#39;Rev &quot;v</span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rev_major</span><span class="p">,</span> <span class="n">rev_minor</span><span class="p">),</span>
-                    <span class="s1">&#39;Comp &quot;&quot;&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;Comment1 &quot;&quot;&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;Comment2 &quot;&quot;&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;Comment3 &quot;&quot;&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;Comment4 &quot;&quot;&#39;</span><span class="p">,</span>
-                    <span class="s2">&quot;$EndDescr&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                    <span class="n">contents</span><span class="p">,</span>
-                    <span class="s2">&quot;$EndSCHEMATC&quot;</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
-        <span class="p">)</span>
-
-
-<div class="viewcode-block" id="node_to_eeschema">
-<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad6.gen_schematic.html#skidl.tools.kicad6.gen_schematic.node_to_eeschema">[docs]</a>
-<span class="nd">@export_to_all</span>
-<span class="k">def</span> <span class="nf">node_to_eeschema</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="o">=</span><span class="n">Tx</span><span class="p">()):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert node circuitry to an EESCHEMA sheet.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        sheet_tx (Tx, optional): Scaling/translation matrix for sheet. Defaults to Tx().</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        str: EESCHEMA text for the node circuitry.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="n">HIER_SEP</span>
-
-    <span class="c1"># List to hold all the EESCHEMA code for this node.</span>
-    <span class="n">eeschema_code</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">flattened</span><span class="p">:</span>
-        <span class="c1"># Create the transformation matrix for the placement of the parts in the node.</span>
-        <span class="n">tx</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">tx</span> <span class="o">*</span> <span class="n">sheet_tx</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="c1"># Unflattened nodes are placed in their own sheet, so compute</span>
-        <span class="c1"># their bounding box as if they *were* flattened and use that to</span>
-        <span class="c1"># find the transformation matrix for an appropriately-sized sheet.</span>
-        <span class="n">flattened_bbox</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">internal_bbox</span><span class="p">()</span>
-        <span class="n">tx</span> <span class="o">=</span> <span class="n">calc_sheet_tx</span><span class="p">(</span><span class="n">flattened_bbox</span><span class="p">)</span>
-
-    <span class="c1"># Generate EESCHEMA code for each child of this node.</span>
-    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-        <span class="n">eeschema_code</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_to_eeschema</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">tx</span><span class="p">))</span>
-
-    <span class="c1"># Generate EESCHEMA code for each part in the node.</span>
-    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">):</span>
-            <span class="n">eeschema_code</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">net_to_eeschema</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="n">tx</span><span class="p">))</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">eeschema_code</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part_to_eeschema</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="n">tx</span><span class="p">))</span>
-
-    <span class="c1"># Generate EESCHEMA wiring code between the parts in the node.</span>
-    <span class="k">for</span> <span class="n">net</span><span class="p">,</span> <span class="n">wire</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">wires</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">wire_code</span> <span class="o">=</span> <span class="n">wire_to_eeschema</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">wire</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="n">tx</span><span class="p">)</span>
-        <span class="n">eeschema_code</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">wire_code</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">net</span><span class="p">,</span> <span class="n">junctions</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">junctions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">junction_code</span> <span class="o">=</span> <span class="n">junction_to_eeschema</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">junctions</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="n">tx</span><span class="p">)</span>
-        <span class="n">eeschema_code</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">junction_code</span><span class="p">)</span>
-
-    <span class="c1"># Generate power connections for the each part in the node.</span>
-    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
-        <span class="n">stub_code</span> <span class="o">=</span> <span class="n">power_part_to_eeschema</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="n">tx</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">stub_code</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">eeschema_code</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stub_code</span><span class="p">)</span>
-
-    <span class="c1"># Generate pin labels for stubbed nets on each part in the node.</span>
-    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part</span><span class="p">:</span>
-            <span class="n">pin_label_code</span> <span class="o">=</span> <span class="n">pin_label_to_eeschema</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="n">tx</span><span class="p">)</span>
-            <span class="n">eeschema_code</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pin_label_code</span><span class="p">)</span>
-
-    <span class="c1"># Join EESCHEMA code into one big string.</span>
-    <span class="n">eeschema_code</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eeschema_code</span><span class="p">)</span>
-
-    <span class="c1"># If this node was flattened, then return the EESCHEMA code and surrounding box</span>
-    <span class="c1"># for inclusion in the parent node.</span>
-    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">flattened</span><span class="p">:</span>
-
-        <span class="c1"># Generate the graphic box that surrounds the flattened hierarchical block of this node.</span>
-        <span class="n">block_name</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">HIER_SEP</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">pad</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">(</span><span class="n">BLK_INT_PAD</span><span class="p">,</span> <span class="n">BLK_INT_PAD</span><span class="p">)</span>
-        <span class="n">bbox_code</span> <span class="o">=</span> <span class="n">bbox_to_eeschema</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">bbox</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">pad</span><span class="p">),</span> <span class="n">tx</span><span class="p">,</span> <span class="n">block_name</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">eeschema_code</span><span class="p">,</span> <span class="n">bbox_code</span><span class="p">))</span>
-
-    <span class="c1"># Create a hierarchical sheet file for storing this unflattened node.</span>
-    <span class="n">A_size</span> <span class="o">=</span> <span class="n">get_A_size</span><span class="p">(</span><span class="n">flattened_bbox</span><span class="p">)</span>
-    <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">sheet_filename</span><span class="p">)</span>
-    <span class="n">create_eeschema_file</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">eeschema_code</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="n">A_size</span><span class="o">=</span><span class="n">A_size</span><span class="p">)</span>
-
-    <span class="c1"># Create the hierarchical sheet for insertion into the calling node sheet.</span>
-    <span class="n">bbox</span> <span class="o">=</span> <span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">bbox</span> <span class="o">*</span> <span class="n">node</span><span class="o">.</span><span class="n">tx</span> <span class="o">*</span> <span class="n">sheet_tx</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">()</span>
-    <span class="n">time_hex</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()))[</span><span class="mi">2</span><span class="p">:]</span>
-    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-        <span class="p">(</span>
-            <span class="s2">&quot;$Sheet&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;S </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bbox</span><span class="o">.</span><span class="n">ll</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">ll</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">h</span><span class="p">),</span>
-            <span class="s2">&quot;U </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time_hex</span><span class="p">),</span>
-            <span class="s1">&#39;F0 &quot;</span><span class="si">{}</span><span class="s1">&quot; </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name_sz</span><span class="p">),</span>
-            <span class="s1">&#39;F1 &quot;</span><span class="si">{}</span><span class="s1">&quot; </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">sheet_filename</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">filename_sz</span><span class="p">),</span>
-            <span class="s2">&quot;$EndSheet&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="p">)</span>
-    <span class="p">)</span></div>
-
-
-
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Generate a KiCad EESCHEMA schematic from a Circuit object.</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
-<span class="c1"># TODO: Handle symio attribute.</span>
-
-
-<span class="k">def</span> <span class="nf">preprocess_circuit</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add stuff to parts &amp; nets for doing placement and routing of schematics.&quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="nf">units</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[</span><span class="n">part</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">part</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize part or its part units.&quot;&quot;&quot;</span>
-
-        <span class="c1"># Initialize the units of the part, or the part itself if it has no units.</span>
-        <span class="n">pin_limit</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;orientation_pin_limit&quot;</span><span class="p">,</span> <span class="mi">44</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">part_unit</span> <span class="ow">in</span> <span class="n">units</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
-            <span class="c1"># Initialize transform matrix.</span>
-            <span class="n">part_unit</span><span class="o">.</span><span class="n">tx</span> <span class="o">=</span> <span class="n">Tx</span><span class="o">.</span><span class="n">from_symtx</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">part_unit</span><span class="p">,</span> <span class="s2">&quot;symtx&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
-
-            <span class="c1"># Lock part orientation if symtx was specified. Also lock parts with a lot of pins</span>
-            <span class="c1"># since they&#39;re typically drawn the way they&#39;re supposed to be oriented.</span>
-            <span class="c1"># And also lock single-pin parts because these are usually power/ground and</span>
-            <span class="c1"># they shouldn&#39;t be flipped around.</span>
-            <span class="n">num_pins</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">part_unit</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span>
-            <span class="n">part_unit</span><span class="o">.</span><span class="n">orientation_locked</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part_unit</span><span class="p">,</span> <span class="s2">&quot;symtx&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="p">(</span>
-                <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">num_pins</span> <span class="o">&lt;=</span> <span class="n">pin_limit</span>
-            <span class="p">)</span>
-
-            <span class="c1"># Assign pins from the parent part to the part unit.</span>
-            <span class="n">part_unit</span><span class="o">.</span><span class="n">grab_pins</span><span class="p">()</span>
-
-            <span class="c1"># Initialize pin attributes used for generating schematics.</span>
-            <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part_unit</span><span class="p">:</span>
-                <span class="n">pin</span><span class="o">.</span><span class="n">pt</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pin</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
-                <span class="n">pin</span><span class="o">.</span><span class="n">routed</span> <span class="o">=</span> <span class="kc">False</span>
-
-    <span class="k">def</span> <span class="nf">rotate_power_pins</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Rotate a part based on the direction of its power pins.</span>
-
-<span class="sd">        This function is to make sure that voltage sources face up and gnd pins</span>
-<span class="sd">        face down.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="c1"># Don&#39;t rotate parts that are already explicitly rotated/flipped.</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;symtx&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
-            <span class="k">return</span>
-
-        <span class="k">def</span> <span class="nf">is_pwr</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">net_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;+&quot;</span><span class="p">)</span>
-
-        <span class="k">def</span> <span class="nf">is_gnd</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
-            <span class="k">return</span> <span class="s2">&quot;gnd&quot;</span> <span class="ow">in</span> <span class="n">net_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-
-        <span class="n">dont_rotate_pin_cnt</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dont_rotate_pin_count&quot;</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
-
-        <span class="k">for</span> <span class="n">part_unit</span> <span class="ow">in</span> <span class="n">units</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
-            <span class="c1"># Don&#39;t rotate parts with too many pins.</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">part_unit</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">dont_rotate_pin_cnt</span><span class="p">:</span>
-                <span class="k">return</span>
-
-            <span class="c1"># Tally what rotation would make each pwr/gnd pin point up or down.</span>
-            <span class="n">rotation_tally</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
-            <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part_unit</span><span class="p">:</span>
-                <span class="n">net_name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-                <span class="k">if</span> <span class="n">is_gnd</span><span class="p">(</span><span class="n">net_name</span><span class="p">):</span>
-                    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;U&quot;</span><span class="p">:</span>
-                        <span class="n">rotation_tally</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-                    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span>
-                        <span class="n">rotation_tally</span><span class="p">[</span><span class="mi">180</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-                    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span>
-                        <span class="n">rotation_tally</span><span class="p">[</span><span class="mi">90</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-                    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;R&quot;</span><span class="p">:</span>
-                        <span class="n">rotation_tally</span><span class="p">[</span><span class="mi">270</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-                <span class="k">elif</span> <span class="n">is_pwr</span><span class="p">(</span><span class="n">net_name</span><span class="p">):</span>
-                    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span>
-                        <span class="n">rotation_tally</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-                    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;U&quot;</span><span class="p">:</span>
-                        <span class="n">rotation_tally</span><span class="p">[</span><span class="mi">180</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-                    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span>
-                        <span class="n">rotation_tally</span><span class="p">[</span><span class="mi">270</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-                    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;R&quot;</span><span class="p">:</span>
-                        <span class="n">rotation_tally</span><span class="p">[</span><span class="mi">90</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-
-            <span class="c1"># Rotate the part unit in the direction with the most tallies.</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">rotation</span> <span class="o">=</span> <span class="n">rotation_tally</span><span class="o">.</span><span class="n">most_common</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
-                <span class="k">pass</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># Rotate part unit 90-degrees clockwise until the desired rotation is reached.</span>
-                <span class="n">tx_cw_90</span> <span class="o">=</span> <span class="n">Tx</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 90-degree trans. matrix.</span>
-                <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">rotation</span> <span class="o">/</span> <span class="mi">90</span><span class="p">))):</span>
-                    <span class="n">part_unit</span><span class="o">.</span><span class="n">tx</span> <span class="o">=</span> <span class="n">part_unit</span><span class="o">.</span><span class="n">tx</span> <span class="o">*</span> <span class="n">tx_cw_90</span>
-
-    <span class="k">def</span> <span class="nf">calc_part_bbox</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the labeled bounding boxes and store it in the part.&quot;&quot;&quot;</span>
-
-        <span class="c1"># Find part/unit bounding boxes excluding any net labels on pins.</span>
-        <span class="n">calc_symbol_bbox</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
-
-        <span class="k">for</span> <span class="n">part_unit</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="c1"># Expand the bounding box if it&#39;s too small in either dimension.</span>
-            <span class="n">resize_wh</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">part_unit</span><span class="o">.</span><span class="n">bbox</span><span class="o">.</span><span class="n">w</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
-                <span class="n">resize_wh</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span> <span class="o">-</span> <span class="n">part_unit</span><span class="o">.</span><span class="n">bbox</span><span class="o">.</span><span class="n">w</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
-            <span class="k">if</span> <span class="n">part_unit</span><span class="o">.</span><span class="n">bbox</span><span class="o">.</span><span class="n">h</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
-                <span class="n">resize_wh</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span> <span class="o">-</span> <span class="n">part_unit</span><span class="o">.</span><span class="n">bbox</span><span class="o">.</span><span class="n">h</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
-            <span class="n">bare_bbox</span> <span class="o">=</span> <span class="n">part_unit</span><span class="o">.</span><span class="n">bbox</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">resize_wh</span><span class="p">)</span>
-
-            <span class="c1"># Find expanded bounding box that includes any hier labels attached to pins.</span>
-            <span class="n">part_unit</span><span class="o">.</span><span class="n">lbl_bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">()</span>
-            <span class="n">part_unit</span><span class="o">.</span><span class="n">lbl_bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bare_bbox</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part_unit</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">stub</span><span class="p">:</span>
-                    <span class="c1"># Find bounding box for net stub label attached to pin.</span>
-                    <span class="n">hlbl_bbox</span> <span class="o">=</span> <span class="n">calc_hier_label_bbox</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span><span class="p">)</span>
-                    <span class="c1"># Move the label bbox to the pin location.</span>
-                    <span class="n">hlbl_bbox</span> <span class="o">*=</span> <span class="n">Tx</span><span class="p">()</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">pt</span><span class="p">)</span>
-                    <span class="c1"># Update the bbox for the labelled part with this pin label.</span>
-                    <span class="n">part_unit</span><span class="o">.</span><span class="n">lbl_bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">hlbl_bbox</span><span class="p">)</span>
-
-            <span class="c1"># Set the active bounding box to the labeled version.</span>
-            <span class="n">part_unit</span><span class="o">.</span><span class="n">bbox</span> <span class="o">=</span> <span class="n">part_unit</span><span class="o">.</span><span class="n">lbl_bbox</span>
-
-    <span class="c1"># Pre-process parts</span>
-    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
-        <span class="c1"># Initialize part attributes used for generating schematics.</span>
-        <span class="n">initialize</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
-
-        <span class="c1"># Rotate parts.  Power pins should face up. GND pins should face down.</span>
-        <span class="n">rotate_power_pins</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
-
-        <span class="c1"># Compute bounding boxes around parts</span>
-        <span class="n">calc_part_bbox</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">finalize_parts_and_nets</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Restore parts and nets after place &amp; route is done.&quot;&quot;&quot;</span>
-
-    <span class="c1"># Remove any NetTerminals that were added.</span>
-    <span class="n">net_terminals</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">parts</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">))</span>
-    <span class="n">circuit</span><span class="o">.</span><span class="n">rmv_parts</span><span class="p">(</span><span class="o">*</span><span class="n">net_terminals</span><span class="p">)</span>
-
-    <span class="c1"># Return pins from the part units to their parent part.</span>
-    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
-        <span class="n">part</span><span class="o">.</span><span class="n">grab_pins</span><span class="p">()</span>
-
-    <span class="c1"># Remove some stuff added to parts during schematic generation process.</span>
-    <span class="n">rmv_attr</span><span class="p">(</span><span class="n">circuit</span><span class="o">.</span><span class="n">parts</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;force&quot;</span><span class="p">,</span> <span class="s2">&quot;bbox&quot;</span><span class="p">,</span> <span class="s2">&quot;lbl_bbox&quot;</span><span class="p">,</span> <span class="s2">&quot;tx&quot;</span><span class="p">))</span>
 
 
 <div class="viewcode-block" id="gen_schematic">
@@ -752,78 +84,12 @@
 <span class="sd">        options (dict, optional): Dict of options and values, usually for drawing/debugging.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="kn">import</span> <span class="nn">skidl</span>
     <span class="kn">from</span> <span class="nn">skidl.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
-    <span class="kn">from</span> <span class="nn">skidl.tools</span> <span class="kn">import</span> <span class="n">tool_modules</span>
-    <span class="kn">from</span> <span class="nn">skidl.schematics.node</span> <span class="kn">import</span> <span class="n">Node</span>
 
-    <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Schematic generation is not implemented for KiCad version 6.&quot;</span><span class="p">)</span>
-    <span class="k">return</span>
-
-    <span class="n">tool</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tool&quot;</span><span class="p">,</span> <span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">tool</span><span class="p">)</span>
-
-    <span class="c1"># Part placement options that should always be turned on.</span>
-    <span class="n">options</span><span class="p">[</span><span class="s2">&quot;use_push_pull&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="n">options</span><span class="p">[</span><span class="s2">&quot;rotate_parts&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="n">options</span><span class="p">[</span><span class="s2">&quot;pt_to_pt_mult&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># HACK: Ad-hoc value.</span>
-    <span class="n">options</span><span class="p">[</span><span class="s2">&quot;pin_normalize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-
-    <span class="c1"># Start with default routing area.</span>
-    <span class="n">expansion_factor</span> <span class="o">=</span> <span class="mf">1.0</span>
-
-    <span class="c1"># Try to place &amp; route one or more times.</span>
-    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">retries</span><span class="p">):</span>
-        <span class="n">preprocess_circuit</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
-
-        <span class="n">node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">tool_modules</span><span class="p">[</span><span class="n">tool</span><span class="p">],</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">top_name</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">flatness</span><span class="p">)</span>
-
-        <span class="k">try</span><span class="p">:</span>
-            <span class="c1"># Place parts.</span>
-            <span class="n">node</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">expansion_factor</span><span class="o">=</span><span class="n">expansion_factor</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
-
-            <span class="c1"># Route parts.</span>
-            <span class="n">node</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="o">**</span><span class="n">options</span><span class="p">)</span>
-
-        <span class="k">except</span> <span class="n">PlacementFailure</span><span class="p">:</span>
-            <span class="c1"># Placement failed, so clean up ...</span>
-            <span class="n">finalize_parts_and_nets</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
-            <span class="c1"># ... and try again.</span>
-            <span class="k">continue</span>
-
-        <span class="k">except</span> <span class="n">RoutingFailure</span><span class="p">:</span>
-            <span class="c1"># Routing failed, so clean up ...</span>
-            <span class="n">finalize_parts_and_nets</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
-            <span class="c1"># ... and expand routing area ...</span>
-            <span class="n">expansion_factor</span> <span class="o">*=</span> <span class="mf">1.5</span>  <span class="c1"># HACK: Ad-hoc increase of expansion factor.</span>
-            <span class="c1"># ... and try again.</span>
-            <span class="k">continue</span>
-
-        <span class="c1"># Generate EESCHEMA code for the schematic.</span>
-        <span class="n">node_to_eeschema</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-
-        <span class="c1"># Append place &amp; route statistics for the schematic to a file.</span>
-        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;collect_stats&quot;</span><span class="p">):</span>
-            <span class="n">stats</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">collect_stats</span><span class="p">(</span><span class="o">**</span><span class="n">options</span><span class="p">)</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;stats_file&quot;</span><span class="p">],</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
-
-        <span class="c1"># Clean up.</span>
-        <span class="n">finalize_parts_and_nets</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
-
-        <span class="c1"># Place &amp; route was successful if we got here, so exit.</span>
-        <span class="k">return</span>
-
-    <span class="c1"># Append failed place &amp; route statistics for the schematic to a file.</span>
-    <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;collect_stats&quot;</span><span class="p">):</span>
-        <span class="n">stats</span> <span class="o">=</span> <span class="s2">&quot;-1</span><span class="se">\n</span><span class="s2">&quot;</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;stats_file&quot;</span><span class="p">],</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
-
-    <span class="c1"># Clean-up after failure.</span>
-    <span class="n">finalize_parts_and_nets</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
-
-    <span class="c1"># Exited the loop without successful routing.</span>
-    <span class="k">raise</span> <span class="p">(</span><span class="n">RoutingFailure</span><span class="p">)</span></div>
+    <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+        <span class="s2">&quot;Schematic generation is not implemented for KiCad version 6.&quot;</span>
+    <span class="p">)</span>
+    <span class="k">return</span></div>
 
 </pre></div>
 
@@ -831,7 +97,7 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
@@ -847,7 +113,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -856,14 +122,14 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad6.gen_schematic</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

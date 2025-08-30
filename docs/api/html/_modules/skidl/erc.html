@@ -6,12 +6,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.erc &#8212; SKiDL 2.0.1 documentation</title>
+    <title>skidl.erc &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -23,7 +23,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../../"><img src="../../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.erc</a></li> 
       </ul>
@@ -49,7 +49,12 @@
 <span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">ERC functions for Circuit, Part, Pin, Net, Bus, Interface objects.</span>
+<span class="sd">Electrical Rule Checking (ERC) in SKiDL.</span>
+
+<span class="sd">This module provides functions for verifying the electrical correctness of SKiDL circuits.</span>
+<span class="sd">It includes default ERC functions for circuits, parts, pins, and nets that check for </span>
+<span class="sd">common issues such as unconnected pins, pin conflicts, and insufficient drive strength.</span>
+<span class="sd">These functions can be customized or extended to implement domain-specific design rules.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
@@ -61,7 +66,14 @@
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">dflt_circuit_erc</span><span class="p">(</span><span class="n">circuit</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Do an electrical rules check on a circuit.</span>
+<span class="sd">    Perform electrical rules check on an entire circuit.</span>
+<span class="sd">    </span>
+<span class="sd">    This function checks all nets, parts, and interfaces in the circuit</span>
+<span class="sd">    for electrical rule violations. It first merges multi-segment nets, then</span>
+<span class="sd">    runs ERC checks on each unique net once to prevent duplicate error messages.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        circuit (Circuit): The circuit to check for rule violations.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="kn">from</span> <span class="nn">.net</span> <span class="kn">import</span> <span class="n">Net</span>
@@ -77,8 +89,8 @@
     <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">net_names</span><span class="p">:</span>
         <span class="n">Net</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="n">circuit</span><span class="p">)</span><span class="o">.</span><span class="n">ERC</span><span class="p">()</span>
 
-    <span class="c1"># Check parts, interfaces &amp; packages for errors:</span>
-    <span class="k">for</span> <span class="n">piece</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">parts</span> <span class="o">+</span> <span class="n">circuit</span><span class="o">.</span><span class="n">interfaces</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">circuit</span><span class="o">.</span><span class="n">packages</span><span class="p">):</span>
+    <span class="c1"># Check parts &amp; interfaces for errors:</span>
+    <span class="k">for</span> <span class="n">piece</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">parts</span> <span class="o">+</span> <span class="n">circuit</span><span class="o">.</span><span class="n">interfaces</span><span class="p">:</span>
         <span class="n">piece</span><span class="o">.</span><span class="n">ERC</span><span class="p">()</span></div>
 
 
@@ -88,7 +100,14 @@
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">dflt_part_erc</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Do an electrical rules check on a part in the schematic.</span>
+<span class="sd">    Perform electrical rules check on a specific part.</span>
+<span class="sd">    </span>
+<span class="sd">    This function checks each pin of the part for rule violations such as</span>
+<span class="sd">    unconnected pins that should be connected or connected pins that should</span>
+<span class="sd">    not be connected (NOCONNECT).</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        part (Part): The part to check for rule violations.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">Pin</span><span class="p">,</span> <span class="n">pin_types</span><span class="p">,</span> <span class="n">pin_drives</span>
@@ -107,15 +126,13 @@
         <span class="c1"># Error if a pin is unconnected but not of type NOCONNECT.</span>
         <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">net</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">func</span> <span class="o">!=</span> <span class="n">pin_types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">:</span>
-                <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Unconnected pin: </span><span class="si">{p}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">pin</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">()))</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unconnected pin: </span><span class="si">{</span><span class="n">pin</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">()</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
 
         <span class="c1"># Error if a no-connect pin is connected to a net.</span>
         <span class="k">elif</span> <span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">drive</span> <span class="o">!=</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">func</span> <span class="o">==</span> <span class="n">pin_types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">:</span>
                 <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                    <span class="s2">&quot;Incorrectly connected pin: </span><span class="si">{p}</span><span class="s2"> should not be connected to a net (</span><span class="si">{n}</span><span class="s2">).&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                        <span class="n">p</span><span class="o">=</span><span class="n">pin</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">(),</span> <span class="n">n</span><span class="o">=</span><span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">name</span>
-                    <span class="p">)</span>
+                    <span class="sa">f</span><span class="s2">&quot;Incorrectly connected pin: </span><span class="si">{</span><span class="n">pin</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">()</span><span class="si">}</span><span class="s2"> should not be connected to a net (</span><span class="si">{</span><span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">).&quot;</span>
                 <span class="p">)</span></div>
 
 
@@ -125,7 +142,14 @@
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">dflt_net_erc</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Do electrical rules check on a net in the schematic.</span>
+<span class="sd">    Perform electrical rules check on a specific net.</span>
+<span class="sd">    </span>
+<span class="sd">    This function verifies that the net has pins connected to it, checks for</span>
+<span class="sd">    pin conflicts between connected pins, and ensures the net has sufficient</span>
+<span class="sd">    drive strength for all pins that require it.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        net (Net): The net to check for rule violations.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">pin_drives</span><span class="p">,</span> <span class="n">pin_info</span>
@@ -140,12 +164,10 @@
     <span class="n">pins</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span>
     <span class="n">num_pins</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pins</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">num_pins</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;No pins attached to net </span><span class="si">{n}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No pins attached to net </span><span class="si">{</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">num_pins</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-            <span class="s2">&quot;Only one pin (</span><span class="si">{p}</span><span class="s2">) attached to net </span><span class="si">{n}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="n">p</span><span class="o">=</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">(),</span> <span class="n">n</span><span class="o">=</span><span class="n">net</span><span class="o">.</span><span class="n">name</span>
-            <span class="p">)</span>
+            <span class="sa">f</span><span class="s2">&quot;Only one pin (</span><span class="si">{</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">()</span><span class="si">}</span><span class="s2">) attached to net </span><span class="si">{</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.&quot;</span>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># Multiple pins on the net, so check for conflicts.</span>
@@ -160,14 +182,12 @@
     <span class="n">net_drive</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">drive</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pins</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">net</span><span class="o">.</span><span class="n">drive</span><span class="p">])</span>
 
     <span class="k">if</span> <span class="n">net_drive</span> <span class="o">&lt;=</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">:</span>
-        <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;No drivers for net </span><span class="si">{n}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No drivers for net </span><span class="si">{</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pins</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">pin_info</span><span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">func</span><span class="p">][</span><span class="s2">&quot;min_rcv&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">net_drive</span><span class="p">:</span>
             <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                <span class="s2">&quot;Insufficient drive current on net </span><span class="si">{n}</span><span class="s2"> for pin </span><span class="si">{p}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">n</span><span class="o">=</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">()</span>
-                <span class="p">)</span>
-            <span class="p">)</span></div>
+                <span class="sa">f</span><span class="s2">&quot;Insufficient drive current on net </span><span class="si">{</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> for pin </span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">()</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="p">)</span></div>
 
 </pre></div>
 
@@ -175,7 +195,7 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
@@ -191,7 +211,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -200,14 +220,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.erc</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

@@ -7,12 +7,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl &#8212; SKiDL 2.0.1 documentation</title>
+    <title>skidl &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -24,7 +24,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../"><img src="../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl</a></li> 
       </ul>
     </div>  
@@ -76,10 +76,14 @@
 <li class="toctree-l4"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit"><code class="docutils literal notranslate"><span class="pre">Circuit</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="skidl.common.html">skidl.common module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.config_.html">skidl.config_ module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="skidl.config_.html#skidl.config_.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.config_.html#skidl.config_.SkidlConfig"><code class="docutils literal notranslate"><span class="pre">SkidlConfig</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.design_class.html">skidl.design_class module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="skidl.design_class.html#skidl.design_class.NetClass"><code class="docutils literal notranslate"><span class="pre">NetClass</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.design_class.html#skidl.design_class.PartClass"><code class="docutils literal notranslate"><span class="pre">PartClass</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.erc.html">skidl.erc module</a><ul>
@@ -98,12 +102,6 @@
 <li class="toctree-l4"><a class="reference internal" href="skidl.geometry.html#skidl.geometry.to_mms"><code class="docutils literal notranslate"><span class="pre">to_mms()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="skidl.group.html">skidl.group module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="skidl.group.html#skidl.group.Group"><code class="docutils literal notranslate"><span class="pre">Group</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="skidl.group.html#skidl.group.SubCircuit"><code class="docutils literal notranslate"><span class="pre">SubCircuit()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="skidl.group.html#skidl.group.subcircuit"><code class="docutils literal notranslate"><span class="pre">subcircuit()</span></code></a></li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.interface.html">skidl.interface module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="skidl.interface.html#skidl.interface.Interface"><code class="docutils literal notranslate"><span class="pre">Interface</span></code></a></li>
 </ul>
@@ -117,11 +115,17 @@
 <li class="toctree-l4"><a class="reference internal" href="skidl.net.html#skidl.net.Net"><code class="docutils literal notranslate"><span class="pre">Net</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="skidl.netclass.html">skidl.netclass module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="skidl.netclass.html#skidl.netclass.NetClass"><code class="docutils literal notranslate"><span class="pre">NetClass</span></code></a></li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.netlist_to_skidl.html">skidl.netlist_to_skidl module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter"><code class="docutils literal notranslate"><span class="pre">HierarchicalConverter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.NetSexp"><code class="docutils literal notranslate"><span class="pre">NetSexp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.NetlistSexp"><code class="docutils literal notranslate"><span class="pre">NetlistSexp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.PartSexp"><code class="docutils literal notranslate"><span class="pre">PartSexp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.PinSexp"><code class="docutils literal notranslate"><span class="pre">PinSexp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.PropertySexp"><code class="docutils literal notranslate"><span class="pre">PropertySexp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.Sheet"><code class="docutils literal notranslate"><span class="pre">Sheet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.SheetSexp"><code class="docutils literal notranslate"><span class="pre">SheetSexp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.find_common_path_prefix"><code class="docutils literal notranslate"><span class="pre">find_common_path_prefix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.legalize_name"><code class="docutils literal notranslate"><span class="pre">legalize_name()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.netlist_to_skidl"><code class="docutils literal notranslate"><span class="pre">netlist_to_skidl()</span></code></a></li>
 </ul>
 </li>
@@ -132,6 +136,13 @@
 <li class="toctree-l3"><a class="reference internal" href="skidl.network.html">skidl.network module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="skidl.network.html#skidl.network.Network"><code class="docutils literal notranslate"><span class="pre">Network</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.network.html#skidl.network.tee"><code class="docutils literal notranslate"><span class="pre">tee()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.node.html">skidl.node module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="skidl.node.html#skidl.node.Group"><code class="docutils literal notranslate"><span class="pre">Group</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.node.html#skidl.node.Node"><code class="docutils literal notranslate"><span class="pre">Node</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.node.html#skidl.node.SubCircuit"><code class="docutils literal notranslate"><span class="pre">SubCircuit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.node.html#skidl.node.subcircuit"><code class="docutils literal notranslate"><span class="pre">subcircuit</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.note.html">skidl.note module</a><ul>
@@ -161,12 +172,16 @@
 <li class="toctree-l4"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin"><code class="docutils literal notranslate"><span class="pre">Pin</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="skidl.pyspice.html">skidl.pyspice module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.pyspice.html">skidl.pyspice module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="skidl.pyspice.html#skidl.pyspice.abort_if_spice_unavailable"><code class="docutils literal notranslate"><span class="pre">abort_if_spice_unavailable()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.schlib.html">skidl.schlib module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="skidl.schlib.html#skidl.schlib.SchLib"><code class="docutils literal notranslate"><span class="pre">SchLib</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.scriptinfo.html">skidl.scriptinfo module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="skidl.scriptinfo.html#skidl.scriptinfo.get_script_dir"><code class="docutils literal notranslate"><span class="pre">get_script_dir()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.scriptinfo.html#skidl.scriptinfo.get_script_name"><code class="docutils literal notranslate"><span class="pre">get_script_name()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.scriptinfo.html#skidl.scriptinfo.get_skidl_trace"><code class="docutils literal notranslate"><span class="pre">get_skidl_trace()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.scriptinfo.html#skidl.scriptinfo.scriptinfo"><code class="docutils literal notranslate"><span class="pre">scriptinfo()</span></code></a></li>
@@ -177,6 +192,7 @@
 <li class="toctree-l4"><a class="reference internal" href="skidl.skidl.html#skidl.skidl.backup_parts"><code class="docutils literal notranslate"><span class="pre">backup_parts()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.skidl.html#skidl.skidl.empty_footprint_handler"><code class="docutils literal notranslate"><span class="pre">empty_footprint_handler()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.skidl.html#skidl.skidl.erc_assert"><code class="docutils literal notranslate"><span class="pre">erc_assert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.skidl.html#skidl.skidl.generate_dot"><code class="docutils literal notranslate"><span class="pre">generate_dot()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.skidl.html#skidl.skidl.generate_graph"><code class="docutils literal notranslate"><span class="pre">generate_graph()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.skidl.html#skidl.skidl.generate_netlist"><code class="docutils literal notranslate"><span class="pre">generate_netlist()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.skidl.html#skidl.skidl.generate_pcb"><code class="docutils literal notranslate"><span class="pre">generate_pcb()</span></code></a></li>
@@ -203,6 +219,7 @@
 <li class="toctree-l4"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.detect_os"><code class="docutils literal notranslate"><span class="pre">detect_os()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.expand_buses"><code class="docutils literal notranslate"><span class="pre">expand_buses()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.expand_indices"><code class="docutils literal notranslate"><span class="pre">expand_indices()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.expand_path"><code class="docutils literal notranslate"><span class="pre">expand_path()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.export_to_all"><code class="docutils literal notranslate"><span class="pre">export_to_all()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.filter_list"><code class="docutils literal notranslate"><span class="pre">filter_list()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.find_and_open_file"><code class="docutils literal notranslate"><span class="pre">find_and_open_file()</span></code></a></li>
@@ -224,6 +241,7 @@
 <li class="toctree-l4"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.rmv_attr"><code class="docutils literal notranslate"><span class="pre">rmv_attr()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.rmv_iadd"><code class="docutils literal notranslate"><span class="pre">rmv_iadd()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.rmv_quotes"><code class="docutils literal notranslate"><span class="pre">rmv_quotes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.rmv_unique_name"><code class="docutils literal notranslate"><span class="pre">rmv_unique_name()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.set_attr"><code class="docutils literal notranslate"><span class="pre">set_attr()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.set_iadd"><code class="docutils literal notranslate"><span class="pre">set_iadd()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.sgn"><code class="docutils literal notranslate"><span class="pre">sgn()</span></code></a></li>
@@ -243,7 +261,7 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -266,7 +284,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -275,13 +293,13 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

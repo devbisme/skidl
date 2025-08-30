@@ -1,0 +1,342 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.tools.kicad9.bboxes &#8212; SKiDL 2.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../../../../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../../../../"><img src="../../../../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad9.bboxes</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skidl.tools.kicad9.bboxes</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Calculate bounding boxes for part symbols and hierarchical sheets.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+
+<span class="kn">from</span> <span class="nn">skidl.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
+<span class="kn">from</span> <span class="nn">skidl.geometry</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Tx</span><span class="p">,</span>
+    <span class="n">BBox</span><span class="p">,</span>
+    <span class="n">Point</span><span class="p">,</span>
+    <span class="n">Vector</span><span class="p">,</span>
+    <span class="n">tx_rot_0</span><span class="p">,</span>
+    <span class="n">tx_rot_90</span><span class="p">,</span>
+    <span class="n">tx_rot_180</span><span class="p">,</span>
+    <span class="n">tx_rot_270</span><span class="p">,</span>
+    <span class="n">mils_per_mm</span><span class="p">,</span>
+    <span class="n">mms_per_mil</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">skidl.utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span>
+<span class="kn">from</span> <span class="nn">.constants</span> <span class="kn">import</span> <span class="n">HIER_TERM_SIZE</span><span class="p">,</span> <span class="n">PIN_LABEL_FONT_SIZE</span>
+<span class="kn">from</span> <span class="nn">skidl.geometry</span> <span class="kn">import</span> <span class="n">BBox</span><span class="p">,</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Tx</span><span class="p">,</span> <span class="n">Vector</span>
+
+
+<div class="viewcode-block" id="calc_symbol_bbox">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad9.bboxes.html#skidl.tools.kicad9.bboxes.calc_symbol_bbox">[docs]</a>
+<span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">calc_symbol_bbox</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the bounding box of the part symbol.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        part: Part object for which an SVG symbol will be created.</span>
+<span class="sd">        options (dict): Various options to control bounding box calculation:</span>
+<span class="sd">            graphics_only (boolean): If true, compute bbox of graphics (no text).</span>
+
+<span class="sd">    Returns: List of BBoxes for all units in the part symbol.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Find an sexpr clause with the given keyword.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">item</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="n">default_pin_name_offset</span> <span class="o">=</span> <span class="mi">20</span>
+
+    <span class="c1"># Go through each graphic object that makes up the component symbol.</span>
+    <span class="k">for</span> <span class="n">unit_num</span><span class="p">,</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+
+        <span class="c1"># Bounding box for this part unit.</span>
+        <span class="n">unit</span><span class="o">.</span><span class="n">bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">()</span>
+
+        <span class="c1"># Process the drawing objects for each unit which are stored in a dict in the part.</span>
+        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">unit_num</span><span class="p">]:</span>
+
+            <span class="c1"># First item is the object type, and the remainder are object parameters.</span>
+            <span class="n">obj_type</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="n">obj_params</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+            <span class="k">if</span> <span class="n">obj_type</span> <span class="o">==</span> <span class="s2">&quot;reference&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;graphics_only&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+                <span class="c1"># obj attributes: x y size orientation visibility halign valign</span>
+                <span class="c1"># Skip if the object is invisible.</span>
+                <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">visibility</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;I&quot;</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># Calculate length and height of part reference.</span>
+                <span class="c1"># Use ref from the SKiDL part since the ref in the KiCAD part</span>
+                <span class="c1"># hasn&#39;t been updated from its generic value.</span>
+                <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="p">)</span> <span class="o">*</span> <span class="n">obj</span><span class="o">.</span><span class="n">size</span>
+                <span class="n">height</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">size</span>
+
+                <span class="c1"># Create bbox with lower-left point at (0, 0).</span>
+                <span class="n">bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
+
+                <span class="c1"># Rotate bbox around origin.</span>
+                <span class="n">rot_tx</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;H&quot;</span><span class="p">:</span> <span class="n">Tx</span><span class="p">(),</span> <span class="s2">&quot;V&quot;</span><span class="p">:</span> <span class="n">tx_rot_90</span><span class="p">}[</span><span class="n">obj</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span>
+                <span class="n">bbox</span> <span class="o">*=</span> <span class="n">rot_tx</span>
+
+                <span class="c1"># Horizontally align bbox.</span>
+                <span class="n">halign</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">halign</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">halign</span> <span class="o">==</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span>
+                    <span class="k">pass</span>
+                <span class="k">elif</span> <span class="n">halign</span> <span class="o">==</span> <span class="s2">&quot;R&quot;</span><span class="p">:</span>
+                    <span class="n">bbox</span> <span class="o">*=</span> <span class="n">Tx</span><span class="p">()</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="n">bbox</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+                <span class="k">elif</span> <span class="n">halign</span> <span class="o">==</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span>
+                    <span class="n">bbox</span> <span class="o">*=</span> <span class="n">Tx</span><span class="p">()</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="n">bbox</span><span class="o">.</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Inconsistent horizontal alignment: </span><span class="si">{</span><span class="n">halign</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
+
+                <span class="c1"># Vertically align bbox.</span>
+                <span class="n">valign</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">valign</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>  <span class="c1"># valign is first letter.</span>
+                <span class="k">if</span> <span class="n">valign</span> <span class="o">==</span> <span class="s2">&quot;B&quot;</span><span class="p">:</span>
+                    <span class="k">pass</span>
+                <span class="k">elif</span> <span class="n">valign</span> <span class="o">==</span> <span class="s2">&quot;T&quot;</span><span class="p">:</span>
+                    <span class="n">bbox</span> <span class="o">*=</span> <span class="n">Tx</span><span class="p">()</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">bbox</span><span class="o">.</span><span class="n">h</span><span class="p">))</span>
+                <span class="k">elif</span> <span class="n">valign</span> <span class="o">==</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span>
+                    <span class="n">bbox</span> <span class="o">*=</span> <span class="n">Tx</span><span class="p">()</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">bbox</span><span class="o">.</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Inconsistent vertical alignment: </span><span class="si">{</span><span class="n">valign</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
+
+                <span class="n">bbox</span> <span class="o">*=</span> <span class="n">Tx</span><span class="p">()</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
+                <span class="n">obj_bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bbox</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">obj_type</span> <span class="o">==</span> <span class="s2">&quot;value&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;graphics_only&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+                <span class="c1"># Skip if the object is invisible.</span>
+                <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">visibility</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;I&quot;</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># Calculate length and height of part value.</span>
+                <span class="c1"># Use value from the SKiDL part since the value in the KiCAD part</span>
+                <span class="c1"># hasn&#39;t been updated from its generic value.</span>
+                <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">value</span><span class="p">))</span> <span class="o">*</span> <span class="n">obj</span><span class="o">.</span><span class="n">size</span>
+                <span class="n">height</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">size</span>
+
+                <span class="c1"># Create bbox with lower-left point at (0, 0).</span>
+                <span class="n">bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
+
+                <span class="c1"># Rotate bbox around origin.</span>
+                <span class="n">rot_tx</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;H&quot;</span><span class="p">:</span> <span class="n">Tx</span><span class="p">(),</span> <span class="s2">&quot;V&quot;</span><span class="p">:</span> <span class="n">tx_rot_90</span><span class="p">}[</span><span class="n">obj</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span>
+                <span class="n">bbox</span> <span class="o">*=</span> <span class="n">rot_tx</span>
+
+                <span class="c1"># Horizontally align bbox.</span>
+                <span class="n">halign</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">halign</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">halign</span> <span class="o">==</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span>
+                    <span class="k">pass</span>
+                <span class="k">elif</span> <span class="n">halign</span> <span class="o">==</span> <span class="s2">&quot;R&quot;</span><span class="p">:</span>
+                    <span class="n">bbox</span> <span class="o">*=</span> <span class="n">Tx</span><span class="p">()</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="n">bbox</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+                <span class="k">elif</span> <span class="n">halign</span> <span class="o">==</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span>
+                    <span class="n">bbox</span> <span class="o">*=</span> <span class="n">Tx</span><span class="p">()</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="n">bbox</span><span class="o">.</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Inconsistent horizontal alignment: </span><span class="si">{</span><span class="n">halign</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
+
+                <span class="c1"># Vertically align bbox.</span>
+                <span class="n">valign</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">valign</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>  <span class="c1"># valign is first letter.</span>
+                <span class="k">if</span> <span class="n">valign</span> <span class="o">==</span> <span class="s2">&quot;B&quot;</span><span class="p">:</span>
+                    <span class="k">pass</span>
+                <span class="k">elif</span> <span class="n">valign</span> <span class="o">==</span> <span class="s2">&quot;T&quot;</span><span class="p">:</span>
+                    <span class="n">bbox</span> <span class="o">*=</span> <span class="n">Tx</span><span class="p">()</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">bbox</span><span class="o">.</span><span class="n">h</span><span class="p">))</span>
+                <span class="k">elif</span> <span class="n">valign</span> <span class="o">==</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span>
+                    <span class="n">bbox</span> <span class="o">*=</span> <span class="n">Tx</span><span class="p">()</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">bbox</span><span class="o">.</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Inconsistent vertical alignment: </span><span class="si">{</span><span class="n">valign</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
+
+                <span class="n">bbox</span> <span class="o">*=</span> <span class="n">Tx</span><span class="p">()</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
+                <span class="n">obj_bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bbox</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">obj_type</span> <span class="o">==</span> <span class="s2">&quot;arc&quot;</span><span class="p">:</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">obj_params</span><span class="p">,</span> <span class="s2">&quot;start&quot;</span><span class="p">)</span>
+                <span class="n">start_pt</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">start</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">start</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                <span class="n">mid</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">obj_params</span><span class="p">,</span> <span class="s2">&quot;mid&quot;</span><span class="p">)</span>
+                <span class="n">mid_pt</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">mid</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">mid</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                <span class="n">end</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">obj_params</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">)</span>
+                <span class="n">end_pt</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">end</span><span class="p">[</span><span class="n">end</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">end</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+                <span class="n">unit_bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">start_pt</span><span class="p">,</span> <span class="n">mid_pt</span><span class="p">,</span> <span class="n">end_pt</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">obj_type</span> <span class="o">==</span> <span class="s2">&quot;circle&quot;</span><span class="p">:</span>
+                <span class="n">center</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">obj_params</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">)</span>
+                <span class="n">center_pt</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">center</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                <span class="n">radius</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">obj_params</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">)</span>
+                <span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">radius_pt</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">radius</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span>
+                <span class="n">unit</span><span class="o">.</span><span class="n">bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">center_pt</span> <span class="o">+</span> <span class="n">radius_pt</span><span class="p">,</span> <span class="n">center_pt</span> <span class="o">-</span> <span class="n">radius_pt</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">obj_type</span> <span class="o">==</span> <span class="s2">&quot;polyline&quot;</span><span class="p">:</span>
+                <span class="n">pts</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">obj_params</span><span class="p">,</span> <span class="s2">&quot;pts&quot;</span><span class="p">)</span>
+                <span class="n">obj_bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="n">pts</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                    <span class="n">unit</span><span class="o">.</span><span class="n">bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">pt</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+
+            <span class="k">elif</span> <span class="n">obj_type</span> <span class="o">==</span> <span class="s2">&quot;rectangle&quot;</span><span class="p">:</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">obj_params</span><span class="p">,</span> <span class="s2">&quot;start&quot;</span><span class="p">)</span>
+                <span class="n">start_pt</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">start</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">start</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                <span class="n">end</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">obj_params</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">)</span>
+                <span class="n">end_pt</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">end</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">end</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                <span class="n">unit</span><span class="o">.</span><span class="n">bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">start_pt</span><span class="p">,</span> <span class="n">end_pt</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">obj_type</span> <span class="o">==</span> <span class="s2">&quot;text&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;graphics_only&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                <span class="k">pass</span>
+
+            <span class="k">elif</span> <span class="n">obj_type</span> <span class="o">==</span> <span class="s2">&quot;pin&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s2">&quot;hide&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">obj_params</span><span class="p">:</span>
+                    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">angle</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">obj_params</span><span class="p">,</span> <span class="s2">&quot;at&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+                    <span class="n">length</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">obj_params</span><span class="p">,</span> <span class="s2">&quot;length&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="n">pt1</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+                    <span class="n">pt2</span> <span class="o">=</span> <span class="n">pt1</span> <span class="o">+</span> <span class="n">Point</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">Tx</span><span class="p">()</span><span class="o">.</span><span class="n">rot</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+                    <span class="n">unit</span><span class="o">.</span><span class="n">bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pt1</span><span class="p">,</span> <span class="n">pt2</span><span class="p">)</span>
+                    <span class="c1"># TODO: Add pin number and name to bbox.</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Unknown graphical object </span><span class="si">{</span><span class="n">obj_type</span><span class="si">}</span><span class="s2"> in part symbol </span><span class="si">{</span><span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="p">)</span>
+
+        <span class="c1"># After the unit bounding box is calculated, change it from mm to mils.</span>
+        <span class="n">unit</span><span class="o">.</span><span class="n">bbox</span> <span class="o">*=</span> <span class="n">mils_per_mm</span>
+        <span class="n">unit</span><span class="o">.</span><span class="n">bbox</span> <span class="o">=</span> <span class="n">unit</span><span class="o">.</span><span class="n">bbox</span><span class="o">.</span><span class="n">round</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="calc_hier_label_bbox">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad9.bboxes.html#skidl.tools.kicad9.bboxes.calc_hier_label_bbox">[docs]</a>
+<span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">calc_hier_label_bbox</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="nb">dir</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the bounding box for a hierarchical label.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        label (str): String for the label.</span>
+<span class="sd">        dir (str): Orientation (&quot;U&quot;, &quot;D&quot;, &quot;L&quot;, &quot;R&quot;).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        BBox: Bounding box for the label and hierarchical terminal.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="c1"># Rotation matrices for each direction.</span>
+    <span class="n">lbl_tx</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="n">tx_rot_90</span><span class="p">,</span>  <span class="c1"># Pin on bottom pointing upwards.</span>
+        <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="n">tx_rot_270</span><span class="p">,</span>  <span class="c1"># Pin on top pointing down.</span>
+        <span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="n">tx_rot_180</span><span class="p">,</span>  <span class="c1"># Pin on right pointing left.</span>
+        <span class="s2">&quot;R&quot;</span><span class="p">:</span> <span class="n">tx_rot_0</span><span class="p">,</span>  <span class="c1"># Pin on left pointing right.</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Calculate length and height of label + hierarchical marker.</span>
+    <span class="n">lbl_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="o">*</span> <span class="n">PIN_LABEL_FONT_SIZE</span> <span class="o">+</span> <span class="n">HIER_TERM_SIZE</span>
+    <span class="n">lbl_hgt</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">PIN_LABEL_FONT_SIZE</span><span class="p">,</span> <span class="n">HIER_TERM_SIZE</span><span class="p">)</span>
+
+    <span class="c1"># Create bbox for label on left followed by marker on right.</span>
+    <span class="n">bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">lbl_hgt</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="n">lbl_len</span><span class="p">,</span> <span class="o">-</span><span class="n">lbl_hgt</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+
+    <span class="c1"># Rotate the bbox in the given direction.</span>
+    <span class="n">bbox</span> <span class="o">*=</span> <span class="n">lbl_tx</span><span class="p">[</span><span class="nb">dir</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">bbox</span></div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad9.bboxes</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>

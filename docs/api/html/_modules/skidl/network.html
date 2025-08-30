@@ -6,12 +6,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.network &#8212; SKiDL 2.0.1 documentation</title>
+    <title>skidl.network &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -23,7 +23,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../../"><img src="../../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.network</a></li> 
       </ul>
@@ -49,7 +49,11 @@
 <span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Object for for handling series and parallel networks of two-pin parts, nets, and pins.</span>
+<span class="sd">Object for handling series and parallel networks of two-pin parts, nets, and pins.</span>
+
+<span class="sd">This module provides the Network class which allows electronic components to be</span>
+<span class="sd">connected in series and parallel using operators like &#39;&amp;&#39; and &#39;|&#39;. This enables </span>
+<span class="sd">a concise, algebraic notation for creating complex circuits.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
@@ -60,8 +64,28 @@
 <a class="viewcode-back" href="../../rst_output/skidl.network.html#skidl.network.Network">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">class</span> <span class="nc">Network</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A container for arranging pins, nets, and parts in series and parallel.</span>
+<span class="sd">    </span>
+<span class="sd">    The Network class extends the list type to store input and output ports</span>
+<span class="sd">    which can be connected to form series and parallel arrangements using the &#39;&amp;&#39; and &#39;|&#39;</span>
+<span class="sd">    operators. A Network can have up to two ports representing its input and output.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">objs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a Network object from a list of pins, nets, and parts.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a Network object from a list of pins, nets, and parts.</span>
+<span class="sd">        </span>
+<span class="sd">        Converts each provided object to a Network (if possible) and combines</span>
+<span class="sd">        their ports into a single Network object.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            *objs: Variable number of objects to be converted to Networks.</span>
+<span class="sd">            </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            TypeError: If an object cannot be converted to a Network.</span>
+<span class="sd">            ValueError: If the resulting Network would have more than two ports.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">objs</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
@@ -69,9 +93,7 @@
             <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
                 <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">TypeError</span><span class="p">,</span>
-                    <span class="s2">&quot;Can&#39;t create a network from a </span><span class="si">{}</span><span class="s2"> object (</span><span class="si">{}</span><span class="s2">).&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                        <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">),</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__name__</span>
-                    <span class="p">),</span>
+                    <span class="sa">f</span><span class="s2">&quot;Can&#39;t create a network from a </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span><span class="si">}</span><span class="s2"> object (</span><span class="si">{</span><span class="n">obj</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">).&quot;</span>
                 <span class="p">)</span>
 
             <span class="c1"># Add the in &amp; out ports of the object network to this network.</span>
@@ -84,49 +106,80 @@
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
                 <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">ValueError</span><span class="p">,</span>
-                    <span class="s2">&quot;A Network object can&#39;t have more than two nodes.&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;A Network object can&#39;t have more than two ports.&quot;</span><span class="p">,</span>
                 <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Combine two networks by placing them in series.&quot;&quot;&quot;</span>
-
-        <span class="c1"># First, convert the object to a network.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Combine two networks by placing them in series.</span>
+<span class="sd">        </span>
+<span class="sd">        Implements the &#39;&amp;&#39; operator to create a series connection between Networks.</span>
+<span class="sd">        The output port of this Network is connected to the input port of the</span>
+<span class="sd">        provided object&#39;s Network.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            obj: Object to be converted to a Network and placed in series.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Network: A new Network with input from self and output from obj.</span>
+<span class="sd">            </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            TypeError: If obj cannot be converted to a Network.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">ntwk</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">create_network</span><span class="p">()</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
             <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                 <span class="ne">TypeError</span><span class="p">,</span>
-                <span class="s2">&quot;Unable to create a Network from a </span><span class="si">{}</span><span class="s2"> object (</span><span class="si">{}</span><span class="s2">).&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">),</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__name__</span>
-                <span class="p">),</span>
+                <span class="sa">f</span><span class="s2">&quot;Unable to create a Network from a </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span><span class="si">}</span><span class="s2"> object (</span><span class="si">{</span><span class="n">obj</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">).&quot;</span>
             <span class="p">)</span>
 
-        <span class="c1"># Attach the output of the first network to the input of the second.</span>
+        <span class="c1"># Attach the output port of the first network to the input port of the second.</span>
         <span class="c1"># (Use -1 index to get the output port instead of 1 because the network</span>
         <span class="c1"># may only have a single port serving as both the input and output.)</span>
         <span class="bp">self</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">ntwk</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-        <span class="c1"># Return a network consisting of the input of the first and the output of the second.</span>
+        <span class="c1"># Return a network consisting of the input port of the first and the output port of the second.</span>
         <span class="k">return</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ntwk</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="fm">__rand__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Combine two networks by placing them in series. (Reverse-ordered operation.)&quot;&quot;&quot;</span>
-
-        <span class="c1"># Create a network from the first object and then place it in series with the second network.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Combine two networks by placing them in series (right-side &#39;&amp;&#39; operation).</span>
+<span class="sd">        </span>
+<span class="sd">        Implements the right-side &#39;&amp;&#39; operator to create a series connection when</span>
+<span class="sd">        this Network is on the right side of the &#39;&amp;&#39; operator.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            obj: Object to be converted to a Network and placed in series.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Network: A new Network with input from obj and output from self.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Network</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="o">&amp;</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Combine two networks by placing them in parallel.&quot;&quot;&quot;</span>
-
-        <span class="c1"># First, convert the object to a network.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Combine two networks by placing them in parallel.</span>
+<span class="sd">        </span>
+<span class="sd">        Implements the &#39;|&#39; operator to create a parallel connection between Networks.</span>
+<span class="sd">        Both the input and output ports of this Network are connected to the</span>
+<span class="sd">        corresponding ports of the provided object&#39;s Network.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            obj: Object to be converted to a Network and placed in parallel.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Network: This Network object with ports connected to obj&#39;s Network.</span>
+<span class="sd">            </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            TypeError: If obj cannot be converted to a Network.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">ntwk</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">create_network</span><span class="p">()</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
             <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                 <span class="ne">TypeError</span><span class="p">,</span>
-                <span class="s2">&quot;Unable to create a Network from a </span><span class="si">{}</span><span class="s2"> object (</span><span class="si">{}</span><span class="s2">).&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">),</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__name__</span>
-                <span class="p">),</span>
+                <span class="sa">f</span><span class="s2">&quot;Unable to create a Network from a </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span><span class="si">}</span><span class="s2"> object (</span><span class="si">{</span><span class="n">obj</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">).&quot;</span>
             <span class="p">)</span>
 
         <span class="c1"># Attach the inputs of both networks and the outputs of both networks to</span>
@@ -140,7 +193,14 @@
 <div class="viewcode-block" id="Network.create_network">
 <a class="viewcode-back" href="../../rst_output/skidl.network.html#skidl.network.Network.create_network">[docs]</a>
     <span class="k">def</span> <span class="nf">create_network</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Creating a network from a network just returns the original network.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a Network from this object.</span>
+<span class="sd">        </span>
+<span class="sd">        For Network objects, this simply returns self since it&#39;s already a Network.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Network: This Network object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 </div>
 
@@ -152,20 +212,30 @@
 <span class="k">def</span> <span class="nf">tee</span><span class="p">(</span><span class="n">ntwk</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a network &quot;tee&quot; by returning the first terminal of a Network object.</span>
-<span class="sd">    Then you can create tee&#39;ed networks like so: vi &amp; r1 &amp; r2 &amp; tee(r3 &amp; r4 &amp; gnd) &amp; r5 &amp; gnd</span>
-<span class="sd">    which becomes:</span>
-
-<span class="sd">        vi---r1---r2-+-r5---gnd</span>
-<span class="sd">                     |</span>
-<span class="sd">                     |</span>
-<span class="sd">                     r3---r4---gnd</span>
-
+<span class="sd">    </span>
+<span class="sd">    This function allows for the creation of branch points in networks, enabling</span>
+<span class="sd">    more complex circuit topologies beyond simple series and parallel arrangements.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        ntwk: Object to be converted to a Network if not already.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Port: The first terminal (input port) of the Network.</span>
+<span class="sd">        </span>
+<span class="sd">    Example:</span>
+<span class="sd">        vi &amp; r1 &amp; r2 &amp; tee(r3 &amp; r4 &amp; gnd) &amp; r5 &amp; gnd</span>
+<span class="sd">        </span>
+<span class="sd">        This creates:</span>
+<span class="sd">            vi---r1---r2-+-r5---gnd</span>
+<span class="sd">                         |</span>
+<span class="sd">                         |</span>
+<span class="sd">                         r3---r4---gnd</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ntwk</span><span class="p">,</span> <span class="n">Network</span><span class="p">):</span>
         <span class="c1"># Convert an object into a Network if it isn&#39;t already.</span>
         <span class="n">ntwk</span> <span class="o">=</span> <span class="n">Network</span><span class="p">(</span><span class="n">ntwk</span><span class="p">)</span>
 
-    <span class="c1"># Return the first terminal of the network.</span>
+    <span class="c1"># Return the input port of the network.</span>
     <span class="k">return</span> <span class="n">ntwk</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
 
 </pre></div>
@@ -174,7 +244,7 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
@@ -190,7 +260,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -199,14 +269,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.network</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

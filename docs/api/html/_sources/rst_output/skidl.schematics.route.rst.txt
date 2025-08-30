@@ -3,5 +3,5 @@ skidl.schematics.route module
 
 .. automodule:: skidl.schematics.route
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

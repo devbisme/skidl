@@ -57,13 +57,11 @@ The resulting Python program outputs a netlist that a PCB layout tool uses to
 create a finished circuit board.</p>
 <h3 id="contents">Contents</h3>
 <ul>
-<li><a href="#tldr">TL;DR</a><ul>
-<li><a href="#contents">Contents</a></li>
-</ul>
-</li>
+<li><a href="#tldr">TL;DR</a>
+        - <a href="#contents">Contents</a></li>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#installation">Installation</a></li>
-<li><a href="#basic-usage">Basic Usage</a></li>
+<li><a href="#basic-usage">Basic Usage</a><ul>
 <li><a href="#accessing-skidl">Accessing SKiDL</a></li>
 <li><a href="#finding-parts">Finding Parts</a><ul>
 <li><a href="#command-line-searching">Command-line Searching</a></li>
@@ -74,7 +72,9 @@ create a finished circuit board.</p>
 <li><a href="#connecting-pins">Connecting Pins</a></li>
 <li><a href="#checking-for-errors">Checking for Errors</a></li>
 <li><a href="#generating-a-netlist-or-pcb">Generating a Netlist or PCB</a></li>
-<li><a href="#going-deeper">Going Deeper</a></li>
+</ul>
+</li>
+<li><a href="#going-deeper">Going Deeper</a><ul>
 <li><a href="#basic-skidl-objects-parts-pins-nets-buses">Basic SKiDL Objects: Parts, Pins, Nets, Buses</a></li>
 <li><a href="#creating-skidl-objects">Creating SKiDL Objects</a></li>
 <li><a href="#finding-skidl-objects">Finding SKiDL Objects</a></li>
@@ -88,11 +88,16 @@ create a finished circuit board.</p>
 <li><a href="#making-serial-parallel-and-tee-networks">Making Serial, Parallel, and Tee Networks</a></li>
 <li><a href="#aliases">Aliases</a></li>
 <li><a href="#units-within-parts">Units Within Parts</a></li>
+<li><a href="#part-and-net-classes">Part and Net Classes</a><ul>
+<li><a href="#individual-part-and-net-classes">Individual Part and Net Classes</a></li>
+<li><a href="#hierarchical-part-and-net-class-inheritance">Hierarchical Part and Net Class Inheritance</a></li>
+</ul>
+</li>
 <li><a href="#part-fields">Part Fields</a></li>
 <li><a href="#hierarchy">Hierarchy</a><ul>
-<li><a href="#subcircuits">Subcircuits</a></li>
-<li><a href="#interfaces">Interfaces</a></li>
-<li><a href="#groups">Groups</a></li>
+<li><a href="#method-1-subcircuit-decorator-with-interface-return">Method 1: SubCircuit Decorator with Interface Return</a></li>
+<li><a href="#method-2-subcircuit-subclassing-with-io-attributes">Method 2: SubCircuit Subclassing with I/O Attributes</a></li>
+<li><a href="#method-3-context-based-hierarchy-with-subcircuit">Method 3: Context-Based Hierarchy with SubCircuit</a></li>
 </ul>
 </li>
 <li><a href="#libraries">Libraries</a></li>
@@ -107,12 +112,20 @@ create a finished circuit board.</p>
 <li><a href="#configuration-file">Configuration File</a></li>
 </ul>
 </li>
-<li><a href="#going-really-deep">Going Really Deep</a></li>
+</ul>
+</li>
+<li><a href="#going-really-deep">Going Really Deep</a><ul>
+<li><a href="#ad-hoc-parts">Ad-Hoc Parts</a></li>
 <li><a href="#circuit-objects">Circuit Objects</a></li>
-<li><a href="#generating-a-schematic">Generating a Schematic</a></li>
+<li><a href="#nodes">Nodes</a></li>
+</ul>
+</li>
+<li><a href="#generating-a-schematic">Generating a Schematic</a><ul>
 <li><a href="#svg-schematics">SVG Schematics</a></li>
 <li><a href="#kicad-schematics">KiCad Schematics</a></li>
 <li><a href="#dot-graphs">DOT Graphs</a></li>
+</ul>
+</li>
 <li><a href="#converting-existing-designs-to-skidl">Converting Existing Designs to SKiDL</a></li>
 <li><a href="#spice-simulations">SPICE Simulations</a></li>
 </ul>
@@ -182,7 +195,7 @@ takes an input voltage, divides it by three, and outputs it:</p>
 <span class="c1"># vin &amp;&amp; r1 &amp;&amp; vout &amp;&amp; r2 &amp;&amp; gnd</span>
 
 <span class="c1"># Output the netlist to a file.</span>
-<span class="n">generate_netlist</span><span class="p">(</span><span class="n">tool</span><span class="o">=</span><span class="n">KICAD8</span><span class="p">)</span>
+<span class="n">generate_netlist</span><span class="p">(</span><span class="n">tool</span><span class="o">=</span><span class="n">KICAD9</span><span class="p">)</span>
 </code></pre></div>
 
 <p>And this is the netlist output that is passed to <code>PCBNEW</code> to
@@ -396,23 +409,22 @@ But you can easily change that:</p>
 &#39;R5&#39;
 </code></pre></div>
 
-<p>Now what happens if we create another resistor?:</p>
+<p>If we create another resistor, it will be assigned another
+reference that's distinct from any existing references:</p>
 <div class="highlight"><pre><span></span><code>&gt;&gt;&gt; another_res = Part(&#39;Device&#39;,&#39;R&#39;)   
 &gt;&gt;&gt; another_res.ref                        
-&#39;R1&#39;
+&#39;R2&#39;
 </code></pre></div>
 
-<p>Since the <code>R1</code> reference wasn't being used, the new resistor got it.
-What if we tried renaming the first resistor back to <code>R1</code>:</p>
-<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; resistor.ref = &#39;R1&#39;
+<p>What if we tried renaming the first resistor to <code>R2</code>?</p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; resistor.ref = &#39;R2&#39;
 &gt;&gt;&gt; resistor.ref
-&#39;R1_1&#39;
+&#39;R2_1&#39;
 </code></pre></div>
 
-<p>Since the <code>R1</code> reference was already taken, SKiDL tried to give us
+<p>Since the <code>R2</code> reference was already taken, SKiDL tried to give us
 something close to what we wanted.
-SKiDL won't let different parts have the same reference because
-that would be confusing.</p>
+SKiDL won't let parts of the same type have exactly the same reference.</p>
 <p>The <code>ref</code>, <code>value</code>, and <code>footprint</code> attributes are necessary when generating
 a final netlist for your circuit.
 Since a part is stored in a Python object, you may add any
@@ -834,33 +846,30 @@ and you'll have to use an odd-looking expression, but here's how it's done:</p>
 
 <p>You can avoid explicitly enabling regular expression matching by just creating the expression as
 an <code>Rgx</code> like this:</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">pic10</span><span class="err">[</span><span class="mi">3</span><span class="err">]</span><span class="p">.</span><span class="k">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;GP1/AN1/ICSPCLK&#39;</span>
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">pic10</span><span class="err">[</span><span class="n">Rgx</span><span class="p">(</span><span class="s1">&#39;.*/AN1/.*&#39;</span><span class="p">)</span><span class="err">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">Net</span><span class="p">(</span><span class="s1">&#39;analog1&#39;</span><span class="p">)</span><span class="w">  </span><span class="c1"># No need to manually enable regular expression matching!</span>
-<span class="n n-Quoted">`</span><span class="n n-Quoted n-Quoted-Escape">````</span><span class="n n-Quoted">`</span>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">pic10</span><span class="p">[</span><span class="mh">3</span><span class="p">].</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">&#39;</span><span class="n">GP1</span><span class="o">/</span><span class="n">AN1</span><span class="o">/</span><span class="n">ICSPCLK</span><span class="p">&#39;</span>
+<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">pic10</span><span class="p">[</span><span class="n">Rgx</span><span class="p">(&#39;.</span><span class="o">*/</span><span class="n">AN1</span><span class="o">/</span><span class="p">.</span><span class="o">*</span><span class="p">&#39;)]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">Net</span><span class="p">(&#39;</span><span class="n">analog1</span><span class="p">&#39;)</span><span class="w">  </span><span class="p">#</span><span class="w"> </span><span class="n">No</span><span class="w"> </span><span class="n">need</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">manually</span><span class="w"> </span><span class="n">enable</span><span class="w"> </span><span class="n">regular</span><span class="w"> </span><span class="n">expression</span><span class="w"> </span><span class="n">matching</span><span class="o">!</span>
+</code></pre></div>
 
-
-<span class="n">Since</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">may</span><span class="w"> </span><span class="n">access</span><span class="w"> </span><span class="n">pins</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="k">number</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="k">name</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">strings</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">regular</span><span class="w"> </span><span class="n">expressions</span><span class="p">,</span><span class="w"> </span><span class="n">it</span><span class="s1">&#39;s worth</span>
-<span class="s1">discussing how SKiDL decides which one to select.</span>
-<span class="s1">When given a pin index, SKiDL stops searching and returns the matching pins as soon as</span>
-<span class="s1">one of the following conditions succeeds:</span>
-
-<span class="s1">1. One or more pin numbers match the index.</span>
-<span class="s1">2. One or more pin aliases match the index using standard string matching.</span>
-<span class="s1">3. One or more pin names match the index using standard string matching.</span>
-<span class="s1">4. One or more pin aliases match the index using regular expression matching.</span>
-<span class="s1">5. One or more pin names match the index using regular expression matching.</span>
-
-<span class="s1">Since SKiDL prioritizes pin number matches over name matches,</span>
-<span class="s1">what happens when you use a name that is the same as the number of another pin?</span>
-<span class="s1">For example, a memory chip in a BGA would have pin numbers `A1`, `A2`, `A3`, ... but might</span>
-<span class="s1">also have address pins named `A1`, `A2`, `A3`, ... .</span>
-<span class="s1">In order to specifically target either pin numbers or names,</span>
-<span class="s1">SKiDL provides the `p` and `n` part attributes:</span>
-
-<span class="s1">```py</span>
-<span class="s1">ram[&#39;</span><span class="n">A1</span><span class="p">,</span><span class="w"> </span><span class="n">A2</span><span class="p">,</span><span class="w"> </span><span class="n">A3</span><span class="s1">&#39;]    # Selects pin numbers A1, A2 and A3 if the part is a BGA.</span>
-<span class="s1">ram.p[&#39;</span><span class="n">A1</span><span class="p">,</span><span class="w"> </span><span class="n">A2</span><span class="p">,</span><span class="w"> </span><span class="n">A3</span><span class="s1">&#39;]  # Use the p attribute to specifically select pin numbers A1, A2 and A3.</span>
-<span class="s1">ram.n[&#39;</span><span class="n">A1</span><span class="p">,</span><span class="w"> </span><span class="n">A2</span><span class="p">,</span><span class="w"> </span><span class="n">A3</span><span class="s1">&#39;]  # Use the n attribute to specifically select pin names A1, A2 and A3.</span>
+<p>Since you may access pins by number or by name using strings or regular expressions, it's worth
+discussing how SKiDL decides which one to select.
+When given a pin index, SKiDL stops searching and returns the matching pins as soon as
+one of the following conditions succeeds:</p>
+<ol>
+<li>One or more pin numbers match the index.</li>
+<li>One or more pin aliases match the index using standard string matching.</li>
+<li>One or more pin names match the index using standard string matching.</li>
+<li>One or more pin aliases match the index using regular expression matching.</li>
+<li>One or more pin names match the index using regular expression matching.</li>
+</ol>
+<p>Since SKiDL prioritizes pin number matches over name matches,
+what happens when you use a name that is the same as the number of another pin?
+For example, a memory chip in a BGA would have pin numbers <code>A1</code>, <code>A2</code>, <code>A3</code>, ... but might
+also have address pins named <code>A1</code>, <code>A2</code>, <code>A3</code>, ... .
+In order to specifically target either pin numbers or names,
+SKiDL provides the <code>p</code> and <code>n</code> part attributes:</p>
+<div class="highlight"><pre><span></span><code><span class="n">ram</span><span class="p">[</span><span class="s1">&#39;A1, A2, A3&#39;</span><span class="p">]</span>    <span class="c1"># Selects pin numbers A1, A2 and A3 if the part is a BGA.</span>
+<span class="n">ram</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;A1, A2, A3&#39;</span><span class="p">]</span>  <span class="c1"># Use the p attribute to specifically select pin numbers A1, A2 and A3.</span>
+<span class="n">ram</span><span class="o">.</span><span class="n">n</span><span class="p">[</span><span class="s1">&#39;A1, A2, A3&#39;</span><span class="p">]</span>  <span class="c1"># Use the n attribute to specifically select pin names A1, A2 and A3.</span>
 </code></pre></div>
 
 <p><code>Part</code> objects also provide the <code>get_pins()</code> function which can select pins in even more ways.
@@ -1100,7 +1109,7 @@ One way is by inserting nets <em>inside</em> the network:</p>
 <span class="n">ntwk_b</span> <span class="o">=</span> <span class="n">inp</span> <span class="o">&amp;</span> <span class="n">r2</span> <span class="o">&amp;</span> <span class="n">q1</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">]</span>  <span class="c1"># Connect net inp to the resistor driving the transistor base.</span>
 </code></pre></div>
 
-<p>After that's done, the <code>inp</code> and <code>outp</code> nets can be connected to other points in the circuit.</p>
+<p>After that, the <code>inp</code> and <code>outp</code> nets can be connected to other points in the circuit.</p>
 <p>Not all networks are composed of parts in series or parallel, for example the
 <a href="https://www.eeweb.com/tools/pi-match"><em>Pi matching network</em></a>.
 This can be described using the <code>tee()</code> function like so:</p>
@@ -1186,6 +1195,71 @@ using their names as attributes:</p>
 <span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">rn</span>.<span class="nv">B</span>[<span class="s1">&#39;L,R&#39;</span>]<span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">rn</span>.<span class="nv">A</span>[<span class="s1">&#39;L,R&#39;</span>]<span class="w">   </span>#<span class="w"> </span><span class="k">Connect</span><span class="w"> </span><span class="nv">resistor</span><span class="w"> </span><span class="nv">B</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">parallel</span><span class="w"> </span><span class="nv">with</span><span class="w"> </span><span class="nv">resistor</span><span class="w"> </span><span class="nv">A</span>.
 </code></pre></div>
 
+<h2 id="part-and-net-classes">Part and Net Classes</h2>
+<p>SKiDL supports part and net classes for applying attributes to groups of components and nets.
+Classes provide a systematic, consistent way to manage design constraints, manufacturing requirements,
+and electrical characteristics across complex hierarchical designs.</p>
+<p>Classes can be assigned individually to parts and nets, or hierarchically through the circuit
+structure.</p>
+<h3 id="individual-part-and-net-classes">Individual Part and Net Classes</h3>
+<p>You can assign classes directly to individual parts and nets to specify design attributes like
+manufacturing requirements or electrical characteristics. Multiple classes can be assigned
+with higher priority classes taking precedence over those with lower priority.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># Create part classes for different component categories.</span>
+<span class="n">passive_parts</span> <span class="o">=</span> <span class="n">PartClass</span><span class="p">(</span><span class="s2">&quot;passive_parts&quot;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="s2">&quot;5%&quot;</span><span class="p">)</span>
+<span class="n">active_parts</span> <span class="o">=</span> <span class="n">PartClass</span><span class="p">(</span><span class="s2">&quot;active_parts&quot;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">power_parts</span> <span class="o">=</span> <span class="n">PartClass</span><span class="p">(</span><span class="s2">&quot;power_parts&quot;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="s2">&quot;1%&quot;</span><span class="p">,</span> <span class="n">temp_rating</span><span class="o">=</span><span class="s2">&quot;125C&quot;</span><span class="p">)</span>
+<span class="n">critical</span> <span class="o">=</span> <span class="n">PartClass</span><span class="p">(</span><span class="s2">&quot;critical&quot;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">review_required</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">commercial</span> <span class="o">=</span> <span class="n">PartClass</span><span class="p">(</span><span class="s2">&quot;commercial&quot;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># Create net classes for different signal types.</span>
+<span class="n">high_speed</span> <span class="o">=</span> <span class="n">NetClass</span><span class="p">(</span><span class="s2">&quot;high_speed&quot;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="s2">&quot;0.1mm&quot;</span><span class="p">,</span> <span class="n">impedance</span><span class="o">=</span><span class="s2">&quot;50ohm&quot;</span><span class="p">)</span>
+<span class="n">clock_nets</span> <span class="o">=</span> <span class="n">NetClass</span><span class="p">(</span><span class="s2">&quot;clocks&quot;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="s2">&quot;0.08mm&quot;</span><span class="p">)</span>
+<span class="n">power_nets</span> <span class="o">=</span> <span class="n">NetClass</span><span class="p">(</span><span class="s2">&quot;power_nets&quot;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="s2">&quot;0.5mm&quot;</span><span class="p">,</span> <span class="n">clearance</span><span class="o">=</span><span class="s2">&quot;0.3mm&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create parts and assign classes during instantiation or separately.</span>
+<span class="n">resistor</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;1K&quot;</span><span class="p">,</span> <span class="n">partclasses</span><span class="o">=</span><span class="p">(</span><span class="n">passive_parts</span><span class="p">,</span><span class="n">commercial</span><span class="p">))</span>
+<span class="n">vreg</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Regulator_Linear&quot;</span><span class="p">,</span> <span class="s2">&quot;AMS1117-3.3&quot;</span><span class="p">)</span>
+<span class="n">vreg</span><span class="o">.</span><span class="n">partclasses</span> <span class="o">=</span> <span class="n">power_parts</span><span class="p">,</span> <span class="n">active_parts</span><span class="p">,</span> <span class="n">critical</span>
+
+<span class="c1"># Create nets and assign classes.</span>
+<span class="n">vcc_5v</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s2">&quot;VCC_5V&quot;</span><span class="p">,</span> <span class="n">netclasses</span><span class="o">=</span><span class="n">power_nets</span><span class="p">)</span>
+<span class="n">data_bus</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s2">&quot;DATA&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">netclasses</span><span class="o">=</span><span class="n">high_speed</span><span class="p">)</span>
+<span class="n">data_bus</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">netclasses</span> <span class="o">=</span> <span class="n">clock_nets</span>  <span class="c1"># Assign additional class to individual bus line</span>
+</code></pre></div>
+
+<h3 id="hierarchical-part-and-net-class-inheritance">Hierarchical Part and Net Class Inheritance</h3>
+<p>Classes can be assigned at different levels of circuit hierarchy,
+with parts and nets at lower levels inheriting classes from higher levels:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># Assign global part class to root level (applies to entire circuit)</span>
+<span class="n">default_circuit</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">partclasses</span> <span class="o">=</span> <span class="n">PartClass</span><span class="p">(</span><span class="s2">&quot;global&quot;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vendor</span><span class="o">=</span><span class="s2">&quot;TI&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create hierarchical design with class inheritance</span>
+<span class="k">with</span> <span class="n">SubCircuit</span><span class="p">(</span><span class="s2">&quot;power_supply&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">psu</span><span class="p">:</span>
+    <span class="c1"># Power supply specific classes</span>
+    <span class="n">psu</span><span class="o">.</span><span class="n">partclasses</span> <span class="o">=</span> <span class="n">PartClass</span><span class="p">(</span><span class="s2">&quot;psu_parts&quot;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">efficiency</span><span class="o">=</span><span class="s2">&quot;&gt;90%&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Components inherit both global and PSU classes</span>
+    <span class="n">reg</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Regulator_Switching&quot;</span><span class="p">,</span> <span class="s2">&quot;LM2596T-ADJ&quot;</span><span class="p">)</span>
+    <span class="n">cap</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;470uF&quot;</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">SubCircuit</span><span class="p">(</span><span class="s2">&quot;analog_frontend&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">afe</span><span class="p">:</span>
+    <span class="c1"># Analog-specific classes</span>
+    <span class="n">afe</span><span class="o">.</span><span class="n">partclasses</span> <span class="o">=</span> <span class="n">PartClass</span><span class="p">(</span><span class="s2">&quot;precision&quot;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="s2">&quot;0.1%&quot;</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">SubCircuit</span><span class="p">(</span><span class="s2">&quot;amplifier_stage&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">amp</span><span class="p">:</span>
+        <span class="c1"># Nested hierarchy - inherits both global and precision part classes</span>
+        <span class="n">opamp</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Amplifier_Operational&quot;</span><span class="p">,</span> <span class="s2">&quot;OPA690xD&quot;</span><span class="p">)</span>
+
+<span class="c1"># Access circuit-wide class collections</span>
+<span class="n">all_part_classes</span> <span class="o">=</span> <span class="n">default_circuit</span><span class="o">.</span><span class="n">partclasses</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">all_part_classes</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
 <h2 id="part-fields">Part Fields</h2>
 <p>Parts typically have <em>fields</em> that store additional information such as
 manufacturer identifiers.
@@ -1220,267 +1294,212 @@ as a part attribute:</p>
 </code></pre></div>
 
 <h2 id="hierarchy">Hierarchy</h2>
-<p>SKiDL supports several types of hierarchy: <a href="#subcircuits"><em>subcircuits</em></a>, <a href="#packages"><em>packages</em></a>, and <a href="#groups"><em>Groups</em></a>.</p>
-<h3 id="subcircuits">Subcircuits</h3>
-<p>SKiDL supports the encapsulation of parts, nets and buses into modules
-that can be replicated to reduce design effort, and can be used in
-other modules to create a functional hierarchy.
-It does this using Python's built-in machinery for defining and calling functions
-so there's almost nothing new to learn.</p>
-<p>As an example, here's the voltage divider as a module:</p>
+<p>SKiDL supports hierarchical design through three different approaches: decorated functions that return interfaces, subclassed modules with I/O attributes, and context-based hierarchy. Each approach offers different advantages depending on your design style and requirements.</p>
+<h3 id="method-1-subcircuit-decorator-with-interface-return">Method 1: SubCircuit Decorator with Interface Return</h3>
+<p>The most functional approach uses the <code>@SubCircuit</code> decorator on functions that return an <code>Interface</code> object containing the subcircuit's I/O connections. This approach treats subcircuits as pure functions that transform inputs to outputs.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="c1"># Define a global resistor template.</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Resistor_SMD.pretty:R_0805_2012Metric&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
+<span class="n">opamp</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Amplifier_Operational&#39;</span><span class="p">,</span> <span class="s1">&#39;LM358&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
 
-<span class="c1"># Define the voltage divider module. The @subcircuit decorator </span>
-<span class="c1"># handles some SKiDL housekeeping that needs to be done.</span>
-<span class="nd">@subcircuit</span>
-<span class="k">def</span> <span class="nf">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Divide inp voltage by 3 and place it on outp net.&quot;&quot;&quot;</span>
-    <span class="n">inp</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">outp</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;500&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">gnd</span>
+<span class="nd">@SubCircuit</span>
+<span class="k">def</span> <span class="nf">voltage_reference</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates a 2.5V voltage reference using a voltage divider.&quot;&quot;&quot;</span>
+    <span class="n">vcc</span><span class="p">,</span> <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VCC&#39;</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
 
-<span class="c1"># Declare the input, output and ground nets.</span>
-<span class="n">input_net</span><span class="p">,</span> <span class="n">output_net</span><span class="p">,</span> <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;IN&#39;</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;OUT&#39;</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
+    <span class="c1"># Create voltage divider</span>
+    <span class="n">r_upper</span> <span class="o">=</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;10K&#39;</span><span class="p">)</span>
+    <span class="n">r_lower</span> <span class="o">=</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;10K&#39;</span><span class="p">)</span>
+    <span class="n">vcc</span> <span class="o">&amp;</span> <span class="n">r_upper</span> <span class="o">&amp;</span> <span class="n">r_lower</span> <span class="o">&amp;</span> <span class="n">gnd</span>
 
-<span class="c1"># Instantiate the voltage divider and connect it to the input &amp; output nets.</span>
-<span class="n">vdiv</span><span class="p">(</span><span class="n">input_net</span><span class="p">,</span> <span class="n">output_net</span><span class="p">)</span>
+    <span class="c1"># Return interface with the reference voltage</span>
+    <span class="k">return</span> <span class="n">Interface</span><span class="p">(</span>
+        <span class="n">vref</span> <span class="o">=</span> <span class="n">r_upper</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>  <span class="c1"># Junction between resistors</span>
+        <span class="n">vcc</span> <span class="o">=</span> <span class="n">vcc</span><span class="p">,</span>
+        <span class="n">gnd</span> <span class="o">=</span> <span class="n">gnd</span>
+    <span class="p">)</span>
 
-<span class="n">generate_netlist</span><span class="p">(</span><span class="n">file_</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
+<span class="nd">@SubCircuit</span>
+<span class="k">def</span> <span class="nf">amplifier</span><span class="p">(</span><span class="n">gain</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Non-inverting amplifier with configurable gain.&quot;&quot;&quot;</span>
+    <span class="n">op</span> <span class="o">=</span> <span class="n">opamp</span><span class="p">()</span>
+    <span class="n">r_feedback</span> <span class="o">=</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="p">(</span><span class="n">gain</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">1000</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># Gain = 1 + Rf/Rin</span>
+    <span class="n">r_input</span> <span class="o">=</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Build non-inverting amplifier</span>
+    <span class="n">op</span><span class="p">[</span><span class="s1">&#39;V-&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">r_input</span> <span class="o">&amp;</span> <span class="n">gnd</span>
+    <span class="n">op</span><span class="p">[</span><span class="s1">&#39;V-&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">r_feedback</span> <span class="o">&amp;</span> <span class="n">op</span><span class="p">[</span><span class="s1">&#39;V+&#39;</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">Interface</span><span class="p">(</span>
+        <span class="n">inp</span> <span class="o">=</span> <span class="n">op</span><span class="p">[</span><span class="s1">&#39;V+&#39;</span><span class="p">],</span>      <span class="c1"># Non-inverting input</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">op</span><span class="p">[</span><span class="s1">&#39;V+&#39;</span><span class="p">],</span>      <span class="c1"># Output</span>
+        <span class="n">vcc</span> <span class="o">=</span> <span class="n">op</span><span class="p">[</span><span class="s1">&#39;V+&#39;</span><span class="p">],</span>      <span class="c1"># Positive supply</span>
+        <span class="n">gnd</span> <span class="o">=</span> <span class="n">gnd</span>            <span class="c1"># Ground reference</span>
+    <span class="p">)</span>
+
+<span class="c1"># Create and connect the subcircuits</span>
+<span class="n">vref_if</span> <span class="o">=</span> <span class="n">voltage_reference</span><span class="p">()</span>
+<span class="n">amp_if</span> <span class="o">=</span> <span class="n">amplifier</span><span class="p">(</span><span class="n">gain</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Connect the voltage reference to the amplifier</span>
+<span class="n">amp_if</span><span class="o">.</span><span class="n">inp</span> <span class="o">+=</span> <span class="n">vref_if</span><span class="o">.</span><span class="n">vref</span>
+<span class="n">amp_if</span><span class="o">.</span><span class="n">vcc</span> <span class="o">+=</span> <span class="n">vref_if</span><span class="o">.</span><span class="n">vcc</span>
+<span class="n">amp_if</span><span class="o">.</span><span class="n">gnd</span> <span class="o">+=</span> <span class="n">vref_if</span><span class="o">.</span><span class="n">gnd</span>
+
+<span class="c1"># Connect to external nets</span>
+<span class="n">input_signal</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;INPUT&#39;</span><span class="p">)</span>
+<span class="n">output_signal</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;OUTPUT&#39;</span><span class="p">)</span>
+<span class="n">power_5v</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;5V&#39;</span><span class="p">)</span>
+<span class="n">system_gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;SYSTEM_GND&#39;</span><span class="p">)</span>
+
+<span class="n">input_signal</span> <span class="o">+=</span> <span class="n">amp_if</span><span class="o">.</span><span class="n">inp</span>
+<span class="n">output_signal</span> <span class="o">+=</span> <span class="n">amp_if</span><span class="o">.</span><span class="n">out</span>
+<span class="n">power_5v</span> <span class="o">+=</span> <span class="n">vref_if</span><span class="o">.</span><span class="n">vcc</span>
+<span class="n">system_gnd</span> <span class="o">+=</span> <span class="n">vref_if</span><span class="o">.</span><span class="n">gnd</span>
 </code></pre></div>
 
-<p>For the most part, <code>vdiv</code> is just a standard Python function:
-it accepts inputs, it performs operations on them, and it could return
-results (but in this case, it doesn't need to).
-Other than the <code>@subcircuit</code> decorator that appears before the function definition,
-<code>vdiv</code> is just a Python function and it can do anything that a Python function can do.</p>
-<p>Here's the netlist that's generated:</p>
-<div class="highlight"><pre><span></span><code>(export (version D)
-  (design
-    (source &quot;C:\TEMP\skidl tests\hier_example.py&quot;)
-    (date &quot;04/20/2017 09:39 AM&quot;)
-    (tool &quot;SKiDL (0.0.12)&quot;))
-  (components
-    (comp (ref R1)
-      (value 1K)
-      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
-      (fields
-        (field (name keywords) &quot;r res resistor&quot;)
-        (field (name description) Resistor))
-      (libsource (lib device) (part R)))
-    (comp (ref R2)
-      (value 500)
-      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
-      (fields
-        (field (name keywords) &quot;r res resistor&quot;)
-        (field (name description) Resistor))
-      (libsource (lib device) (part R))))
-  (nets
-    (net (code 0) (name GND)
-      (node (ref R2) (pin 2)))
-    (net (code 1) (name IN)
-      (node (ref R1) (pin 1)))
-    (net (code 2) (name OUT)
-      (node (ref R1) (pin 2))
-      (node (ref R2) (pin 1))))
-)
-</code></pre></div>
-
-<p>For an example of a multi-level hierarchy, the <code>multi_vdiv</code> module shown below
-can use the <code>vdiv</code> module to divide a voltage multiple times:</p>
-<p><a name="multilevel_hierarchy_example"></a></p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-
-<span class="n">r</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Resistor_SMD.pretty:R_0805_2012Metric&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
-
-<span class="nd">@subcircuit</span>
-<span class="k">def</span> <span class="nf">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
-    <span class="n">inp</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">outp</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;500&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">gnd</span>
-
-<span class="n">input_net</span><span class="p">,</span> <span class="n">output_net</span><span class="p">,</span> <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;IN&#39;</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;OUT&#39;</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
-
-<span class="nd">@subcircuit</span>
-<span class="k">def</span> <span class="nf">multi_vdiv</span><span class="p">(</span><span class="n">repeat</span><span class="p">,</span> <span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Divide inp voltage by (3 * repeat) and place it on outp net.&quot;&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">repeat</span><span class="p">):</span>
-        <span class="n">out_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>     <span class="c1"># Create an output net for the current stage.</span>
-        <span class="n">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">out_net</span><span class="p">)</span>  <span class="c1"># Instantiate a divider stage.</span>
-        <span class="n">inp</span> <span class="o">=</span> <span class="n">out_net</span>       <span class="c1"># The output net becomes the input net for the next stage.</span>
-    <span class="n">outp</span> <span class="o">+=</span> <span class="n">out_net</span>         <span class="c1"># Connect the output from the last stage to the module output net.</span>
-
-
-<span class="n">input_net</span><span class="p">,</span> <span class="n">output_net</span><span class="p">,</span> <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;IN&#39;</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;OUT&#39;</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
-
-<span class="n">multi_vdiv</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">input_net</span><span class="p">,</span> <span class="n">output_net</span><span class="p">)</span>  <span class="c1"># Run the input through 3 voltage dividers.</span>
-
-<span class="n">generate_netlist</span><span class="p">(</span><span class="n">file_</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
-</code></pre></div>
-
-<p>(For the EE's out there: yes, I <em>know</em> cascading three simple voltage dividers
-will not multiplicatively scale the input voltage because of the
-input and output impedances of each stage!
-It's just the simplest example I could use to show hierarchy.)</p>
-<p>Subcircuits can also be <em>configurable</em> (after all, they're just functions).
-The ratio of the voltage divider could be set with a parameter:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Pass the division ratio as a parameter.</span>
-<span class="nd">@subcircuit</span>
-<span class="k">def</span> <span class="nf">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">,</span> <span class="n">ratio</span><span class="p">):</span>
-    <span class="n">inp</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">outp</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">1000</span><span class="o">*</span><span class="n">ratio</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">ratio</span><span class="p">))</span> <span class="o">&amp;</span> <span class="n">gnd</span>
-
-<span class="o">...</span>
-
-<span class="c1"># Instantiate the voltage divider with a ratio of 1/3.</span>
-<span class="n">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">,</span> <span class="n">ratio</span><span class="o">=</span><span class="mf">0.33</span><span class="p">)</span>
-</code></pre></div>
-
-<h3 id="interfaces">Interfaces</h3>
-<p>Passing nets between hierarchically-organized subcircuit modules can lead to long
-lists of arguments.
-To make the code easier to write and understand, SKiDL supports <em>interfaces</em>
-which are simply dictionaries that encapsulate a number of <code>Bus</code>, <code>Net</code>, or <code>Pin</code> objects.
-For example, here is an interface for a memory:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mem_intfc</span> <span class="o">=</span> <span class="n">Interface</span><span class="p">(</span>
-  <span class="n">rd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;MEM_RD#&#39;</span><span class="p">),</span>
-  <span class="n">wr</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;MEM_WR#&#39;</span><span class="p">),</span>
-  <span class="n">addr</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;MEM_ADDR&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
-  <span class="n">data</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;MEM_DATA&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
-<span class="p">)</span>
-</code></pre></div>
-
-<p>This interface can be passed to a RAM module and a microcontroller that uses it:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mem_module</span><span class="p">(</span><span class="n">mem_intfc</span><span class="p">)</span>
-<span class="n">uc_module</span><span class="p">(</span><span class="n">clk</span><span class="p">,</span> <span class="n">mem_intfc</span><span class="p">,</span> <span class="n">io_intfc</span><span class="p">)</span>
-</code></pre></div>
-
-<p>Inside the <code>mem_module</code>, the interface signals are connected to a RAM chip:</p>
-<div class="highlight"><pre><span></span><code><span class="nd">@subcircuit</span>
-<span class="k">def</span> <span class="nf">mem_module</span><span class="p">(</span><span class="n">intfc</span><span class="p">):</span>
-  <span class="n">ram</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Memory_RAM&#39;</span><span class="p">,</span> <span class="s1">&#39;AS6C1616&#39;</span><span class="p">)</span>
-  <span class="n">ram</span><span class="p">[</span><span class="s1">&#39;A[0:19]&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">intfc</span><span class="o">.</span><span class="n">addr</span>
-  <span class="n">ram</span><span class="p">[</span><span class="s1">&#39;DQ[0:15]&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">intfc</span><span class="o">.</span><span class="n">data</span>
-  <span class="n">ram</span><span class="p">[</span><span class="s1">&#39;WE#&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">intfc</span><span class="o">.</span><span class="n">wr</span>
-  <span class="n">ram</span><span class="p">[</span><span class="s1">&#39;OE#&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">intfc</span><span class="p">[</span><span class="s1">&#39;rd&#39;</span><span class="p">]</span>  <span class="c1"># Interface members are also accessible using []&#39;s.</span>
-  <span class="o">...</span>
-</code></pre></div>
-
-<p>A similar set of statements is used to make connections to the microcontroller inside the <code>uc_module</code>
-with the <code>mem_intfc</code> argument.</p>
-<p>Instead of defining an interface external to the subcircuit modules, you can also
-have a module return an interface that can be passed to other modules.
-Here's an example of the <code>mem_module</code> that returns an interface:</p>
-<div class="highlight"><pre><span></span><code><span class="nd">@subcircuit</span>
-<span class="k">def</span> <span class="nf">mem_module</span><span class="p">():</span>
-  <span class="n">ram</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Memory_RAM&#39;</span><span class="p">,</span> <span class="s1">&#39;AS6C1616&#39;</span><span class="p">)</span>
-  <span class="n">mem_intfc</span> <span class="o">=</span> <span class="n">Interface</span><span class="p">(</span>
-    <span class="n">rd</span> <span class="o">=</span> <span class="n">ram</span><span class="p">[</span><span class="s1">&#39;OE#&#39;</span><span class="p">],</span>
-    <span class="n">wr</span> <span class="o">=</span> <span class="n">ram</span><span class="p">[</span><span class="s1">&#39;WE#&#39;</span><span class="p">],</span>
-    <span class="n">addr</span> <span class="o">=</span> <span class="n">ram</span><span class="p">[</span><span class="s1">&#39;A[0:19]&#39;</span><span class="p">],</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">ram</span><span class="p">[</span><span class="s1">&#39;DQ[0:15]&#39;</span><span class="p">]</span>
-  <span class="p">)</span>
-  <span class="o">...</span>
-  <span class="k">return</span> <span class="n">mem_intfc</span>
-</code></pre></div>
-
-<p>Then this interface can be passed to the <code>uc_module</code> to connect the memory and microcontroller:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mem_intfc</span> <span class="o">=</span> <span class="n">mem_module</span><span class="p">()</span>
-<span class="n">uc_module</span><span class="p">(</span><span class="n">clk</span><span class="p">,</span> <span class="n">mem_intfc</span><span class="p">,</span> <span class="n">io_intfc</span><span class="p">)</span>
-</code></pre></div>
-
-<!--
-### Packages
-
-The `@subcircuit` decorator lets you create a hierarchical circuit where the
-subcircuits are instantiated using function calls with arguments.
-The `@package` decorator is an alternative that *packages* a subcircuit into
-a part-like object with its own input and output pins that can be connected
-to other components.
-In essence, you've encapsulated a subcircuit into its own package with I/O pins.
-
-
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-
-<span class="n">r</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Resistor_SMD.pretty:R_0805_2012Metric&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
-
-<span class="c1"># Define the voltage divider module. The @package decorator </span>
-<span class="c1"># creates an interface that acts like I/O pins.</span>
-<span class="nd">@package</span>
-<span class="k">def</span> <span class="nf">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
-    <span class="n">inp</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">outp</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;500&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">gnd</span>
-
-<span class="n">input_net</span><span class="p">,</span> <span class="n">output_net</span><span class="p">,</span> <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;IN&#39;</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;OUT&#39;</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
-
-<span class="c1"># Instantiate the voltage divider as a package.</span>
-<span class="n">divider</span> <span class="o">=</span> <span class="n">vdiv</span><span class="p">()</span>
-
-<span class="c1"># Now connect the I/O pins of the instantiated package to the input &amp; output nets.</span>
-<span class="n">divider</span><span class="o">.</span><span class="n">inp</span> <span class="o">+=</span> <span class="n">input_net</span>
-<span class="n">divider</span><span class="o">.</span><span class="n">outp</span> <span class="o">+=</span> <span class="n">output_net</span>
-
-<span class="n">generate_netlist</span><span class="p">(</span><span class="n">file_</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
-</code></pre></div>
-
-
-
-Subcircuits defined with `@package` are also customizable via parameters:
-
-
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-
-<span class="n">r</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Resistor_SMD.pretty:R_0805_2012Metric&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
-
-<span class="c1"># Voltage divider with a parameterized division ratio.</span>
-<span class="nd">@package</span>
-<span class="k">def</span> <span class="nf">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">,</span> <span class="n">ratio</span><span class="p">):</span>
-    <span class="n">inp</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">outp</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">1000</span><span class="o">*</span><span class="n">ratio</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">ratio</span><span class="p">))</span> <span class="o">&amp;</span> <span class="n">gnd</span>
-
-<span class="n">input_net</span><span class="p">,</span> <span class="n">output_net</span><span class="p">,</span> <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;IN&#39;</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;OUT&#39;</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
-
-<span class="c1"># Instantiate the voltage divider with a ratio of 1/3.</span>
-<span class="n">divider</span> <span class="o">=</span> <span class="n">vdiv</span><span class="p">(</span><span class="n">ratio</span><span class="o">=</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
-
-<span class="n">divider</span><span class="o">.</span><span class="n">inp</span> <span class="o">+=</span> <span class="n">input_net</span>
-<span class="n">divider</span><span class="o">.</span><span class="n">outp</span> <span class="o">+=</span> <span class="n">output_net</span>
-
-<span class="c1"># You can also override the division ratio. Note that a standard</span>
-<span class="c1"># assignment operator is used instead of += because ratio is not an I/O pin.</span>
-<span class="n">divider</span><span class="o">.</span><span class="n">ratio</span> <span class="o">=</span> <span class="mf">0.5</span>
-
-<span class="n">generate_netlist</span><span class="p">(</span><span class="n">file_</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
-</code></pre></div>
-
-
--->
-
-<h3 id="groups">Groups</h3>
-<p>If you want to inject some hierarchy in your design but don't want
-to bother with creating and calling a function, then <em>groups</em> are for you!
-Just place parts within a <code>Group</code> context and they will appear at the
-appropriate level of the hierarchy:</p>
+<h3 id="method-2-subcircuit-subclassing-with-io-attributes">Method 2: SubCircuit Subclassing with I/O Attributes</h3>
+<p>The object-oriented approach involves subclassing <code>SubCircuit</code> to create reusable modules with well-defined I/O attributes. This approach is ideal for creating libraries of standard circuit blocks.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">r</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">VoltageRegulator</span><span class="p">(</span><span class="n">SubCircuit</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;3.3V linear voltage regulator module.&quot;&quot;&quot;</span>
 
-<span class="k">with</span> <span class="n">Group</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">):</span>
-    <span class="n">c</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_voltage</span><span class="o">=</span><span class="mf">5.0</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
-    <span class="k">with</span> <span class="n">Group</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">):</span>
-        <span class="n">l</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s2">&quot;L&quot;</span><span class="p">)</span>
+        <span class="c1"># Create the regulator circuit</span>
+        <span class="n">reg</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Regulator_Linear&#39;</span><span class="p">,</span> <span class="s1">&#39;AMS1117-3.3&#39;</span><span class="p">)</span>
+        <span class="n">c_in</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;100nF&#39;</span><span class="p">)</span>
+        <span class="n">c_out</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;10uF&#39;</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">default_circuit</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">part</span><span class="o">.</span><span class="n">hierarchy</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="c1"># Build regulator circuit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vin</span> <span class="o">&amp;</span> <span class="n">c_in</span> <span class="o">&amp;</span> <span class="n">gnd</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vin</span> <span class="o">&amp;</span> <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;VI&#39;</span><span class="p">]</span>
+        <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;VO&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">c_out</span> <span class="o">&amp;</span> <span class="n">gnd</span>
+        <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;GND&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">gnd</span>
+
+        <span class="c1"># Define I/O attributes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vin</span> <span class="o">=</span> <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;VI&#39;</span><span class="p">]</span>      <span class="c1"># Voltage input</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vout</span> <span class="o">=</span> <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;VO&#39;</span><span class="p">]</span>     <span class="c1"># Regulated output</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gnd</span> <span class="o">=</span> <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;GND&#39;</span><span class="p">]</span>     <span class="c1"># Ground connection</span>
+
+<span class="k">class</span> <span class="nc">MotorDriver</span><span class="p">(</span><span class="n">SubCircuit</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;H-bridge motor driver module.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="c1"># Create H-bridge with MOSFETs</span>
+        <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">,</span> <span class="n">q3</span><span class="p">,</span> <span class="n">q4</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;Q_NMOS_GSD&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)(</span><span class="mi">4</span><span class="p">)</span>
+
+        <span class="c1"># Build H-bridge topology</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vcc</span> <span class="o">&amp;</span> <span class="n">q1</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">q3</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">]</span>
+        <span class="n">q1</span><span class="p">[</span><span class="s1">&#39;S&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">q2</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">motor_a</span>
+        <span class="n">q3</span><span class="p">[</span><span class="s1">&#39;S&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">q4</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">motor_b</span>  
+        <span class="n">q2</span><span class="p">[</span><span class="s1">&#39;S&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">q4</span><span class="p">[</span><span class="s1">&#39;S&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">gnd</span>
+
+        <span class="c1"># Define I/O attributes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vcc</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>          <span class="c1"># Motor supply voltage</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>          <span class="c1"># Ground</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">motor_a</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>      <span class="c1"># Motor terminal A</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">motor_b</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>      <span class="c1"># Motor terminal B</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl1</span> <span class="o">=</span> <span class="n">q1</span><span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">]</span>      <span class="c1"># Control signal 1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl2</span> <span class="o">=</span> <span class="n">q2</span><span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">]</span>      <span class="c1"># Control signal 2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl3</span> <span class="o">=</span> <span class="n">q3</span><span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">]</span>      <span class="c1"># Control signal 3</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl4</span> <span class="o">=</span> <span class="n">q4</span><span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">]</span>      <span class="c1"># Control signal 4</span>
+
+<span class="c1"># Instantiate and connect modules</span>
+<span class="n">regulator</span> <span class="o">=</span> <span class="n">VoltageRegulator</span><span class="p">()</span>
+<span class="n">motor</span> <span class="o">=</span> <span class="n">MotorDriver</span><span class="p">()</span>
+
+<span class="c1"># Connect power distribution</span>
+<span class="n">power_12v</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;12V_IN&#39;</span><span class="p">)</span>
+<span class="n">power_3v3</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;3V3&#39;</span><span class="p">)</span>
+<span class="n">system_gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
+
+<span class="n">power_12v</span> <span class="o">+=</span> <span class="n">regulator</span><span class="o">.</span><span class="n">vin</span>
+<span class="n">power_3v3</span> <span class="o">+=</span> <span class="n">regulator</span><span class="o">.</span><span class="n">vout</span>
+<span class="n">system_gnd</span> <span class="o">+=</span> <span class="n">regulator</span><span class="o">.</span><span class="n">gnd</span><span class="p">,</span> <span class="n">motor</span><span class="o">.</span><span class="n">gnd</span>
+
+<span class="c1"># Connect motor power from 12V rail</span>
+<span class="n">power_12v</span> <span class="o">+=</span> <span class="n">motor</span><span class="o">.</span><span class="n">vcc</span>
+
+<span class="c1"># Connect control signals</span>
+<span class="n">mcu</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;MCU_ST_STM32F1&#39;</span><span class="p">,</span> <span class="s1">&#39;STM32F103C8Tx&#39;</span><span class="p">)</span>
+<span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;PA0,PA1,PA2,PA3&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">motor</span><span class="o">.</span><span class="n">ctrl1</span><span class="p">,</span> <span class="n">motor</span><span class="o">.</span><span class="n">ctrl2</span><span class="p">,</span> <span class="n">motor</span><span class="o">.</span><span class="n">ctrl3</span><span class="p">,</span> <span class="n">motor</span><span class="o">.</span><span class="n">ctrl4</span>
 </code></pre></div>
 
-<p>The output shows the components are arranged in a nested hierarchy that
-reflects the nesting of the <code>Group</code> contexts:</p>
-<div class="highlight"><pre><span></span><code>R1 top
-C1 top.A0
-L1 top.A0.B0
+<h3 id="method-3-context-based-hierarchy-with-subcircuit">Method 3: Context-Based Hierarchy with SubCircuit</h3>
+<p>The simplest approach uses <code>SubCircuit</code> as a context manager to create hierarchical groupings without defining functions or classes. This method is ideal for organizing complex designs into logical sections.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># Create main system nets</span>
+<span class="n">vcc_5v</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VCC_5V&#39;</span><span class="p">)</span>
+<span class="n">vcc_3v3</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VCC_3V3&#39;</span><span class="p">)</span> 
+<span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
+<span class="n">spi_clk</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;SPI_CLK&#39;</span><span class="p">)</span>
+<span class="n">spi_mosi</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;SPI_MOSI&#39;</span><span class="p">)</span>
+<span class="n">spi_miso</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;SPI_MISO&#39;</span><span class="p">)</span>
+
+<span class="c1"># Power supply section</span>
+<span class="k">with</span> <span class="n">SubCircuit</span><span class="p">(</span><span class="s1">&#39;power_supply&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">power</span><span class="p">:</span>
+    <span class="c1"># 5V to 3.3V regulator</span>
+    <span class="n">reg</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Regulator_Linear&#39;</span><span class="p">,</span> <span class="s1">&#39;AMS1117-3.3&#39;</span><span class="p">)</span>
+    <span class="n">c1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;100nF&#39;</span><span class="p">)</span>
+    <span class="n">c2</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;10uF&#39;</span><span class="p">)</span>
+
+    <span class="n">vcc_5v</span> <span class="o">&amp;</span> <span class="n">c1</span> <span class="o">&amp;</span> <span class="n">gnd</span>
+    <span class="n">vcc_5v</span> <span class="o">&amp;</span> <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;VI&#39;</span><span class="p">]</span>
+    <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;VO&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">c2</span> <span class="o">&amp;</span> <span class="n">gnd</span>
+    <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;VO&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">vcc_3v3</span>
+    <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;GND&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">gnd</span>
+
+<span class="c1"># Microcontroller section  </span>
+<span class="k">with</span> <span class="n">SubCircuit</span><span class="p">(</span><span class="s1">&#39;microcontroller&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">mcu_section</span><span class="p">:</span>
+    <span class="n">mcu</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;MCU_ST_STM32F1&#39;</span><span class="p">,</span> <span class="s1">&#39;STM32F103C8Tx&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Power connections</span>
+    <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;VDD,VDDA&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vcc_3v3</span>
+    <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;VSS,VSSA&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gnd</span>
+
+    <span class="c1"># SPI peripheral connections</span>
+    <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;PA5&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">spi_clk</span>   <span class="c1"># SPI1_SCK</span>
+    <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;PA6&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">spi_miso</span>  <span class="c1"># SPI1_MISO  </span>
+    <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;PA7&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">spi_mosi</span>  <span class="c1"># SPI1_MOSI</span>
+
+<span class="c1"># Sensor interface section</span>
+<span class="k">with</span> <span class="n">SubCircuit</span><span class="p">(</span><span class="s1">&#39;sensors&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">sensor_section</span><span class="p">:</span>
+    <span class="c1"># SPI temperature sensor</span>
+    <span class="n">temp_sensor</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Sensor_Temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;MAX31855&#39;</span><span class="p">)</span>
+
+    <span class="c1"># SPI connections</span>
+    <span class="n">temp_sensor</span><span class="p">[</span><span class="s1">&#39;SCK&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">spi_clk</span>
+    <span class="n">temp_sensor</span><span class="p">[</span><span class="s1">&#39;SO&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">spi_miso</span>
+    <span class="n">temp_sensor</span><span class="p">[</span><span class="s1">&#39;CS&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;PA4&#39;</span><span class="p">]</span>  <span class="c1"># Chip select</span>
+
+    <span class="c1"># Power connections</span>
+    <span class="n">temp_sensor</span><span class="p">[</span><span class="s1">&#39;VCC&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vcc_3v3</span>
+    <span class="n">temp_sensor</span><span class="p">[</span><span class="s1">&#39;GND&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gnd</span>
+
+<span class="c1"># Display section</span>
+<span class="k">with</span> <span class="n">SubCircuit</span><span class="p">(</span><span class="s1">&#39;display&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">display_section</span><span class="p">:</span>
+    <span class="n">lcd</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Display_Character&#39;</span><span class="p">,</span> <span class="s1">&#39;HD44780&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Connect to microcontroller</span>
+    <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;PB0,PB1,PB2,PB3,PB4,PB5&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">lcd</span><span class="p">[</span><span class="s1">&#39;D4,D5,D6,D7,E,RS&#39;</span><span class="p">]</span>
+    <span class="n">lcd</span><span class="p">[</span><span class="s1">&#39;VSS,RW&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gnd</span>
+    <span class="n">lcd</span><span class="p">[</span><span class="s1">&#39;VDD&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vcc_3v3</span>
 </code></pre></div>
 
+<p>Each approach has its strengths:</p>
+<ul>
+<li><strong>Decorated functions</strong> excel at creating reusable, parameterizable modules that clearly define their interfaces</li>
+<li><strong>Subclassed modules</strong> provide the most structured approach with explicit I/O definitions, ideal for complex reusable blocks  </li>
+<li><strong>Context-based hierarchy</strong> offers the simplest syntax for organizing designs without the overhead of function definitions</li>
+</ul>
+<p>You can mix and match these approaches as needed. For example, use subclassed modules for complex reusable blocks like motor drivers, decorated functions for parameterizable filters, and context-based hierarchy for organizing the top-level system architecture.</p>
 <h2 id="libraries">Libraries</h2>
 <p>As you've already seen, SKiDL gets its parts from <em>part libraries</em>.
 By default, SKiDL finds the libraries provided by KiCad (using the <code>KICAD_SYMBOL_DIR</code>
@@ -1491,7 +1510,8 @@ environment variable), so if that's all you need then you're all set.</p>
 <li><code>KICAD6</code>: Schematic part libraries for KiCad version 6.</li>
 <li><code>KICAD7</code>: Schematic part libraries for KiCad version 7.</li>
 <li><code>KICAD8</code>: Schematic part libraries for KiCad version 8.</li>
-<li><code>KICAD</code>: Generic KiCad schematic part libraries that currently mirrors <code>KICAD8</code>.</li>
+<li><code>KICAD9</code>: Schematic part libraries for KiCad version 9.</li>
+<li><code>KICAD</code>: Generic KiCad schematic part libraries that currently mirrors <code>KICAD9</code>.</li>
 <li><code>SKIDL</code>: Schematic parts stored as SKiDL/Python modules.</li>
 </ul>
 <p>You may set the default library format you want to use in your SKiDL script like so:</p>
@@ -1505,7 +1525,7 @@ environment variable), so if that's all you need then you're all set.</p>
 <span class="n">lib_search_paths</span><span class="p">[</span><span class="n">KICAD</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;C:</span><span class="se">\\</span><span class="s1">my</span><span class="se">\\</span><span class="s1">kicad</span><span class="se">\\</span><span class="s1">libs&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-<p>You may also access libraries stored in online repositories just by placing their
+<p>You may also access a library stored in an online repository just by placing its
 URL in the list of libraries:</p>
 <div class="highlight"><pre><span></span><code><span class="n">lib_search_paths</span><span class="p">[</span><span class="n">KICAD</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master&#39;</span><span class="p">)</span>
 </code></pre></div>
@@ -1528,7 +1548,7 @@ the <a href="#configuration-file">configuration file</a>.</p>
 <p>You can convert a KiCad library into the SKiDL format by exporting it:</p>
 <div class="highlight"><pre><span></span><code><span class="n">kicad_lib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="n">KICAD</span><span class="p">)</span>       <span class="c1"># Open a KiCad library.</span>
 <span class="n">kicad_lib</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="s1">&#39;my_skidl_lib&#39;</span><span class="p">)</span>               <span class="c1"># Export it into a file in SKiDL format.</span>
-<span class="n">skidl_lib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span><span class="s1">&#39;my_skidl_lib&#39;</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="n">SKIDL</span><span class="p">)</span> <span class="c1"># Create a SKiDL library object from the new file.</span>
+<span class="n">skidl_lib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span><span class="s1">&#39;my_skidl_lib&#39;</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="n">SKIDL</span><span class="p">)</span> <span class="c1"># Create a SKiDL library object from the export file.</span>
 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">skidl_lib</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">kicad_lib</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;As expected, both libraries have the same number of parts!&#39;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
@@ -1536,148 +1556,21 @@ the <a href="#configuration-file">configuration file</a>.</p>
 <span class="n">diode</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">skidl_lib</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">)</span>                   <span class="c1"># Instantiate a diode from the SKiDL library.</span>
 </code></pre></div>
 
-<p>You may make ad-hoc libraries just by creating a SchLib object and adding
-Part objects to it:</p>
-<div class="highlight"><pre><span></span><code><span class="n">my_lib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_lib&#39;</span><span class="p">)</span>                      <span class="c1"># Create an empty library object.</span>
-<span class="n">my_part</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="n">SKIDL</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span> <span class="c1"># Create an empty part object template.</span>
-<span class="n">my_part</span><span class="o">.</span><span class="n">ref_prefix</span> <span class="o">=</span> <span class="s1">&#39;R&#39;</span>                            <span class="c1"># Set the part reference prefix.</span>
-<span class="n">my_part</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;resistor&#39;</span>                    <span class="c1"># Set the part&#39;s description field.</span>
-<span class="n">my_part</span><span class="o">.</span><span class="n">keywords</span> <span class="o">=</span> <span class="s1">&#39;res resistor&#39;</span>                   <span class="c1"># Set the part&#39;s keywords.</span>
-<span class="n">my_part</span> <span class="o">+=</span> <span class="n">Pin</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">Pin</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">)</span>             <span class="c1"># Add a pin to the part.</span>
-<span class="n">my_part</span> <span class="o">+=</span> <span class="n">Pin</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">Pin</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">)</span>             <span class="c1"># Add another pin to the part.</span>
-<span class="n">my_lib</span> <span class="o">+=</span> <span class="n">my_part</span>                                   <span class="c1"># Add the part to the library.</span>
-
-<span class="n">new_resistor</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">my_lib</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">)</span>                    <span class="c1"># Instantiate the part from the library.</span>
-<span class="n">my_lib</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="s1">&#39;my_lib&#39;</span><span class="p">)</span>                             <span class="c1"># Save the library in a file my_lib.py.</span>
+<p>You can make ad-hoc libraries just by creating an empty <code>SchLib</code> object and adding
+Part templates to it:</p>
+<div class="highlight"><pre><span></span><code><span class="n">my_lib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_lib&#39;</span><span class="p">)</span>                <span class="c1"># Create an empty library object.</span>
+<span class="n">my_lib</span> <span class="o">+=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>  <span class="c1"># Add a part template to the library.</span>
 </code></pre></div>
 
-<p>Always create a part intended for a library as a template so you don't inadvertently
-add it to the circuit netlist.
-Then set the part attributes and create and add pins to the part.
-Here are the most common attributes you'll want to set:</p>
-<table>
-<thead>
-<tr>
-<th>Attribute</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>name</td>
-<td>A string containing the name of the part, e.g. 'LM35' for a temperature sensor.</td>
-</tr>
-<tr>
-<td>ref_prefix</td>
-<td>A string containing the prefix for this part's references, e.g. 'U' for ICs.</td>
-</tr>
-<tr>
-<td>description</td>
-<td>A string describing the part, e.g. 'temperature sensor'.</td>
-</tr>
-<tr>
-<td>keywords</td>
-<td>A string containing keywords about the part, e.g. 'sensor temperature IC'.</td>
-</tr>
-</tbody>
-</table>
-<p>When creating a pin, these are the attributes you'll want to set:</p>
-<table>
-<thead>
-<tr>
-<th>Attribute</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>num</td>
-<td>A string or integer containing the pin number, e.g. 5 or 'A13'.</td>
-</tr>
-<tr>
-<td>name</td>
-<td>A string containing the name of the pin, e.g. 'CS'.</td>
-</tr>
-<tr>
-<td>func</td>
-<td>An identifier for the function of the pin.</td>
-</tr>
-</tbody>
-</table>
-<p>The pin function identifiers are as follows:</p>
-<table>
-<thead>
-<tr>
-<th>Identifier</th>
-<th>Pin Function</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>INPUT</td>
-<td>Input pin.</td>
-</tr>
-<tr>
-<td>OUTPUT</td>
-<td>Output pin.</td>
-</tr>
-<tr>
-<td>BIDIR</td>
-<td>Bidirectional in/out pin.</td>
-</tr>
-<tr>
-<td>TRISTATE</td>
-<td>Output pin that goes into a high-impedance state when disabled.</td>
-</tr>
-<tr>
-<td>PASSIVE</td>
-<td>Pin on a passive component (like a resistor).</td>
-</tr>
-<tr>
-<td>UNSPEC</td>
-<td>Pin with an unspecified function.</td>
-</tr>
-<tr>
-<td>PWRIN</td>
-<td>Power input pin (either voltage supply or ground).</td>
-</tr>
-<tr>
-<td>PWROUT</td>
-<td>Power output pin (like the output of a voltage regulator).</td>
-</tr>
-<tr>
-<td>OPENCOLL</td>
-<td>Open-collector pin (pulls to ground but not to positive rail).</td>
-</tr>
-<tr>
-<td>OPENEMIT</td>
-<td>Open-emitter pin (pulls to positive rail but not to ground).</td>
-</tr>
-<tr>
-<td>PULLUP</td>
-<td>Pin with a pull-up resistor.</td>
-</tr>
-<tr>
-<td>PULLDOWN</td>
-<td>Pin with a pull-down resistor.</td>
-</tr>
-<tr>
-<td>NOCONNECT</td>
-<td>A pin that should be left unconnected.</td>
-</tr>
-<tr>
-<td>FREE</td>
-<td>A pin that is free to be used for any function.</td>
-</tr>
-</tbody>
-</table>
+<p>Always create a part intended for a library as a template so it isn't inadvertently
+added to the circuit netlist.</p>
 <p>SKiDL will also create a library of all the parts used in your design whenever
-you use the <code>generate_netlist()</code> function.
+you call the <code>generate_netlist()</code> function.
 For example, if your SKiDL script is named <code>my_design.py</code>, then the parts instantiated
-in that script will be stored as a SKiDL library in the file <code>my_design_lib.py</code>.
+in that script will be stored as a SKiDL library in the file <code>my_design_sklib.py</code>.
 This can be useful if you're sending the design to someone who may not have all
 the libraries you do.
-Just send them <code>my_design.py</code> and <code>my_design_lib.py</code> and any parts not found
+Just send them <code>my_design.py</code> and <code>my_design_sklib.py</code> and any parts not found
 when they run the script will be fetched from the backup parts in the library.</p>
 <h2 id="doodads">Doodads</h2>
 <p>SKiDL has a few features that don't fit into any other
@@ -1939,13 +1832,14 @@ If you already have a PCB layout that associates the footprints to the parts in 
 using the old references, then the PCB wiring may no longer be consistent with the netlist.</p>
 <p>To avoid this problem, <em>tags</em>
 can be assigned to parts and subcircuits:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="nd">@subcircuit</span>
+<span class="k">def</span> <span class="nf">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Divide inp voltage by 3 and place it on outp net.&quot;&quot;&quot;</span>
     <span class="c1"># Assign a different tag to each resistor.</span>
-    <span class="n">inp</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">outp</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;500&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">gnd</span>
+    <span class="n">inp</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;r_upper&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">outp</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;500&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;r_lower&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">gnd</span>
 
-<span class="n">vdiv</span><span class="p">(</span><span class="n">in1</span><span class="p">,</span> <span class="n">out1</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>  <span class="c1"># Create voltage divider with tag &#39;1&#39;.</span>
-<span class="n">vdiv</span><span class="p">(</span><span class="n">in2</span><span class="p">,</span> <span class="n">out2</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>  <span class="c1"># Create another with tag &#39;2&#39;.</span>
+<span class="n">vdiv</span><span class="p">(</span><span class="n">in1</span><span class="p">,</span> <span class="n">out1</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;vdiv1&#39;</span><span class="p">)</span>  <span class="c1"># Create voltage divider with tag &#39;vdiv1&#39;.</span>
+<span class="n">vdiv</span><span class="p">(</span><span class="n">in2</span><span class="p">,</span> <span class="n">out2</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;vdiv2&#39;</span><span class="p">)</span>  <span class="c1"># Create another with tag &#39;vdiv2&#39;.</span>
 </code></pre></div>
 
 <p>Using tags (which can be any printable object such as a string or number), the
@@ -1965,7 +1859,7 @@ You can store the current settings by running the following command:</p>
 <p>The <code>.skidlcfg</code> JSON file with the SKiDL settings will be created in the current directory:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;cfg_file_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;.skidlcfg&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;kicad8&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;kicad9&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;pickle_dir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;./lib_pickle_dir&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;lib_search_paths&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="nt">&quot;kicad8&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
@@ -1983,6 +1877,10 @@ You can store the current settings by running the following command:</p>
 <span class="w">            </span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
 <span class="w">            </span><span class="s2">&quot;/usr/share/kicad/symbols&quot;</span>
 <span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;kicad9&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;/usr/share/kicad/symbols&quot;</span>
+<span class="w">        </span><span class="p">],</span>
 <span class="w">        </span><span class="nt">&quot;skidl&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">            </span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
 <span class="w">            </span><span class="s2">&quot;/home/devb/projects/KiCad/tools/skidl/src/skidl/tools/skidl/libs&quot;</span>
@@ -1992,15 +1890,16 @@ You can store the current settings by running the following command:</p>
 <span class="w">            </span><span class="s2">&quot;/usr/share/kicad/library&quot;</span>
 <span class="w">        </span><span class="p">]</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;backup_lib_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;__init___lib&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;backup_lib_file_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;__init___lib_sklib.py&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;backup_lib_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;skidl_REPL&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;backup_lib_file_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;skidl_REPL_sklib.py&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;query_backup_lib&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;backup_lib&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;footprint_search_paths&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;kicad8&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/home/devb/.config/kicad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;kicad8&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/home/devb/.config/kicad/8.0&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;spice&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;kicad7&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/home/devb/.config/kicad&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;kicad6&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/home/devb/.config/kicad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;kicad7&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/home/devb/.config/kicad/7.0&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;kicad6&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/home/devb/.config/kicad/6.0&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;kicad9&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/home/devb/.config/kicad/9.0&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;skidl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;kicad5&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/home/devb/.config/kicad&quot;</span>
 <span class="w">    </span><span class="p">}</span>
@@ -2017,6 +1916,142 @@ have it only apply to that project.</p>
 all the SKiDL you need to know.
 This section will describe the features of SKiDL that might be useful (or not) to
 some of the avant-garde circuit designers out there.</p>
+<h2 id="ad-hoc-parts">Ad-Hoc Parts</h2>
+<p>While you'll most often use parts found in libraries,
+you can also create ad-hoc parts on the fly:</p>
+<div class="highlight"><pre><span></span><code><span class="n">my_part</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="n">SKIDL</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span> <span class="c1"># Create an empty part object template.</span>
+<span class="n">my_part</span><span class="o">.</span><span class="n">ref_prefix</span> <span class="o">=</span> <span class="s1">&#39;R&#39;</span>                            <span class="c1"># Set the part&#39;s reference prefix.</span>
+<span class="n">my_part</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;resistor&#39;</span>                    <span class="c1"># Set the part&#39;s description field.</span>
+<span class="n">my_part</span><span class="o">.</span><span class="n">keywords</span> <span class="o">=</span> <span class="s1">&#39;res resistor&#39;</span>                   <span class="c1"># Set the part&#39;s keywords.</span>
+<span class="n">my_part</span> <span class="o">+=</span> <span class="n">Pin</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">Pin</span><span class="o">.</span><span class="n">funcs</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">)</span>       <span class="c1"># Add a pin to the part.</span>
+<span class="n">my_part</span> <span class="o">+=</span> <span class="n">Pin</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">Pin</span><span class="o">.</span><span class="n">funcs</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">)</span>       <span class="c1"># Add another pin to the part.</span>
+<span class="n">new_resistor</span> <span class="o">=</span> <span class="n">my_part</span><span class="p">()</span>                            <span class="c1"># Instantiate the part from the template.</span>
+</code></pre></div>
+
+<p>Always create an ad-hoc part as a template so it isn't inadvertently
+added to the circuit netlist.
+Then set the part attributes and create and add pins to the part.
+Here are the most common attributes you'll want to set:</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>A string containing the name of the part, e.g. 'LM35' for a temperature sensor.</td>
+</tr>
+<tr>
+<td>ref_prefix</td>
+<td>A string containing the prefix for this part's references, e.g. 'U' for ICs.</td>
+</tr>
+<tr>
+<td>description</td>
+<td>A string describing the part, e.g. 'temperature sensor'.</td>
+</tr>
+<tr>
+<td>keywords</td>
+<td>A string containing keywords about the part, e.g. 'sensor temperature IC'.</td>
+</tr>
+<tr>
+<td>footprint</td>
+<td>A string containing the footprint of the part, e.g. 'Resistor_SMD.pretty:R_0805_2012Metric'.</td>
+</tr>
+</tbody>
+</table>
+<p>When creating pins, these are the attributes you'll want to set:</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>num</td>
+<td>A string or integer containing the pin number, e.g. 5 or 'A13'.</td>
+</tr>
+<tr>
+<td>name</td>
+<td>A string containing the name of the pin, e.g. 'CS'.</td>
+</tr>
+<tr>
+<td>func</td>
+<td>An identifier for the function of the pin.</td>
+</tr>
+</tbody>
+</table>
+<p>The pin function identifiers are as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Identifier</th>
+<th>Pin Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pin.funcs.INPUT</td>
+<td>Input pin.</td>
+</tr>
+<tr>
+<td>Pin.funcs.OUTPUT</td>
+<td>Output pin.</td>
+</tr>
+<tr>
+<td>Pin.funcs.BIDIR</td>
+<td>Bidirectional in/out pin.</td>
+</tr>
+<tr>
+<td>Pin.funcs.TRISTATE</td>
+<td>Output pin that goes into a high-impedance state when disabled.</td>
+</tr>
+<tr>
+<td>Pin.funcs.PASSIVE</td>
+<td>Pin on a passive component (like a resistor).</td>
+</tr>
+<tr>
+<td>Pin.funcs.UNSPEC</td>
+<td>Pin with an unspecified function.</td>
+</tr>
+<tr>
+<td>Pin.funcs.PWRIN</td>
+<td>Power input pin (either voltage supply or ground).</td>
+</tr>
+<tr>
+<td>Pin.funcs.PWROUT</td>
+<td>Power output pin (like the output of a voltage regulator).</td>
+</tr>
+<tr>
+<td>Pin.funcs.OPENCOLL</td>
+<td>Open-collector pin (pulls to ground but not to positive rail).</td>
+</tr>
+<tr>
+<td>Pin.funcs.OPENEMIT</td>
+<td>Open-emitter pin (pulls to positive rail but not to ground).</td>
+</tr>
+<tr>
+<td>Pin.funcs.PULLUP</td>
+<td>Pin with a pull-up resistor.</td>
+</tr>
+<tr>
+<td>Pin.funcs.PULLDOWN</td>
+<td>Pin with a pull-down resistor.</td>
+</tr>
+<tr>
+<td>Pin.funcs.NOCONNECT</td>
+<td>A pin that should be left unconnected.</td>
+</tr>
+<tr>
+<td>Pin.funcs.FREE</td>
+<td>A pin that is free to be used for any function.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="circuit-objects">Circuit Objects</h2>
 <p>Normally, SKiDL puts parts and nets into a global instance of a <code>Circuit</code> object
 called <code>default_circuit</code> (which, of course, you never noticed).
@@ -2024,7 +2059,7 @@ But you can create other <code>Circuit</code> objects:</p>
 <div class="highlight"><pre><span></span><code>&gt;&gt;&gt; my_circuit = Circuit()
 </code></pre></div>
 
-<p>and then you may create parts, nets and buses and add them to your new circuit:</p>
+<p>and then you can create parts, nets and buses and add them to your new circuit:</p>
 <div class="highlight"><pre><span></span><code>&gt;&gt;&gt; my_circuit += Part(&quot;Device&quot;,&#39;R&#39;)  # Add a resistor to the circuit.
 &gt;&gt;&gt; my_circuit += Net(&#39;GND&#39;)          # Add a net.
 &gt;&gt;&gt; my_circuit += Bus(&#39;byte_bus&#39;, 8)  # Add a bus.
@@ -2033,7 +2068,7 @@ But you can create other <code>Circuit</code> objects:</p>
 <p>In addition to the <code>+=</code> operator, you can also use the methods <code>add_parts</code>, <code>add_nets</code>, and <code>add_buses</code>.
 (There's also the much less-used <code>-=</code> operator for removing parts, nets or buses
 from a circuit along with the <code>rmv_parts</code>, <code>rmv_nets</code>, and <code>rmv_buses</code> methods.)</p>
-<p>You may also place parts, nets, and buses directly into a <code>Circuit</code> object
+<p>Parts, nets, and buses can also be added directly to a <code>Circuit</code> object
 by using the <code>circuit</code> parameter of the object constructors:</p>
 <div class="highlight"><pre><span></span><code>&gt;&gt;&gt; my_circuit = Circuit()
 &gt;&gt;&gt; p = Part(&quot;Device&quot;, &#39;R&#39;, circuit = my_circuit)
@@ -2050,10 +2085,19 @@ becomes the <code>default_circuit</code>:</p>
     <span class="n">b</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;byte_bus&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
 </code></pre></div>
 
-<p>Hierarchical circuits also work with <code>Circuit</code> objects.
-In the previous <a href="#multilevel_hierarchy_example">multi-level hierarchy example</a>,
-the subcircuit could be instantiated into a <code>Circuit</code> object like this:</p>
-<div class="highlight"><pre><span></span><code><span class="n">my_circuit</span> <span class="o">=</span> <span class="n">Circuit</span><span class="p">()</span>   <span class="c1"># New Circuit object.</span>
+<p>Hierarchical circuits such as this cascaded voltage divider also work with <code>Circuit</code> objects:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@subcircuit</span>
+<span class="k">def</span> <span class="nf">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
+    <span class="n">inp</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;r_upper&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">outp</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;500&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;r_lower&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">gnd</span>
+
+<span class="nd">@subcircuit</span>
+<span class="k">def</span> <span class="nf">casc_vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
+    <span class="n">outp_middle</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
+    <span class="n">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp_middle</span><span class="p">)</span>
+    <span class="n">vdiv</span><span class="p">(</span><span class="n">outp_middle</span><span class="p">,</span> <span class="n">outp</span><span class="p">)</span>
+
+<span class="n">my_circuit</span> <span class="o">=</span> <span class="n">Circuit</span><span class="p">()</span>   <span class="c1"># New Circuit object.</span>
 
 <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>         <span class="c1"># GLobal ground net.</span>
 <span class="n">input_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;IN&#39;</span><span class="p">)</span>    <span class="c1"># Net with the voltage to be divided.</span>
@@ -2061,21 +2105,32 @@ the subcircuit could be instantiated into a <code>Circuit</code> object like thi
 <span class="n">my_circuit</span> <span class="o">+=</span> <span class="n">gnd</span><span class="p">,</span> <span class="n">input_net</span><span class="p">,</span> <span class="n">output_net</span>  <span class="c1"># Move the nets to the new circuit.</span>
 
 <span class="c1"># Instantiate the multi-level hierarchical subcircuit into the new Circuit object.</span>
-<span class="n">multi_vdiv</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">input_net</span><span class="p">,</span> <span class="n">output_net</span><span class="p">,</span> <span class="n">circuit</span> <span class="o">=</span> <span class="n">my_circuit</span><span class="p">)</span>
+<span class="n">casc_vdiv</span><span class="p">(</span><span class="n">input_net</span><span class="p">,</span> <span class="n">output_net</span><span class="p">,</span> <span class="n">circuit</span> <span class="o">=</span> <span class="n">my_circuit</span><span class="p">)</span>
 </code></pre></div>
 
 <p>The actual <code>circuit</code> parameter is not passed on to the subcircuit.
 It's extracted and any elements created in the subcircuit are sent there instead of
 to the <code>default_circuit</code>.</p>
 <p>Hierarchy is also supported when using a context manager:</p>
-<div class="highlight"><pre><span></span><code><span class="n">my_circuit</span> <span class="o">=</span> <span class="n">Circuit</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="nd">@subcircuit</span>
+<span class="k">def</span> <span class="nf">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
+    <span class="n">inp</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;r_upper&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">outp</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;500&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;r_lower&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">gnd</span>
+
+<span class="nd">@subcircuit</span>
+<span class="k">def</span> <span class="nf">casc_vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
+    <span class="n">outp_middle</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
+    <span class="n">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp_middle</span><span class="p">)</span>
+    <span class="n">vdiv</span><span class="p">(</span><span class="n">outp_middle</span><span class="p">,</span> <span class="n">outp</span><span class="p">)</span>
+
+<span class="n">my_circuit</span> <span class="o">=</span> <span class="n">Circuit</span><span class="p">()</span>
 
 <span class="k">with</span> <span class="n">my_circuit</span><span class="p">:</span>
-    <span class="c1"># Everything instantiated here goes into my_circuit.</span>
+    <span class="c1"># Everything instantiated in this context goes into my_circuit.</span>
     <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
     <span class="n">input_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;IN&#39;</span><span class="p">)</span>
     <span class="n">output_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;OUT&#39;</span><span class="p">)</span>
-    <span class="n">multi_vdiv</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">input_net</span><span class="p">,</span> <span class="n">output_net</span><span class="p">)</span>
+    <span class="n">casc_vdiv</span><span class="p">(</span><span class="n">input_net</span><span class="p">,</span> <span class="n">output_net</span><span class="p">)</span>
 </code></pre></div>
 
 <p>You may do all the same operations on a <code>Circuit</code> object that are supported on the 
@@ -2100,6 +2155,23 @@ Here are a few things you can't do (and will get warned about):</p>
   it can't be moved to a different <code>Circuit</code> object.</p>
 </li>
 </ul>
+<h2 id="nodes">Nodes</h2>
+<p><code>Node</code> objects are used to store the hierarchy of a circuit.
+The top-most node is stored in <code>default_circuit.root</code>.
+Every subcircuit has a node associated with it
+that can be accessed from <code>default_circuit.active_node</code>
+while the code in the subcircuit is being executed.</p>
+<p>Some attributes of the <code>Node</code> class are:</p>
+<ul>
+<li><code>name</code>: The name of the node.</li>
+<li><code>parent</code>: The parent node, if any.</li>
+<li><code>children</code>: A list of child nodes, if any.</li>
+<li><code>parts</code>: A list of parts instantiated within the node.</li>
+<li><code>nets</code>: A list of nets instantiated within the node.</li>
+<li><code>buses</code>: A list of buses instantiated within the node.</li>
+<li><code>partclasses</code>: A list of part classes applied to parts within the node and its children.</li>
+<li><code>netclasses</code>: A list of net classes applied to nets within the node and its children.</li>
+</ul>
 <h1 id="generating-a-schematic">Generating a Schematic</h1>
 <p>Although SKiDL lets you avoid the tedious drawing of a schematic, some
 still want to see a graphical depiction of their circuit.
@@ -2109,13 +2181,13 @@ To support this, SKiDL can show the interconnection of parts as:</p>
 <li>an <a href="#kicad-schematics">editable KiCad schematic</a> (currently only V5 is supported),</li>
 <li>or a <a href="#dot-graphs">directed graph</a> using the <a href="https://graphviz.org/doc/info/lang.html">graphviz DOT language</a>.</li>
 </ul>
-<p>The following circuit will be used to illustrate each alternative:</p>
+<p>The following circuit for a transistor-based AND gate will be used to illustrate each alternative:</p>
 <p><img alt="TTL AND Gate" src="https://raw.githubusercontent.com/nturley/netlistsvg/master/doc/and.svg?sanitize=true"></p>
-<p>A SKiDL script for this circuit is:</p>
+<p>The <code>and_gate.py</code> SKiDL script for this circuit is:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="c1"># Create part templates.</span>
-<span class="n">q</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">lib</span><span class="o">=</span><span class="s2">&quot;Device.lib&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Q_PNP_CBE&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">,</span> <span class="n">symtx</span><span class="o">=</span><span class="s2">&quot;V&quot;</span><span class="p">)</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">lib</span><span class="o">=</span><span class="s2">&quot;Transistor_BJT&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Q_PNP_CBE&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">,</span> <span class="n">symtx</span><span class="o">=</span><span class="s2">&quot;V&quot;</span><span class="p">)</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
 
 <span class="c1"># Create nets.</span>
@@ -2137,21 +2209,20 @@ To support this, SKiDL can show the interconnection of parts as:</p>
 </code></pre></div>
 
 <h2 id="svg-schematics">SVG Schematics</h2>
-<p><strong>Note: Generating SVG schematics requires that you install a pre-release version of
+<p><strong>Note: Generating SVG schematics requires that you install
 <a href="https://github.com/nturley/netlistsvg">netlistsvg</a> on your system:</strong></p>
 <div class="highlight"><pre><span></span><code>npm<span class="w"> </span>install<span class="w"> </span>https://github.com/nturley/netlistsvg
 </code></pre></div>
 
-<p>You may create a schematic as an SVG file by appending the
+<p>You can create a schematic as an SVG file by appending the
 following to the end of the script:</p>
 <div class="highlight"><pre><span></span><code><span class="n">generate_svg</span><span class="p">()</span>
 </code></pre></div>
 
 <p>The resulting <code>and_gate.svg</code> file looks like this:</p>
 <p><img alt="AND_GATE schematic." src="images/and_gate_1.svg"></p>
-<p>This uses the KiCad schematic symbols to create a better depiction of the circuit
-than the graph of the previous section,
-but it still lacks some things like the input and output terminals.
+<p>The schematic symbols from the KiCad libraries are converted to create the
+SVG, but it still lacks some elements like the input and output terminals.
 To add these, modify the script as follows:</p>
 <div class="highlight"><pre><span></span><code><span class="n">a</span><span class="o">.</span><span class="n">netio</span> <span class="o">=</span> <span class="s2">&quot;i&quot;</span>        <span class="c1"># Input terminal.</span>
 <span class="n">b</span><span class="o">.</span><span class="n">netio</span> <span class="o">=</span> <span class="s2">&quot;i&quot;</span>        <span class="c1"># Input terminal.</span>
@@ -2162,7 +2233,7 @@ To add these, modify the script as follows:</p>
 
 <p>Now the schematic looks a little better:</p>
 <p><img alt="AND_GATE schematic with terminals." src="images/and_gate_2.svg"></p>
-<p>The schematic can be further improved by adding some indicators about the "flow"
+<p>Further improvements are possible by adding some indicators about the "flow"
 of the signals through the components:</p>
 <div class="highlight"><pre><span></span><code><span class="n">a</span><span class="o">.</span><span class="n">netio</span> <span class="o">=</span> <span class="s2">&quot;i&quot;</span>        <span class="c1"># Input terminal.</span>
 <span class="n">b</span><span class="o">.</span><span class="n">netio</span> <span class="o">=</span> <span class="s2">&quot;i&quot;</span>        <span class="c1"># Input terminal.</span>
@@ -2215,7 +2286,7 @@ and then rotate it 90$\degree$ clockwise:</p>
 <div class="highlight"><pre><span></span><code><span class="n">q1</span><span class="o">.</span><span class="n">symtx</span> <span class="o">=</span> <span class="s2">&quot;HR&quot;</span>  <span class="c1"># Flip horizontally and then rotate right by 90 degrees.</span>
 </code></pre></div>
 
-<p>You may also set a net or bus attribute to choose whether it is fully drawn or replaced by
+<p>You can also set a net or bus attribute to choose whether it is fully drawn or replaced by
 a named <em>stub</em> at each connection point:</p>
 <div class="highlight"><pre><span></span><code><span class="n">vcc</span><span class="o">.</span><span class="n">stub</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># Stub all VCC connections to parts.</span>
 </code></pre></div>
@@ -2228,7 +2299,7 @@ a named <em>stub</em> at each connection point:</p>
 <span class="n">e</span><span class="o">.</span><span class="n">stub</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">stub</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">stub</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span>
 
 <span class="c1"># Create transistor part template.</span>
-<span class="n">qt</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">lib</span><span class="o">=</span><span class="s2">&quot;Device.lib&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Q_PNP_CBE&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
+<span class="n">qt</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">lib</span><span class="o">=</span><span class="s2">&quot;Transistor_BJT&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Q_PNP_CBE&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
 
 <span class="c1"># Instantiate transistor with various orientations.</span>
 <span class="k">for</span> <span class="n">q</span><span class="p">,</span> <span class="n">tx</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">qt</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="s1">&#39;V&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="s1">&#39;VL&#39;</span><span class="p">,</span> <span class="s1">&#39;HR&#39;</span><span class="p">,</span> <span class="s1">&#39;LV&#39;</span><span class="p">]):</span>
@@ -2246,21 +2317,21 @@ a named <em>stub</em> at each connection point:</p>
 <div class="highlight"><pre><span></span><code><span class="n">generate_schematic</span><span class="p">()</span>
 </code></pre></div>
 
-<p>This will drop an Eeschema file called <code>and_top.sch</code> into the same directory as the <code>and.py</code> file.</p>
+<p>This will drop an Eeschema file called <code>and_gate_top.sch</code> into the same directory as the <code>and_gate.py</code> file.</p>
 <p><img alt="KiCad 5 Eeschema AND_GATE schematic." src="images/and_gate_4.png"></p>
-<p>Right now, this file can only be opened using KiCad version 5.
+<p>Currently, this file can only be opened using KiCad version 5.
 (If you're using a more recent version of KiCad, then there are some
 <a href="https://github.com/devbisme/docker_kicad">Docker files for running different versions of KiCad</a> without affecting your current setup.)</p>
 <p>The <code>generate_schematic()</code> function accepts these parameters:</p>
 <ul>
 <li><code>filepath</code> (<code>str</code>, optional): The directory where the schematic files are placed. Defaults to ".".</li>
-<li><code>top_name</code> (<code>str</code>, optional): The name for the top of the circuit hierarchy. Defaults to <code>get_script_name()</code>.</li>
+<li><code>top_name</code> (<code>str</code>, optional): The name for the top of the circuit hierarchy. Defaults to the script name.</li>
 <li><code>title</code> (<code>str</code>, optional): The title in the title box of the schematic. Defaults to "SKiDL-Generated Schematic".</li>
 <li><code>flatness</code> (<code>float</code>, optional): Determines how much the hierarchy is flattened in the schematic. Defaults to 0.0 (completely hierarchical).</li>
-<li><code>retries</code> (<code>int</code>, optional): Number of times to re-try if routing fails. Defaults to 2.</li>
+<li><code>retries</code> (<code>int</code>, optional): Number of times to re-try if placement and routing fails. Defaults to 2.</li>
 </ul>
 <p>In addition, the <code>generate_schematic()</code> function supports the <code>symtx</code> and <code>netio</code> attributes discussed 
-in the <a href="#svg-schematics">section on generating SVG</a>.</p>
+in the <a href="#svg-schematics">section on generating SVG schematics</a>.</p>
 <h2 id="dot-graphs">DOT Graphs</h2>
 <p><strong>Note: Viewing DOT files requires that you install
 <a href="https://www.graphviz.org/download/">graphviz</a> on your system.</strong></p>
@@ -2268,32 +2339,33 @@ in the <a href="#svg-schematics">section on generating SVG</a>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">generate_dot</span><span class="p">(</span><span class="n">file_</span><span class="o">=</span><span class="s1">&#39;and_gate.dot&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-<p>After running the script to generate the <code>and_gate.dot</code> file, you may transform it into
+<p>After running the script to generate the <code>and_gate.dot</code> file, you can transform it into
 a bitmap file using the command:</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>dot<span class="w"> </span>-Tpng<span class="w"> </span>-Kneato<span class="w"> </span>-O<span class="w"> </span>and_gate.dot
 </code></pre></div>
 
 <p>The resulting <code>and_gate.dot.png</code> file looks like this:</p>
 <p><img alt="AND_GATE graph." src="images/and_gate.dot.png"></p>
-<p>This graph might serve as a sanity-check for a small circuit,
-but you can imagine what it would look like if it included
+<p>While this might serve as a sanity-check for a small circuit,
+it would be indecipherable for a circuit that had
 microcontrollers or FPGAs with hundreds of pins!</p>
 <h1 id="converting-existing-designs-to-skidl">Converting Existing Designs to SKiDL</h1>
 <p><strong>Currently, this feature is only available for KiCad designs.</strong></p>
-<p>You may convert an existing schematic-based design to SKiDL like this:</p>
+<p>You can convert an existing schematic-based design to SKiDL like this:</p>
 <ol>
 <li>
 <p>Generate a netlist file for your design using whatever procedure your ECAD
    system provides. For this discussion, call the netlist file <code>my_design.net</code>.</p>
 </li>
 <li>
-<p>Convert the netlist file into a SKiDL program using the following command:</p>
+<p>Convert the netlist file into a SKiDL script using the following command:</p>
 <p><code>terminal
-netlist_to_skidl -i my_design.net -o my_design.py -w</code></p>
+netlist_to_skidl -i my_design.net -o my_design -w</code></p>
 </li>
 </ol>
-<p>That's it! You can execute the <code>my_design.py</code> script and it will regenerate the
-netlist. Or you may use the script as a subcircuit in a larger design.
+<p>That's it! You can execute the <code>main.py</code> script in the <code>my_design</code> directory
+and it will regenerate the netlist.
+Or you can use the script as a subcircuit in a larger design.
 Or do anything else that a SKiDL-based design supports.</p>
 <h1 id="spice-simulations">SPICE Simulations</h1>
 <p>You can describe a circuit using SKiDL and run a SPICE simulation on it.

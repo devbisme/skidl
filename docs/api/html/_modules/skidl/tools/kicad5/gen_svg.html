@@ -6,12 +6,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.tools.kicad5.gen_svg &#8212; SKiDL 2.0.1 documentation</title>
+    <title>skidl.tools.kicad5.gen_svg &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../../../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -23,7 +23,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../../../../"><img src="../../../../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad5.gen_svg</a></li> 
       </ul>
@@ -371,7 +371,7 @@
             <span class="n">path_op</span> <span class="o">=</span> <span class="s2">&quot;M&quot;</span>
             <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="n">pts</span><span class="p">:</span>
                 <span class="n">obj_bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span>
-                <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{path_op}</span><span class="s2"> </span><span class="si">{pt.x}</span><span class="s2"> </span><span class="si">{pt.y}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">()))</span>
+                <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">path_op</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">pt</span><span class="o">.</span><span class="n">x</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">pt</span><span class="o">.</span><span class="n">y</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="n">path_op</span> <span class="o">=</span> <span class="s2">&quot;L&quot;</span>
             <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
             <span class="n">thickness</span> <span class="o">=</span> <span class="p">(</span><span class="n">poly</span><span class="o">.</span><span class="n">thickness</span> <span class="ow">or</span> <span class="n">default_thickness</span><span class="p">)</span> <span class="o">*</span> <span class="n">scale</span>
@@ -591,11 +591,11 @@
             <span class="c1"># If net stubs are attached to symbol, then it&#39;s only to be used</span>
             <span class="c1"># for a specific part. Therefore, tag the symbol name with the unique</span>
             <span class="c1"># part reference so it will only be used by this part.</span>
-            <span class="n">symbol_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{part.name}</span><span class="s2">_</span><span class="si">{part.ref}</span><span class="s2">_</span><span class="si">{unit}</span><span class="s2">_</span><span class="si">{symtx}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+            <span class="n">symbol_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">unit</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">symtx</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># No net stubs means this symbol can be used for any part that</span>
             <span class="c1"># also has no net stubs, so don&#39;t tag it with a specific part reference.</span>
-            <span class="n">symbol_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{part.name}</span><span class="s2">_</span><span class="si">{unit}</span><span class="s2">_</span><span class="si">{symtx}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+            <span class="n">symbol_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">unit</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">symtx</span><span class="si">}</span><span class="s2">&quot;</span>
 
         <span class="c1"># Begin SVG for part unit. Translate it so the bbox.min is at (0,0).</span>
         <span class="n">translate</span> <span class="o">=</span> <span class="n">bbox</span><span class="o">.</span><span class="n">min</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span>
@@ -613,7 +613,7 @@
         <span class="p">)</span>
 
         <span class="c1"># Add part alias.</span>
-        <span class="n">svg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&lt;s:alias val=&quot;</span><span class="si">{symbol_name}</span><span class="s1">&quot;/&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">()))</span>
+        <span class="n">svg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&lt;s:alias val=&quot;</span><span class="si">{</span><span class="n">symbol_name</span><span class="si">}</span><span class="s1">&quot;/&gt;&#39;</span><span class="p">)</span>
 
         <span class="c1"># Add part unit text and graphics.</span>
         <span class="n">svg</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">unit_filled_svg</span><span class="p">[</span><span class="n">unit</span><span class="p">])</span>  <span class="c1"># Filled items go on the bottom.</span>
@@ -658,7 +658,7 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
@@ -674,7 +674,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -683,14 +683,14 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad5.gen_svg</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

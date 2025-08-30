@@ -3,8 +3,8 @@ skidl.tools.spice package
 
 .. automodule:: skidl.tools.spice
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Submodules
 ----------

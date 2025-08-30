@@ -3,8 +3,8 @@ skidl package
 
 .. automodule:: skidl
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Subpackages
 -----------
@@ -25,18 +25,17 @@ Submodules
    skidl.alias
    skidl.bus
    skidl.circuit
-   skidl.common
    skidl.config_
+   skidl.design_class
    skidl.erc
    skidl.geometry
-   skidl.group
    skidl.interface
    skidl.logger
    skidl.net
-   skidl.netclass
    skidl.netlist_to_skidl
    skidl.netpinlist
    skidl.network
+   skidl.node
    skidl.note
    skidl.part
    skidl.part_query

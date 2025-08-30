@@ -3,5 +3,5 @@ skidl.tools.kicad5.bboxes module
 
 .. automodule:: skidl.tools.kicad5.bboxes
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

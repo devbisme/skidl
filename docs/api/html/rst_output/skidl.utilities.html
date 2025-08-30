@@ -7,12 +7,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.utilities module &#8212; SKiDL 2.0.1 documentation</title>
+    <title>skidl.utilities module &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -24,7 +24,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../"><img src="../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.utilities module</a></li> 
       </ul>
     </div>  
@@ -46,59 +46,154 @@
   <section id="module-skidl.utilities">
 <span id="skidl-utilities-module"></span><h1>skidl.utilities module<a class="headerlink" href="#module-skidl.utilities" title="Link to this heading">¶</a></h1>
 <p>Utility functions used by the rest of SKiDL.</p>
+<p>This module provides various helper functions and classes that support the main SKiDL functionality,
+including string manipulation, list operations, file handling, and other utility operations.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.utilities.Rgx">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">Rgx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#Rgx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.Rgx" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
-<p>Same as a string but the class makes it recognizable as as a regular expression.</p>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">Rgx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#Rgx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.Rgx" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+<p>String subclass that represents a regular expression.</p>
+<p>This class is used to distinguish regular expressions from normal strings
+in functions that need to process both types differently.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.utilities.TriggerDict">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">TriggerDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#TriggerDict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.TriggerDict" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
-<p>This dict triggers a function when one of its entries changes.</p>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">TriggerDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#TriggerDict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.TriggerDict" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+<p>Dictionary that triggers a function when one of its entries changes.</p>
+<p>This dictionary subclass allows custom functions to be executed when
+specific keys are modified.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.add_quotes">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">add_quotes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#add_quotes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.add_quotes" title="Link to this definition">¶</a></dt>
-<dd><p>Return string with added quotes if it contains whitespace or parens.</p>
+<dd><p>Return string with added quotes using JSON formatting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><em>other</em>) – Input string or non-string object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>String with quotes added, or the original object if not a string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a> or other</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.add_unique_attr">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">add_unique_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_dup</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#add_unique_attr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.add_unique_attr" title="Link to this definition">¶</a></dt>
 <dd><p>Create an attribute if the attribute name isn’t already used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> – Object to which the attribute will be added.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Name of the attribute to add.</p></li>
+<li><p><strong>value</strong> – Value to assign to the attribute.</p></li>
+<li><p><strong>check_dup</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, warns if attribute already exists but doesn’t modify it.
+If False, overwrites existing attribute. Defaults to False.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.cnvt_to_var_name">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">cnvt_to_var_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#cnvt_to_var_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.cnvt_to_var_name" title="Link to this definition">¶</a></dt>
-<dd><p>Convert a string to a legal Python variable name and return it.</p>
+<dd><p>Convert a string to a legal Python variable name.</p>
+<p>Replaces illegal characters with underscores to create a valid Python identifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The string to convert.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A valid Python variable name.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.consistent_hash">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">consistent_hash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#consistent_hash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.consistent_hash" title="Link to this definition">¶</a></dt>
 <dd><p>Return a hash value for a text string.</p>
+<p>This function generates a deterministic, consistent hash value for a given string
+using SHA-256 algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The input string to hash.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A 16-character hexadecimal hash string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.debug_trace">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">debug_trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#debug_trace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.debug_trace" title="Link to this definition">¶</a></dt>
 <dd><p>Decorator to print tracing info when debugging execution.</p>
+<p>When the decorated function is called with debug_trace=True,
+it will print the function name before execution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fn</strong> (<em>function</em>) – The function to be decorated.</p></li>
+<li><p><strong>*args</strong> – Variable length argument list.</p></li>
+<li><p><strong>**kwargs</strong> – Arbitrary keyword arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The decorated function.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>function</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.detect_os">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">detect_os</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#detect_os"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.detect_os" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Detect the operating system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The name of the operating system (‘Windows’, ‘Linux’, or ‘MacOS’).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#Exception" title="(in Python v3.13)"><strong>Exception</strong></a> – If the operating system cannot be identified.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.expand_buses">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">expand_buses</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pins_nets_buses</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#expand_buses"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.expand_buses" title="Link to this definition">¶</a></dt>
 <dd><p>Take list of pins, nets, and buses and return a list of only pins and nets.</p>
+<p>This function flattens a list containing both buses and their nets/pins
+into a flat list of just nets/pins.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pins_nets_buses</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – List containing pins, nets, and buses.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A flattened list containing only pins and nets.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -109,32 +204,45 @@
 lines of buses and returns a flat list of numbers and strings.
 String and integer indices are put in the list unchanged, but
 slices are expanded into a list of integers before entering the
-final list.</p>
+final list. It also handles bus notation expressions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>slice_min</strong> – The minimum possible index.</p></li>
-<li><p><strong>slice_max</strong> – The maximum possible index (used for slice indices).</p></li>
-<li><p><strong>match_regex</strong> – If true,</p></li>
-<li><p><strong>indices</strong> – A list of indices made up of numbers, slices, text strings.</p></li>
+<li><p><strong>slice_min</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The minimum possible index.</p></li>
+<li><p><strong>slice_max</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The maximum possible index (used for slice indices).</p></li>
+<li><p><strong>match_regex</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If true, adjust regex patterns for pin/bus matches.</p></li>
+<li><p><strong>*indices</strong> – A list of indices made up of numbers, slices, text strings.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A linear list of all the indices made up only of numbers and strings.</p>
 </dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#IndexError" title="(in Python v3.13)"><strong>IndexError</strong></a> – If a slice index is out of valid range.</p>
+</dd>
 </dl>
 </dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.utilities.expand_path">
+<span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">expand_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#expand_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.expand_path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.export_to_all">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">export_to_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#export_to_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.export_to_all" title="Link to this definition">¶</a></dt>
 <dd><p>Add a function to the __all__ list of this module.</p>
+<p>This decorator adds the decorated function’s name to the module’s __all__ list,
+making it available when using “from module import <a href="#id1"><span class="problematic" id="id2">*</span></a>”.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>fn</strong> (<em>function</em>) – The function to be added to the __all__ list of this module.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The function that was passed in.</p>
+<dd class="field-even"><p>The function that was passed in, unchanged.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>function</p>
@@ -146,9 +254,8 @@ final list.</p>
 <dt class="sig sig-object py" id="skidl.utilities.filter_list">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">filter_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">criteria</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#filter_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.filter_list" title="Link to this definition">¶</a></dt>
 <dd><p>Return a list of objects whose attributes match a set of criteria.</p>
-<p>Return a list of objects extracted from a list whose attributes match a
-set of criteria. The match is done using regular expressions.
-Example: filter_list(pins, name=’io[0-9]+’, direction=’bidir’) will
+<p>This function filters a list based on attribute values using regular expressions.</p>
+<p>Example: filter_list(pins, name=’io[0-9]+’, direction=’bidir’) will
 return all the bidirectional pins of the component that have pin names
 starting with ‘io’ followed by a number (e.g., ‘IO45’).</p>
 <p>If an attribute of the lst object is a list or tuple, each entry in the
@@ -159,21 +266,21 @@ searching for objects that contain a list of aliases, such as Part objects.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>lst</strong> – The list from which objects will be extracted.</p>
 </dd>
-</dl>
-<dl class="simple">
-<dt>Keywords Args:</dt><dd><dl class="simple">
-<dt>criteria: Keyword-argument pairs. The keyword specifies the attribute</dt><dd><p>name while the argument contains the desired value of the attribute.
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>criteria</strong> – <p>Keyword-argument pairs. The keyword specifies the attribute
+name while the argument contains the desired value of the attribute.
 Regardless of what type the argument is, it is always compared as if
 it was a string. The argument can also be a regular expression that
 must match the entire string created from the attribute of the list
 object.</p>
+<p>Special keyword ‘do_str_match’: If True, use string matching instead of regex.</p>
+</p>
 </dd>
-</dl>
-</dd>
-</dl>
-<dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A list of objects whose attributes match <em>all</em> the criteria.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -182,21 +289,29 @@ object.</p>
 <dt class="sig sig-object py" id="skidl.utilities.find_and_open_file">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">find_and_open_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_failure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_binary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">descend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#find_and_open_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.find_and_open_file" title="Link to this definition">¶</a></dt>
 <dd><p>Search for a file in list of paths, open it and return file pointer and full file name.</p>
+<p>This function searches for a file in various locations, including URLs, and returns
+an open file pointer and the complete path to the file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> – Base file name (e.g., “my_file”).</p></li>
-<li><p><strong>paths</strong> – List of paths to search for the file.</p></li>
-<li><p><strong>ext</strong> – The extension for the file (e.g., “.txt”) or a list of extensions.</p></li>
-<li><p><strong>allow_failure</strong> – If false, failure to find file raises and exception.</p></li>
-<li><p><strong>exclude_binary</strong> – If true, skip files that contain binary data.</p></li>
-<li><p><strong>descend</strong> – If 0, don’t search lower-level directories. If positive, search
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Base file name (e.g., “my_file”).</p></li>
+<li><p><strong>paths</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>, </em><em>optional</em>) – List of paths to search for the file. Defaults to current directory.</p></li>
+<li><p><strong>ext</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>, </em><em>optional</em>) – The extension for the file (e.g., “.txt”) or a list of extensions.</p></li>
+<li><p><strong>allow_failure</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – If False, failure to find file raises an exception. Defaults to False.</p></li>
+<li><p><strong>exclude_binary</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, skip files that contain binary data. Defaults to False.</p></li>
+<li><p><strong>descend</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – If 0, don’t search lower-level directories. If positive, search
 that many levels down for the file. If negative, descend into
-subdirectories withcurrent_level limit.</p></li>
+subdirectories without limit. Defaults to 0.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>File pointer and file name or None, None if file could not be opened.</p>
+<dd class="field-even"><p>(file_pointer, file_name) or (None, None) if file could not be opened and allow_failure is True.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)">tuple</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#FileNotFoundError" title="(in Python v3.13)"><strong>FileNotFoundError</strong></a> – If the file couldn’t be found and allow_failure is False.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -208,18 +323,24 @@ subdirectories withcurrent_level limit.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> – Base file name (e.g., “my_file”).</p></li>
-<li><p><strong>paths</strong> – List of paths to search for the file.</p></li>
-<li><p><strong>ext</strong> – The extension for the file (e.g., “.txt”) or a list of extensions.</p></li>
-<li><p><strong>allow_failure</strong> – If false, failure to find file raises and exception.</p></li>
-<li><p><strong>exclude_binary</strong> – If true, skip files that contain binary data.</p></li>
-<li><p><strong>descend</strong> – If 0, don’t search lower-level directories. If positive, search
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Base file name (e.g., “my_file”).</p></li>
+<li><p><strong>paths</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>, </em><em>optional</em>) – List of paths to search for the file. Defaults to current directory.</p></li>
+<li><p><strong>ext</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>, </em><em>optional</em>) – The extension for the file (e.g., “.txt”) or a list of extensions.</p></li>
+<li><p><strong>allow_failure</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – If False, failure to find file raises an exception. Defaults to False.</p></li>
+<li><p><strong>exclude_binary</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, skip files that contain binary data. Defaults to False.</p></li>
+<li><p><strong>descend</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – If 0, don’t search lower-level directories. If positive, search
 that many levels down for the file. If negative, descend into
-subdirectories withcurrent_level limit.</p></li>
+subdirectories without limit. Defaults to 0.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>File contents and file name or None, None if file could not be opened.</p>
+<dd class="field-even"><p>(file_contents, file_name) or (None, None) if file could not be opened and allow_failure is True.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)">tuple</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#FileNotFoundError" title="(in Python v3.13)"><strong>FileNotFoundError</strong></a> – If the file couldn’t be found and allow_failure is False.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -228,6 +349,10 @@ subdirectories withcurrent_level limit.</p></li>
 <dt class="sig sig-object py" id="skidl.utilities.find_num_copies">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">find_num_copies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#find_num_copies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.find_num_copies" title="Link to this definition">¶</a></dt>
 <dd><p>Return the number of copies to make based on the number of attribute values.</p>
+<p>This function examines keyword arguments to determine how many copies of an object
+should be created. If all values are scalar or lists/tuples of length 1, only one
+copy is needed. If there are lists/tuples of greater length, the maximum length
+determines the number of copies.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>attribs</strong> – Dict of Keyword/Value pairs for setting object attributes.
@@ -238,9 +363,12 @@ length of the list/tuple.</p>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The length of the longest value in the dict of attributes.</p>
 </dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>Exception if there are two</strong><strong> or </strong><strong>more list/tuple values with different</strong> – </p></li>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If there are two or more list/tuple values with different</p></li>
 <li><p><strong>lengths that are greater than 1.</strong><strong> (</strong><strong>All attribute values must be scalars</strong> – </p></li>
 <li><p><strong>or lists/tuples</strong><strong> of </strong><strong>the same length.</strong><strong>)</strong> – </p></li>
 </ul>
@@ -251,19 +379,56 @@ length of the list/tuple.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.flatten">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nested_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#flatten"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.flatten" title="Link to this definition">¶</a></dt>
-<dd><p>Return a flattened list of items from a nested list.</p>
+<dd><p>Recursively flatten a nested list structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nested_list</strong> – A list that may contain other lists, tuples, or sets as items.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A flat list containing all items from the nested structure.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.from_iadd">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">from_iadd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#from_iadd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.from_iadd" title="Link to this definition">¶</a></dt>
-<dd><p>Return True if one or more objects have attribute iadd_flag set to True.</p>
+<dd><p>Check if one or more objects have the iadd_flag attribute set to True.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>objs</strong> – A single object or list of objects to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if any object has iadd_flag set to True, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.fullmatch">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">fullmatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#fullmatch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.fullmatch" title="Link to this definition">¶</a></dt>
-<dd><p>Emulate python-3.4 re.fullmatch().</p>
+<dd><p>Emulate python-3.4 re.fullmatch() function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>regex</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Regular expression pattern.</p></li>
+<li><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – String to match against the pattern.</p></li>
+<li><p><strong>flags</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – Flags to pass to the regex engine. Defaults to 0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Match object if the string matches the pattern fully, None otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Match object or None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -273,17 +438,23 @@ length of the list/tuple.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> – Base file name (e.g., “my_file”).</p></li>
-<li><p><strong>paths</strong> – List of paths to search for the file.</p></li>
-<li><p><strong>ext</strong> – The extension for the file (e.g., “.txt”).</p></li>
-<li><p><strong>allow_failure</strong> – If false, failure to find file raises and exception.</p></li>
-<li><p><strong>descend</strong> – If 0, don’t search lower-level directories. If positive, search
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Base file name (e.g., “my_file”).</p></li>
+<li><p><strong>paths</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>, </em><em>optional</em>) – List of paths to search for the file. Defaults to current directory.</p></li>
+<li><p><strong>ext</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>, </em><em>optional</em>) – The extension for the file (e.g., “.txt”) or a list of extensions.</p></li>
+<li><p><strong>allow_failure</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – If False, failure to find file raises an exception. Defaults to False.</p></li>
+<li><p><strong>descend</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – If 0, don’t search lower-level directories. If positive, search
 that many levels down for the file. If negative, descend into
-subdirectories withcurrent_level limit.</p></li>
+subdirectories without limit. Defaults to 0.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>File name if file exists, otherwise None.</p>
+<dd class="field-even"><p>Absolute file name if file exists, otherwise None.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#FileNotFoundError" title="(in Python v3.13)"><strong>FileNotFoundError</strong></a> – If the file couldn’t be found and allow_failure is False.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -291,20 +462,23 @@ subdirectories withcurrent_level limit.</p></li>
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.get_unique_name">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">get_unique_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#get_unique_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.get_unique_name" title="Link to this definition">¶</a></dt>
-<dd><p>Return a name that doesn’t collide with another in a list.</p>
-<p>This subrcurrent_leveline is used to generate unique part references (e.g., “R12”)
-or unique net names (e.g., “N$5”).</p>
+<dd><p>Generate a unique name within a list of objects.</p>
+<p>This function is used to generate unique part references (e.g., “R12”)
+or unique net names (e.g., “N$5”) that don’t collide with existing names.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>lst</strong> – The list of objects containing names.</p></li>
-<li><p><strong>attrib</strong> – The attribute in each object containing the name.</p></li>
-<li><p><strong>prefix</strong> – The prefix attached to each name.</p></li>
+<li><p><strong>attrib</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The attribute in each object containing the name.</p></li>
+<li><p><strong>prefix</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The prefix attached to each name.</p></li>
 <li><p><strong>initial</strong> – The initial setting of the name (can be None or empty string).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A string containing the unique name.</p>
+<dd class="field-even"><p>A unique name that doesn’t exist in the list.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -313,20 +487,43 @@ or unique net names (e.g., “N$5”).</p>
 <dt class="sig sig-object py" id="skidl.utilities.is_binary_file">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">is_binary_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#is_binary_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.is_binary_file" title="Link to this definition">¶</a></dt>
 <dd><p>Return true if a file contains binary (non-text) characters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to the file to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the file contains binary data, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.is_url">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">is_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#is_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.is_url" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Check if a string is a valid HTTP/HTTPS URL.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – String to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the string is a valid HTTP/HTTPS URL, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.list_or_scalar">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">list_or_scalar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#list_or_scalar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.list_or_scalar" title="Link to this definition">¶</a></dt>
-<dd><p>Return a list if passed a multi-element list, otherwise return a single scalar.</p>
+<dd><p>Return a list or scalar depending on the input.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>lst</strong> – Either a list or a scalar.</p>
+<dd class="field-odd"><p><strong>lst</strong> – Either a list/tuple or a scalar value.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
@@ -343,16 +540,19 @@ or unique net names (e.g., “N$5”).</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.merge_dicts">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">merge_dicts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dct</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge_dct</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#merge_dicts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.merge_dicts" title="Link to this definition">¶</a></dt>
-<dd><p>Dict merge that recurses through both dicts and updates keys.</p>
+<dd><p>Recursively merge two dictionaries, updating keys in the first with values from the second.</p>
+<p>This function modifies the first dictionary in-place to include keys from the second.
+If a key exists in both dictionaries and both values are dictionaries, it recursively
+merges those nested dictionaries.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dct</strong> – The dict that will be updated.</p></li>
-<li><p><strong>merge_dct</strong> – The dict whose values will be inserted into dct.</p></li>
+<li><p><strong>dct</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – The target dictionary that will be updated.</p></li>
+<li><p><strong>merge_dct</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – The dictionary whose values will be merged into dct.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Nothing.</p>
+<dd class="field-even"><p>Nothing. The first dictionary is modified in-place.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -361,9 +561,17 @@ or unique net names (e.g., “N$5”).</p>
 <dt class="sig sig-object py" id="skidl.utilities.norecurse">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">norecurse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#norecurse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.norecurse" title="Link to this definition">¶</a></dt>
 <dd><p>Decorator that keeps a function from recursively calling itself.</p>
+<p>This decorator checks the call stack to prevent recursive calls
+to the decorated function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>f</strong> (<em>function</em>)</p>
+<dd class="field-odd"><p><strong>f</strong> (<em>function</em>) – The function to decorate.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A wrapper function that checks for recursion.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>function</p>
 </dd>
 </dl>
 </dd></dl>
@@ -371,20 +579,38 @@ or unique net names (e.g., “N$5”).</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.num_to_chars">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">num_to_chars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#num_to_chars"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.num_to_chars" title="Link to this definition">¶</a></dt>
-<dd><p>Return a string like ‘AB’ when given a number like 28.</p>
+<dd><p>Convert a number to a spreadsheet-style column identifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>num</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – A positive integer.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A string like ‘A’ for 1, ‘B’ for 2, ‘Z’ for 26, ‘AA’ for 27, etc.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.opened">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">opened</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f_or_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#opened"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.opened" title="Link to this definition">¶</a></dt>
-<dd><p>Yields an opened file or file-like object.</p>
+<dd><p>Context manager that yields an opened file or file-like object.</p>
+<p>This context manager handles both filenames and file objects, ensuring
+proper opening and closing of files.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file_or_filename</strong> – Either an already opened file or file-like
-object, or a filename to open.</p></li>
-<li><p><strong>mode</strong> – The mode to open the file in.</p></li>
+<li><p><strong>f_or_fn</strong> – Either an already opened file or file-like object, or a filename to open.</p></li>
+<li><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The mode to open the file in.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Yields<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>file</em> – An opened file object.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#TypeError" title="(in Python v3.13)"><strong>TypeError</strong></a> – If f_or_fn is neither a string nor a file-like object.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -393,48 +619,130 @@ object, or a filename to open.</p></li>
 <dt class="sig sig-object py" id="skidl.utilities.reset_get_unique_name">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">reset_get_unique_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#reset_get_unique_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.reset_get_unique_name" title="Link to this definition">¶</a></dt>
 <dd><p>Reset the heaps that store previously-assigned names.</p>
+<p>This function clears the internal storage used by get_unique_name() to track
+previously generated names.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.rmv_attr">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">rmv_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#rmv_attr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.rmv_attr" title="Link to this definition">¶</a></dt>
-<dd><p>Remove a list of attributes from a list of objects.</p>
+<dd><p>Remove one or more attributes from one or more objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objs</strong> – A single object or list of objects.</p></li>
+<li><p><strong>attrs</strong> – A string or list of strings naming attributes to remove.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.rmv_iadd">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">rmv_iadd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#rmv_iadd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.rmv_iadd" title="Link to this definition">¶</a></dt>
-<dd><p>Delete iadd_flag attribute from a list of objects.</p>
+<dd><p>Remove the iadd_flag attribute from one or more objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>objs</strong> – A single object or list of objects.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.rmv_quotes">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">rmv_quotes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#rmv_quotes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.rmv_quotes" title="Link to this definition">¶</a></dt>
 <dd><p>Remove starting and ending quotes from a string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><em>other</em>) – Input string or non-string object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>String with quotes removed, or the original object if not a string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a> or other</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.utilities.rmv_unique_name">
+<span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">rmv_unique_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#rmv_unique_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.rmv_unique_name" title="Link to this definition">¶</a></dt>
+<dd><p>Remove a unique name from the heap.</p>
+<p>This function is used to remove a name that was previously generated
+by get_unique_name() when it is no longer needed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lst</strong> – The list of objects containing names.</p></li>
+<li><p><strong>attrib</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The attribute in each object containing the name.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The name to remove from the heap.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.set_attr">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">set_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#set_attr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.set_attr" title="Link to this definition">¶</a></dt>
-<dd><p>Set an attribute in a list of objects.</p>
+<dd><p>Set an attribute to a value in one or more objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objs</strong> – A single object or list of objects.</p></li>
+<li><p><strong>attr</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Name of the attribute to set.</p></li>
+<li><p><strong>value</strong> – Value to assign to the attribute.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.set_iadd">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">set_iadd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#set_iadd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.set_iadd" title="Link to this definition">¶</a></dt>
-<dd><p>Set iadd_flag with T/F value for a list of objects.</p>
+<dd><p>Set the iadd_flag attribute in one or more objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objs</strong> – A single object or list of objects.</p></li>
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Value to assign to the iadd_flag attribute.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.sgn">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">sgn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#sgn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.sgn" title="Link to this definition">¶</a></dt>
-<dd><p>Return -1,0,1 if x&lt;0, x==0, x&gt;0.</p>
+<dd><p>Return the sign of a number.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>numeric</em>) – The number to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>-1 if x&lt;0, 1 if x&gt;0, 0 if x==0.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.to_list">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">to_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#to_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.to_list" title="Link to this definition">¶</a></dt>
-<dd><p>Return x if it is already a list, or return a list containing x if x is a scalar.</p>
+<dd><p>Convert a scalar value to a list or return x if it is already a list-like object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> – Input value (scalar or list-like).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The original list-like input or a new list containing the scalar value.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a>, <a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)">tuple</a>, or <a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#set" title="(in Python v3.13)">set</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -444,7 +752,7 @@ object, or a filename to open.</p></li>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
   <div>
     <h3><a href="../index.html">Table of Contents</a></h3>
@@ -460,6 +768,7 @@ object, or a filename to open.</p></li>
 <li><a class="reference internal" href="#skidl.utilities.detect_os"><code class="docutils literal notranslate"><span class="pre">detect_os()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.utilities.expand_buses"><code class="docutils literal notranslate"><span class="pre">expand_buses()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.utilities.expand_indices"><code class="docutils literal notranslate"><span class="pre">expand_indices()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.utilities.expand_path"><code class="docutils literal notranslate"><span class="pre">expand_path()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.utilities.export_to_all"><code class="docutils literal notranslate"><span class="pre">export_to_all()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.utilities.filter_list"><code class="docutils literal notranslate"><span class="pre">filter_list()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.utilities.find_and_open_file"><code class="docutils literal notranslate"><span class="pre">find_and_open_file()</span></code></a></li>
@@ -481,6 +790,7 @@ object, or a filename to open.</p></li>
 <li><a class="reference internal" href="#skidl.utilities.rmv_attr"><code class="docutils literal notranslate"><span class="pre">rmv_attr()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.utilities.rmv_iadd"><code class="docutils literal notranslate"><span class="pre">rmv_iadd()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.utilities.rmv_quotes"><code class="docutils literal notranslate"><span class="pre">rmv_quotes()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.utilities.rmv_unique_name"><code class="docutils literal notranslate"><span class="pre">rmv_unique_name()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.utilities.set_attr"><code class="docutils literal notranslate"><span class="pre">set_attr()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.utilities.set_iadd"><code class="docutils literal notranslate"><span class="pre">set_iadd()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.utilities.sgn"><code class="docutils literal notranslate"><span class="pre">sgn()</span></code></a></li>
@@ -511,7 +821,7 @@ object, or a filename to open.</p></li>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -520,13 +830,13 @@ object, or a filename to open.</p></li>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.utilities module</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

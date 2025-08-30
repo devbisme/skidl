@@ -3,5 +3,5 @@ skidl.tools.kicad7.gen\_xml module
 
 .. automodule:: skidl.tools.kicad7.gen_xml
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

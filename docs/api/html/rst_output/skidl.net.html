@@ -7,12 +7,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.net module &#8212; SKiDL 2.0.1 documentation</title>
+    <title>skidl.net module &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -24,7 +24,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../"><img src="../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.net module</a></li> 
       </ul>
     </div>  
@@ -45,115 +45,518 @@
             
   <section id="module-skidl.net">
 <span id="skidl-net-module"></span><h1>skidl.net module<a class="headerlink" href="#module-skidl.net" title="Link to this heading">¶</a></h1>
-<p>Handles nets.</p>
+<p>Network connection management for SKiDL circuit design.</p>
+<p>This module provides comprehensive electrical connection management through the Net
+class and its specialized subclass NCNet. These classes represent electrical
+connections between component pins, enabling circuit designers to model, analyze,
+and verify electrical connectivity in their designs.</p>
+<dl>
+<dt>Key Capabilities:</dt><dd><ul class="simple">
+<li><p>Electrical connection modeling between component pins</p></li>
+<li><p>Named and anonymous net creation with automatic naming</p></li>
+<li><p>Net merging and electrical rule checking (ERC)</p></li>
+<li><p>Drive strength management and conflict detection</p></li>
+<li><p>Net class assignment for PCB routing rules</p></li>
+<li><p>Hierarchical net traversal and connectivity analysis</p></li>
+<li><p>No-connect (NC) net support for unconnected pins</p></li>
+<li><p>Integration with netlist generation and PCB tools</p></li>
+</ul>
+</dd>
+<dt>Core Classes:</dt><dd><dl class="simple">
+<dt>Net: Primary class representing electrical connections between pins.</dt><dd><p>Supports naming, drive strength, net classes, ERC, and connection
+management. Handles automatic net merging when pins are connected.</p>
+</dd>
+<dt>NCNet: Specialized Net subclass for explicitly unconnected pins.</dt><dd><p>Marks pins as intentionally not connected to suppress ERC warnings
+while maintaining design intent documentation.</p>
+</dd>
+</dl>
+</dd>
+<dt>Connection Model:</dt><dd><p>Nets use a pin-centric connection model where pins can belong to multiple
+nets simultaneously, enabling complex electrical relationships. When nets
+are joined (via pin connections), they form electrically connected segments
+that share properties like drive strength and net classes.</p>
+</dd>
+<dt>Electrical Rules:</dt><dd><p>The module supports comprehensive electrical rule checking (ERC) including:
+- Drive strength conflicts (multiple drivers on one net)
+- Floating pin detection (inputs without drivers)
+- No-connect verification (intentionally unconnected pins)
+- Net class rule validation and conflict resolution</p>
+</dd>
+<dt>Example Usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create named and anonymous nets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcc</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VCC&#39;</span><span class="p">)</span>                    <span class="c1"># Named power net</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>                    <span class="c1"># Named ground net</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>                        <span class="c1"># Anonymous net (auto-named)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Connect component pins to nets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcc</span> <span class="o">+=</span> <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;VCC&#39;</span><span class="p">],</span> <span class="n">regulator</span><span class="p">[</span><span class="s1">&#39;OUT&#39;</span><span class="p">]</span> <span class="c1"># Multiple connections</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gnd</span> <span class="o">+=</span> <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;GND&#39;</span><span class="p">],</span> <span class="n">regulator</span><span class="p">[</span><span class="s1">&#39;GND&#39;</span><span class="p">]</span> <span class="c1"># Ground connections</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">+=</span> <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;PA0&#39;</span><span class="p">],</span> <span class="n">sensor</span><span class="p">[</span><span class="s1">&#39;DATA&#39;</span><span class="p">]</span>  <span class="c1"># Data connection</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create no-connect nets for unused pins</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nc</span> <span class="o">=</span> <span class="n">NCNet</span><span class="p">()</span>                        <span class="c1"># No-connect net</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nc</span> <span class="o">+=</span> <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;UNUSED1&#39;</span><span class="p">],</span> <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;UNUSED2&#39;</span><span class="p">]</span> <span class="c1"># Mark pins as NC</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Apply net classes for PCB routing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">power_class</span> <span class="o">=</span> <span class="n">NetClass</span><span class="p">(</span><span class="s1">&#39;Power&#39;</span><span class="p">,</span> <span class="n">trace_width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">clearance</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcc</span><span class="o">.</span><span class="n">netclass</span> <span class="o">=</span> <span class="n">power_class</span>          <span class="c1"># Apply to power nets</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Check electrical connectivity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;VCC has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">vcc</span><span class="p">)</span><span class="si">}</span><span class="s2"> pins connected&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data net name: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">vcc</span><span class="o">.</span><span class="n">is_attached</span><span class="p">(</span><span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;VCC&#39;</span><span class="p">]):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MCU VCC pin is connected to VCC net&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt>Advanced Features:</dt><dd><ul class="simple">
+<li><p>Multi-segment nets with automatic name merging</p></li>
+<li><p>Drive strength propagation and conflict detection</p></li>
+<li><p>Hierarchical net traversal for complex connectivity</p></li>
+<li><p>Stub net support for schematic generation</p></li>
+<li><p>Network object creation for circuit analysis</p></li>
+<li><p>XML and netlist export for PCB tools</p></li>
+<li><p>Deep copying with automatic name adjustment</p></li>
+</ul>
+</dd>
+<dt>Integration:</dt><dd><p>Nets integrate seamlessly with other SKiDL components:
+- Parts: Automatic connection via pin assignments
+- Buses: Multi-bit connection management
+- Circuits: Automatic net registration and naming
+- ERC: Built-in electrical rule checking
+- Tools: Export to KiCad, Altium, Eagle, etc.</p>
+</dd>
+</dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.net.NCNet">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.net.</span></span><span class="sig-name descname"><span class="pre">NCNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pins_nets_buses</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#NCNet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.NCNet" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.net.</span></span><span class="sig-name descname"><span class="pre">NCNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pins_nets_buses</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#NCNet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.NCNet" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#skidl.net.Net" title="skidl.net.Net"><code class="xref py py-class docutils literal notranslate"><span class="pre">Net</span></code></a></p>
-<p>Lists of unconnected pins are stored using this Net subclass.</p>
-<p>This is a netlist subclass used for storing lists of pins which are
-explicitly specified as not being connected. This means the ERC won’t
-flag these pins as floating, but no net connections for these pins
-will be placed in the netlist so there will actually be no
-connections to these pins in the physical circuit.</p>
+<p>A specialized Net subclass for explicitly marking pins as not connected.</p>
+<p>NCNet (No Connect Net) is used to explicitly mark component pins as
+intentionally unconnected. This serves two important purposes:</p>
+<ol class="arabic simple">
+<li><p>Design Intent Documentation: Clearly indicates that leaving pins
+unconnected is intentional rather than an oversight.</p></li>
+<li><p>ERC Suppression: Prevents electrical rule checking from flagging
+these pins as floating or unconnected errors.</p></li>
+</ol>
+<p>NCNet objects behave like regular nets for connection purposes but have
+special properties that distinguish them from normal electrical connections.
+They don’t appear in netlists since they represent the absence of
+electrical connections rather than actual connections.</p>
+<dl class="simple">
+<dt>Common Use Cases:</dt><dd><ul class="simple">
+<li><p>Unused input pins on digital logic devices</p></li>
+<li><p>Reserved pins on microcontrollers not used in current design</p></li>
+<li><p>Optional features not implemented in current circuit variant</p></li>
+<li><p>Test points or debugging pins not connected in production</p></li>
+<li><p>Analog inputs not used in specific application configurations</p></li>
+</ul>
+</dd>
+<dt>ERC Behavior:</dt><dd><p>NCNet objects are excluded from normal ERC checking since they
+explicitly represent intentionally unconnected pins. This prevents
+false warnings about floating inputs or undriven nets while maintaining
+design verification for actual electrical connections.</p>
+</dd>
+<dt>Netlist Generation:</dt><dd><p>NCNet objects do not generate entries in netlists or connection lists
+since they represent the explicit absence of connections. PCB tools
+typically handle no-connect markers through special annotations rather
+than actual net connections.</p>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – A string with the name of the net. If None or ‘’, then
-a unique net name will be assigned.</p></li>
-<li><p><strong>*pins_nets_buses</strong> – One or more Pin, Net, or Bus objects or
-lists/tuples of them to be connected to this net.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Name for the no-connect net. If None, an
+automatically generated name will be assigned. Multiple pins
+can share the same NCNet or use separate NCNet instances.</p></li>
+<li><p><strong>circuit</strong> (<a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit" title="skidl.circuit.Circuit"><em>Circuit</em></a><em>, </em><em>optional</em>) – The circuit this no-connect net belongs to.
+If None, uses the default circuit.</p></li>
+<li><p><strong>*pins_nets_buses</strong> – Pins, nets, or buses to mark as not connected.
+These will be connected to this NCNet to indicate their
+no-connect status.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>attribs</strong> – A dictionary of attributes and values to attach to
-the object.</p>
+<dd class="field-even"><p><strong>attribs</strong> – Additional attributes for the no-connect net. Note that
+some attributes like drive strength are automatically set to
+appropriate values for no-connect nets.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Mark individual unused pins as no-connect</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nc1</span> <span class="o">=</span> <span class="n">NCNet</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nc1</span> <span class="o">+=</span> <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;UNUSED_PA5&#39;</span><span class="p">],</span> <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;UNUSED_PA6&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Use separate NC nets for different pin groups</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analog_nc</span> <span class="o">=</span> <span class="n">NCNet</span><span class="p">(</span><span class="s1">&#39;ANALOG_NC&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">digital_nc</span> <span class="o">=</span> <span class="n">NCNet</span><span class="p">(</span><span class="s1">&#39;DIGITAL_NC&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analog_nc</span> <span class="o">+=</span> <span class="n">adc</span><span class="p">[</span><span class="s1">&#39;AIN3&#39;</span><span class="p">],</span> <span class="n">adc</span><span class="p">[</span><span class="s1">&#39;AIN4&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">digital_nc</span> <span class="o">+=</span> <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;PB7&#39;</span><span class="p">],</span> <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;PB8&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Mark test points as no-connect in production</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_nc</span> <span class="o">=</span> <span class="n">NCNet</span><span class="p">(</span><span class="s1">&#39;TEST_NC&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_nc</span> <span class="o">+=</span> <span class="n">test_point_1</span><span class="p">[</span><span class="s1">&#39;PIN&#39;</span><span class="p">],</span> <span class="n">test_point_2</span><span class="p">[</span><span class="s1">&#39;PIN&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create during component instantiation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mcu</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;MCU&#39;</span><span class="p">,</span> <span class="s1">&#39;STM32F401&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nc_net</span> <span class="o">=</span> <span class="n">NCNet</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nc_net</span> <span class="o">+=</span> <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;BOOT0&#39;</span><span class="p">],</span> <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;NRST&#39;</span><span class="p">]</span>  <span class="c1"># Not used in this design</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Design Verification:</dt><dd><p>While NCNet pins are excluded from standard ERC checking, they can
+still be verified for design intent:
+- Confirm all NC pins are intentionally unconnected
+- Verify no required pins are accidentally marked as NC
+- Check that NC assignments match design specifications</p>
+</dd>
+<dt>Tool Integration:</dt><dd><p>Different PCB tools handle no-connect markers differently:
+- KiCad: No-connect flags on pins, excluded from netlist
+- Altium: No ERC markers, special netlist handling
+- Eagle: No-connect symbols, netlist exclusion
+- Other tools: Tool-specific no-connect representations</p>
+</dd>
+<dt>Best Practices:</dt><dd><ul class="simple">
+<li><p>Use descriptive names for NC nets to document intent</p></li>
+<li><p>Group related NC pins on the same NC net when appropriate</p></li>
+<li><p>Document why specific pins are marked as no-connect</p></li>
+<li><p>Review NC assignments during design reviews</p></li>
+<li><p>Consider future design variants that might use NC pins</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.net.NCNet.drive">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">drive</span></span><a class="headerlink" href="#skidl.net.NCNet.drive" title="Link to this definition">¶</a></dt>
-<dd><p>Get the drive strength of this net.</p>
-<p>The drive strength is always NOCONNECT_DRIVE. It can’t be changed.
-The drive strength cannot be deleted.</p>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">drive</span></span><a class="headerlink" href="#skidl.net.NCNet.drive" title="Link to this definition">¶</a></dt>
+<dd><p>Get the drive strength of this no-connect net.</p>
+<p>No-connect nets have a fixed drive strength of NOCONNECT that cannot
+be modified. This special drive value indicates that the net represents
+intentionally unconnected pins rather than an actual electrical signal.</p>
+<p>The NOCONNECT drive strength serves several purposes:
+- Identifies the net as representing non-connections
+- Excludes the net from drive conflict checking during ERC
+- Indicates to tools that this net should not appear in netlists
+- Documents design intent for unconnected pins</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>Always returns pin_drives.NOCONNECT. This value cannot be</dt><dd><p>changed for NCNet objects since it represents their fundamental
+characteristic as no-connect nets.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">skidl.pin</span> <span class="kn">import</span> <span class="n">pin_drives</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nc_net</span> <span class="o">=</span> <span class="n">NCNet</span><span class="p">(</span><span class="s1">&#39;UNUSED_PINS&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">nc_net</span><span class="o">.</span><span class="n">drive</span> <span class="o">==</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">)</span>  <span class="c1"># True</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compare with regular net drive</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;SIGNAL&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg_net</span> <span class="o">+=</span> <span class="n">driver_pin</span><span class="p">,</span> <span class="n">receiver_pin</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">reg_net</span><span class="o">.</span><span class="n">drive</span> <span class="o">!=</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">)</span>  <span class="c1"># True</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Drive strength cannot be changed for NC nets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">nc_net</span><span class="o">.</span><span class="n">drive</span> <span class="o">=</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">STRONG</span>   <span class="c1"># This won&#39;t work</span>
+<span class="gp">... </span><span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NCNet drive cannot be modified&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>ERC Integration:</dt><dd><p>The NOCONNECT drive strength integrates with electrical rule checking:
+- Pins on NCNet are excluded from floating pin detection
+- No drive conflict checking is performed for NC nets
+- ERC reports can identify and verify no-connect assignments
+- Design verification can confirm intentional non-connections</p>
+</dd>
+<dt>Immutability:</dt><dd><p>The drive property for NCNet objects is read-only. Attempting to
+set or delete the drive strength will not work since the NOCONNECT
+drive is fundamental to the NCNet’s purpose and behavior.</p>
+</dd>
+<dt>Tool Compatibility:</dt><dd><p>The NOCONNECT drive strength is recognized by netlist generators
+and ERC systems to provide appropriate handling of no-connect nets
+across different PCB design tools and workflows.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.net.NCNet.generate_netlist_net">
 <span class="sig-name descname"><span class="pre">generate_netlist_net</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#NCNet.generate_netlist_net"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.NCNet.generate_netlist_net" title="Link to this definition">¶</a></dt>
-<dd><p>NO_CONNECT nets don’t generate anything for netlists.</p>
+<dd><p>Generate netlist representation for no-connect nets.</p>
+<p>No-connect nets intentionally do not appear in circuit netlists since
+they represent the explicit absence of electrical connections rather
+than actual circuit connections. This method always returns an empty
+string to exclude NCNet objects from netlist output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The target netlist generation tool (e.g., ‘kicad’,
+‘altium’, ‘eagle’). Parameter is accepted for compatibility but
+ignored since NC nets are excluded from all netlist formats.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Always returns an empty string. No-connect nets do not generate</dt><dd><p>netlist entries since they represent intentionally unconnected pins
+rather than actual electrical connections.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nc_net</span> <span class="o">=</span> <span class="n">NCNet</span><span class="p">(</span><span class="s1">&#39;UNUSED_PINS&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nc_net</span> <span class="o">+=</span> <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;PA7&#39;</span><span class="p">],</span> <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;PA8&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># NC nets don&#39;t appear in netlists</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">netlist_entry</span> <span class="o">=</span> <span class="n">nc_net</span><span class="o">.</span><span class="n">generate_netlist_net</span><span class="p">(</span><span class="s1">&#39;kicad&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">netlist_entry</span><span class="p">))</span>              <span class="c1"># &#39;&#39;</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compare with regular net</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcc_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VCC&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcc_net</span> <span class="o">+=</span> <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;VCC&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcc_entry</span> <span class="o">=</span> <span class="n">vcc_net</span><span class="o">.</span><span class="n">generate_netlist_net</span><span class="p">(</span><span class="s1">&#39;kicad&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vcc_entry</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>               <span class="c1"># True</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Tool Integration:</dt><dd><p>Different PCB tools handle no-connect pins through special mechanisms:
+- Pin-level no-connect flags rather than net-level connections
+- Special symbols or annotations in schematic capture
+- ERC rule exclusions for intentionally unconnected pins
+- Design rule checking modifications for NC pins</p>
+</dd>
+<dt>Design Verification:</dt><dd><p>While NC nets don’t appear in netlists, they can still be verified:
+- Pin assignment reports can show NC pin assignments
+- ERC reports can list pins marked as no-connect
+- Design review outputs can document intentional non-connections
+- BOM generation can identify unused pin functionality</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.net.Net">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.net.</span></span><span class="sig-name descname"><span class="pre">Net</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pins_nets_buses</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.net.</span></span><span class="sig-name descname"><span class="pre">Net</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pins_nets_buses</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject" title="skidl.skidlbaseobj.SkidlBaseObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">SkidlBaseObject</span></code></a></p>
-<p>Lists of connected pins are stored as nets using this class.</p>
+<p>Represents an electrical connection between component pins in a circuit.</p>
+<p>The Net class is the fundamental building block for electrical connectivity
+in SKiDL circuits. It manages collections of pins that are electrically
+connected, handles net naming and drive strength management, supports net
+classes for PCB routing rules, and provides electrical rule checking (ERC).</p>
+<p>Nets can be created with explicit names or receive automatically generated
+names. They support dynamic connection and disconnection of pins, automatic
+merging when nets are joined through common pins, and property propagation
+across connected net segments.</p>
+<dl class="simple">
+<dt>Connection Management:</dt><dd><p>Nets use the += operator for intuitive pin connection syntax. When pins
+are connected to nets, the nets automatically merge if the pins were
+previously connected to other nets, creating larger electrically
+connected groups.</p>
+</dd>
+<dt>Drive Strength:</dt><dd><p>Nets automatically track and manage drive strength based on connected
+pins. Drive conflicts (multiple strong drivers) are detected and can
+be flagged during ERC. The net’s drive strength is always the maximum
+of all connected pins.</p>
+</dd>
+<dt>Net Classes:</dt><dd><p>Nets can be assigned to one or more net classes that define PCB routing
+rules, trace widths, clearances, via sizes, and other physical
+properties. These are used during PCB layout and design rule checking.</p>
+</dd>
+<dt>Electrical Rules:</dt><dd><p>Built-in ERC functions check for common electrical problems including
+floating inputs, drive conflicts, and design rule violations. Custom
+ERC functions can be added for specific design requirements.</p>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – A string with the name of the net. If None or ‘’, then
-a unique net name will be assigned.</p></li>
-<li><p><strong>circuit</strong> – The Circuit object this net belongs to.</p></li>
-<li><p><strong>*pins_nets_buses</strong> – One or more Pin, Net, or Bus objects or
-lists/tuples of them to be connected to this net.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Explicit name for the net. If None or empty,
+an automatically generated unique name will be assigned using
+the NET_PREFIX pattern (e.g., “N$1”, “N$2”, etc.).</p></li>
+<li><p><strong>circuit</strong> (<a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit" title="skidl.circuit.Circuit"><em>Circuit</em></a><em>, </em><em>optional</em>) – The circuit this net belongs to.
+If None, the net is added to the default active circuit.</p></li>
+<li><p><strong>*pins_nets_buses</strong> – Initial pins, nets, or buses to connect to this net.
+Can be individual objects or collections. Nets will be merged
+if pins connect previously separate nets.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>attribs</strong> – A dictionary of attributes and values to attach to
-the Net object.</p>
+<dd class="field-even"><p><strong>attribs</strong> – Arbitrary keyword=value attributes to attach to the net.
+Common attributes include drive strength overrides, ERC flags,
+documentation strings, and tool-specific properties.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create named nets for power and ground</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcc</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VCC&#39;</span><span class="p">)</span>           <span class="c1"># 3.3V power rail</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>           <span class="c1"># Ground reference</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create anonymous nets (auto-named)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>           <span class="c1"># Becomes &quot;N$1&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clock_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>          <span class="c1"># Becomes &quot;N$2&quot;</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Connect pins during creation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">spi_clk</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;SPI_CLK&#39;</span><span class="p">,</span> <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;SCK&#39;</span><span class="p">],</span> <span class="n">flash</span><span class="p">[</span><span class="s1">&#39;CLK&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Connect pins after creation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_net</span> <span class="o">+=</span> <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;PA0&#39;</span><span class="p">]</span>     <span class="c1"># Connect single pin</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_net</span> <span class="o">+=</span> <span class="n">sensor</span><span class="p">[</span><span class="s1">&#39;OUT&#39;</span><span class="p">],</span> <span class="n">led</span><span class="p">[</span><span class="s1">&#39;IN&#39;</span><span class="p">]</span>  <span class="c1"># Connect multiple pins</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Apply net classes for PCB routing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">power_class</span> <span class="o">=</span> <span class="n">NetClass</span><span class="p">(</span><span class="s1">&#39;Power&#39;</span><span class="p">,</span> <span class="n">trace_width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcc</span><span class="o">.</span><span class="n">netclass</span> <span class="o">=</span> <span class="n">power_class</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Check connections and properties</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;VCC net has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">vcc</span><span class="p">)</span><span class="si">}</span><span class="s2"> pins&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Drive strength: </span><span class="si">{</span><span class="n">vcc</span><span class="o">.</span><span class="n">drive</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">vcc</span><span class="o">.</span><span class="n">is_attached</span><span class="p">(</span><span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;VCC&#39;</span><span class="p">]):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MCU VCC pin is on VCC net&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl>
+<dt>Advanced Usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create multiple copies for arrays</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_buses</span> <span class="o">=</span> <span class="mi">8</span> <span class="o">*</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;DATA&#39;</span><span class="p">)</span>  <span class="c1"># Creates DATA_0 through DATA_7</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Merge nets by connecting common pins</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">net1</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;SIGNAL_A&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">net2</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;SIGNAL_B&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shared_pin</span> <span class="o">=</span> <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;PA1&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">net1</span> <span class="o">+=</span> <span class="n">shared_pin</span>     <span class="c1"># Pin on net1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">net2</span> <span class="o">+=</span> <span class="n">shared_pin</span>     <span class="c1"># Merges net1 and net2</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Use in network analysis</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">network</span> <span class="o">=</span> <span class="n">net1</span><span class="o">.</span><span class="n">create_network</span><span class="p">()</span>  <span class="c1"># Convert to Network object</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Export for PCB tools</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">netlist_data</span> <span class="o">=</span> <span class="n">vcc</span><span class="o">.</span><span class="n">generate_netlist_net</span><span class="p">(</span><span class="s1">&#39;kicad&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.net.Net.connect">
 <span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pins_nets_buses</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net.connect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net.connect" title="Link to this definition">¶</a></dt>
-<dd><p>Return the net after connecting other pins, nets, and buses to it.</p>
+<dd><p>Connect pins, nets, and buses to this net, creating electrical connections.</p>
+<p>This is the primary method for building electrical connectivity in SKiDL
+circuits. It handles connecting individual pins, merging nets, and expanding
+buses into individual connections. When nets are connected through common
+pins, they automatically merge into larger electrically connected groups.</p>
+<p>The method supports the += operator for intuitive connection syntax and
+handles all the complexity of maintaining electrical connectivity, drive
+strength propagation, and net class inheritance across connected segments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>*pins_nets_buses</strong> – One or more Pin, Net, or Bus objects or
-lists/tuples of them to be connected to this net.</p>
+<dd class="field-odd"><p><strong>*pins_nets_buses</strong> – Objects to connect to this net:
+- Pin: Individual component pins to attach
+- Net: Other nets to merge with this one
+- Bus: Multi-bit collections (individual nets extracted)
+- Lists/tuples: Collections of the above objects
+- None values: Ignored for programming convenience</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The updated net with the new connections.</p>
+<dd class="field-even"><p>This net object (supports method chaining and += operator).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#skidl.net.Net" title="skidl.net.Net">Net</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If attempting to connect nets from different circuits.
+    All connected objects must belong to the same circuit context.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If attempting to connect parts from different circuits.
+    Component pins must be from parts in the same circuit.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#TypeError" title="(in Python v3.13)"><strong>TypeError</strong></a> – If attempting to connect unsupported object types.
+    Only Pin, Net, and Bus objects can be connected to nets.</p></li>
+</ul>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
-<p>Connections to nets can also be made using the += operator like so:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">atmega</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;atmel&#39;</span><span class="p">,</span> <span class="s1">&#39;ATMEGA16U2&#39;</span><span class="p">)</span>
-<span class="n">net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
-<span class="n">net</span> <span class="o">+=</span> <span class="n">atmega</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Connects pin 1 of chip to the net.</span>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Connect individual pins</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcc</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VCC&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcc</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;VCC&#39;</span><span class="p">],</span> <span class="n">regulator</span><span class="p">[</span><span class="s1">&#39;OUT&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Use += operator (equivalent to connect)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gnd</span> <span class="o">+=</span> <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;GND&#39;</span><span class="p">],</span> <span class="n">regulator</span><span class="p">[</span><span class="s1">&#39;GND&#39;</span><span class="p">],</span> <span class="n">capacitor</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Connect nets (automatic merging)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">signal_a</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;SIG_A&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">signal_b</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;SIG_B&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shared_pin</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">[</span><span class="s1">&#39;OUT&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">signal_a</span> <span class="o">+=</span> <span class="n">shared_pin</span>        <span class="c1"># Pin on signal_a</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">signal_b</span> <span class="o">+=</span> <span class="n">shared_pin</span>        <span class="c1"># Merges signal_a and signal_b</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Connect buses (expanded automatically)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_bus</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;DATA&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>     <span class="c1"># 8-bit bus</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">control_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;CTRL&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">control_net</span> <span class="o">+=</span> <span class="n">data_bus</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>    <span class="c1"># Connect to bit 0 of bus</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Chain connections</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clock_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;CLK&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;CLK&#39;</span><span class="p">],</span> <span class="n">rtc</span><span class="p">[</span><span class="s1">&#39;CLK_OUT&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
+<dl class="simple">
+<dt>Net Merging:</dt><dd><p>When connecting nets that already have pins attached, the nets
+automatically merge into a single electrical group. All properties
+like drive strength and net classes are combined according to
+precedence rules (maximum drive, class union, etc.).</p>
+</dd>
+<dt>Drive Strength:</dt><dd><p>Connected pins contribute their drive strength to the net. The net’s
+overall drive is the maximum of all connected pins. Drive conflicts
+(multiple strong drivers) are detected during ERC checking.</p>
+</dd>
+<dt>Net Classes:</dt><dd><p>When nets are merged, their net classes are combined. If conflicting
+net classes are detected, warnings may be issued depending on the
+specific class definitions and priority levels.</p>
+</dd>
+<dt>Circuit Validation:</dt><dd><p>All connected objects must belong to the same circuit. Cross-circuit
+connections are not allowed and will raise ValueError exceptions.
+This maintains circuit encapsulation and prevents invalid topologies.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.net.Net.copy">
 <span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_copies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net.copy" title="Link to this definition">¶</a></dt>
-<dd><p>Make zero or more copies of this net.</p>
+<dd><p>Create one or more copies of this net.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>num_copies</strong> – Number of copies to make of this net.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_copies</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – Number of copies to create.
+If None, a single copy will be made.</p></li>
+<li><p><strong>circuit</strong> (<a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit" title="skidl.circuit.Circuit"><em>Circuit</em></a><em>, </em><em>optional</em>) – The circuit the copies will be added to.</p></li>
+<li><p><strong>**attribs</strong> – Attributes to apply to the copies.</p></li>
+</ul>
 </dd>
-<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>attribs</strong> – Name/value pairs for setting attributes for the copy.</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A single Net copy or list of copies.</p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A list of Net copies or a Net if num_copies==1.</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#skidl.net.Net" title="skidl.net.Net">Net</a> or <a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference internal" href="#skidl.net.Net" title="skidl.net.Net">Net</a>]</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>Exception if the requested number</strong><strong> of </strong><strong>copies is a non-integer</strong><strong> or </strong><strong>negative.</strong> – </p>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If num_copies is not a non-negative integer.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If trying to copy a net that already has pins attached.</p></li>
+</ul>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
-<p>An instance of a net can be copied just by calling it like so:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>    <span class="c1"># Create a net.</span>
-<span class="n">n_copy</span> <span class="o">=</span> <span class="n">n</span><span class="p">()</span>    <span class="c1"># Copy the net.</span>
-</pre></div>
-</div>
-<p>You can also use the multiplication operator to make copies:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>  <span class="c1"># Create an array of nets.</span>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>    <span class="c1"># Create a net.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n_copy</span> <span class="o">=</span> <span class="n">n</span><span class="p">()</span>    <span class="c1"># Copy the net.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n_array</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>  <span class="c1"># Create an array of 10 nets.</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -161,22 +564,43 @@ lists/tuples of them to be connected to this net.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.net.Net.create_network">
 <span class="sig-name descname"><span class="pre">create_network</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net.create_network"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net.create_network" title="Link to this definition">¶</a></dt>
-<dd><p>Create a network from a single net.</p>
+<dd><p>Create a Network object containing just this net.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A network containing this net.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="skidl.network.html#skidl.network.Network" title="skidl.network.Network">Network</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.net.Net.disconnect">
 <span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net.disconnect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net.disconnect" title="Link to this definition">¶</a></dt>
-<dd><p>Remove the pin from this net but not any other nets it’s attached to.</p>
+<dd><p>Remove a pin from this net but not from other nets it’s attached to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pin</strong> (<a class="reference internal" href="skidl.pin.html#skidl.pin.Pin" title="skidl.pin.Pin"><em>Pin</em></a>) – The pin to disconnect from this net.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.net.Net.drive">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">drive</span></span><a class="headerlink" href="#skidl.net.Net.drive" title="Link to this definition">¶</a></dt>
-<dd><p>Get, set and delete the drive strength of this net.</p>
-<p>The drive strength cannot be set to a value less than its current
-value. So as pins are added to a net, the drive strength reflects the
-maximum drive value of the pins currently on the net.</p>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">drive</span></span><a class="headerlink" href="#skidl.net.Net.drive" title="Link to this definition">¶</a></dt>
+<dd><p>Get, set or delete the drive strength of this net.</p>
+<p>The drive strength represents the electrical driving capability of the net.
+It is automatically set to the maximum drive value of any pin connected to
+the net, and cannot be set to a lower value than the current maximum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The drive strength value.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -186,8 +610,94 @@ maximum drive value of the pins currently on the net.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.net.Net.fetch">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net.fetch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net.fetch" title="Link to this definition">¶</a></dt>
-<dd><p>Get the net with the given name from a circuit, or create it if not found.</p>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net.fetch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net.fetch" title="Link to this definition">¶</a></dt>
+<dd><p>Get an existing net by name, or create it if not found.</p>
+<p>This convenience method combines the functionality of get() and __init__()
+to provide a “get-or-create” pattern. It first attempts to find an existing
+net with the specified name, and if not found, creates a new net with that
+name and the provided parameters.</p>
+<p>This is particularly useful for building circuits where you want to
+reference nets by name without worrying about whether they already exist,
+such as when importing from netlists or building circuits procedurally.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Name of the net to fetch or create. Used for both
+the search (if net exists) and the name parameter (if creating).</p></li>
+<li><p><strong>*args</strong> – Additional positional arguments passed to Net() constructor
+if creation is needed. Ignored if net already exists.</p></li>
+<li><p><strong>**attribs</strong> – Keyword arguments passed to Net() constructor if creation
+is needed. The ‘circuit’ parameter is used for both search
+and creation contexts.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Either the existing net with the specified name, or a newly</dt><dd><p>created net if no existing net was found. The returned net
+is guaranteed to have the requested name (or a unique variant).</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#skidl.net.Net" title="skidl.net.Net">Net</a></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Basic fetch-or-create pattern</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcc</span> <span class="o">=</span> <span class="n">Net</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;VCC&#39;</span><span class="p">)</span>                  <span class="c1"># Creates if not exists</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcc2</span> <span class="o">=</span> <span class="n">Net</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;VCC&#39;</span><span class="p">)</span>                 <span class="c1"># Returns existing net</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">vcc</span> <span class="ow">is</span> <span class="n">vcc2</span>                     <span class="c1"># Same object</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Fetch with creation parameters</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">power</span> <span class="o">=</span> <span class="n">Net</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;POWER_RAIL&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                  <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;VCC&#39;</span><span class="p">],</span> <span class="n">regulator</span><span class="p">[</span><span class="s1">&#39;OUT&#39;</span><span class="p">],</span>  <span class="c1"># Initial connections</span>
+<span class="gp">... </span>                  <span class="n">do_erc</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>                   <span class="c1"># ERC enabled</span>
+<span class="gp">... </span>                  <span class="n">circuit</span><span class="o">=</span><span class="n">main_circuit</span><span class="p">)</span>          <span class="c1"># Specific circuit</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Use in circuit building</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">connect_power</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">vcc</span> <span class="o">=</span> <span class="n">Net</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;VCC&#39;</span><span class="p">)</span>              <span class="c1"># Always get VCC net</span>
+<span class="gp">... </span>    <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>              <span class="c1"># Always get GND net</span>
+<span class="gp">... </span>    <span class="n">vcc</span> <span class="o">+=</span> <span class="n">part</span><span class="p">[</span><span class="s1">&#39;VCC&#39;</span><span class="p">]</span>                  <span class="c1"># Connect power</span>
+<span class="gp">... </span>    <span class="n">gnd</span> <span class="o">+=</span> <span class="n">part</span><span class="p">[</span><span class="s1">&#39;GND&#39;</span><span class="p">]</span>                  <span class="c1"># Connect ground</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Procedural circuit construction</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">data_net</span> <span class="o">=</span> <span class="n">Net</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;DATA_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">data_net</span> <span class="o">+=</span> <span class="n">processor</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;D</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">],</span> <span class="n">memory</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;D</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Creation vs. Retrieval:</dt><dd><ul class="simple">
+<li><p>If a net with the specified name exists: Returns existing net,
+ignores all other parameters</p></li>
+<li><p>If no net exists: Creates new net with all provided parameters</p></li>
+<li><p>Circuit context: Used for both search and creation</p></li>
+</ul>
+</dd>
+<dt>Name Uniqueness:</dt><dd><p>If the requested name conflicts with existing nets during creation,
+the new net will receive a modified name (e.g., “VCC_1”, “VCC_2”)
+to maintain uniqueness within the circuit.</p>
+</dd>
+<dt>Circuit Handling:</dt><dd><p>The ‘circuit’ parameter serves dual purposes:
+- Search context: Where to look for existing nets
+- Creation context: Where to create new nets if needed
+- If not specified, uses the default circuit for both operations</p>
+</dd>
+<dt>Error Handling:</dt><dd><p>Creation errors (invalid parameters, circuit conflicts, etc.) are
+passed through from the Net() constructor. Retrieval errors are
+rare since get() returns None for missing nets rather than raising
+exceptions.</p>
+</dd>
+<dt>Use Cases:</dt><dd><ul class="simple">
+<li><p>Importing circuits from external netlists</p></li>
+<li><p>Procedural circuit generation with named nets</p></li>
+<li><p>Building reusable circuit functions that reference standard nets</p></li>
+<li><p>Interactive circuit construction where net existence is uncertain</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -196,7 +706,13 @@ maximum drive value of the pins currently on the net.</p>
 <dd><p>Generate the net information for inclusion in a netlist.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>tool</strong> – The format for the netlist file (e.g., KICAD).</p>
+<dd class="field-odd"><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The format for the netlist file (e.g., KICAD).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The net information formatted for the specified tool.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -207,103 +723,378 @@ maximum drive value of the pins currently on the net.</p>
 <dd><p>Generate the net information for inclusion in an XML file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>tool</strong> – The format for the XML file (e.g., KICAD).</p>
+<dd class="field-odd"><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The format for the XML file (e.g., KICAD).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The net information formatted as XML for the specified tool.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.net.Net.get">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net.get" title="Link to this definition">¶</a></dt>
-<dd><p>Get the net with the given name from a circuit, or return None.</p>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net.get" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve an existing net by name from a circuit.</p>
+<p>Searches the specified circuit (or default circuit) for a net with the
+given name or alias. This provides a convenient way to access existing
+nets without maintaining explicit references, especially useful in
+hierarchical designs or when working with imported netlists.</p>
+<p>The search examines both primary net names and any assigned aliases,
+using string matching to find the best match. Case-sensitive exact
+matching is performed for reliable net identification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Name or alias of the net to find. Must match exactly
+(case-sensitive) either the net’s primary name or one of its
+assigned aliases.</p></li>
+<li><p><strong>circuit</strong> (<a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit" title="skidl.circuit.Circuit"><em>Circuit</em></a><em>, </em><em>optional</em>) – Circuit to search for the net.
+If None, searches the currently active default circuit.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The found Net object if a match is found, otherwise</dt><dd><p>None. For nets with multiple interconnected segments, returns
+the first segment found (all segments share the same name).</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#skidl.net.Net" title="skidl.net.Net">Net</a> or None</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Find nets by primary name</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcc</span> <span class="o">=</span> <span class="n">Net</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;VCC&#39;</span><span class="p">)</span>                    <span class="c1"># Find VCC net</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ground</span> <span class="o">=</span> <span class="n">Net</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">,</span> <span class="n">my_circuit</span><span class="p">)</span>     <span class="c1"># Find in specific circuit</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Find nets by alias</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">power</span> <span class="o">=</span> <span class="n">Net</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;POWER_RAIL&#39;</span><span class="p">)</span>           <span class="c1"># Might be alias for VCC</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Handle missing nets gracefully</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_net</span> <span class="o">=</span> <span class="n">Net</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;TEST_SIGNAL&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">test_net</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test signal net not found&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found net with </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">test_net</span><span class="p">)</span><span class="si">}</span><span class="s2"> pins&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Use in conditional operations</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">existing_clk</span> <span class="o">=</span> <span class="n">Net</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CLK&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;CLK&#39;</span><span class="p">)</span>  <span class="c1"># Get or create</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Search Strategy:</dt><dd><p>The method searches in the following order:
+1. Primary net names (exact string match)
+2. Net aliases (exact string match)
+3. Returns None if no matches found</p>
+</dd>
+<dt>Multi-segment Nets:</dt><dd><p>For nets composed of multiple interconnected segments (created by
+merging nets), the search returns the first segment found. All
+segments of a multi-segment net share the same name, so any
+segment provides access to the complete electrical group.</p>
+</dd>
+<dt>Circuit Context:</dt><dd><p>Each circuit maintains its own namespace for net names. The same
+name can exist in different circuits without conflict. Always
+specify the circuit parameter when working with multiple circuits
+to ensure you get the net from the correct context.</p>
+</dd>
+<dt>Performance:</dt><dd><p>The search is optimized for typical circuit sizes but may be slower
+for very large circuits with thousands of nets. Consider maintaining
+direct references for frequently accessed nets in performance-critical
+applications.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.net.Net.get_nets">
 <span class="sig-name descname"><span class="pre">get_nets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net.get_nets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net.get_nets" title="Link to this definition">¶</a></dt>
-<dd><p>Return a list of nets attached to this net, including this net.</p>
+<dd><p>Get all connected net segments including this one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of all net segments connected to this net, including this net.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.net.Net.get_pins">
 <span class="sig-name descname"><span class="pre">get_pins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net.get_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net.get_pins" title="Link to this definition">¶</a></dt>
-<dd><p>Return a list of pins attached to this net.</p>
+<dd><p>Get all pins connected to this net.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>List of pins attached to this net, including pins attached</dt><dd><p>to electrically connected segments.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.net.Net.is_attached">
 <span class="sig-name descname"><span class="pre">is_attached</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin_net_bus</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net.is_attached"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net.is_attached" title="Link to this definition">¶</a></dt>
-<dd><p>Return true if the pin, net or bus is attached to this one.</p>
+<dd><p>Check if a pin, net, or bus is electrically connected to this net.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pin_net_bus</strong> – A Pin, Net, or Bus object to check for attachment.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the object is electrically connected to this net.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#TypeError" title="(in Python v3.13)"><strong>TypeError</strong></a> – If the given object is not a Pin, Net, or Bus.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.net.Net.is_implicit">
 <span class="sig-name descname"><span class="pre">is_implicit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net.is_implicit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net.is_implicit" title="Link to this definition">¶</a></dt>
-<dd><p>Return true if the net name is implicit.</p>
+<dd><p>Check if the net has an implicitly generated name.</p>
+<p>Implicit net names start with NET_PREFIX or BUS_PREFIX.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the net name is implicitly generated.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.net.Net.is_movable">
 <span class="sig-name descname"><span class="pre">is_movable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net.is_movable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net.is_movable" title="Link to this definition">¶</a></dt>
-<dd><p>Return true if the net is movable to another circuit.</p>
-<p>A net is movable if it’s not part of a Circuit or if there are no pins
+<dd><p>Check if the net can be moved to another circuit.</p>
+<p>A net is movable if it’s not part of a Circuit or if it has no pins
 attached to it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the net is movable.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.net.Net.merge_names">
 <span class="sig-name descname"><span class="pre">merge_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net.merge_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net.merge_names" title="Link to this definition">¶</a></dt>
-<dd><p>For multi-segment nets, select a common name for all the segments.</p>
+<dd><p>For multi-segment nets, select a common name for all segments.</p>
+<p>When nets are joined, they can have different names. This method
+chooses the best name among connected net segments and assigns
+it to all of them.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.net.Net.name">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#skidl.net.Net.name" title="Link to this definition">¶</a></dt>
-<dd><p>Get, set and delete the name of this net.</p>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#skidl.net.Net.name" title="Link to this definition">¶</a></dt>
+<dd><p>Get or set the name of this net.</p>
 <p>When setting the net name, if another net with the same name
-is found, the name for this net is adjusted to make it unique.</p>
+exists in the circuit, the name for this net will be adjusted
+to make it unique.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Net name.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="skidl.net.Net.netclass">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">netclass</span></span><a class="headerlink" href="#skidl.net.Net.netclass" title="Link to this definition">¶</a></dt>
-<dd><p>Get, set and delete the net class assigned to this net.</p>
-<p>If not net class is set, then reading the net class returns None.</p>
-<p>You can’t overwrite the net class of a net once it’s set.
-You’ll have to delete it and then set it to a new value.</p>
-<p>Also, assigning a net class of None will have no affect on the
-existing net class of a net.</p>
+<dt class="sig sig-object py" id="skidl.net.Net.netclasses">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">netclasses</span></span><a class="headerlink" href="#skidl.net.Net.netclasses" title="Link to this definition">¶</a></dt>
+<dd><p>Get or set the net class(es) assigned to this net and connected segments.</p>
+<p>Net classes define PCB routing rules including trace widths, clearances,
+via sizes, and electrical properties. They control how nets are routed
+during PCB layout and enforce design constraints. A net can be assigned
+to multiple net classes for complex routing requirements.</p>
+<p>When setting net classes, the assignment automatically propagates to all
+electrically connected net segments, ensuring consistent routing rules
+across the entire electrical connection. This maintains design integrity
+when nets are merged or split during circuit construction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Container holding zero or more NetClass objects.
+An empty list indicates no net class assignments. The container
+supports iteration, indexing, and membership testing for
+convenient access to assigned classes.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>NetClasses</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Check current net class assignments</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">power_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VCC&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">power_net</span><span class="o">.</span><span class="n">netclass</span><span class="p">))</span>          <span class="c1"># 0 (no classes assigned)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Assign single net class</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">power_class</span> <span class="o">=</span> <span class="n">NetClass</span><span class="p">(</span><span class="s1">&#39;Power&#39;</span><span class="p">,</span> <span class="n">trace_width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">clearance</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">power_net</span><span class="o">.</span><span class="n">netclass</span> <span class="o">=</span> <span class="n">power_class</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">power_net</span><span class="o">.</span><span class="n">netclass</span><span class="p">))</span>          <span class="c1"># 1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">power_net</span><span class="o">.</span><span class="n">netclass</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>       <span class="c1"># &#39;Power&#39;</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Assign multiple net classes</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">critical_class</span> <span class="o">=</span> <span class="n">NetClass</span><span class="p">(</span><span class="s1">&#39;Critical&#39;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">power_net</span><span class="o">.</span><span class="n">netclass</span> <span class="o">=</span> <span class="n">power_class</span><span class="p">,</span> <span class="n">critical_class</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">power_net</span><span class="o">.</span><span class="n">netclass</span><span class="p">))</span>          <span class="c1"># 2</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Check for specific class membership</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">power_class</span> <span class="ow">in</span> <span class="n">power_net</span><span class="o">.</span><span class="n">netclass</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Net uses </span><span class="si">{</span><span class="n">power_class</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> routing rules&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Iterate through assigned classes</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">nc</span> <span class="ow">in</span> <span class="n">power_net</span><span class="o">.</span><span class="n">netclass</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Class: </span><span class="si">{</span><span class="n">nc</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">, Width: </span><span class="si">{</span><span class="n">nc</span><span class="o">.</span><span class="n">trace_width</span><span class="si">}</span><span class="s2">mm&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl>
+<dt>Multi-segment Propagation:</dt><dd><p>When nets are electrically connected through shared pins, all
+segments automatically share the same net class assignments:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">net1</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;SIG_A&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">net2</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;SIG_B&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">net1</span><span class="o">.</span><span class="n">netclass</span> <span class="o">=</span> <span class="n">power_class</span>          <span class="c1"># Assign to net1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shared_pin</span> <span class="o">=</span> <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;PA1&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">net1</span> <span class="o">+=</span> <span class="n">shared_pin</span>                   <span class="c1"># Connect pin to net1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">net2</span> <span class="o">+=</span> <span class="n">shared_pin</span>                   <span class="c1"># Merges nets, shares classes</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">net2</span><span class="o">.</span><span class="n">netclass</span> <span class="o">==</span> <span class="n">net1</span><span class="o">.</span><span class="n">netclass</span><span class="p">)</span>  <span class="c1"># True</span>
+</pre></div>
+</div>
+</dd>
+<dt>Class Conflict Resolution:</dt><dd><p>Multiple net classes with conflicting properties are resolved based
+on priority levels and tool-specific rules. Classes with higher
+priority numbers typically override lower priority classes:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">low_priority</span> <span class="o">=</span> <span class="n">NetClass</span><span class="p">(</span><span class="s1">&#39;Critical&#39;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">trace_width</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">high_priority</span> <span class="o">=</span> <span class="n">NetClass</span><span class="p">(</span><span class="s1">&#39;Standard&#39;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">trace_width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">signal_net</span><span class="o">.</span><span class="n">netclass</span> <span class="o">=</span> <span class="n">high_priority</span><span class="p">,</span> <span class="n">low_priority</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># PCB tool will likely use 0.8mm width from high_priority class</span>
+</pre></div>
+</div>
+</dd>
+<dt>Assignment Operations:</dt><dd><p>Net class assignments are additive by default - new classes are
+added to existing assignments rather than replacing them:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">signal_net</span><span class="o">.</span><span class="n">netclass</span> <span class="o">=</span> <span class="n">class1</span>         <span class="c1"># Assign first class</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">signal_net</span><span class="o">.</span><span class="n">netclass</span> <span class="o">=</span> <span class="n">class2</span>         <span class="c1"># Add second class</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">signal_net</span><span class="o">.</span><span class="n">netclass</span><span class="p">))</span>      <span class="c1"># 2 (both classes assigned)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># To replace all classes, delete first</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">del</span> <span class="n">signal_net</span><span class="o">.</span><span class="n">netclass</span>              <span class="c1"># Clear all classes</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">signal_net</span><span class="o">.</span><span class="n">netclass</span> <span class="o">=</span> <span class="n">new_class</span>      <span class="c1"># Assign replacement</span>
+</pre></div>
+</div>
+</dd>
+<dt>PCB Tool Integration:</dt><dd><p>Net class assignments are exported during netlist generation and
+become design rules in PCB layout tools. Different tools handle
+multiple classes differently - some merge properties, others use
+priority-based selection, and some apply all rules simultaneously.</p>
+</dd>
+<dt>Design Rule Checking:</dt><dd><p>Net classes enable automated design rule checking (DRC) during
+PCB layout. Violations of trace width, clearance, or via size
+rules generate errors that must be resolved before manufacturing.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.net.Net.nets">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nets</span></span><a class="headerlink" href="#skidl.net.Net.nets" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nets</span></span><a class="headerlink" href="#skidl.net.Net.nets" title="Link to this definition">¶</a></dt>
+<dd><p>Get all net segments connected to this net.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of all net segments electrically connected to this net.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.net.Net.pins">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pins</span></span><a class="headerlink" href="#skidl.net.Net.pins" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pins</span></span><a class="headerlink" href="#skidl.net.Net.pins" title="Link to this definition">¶</a></dt>
+<dd><p>Get the pins attached to this net.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of pins attached to this net.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.net.Net.stub">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stub</span></span><a class="headerlink" href="#skidl.net.Net.stub" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stub</span></span><a class="headerlink" href="#skidl.net.Net.stub" title="Link to this definition">¶</a></dt>
+<dd><p>Get or set the stub status of this net.</p>
+<p>A stub net is not routed in schematic generation, but
+is represented as a short stub connected to the pin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if this is a stub net.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.net.Net.test_validity">
 <span class="sig-name descname"><span class="pre">test_validity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net.test_validity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net.test_validity" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Test if the net is valid for use.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If the net is no longer valid.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.net.Net.valid">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">valid</span></span><a class="headerlink" href="#skidl.net.Net.valid" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">valid</span></span><a class="headerlink" href="#skidl.net.Net.valid" title="Link to this definition">¶</a></dt>
+<dd><p>Check if this net is still valid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the net is valid, False if it has been invalidated.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.net.Net.width">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">width</span></span><a class="headerlink" href="#skidl.net.Net.width" title="Link to this definition">¶</a></dt>
-<dd><p>Return width of a Net, which is always 1.</p>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">width</span></span><a class="headerlink" href="#skidl.net.Net.width" title="Link to this definition">¶</a></dt>
+<dd><p>Get the width of the net.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Always 1 for a Net object.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -315,7 +1106,7 @@ existing net class of a net.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
   <div>
     <h3><a href="../index.html">Table of Contents</a></h3>
@@ -344,7 +1135,7 @@ existing net class of a net.</p>
 <li><a class="reference internal" href="#skidl.net.Net.is_movable"><code class="docutils literal notranslate"><span class="pre">Net.is_movable()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.net.Net.merge_names"><code class="docutils literal notranslate"><span class="pre">Net.merge_names()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.net.Net.name"><code class="docutils literal notranslate"><span class="pre">Net.name</span></code></a></li>
-<li><a class="reference internal" href="#skidl.net.Net.netclass"><code class="docutils literal notranslate"><span class="pre">Net.netclass</span></code></a></li>
+<li><a class="reference internal" href="#skidl.net.Net.netclasses"><code class="docutils literal notranslate"><span class="pre">Net.netclasses</span></code></a></li>
 <li><a class="reference internal" href="#skidl.net.Net.nets"><code class="docutils literal notranslate"><span class="pre">Net.nets</span></code></a></li>
 <li><a class="reference internal" href="#skidl.net.Net.pins"><code class="docutils literal notranslate"><span class="pre">Net.pins</span></code></a></li>
 <li><a class="reference internal" href="#skidl.net.Net.stub"><code class="docutils literal notranslate"><span class="pre">Net.stub</span></code></a></li>
@@ -379,7 +1170,7 @@ existing net class of a net.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -388,13 +1179,13 @@ existing net class of a net.</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.net module</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

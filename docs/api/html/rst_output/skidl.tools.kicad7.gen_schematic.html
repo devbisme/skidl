@@ -7,12 +7,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.tools.kicad7.gen_schematic module &#8212; SKiDL 2.0.1 documentation</title>
+    <title>skidl.tools.kicad7.gen_schematic module &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -24,7 +24,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../"><img src="../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad7.gen_schematic module</a></li> 
       </ul>
     </div>  
@@ -53,38 +53,15 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>circuit</strong> (<a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit" title="skidl.circuit.Circuit"><em>Circuit</em></a>) – The Circuit object that will have a schematic generated for it.</p></li>
-<li><p><strong>filepath</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – The directory where the schematic files are placed. Defaults to “.”.</p></li>
-<li><p><strong>top_name</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – The name for the top of the circuit hierarchy. Defaults to get_script_name().</p></li>
-<li><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – The title of the schematic. Defaults to “SKiDL-Generated Schematic”.</p></li>
-<li><p><strong>flatness</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>optional</em>) – Determines how much the hierarchy is flattened in the schematic. Defaults to 0.0 (completely hierarchical).</p></li>
-<li><p><strong>retries</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Number of times to re-try if routing fails. Defaults to 2.</p></li>
-<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><em>optional</em>) – Dict of options and values, usually for drawing/debugging.</p></li>
+<li><p><strong>filepath</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The directory where the schematic files are placed. Defaults to “.”.</p></li>
+<li><p><strong>top_name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The name for the top of the circuit hierarchy. Defaults to get_script_name().</p></li>
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The title of the schematic. Defaults to “SKiDL-Generated Schematic”.</p></li>
+<li><p><strong>flatness</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) – Determines how much the hierarchy is flattened in the schematic. Defaults to 0.0 (completely hierarchical).</p></li>
+<li><p><strong>retries</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – Number of times to re-try if routing fails. Defaults to 2.</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em>, </em><em>optional</em>) – Dict of options and values, usually for drawing/debugging.</p></li>
 </ul>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="skidl.tools.kicad7.gen_schematic.node_to_eeschema">
-<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad7.gen_schematic.</span></span><span class="sig-name descname"><span class="pre">node_to_eeschema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet_tx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Tx()</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad7/gen_schematic.html#node_to_eeschema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad7.gen_schematic.node_to_eeschema" title="Link to this definition">¶</a></dt>
-<dd><p>Convert node circuitry to an EESCHEMA sheet.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>sheet_tx</strong> (<a class="reference internal" href="skidl.geometry.html#skidl.geometry.Tx" title="skidl.geometry.Tx"><em>Tx</em></a><em>, </em><em>optional</em>) – Scaling/translation matrix for sheet. Defaults to Tx().</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>EESCHEMA text for the node circuitry.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="skidl.tools.kicad7.gen_schematic.pin_label_to_eeschema">
-<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad7.gen_schematic.</span></span><span class="sig-name descname"><span class="pre">pin_label_to_eeschema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad7/gen_schematic.html#pin_label_to_eeschema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad7.gen_schematic.pin_label_to_eeschema" title="Link to this definition">¶</a></dt>
-<dd><p>Create EESCHEMA text of net label attached to a pin.</p>
 </dd></dl>
 
 </section>
@@ -94,15 +71,13 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
   <div>
     <h3><a href="../index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">skidl.tools.kicad7.gen_schematic module</a><ul>
 <li><a class="reference internal" href="#skidl.tools.kicad7.gen_schematic.gen_schematic"><code class="docutils literal notranslate"><span class="pre">gen_schematic()</span></code></a></li>
-<li><a class="reference internal" href="#skidl.tools.kicad7.gen_schematic.node_to_eeschema"><code class="docutils literal notranslate"><span class="pre">node_to_eeschema()</span></code></a></li>
-<li><a class="reference internal" href="#skidl.tools.kicad7.gen_schematic.pin_label_to_eeschema"><code class="docutils literal notranslate"><span class="pre">pin_label_to_eeschema()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -129,7 +104,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -138,13 +113,13 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad7.gen_schematic module</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

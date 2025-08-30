@@ -1,0 +1,7 @@
+skidl.tools.kicad9.gen\_xml module
+==================================
+
+.. automodule:: skidl.tools.kicad9.gen_xml
+   :members:
+   :show-inheritance:
+   :undoc-members:

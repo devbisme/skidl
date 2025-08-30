@@ -6,12 +6,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.schematics.route &#8212; SKiDL 2.0.1 documentation</title>
+    <title>skidl.schematics.route &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -23,7 +23,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../../../"><img src="../../../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.schematics.route</a></li> 
       </ul>
@@ -61,7 +61,7 @@
 
 <span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="n">Part</span>
 <span class="kn">from</span> <span class="nn">skidl.utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span><span class="p">,</span> <span class="n">rmv_attr</span>
-<span class="kn">from</span> <span class="nn">.debug_draw</span> <span class="kn">import</span> <span class="n">draw_end</span><span class="p">,</span> <span class="n">draw_endpoint</span><span class="p">,</span> <span class="n">draw_routing</span><span class="p">,</span> <span class="n">draw_seg</span><span class="p">,</span> <span class="n">draw_start</span>
+<span class="kn">from</span> <span class="nn">.debug_draw</span> <span class="kn">import</span> <span class="n">draw_end</span><span class="p">,</span> <span class="n">draw_endpoint</span><span class="p">,</span> <span class="n">draw_routing</span><span class="p">,</span> <span class="n">draw_seg</span><span class="p">,</span> <span class="n">draw_start</span><span class="p">,</span> <span class="n">draw_text</span>
 <span class="kn">from</span> <span class="nn">skidl.geometry</span> <span class="kn">import</span> <span class="n">BBox</span><span class="p">,</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Segment</span><span class="p">,</span> <span class="n">Tx</span><span class="p">,</span> <span class="n">Vector</span><span class="p">,</span> <span class="n">tx_rot_90</span>
 
 
@@ -2354,9 +2354,7 @@
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">closest_face</span><span class="p">:</span>
                     <span class="c1"># Exception raised if couldn&#39;t find a path from start to stop faces.</span>
                     <span class="k">raise</span> <span class="n">GlobalRoutingFailure</span><span class="p">(</span>
-                        <span class="s2">&quot;Global routing failure: </span><span class="si">{net.name}</span><span class="s2"> </span><span class="si">{net}</span><span class="s2"> </span><span class="si">{start_face.pins}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                            <span class="o">**</span><span class="nb">locals</span><span class="p">()</span>
-                        <span class="p">)</span>
+                        <span class="sa">f</span><span class="s2">&quot;Global routing failure: </span><span class="si">{</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">net</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">start_face</span><span class="o">.</span><span class="n">pins</span><span class="si">}</span><span class="s2">&quot;</span>
                     <span class="p">)</span>
 
                 <span class="c1"># Add the closest adjacent face to the list of visited faces.</span>
@@ -3330,7 +3328,7 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
@@ -3346,7 +3344,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -3355,14 +3353,14 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.schematics.route</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

@@ -7,12 +7,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl package &#8212; SKiDL 2.0.1 documentation</title>
+    <title>skidl package &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -24,7 +24,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../"><img src="../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl package</a></li> 
       </ul>
     </div>  
@@ -46,17 +46,38 @@
   <section id="module-skidl">
 <span id="skidl-package"></span><h1>skidl package<a class="headerlink" href="#module-skidl" title="Link to this heading">¶</a></h1>
 <p>SKiDL: A Python-Based Schematic Design Language</p>
-<p>This module extends Python with the ability to design electronic
-circuits. It provides classes for working with:</p>
-<ul class="simple">
-<li><p>Electronic parts (<code class="docutils literal notranslate"><span class="pre">Part</span></code>),</p></li>
-<li><p>Collections of part terminals (<code class="docutils literal notranslate"><span class="pre">Pin</span></code>) connected via wires (<code class="docutils literal notranslate"><span class="pre">Net</span></code>), and</p></li>
-<li><p>Groups of related nets (<code class="docutils literal notranslate"><span class="pre">Bus</span></code>).</p></li>
-</ul>
-<p>Using these classes, you can concisely describe the interconnection of
-parts using a flat or hierarchical structure. The resulting Python script
-outputs a netlist that can be imported into a PCB layout tool or Spice simulator.
-The script can also check the resulting circuitry for electrical rule violations.</p>
+<p>SKiDL is a module that allows you to compactly describe electronic
+circuits using Python. The resulting Python program performs electrical rules
+checking for common mistakes and outputs a netlist that serves as input to
+a PCB layout tool.</p>
+<p>SKiDL reads in libraries of electronic parts and converts them into
+Python objects. The objects can be instantiated into components and connected
+into a circuit using net objects. The circuit can be checked for
+common errors automatically by the ERC (electrical rules checking)
+module, and then a netlist can be generated for input to
+a PCB layout tool.</p>
+<p>Full documentation is available at <a class="reference external" href="https://devbisme.github.io/skidl">https://devbisme.github.io/skidl</a></p>
+<p>Here’s a simple example of SKiDL used to describe a circuit with a resistor
+and LED in series powered by a battery:</p>
+<blockquote>
+<div><p>import skidl
+from skidl import *</p>
+<p># Create a resistor and LED.
+r1 = Part(‘Device’, ‘R’, value=’1K’)  # Create a 1K resistor.
+led = Part(‘Device’, ‘LED’)           # Create a LED.</p>
+<p># Create a battery.
+bat = Part(‘Device’, ‘Battery_Cell’)</p>
+<p># Connect the components.
+vcc = Net(‘VCC’)      # Net for VCC.
+gnd = Net(‘GND’)      # Net for ground.
+vcc += bat[‘+’]       # Connect the battery positive terminal to VCC.
+gnd += bat[‘-’]       # Connect the battery negative terminal to GND.
+vcc += r1[1]          # Connect one end of the resistor to VCC.
+r1[2] += led[‘A’]     # Connect the other end to the LED anode.
+led[‘K’] += gnd       # Connect the LED cathode to GND.</p>
+<p># Output the netlist to a file.
+generate_netlist()</p>
+</div></blockquote>
 <section id="subpackages">
 <h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
@@ -84,10 +105,6 @@ The script can also check the resulting circuitry for electrical rule violations
 <li class="toctree-l4"><a class="reference internal" href="skidl.schematics.net_terminal.html#skidl.schematics.net_terminal.NetTerminal"><code class="docutils literal notranslate"><span class="pre">NetTerminal</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="skidl.schematics.node.html">skidl.schematics.node module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="skidl.schematics.node.html#skidl.schematics.node.Node"><code class="docutils literal notranslate"><span class="pre">Node</span></code></a></li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.schematics.place.html">skidl.schematics.place module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="skidl.schematics.place.html#skidl.schematics.place.PlacementFailure"><code class="docutils literal notranslate"><span class="pre">PlacementFailure</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.schematics.place.html#skidl.schematics.place.Placer"><code class="docutils literal notranslate"><span class="pre">Placer</span></code></a></li>
@@ -101,6 +118,10 @@ The script can also check the resulting circuitry for electrical rule violations
 <li class="toctree-l4"><a class="reference internal" href="skidl.schematics.route.html#skidl.schematics.route.Router"><code class="docutils literal notranslate"><span class="pre">Router</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.schematics.route.html#skidl.schematics.route.RoutingFailure"><code class="docutils literal notranslate"><span class="pre">RoutingFailure</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.schematics.route.html#skidl.schematics.route.SwitchboxRoutingFailure"><code class="docutils literal notranslate"><span class="pre">SwitchboxRoutingFailure</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.schematics.sch_node.html">skidl.schematics.sch_node module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="skidl.schematics.sch_node.html#skidl.schematics.sch_node.SchNode"><code class="docutils literal notranslate"><span class="pre">SchNode</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -133,6 +154,10 @@ The script can also check the resulting circuitry for electrical rule violations
 </li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.tools.kicad8.html">skidl.tools.kicad8 package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="skidl.tools.kicad8.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.tools.kicad9.html">skidl.tools.kicad9 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="skidl.tools.kicad9.html#submodules">Submodules</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.tools.skidl.html">skidl.tools.skidl package</a><ul>
@@ -175,7 +200,9 @@ The script can also check the resulting circuitry for electrical rule violations
 <li class="toctree-l3"><a class="reference internal" href="skidl.bus.html#skidl.bus.Bus.is_implicit"><code class="docutils literal notranslate"><span class="pre">Bus.is_implicit()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.bus.html#skidl.bus.Bus.is_movable"><code class="docutils literal notranslate"><span class="pre">Bus.is_movable()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.bus.html#skidl.bus.Bus.name"><code class="docutils literal notranslate"><span class="pre">Bus.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.bus.html#skidl.bus.Bus.netclasses"><code class="docutils literal notranslate"><span class="pre">Bus.netclasses</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.bus.html#skidl.bus.Bus.pins"><code class="docutils literal notranslate"><span class="pre">Bus.pins</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.bus.html#skidl.bus.Bus.propagate_netclasses"><code class="docutils literal notranslate"><span class="pre">Bus.propagate_netclasses()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.bus.html#skidl.bus.Bus.width"><code class="docutils literal notranslate"><span class="pre">Bus.width</span></code></a></li>
 </ul>
 </li>
@@ -186,19 +213,26 @@ The script can also check the resulting circuitry for electrical rule violations
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.parts"><code class="docutils literal notranslate"><span class="pre">Circuit.parts</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.nets"><code class="docutils literal notranslate"><span class="pre">Circuit.nets</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.buses"><code class="docutils literal notranslate"><span class="pre">Circuit.buses</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.interfaces"><code class="docutils literal notranslate"><span class="pre">Circuit.interfaces</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.hierarchy"><code class="docutils literal notranslate"><span class="pre">Circuit.hierarchy</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.level"><code class="docutils literal notranslate"><span class="pre">Circuit.level</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.context"><code class="docutils literal notranslate"><span class="pre">Circuit.context</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.erc_list"><code class="docutils literal notranslate"><span class="pre">Circuit.erc_list</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.NC"><code class="docutils literal notranslate"><span class="pre">Circuit.NC</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.ERC"><code class="docutils literal notranslate"><span class="pre">Circuit.ERC()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.activate"><code class="docutils literal notranslate"><span class="pre">Circuit.activate()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.add_buses"><code class="docutils literal notranslate"><span class="pre">Circuit.add_buses()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.add_hierarchical_name"><code class="docutils literal notranslate"><span class="pre">Circuit.add_hierarchical_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.add_netclasses"><code class="docutils literal notranslate"><span class="pre">Circuit.add_netclasses()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.add_nets"><code class="docutils literal notranslate"><span class="pre">Circuit.add_nets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.add_partclasses"><code class="docutils literal notranslate"><span class="pre">Circuit.add_partclasses()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.add_parts"><code class="docutils literal notranslate"><span class="pre">Circuit.add_parts()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.add_stuff"><code class="docutils literal notranslate"><span class="pre">Circuit.add_stuff()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.backup_parts"><code class="docutils literal notranslate"><span class="pre">Circuit.backup_parts()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.check_for_empty_footprints"><code class="docutils literal notranslate"><span class="pre">Circuit.check_for_empty_footprints()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.check_tags"><code class="docutils literal notranslate"><span class="pre">Circuit.check_tags()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.cull_unconnected_parts"><code class="docutils literal notranslate"><span class="pre">Circuit.cull_unconnected_parts()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.deactivate"><code class="docutils literal notranslate"><span class="pre">Circuit.deactivate()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.erc_list"><code class="docutils literal notranslate"><span class="pre">Circuit.erc_list</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#id0"><code class="docutils literal notranslate"><span class="pre">Circuit.erc_list</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.generate_dot"><code class="docutils literal notranslate"><span class="pre">Circuit.generate_dot()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.generate_graph"><code class="docutils literal notranslate"><span class="pre">Circuit.generate_graph()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.generate_netlist"><code class="docutils literal notranslate"><span class="pre">Circuit.generate_netlist()</span></code></a></li>
@@ -209,21 +243,23 @@ The script can also check the resulting circuitry for electrical rule violations
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.generate_xml"><code class="docutils literal notranslate"><span class="pre">Circuit.generate_xml()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.get_net_nc_stubs"><code class="docutils literal notranslate"><span class="pre">Circuit.get_net_nc_stubs()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.get_nets"><code class="docutils literal notranslate"><span class="pre">Circuit.get_nets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.get_node_names"><code class="docutils literal notranslate"><span class="pre">Circuit.get_node_names()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.merge_net_names"><code class="docutils literal notranslate"><span class="pre">Circuit.merge_net_names()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.merge_nets"><code class="docutils literal notranslate"><span class="pre">Circuit.merge_nets()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.mini_reset"><code class="docutils literal notranslate"><span class="pre">Circuit.mini_reset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.netclasses"><code class="docutils literal notranslate"><span class="pre">Circuit.netclasses</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.no_files"><code class="docutils literal notranslate"><span class="pre">Circuit.no_files</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.partclasses"><code class="docutils literal notranslate"><span class="pre">Circuit.partclasses</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.reset"><code class="docutils literal notranslate"><span class="pre">Circuit.reset()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.rmv_buses"><code class="docutils literal notranslate"><span class="pre">Circuit.rmv_buses()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.rmv_hierarchical_name"><code class="docutils literal notranslate"><span class="pre">Circuit.rmv_hierarchical_name()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.rmv_nets"><code class="docutils literal notranslate"><span class="pre">Circuit.rmv_nets()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.rmv_parts"><code class="docutils literal notranslate"><span class="pre">Circuit.rmv_parts()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.rmv_stuff"><code class="docutils literal notranslate"><span class="pre">Circuit.rmv_stuff()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit.to_tuple"><code class="docutils literal notranslate"><span class="pre">Circuit.to_tuple()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="skidl.common.html">skidl.common module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="skidl.config_.html">skidl.config_ module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="skidl.config_.html#skidl.config_.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="skidl.config_.html#skidl.config_.Config.load"><code class="docutils literal notranslate"><span class="pre">Config.load()</span></code></a></li>
@@ -232,6 +268,11 @@ The script can also check the resulting circuitry for electrical rule violations
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="skidl.config_.html#skidl.config_.SkidlConfig"><code class="docutils literal notranslate"><span class="pre">SkidlConfig</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="skidl.design_class.html">skidl.design_class module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="skidl.design_class.html#skidl.design_class.NetClass"><code class="docutils literal notranslate"><span class="pre">NetClass</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="skidl.design_class.html#skidl.design_class.PartClass"><code class="docutils literal notranslate"><span class="pre">PartClass</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="skidl.erc.html">skidl.erc module</a><ul>
@@ -295,12 +336,6 @@ The script can also check the resulting circuitry for electrical rule violations
 <li class="toctree-l2"><a class="reference internal" href="skidl.geometry.html#skidl.geometry.to_mms"><code class="docutils literal notranslate"><span class="pre">to_mms()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="skidl.group.html">skidl.group module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="skidl.group.html#skidl.group.Group"><code class="docutils literal notranslate"><span class="pre">Group</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="skidl.group.html#skidl.group.SubCircuit"><code class="docutils literal notranslate"><span class="pre">SubCircuit()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="skidl.group.html#skidl.group.subcircuit"><code class="docutils literal notranslate"><span class="pre">subcircuit()</span></code></a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="skidl.interface.html">skidl.interface module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="skidl.interface.html#skidl.interface.Interface"><code class="docutils literal notranslate"><span class="pre">Interface</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="skidl.interface.html#skidl.interface.Interface.connect"><code class="docutils literal notranslate"><span class="pre">Interface.connect()</span></code></a></li>
@@ -337,7 +372,7 @@ The script can also check the resulting circuitry for electrical rule violations
 <li class="toctree-l3"><a class="reference internal" href="skidl.net.html#skidl.net.Net.is_movable"><code class="docutils literal notranslate"><span class="pre">Net.is_movable()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.net.html#skidl.net.Net.merge_names"><code class="docutils literal notranslate"><span class="pre">Net.merge_names()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.net.html#skidl.net.Net.name"><code class="docutils literal notranslate"><span class="pre">Net.name</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="skidl.net.html#skidl.net.Net.netclass"><code class="docutils literal notranslate"><span class="pre">Net.netclass</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.net.html#skidl.net.Net.netclasses"><code class="docutils literal notranslate"><span class="pre">Net.netclasses</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.net.html#skidl.net.Net.nets"><code class="docutils literal notranslate"><span class="pre">Net.nets</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.net.html#skidl.net.Net.pins"><code class="docutils literal notranslate"><span class="pre">Net.pins</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.net.html#skidl.net.Net.stub"><code class="docutils literal notranslate"><span class="pre">Net.stub</span></code></a></li>
@@ -348,11 +383,44 @@ The script can also check the resulting circuitry for electrical rule violations
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="skidl.netclass.html">skidl.netclass module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="skidl.netclass.html#skidl.netclass.NetClass"><code class="docutils literal notranslate"><span class="pre">NetClass</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="skidl.netlist_to_skidl.html">skidl.netlist_to_skidl module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter"><code class="docutils literal notranslate"><span class="pre">HierarchicalConverter</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.analyze_nets"><code class="docutils literal notranslate"><span class="pre">HierarchicalConverter.analyze_nets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.assign_components_to_sheets"><code class="docutils literal notranslate"><span class="pre">HierarchicalConverter.assign_components_to_sheets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.component_to_skidl"><code class="docutils literal notranslate"><span class="pre">HierarchicalConverter.component_to_skidl()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.convert"><code class="docutils literal notranslate"><span class="pre">HierarchicalConverter.convert()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.cull_from_top"><code class="docutils literal notranslate"><span class="pre">HierarchicalConverter.cull_from_top()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.extract_sheet_info"><code class="docutils literal notranslate"><span class="pre">HierarchicalConverter.extract_sheet_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.find_lowest_common_ancestor"><code class="docutils literal notranslate"><span class="pre">HierarchicalConverter.find_lowest_common_ancestor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.generate_main_code"><code class="docutils literal notranslate"><span class="pre">HierarchicalConverter.generate_main_code()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.generate_sheet_code"><code class="docutils literal notranslate"><span class="pre">HierarchicalConverter.generate_sheet_code()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.net_to_skidl"><code class="docutils literal notranslate"><span class="pre">HierarchicalConverter.net_to_skidl()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="skidl.netlist_to_skidl.html">skidl.netlist_to_skidl module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.NetSexp"><code class="docutils literal notranslate"><span class="pre">NetSexp</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.NetlistSexp"><code class="docutils literal notranslate"><span class="pre">NetlistSexp</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.NetlistSexp.parts"><code class="docutils literal notranslate"><span class="pre">NetlistSexp.parts</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.NetlistSexp.nets"><code class="docutils literal notranslate"><span class="pre">NetlistSexp.nets</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.NetlistSexp.sheets"><code class="docutils literal notranslate"><span class="pre">NetlistSexp.sheets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.PartSexp"><code class="docutils literal notranslate"><span class="pre">PartSexp</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.PinSexp"><code class="docutils literal notranslate"><span class="pre">PinSexp</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.PropertySexp"><code class="docutils literal notranslate"><span class="pre">PropertySexp</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.Sheet"><code class="docutils literal notranslate"><span class="pre">Sheet</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.Sheet.number"><code class="docutils literal notranslate"><span class="pre">Sheet.number</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.Sheet.name"><code class="docutils literal notranslate"><span class="pre">Sheet.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.Sheet.path"><code class="docutils literal notranslate"><span class="pre">Sheet.path</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.Sheet.components"><code class="docutils literal notranslate"><span class="pre">Sheet.components</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.Sheet.local_nets"><code class="docutils literal notranslate"><span class="pre">Sheet.local_nets</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.Sheet.imported_nets"><code class="docutils literal notranslate"><span class="pre">Sheet.imported_nets</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.Sheet.parent"><code class="docutils literal notranslate"><span class="pre">Sheet.parent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.Sheet.children"><code class="docutils literal notranslate"><span class="pre">Sheet.children</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.SheetSexp"><code class="docutils literal notranslate"><span class="pre">SheetSexp</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.find_common_path_prefix"><code class="docutils literal notranslate"><span class="pre">find_common_path_prefix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.legalize_name"><code class="docutils literal notranslate"><span class="pre">legalize_name()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.netlist_to_skidl"><code class="docutils literal notranslate"><span class="pre">netlist_to_skidl()</span></code></a></li>
 </ul>
 </li>
@@ -376,12 +444,36 @@ The script can also check the resulting circuitry for electrical rule violations
 <li class="toctree-l2"><a class="reference internal" href="skidl.network.html#skidl.network.tee"><code class="docutils literal notranslate"><span class="pre">tee()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="skidl.node.html">skidl.node module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="skidl.node.html#skidl.node.Group"><code class="docutils literal notranslate"><span class="pre">Group</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="skidl.node.html#skidl.node.Node"><code class="docutils literal notranslate"><span class="pre">Node</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="skidl.node.html#skidl.node.Node.add_child"><code class="docutils literal notranslate"><span class="pre">Node.add_child()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.node.html#skidl.node.Node.hiernodes"><code class="docutils literal notranslate"><span class="pre">Node.hiernodes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.node.html#skidl.node.Node.hiertuple"><code class="docutils literal notranslate"><span class="pre">Node.hiertuple</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.node.html#skidl.node.Node.netclasses"><code class="docutils literal notranslate"><span class="pre">Node.netclasses</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.node.html#skidl.node.Node.partclasses"><code class="docutils literal notranslate"><span class="pre">Node.partclasses</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.node.html#skidl.node.Node.spin_off"><code class="docutils literal notranslate"><span class="pre">Node.spin_off()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.node.html#skidl.node.Node.tag_or_name"><code class="docutils literal notranslate"><span class="pre">Node.tag_or_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.node.html#skidl.node.Node.to_tuple"><code class="docutils literal notranslate"><span class="pre">Node.to_tuple()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="skidl.node.html#skidl.node.SubCircuit"><code class="docutils literal notranslate"><span class="pre">SubCircuit</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="skidl.node.html#skidl.node.subcircuit"><code class="docutils literal notranslate"><span class="pre">subcircuit</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="skidl.note.html">skidl.note module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="skidl.note.html#skidl.note.Note"><code class="docutils literal notranslate"><span class="pre">Note</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="skidl.part.html">skidl.part module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="skidl.part.html#skidl.part.Part"><code class="docutils literal notranslate"><span class="pre">Part</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.name"><code class="docutils literal notranslate"><span class="pre">Part.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.description"><code class="docutils literal notranslate"><span class="pre">Part.description</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.ref"><code class="docutils literal notranslate"><span class="pre">Part.ref</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.ref_prefix"><code class="docutils literal notranslate"><span class="pre">Part.ref_prefix</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.pins"><code class="docutils literal notranslate"><span class="pre">Part.pins</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.unit"><code class="docutils literal notranslate"><span class="pre">Part.unit</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.circuit"><code class="docutils literal notranslate"><span class="pre">Part.circuit</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.add_pins"><code class="docutils literal notranslate"><span class="pre">Part.add_pins()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.associate_pins"><code class="docutils literal notranslate"><span class="pre">Part.associate_pins()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.attached_to"><code class="docutils literal notranslate"><span class="pre">Part.attached_to()</span></code></a></li>
@@ -398,14 +490,16 @@ The script can also check the resulting circuitry for electrical rule violations
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.get"><code class="docutils literal notranslate"><span class="pre">Part.get()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.get_pins"><code class="docutils literal notranslate"><span class="pre">Part.get_pins()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.grab_pins"><code class="docutils literal notranslate"><span class="pre">Part.grab_pins()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.hierarchical_name"><code class="docutils literal notranslate"><span class="pre">Part.hierarchical_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.hiername"><code class="docutils literal notranslate"><span class="pre">Part.hiername</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.hiertuple"><code class="docutils literal notranslate"><span class="pre">Part.hiertuple</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.is_connected"><code class="docutils literal notranslate"><span class="pre">Part.is_connected()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.is_movable"><code class="docutils literal notranslate"><span class="pre">Part.is_movable()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.make_unit"><code class="docutils literal notranslate"><span class="pre">Part.make_unit()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.match_pin_regex"><code class="docutils literal notranslate"><span class="pre">Part.match_pin_regex</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.ordered_pins"><code class="docutils literal notranslate"><span class="pre">Part.ordered_pins</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.parse"><code class="docutils literal notranslate"><span class="pre">Part.parse()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.ref"><code class="docutils literal notranslate"><span class="pre">Part.ref</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.partclasses"><code class="docutils literal notranslate"><span class="pre">Part.partclasses</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.part.html#id0"><code class="docutils literal notranslate"><span class="pre">Part.ref</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.release_pins"><code class="docutils literal notranslate"><span class="pre">Part.release_pins()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.rename_pin"><code class="docutils literal notranslate"><span class="pre">Part.rename_pin()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.renumber_pin"><code class="docutils literal notranslate"><span class="pre">Part.renumber_pin()</span></code></a></li>
@@ -414,7 +508,7 @@ The script can also check the resulting circuitry for electrical rule violations
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.similarity"><code class="docutils literal notranslate"><span class="pre">Part.similarity()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.split_pin_names"><code class="docutils literal notranslate"><span class="pre">Part.split_pin_names()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.swap_pins"><code class="docutils literal notranslate"><span class="pre">Part.swap_pins()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.tag"><code class="docutils literal notranslate"><span class="pre">Part.tag</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.tag_ref_name"><code class="docutils literal notranslate"><span class="pre">Part.tag_ref_name</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.validate"><code class="docutils literal notranslate"><span class="pre">Part.validate()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.value"><code class="docutils literal notranslate"><span class="pre">Part.value</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.Part.value_to_str"><code class="docutils literal notranslate"><span class="pre">Part.value_to_str()</span></code></a></li>
@@ -424,6 +518,7 @@ The script can also check the resulting circuitry for electrical rule violations
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.PartUnit.add_pins_from_parent"><code class="docutils literal notranslate"><span class="pre">PartUnit.add_pins_from_parent()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.PartUnit.export"><code class="docutils literal notranslate"><span class="pre">PartUnit.export()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.PartUnit.grab_pins"><code class="docutils literal notranslate"><span class="pre">PartUnit.grab_pins()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.PartUnit.hiertuple"><code class="docutils literal notranslate"><span class="pre">PartUnit.hiertuple</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.PartUnit.ref"><code class="docutils literal notranslate"><span class="pre">PartUnit.ref</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.PartUnit.release_pins"><code class="docutils literal notranslate"><span class="pre">PartUnit.release_pins()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.part.html#skidl.part.PartUnit.validate"><code class="docutils literal notranslate"><span class="pre">PartUnit.validate()</span></code></a></li>
@@ -449,8 +544,13 @@ The script can also check the resulting circuitry for electrical rule violations
 <li class="toctree-l2"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin"><code class="docutils literal notranslate"><span class="pre">Pin</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.nets"><code class="docutils literal notranslate"><span class="pre">Pin.nets</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.part"><code class="docutils literal notranslate"><span class="pre">Pin.part</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.name"><code class="docutils literal notranslate"><span class="pre">Pin.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.num"><code class="docutils literal notranslate"><span class="pre">Pin.num</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.func"><code class="docutils literal notranslate"><span class="pre">Pin.func</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.do_erc"><code class="docutils literal notranslate"><span class="pre">Pin.do_erc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.stub"><code class="docutils literal notranslate"><span class="pre">Pin.stub</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.aliases"><code class="docutils literal notranslate"><span class="pre">Pin.aliases</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.MAX_PIN_NUM"><code class="docutils literal notranslate"><span class="pre">Pin.MAX_PIN_NUM</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.chk_conflict"><code class="docutils literal notranslate"><span class="pre">Pin.chk_conflict()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.circuit"><code class="docutils literal notranslate"><span class="pre">Pin.circuit</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.connect"><code class="docutils literal notranslate"><span class="pre">Pin.connect()</span></code></a></li>
@@ -458,11 +558,14 @@ The script can also check the resulting circuitry for electrical rule violations
 <li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.create_network"><code class="docutils literal notranslate"><span class="pre">Pin.create_network()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.disconnect"><code class="docutils literal notranslate"><span class="pre">Pin.disconnect()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.drive"><code class="docutils literal notranslate"><span class="pre">Pin.drive</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.drives"><code class="docutils literal notranslate"><span class="pre">Pin.drives</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.erc_desc"><code class="docutils literal notranslate"><span class="pre">Pin.erc_desc()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.export"><code class="docutils literal notranslate"><span class="pre">Pin.export()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.funcs"><code class="docutils literal notranslate"><span class="pre">Pin.funcs</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.get_nets"><code class="docutils literal notranslate"><span class="pre">Pin.get_nets()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.get_pin_info"><code class="docutils literal notranslate"><span class="pre">Pin.get_pin_info()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.get_pins"><code class="docutils literal notranslate"><span class="pre">Pin.get_pins()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.is_assigned"><code class="docutils literal notranslate"><span class="pre">Pin.is_assigned()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.is_attached"><code class="docutils literal notranslate"><span class="pre">Pin.is_attached()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.is_connected"><code class="docutils literal notranslate"><span class="pre">Pin.is_connected()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.move"><code class="docutils literal notranslate"><span class="pre">Pin.move()</span></code></a></li>
@@ -470,16 +573,21 @@ The script can also check the resulting circuitry for electrical rule violations
 <li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.pins"><code class="docutils literal notranslate"><span class="pre">Pin.pins</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.ref"><code class="docutils literal notranslate"><span class="pre">Pin.ref</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.split_name"><code class="docutils literal notranslate"><span class="pre">Pin.split_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.types"><code class="docutils literal notranslate"><span class="pre">Pin.types</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin.width"><code class="docutils literal notranslate"><span class="pre">Pin.width</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="skidl.pyspice.html">skidl.pyspice module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="skidl.pyspice.html">skidl.pyspice module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="skidl.pyspice.html#skidl.pyspice.abort_if_spice_unavailable"><code class="docutils literal notranslate"><span class="pre">abort_if_spice_unavailable()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="skidl.schlib.html">skidl.schlib module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="skidl.schlib.html#skidl.schlib.SchLib"><code class="docutils literal notranslate"><span class="pre">SchLib</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="skidl.schlib.html#skidl.schlib.SchLib.filename"><code class="docutils literal notranslate"><span class="pre">SchLib.filename</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.schlib.html#skidl.schlib.SchLib.parts"><code class="docutils literal notranslate"><span class="pre">SchLib.parts</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.schlib.html#skidl.schlib.SchLib._cache"><code class="docutils literal notranslate"><span class="pre">SchLib._cache</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.schlib.html#skidl.schlib.SchLib.add_parts"><code class="docutils literal notranslate"><span class="pre">SchLib.add_parts()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.schlib.html#skidl.schlib.SchLib.export"><code class="docutils literal notranslate"><span class="pre">SchLib.export()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.schlib.html#skidl.schlib.SchLib.get_parts"><code class="docutils literal notranslate"><span class="pre">SchLib.get_parts()</span></code></a></li>
@@ -491,6 +599,7 @@ The script can also check the resulting circuitry for electrical rule violations
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="skidl.scriptinfo.html">skidl.scriptinfo module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="skidl.scriptinfo.html#skidl.scriptinfo.get_script_dir"><code class="docutils literal notranslate"><span class="pre">get_script_dir()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="skidl.scriptinfo.html#skidl.scriptinfo.get_script_name"><code class="docutils literal notranslate"><span class="pre">get_script_name()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="skidl.scriptinfo.html#skidl.scriptinfo.get_skidl_trace"><code class="docutils literal notranslate"><span class="pre">get_skidl_trace()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="skidl.scriptinfo.html#skidl.scriptinfo.scriptinfo"><code class="docutils literal notranslate"><span class="pre">scriptinfo()</span></code></a></li>
@@ -501,6 +610,7 @@ The script can also check the resulting circuitry for electrical rule violations
 <li class="toctree-l2"><a class="reference internal" href="skidl.skidl.html#skidl.skidl.backup_parts"><code class="docutils literal notranslate"><span class="pre">backup_parts()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="skidl.skidl.html#skidl.skidl.empty_footprint_handler"><code class="docutils literal notranslate"><span class="pre">empty_footprint_handler()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="skidl.skidl.html#skidl.skidl.erc_assert"><code class="docutils literal notranslate"><span class="pre">erc_assert()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="skidl.skidl.html#skidl.skidl.generate_dot"><code class="docutils literal notranslate"><span class="pre">generate_dot()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="skidl.skidl.html#skidl.skidl.generate_graph"><code class="docutils literal notranslate"><span class="pre">generate_graph()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="skidl.skidl.html#skidl.skidl.generate_netlist"><code class="docutils literal notranslate"><span class="pre">generate_netlist()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="skidl.skidl.html#skidl.skidl.generate_pcb"><code class="docutils literal notranslate"><span class="pre">generate_pcb()</span></code></a></li>
@@ -518,11 +628,14 @@ The script can also check the resulting circuitry for electrical rule violations
 <li class="toctree-l3"><a class="reference internal" href="skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject.add_erc_assertion"><code class="docutils literal notranslate"><span class="pre">SkidlBaseObject.add_erc_assertion()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject.add_erc_function"><code class="docutils literal notranslate"><span class="pre">SkidlBaseObject.add_erc_function()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject.aliases"><code class="docutils literal notranslate"><span class="pre">SkidlBaseObject.aliases</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject.check_tag"><code class="docutils literal notranslate"><span class="pre">SkidlBaseObject.check_tag()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject.copy"><code class="docutils literal notranslate"><span class="pre">SkidlBaseObject.copy()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject.erc_assertion_list"><code class="docutils literal notranslate"><span class="pre">SkidlBaseObject.erc_assertion_list</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject.erc_list"><code class="docutils literal notranslate"><span class="pre">SkidlBaseObject.erc_list</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject.name"><code class="docutils literal notranslate"><span class="pre">SkidlBaseObject.name</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject.notes"><code class="docutils literal notranslate"><span class="pre">SkidlBaseObject.notes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject.src_line"><code class="docutils literal notranslate"><span class="pre">SkidlBaseObject.src_line()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject.tag"><code class="docutils literal notranslate"><span class="pre">SkidlBaseObject.tag</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -538,6 +651,7 @@ The script can also check the resulting circuitry for electrical rule violations
 <li class="toctree-l2"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.detect_os"><code class="docutils literal notranslate"><span class="pre">detect_os()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.expand_buses"><code class="docutils literal notranslate"><span class="pre">expand_buses()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.expand_indices"><code class="docutils literal notranslate"><span class="pre">expand_indices()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.expand_path"><code class="docutils literal notranslate"><span class="pre">expand_path()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.export_to_all"><code class="docutils literal notranslate"><span class="pre">export_to_all()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.filter_list"><code class="docutils literal notranslate"><span class="pre">filter_list()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.find_and_open_file"><code class="docutils literal notranslate"><span class="pre">find_and_open_file()</span></code></a></li>
@@ -559,6 +673,7 @@ The script can also check the resulting circuitry for electrical rule violations
 <li class="toctree-l2"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.rmv_attr"><code class="docutils literal notranslate"><span class="pre">rmv_attr()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.rmv_iadd"><code class="docutils literal notranslate"><span class="pre">rmv_iadd()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.rmv_quotes"><code class="docutils literal notranslate"><span class="pre">rmv_quotes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.rmv_unique_name"><code class="docutils literal notranslate"><span class="pre">rmv_unique_name()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.set_attr"><code class="docutils literal notranslate"><span class="pre">set_attr()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.set_iadd"><code class="docutils literal notranslate"><span class="pre">set_iadd()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.sgn"><code class="docutils literal notranslate"><span class="pre">sgn()</span></code></a></li>
@@ -575,7 +690,7 @@ The script can also check the resulting circuitry for electrical rule violations
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
   <div>
     <h3><a href="../index.html">Table of Contents</a></h3>
@@ -609,7 +724,7 @@ The script can also check the resulting circuitry for electrical rule violations
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -618,13 +733,13 @@ The script can also check the resulting circuitry for electrical rule violations
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl package</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

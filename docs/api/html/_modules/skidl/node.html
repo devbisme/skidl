@@ -1,0 +1,449 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.node &#8212; SKiDL 2.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../../"><img src="../../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.node</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skidl.node</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Node class for storing circuit hierarchy.</span>
+
+<span class="sd">This module provides the Node class which represents a hierarchical structure</span>
+<span class="sd">for organizing circuit components. Nodes can have parent-child relationships</span>
+<span class="sd">and contain parts, allowing for structured circuit design and organization.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">from</span> <span class="nn">simp_sexp</span> <span class="kn">import</span> <span class="n">Sexp</span>
+
+<span class="kn">from</span> <span class="nn">.design_class</span> <span class="kn">import</span> <span class="n">PartClasses</span>
+<span class="kn">from</span> <span class="nn">.design_class</span> <span class="kn">import</span> <span class="n">NetClasses</span>
+<span class="kn">from</span> <span class="nn">.scriptinfo</span> <span class="kn">import</span> <span class="n">get_skidl_trace</span>
+<span class="kn">from</span> <span class="nn">.skidlbaseobj</span> <span class="kn">import</span> <span class="n">SkidlBaseObject</span>
+<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span><span class="p">,</span> <span class="n">get_unique_name</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;SubCircuit&quot;</span><span class="p">,</span> <span class="s2">&quot;subcircuit&quot;</span><span class="p">,</span> <span class="s2">&quot;Group&quot;</span><span class="p">,</span> <span class="s2">&quot;HIER_SEP&quot;</span><span class="p">]</span>
+
+
+<span class="n">HIER_SEP</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span>  <span class="c1"># Separator for hierarchical names.</span>
+
+<div class="viewcode-block" id="Node">
+<a class="viewcode-back" href="../../rst_output/skidl.node.html#skidl.node.Node">[docs]</a>
+<span class="nd">@export_to_all</span>
+<span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="n">SkidlBaseObject</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Data structure for holding information about a node in the circuit hierarchy.</span>
+<span class="sd">    </span>
+<span class="sd">    A Node represents a hierarchical container that can hold circuit parts and</span>
+<span class="sd">    maintain parent-child relationships with other nodes. This enables organized</span>
+<span class="sd">    circuit design with clear structural relationships.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">circuit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">attrs</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a new Node instance.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            name (str or callable): Name for the hierarchical group or a function to be decorated.</span>
+<span class="sd">            tag (Any, optional): An optional tag for categorizing or identifying the node.</span>
+<span class="sd">            circuit (Circuit, optional): The circuit this node belongs to. If None,</span>
+<span class="sd">                                        uses the default circuit.</span>
+<span class="sd">            **attrs: Additional attributes to store in the node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+            <span class="c1"># If this arg is a function, then the class is being used as a decorator.</span>
+            <span class="c1"># Store the function and use its name as the group name.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">func</span> <span class="o">=</span> <span class="n">name</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="vm">__name__</span>
+
+            <span class="c1"># Use the function docstring as a description of what the group does.</span>
+            <span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="vm">__doc__</span>
+            
+            <span class="c1"># Use the function signature from the SKiDL code when __call__() is run.</span>
+            <span class="c1"># This is useful for debugging and introspection.</span>
+            <span class="n">functools</span><span class="o">.</span><span class="n">update_wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># If this arg is a string, then the class is being used as a class or context manager.</span>
+            <span class="c1"># If name is None, use the subclass name as the node name.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+
+        <span class="c1"># Store tag.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="n">tag</span>
+
+        <span class="c1"># Store the circuit this node belongs to.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span> <span class="o">=</span> <span class="n">circuit</span> <span class="ow">or</span> <span class="n">default_circuit</span>
+
+        <span class="c1"># New nodes have no parent or children.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># New nodes are childless.</span>
+
+        <span class="c1"># Store the stack trace for where this node was instantiated.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">skidl_trace</span> <span class="o">=</span> <span class="n">get_skidl_trace</span><span class="p">()</span>
+
+        <span class="c1"># Create lists to hold the parts, nets, and buses that are instantiated in this node.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nets</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buses</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Create lists for part and net classes that are directly assigned to this node.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_partclasses</span> <span class="o">=</span> <span class="n">PartClasses</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">partclasses</span> <span class="o">=</span> <span class="n">attrs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;partclasses&quot;</span><span class="p">,</span> <span class="n">PartClasses</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_netclasses</span> <span class="o">=</span> <span class="n">NetClasses</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">netclasses</span> <span class="o">=</span> <span class="n">attrs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;netclasses&quot;</span><span class="p">,</span> <span class="n">NetClasses</span><span class="p">())</span>
+
+        <span class="c1"># Set the description and purpose of the circuitry in this node.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">attrs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">purpose</span> <span class="o">=</span> <span class="n">attrs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;purpose&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Store any additional attributes.</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">attrs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a context for hierarchical grouping of parts and nets.</span>
+<span class="sd">        </span>
+<span class="sd">        This activates the group as a child of the currently active node in the circuit, </span>
+<span class="sd">        making it the current hierarchical context. The hierarchical Node object is stored for later use.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Node: The Node object corresponding to this subcircuit.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Exit a hierarchical grouping context.</span>
+<span class="sd">        </span>
+<span class="sd">        This deactivates the current hierarchical level and returns to the previous one.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            type: Exception type if an exception occurred.</span>
+<span class="sd">            value: Exception value if an exception occurred.</span>
+<span class="sd">            traceback: Traceback if an exception occurred.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">deactivate</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Call the node&#39;s function within the hierarchical context.</span>
+<span class="sd">        </span>
+<span class="sd">        Creates a new node instance and executes the stored function within</span>
+<span class="sd">        the node&#39;s circuit and hierarchical context.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            *args: Positional arguments to pass to the node&#39;s function.</span>
+<span class="sd">            **kwargs: Keyword arguments to pass to the node&#39;s function.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Any: The return value of the node&#39;s function.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spin_off</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">kw</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;circuit&#39;</span><span class="p">,</span> <span class="s1">&#39;tag&#39;</span><span class="p">,</span> <span class="s1">&#39;func&#39;</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="s1">&#39;purpose&#39;</span><span class="p">):</span>
+            <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">kw</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="c1"># Most likely the group is being created within the current Circuit, but</span>
+        <span class="c1"># enter the context just in case it&#39;s a different Circuit. This won&#39;t hurt </span>
+        <span class="c1"># anything if it&#39;s the same Circuit.</span>
+        <span class="k">with</span> <span class="n">node</span><span class="o">.</span><span class="n">circuit</span><span class="p">:</span>
+            <span class="c1"># Enter the hierarchical group context and call the function within it.</span>
+            <span class="k">with</span> <span class="n">node</span><span class="p">:</span>
+                <span class="c1"># Call the function to create whatever circuitry it handles.</span>
+                <span class="c1"># The arguments to the function are usually nets to be connected to the</span>
+                <span class="c1"># parts instantiated in the function, but they may also be user-specific</span>
+                <span class="c1"># and have no effect on the mechanics of adding parts or nets although</span>
+                <span class="c1"># they may direct the function as to what parts and nets get created.</span>
+                <span class="c1"># Store any results it returns. These results are user-specific</span>
+                <span class="c1"># and have no effect on the mechanics of adding parts or nets.</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># At this point, we&#39;ve popped out of the SubCircuit and Circuit contexts</span>
+        <span class="c1"># and can return any results of the function call.</span>
+        <span class="k">return</span> <span class="n">results</span>
+    
+<div class="viewcode-block" id="Node.add_child">
+<a class="viewcode-back" href="../../rst_output/skidl.node.html#skidl.node.Node.add_child">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">child</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a child node to this node.</span>
+<span class="sd">        </span>
+<span class="sd">        Establishes a parent-child relationship between this node and the provided</span>
+<span class="sd">        child node. Ensures the child has a unique name among siblings.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            child (Node): The child node to add to this node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+            <span class="n">child</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">get_unique_name</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">child</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+        <span class="n">child</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="Node.spin_off">
+<a class="viewcode-back" href="../../rst_output/skidl.node.html#skidl.node.Node.spin_off">[docs]</a>
+    <span class="k">def</span> <span class="nf">spin_off</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a new node for the purpose of spinning off a subcircuit.</span>
+<span class="sd">        </span>
+<span class="sd">        Creates a copy of this node with potentially modified attributes,</span>
+<span class="sd">        typically used when creating instances of a node template.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            **kwargs: Keyword arguments to override node attributes.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Node: A new Node instance based on this node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">local_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># The new node will be in the circuit specified in the kwargs</span>
+        <span class="c1"># or it will be in the circuit that is currently active.</span>
+        <span class="n">local_kwargs</span><span class="p">[</span><span class="s1">&#39;circuit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;circuit&#39;</span><span class="p">,</span> <span class="n">default_circuit</span><span class="p">)</span>
+
+        <span class="c1"># Copy some other relevant attributes from the source node.</span>
+        <span class="k">for</span> <span class="n">kw</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;tag&#39;</span><span class="p">,</span> <span class="s1">&#39;func&#39;</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="s1">&#39;purpose&#39;</span><span class="p">):</span>
+            <span class="n">local_kwargs</span><span class="p">[</span><span class="n">kw</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">kw</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kw</span><span class="p">))</span>
+
+        <span class="c1"># Create the spun-off node and return it.</span>
+        <span class="k">return</span> <span class="n">Node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">local_kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Node.to_tuple">
+<a class="viewcode-back" href="../../rst_output/skidl.node.html#skidl.node.Node.to_tuple">[docs]</a>
+    <span class="k">def</span> <span class="nf">to_tuple</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert the node and its children to a tuple representation.</span>
+<span class="sd">        </span>
+<span class="sd">        Creates a nested tuple structure representing this node and all its</span>
+<span class="sd">        children, including their names, tags, parts, and hierarchical structure.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: A tuple containing (name, tag, parts_refs, children_tuples).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tag</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">ref</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="p">]),</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">child</span><span class="o">.</span><span class="n">to_tuple</span><span class="p">()</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">])</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">)</span></div>
+
+    
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a string representation of the node and its hierarchy.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: S-expression formatted string representation of the node hierarchy.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Sexp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_tuple</span><span class="p">())</span><span class="o">.</span><span class="n">to_str</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">hiernodes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a tuple of the chain of nodes from the top-most node to this one (self).</span>
+<span class="sd">        </span>
+<span class="sd">        This property traverses up the hierarchy from the current node to the root,</span>
+<span class="sd">        then reverses the order to provide a path from root to current node.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: A tuple of Node objects representing the hierarchical path</span>
+<span class="sd">                  from the root node to this node, inclusive.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span><span class="p">]</span>
+        <span class="k">while</span> <span class="n">n</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">parent</span>
+            <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tag_or_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the tag of the node if it exists, otherwise return the name.</span>
+<span class="sd">        </span>
+<span class="sd">        This property provides a way to access the node&#39;s identifier, preferring</span>
+<span class="sd">        the tag over the name if both are present.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The tag or name of the node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tag</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">hiertuple</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a tuple of the node&#39;s hierarchy path names from top-most node to this one (self).</span>
+<span class="sd">        </span>
+<span class="sd">        This provides a string representation of the hierarchical path by extracting</span>
+<span class="sd">        the names from each node in the hierarchy chain.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: A tuple of strings representing the names of nodes in the</span>
+<span class="sd">                  hierarchical path from root to this node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">tag_or_name</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hiernodes</span><span class="p">)</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">partclasses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a list of part classes assigned to this node and its ancestors.</span>
+<span class="sd">        </span>
+<span class="sd">        Aggregates part classes from this node and all ancestor nodes in the hierarchy.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            PartClasses: Combined part classes from this node and its ancestors.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">total_partclasses</span> <span class="o">=</span> <span class="n">PartClasses</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hiernodes</span><span class="p">:</span>
+            <span class="n">total_partclasses</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">_partclasses</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">total_partclasses</span>
+
+    <span class="nd">@partclasses</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">partclasses</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">partclasses</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the part classes for this node.</span>
+<span class="sd">        </span>
+<span class="sd">        This method allows assigning one or more PartClass objects to this node.</span>
+<span class="sd">        It adds the provided part classes to the node&#39;s part class list.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            *partclasses: One or more PartClass objects to assign to this node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_partclasses</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">partclasses</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="p">)</span>
+
+    <span class="nd">@partclasses</span><span class="o">.</span><span class="n">deleter</span>
+    <span class="k">def</span> <span class="nf">partclasses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete the part classes for this node.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_partclasses</span> <span class="o">=</span> <span class="n">PartClasses</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">netclasses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a list of net classes assigned to this node and its ancestors.</span>
+<span class="sd">        </span>
+<span class="sd">        Aggregates net classes from this node and all ancestor nodes in the hierarchy.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            NetClasses: Combined net classes from this node and its ancestors.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">total_netclasses</span> <span class="o">=</span> <span class="n">NetClasses</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hiernodes</span><span class="p">:</span>
+            <span class="n">total_netclasses</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">_netclasses</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">total_netclasses</span>
+
+    <span class="nd">@netclasses</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">netclasses</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">netclasses</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the net classes for this node.</span>
+<span class="sd">        </span>
+<span class="sd">        This method allows assigning one or more NetClass objects to this node.</span>
+<span class="sd">        It adds the provided net classes to the node&#39;s net class list.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            *netclasses: One or more NetClass objects to assign to this node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_netclasses</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">netclasses</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="p">)</span>
+
+    <span class="nd">@netclasses</span><span class="o">.</span><span class="n">deleter</span>
+    <span class="k">def</span> <span class="nf">netclasses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete the net classes for this node.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_netclasses</span> <span class="o">=</span> <span class="n">NetClasses</span><span class="p">()</span></div>
+
+
+
+<span class="c1"># Aliases for SubCircuit to maintain backward compatibility.</span>
+<span class="n">SubCircuit</span> <span class="o">=</span> <span class="n">Node</span>
+<span class="n">Group</span> <span class="o">=</span> <span class="n">Node</span>
+<span class="n">subcircuit</span> <span class="o">=</span> <span class="n">Node</span>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.node</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>

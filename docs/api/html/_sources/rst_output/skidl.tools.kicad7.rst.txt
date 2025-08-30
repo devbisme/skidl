@@ -3,8 +3,8 @@ skidl.tools.kicad7 package
 
 .. automodule:: skidl.tools.kicad7
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Submodules
 ----------

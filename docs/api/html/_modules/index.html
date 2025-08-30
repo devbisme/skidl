@@ -6,12 +6,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Overview: module code &#8212; SKiDL 2.0.1 documentation</title>
+    <title>Overview: module code &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -23,7 +23,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../"><img src="../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Overview: module code</a></li> 
       </ul>
     </div>  
@@ -47,25 +47,26 @@
 <li><a href="skidl/bus.html">skidl.bus</a></li>
 <li><a href="skidl/circuit.html">skidl.circuit</a></li>
 <li><a href="skidl/config_.html">skidl.config_</a></li>
+<li><a href="skidl/design_class.html">skidl.design_class</a></li>
 <li><a href="skidl/erc.html">skidl.erc</a></li>
 <li><a href="skidl/geometry.html">skidl.geometry</a></li>
-<li><a href="skidl/group.html">skidl.group</a></li>
 <li><a href="skidl/interface.html">skidl.interface</a></li>
 <li><a href="skidl/logger.html">skidl.logger</a></li>
 <li><a href="skidl/net.html">skidl.net</a></li>
-<li><a href="skidl/netclass.html">skidl.netclass</a></li>
 <li><a href="skidl/netlist_to_skidl.html">skidl.netlist_to_skidl</a></li>
 <li><a href="skidl/netpinlist.html">skidl.netpinlist</a></li>
 <li><a href="skidl/network.html">skidl.network</a></li>
+<li><a href="skidl/node.html">skidl.node</a></li>
 <li><a href="skidl/note.html">skidl.note</a></li>
 <li><a href="skidl/part.html">skidl.part</a></li>
 <li><a href="skidl/part_query.html">skidl.part_query</a></li>
 <li><a href="skidl/pin.html">skidl.pin</a></li>
+<li><a href="skidl/pyspice.html">skidl.pyspice</a></li>
 <li><a href="skidl/schematics/debug_draw.html">skidl.schematics.debug_draw</a></li>
 <li><a href="skidl/schematics/net_terminal.html">skidl.schematics.net_terminal</a></li>
-<li><a href="skidl/schematics/node.html">skidl.schematics.node</a></li>
 <li><a href="skidl/schematics/place.html">skidl.schematics.place</a></li>
 <li><a href="skidl/schematics/route.html">skidl.schematics.route</a></li>
+<li><a href="skidl/schematics/sch_node.html">skidl.schematics.sch_node</a></li>
 <li><a href="skidl/schlib.html">skidl.schlib</a></li>
 <li><a href="skidl/scriptinfo.html">skidl.scriptinfo</a></li>
 <li><a href="skidl/scripts/netlist_to_skidl_main.html">skidl.scripts.netlist_to_skidl_main</a></li>
@@ -99,6 +100,13 @@
 <li><a href="skidl/tools/kicad8/gen_svg.html">skidl.tools.kicad8.gen_svg</a></li>
 <li><a href="skidl/tools/kicad8/gen_xml.html">skidl.tools.kicad8.gen_xml</a></li>
 <li><a href="skidl/tools/kicad8/lib.html">skidl.tools.kicad8.lib</a></li>
+<li><a href="skidl/tools/kicad9/bboxes.html">skidl.tools.kicad9.bboxes</a></li>
+<li><a href="skidl/tools/kicad9/gen_netlist.html">skidl.tools.kicad9.gen_netlist</a></li>
+<li><a href="skidl/tools/kicad9/gen_pcb.html">skidl.tools.kicad9.gen_pcb</a></li>
+<li><a href="skidl/tools/kicad9/gen_schematic.html">skidl.tools.kicad9.gen_schematic</a></li>
+<li><a href="skidl/tools/kicad9/gen_svg.html">skidl.tools.kicad9.gen_svg</a></li>
+<li><a href="skidl/tools/kicad9/gen_xml.html">skidl.tools.kicad9.gen_xml</a></li>
+<li><a href="skidl/tools/kicad9/lib.html">skidl.tools.kicad9.lib</a></li>
 <li><a href="skidl/tools/skidl/libs/convert_libs.html">skidl.tools.skidl.libs.convert_libs</a></li>
 <li><a href="skidl/tools/skidl/skidl.html">skidl.tools.skidl.skidl</a></li>
 <li><a href="skidl/tools/spice/spice.html">skidl.tools.spice.spice</a></li>
@@ -109,7 +117,7 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
@@ -125,7 +133,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -134,13 +142,13 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Overview: module code</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

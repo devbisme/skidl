@@ -7,12 +7,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.alias module &#8212; SKiDL 2.0.1 documentation</title>
+    <title>skidl.alias module &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -24,7 +24,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../"><img src="../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.alias module</a></li> 
       </ul>
     </div>  
@@ -45,21 +45,36 @@
             
   <section id="module-skidl.alias">
 <span id="skidl-alias-module"></span><h1>skidl.alias module<a class="headerlink" href="#module-skidl.alias" title="Link to this heading">¶</a></h1>
-<p>Handles aliases for Circuit, Part, Pin, Net, Bus objects.</p>
+<p>Alias module for SKiDL.</p>
+<p>This module provides the Alias class which allows multiple names to be assigned
+to SKiDL objects like Circuit, Part, Pin, Net, and Bus. Aliases enable objects to
+be referenced by alternative names, making circuit design more flexible and expressive.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.alias.Alias">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.alias.</span></span><span class="sig-name descname"><span class="pre">Alias</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">aliases</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/alias.html#Alias"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.alias.Alias" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#set" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code></a></p>
-<p>Multiple aliases can be added to another object to give it other names.</p>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.alias.</span></span><span class="sig-name descname"><span class="pre">Alias</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">aliases</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/alias.html#Alias"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.alias.Alias" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#set" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code></a></p>
+<p>A collection of alternative names for SKiDL objects.</p>
+<p>The Alias class extends the Python set to store multiple name strings
+that can be used interchangeably to identify Circuit, Part, Pin, Net, and Bus objects.
+When comparing two Alias objects, they are considered equal if they share at least one alias.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>aliases</strong> – A single string or a list of strings.</p>
+<dd class="field-odd"><p><strong>*aliases</strong> – A string or multiple strings, or lists/tuples of strings to use as aliases.</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">part_aliases</span> <span class="o">=</span> <span class="n">Alias</span><span class="p">(</span><span class="s1">&#39;resistor&#39;</span><span class="p">,</span> <span class="s1">&#39;res&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;R&#39;</span> <span class="ow">in</span> <span class="n">part_aliases</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">part_aliases</span> <span class="o">+=</span> <span class="s1">&#39;resistor_std&#39;</span>  <span class="c1"># Add another alias</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">part_aliases</span> <span class="o">-=</span> <span class="s1">&#39;res&#39;</span>  <span class="c1"># Remove an alias</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.alias.Alias.clean">
 <span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/alias.html#Alias.clean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.alias.Alias.clean" title="Link to this definition">¶</a></dt>
-<dd><p>Remove any empty aliases.</p>
+<dd><p>Remove any empty aliases from the set.</p>
+<p>This removes None values and empty strings from the alias set.</p>
 </dd></dl>
 
 </dd></dl>
@@ -71,7 +86,7 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
   <div>
     <h3><a href="../index.html">Table of Contents</a></h3>
@@ -107,7 +122,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -116,13 +131,13 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.alias module</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

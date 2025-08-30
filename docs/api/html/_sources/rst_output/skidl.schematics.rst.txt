@@ -3,8 +3,8 @@ skidl.schematics package
 
 .. automodule:: skidl.schematics
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Submodules
 ----------
@@ -14,6 +14,6 @@ Submodules
 
    skidl.schematics.debug_draw
    skidl.schematics.net_terminal
-   skidl.schematics.node
    skidl.schematics.place
    skidl.schematics.route
+   skidl.schematics.sch_node

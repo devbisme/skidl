@@ -1,0 +1,150 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.pyspice &#8212; SKiDL 2.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../../"><img src="../../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.pyspice</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skidl.pyspice</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Import this file to reconfigure SKiDL for doing SPICE simulations.</span>
+
+<span class="sd">This module configures SKiDL to work with SPICE simulations by:</span>
+<span class="sd">1. Importing necessary SPICE-related modules and classes</span>
+<span class="sd">2. Setting up the default ground net</span>
+<span class="sd">3. Loading SPICE-specific parts libraries</span>
+<span class="sd">4. Making all PySpice parts available in the module namespace</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">skidl.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
+<div class="viewcode-block" id="abort_if_spice_unavailable">
+<a class="viewcode-back" href="../../rst_output/skidl.pyspice.html#skidl.pyspice.abort_if_spice_unavailable">[docs]</a>
+<span class="k">def</span> <span class="nf">abort_if_spice_unavailable</span><span class="p">():</span>
+    <span class="k">if</span> <span class="s2">&quot;InSpice&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;InSpice package is not available. SPICE simulation is not possible.&quot;</span>
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
+            <span class="c1"># InSpice is not available for Python 3.10 or earlier.</span>
+            <span class="n">msg</span> <span class="o">+=</span> <span class="s2">&quot; Upgrade to Python 3.11 or later and install InSpice to enable SPICE simulation.&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># InSpice is not installed, so raise an ImportError.</span>
+            <span class="n">msg</span> <span class="o">+=</span> <span class="s2">&quot; Install InSpice to enable SPICE simulation.&quot;</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span></div>
+
+
+<span class="c1"># InSpice may not be installed because of Python version.</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">InSpice</span> <span class="kn">import</span> <span class="o">*</span>
+    <span class="kn">from</span> <span class="nn">InSpice.Unit</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">abort_if_spice_unavailable</span><span class="p">()</span>
+    <span class="k">pass</span>
+
+<span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.tools.spice</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.tools.skidl.libs.pyspice_sklib</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<span class="n">_splib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span><span class="s2">&quot;pyspice&quot;</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="n">SKIDL</span><span class="p">)</span>  <span class="c1"># Read-in the SPICE part library.</span>
+
+<span class="n">set_default_tool</span><span class="p">(</span><span class="n">SPICE</span><span class="p">)</span>  <span class="c1"># Set the library format for reading SKiDL libraries.</span>
+
+<span class="n">GND</span> <span class="o">=</span> <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">)</span>  <span class="c1"># Instantiate the default ground net for SPICE.</span>
+<span class="n">gnd</span><span class="o">.</span><span class="n">fixed_name</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># Make sure ground keeps it&#39;s name of &quot;0&quot; during net merges.</span>
+
+<span class="c1"># Place all the PySpice parts into the namespace so they can be instantiated easily.</span>
+<span class="n">_this_module</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">_splib</span><span class="o">.</span><span class="n">get_parts</span><span class="p">():</span>
+    <span class="c1"># Add the part name to the module namespace.</span>
+    <span class="nb">setattr</span><span class="p">(</span><span class="n">_this_module</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+    <span class="c1"># Add all the part aliases to the module namespace.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">alias</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">aliases</span><span class="p">:</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">_this_module</span><span class="p">,</span> <span class="n">alias</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="k">pass</span>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.pyspice</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>

@@ -6,12 +6,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.interface &#8212; SKiDL 2.0.1 documentation</title>
+    <title>skidl.interface &#8212; SKiDL 2.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=f5cff4aa"></script>
-    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -23,7 +23,7 @@
   </head><body>
     <h1 id="site-title"><a href="../../../../"><img src="../../../../images/slim_banner.png" width="100%"></a></h1>
     
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.interface</a></li> 
       </ul>
@@ -49,7 +49,12 @@
 <span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Handles interfaces for subsystems with complicated I/O.</span>
+<span class="sd">Interface management in SKiDL.</span>
+
+<span class="sd">This module provides the Interface class, which bundles nets, buses, and pins into</span>
+<span class="sd">a single entity that can be used for connecting subsystems with complex I/O.</span>
+<span class="sd">Interfaces make it easier to handle groups of related signals and enable </span>
+<span class="sd">connecting subsystems with matching interfaces using simple operators.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">.alias</span> <span class="kn">import</span> <span class="n">Alias</span>
@@ -75,10 +80,25 @@
 <span class="nd">@export_to_all</span>
 <span class="k">class</span> <span class="nc">Interface</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    An Interface bundles a group of nets/buses into a single entity with each</span>
-<span class="sd">    net/bus becoming an attribute.  An Interface is also usable as a dict</span>
-<span class="sd">    where the attribute names serve as keys. This means the ** operator works</span>
-<span class="sd">    on an Interface.</span>
+<span class="sd">    A bundle of nets, buses, and pins that can be accessed as attributes or dict entries.</span>
+<span class="sd">    </span>
+<span class="sd">    An Interface groups related nets, buses, and pins into a single entity where each</span>
+<span class="sd">    item can be accessed either as an attribute (obj.item) or as a dictionary key (obj[&#39;item&#39;]).</span>
+<span class="sd">    This makes Interfaces useful for standardizing connections between subsystems or</span>
+<span class="sd">    for creating reusable connection patterns.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        *args: Positional arguments passed to dict constructor.</span>
+<span class="sd">        **kwargs: Keyword arguments defining nets/buses to include in the interface.</span>
+<span class="sd">        </span>
+<span class="sd">    Keyword Args:</span>
+<span class="sd">        unbundle (bool, optional): Whether to automatically unbundle buses into individual</span>
+<span class="sd">            nets that can be accessed directly. Defaults to True.</span>
+<span class="sd">            </span>
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; power = Interface(vcc=Net(&#39;VCC&#39;), gnd=Net(&#39;GND&#39;))</span>
+<span class="sd">        &gt;&gt;&gt; power.vcc += part1[&#39;VCC&#39;]  # Connect using attribute access</span>
+<span class="sd">        &gt;&gt;&gt; power[&#39;gnd&#39;] += part1[&#39;GND&#39;]  # Connect using dictionary access</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Set the default ERC functions for all Interface instances.</span>
@@ -105,7 +125,18 @@
                 <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">unbundle</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets attribute and also a dict entry with a key using the attribute name.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set an attribute and corresponding dict entry in the interface.</span>
+<span class="sd">        </span>
+<span class="sd">        This method handles creating net-like objects for pin-like inputs,</span>
+<span class="sd">        setting up aliases for the keys, and optionally unbundling buses</span>
+<span class="sd">        into individual nets.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            key (str): Name for the attribute/dict entry.</span>
+<span class="sd">            value: The value to associate with the key.</span>
+<span class="sd">            unbundle (bool, optional): Whether to unbundle buses. Defaults to True.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Create net-like objects for pin-like objects.</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">NetPinList</span><span class="p">):</span>
@@ -140,29 +171,22 @@
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">io_ids</span><span class="p">,</span> <span class="o">**</span><span class="n">criteria</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return list of part pins selected by identifiers.</span>
-
+<span class="sd">        Get interface items by name, regex, or other criteria.</span>
+<span class="sd">        </span>
+<span class="sd">        This method allows retrieving individual items or groups of items</span>
+<span class="sd">        from the interface based on names, regular expressions, or other</span>
+<span class="sd">        attribute criteria.</span>
+<span class="sd">        </span>
 <span class="sd">        Args:</span>
-<span class="sd">            io_ids: A list of strings containing I/O names,</span>
-<span class="sd">                regular expressions, slices, lists or tuples. If empty,</span>
-<span class="sd">                then it will select all pins.</span>
-
+<span class="sd">            io_ids: Names or patterns of interface items to retrieve.</span>
+<span class="sd">                If empty, all items may be retrieved.</span>
+<span class="sd">                </span>
 <span class="sd">        Keyword Args:</span>
-<span class="sd">            criteria: Key/value pairs that specify attribute values the</span>
-<span class="sd">                I/Os must have in order to be selected.</span>
-
+<span class="sd">            match_regex (bool, optional): Whether to use regex matching. Default is False.</span>
+<span class="sd">            criteria: Attribute values that items must match to be retrieved.</span>
+<span class="sd">            </span>
 <span class="sd">        Returns:</span>
-<span class="sd">            A list of I/Os matching the given IDs and satisfying all the criteria,</span>
-<span class="sd">            or just a single I/O object if only a single match was found.</span>
-<span class="sd">            Or None if no match was found.</span>
-
-<span class="sd">        Notes:</span>
-<span class="sd">            Pins can be selected from a part by using brackets like so::</span>
-
-<span class="sd">                intf = Interface(a=Net(), b=Net())</span>
-<span class="sd">                net = Net()</span>
-<span class="sd">                intf[&#39;a&#39;] += net  # Connects I/O &#39;a&#39; of interface to the net.</span>
-<span class="sd">                net += intf.b     # Connects the net to the &#39;b&#39; I/O.</span>
+<span class="sd">            Net, Pin, Bus, NetPinList, or None: The selected item(s) or None if no match.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Extract permission to search for regex matches in pin names/aliases.</span>
@@ -220,7 +244,16 @@
         <span class="k">return</span> <span class="n">list_or_scalar</span><span class="p">(</span><span class="n">selected_ios</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets dict entry and also creates attribute with the same name as the dict key.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set a dictionary entry and attribute with the same name.</span>
+<span class="sd">        </span>
+<span class="sd">        This method handles assignments to dictionary keys, ensuring that</span>
+<span class="sd">        attribute access and dictionary access remain synchronized.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            key (str): The key to assign to.</span>
+<span class="sd">            value: The value to assign.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">from_iadd</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
             <span class="c1"># The += flag in the values are no longer needed.</span>
             <span class="n">rmv_iadd</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -230,10 +263,15 @@
 
     <span class="k">def</span> <span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_intfc</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Connects the nets/buses of this interface to the nets/buses of another interface.</span>
-
+<span class="sd">        Connect this interface to another interface using the += operator.</span>
+<span class="sd">        </span>
+<span class="sd">        This connects matching nets and buses between the two interfaces.</span>
+<span class="sd">        </span>
 <span class="sd">        Args:</span>
-<span class="sd">            other_intfc: The interface to connect to this one.</span>
+<span class="sd">            other_intfc (Interface): The interface to connect to this one.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Interface: This interface with connections to the other interface.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">other_intfc</span><span class="p">)</span>
 
@@ -241,16 +279,22 @@
 <a class="viewcode-back" href="../../rst_output/skidl.interface.html#skidl.interface.Interface.connect">[docs]</a>
     <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_intfc</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Connects the nets/buses of this interface to the nets/buses of another interface.</span>
-
+<span class="sd">        Connect this interface to another interface.</span>
+<span class="sd">        </span>
+<span class="sd">        This method connects nets and buses in this interface to those</span>
+<span class="sd">        with matching names in another interface.</span>
+<span class="sd">        </span>
 <span class="sd">        Args:</span>
-<span class="sd">            other_intfc: The interface to connect to this one.</span>
-
+<span class="sd">            other_intfc (Interface): The interface to connect to this one.</span>
+<span class="sd">            </span>
 <span class="sd">        Returns:</span>
-<span class="sd">            The updated interface with the new connections.</span>
-
-<span class="sd">        Notes:</span>
-<span class="sd">            Connections between interfaces can also be made using the += operator.</span>
+<span class="sd">            Interface: This interface with connections to the other interface.</span>
+<span class="sd">            </span>
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; intf1 = Interface(a=Net(&#39;a&#39;), b=Net(&#39;b&#39;))</span>
+<span class="sd">            &gt;&gt;&gt; intf2 = Interface(a=Net(&#39;a2&#39;), b=Net(&#39;b2&#39;))</span>
+<span class="sd">            &gt;&gt;&gt; intf1.connect(intf2)  # Connect matching nets</span>
+<span class="sd">            &gt;&gt;&gt; # Alternative: intf1 += intf2</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Connect the nets/buses of this interface to the nets/buses of the other interface.</span>
@@ -271,7 +315,7 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
@@ -287,7 +331,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -296,14 +340,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.interface</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2016-2024, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>
