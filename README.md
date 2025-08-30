@@ -1,10 +1,10 @@
-===============================
-skidl
-===============================
+<div align="center">
+  <img src="https://devbisme.github.io/skidl/images/banner.png" alt="SKiDL Banner" width="100%">
+</div>
 
-.. image:: https://img.shields.io/pypi/v/skidl.svg
-        :target: https://pypi.python.org/pypi/skidl
+# skidl
 
+![PyPI Version](https://img.shields.io/pypi/v/skidl.svg)
 
 The SKiDL Python package lets you compactly describe the interconnection of 
 electronic circuits and components.
@@ -16,17 +16,16 @@ a PCB layout tool.
 * Documentation: http://devbisme.github.io/skidl
 * User Forum: https://github.com/devbisme/skidl/discussions
 
-Features
---------
+## Features
 
 * Has a powerful, flexible syntax (because it *is* Python).
 * Permits compact descriptions of electronic circuits (think about *not* tracing
   signals through a multi-page schematic).
 * Allows textual descriptions of electronic circuits (think about using 
-  ``diff`` and `git <https://en.wikipedia.org/wiki/Git_(software)>`_ for circuits).
+  `diff` and [git](https://en.wikipedia.org/wiki/Git_(software)) for circuits).
 * Performs electrical rules checking (ERC) for common mistakes (e.g., unconnected device I/O pins).
 * Supports linear / hierarchical / mixed descriptions of electronic designs.
-* Fosters design reuse (think about using `PyPi <https://pypi.org/>`_ and `Github <https://github.com/>`_
+* Fosters design reuse (think about using [PyPi](https://pypi.org/) and [Github](https://github.com/)
   to distribute electronic designs).
 * Makes possible the creation of *smart circuit modules* whose behavior / structure are changed parametrically
   (think about filters whose component values are automatically adjusted based on your
@@ -37,43 +36,44 @@ Features
 * Takes advantage of all the benefits of the Python ecosystem (because it *is* Python).
 
 As a very simple example (see more in the 
-`blog <https://devbisme.github.io/skidl/category/posts.html>`_),
+[blog](https://devbisme.github.io/skidl/category/posts.html)),
 the SKiDL program below describes a 
-`two-input AND gate <https://raw.githubusercontent.com/nturley/netlistsvg/master/doc/and.svg?sanitize=true>`_
+[two-input AND gate](https://raw.githubusercontent.com/nturley/netlistsvg/master/doc/and.svg?sanitize=true)
 built from discrete transistors:
 
-.. image:: https://raw.githubusercontent.com/nturley/netlistsvg/master/doc/and.svg?sanitize=true
+![AND Gate Diagram](https://raw.githubusercontent.com/nturley/netlistsvg/master/doc/and.svg?sanitize=true)
 
-.. code-block:: python
+```python
+from skidl import *
 
-    from skidl import *
+# Create part templates.
+q = Part("Device", "Q_PNP_CBE", dest=TEMPLATE)
+r = Part("Device", "R", dest=TEMPLATE)
 
-    # Create part templates.
-    q = Part("Device", "Q_PNP_CBE", dest=TEMPLATE)
-    r = Part("Device", "R", dest=TEMPLATE)
+# Create nets.
+gnd, vcc = Net("GND"), Net("VCC")
+a, b, a_and_b = Net("A"), Net("B"), Net("A_AND_B")
 
-    # Create nets.
-    gnd, vcc = Net("GND"), Net("VCC")
-    a, b, a_and_b = Net("A"), Net("B"), Net("A_AND_B")
+# Instantiate parts.
+gndt = Part("power", "GND")             # Ground terminal.
+vcct = Part("power", "VCC")             # Power terminal.
+q1, q2 = q(2)                           # Two transistors.
+r1, r2, r3, r4, r5 = r(5, value="10K")  # Five 10K resistors.
 
-    # Instantiate parts.
-    gndt = Part("power", "GND")             # Ground terminal.
-    vcct = Part("power", "VCC")             # Power terminal.
-    q1, q2 = q(2)                           # Two transistors.
-    r1, r2, r3, r4, r5 = r(5, value="10K")  # Five 10K resistors.
+# Make connections between parts.
+a & r1 & q1["B C"] & r4 & q2["B C"] & a_and_b & r5 & gnd
+b & r2 & q1["B"]
+q1["C"] & r3 & gnd
+vcc += q1["E"], q2["E"], vcct
+gnd += gndt
 
-    # Make connections between parts.
-    a & r1 & q1["B C"] & r4 & q2["B C"] & a_and_b & r5 & gnd
-    b & r2 & q1["B"]
-    q1["C"] & r3 & gnd
-    vcc += q1["E"], q2["E"], vcct
-    gnd += gndt
+generate_netlist(tool=KICAD9) # Create KICAD version 9 netlist.
+```
 
-    generate_netlist(tool=KICAD8) # Create KICAD version 8 netlist.
+And this is the output that can be fed to a program like KiCad's `PCBNEW` to
+create the physical PCB:
 
-And this is the output that can be fed to a program like KiCad's ``PCBNEW`` to
-create the physical PCB::
-
+```
   (export (version D)
     (design
       (source "/home/devb/projects/KiCad/tools/skidl/tests/examples/svg/simple_and_gate.py")
@@ -180,3 +180,4 @@ create the physical PCB::
         (node (ref Q1) (pin 3))
         (node (ref Q2) (pin 3))))
   )
+```
