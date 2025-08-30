@@ -23,8 +23,8 @@ except ImportError:
 with open("README.md") as readme_file:
     readme = readme_file.read()
 
-with open("HISTORY.rst") as history_file:
-    history = history_file.read().replace(".. :changelog:", "")
+with open("HISTORY.md") as history_file:
+    history = history_file.read()
 
 requirements = [
     "kinet2pcb >= 1.1.2",
@@ -44,6 +44,7 @@ setup(
     version=__version__,
     description="A Python package for textually describing electronic circuit schematics.",
     long_description=readme + "\n\n" + history,
+    long_description_content_type="text/markdown",
     author=__author__,
     author_email=__email__,
     url="https://github.com/devbisme/skidl",
@@ -51,7 +52,7 @@ setup(
     project_urls={
         "Documentation": "https://devbisme.github.io/skidl",
         "Source": "https://github.com/devbisme/skidl",
-        "Changelog": "https://github.com/devbisme/skidl/blob/master/HISTORY.rst",
+        "Changelog": "https://github.com/devbisme/skidl/blob/master/HISTORY.md",
         "Tracker": "https://github.com/devbisme/skidl/issues",
     },
     packages=setuptools.find_packages(where="src"),
