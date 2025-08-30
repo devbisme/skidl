@@ -489,7 +489,7 @@ def get_unique_name(lst, attrib, prefix, initial=None):
     unique_names -= {None}
 
     # If the initial name is None, then create a name based on the prefix
-    # and the smallest unused number that's available for that prefix.
+    # and the largest unused number that's available for that prefix.
     if not name:
         # Get every name in the list that starts with the prefix.
         prefix_names = {n for n in unique_names if str(n).startswith(prefix)}
