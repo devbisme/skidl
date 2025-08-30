@@ -37,7 +37,7 @@ class Node(SkidlBaseObject):
 
     def __init__(
         self,
-        func_or_name,
+        name=None,
         tag=None,
         circuit=None,
         **attrs
@@ -46,7 +46,7 @@ class Node(SkidlBaseObject):
         Initialize a new Node instance.
         
         Args:
-            func_or_name (str or callable): Name for the hierarchical group or a function to be decorated.
+            name (str or callable): Name for the hierarchical group or a function to be decorated.
             tag (Any, optional): An optional tag for categorizing or identifying the node.
             circuit (Circuit, optional): The circuit this node belongs to. If None,
                                         uses the default circuit.
@@ -54,14 +54,14 @@ class Node(SkidlBaseObject):
         """
         super().__init__()
 
-        if callable(func_or_name):
+        if callable(name):
             # If this arg is a function, then the class is being used as a decorator.
             # Store the function and use its name as the group name.
-            self.func = func_or_name
-            self.name = func_or_name.__name__
+            self.func = name
+            self.name = name.__name__
 
             # Use the function docstring as a description of what the group does.
-            attrs["description"] = func_or_name.__doc__
+            attrs["description"] = name.__doc__
             
             # Use the function signature from the SKiDL code when __call__() is run.
             # This is useful for debugging and introspection.
@@ -69,7 +69,8 @@ class Node(SkidlBaseObject):
 
         else:
             # If this arg is a string, then the class is being used as a class or context manager.
-            self.name = func_or_name
+            # If name is None, use the subclass name as the node name.
+            self.name = name if name is not None else self.__class__.__name__
 
         # Store tag.
         self.tag = tag

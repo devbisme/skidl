@@ -169,7 +169,7 @@ class Circuit(SkidlBaseObject):
         self._partclasses = PartClasses()
         self.nodes = set()  # Set of all nodes in the circuit hierarchy.
         self.active_node = None  # Serves as the null parent of the root.
-        self.root = self.activate(Node(func_or_name="", tag="", circuit=self))
+        self.root = self.activate(Node(name="", tag="", circuit=self))
         if not hasattr(self, "circuit_stack"):
             # Initialize the circuit stack if it doesn't exist.
             # Otherwise, leave it alone since we might need to get back to the
