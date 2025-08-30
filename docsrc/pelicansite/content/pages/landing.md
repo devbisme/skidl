@@ -9,58 +9,60 @@ The resulting Python program outputs a netlist that a PCB layout tool uses to
 create a finished circuit board.
 
 ### Contents
-
 - [TL;DR](#tldr)
-    - [Contents](#contents)
+        - [Contents](#contents)
 - [Introduction](#introduction)
 - [Installation](#installation)
 - [Basic Usage](#basic-usage)
-  - [Accessing SKiDL](#accessing-skidl)
-  - [Finding Parts](#finding-parts)
-    - [Command-line Searching](#command-line-searching)
-    - [Zyc: A GUI Search Tool](#zyc-a-gui-search-tool)
-  - [Instantiating Parts](#instantiating-parts)
-  - [Connecting Pins](#connecting-pins)
-  - [Checking for Errors](#checking-for-errors)
-  - [Generating a Netlist or PCB](#generating-a-netlist-or-pcb)
+    - [Accessing SKiDL](#accessing-skidl)
+    - [Finding Parts](#finding-parts)
+        - [Command-line Searching](#command-line-searching)
+        - [Zyc: A GUI Search Tool](#zyc-a-gui-search-tool)
+    - [Instantiating Parts](#instantiating-parts)
+    - [Connecting Pins](#connecting-pins)
+    - [Checking for Errors](#checking-for-errors)
+    - [Generating a Netlist or PCB](#generating-a-netlist-or-pcb)
 - [Going Deeper](#going-deeper)
-  - [Basic SKiDL Objects: Parts, Pins, Nets, Buses](#basic-skidl-objects-parts-pins-nets-buses)
-  - [Creating SKiDL Objects](#creating-skidl-objects)
-  - [Finding SKiDL Objects](#finding-skidl-objects)
-  - [Copying SKiDL Objects](#copying-skidl-objects)
-  - [Accessing Part Pins and Bus Lines](#accessing-part-pins-and-bus-lines)
-    - [Accessing Part Pins](#accessing-part-pins)
-    - [Accessing Bus Lines](#accessing-bus-lines)
-  - [Making Connections](#making-connections)
-  - [Making Serial, Parallel, and Tee Networks](#making-serial-parallel-and-tee-networks)
-  - [Aliases](#aliases)
-  - [Units Within Parts](#units-within-parts)
-  - [Part and Net Classes](#part-and-net-classes)
-    - [Individual Part and Net Classes](#individual-part-and-net-classes)
-    - [Hierarchical Part and Net Class Inheritance](#hierarchical-part-and-net-class-inheritance)
-  - [Part Fields](#part-fields)
-  - [Hierarchy](#hierarchy)
-    - [Method 1: SubCircuit Decorator with Interface Return](#method-1-subcircuit-decorator-with-interface-return)
-    - [Method 2: SubCircuit Subclassing with I/O Attributes](#method-2-subcircuit-subclassing-with-io-attributes)
-    - [Method 3: Context-Based Hierarchy with SubCircuit](#method-3-context-based-hierarchy-with-subcircuit)
-  - [Libraries](#libraries)
-  - [Doodads](#doodads)
-    - [No Connects](#no-connects)
-    - [Net and Pin Drive Levels](#net-and-pin-drive-levels)
-    - [Pin, Net, Bus Equivalencies](#pin-net-bus-equivalencies)
-    - [Selectively Supressing ERC Messages](#selectively-supressing-erc-messages)
-    - [Customizable ERC Using `erc_assert()`](#customizable-erc-using-erc_assert)
-    - [Handling Empty Footprints](#handling-empty-footprints)
-    - [Tags](#tags)
-    - [Configuration File](#configuration-file)
+    - [Basic SKiDL Objects: Parts, Pins, Nets, Buses](#basic-skidl-objects-parts-pins-nets-buses)
+    - [Creating SKiDL Objects](#creating-skidl-objects)
+    - [Finding SKiDL Objects](#finding-skidl-objects)
+    - [Copying SKiDL Objects](#copying-skidl-objects)
+    - [Accessing Part Pins and Bus Lines](#accessing-part-pins-and-bus-lines)
+        - [Accessing Part Pins](#accessing-part-pins)
+        - [Accessing Bus Lines](#accessing-bus-lines)
+    - [Making Connections](#making-connections)
+    - [Making Serial, Parallel, and Tee Networks](#making-serial-parallel-and-tee-networks)
+    - [Aliases](#aliases)
+    - [Units Within Parts](#units-within-parts)
+    - [Part and Net Classes](#part-and-net-classes)
+        - [Individual Part and Net Classes](#individual-part-and-net-classes)
+        - [Hierarchical Part and Net Class Inheritance](#hierarchical-part-and-net-class-inheritance)
+    - [Part Fields](#part-fields)
+    - [Hierarchy](#hierarchy)
+        - [Method 1: SubCircuit Decorator with Interface Return](#method-1-subcircuit-decorator-with-interface-return)
+        - [Method 2: SubCircuit Subclassing with I/O Attributes](#method-2-subcircuit-subclassing-with-io-attributes)
+        - [Method 3: Context-Based Hierarchy with SubCircuit](#method-3-context-based-hierarchy-with-subcircuit)
+    - [Libraries](#libraries)
+    - [Doodads](#doodads)
+        - [No Connects](#no-connects)
+        - [Net and Pin Drive Levels](#net-and-pin-drive-levels)
+        - [Pin, Net, Bus Equivalencies](#pin-net-bus-equivalencies)
+        - [Selectively Supressing ERC Messages](#selectively-supressing-erc-messages)
+        - [Customizable ERC Using `erc_assert()`](#customizable-erc-using-erc_assert)
+        - [Handling Empty Footprints](#handling-empty-footprints)
+        - [Tags](#tags)
+        - [Configuration File](#configuration-file)
 - [Going Really Deep](#going-really-deep)
-  - [Circuit Objects](#circuit-objects)
+    - [Ad-Hoc Parts](#ad-hoc-parts)
+    - [Circuit Objects](#circuit-objects)
+    - [Nodes](#nodes)
 - [Generating a Schematic](#generating-a-schematic)
-  - [SVG Schematics](#svg-schematics)
-  - [KiCad Schematics](#kicad-schematics)
-  - [DOT Graphs](#dot-graphs)
+    - [SVG Schematics](#svg-schematics)
+    - [KiCad Schematics](#kicad-schematics)
+    - [DOT Graphs](#dot-graphs)
 - [Converting Existing Designs to SKiDL](#converting-existing-designs-to-skidl)
 - [SPICE Simulations](#spice-simulations)
+
 
 
 
@@ -404,27 +406,26 @@ But you can easily change that:
 'R5'
 ```
 
-Now what happens if we create another resistor?:
+If we create another resistor, it will be assigned another
+reference that's distinct from any existing references:
 
 ```terminal
 >>> another_res = Part('Device','R')   
 >>> another_res.ref                        
-'R1'
+'R2'
 ```
 
-Since the `R1` reference wasn't being used, the new resistor got it.
-What if we tried renaming the first resistor back to `R1`:
+What if we tried renaming the first resistor to `R2`?
 
 ```terminal
->>> resistor.ref = 'R1'
+>>> resistor.ref = 'R2'
 >>> resistor.ref
-'R1_1'
+'R2_1'
 ```
 
-Since the `R1` reference was already taken, SKiDL tried to give us
+Since the `R2` reference was already taken, SKiDL tried to give us
 something close to what we wanted.
-SKiDL won't let different parts have the same reference because
-that would be confusing.
+SKiDL won't let parts of the same type have exactly the same reference.
 
 The `ref`, `value`, and `footprint` attributes are necessary when generating
 a final netlist for your circuit.
@@ -1732,7 +1733,7 @@ Each approach has its strengths:
 - **Subclassed modules** provide the most structured approach with explicit I/O definitions, ideal for complex reusable blocks  
 - **Context-based hierarchy** offers the simplest syntax for organizing designs without the overhead of function definitions
 
-You can mix and match these approaches within the same design as needed. For example, you might use subclassed modules for complex reusable blocks like motor drivers, decorated functions for parameterizable filters, and context-based hierarchy for organizing the top-level system architecture.
+You can mix and match these approaches as needed. For example, use subclassed modules for complex reusable blocks like motor drivers, decorated functions for parameterizable filters, and context-based hierarchy for organizing the top-level system architecture.
 
 
 ## Libraries
@@ -1797,7 +1798,7 @@ You can convert a KiCad library into the SKiDL format by exporting it:
 ```py
 kicad_lib = SchLib("Device", tool=KICAD)       # Open a KiCad library.
 kicad_lib.export('my_skidl_lib')               # Export it into a file in SKiDL format.
-skidl_lib = SchLib('my_skidl_lib', tool=SKIDL) # Create a SKiDL library object from the new file.
+skidl_lib = SchLib('my_skidl_lib', tool=SKIDL) # Create a SKiDL library object from the export file.
 if len(skidl_lib) == len(kicad_lib):
     print('As expected, both libraries have the same number of parts!')
 else:
@@ -1805,69 +1806,24 @@ else:
 diode = Part(skidl_lib, 'D')                   # Instantiate a diode from the SKiDL library.
 ```
 
-You may make ad-hoc libraries just by creating a SchLib object and adding
-Part objects to it:
+You can make ad-hoc libraries just by creating an empty `SchLib` object and adding
+Part templates to it:
 
 ```py
-my_lib = SchLib(name='my_lib')                      # Create an empty library object.
-my_part = Part(name='R', tool=SKIDL, dest=TEMPLATE) # Create an empty part object template.
-my_part.ref_prefix = 'R'                            # Set the part reference prefix.
-my_part.description = 'resistor'                    # Set the part's description field.
-my_part.keywords = 'res resistor'                   # Set the part's keywords.
-my_part += Pin(num=1, func=Pin.PASSIVE)             # Add a pin to the part.
-my_part += Pin(num=2, func=Pin.PASSIVE)             # Add another pin to the part.
-my_lib += my_part                                   # Add the part to the library.
-
-new_resistor = Part(my_lib, 'R')                    # Instantiate the part from the library.
-my_lib.export('my_lib')                             # Save the library in a file my_lib.py.
+my_lib = SchLib(name='my_lib')                # Create an empty library object.
+my_lib += Part('Device', 'R', dest=TEMPLATE)  # Add a part template to the library.
 ```
 
-Always create a part intended for a library as a template so you don't inadvertently
-add it to the circuit netlist.
-Then set the part attributes and create and add pins to the part.
-Here are the most common attributes you'll want to set:
-
-| Attribute   | Meaning                                                                         |
-| ----------- | ------------------------------------------------------------------------------- |
-| name        | A string containing the name of the part, e.g. 'LM35' for a temperature sensor. |
-| ref_prefix  | A string containing the prefix for this part's references, e.g. 'U' for ICs.    |
-| description | A string describing the part, e.g. 'temperature sensor'.                        |
-| keywords    | A string containing keywords about the part, e.g. 'sensor temperature IC'.      |
-
-When creating a pin, these are the attributes you'll want to set:
-
-| Attribute | Meaning                                                         |
-| --------- | --------------------------------------------------------------- |
-| num       | A string or integer containing the pin number, e.g. 5 or 'A13'. |
-| name      | A string containing the name of the pin, e.g. 'CS'.             |
-| func      | An identifier for the function of the pin.                      |
-
-The pin function identifiers are as follows:
- 
-| Identifier | Pin Function                                                    |
-| ---------  | --------------------------------------------------------------- |
-| INPUT      | Input pin.                                                      |
-| OUTPUT     | Output pin.                                                     |
-| BIDIR      | Bidirectional in/out pin.                                       |
-| TRISTATE   | Output pin that goes into a high-impedance state when disabled. |
-| PASSIVE    | Pin on a passive component (like a resistor).                   |
-| UNSPEC     | Pin with an unspecified function.                               |
-| PWRIN      | Power input pin (either voltage supply or ground).              |
-| PWROUT     | Power output pin (like the output of a voltage regulator).      |
-| OPENCOLL   | Open-collector pin (pulls to ground but not to positive rail).  |
-| OPENEMIT   | Open-emitter pin (pulls to positive rail but not to ground).    |
-| PULLUP     | Pin with a pull-up resistor.                                    |
-| PULLDOWN   | Pin with a pull-down resistor.                                  |
-| NOCONNECT  | A pin that should be left unconnected.                          |
-| FREE       | A pin that is free to be used for any function.                 |
+Always create a part intended for a library as a template so it isn't inadvertently
+added to the circuit netlist.
 
 SKiDL will also create a library of all the parts used in your design whenever
-you use the `generate_netlist()` function.
+you call the `generate_netlist()` function.
 For example, if your SKiDL script is named `my_design.py`, then the parts instantiated
-in that script will be stored as a SKiDL library in the file `my_design_lib.py`.
+in that script will be stored as a SKiDL library in the file `my_design_sklib.py`.
 This can be useful if you're sending the design to someone who may not have all
 the libraries you do.
-Just send them `my_design.py` and `my_design_lib.py` and any parts not found
+Just send them `my_design.py` and `my_design_sklib.py` and any parts not found
 when they run the script will be fetched from the backup parts in the library.
 
 
@@ -2180,13 +2136,14 @@ To avoid this problem, *tags*
 can be assigned to parts and subcircuits:
 
 ```py
+@subcircuit
 def vdiv(inp, outp):
     """Divide inp voltage by 3 and place it on outp net."""
     # Assign a different tag to each resistor.
-    inp & r(value='1K', tag=1) & outp & r(value='500', tag=2) & gnd
+    inp & r(value='1K', tag='r_upper') & outp & r(value='500', tag='r_lower') & gnd
 
-vdiv(in1, out1, tag='1')  # Create voltage divider with tag '1'.
-vdiv(in2, out2, tag='2')  # Create another with tag '2'.
+vdiv(in1, out1, tag='vdiv1')  # Create voltage divider with tag 'vdiv1'.
+vdiv(in2, out2, tag='vdiv2')  # Create another with tag 'vdiv2'.
 ```
 
 Using tags (which can be any printable object such as a string or number), the
@@ -2213,7 +2170,7 @@ The `.skidlcfg` JSON file with the SKiDL settings will be created in the current
 ```json
 {
     "cfg_file_name": ".skidlcfg",
-    "tool": "kicad8",
+    "tool": "kicad9",
     "pickle_dir": "./lib_pickle_dir",
     "lib_search_paths": {
         "kicad8": [
@@ -2231,6 +2188,10 @@ The `.skidlcfg` JSON file with the SKiDL settings will be created in the current
             ".",
             "/usr/share/kicad/symbols"
         ],
+        "kicad9": [
+            ".",
+            "/usr/share/kicad/symbols"
+        ],
         "skidl": [
             ".",
             "/home/devb/projects/KiCad/tools/skidl/src/skidl/tools/skidl/libs"
@@ -2240,15 +2201,16 @@ The `.skidlcfg` JSON file with the SKiDL settings will be created in the current
             "/usr/share/kicad/library"
         ]
     },
-    "backup_lib_name": "__init___lib",
-    "backup_lib_file_name": "__init___lib_sklib.py",
+    "backup_lib_name": "skidl_REPL",
+    "backup_lib_file_name": "skidl_REPL_sklib.py",
     "query_backup_lib": true,
     "backup_lib": null,
     "footprint_search_paths": {
-        "kicad8": "/home/devb/.config/kicad",
+        "kicad8": "/home/devb/.config/kicad/8.0",
         "spice": "",
-        "kicad7": "/home/devb/.config/kicad",
-        "kicad6": "/home/devb/.config/kicad",
+        "kicad7": "/home/devb/.config/kicad/7.0",
+        "kicad6": "/home/devb/.config/kicad/6.0",
+        "kicad9": "/home/devb/.config/kicad/9.0",
         "skidl": "",
         "kicad5": "/home/devb/.config/kicad"
     }
@@ -2269,6 +2231,61 @@ all the SKiDL you need to know.
 This section will describe the features of SKiDL that might be useful (or not) to
 some of the avant-garde circuit designers out there.
 
+## Ad-Hoc Parts
+
+While you'll most often use parts found in libraries,
+you can also create ad-hoc parts on the fly:
+
+```py
+my_part = Part(name='R', tool=SKIDL, dest=TEMPLATE) # Create an empty part object template.
+my_part.ref_prefix = 'R'                            # Set the part's reference prefix.
+my_part.description = 'resistor'                    # Set the part's description field.
+my_part.keywords = 'res resistor'                   # Set the part's keywords.
+my_part += Pin(num=1, func=Pin.funcs.PASSIVE)       # Add a pin to the part.
+my_part += Pin(num=2, func=Pin.funcs.PASSIVE)       # Add another pin to the part.
+new_resistor = my_part()                            # Instantiate the part from the template.
+```
+
+Always create an ad-hoc part as a template so it isn't inadvertently
+added to the circuit netlist.
+Then set the part attributes and create and add pins to the part.
+Here are the most common attributes you'll want to set:
+
+| Attribute   | Meaning                                                                                      |
+| ----------- | -------------------------------------------------------------------------------------------- |
+| name        | A string containing the name of the part, e.g. 'LM35' for a temperature sensor.              |
+| ref_prefix  | A string containing the prefix for this part's references, e.g. 'U' for ICs.                 |
+| description | A string describing the part, e.g. 'temperature sensor'.                                     |
+| keywords    | A string containing keywords about the part, e.g. 'sensor temperature IC'.                   |
+| footprint   | A string containing the footprint of the part, e.g. 'Resistor_SMD.pretty:R_0805_2012Metric'. |
+
+When creating pins, these are the attributes you'll want to set:
+
+| Attribute | Meaning                                                         |
+| --------- | --------------------------------------------------------------- |
+| num       | A string or integer containing the pin number, e.g. 5 or 'A13'. |
+| name      | A string containing the name of the pin, e.g. 'CS'.             |
+| func      | An identifier for the function of the pin.                      |
+
+The pin function identifiers are as follows:
+ 
+| Identifier           | Pin Function                                                    |
+| -------------------- | --------------------------------------------------------------- |
+| Pin.funcs.INPUT      | Input pin.                                                      |
+| Pin.funcs.OUTPUT     | Output pin.                                                     |
+| Pin.funcs.BIDIR      | Bidirectional in/out pin.                                       |
+| Pin.funcs.TRISTATE   | Output pin that goes into a high-impedance state when disabled. |
+| Pin.funcs.PASSIVE    | Pin on a passive component (like a resistor).                   |
+| Pin.funcs.UNSPEC     | Pin with an unspecified function.                               |
+| Pin.funcs.PWRIN      | Power input pin (either voltage supply or ground).              |
+| Pin.funcs.PWROUT     | Power output pin (like the output of a voltage regulator).      |
+| Pin.funcs.OPENCOLL   | Open-collector pin (pulls to ground but not to positive rail).  |
+| Pin.funcs.OPENEMIT   | Open-emitter pin (pulls to positive rail but not to ground).    |
+| Pin.funcs.PULLUP     | Pin with a pull-up resistor.                                    |
+| Pin.funcs.PULLDOWN   | Pin with a pull-down resistor.                                  |
+| Pin.funcs.NOCONNECT  | A pin that should be left unconnected.                          |
+| Pin.funcs.FREE       | A pin that is free to be used for any function.                 |
+
 ## Circuit Objects
 
 Normally, SKiDL puts parts and nets into a global instance of a `Circuit` object
@@ -2279,7 +2296,7 @@ But you can create other `Circuit` objects:
 >>> my_circuit = Circuit()
 ```
 
-and then you may create parts, nets and buses and add them to your new circuit:
+and then you can create parts, nets and buses and add them to your new circuit:
 
 ```terminal
 >>> my_circuit += Part("Device",'R')  # Add a resistor to the circuit.
@@ -2291,7 +2308,7 @@ In addition to the `+=` operator, you can also use the methods `add_parts`, `add
 (There's also the much less-used `-=` operator for removing parts, nets or buses
 from a circuit along with the `rmv_parts`, `rmv_nets`, and `rmv_buses` methods.)
 
-You may also place parts, nets, and buses directly into a `Circuit` object
+Parts, nets, and buses can also be added directly to a `Circuit` object
 by using the `circuit` parameter of the object constructors:
 
 ```terminal
@@ -2312,11 +2329,20 @@ with my_circuit:
     b = Bus('byte_bus', 8)
 ```
 
-Hierarchical circuits also work with `Circuit` objects.
-In the previous [multi-level hierarchy example](#multilevel_hierarchy_example),
-the subcircuit could be instantiated into a `Circuit` object like this:
+Hierarchical circuits such as this cascaded voltage divider also work with `Circuit` objects:
 
 ```py
+@subcircuit
+def vdiv(inp, outp):
+    r = Part("Device", "R", dest=TEMPLATE)
+    inp & r(value='1K', tag='r_upper') & outp & r(value='500', tag='r_lower') & gnd
+
+@subcircuit
+def casc_vdiv(inp, outp):
+    outp_middle = Net()
+    vdiv(inp, outp_middle)
+    vdiv(outp_middle, outp)
+
 my_circuit = Circuit()   # New Circuit object.
 
 gnd = Net('GND')         # GLobal ground net.
@@ -2325,7 +2351,7 @@ output_net = Net('OUT')  # Net with the divided voltage.
 my_circuit += gnd, input_net, output_net  # Move the nets to the new circuit.
 
 # Instantiate the multi-level hierarchical subcircuit into the new Circuit object.
-multi_vdiv(3, input_net, output_net, circuit = my_circuit)
+casc_vdiv(input_net, output_net, circuit = my_circuit)
 ```
 
 The actual `circuit` parameter is not passed on to the subcircuit.
@@ -2335,14 +2361,25 @@ to the `default_circuit`.
 Hierarchy is also supported when using a context manager:
 
 ```py
+@subcircuit
+def vdiv(inp, outp):
+    r = Part("Device", "R", dest=TEMPLATE)
+    inp & r(value='1K', tag='r_upper') & outp & r(value='500', tag='r_lower') & gnd
+
+@subcircuit
+def casc_vdiv(inp, outp):
+    outp_middle = Net()
+    vdiv(inp, outp_middle)
+    vdiv(outp_middle, outp)
+
 my_circuit = Circuit()
 
 with my_circuit:
-    # Everything instantiated here goes into my_circuit.
+    # Everything instantiated in this context goes into my_circuit.
     gnd = Net('GND')
     input_net = Net('IN')
     output_net = Net('OUT')
-    multi_vdiv(3, input_net, output_net)
+    casc_vdiv(input_net, output_net)
 ```
 
 You may do all the same operations on a `Circuit` object that are supported on the 
@@ -2366,6 +2403,25 @@ Here are a few things you can't do (and will get warned about):
 * Once a part, net, or bus is connected to something else in a `Circuit` object,
   it can't be moved to a different `Circuit` object.
 
+## Nodes
+
+`Node` objects are used to store the hierarchy of a circuit.
+The top-most node is stored in `default_circuit.root`.
+Every subcircuit has a node associated with it
+that can be accessed from `default_circuit.active_node`
+while the code in the subcircuit is being executed.
+
+Some attributes of the `Node` class are:
+
+- `name`: The name of the node.
+- `parent`: The parent node, if any.
+- `children`: A list of child nodes, if any.
+- `parts`: A list of parts instantiated within the node.
+- `nets`: A list of nets instantiated within the node.
+- `buses`: A list of buses instantiated within the node.
+- `partclasses`: A list of part classes applied to parts within the node and its children.
+- `netclasses`: A list of net classes applied to nets within the node and its children.
+
 
 # Generating a Schematic
 
@@ -2377,17 +2433,17 @@ To support this, SKiDL can show the interconnection of parts as:
 * an [editable KiCad schematic](#kicad-schematics) (currently only V5 is supported),
 * or a [directed graph](#dot-graphs) using the [graphviz DOT language](https://graphviz.org/doc/info/lang.html).
 
-The following circuit will be used to illustrate each alternative:
+The following circuit for a transistor-based AND gate will be used to illustrate each alternative:
 
 ![TTL AND Gate](https://raw.githubusercontent.com/nturley/netlistsvg/master/doc/and.svg?sanitize=true)
 
-A SKiDL script for this circuit is:
+The `and_gate.py` SKiDL script for this circuit is:
 
 ```py
 from skidl import *
 
 # Create part templates.
-q = Part(lib="Device.lib", name="Q_PNP_CBE", dest=TEMPLATE, symtx="V")
+q = Part(lib="Transistor_BJT", name="Q_PNP_CBE", dest=TEMPLATE, symtx="V")
 r = Part("Device", "R", dest=TEMPLATE)
 
 # Create nets.
@@ -2410,14 +2466,14 @@ gnd += gndt
 
 ## SVG Schematics
 
-**Note: Generating SVG schematics requires that you install a pre-release version of
+**Note: Generating SVG schematics requires that you install
 [netlistsvg](https://github.com/nturley/netlistsvg) on your system:**
 
 ```bash
 npm install https://github.com/nturley/netlistsvg
 ```
 
-You may create a schematic as an SVG file by appending the
+You can create a schematic as an SVG file by appending the
 following to the end of the script:
 
 ```py
@@ -2428,9 +2484,8 @@ The resulting `and_gate.svg` file looks like this:
 
 ![AND_GATE schematic.](images/and_gate_1.svg)
 
-This uses the KiCad schematic symbols to create a better depiction of the circuit
-than the graph of the previous section,
-but it still lacks some things like the input and output terminals.
+The schematic symbols from the KiCad libraries are converted to create the
+SVG, but it still lacks some elements like the input and output terminals.
 To add these, modify the script as follows:
 
 ```py
@@ -2445,7 +2500,7 @@ Now the schematic looks a little better:
 
 ![AND_GATE schematic with terminals.](images/and_gate_2.svg)
 
-The schematic can be further improved by adding some indicators about the "flow"
+Further improvements are possible by adding some indicators about the "flow"
 of the signals through the components:
 
 ```py
@@ -2486,7 +2541,7 @@ and then rotate it 90$\degree$ clockwise:
 q1.symtx = "HR"  # Flip horizontally and then rotate right by 90 degrees.
 ```
 
-You may also set a net or bus attribute to choose whether it is fully drawn or replaced by
+You can also set a net or bus attribute to choose whether it is fully drawn or replaced by
 a named *stub* at each connection point:
 
 ```py
@@ -2503,7 +2558,7 @@ e, b, c = Net("ENET"), Net("BNET"), Net("CNET")
 e.stub, b.stub, c.stub = True, True, True
 
 # Create transistor part template.
-qt = Part(lib="Device.lib", name="Q_PNP_CBE", dest=TEMPLATE)
+qt = Part(lib="Transistor_BJT", name="Q_PNP_CBE", dest=TEMPLATE)
 
 # Instantiate transistor with various orientations.
 for q, tx in zip(qt(8), ['', 'H', 'V', 'R', 'L', 'VL', 'HR', 'LV']):
@@ -2526,24 +2581,24 @@ To generate a schematic file that can be opened with KiCad Eeschema, just append
 generate_schematic()
 ```
 
-This will drop an Eeschema file called `and_top.sch` into the same directory as the `and.py` file.
+This will drop an Eeschema file called `and_gate_top.sch` into the same directory as the `and_gate.py` file.
 
 ![KiCad 5 Eeschema AND_GATE schematic.](images/and_gate_4.png)
 
-Right now, this file can only be opened using KiCad version 5.
+Currently, this file can only be opened using KiCad version 5.
 (If you're using a more recent version of KiCad, then there are some
 [Docker files for running different versions of KiCad](https://github.com/devbisme/docker_kicad) without affecting your current setup.)
 
 The `generate_schematic()` function accepts these parameters:
 
 * `filepath` (`str`, optional): The directory where the schematic files are placed. Defaults to ".".
-* `top_name` (`str`, optional): The name for the top of the circuit hierarchy. Defaults to `get_script_name()`.
+* `top_name` (`str`, optional): The name for the top of the circuit hierarchy. Defaults to the script name.
 * `title` (`str`, optional): The title in the title box of the schematic. Defaults to "SKiDL-Generated Schematic".
 * `flatness` (`float`, optional): Determines how much the hierarchy is flattened in the schematic. Defaults to 0.0 (completely hierarchical).
-* `retries` (`int`, optional): Number of times to re-try if routing fails. Defaults to 2.
+* `retries` (`int`, optional): Number of times to re-try if placement and routing fails. Defaults to 2.
 
 In addition, the `generate_schematic()` function supports the `symtx` and `netio` attributes discussed 
-in the [section on generating SVG](#svg-schematics).
+in the [section on generating SVG schematics](#svg-schematics).
 
 ## DOT Graphs
 
@@ -2556,7 +2611,7 @@ To generate a DOT file for the circuit, just append the following to the end of 
 generate_dot(file_='and_gate.dot')
 ```
 
-After running the script to generate the `and_gate.dot` file, you may transform it into
+After running the script to generate the `and_gate.dot` file, you can transform it into
 a bitmap file using the command:
 
 ```bash
@@ -2567,8 +2622,8 @@ The resulting `and_gate.dot.png` file looks like this:
 
 ![AND_GATE graph.](images/and_gate.dot.png)
 
-This graph might serve as a sanity-check for a small circuit,
-but you can imagine what it would look like if it included
+While this might serve as a sanity-check for a small circuit,
+it would be indecipherable for a circuit that had
 microcontrollers or FPGAs with hundreds of pins!
 
 
@@ -2576,19 +2631,20 @@ microcontrollers or FPGAs with hundreds of pins!
 
 **Currently, this feature is only available for KiCad designs.**
 
-You may convert an existing schematic-based design to SKiDL like this:
+You can convert an existing schematic-based design to SKiDL like this:
 
 1. Generate a netlist file for your design using whatever procedure your ECAD
    system provides. For this discussion, call the netlist file `my_design.net`.
 
-2. Convert the netlist file into a SKiDL program using the following command:
+2. Convert the netlist file into a SKiDL script using the following command:
 
     ```terminal
-    netlist_to_skidl -i my_design.net -o my_design.py -w
+    netlist_to_skidl -i my_design.net -o my_design -w
     ```
 
-That's it! You can execute the `my_design.py` script and it will regenerate the
-netlist. Or you may use the script as a subcircuit in a larger design.
+That's it! You can execute the `main.py` script in the `my_design` directory
+and it will regenerate the netlist.
+Or you can use the script as a subcircuit in a larger design.
 Or do anything else that a SKiDL-based design supports.
 
 
