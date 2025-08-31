@@ -3,6 +3,13 @@
 </div>
 
 ![PyPI Version](https://img.shields.io/pypi/v/skidl.svg)
+![Python Versions](https://img.shields.io/pypi/pyversions/skidl.svg)
+![License](https://img.shields.io/pypi/l/skidl.svg)
+![Downloads](https://img.shields.io/pypi/dm/skidl.svg)
+![GitHub Stars](https://img.shields.io/github/stars/devbisme/skidl.svg?style=social)
+![GitHub Forks](https://img.shields.io/github/forks/devbisme/skidl.svg?style=social)
+![GitHub Issues](https://img.shields.io/github/issues/devbisme/skidl.svg)
+![GitHub Last Commit](https://img.shields.io/github/last-commit/devbisme/skidl.svg)
 
 **Never use a lousy schematic editor again!**
 
