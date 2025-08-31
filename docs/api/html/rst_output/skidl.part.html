@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.part module &#8212; SKiDL 2.1.0 documentation</title>
+    <title>skidl.part module &#8212; SKiDL 2.1.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../_static/documentation_options.js?v=841abef3"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.1 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.part module</a></li> 
       </ul>
     </div>  
@@ -60,21 +60,21 @@ together to form circuits.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>lib</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference internal" href="skidl.schlib.html#skidl.schlib.SchLib" title="skidl.schlib.SchLib"><em>SchLib</em></a><em>, </em><em>optional</em>) – Either a SchLib object or a schematic part library file name.</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – A string with name of the part to find in the library, or to assign to
+<li><p><strong>lib</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference internal" href="skidl.schlib.html#skidl.schlib.SchLib" title="skidl.schlib.SchLib"><em>SchLib</em></a><em>, </em><em>optional</em>) – Either a SchLib object or a schematic part library file name.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – A string with name of the part to find in the library, or to assign to
 the part defined by the part definition.</p></li>
-<li><p><strong>dest</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – String that indicates where the part is destined for (e.g., NETLIST).</p></li>
-<li><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The format for the library file or part definition (e.g., KICAD).</p></li>
-<li><p><strong>connections</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em>, </em><em>optional</em>) – A dictionary with part pin names/numbers as keys and the
+<li><p><strong>dest</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – String that indicates where the part is destined for (e.g., NETLIST).</p></li>
+<li><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – The format for the library file or part definition (e.g., KICAD).</p></li>
+<li><p><strong>connections</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em>, </em><em>optional</em>) – A dictionary with part pin names/numbers as keys and the
 nets to which they will be connected as values. For example:
 { ‘IN-‘:a_in, ‘IN+’:gnd, ‘1’:AMPED_OUTPUT, ‘14’:vcc, ‘7’:gnd }</p></li>
-<li><p><strong>part_defn</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>, </em><em>optional</em>) – A list of strings that define the part (usually read from a
+<li><p><strong>part_defn</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>, </em><em>optional</em>) – A list of strings that define the part (usually read from a
 schematic library file).</p></li>
 <li><p><strong>circuit</strong> (<a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit" title="skidl.circuit.Circuit"><em>Circuit</em></a><em>, </em><em>optional</em>) – The Circuit object this Part belongs to.</p></li>
-<li><p><strong>ref_prefix</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Prefix for part references such as ‘U’ or ‘J’.</p></li>
-<li><p><strong>ref</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – A specific part reference to be assigned.</p></li>
-<li><p><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – A specific tag to tie the part to its footprint in the PCB.</p></li>
-<li><p><strong>pin_splitters</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – String of characters that split long pin names into shorter aliases.</p></li>
+<li><p><strong>ref_prefix</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Prefix for part references such as ‘U’ or ‘J’.</p></li>
+<li><p><strong>ref</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – A specific part reference to be assigned.</p></li>
+<li><p><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – A specific tag to tie the part to its footprint in the PCB.</p></li>
+<li><p><strong>pin_splitters</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – String of characters that split long pin names into shorter aliases.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
@@ -84,8 +84,8 @@ named ‘manf_num’ for the part and assign it the value ‘LM4808MP-8’.</p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If the part library and definition are both missing.</p></li>
-<li><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If an unknown file format is requested.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3.12/library/exceptions.html#ValueError" title="(in Python v3.12)"><strong>ValueError</strong></a> – If the part library and definition are both missing.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3.12/library/exceptions.html#ValueError" title="(in Python v3.12)"><strong>ValueError</strong></a> – If an unknown file format is requested.</p></li>
 </ul>
 </dd>
 </dl>
@@ -95,7 +95,7 @@ named ‘manf_num’ for the part and assign it the value ‘LM4808MP-8’.</p>
 <dd><p>The part name.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -106,7 +106,7 @@ named ‘manf_num’ for the part and assign it the value ‘LM4808MP-8’.</p>
 <dd><p>Description of the part.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -117,7 +117,7 @@ named ‘manf_num’ for the part and assign it the value ‘LM4808MP-8’.</p>
 <dd><p>Reference designator for the part (e.g., ‘R1’, ‘U3’).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -128,7 +128,7 @@ named ‘manf_num’ for the part and assign it the value ‘LM4808MP-8’.</p>
 <dd><p>Prefix for the reference (e.g., ‘R’, ‘U’).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -139,7 +139,7 @@ named ‘manf_num’ for the part and assign it the value ‘LM4808MP-8’.</p>
 <dd><p>List of Pin objects for this part.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)">list</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -150,7 +150,7 @@ named ‘manf_num’ for the part and assign it the value ‘LM4808MP-8’.</p>
 <dd><p>Dictionary for storing subunits of the part.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#dict" title="(in Python v3.13)">dict</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#dict" title="(in Python v3.12)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -196,13 +196,13 @@ named ‘manf_num’ for the part and assign it the value ‘LM4808MP-8’.</p>
 <dd><p>Return True if any part pin is connected to a net in the list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>nets</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>, </em><em>optional</em>) – List of nets to check for connection.</p>
+<dd class="field-odd"><p><strong>nets</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>, </em><em>optional</em>) – List of nets to check for connection.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>True if part is connected to any of the nets, False otherwise.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -215,7 +215,7 @@ named ‘manf_num’ for the part and assign it the value ‘LM4808MP-8’.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>spice_part</strong> (<a class="reference internal" href="#skidl.part.Part" title="skidl.part.Part"><em>Part</em></a>) – The type of SPICE Part to be converted to.</p></li>
-<li><p><strong>pin_map</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Dict with pin numbers/names of self as keys and num/names of spice_part pins as replacement values.</p></li>
+<li><p><strong>pin_map</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – Dict with pin numbers/names of self as keys and num/names of spice_part pins as replacement values.</p></li>
 </ul>
 </dd>
 </dl>
@@ -228,10 +228,10 @@ named ‘manf_num’ for the part and assign it the value ‘LM4808MP-8’.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>num_copies</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – Number of copies to make of this part.</p></li>
-<li><p><strong>dest</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Indicates where the copy is destined for (e.g., NETLIST).</p></li>
+<li><p><strong>num_copies</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Number of copies to make of this part.</p></li>
+<li><p><strong>dest</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Indicates where the copy is destined for (e.g., NETLIST).</p></li>
 <li><p><strong>circuit</strong> (<a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit" title="skidl.circuit.Circuit"><em>Circuit</em></a><em>, </em><em>optional</em>) – The circuit this part should be added to.</p></li>
-<li><p><strong>io</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>, </em><em>optional</em>) – XSPICE I/O names.</p></li>
+<li><p><strong>io</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>, </em><em>optional</em>) – XSPICE I/O names.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
@@ -241,10 +241,10 @@ named ‘manf_num’ for the part and assign it the value ‘LM4808MP-8’.</p>
 <dd class="field-odd"><p>A list of Part copies or a single Part if num_copies==1.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="#skidl.part.Part" title="skidl.part.Part">Part</a> or <a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+<dd class="field-even"><p><a class="reference internal" href="#skidl.part.Part" title="skidl.part.Part">Part</a> or <a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)">list</a></p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If the requested number of copies is a non-integer or negative.</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/exceptions.html#ValueError" title="(in Python v3.12)"><strong>ValueError</strong></a> – If the requested number of copies is a non-integer or negative.</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
@@ -269,7 +269,7 @@ named ‘manf_num’ for the part and assign it the value ‘LM4808MP-8’.</p>
 <dd class="field-odd"><p><strong>src</strong> (<a class="reference internal" href="#skidl.part.Part" title="skidl.part.Part"><em>Part</em></a>) – The source part containing units to copy.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#Exception" title="(in Python v3.13)"><strong>Exception</strong></a> – If an illegal unit type is encountered.</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.12/library/exceptions.html#Exception" title="(in Python v3.12)"><strong>Exception</strong></a> – If an illegal unit type is encountered.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -286,7 +286,7 @@ named ‘manf_num’ for the part and assign it the value ‘LM4808MP-8’.</p>
 <dd class="field-even"><p><a class="reference internal" href="skidl.network.html#skidl.network.Network" title="skidl.network.Network">Network</a></p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#Exception" title="(in Python v3.13)"><strong>Exception</strong></a> – If the part has more than 2 pins.</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/exceptions.html#Exception" title="(in Python v3.12)"><strong>Exception</strong></a> – If the part has more than 2 pins.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -307,7 +307,7 @@ named ‘manf_num’ for the part and assign it the value ‘LM4808MP-8’.</p>
 <dd class="field-odd"><p>A string description in the form “name/ref”</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -323,13 +323,13 @@ named ‘manf_num’ for the part and assign it the value ‘LM4808MP-8’.</p>
 <dd><p>Return a string to recreate a Part object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>addtl_part_attrs</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>, </em><em>optional</em>) – List of additional part attribute names to include in export.</p>
+<dd class="field-odd"><p><strong>addtl_part_attrs</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>, </em><em>optional</em>) – List of additional part attribute names to include in export.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>String that can be evaluated to rebuild the Part object.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -343,7 +343,7 @@ named ‘manf_num’ for the part and assign it the value ‘LM4808MP-8’.</p>
 <dd class="field-odd"><p>The part’s footprint.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -355,16 +355,16 @@ named ‘manf_num’ for the part and assign it the value ‘LM4808MP-8’.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>symtx</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Transform for the SVG symbol. Defaults to “”.</p></li>
-<li><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Tool format to use for SVG generation. Defaults to config.tool.</p></li>
-<li><p><strong>net_stubs</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>, </em><em>optional</em>) – List of net stubs to include in the SVG.</p></li>
+<li><p><strong>symtx</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Transform for the SVG symbol. Defaults to “”.</p></li>
+<li><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Tool format to use for SVG generation. Defaults to config.tool.</p></li>
+<li><p><strong>net_stubs</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>, </em><em>optional</em>) – List of net stubs to include in the SVG.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>SVG representation of the component.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -375,7 +375,7 @@ named ‘manf_num’ for the part and assign it the value ‘LM4808MP-8’.</p>
 <dd><p>Get the part with the given text from a circuit, or return None.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – A text string that will be searched for in the list of
+<dd class="field-odd"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – A text string that will be searched for in the list of
 parts.</p>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
@@ -390,7 +390,7 @@ then the parts in the default_circuit will be searched.</p>
 </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="#skidl.part.Part" title="skidl.part.Part">Part</a> or <a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+<dd class="field-even"><p><a class="reference internal" href="#skidl.part.Part" title="skidl.part.Part">Part</a> or <a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)">list</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -409,10 +409,10 @@ then it will select all pins.</p>
 <dd class="field-even"><ul class="simple">
 <li><p><strong>criteria</strong> – Key/value pairs that specify attribute values the
 pins must have in order to be selected.</p></li>
-<li><p><strong>silent</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, don’t issue error messages. Defaults to False.</p></li>
-<li><p><strong>only_search_numbers</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Only search for pins by number. Defaults to False.</p></li>
-<li><p><strong>only_search_names</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Only search for pins by name. Defaults to False.</p></li>
-<li><p><strong>match_regex</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Allow regex pattern matching for pin names. Defaults to False.</p></li>
+<li><p><strong>silent</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, don’t issue error messages. Defaults to False.</p></li>
+<li><p><strong>only_search_numbers</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Only search for pins by number. Defaults to False.</p></li>
+<li><p><strong>only_search_names</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Only search for pins by name. Defaults to False.</p></li>
+<li><p><strong>match_regex</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Allow regex pattern matching for pin names. Defaults to False.</p></li>
 </ul>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -424,10 +424,10 @@ Or None if no match was found and silent=True.</p>
 </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin" title="skidl.pin.Pin">Pin</a> or <a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+<dd class="field-even"><p><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin" title="skidl.pin.Pin">Pin</a> or <a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)">list</a></p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If pins can’t be found and silent=False.</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/exceptions.html#ValueError" title="(in Python v3.12)"><strong>ValueError</strong></a> – If pins can’t be found and silent=False.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -448,7 +448,7 @@ Or None if no match was found and silent=True.</p>
 <dd class="field-odd"><p>The hierarchical name including hierarchy prefix and tag.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -471,7 +471,7 @@ silkscreen logos, or other non-electrical schematic elements).</p>
 <dd class="field-odd"><p>True if the part is connected or has no pins, False otherwise.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.12/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -494,7 +494,7 @@ silkscreen logos, or other non-electrical schematic elements).</p></li>
 <dd class="field-odd"><p>True if the part can be moved to another circuit, False otherwise.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.12/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -508,7 +508,7 @@ acts like a Part but contains only a subset of the pins of the Part.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The label used to identify the PartUnit.</p></li>
+<li><p><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The label used to identify the PartUnit.</p></li>
 <li><p><strong>pin_ids</strong> – A list of strings containing pin names, numbers,
 regular expressions, slices, lists or tuples.</p></li>
 </ul>
@@ -539,7 +539,7 @@ pin must have in order to be selected.</p>
 <dd class="field-odd"><p>Current state of regex matching flag.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.12/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -553,7 +553,7 @@ pin must have in order to be selected.</p>
 <dd class="field-odd"><p>Sorted list of the part’s pins.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)">list</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -564,7 +564,7 @@ pin must have in order to be selected.</p>
 <dd><p>Create a part from its stored part definition.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>partial_parse</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – When true, just get the name and aliases for the
+<dd class="field-odd"><p><strong>partial_parse</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – When true, just get the name and aliases for the
 part. Leave the rest unparsed. Defaults to False.</p>
 </dd>
 </dl>
@@ -585,7 +585,7 @@ surrounding this part and the part classes directly assigned to this part.</p>
 </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#set" title="(in Python v3.13)">set</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#set" title="(in Python v3.12)">set</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -602,7 +602,7 @@ it unique.</p>
 <dd class="field-odd"><p>The part’s reference designator.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -621,7 +621,7 @@ it unique.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pin_id</strong> – ID of pin to rename (name or number)</p></li>
-<li><p><strong>new_pin_name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – New name for the pin</p></li>
+<li><p><strong>new_pin_name</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – New name for the pin</p></li>
 </ul>
 </dd>
 </dl>
@@ -658,7 +658,7 @@ it unique.</p>
 <dd><p>Remove a PartUnit from a Part.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Label of unit to remove.</p>
+<dd class="field-odd"><p><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Label of unit to remove.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -671,14 +671,14 @@ it unique.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>part</strong> (<a class="reference internal" href="#skidl.part.Part" title="skidl.part.Part"><em>Part</em></a>) – The part to compare to for similarity.</p></li>
-<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Dictionary of options and settings affecting similarity computation.</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – Dictionary of options and settings affecting similarity computation.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Value for similarity (larger means more similar).</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)">float</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/functions.html#float" title="(in Python v3.12)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -689,7 +689,7 @@ it unique.</p>
 <dd><p>Use chars in delimiters to split pin names and add as aliases to each pin.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>delimiters</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – String of characters to use as delimiters for splitting pin names.</p>
+<dd class="field-odd"><p><strong>delimiters</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – String of characters to use as delimiters for splitting pin names.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -720,7 +720,7 @@ it will be returned. If all else fails, the name will be returned.</p>
 <dd class="field-odd"><p>The tag, reference, or name of the object.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -731,7 +731,7 @@ it will be returned. If all else fails, the name will be returned.</p>
 <dd><p>Check that pins and units reference the correct part that owns them.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#AssertionError" title="(in Python v3.13)"><strong>AssertionError</strong></a> – If pins or units don’t properly reference this part.</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/exceptions.html#AssertionError" title="(in Python v3.12)"><strong>AssertionError</strong></a> – If pins or units don’t properly reference this part.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -745,7 +745,7 @@ it will be returned. If all else fails, the name will be returned.</p>
 <dd class="field-odd"><p>The part’s value, or part name if no value is set.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -759,7 +759,7 @@ it will be returned. If all else fails, the name will be returned.</p>
 <dd class="field-odd"><p>String representation of the part’s value.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -779,7 +779,7 @@ cannot store any other unique data.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>part</strong> (<a class="reference internal" href="#skidl.part.Part" title="skidl.part.Part"><em>Part</em></a>) – This is the parent Part whose pins the PartUnit is built from.</p></li>
-<li><p><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – A unique label for this unit.</p></li>
+<li><p><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – A unique label for this unit.</p></li>
 <li><p><strong>pin_ids</strong> – A list of strings containing pin names, numbers,
 regular expressions, slices, lists or tuples. If empty, it
 will match <em>every</em> pin of the part.</p></li>
@@ -789,7 +789,7 @@ will match <em>every</em> pin of the part.</p></li>
 <dd class="field-even"><ul class="simple">
 <li><p><strong>criteria</strong> – Key/value pairs that specify attribute values the
 pin must have in order to be selected.</p></li>
-<li><p><strong>unit</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Unit number assigned to this PartUnit. Defaults to 1.</p></li>
+<li><p><strong>unit</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – Unit number assigned to this PartUnit. Defaults to 1.</p></li>
 </ul>
 </dd>
 </dl>
@@ -826,7 +826,7 @@ pin must have in order to be selected.</p></li>
 <dd class="field-odd"><p>Dictionary representation of the unit as a string.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -852,7 +852,7 @@ pin must have in order to be selected.</p></li>
 <dd class="field-odd"><p>Reference in the form “parent_ref.label”</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -870,7 +870,7 @@ pin must have in order to be selected.</p></li>
 <dd><p>Check that unit pins point to the parent part.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#AssertionError" title="(in Python v3.13)"><strong>AssertionError</strong></a> – If pins don’t refer to the parent part.</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/exceptions.html#AssertionError" title="(in Python v3.12)"><strong>AssertionError</strong></a> – If pins don’t refer to the parent part.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1001,7 +1001,7 @@ for particular types of parts (such as using an 0805 footprint for a resistor).<
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.1 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.part module</a></li> 
       </ul>
     </div>

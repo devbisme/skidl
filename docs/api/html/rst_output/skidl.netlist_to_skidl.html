@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.netlist_to_skidl module &#8212; SKiDL 2.1.0 documentation</title>
+    <title>skidl.netlist_to_skidl module &#8212; SKiDL 2.1.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=20623aea"></script>
+    <script src="../_static/documentation_options.js?v=841abef3"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.1 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.netlist_to_skidl module</a></li> 
       </ul>
     </div>  
@@ -52,7 +52,7 @@ to regenerate the circuit or as a starting point for circuit modifications.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.netlist_to_skidl.HierarchicalConverter">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.netlist_to_skidl.</span></span><span class="sig-name descname"><span class="pre">HierarchicalConverter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/netlist_to_skidl.html#HierarchicalConverter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.netlist_to_skidl.HierarchicalConverter" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.12/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Converts a KiCad netlist into hierarchical SKiDL Python scripts.</p>
 <p>This class analyzes a KiCad netlist and generates equivalent SKiDL scripts
 that preserve the hierarchical structure of the original schematic.</p>
@@ -75,32 +75,32 @@ sheet path information in the netlist.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.netlist_to_skidl.HierarchicalConverter.component_to_skidl">
-<span class="sig-name descname"><span class="pre">component_to_skidl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><span class="pre">object</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/skidl/netlist_to_skidl.html#HierarchicalConverter.component_to_skidl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.netlist_to_skidl.HierarchicalConverter.component_to_skidl" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">component_to_skidl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.12/library/functions.html#object" title="(in Python v3.12)"><span class="pre">object</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/skidl/netlist_to_skidl.html#HierarchicalConverter.component_to_skidl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.netlist_to_skidl.HierarchicalConverter.component_to_skidl" title="Link to this definition">¶</a></dt>
 <dd><p>Return a SKiDL instantiation string for a component.</p>
 <p>This method generates SKiDL code to instantiate a component with all its
 relevant properties preserved.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>comp</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><em>object</em></a>) – A component object from the netlist</p>
+<dd class="field-odd"><p><strong>comp</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/functions.html#object" title="(in Python v3.12)"><em>object</em></a>) – A component object from the netlist</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>SKiDL code to instantiate the component</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.netlist_to_skidl.HierarchicalConverter.convert">
-<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/netlist_to_skidl.html#HierarchicalConverter.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.netlist_to_skidl.HierarchicalConverter.convert" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/netlist_to_skidl.html#HierarchicalConverter.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.netlist_to_skidl.HierarchicalConverter.convert" title="Link to this definition">¶</a></dt>
 <dd><p>Run the complete conversion and write files if output_dir is provided.</p>
 <p>This method performs the full netlist-to-SKiDL conversion process and
 optionally writes the generated Python files to a directory.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Directory to write the generated Python files.
+<dd class="field-odd"><p><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Directory to write the generated Python files.
 If None, files are not written.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -111,7 +111,7 @@ If None, files are not written.</p>
 </p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -141,15 +141,15 @@ in the schematic hierarchy.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sheet1</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to the first sheet</p></li>
-<li><p><strong>sheet2</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to the second sheet</p></li>
+<li><p><strong>sheet1</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Path to the first sheet</p></li>
+<li><p><strong>sheet2</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Path to the second sheet</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Path to the lowest common ancestor sheet</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -165,14 +165,14 @@ top-level subcircuit and generates the final netlist.</p>
 <dd class="field-odd"><p>SKiDL Python code for the main script</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.netlist_to_skidl.HierarchicalConverter.generate_sheet_code">
-<span class="sig-name descname"><span class="pre">generate_sheet_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sheet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#skidl.netlist_to_skidl.Sheet" title="skidl.netlist_to_skidl.Sheet"><span class="pre">Sheet</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/skidl/netlist_to_skidl.html#HierarchicalConverter.generate_sheet_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.netlist_to_skidl.HierarchicalConverter.generate_sheet_code" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">generate_sheet_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sheet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#skidl.netlist_to_skidl.Sheet" title="skidl.netlist_to_skidl.Sheet"><span class="pre">Sheet</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/skidl/netlist_to_skidl.html#HierarchicalConverter.generate_sheet_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.netlist_to_skidl.HierarchicalConverter.generate_sheet_code" title="Link to this definition">¶</a></dt>
 <dd><p>Generate the SKiDL code for a given sheet.</p>
 <p>This method creates a complete SKiDL subcircuit function for a sheet,
 including component instantiation, connections, and calls to child subcircuits.</p>
@@ -184,20 +184,20 @@ including component instantiation, connections, and calls to child subcircuits.<
 <dd class="field-even"><p>Complete SKiDL Python code for the sheet as a subcircuit</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.netlist_to_skidl.HierarchicalConverter.net_to_skidl">
-<span class="sig-name descname"><span class="pre">net_to_skidl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><span class="pre">object</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#skidl.netlist_to_skidl.Sheet" title="skidl.netlist_to_skidl.Sheet"><span class="pre">Sheet</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/skidl/netlist_to_skidl.html#HierarchicalConverter.net_to_skidl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.netlist_to_skidl.HierarchicalConverter.net_to_skidl" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">net_to_skidl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.12/library/functions.html#object" title="(in Python v3.12)"><span class="pre">object</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#skidl.netlist_to_skidl.Sheet" title="skidl.netlist_to_skidl.Sheet"><span class="pre">Sheet</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/skidl/netlist_to_skidl.html#HierarchicalConverter.net_to_skidl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.netlist_to_skidl.HierarchicalConverter.net_to_skidl" title="Link to this definition">¶</a></dt>
 <dd><p>Return a SKiDL connection string for a net within a given sheet.</p>
 <p>This method generates SKiDL code to connect pins to a net within a sheet.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>net</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><em>object</em></a>) – A net object from the netlist</p></li>
+<li><p><strong>net</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/functions.html#object" title="(in Python v3.12)"><em>object</em></a>) – A net object from the netlist</p></li>
 <li><p><strong>sheet</strong> (<a class="reference internal" href="#skidl.netlist_to_skidl.Sheet" title="skidl.netlist_to_skidl.Sheet"><em>Sheet</em></a>) – The sheet context for this net connection</p></li>
 </ul>
 </dd>
@@ -209,7 +209,7 @@ including component instantiation, connections, and calls to child subcircuits.<
 </p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -219,14 +219,14 @@ including component instantiation, connections, and calls to child subcircuits.<
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.netlist_to_skidl.NetSexp">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.netlist_to_skidl.</span></span><span class="sig-name descname"><span class="pre">NetSexp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sexp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/netlist_to_skidl.html#NetSexp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.netlist_to_skidl.NetSexp" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.12/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>This class delivers attributes from a net S-expression.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.netlist_to_skidl.NetlistSexp">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.netlist_to_skidl.</span></span><span class="sig-name descname"><span class="pre">NetlistSexp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sexp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/netlist_to_skidl.html#NetlistSexp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.netlist_to_skidl.NetlistSexp" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.12/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Represents a KiCad netlist.</p>
 <p>This class encapsulates the structure of a KiCad netlist, including its parts,
 nets, and sheets. It provides methods to access and manipulate the netlist data.</p>
@@ -268,28 +268,28 @@ nets, and sheets. It provides methods to access and manipulate the netlist data.
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.netlist_to_skidl.PartSexp">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.netlist_to_skidl.</span></span><span class="sig-name descname"><span class="pre">PartSexp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sexp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/netlist_to_skidl.html#PartSexp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.netlist_to_skidl.PartSexp" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.12/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>This class delivers attributes from a component S-expression.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.netlist_to_skidl.PinSexp">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.netlist_to_skidl.</span></span><span class="sig-name descname"><span class="pre">PinSexp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sexp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/netlist_to_skidl.html#PinSexp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.netlist_to_skidl.PinSexp" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.12/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>This class delivers attributes from a pin S-expression.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.netlist_to_skidl.PropertySexp">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.netlist_to_skidl.</span></span><span class="sig-name descname"><span class="pre">PropertySexp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sexp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/netlist_to_skidl.html#PropertySexp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.netlist_to_skidl.PropertySexp" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.12/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>This class delivers attributes from a property S-expression.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.netlist_to_skidl.Sheet">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.netlist_to_skidl.</span></span><span class="sig-name descname"><span class="pre">Sheet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/netlist_to_skidl.html#Sheet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.netlist_to_skidl.Sheet" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.12/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Represents a hierarchical sheet from a KiCad schematic.</p>
 <p>This object stores information about a sheet in the schematic hierarchy,
 including its components, nets, and relationship to other sheets.</p>
@@ -299,7 +299,7 @@ including its components, nets, and relationship to other sheets.</p>
 <dd><p>Sheet number in the hierarchy</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -310,7 +310,7 @@ including its components, nets, and relationship to other sheets.</p>
 <dd><p>Sheet name</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -321,7 +321,7 @@ including its components, nets, and relationship to other sheets.</p>
 <dd><p>Full hierarchical path to the sheet</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -343,7 +343,7 @@ including its components, nets, and relationship to other sheets.</p>
 <dd><p>Nets that originate in this sheet</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Set[<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a>]</p>
+<dd class="field-odd"><p>Set[<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -354,7 +354,7 @@ including its components, nets, and relationship to other sheets.</p>
 <dd><p>Nets that are imported from parent/other sheets</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Set[<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a>]</p>
+<dd class="field-odd"><p>Set[<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -365,7 +365,7 @@ including its components, nets, and relationship to other sheets.</p>
 <dd><p>Path to the parent sheet, or None for top-level sheets</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -376,7 +376,7 @@ including its components, nets, and relationship to other sheets.</p>
 <dd><p>Paths to the child sheets of this sheet</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a>]</p>
+<dd class="field-odd"><p>List[<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -386,27 +386,27 @@ including its components, nets, and relationship to other sheets.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.netlist_to_skidl.SheetSexp">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.netlist_to_skidl.</span></span><span class="sig-name descname"><span class="pre">SheetSexp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sexp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/netlist_to_skidl.html#SheetSexp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.netlist_to_skidl.SheetSexp" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.12/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>This class delivers attributes from a sheet S-expression.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.netlist_to_skidl.find_common_path_prefix">
-<span class="sig-prename descclassname"><span class="pre">skidl.netlist_to_skidl.</span></span><span class="sig-name descname"><span class="pre">find_common_path_prefix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">path2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/skidl/netlist_to_skidl.html#find_common_path_prefix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.netlist_to_skidl.find_common_path_prefix" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">skidl.netlist_to_skidl.</span></span><span class="sig-name descname"><span class="pre">find_common_path_prefix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">path2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/skidl/netlist_to_skidl.html#find_common_path_prefix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.netlist_to_skidl.find_common_path_prefix" title="Link to this definition">¶</a></dt>
 <dd><p>Return the common path prefix of two paths.</p>
 <p>This function finds the longest common hierarchical path prefix between two paths.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>path1</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – First path</p></li>
-<li><p><strong>path2</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Second path</p></li>
+<li><p><strong>path1</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – First path</p></li>
+<li><p><strong>path2</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Second path</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The common path prefix including the trailing separator</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -418,7 +418,7 @@ including its components, nets, and relationship to other sheets.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.netlist_to_skidl.legalize_name">
-<span class="sig-prename descclassname"><span class="pre">skidl.netlist_to_skidl.</span></span><span class="sig-name descname"><span class="pre">legalize_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/skidl/netlist_to_skidl.html#legalize_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.netlist_to_skidl.legalize_name" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">skidl.netlist_to_skidl.</span></span><span class="sig-name descname"><span class="pre">legalize_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.12/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/skidl/netlist_to_skidl.html#legalize_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.netlist_to_skidl.legalize_name" title="Link to this definition">¶</a></dt>
 <dd><p>Return a version of name that is a legal Python identifier.</p>
 <p>This function converts arbitrary strings to valid Python identifiers by replacing
 illegal characters with underscores and handling special cases for names
@@ -426,8 +426,8 @@ starting with numbers or containing special symbols.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The original name to convert</p></li>
-<li><p><strong>is_filename</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether the name will be used as a filename.
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The original name to convert</p></li>
+<li><p><strong>is_filename</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether the name will be used as a filename.
 Defaults to False.</p></li>
 </ul>
 </dd>
@@ -435,7 +435,7 @@ Defaults to False.</p></li>
 <dd class="field-even"><p>A legal Python identifier derived from the input name</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -449,15 +449,15 @@ Defaults to False.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.netlist_to_skidl.netlist_to_skidl">
-<span class="sig-prename descclassname"><span class="pre">skidl.netlist_to_skidl.</span></span><span class="sig-name descname"><span class="pre">netlist_to_skidl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">netlist_src</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/netlist_to_skidl.html#netlist_to_skidl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.netlist_to_skidl.netlist_to_skidl" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">skidl.netlist_to_skidl.</span></span><span class="sig-name descname"><span class="pre">netlist_to_skidl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">netlist_src</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/netlist_to_skidl.html#netlist_to_skidl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.netlist_to_skidl.netlist_to_skidl" title="Link to this definition">¶</a></dt>
 <dd><p>Convert a KiCad netlist to hierarchical SKiDL Python files.</p>
 <p>This function creates a HierarchicalConverter and uses it to convert
 a KiCad netlist into SKiDL Python scripts.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>netlist_src</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to a KiCad netlist file or a string containing netlist data</p></li>
-<li><p><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Directory to write the generated Python files.
+<li><p><strong>netlist_src</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Path to a KiCad netlist file or a string containing netlist data</p></li>
+<li><p><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – Directory to write the generated Python files.
 If None, files are not written.</p></li>
 </ul>
 </dd>
@@ -469,7 +469,7 @@ If None, files are not written.</p></li>
 </p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -560,7 +560,7 @@ If None, files are not written.</p></li>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.1 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.netlist_to_skidl module</a></li> 
       </ul>
     </div>

@@ -4,5 +4,7 @@
     "python.languageServer": "Pylance",
     "esbonio.server.enabled": true,
     "esbonio.sphinx.confDir": "${workspaceFolder}/docs",
-    "makefile.configureOnOpen": false
+    "makefile.configureOnOpen": false,
+    "python-envs.defaultEnvManager": "ms-python.python:pyenv",
+    "python-envs.pythonProjects": []
 }

@@ -1,5 +1,10 @@
 # History
 
+## 2.1.1 (2025-08-31)
+
+- Added a cheatsheet for SKiDL 2.1.0.
+- Fixed error in PyPi installation.
+
 ## 2.1.0 (2025-08-30)
 
 - Fixed #238: tstamps were incorrectly generated for netlist files.
