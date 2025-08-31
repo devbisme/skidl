@@ -1,5 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>SKiDL - posts</title><link href="/skidl/" rel="alternate"/><link href="/skidl/feeds/posts.atom.xml" rel="self"/><id>/skidl/</id><updated>2024-11-27T00:00:00-05:00</updated><entry><title>2.0</title><link href="/skidl/two-dot-oh-2024-11-27.html" rel="alternate"/><published>2024-11-27T00:00:00-05:00</published><updated>2024-11-27T00:00:00-05:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2024-11-27:/skidl/two-dot-oh-2024-11-27.html</id><summary type="html">&lt;p&gt;After three years since version 1.0, today marks the release of SKiDL version &lt;strong&gt;2.0.0&lt;/strong&gt;.
+<feed xmlns="http://www.w3.org/2005/Atom"><title>SKiDL - posts</title><link href="/skidl/" rel="alternate"/><link href="/skidl/feeds/posts.atom.xml" rel="self"/><id>/skidl/</id><updated>2025-08-31T00:00:00-04:00</updated><entry><title>SKiDL Cheatsheet</title><link href="/skidl/skidl-cheatsheet-2025-08-31.html" rel="alternate"/><published>2025-08-31T00:00:00-04:00</published><updated>2025-08-31T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2025-08-31:/skidl/skidl-cheatsheet-2025-08-31.html</id><content type="html">&lt;p&gt;A &lt;a href="files/cheatsheet.pdf"&gt;cheatsheet&lt;/a&gt; for SKiDL 2.1.0 is now available.
+Print it out, laminate it, and keep it handy for all your SKiDL coding needs!&lt;/p&gt;</content><category term="posts"/></entry><entry><title>SKiDL 2.1 Release</title><link href="/skidl/skidl-two-dot-one-release-2025-08-31.html" rel="alternate"/><published>2025-08-31T00:00:00-04:00</published><updated>2025-08-31T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2025-08-31:/skidl/skidl-two-dot-one-release-2025-08-31.html</id><summary type="html">&lt;p&gt;Today marks the release of SKiDL version &lt;strong&gt;2.1.0&lt;/strong&gt;.
+The increment in the minor version number indicates that this release includes new features and improvements
+while maintaining backward compatibility with version 2.0.0.&lt;/p&gt;
+&lt;p&gt;Here are the changes in 2.1.0:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;netlist_to_skidl&lt;/code&gt; now generates hierarchical SKiDL code
+  that …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;Today marks the release of SKiDL version &lt;strong&gt;2.1.0&lt;/strong&gt;.
+The increment in the minor version number indicates that this release includes new features and improvements
+while maintaining backward compatibility with version 2.0.0.&lt;/p&gt;
+&lt;p&gt;Here are the changes in 2.1.0:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;netlist_to_skidl&lt;/code&gt; now generates hierarchical SKiDL code
+  that mirrors the hierarchy found in the netlist.&lt;/li&gt;
+&lt;li&gt;Parts can be assigned a &lt;em&gt;part class&lt;/em&gt; that stores attributes for a set of
+  parts.&lt;/li&gt;
+&lt;li&gt;Nets can be assigned a &lt;em&gt;net class&lt;/em&gt; that stores attributes for a set of
+  nets.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SubCircuits&lt;/code&gt; have taken over the &lt;code&gt;Group&lt;/code&gt;
+  functionality. (&lt;code&gt;Group&lt;/code&gt; has been maintained for backward
+  compatibility.)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Circuits&lt;/code&gt; now include a tree of &lt;code&gt;Node&lt;/code&gt;
+  objects that store the hierarchical structure.&lt;/li&gt;
+&lt;li&gt;Improved tracking of netlist objects back to the source line where
+  they were instantiated.&lt;/li&gt;
+&lt;li&gt;InSpice has replaced PySpice to enable the use of newer versions of the
+  ngspice simulator.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;KICAD9&lt;/code&gt; tool identifier was added to support KiCad 9.
+  &lt;code&gt;KICAD9&lt;/code&gt; is now the default tool for new projects.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;See &lt;a href="https://github.com/devbisme/skidl/blob/master/HISTORY.md"&gt;SKiDL's complete history&lt;/a&gt; for all the changes
+made in each release.&lt;/p&gt;</content><category term="posts"/></entry><entry><title>2.0</title><link href="/skidl/two-dot-oh-2024-11-27.html" rel="alternate"/><published>2024-11-27T00:00:00-05:00</published><updated>2024-11-27T00:00:00-05:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2024-11-27:/skidl/two-dot-oh-2024-11-27.html</id><summary type="html">&lt;p&gt;After three years since version 1.0, today marks the release of SKiDL version &lt;strong&gt;2.0.0&lt;/strong&gt;.
 The increment in the major version number indicates that this release is not backward compatible
 with previous versions, so some SKiDL code may not work if:&lt;/p&gt;
 &lt;ol&gt;
