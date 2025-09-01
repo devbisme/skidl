@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>SKiDL &mdash; Others Use It, Too!</title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="/skidl/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Oswald&family=Roboto+Condensed&display=swap" rel="stylesheet">
+		<!-- <style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style> -->
+		<link rel="alternate" type="application/atom+xml"
+			title="SKiDL — Flux Atom"
+			href="/skidl/" />
+		<!--[if lte IE 8]><script src="/skidl/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="/skidl"><img src="/skidl/images/banner.png" width="100%"></a></h1>
+				<!-- <h1 id="site-title"><a href="/skidl">SKiDL</a></h1> -->
+		</div><!-- /#banner -->
+
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/devbisme/skidl">Github</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/devbisme/skidl/discussions">Forum</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/category/posts.html">Blog</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/api/html/index.html">API</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/">Home</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+
+		<div class="page-title">
+		</div>
+
+		<div id="contents">
+
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<span class="date"><a href="/skidl/others-use-it-too-2018-07-29.html">Sun 29 July 2018</a></span>
+		/
+		<span class="byline"><a href="/skidl/author/dave-vandenbout.html">Dave Vandenbout</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/skidl/others-use-it-too-2018-07-29.html" title="Permalink to Others Use It, Too!" rel="bookmark">Others Use It, Too!</a>
+		</h2>
+		<div class="entry-content">
+			<p>It helps when other people use SKiDL; then I can coast by just showing what they've done.
+Here are two examples.</p>
+<h3 id="blinkenface">Blinkenface</h3>
+<p><a href="https://github.com/mossmann/blinkenface">Blinkenface</a> is a version of "LED glasses"
+made with a cascaded string of APA102 RGB LEDs controlled through an SPI interface:</p>
+<p><img alt="Blinkenface PCB" src="images/others-use-it-too/blinkenface_pcb.png"></p>
+<p>Th majority of Blinkenface is just a repetitive connection of one APA102 to the
+next one in line: perfect for a loop construct!
+And that's just what's done in the associated SKiDL code:</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/usr/bin/python</span>
+
+<span class="kn">import</span> <span class="nn">skidl</span>
+
+<span class="n">skidl</span><span class="o">.</span><span class="n">lib_search_paths</span><span class="p">[</span><span class="n">skidl</span><span class="o">.</span><span class="n">KICAD</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;gsg-kicad-lib&#39;</span><span class="p">)</span>
+
+<span class="n">gnd</span> <span class="o">=</span> <span class="n">skidl</span><span class="o">.</span><span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
+<span class="n">vcc</span> <span class="o">=</span> <span class="n">skidl</span><span class="o">.</span><span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VCC&#39;</span><span class="p">)</span>
+
+<span class="n">num_leds</span> <span class="o">=</span> <span class="mi">242</span>
+<span class="n">leds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">sdo</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">cko</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_leds</span><span class="p">):</span>
+    <span class="n">leds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">skidl</span><span class="o">.</span><span class="n">Part</span><span class="p">(</span><span class="s1">&#39;gsg-symbols.lib&#39;</span><span class="p">,</span> <span class="s1">&#39;APA102&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;gsg-modules:APA102-2020&#39;</span><span class="p">))</span>
+    <span class="n">sdo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">skidl</span><span class="o">.</span><span class="n">Net</span><span class="p">(</span><span class="s1">&#39;SDO&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)))</span>
+    <span class="n">cko</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">skidl</span><span class="o">.</span><span class="n">Net</span><span class="p">(</span><span class="s1">&#39;CKO&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)))</span>
+    <span class="n">leds</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;SDI&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">sdo</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">leds</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;CKI&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">cko</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">leds</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;GND&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gnd</span>
+    <span class="n">leds</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;VCC&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vcc</span>
+    <span class="c1"># connect input to previous output</span>
+    <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">:</span>
+        <span class="n">leds</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;SDO&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">sdo</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">leds</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;CKO&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">cko</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+<span class="c1"># don&#39;t connect the output of the last LED</span>
+<span class="n">leds</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;SDO&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">NC</span>
+<span class="n">leds</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;CKO&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">NC</span>
+
+<span class="c1"># connect the input of the first LED to a pin header</span>
+<span class="n">header</span> <span class="o">=</span> <span class="n">skidl</span><span class="o">.</span><span class="n">Part</span><span class="p">(</span><span class="s1">&#39;conn&#39;</span><span class="p">,</span> <span class="s1">&#39;CONN_01X04&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;gsg-modules:HEADER-1x4&#39;</span><span class="p">)</span>
+<span class="n">header</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gnd</span>
+<span class="n">header</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vcc</span>
+<span class="n">header</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+=</span> <span class="n">cko</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">header</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+=</span> <span class="n">sdo</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># assume that power is applied to pin header</span>
+<span class="n">header</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">drive</span> <span class="o">=</span> <span class="n">skidl</span><span class="o">.</span><span class="n">POWER</span>
+<span class="n">header</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">drive</span> <span class="o">=</span> <span class="n">skidl</span><span class="o">.</span><span class="n">POWER</span>
+
+<span class="n">decoupling_caps</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">decoupling_caps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">skidl</span><span class="o">.</span><span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;gsg-modules:0805&#39;</span><span class="p">))</span>
+<span class="n">decoupling_caps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">skidl</span><span class="o">.</span><span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;gsg-modules:0603&#39;</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">decoupling_caps</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vcc</span>
+    <span class="n">decoupling_caps</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gnd</span>
+
+<span class="n">skidl</span><span class="o">.</span><span class="n">ERC</span><span class="p">()</span>
+<span class="n">skidl</span><span class="o">.</span><span class="n">generate_netlist</span><span class="p">()</span>
+</code></pre></div>
+
+<p>The code probably isn't as compact and "Pythonic" as it could be because
+-- as the designer admits -- they're not Python experts.
+And that's an important feature of SKiDL: regardless of your skill level,
+you can still get the job done.
+And this gets the job done by connecting 242 LEDs in just 50 lines of code.</p>
+<h3 id="spidriver">SPIDriver</h3>
+<p>The next example is an actual product: the <a href="https://www.crowdsupply.com/excamera/spidriver">SPIDriver</a>!</p>
+<p><img alt="SPIDriver picture" src="https://github.com/jamesbowman/spidriver/raw/masterimages/DSC_1313a.JPG"></p>
+<p>The SPIDriver has a more conventional topology than the previous example,
+consisting of a microcontroller, display, USB interface, and headers.
+The SKiDL code is partitioned into sections for each major component:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">def</span> <span class="nf">bypass</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">val</span> <span class="o">=</span> <span class="s1">&#39;0.1uF&#39;</span><span class="p">):</span>
+    <span class="n">c1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">val</span><span class="p">,</span> <span class="n">footprint</span> <span class="o">=</span> <span class="s1">&#39;Capacitors_SMD:C_0402&#39;</span><span class="p">)</span>
+    <span class="n">c1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">sig</span>
+    <span class="n">c1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gnd</span>
+
+<span class="k">def</span> <span class="nf">divider</span><span class="p">(</span><span class="n">ratio</span><span class="p">,</span> <span class="n">hi</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
+    <span class="n">r1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;500K&#39;</span><span class="p">,</span> <span class="n">footprint</span> <span class="o">=</span> <span class="s1">&#39;Resistors_SMD:R_0402&#39;</span><span class="p">)</span>
+    <span class="n">r2</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;500K&#39;</span><span class="p">,</span> <span class="n">footprint</span> <span class="o">=</span> <span class="s1">&#39;Resistors_SMD:R_0402&#39;</span><span class="p">)</span>
+    <span class="n">r1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">hi</span>
+    <span class="n">r1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">r2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">res</span>
+    <span class="n">r2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">low</span>
+
+<span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>  <span class="c1"># Ground reference.</span>
+
+<span class="n">v5</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;5V&#39;</span><span class="p">)</span>
+<span class="n">v5b</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;5VB&#39;</span><span class="p">)</span>
+<span class="n">v33a</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;3.3V&#39;</span><span class="p">)</span>
+<span class="n">v33b</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;3.3VB&#39;</span><span class="p">)</span>
+
+<span class="n">u1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;silabs2&#39;</span><span class="p">,</span> <span class="s1">&#39;EFM8BB10F8G-A-QFN20&#39;</span><span class="p">,</span> <span class="n">footprint</span> <span class="o">=</span> <span class="s1">&#39;Housings_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_Pitch0.5mm_ThermalVias&#39;</span><span class="p">)</span>
+<span class="n">u2</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;ftdi&#39;</span><span class="p">,</span> <span class="s1">&#39;FT232RL&#39;</span><span class="p">,</span> <span class="n">footprint</span> <span class="o">=</span> <span class="s1">&#39;Housings_SSOP:SSOP-28_5.3x10.2mm_Pitch0.65mm&#39;</span><span class="p">)</span>
+<span class="n">u3</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;regul&#39;</span><span class="p">,</span> <span class="s1">&#39;AP1117-15&#39;</span><span class="p">,</span> <span class="n">footprint</span> <span class="o">=</span> <span class="s2">&quot;TO_SOT_Packages_SMD:SOT-223-3Lead_TabPin2&quot;</span><span class="p">)</span>
+<span class="n">u4</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="s1">&#39;ZXCT1110&#39;</span><span class="p">,</span> <span class="n">footprint</span> <span class="o">=</span> <span class="s1">&#39;TO_SOT_Packages_SMD:SOT-23-5&#39;</span><span class="p">)</span>
+
+<span class="n">j1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;conn&#39;</span><span class="p">,</span> <span class="s1">&#39;USB_OTG&#39;</span><span class="p">,</span> <span class="n">footprint</span> <span class="o">=</span> <span class="s1">&#39;Connectors_USB:USB_Micro-B_Molex_47346-0001&#39;</span><span class="p">)</span>
+<span class="n">j2</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;conn&#39;</span><span class="p">,</span> <span class="s1">&#39;Conn_01x04_Male&#39;</span><span class="p">,</span> <span class="n">footprint</span> <span class="o">=</span> <span class="s1">&#39;Pin_Headers:Pin_Header_Angled_1x04_Pitch2.54mm&#39;</span><span class="p">)</span>
+<span class="n">j3</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;conn&#39;</span><span class="p">,</span> <span class="s1">&#39;Conn_01x06_Male&#39;</span><span class="p">,</span> <span class="n">footprint</span> <span class="o">=</span> <span class="s1">&#39;Pin_Headers:Pin_Header_Angled_1x06_Pitch2.54mm&#39;</span><span class="p">)</span>
+<span class="n">j4</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;conn&#39;</span><span class="p">,</span> <span class="s1">&#39;Conn_01x06_Male&#39;</span><span class="p">,</span> <span class="n">footprint</span> <span class="o">=</span> <span class="s1">&#39;Pin_Headers:Pin_Header_Angled_1x06_Pitch2.54mm&#39;</span><span class="p">)</span>
+
+<span class="n">d1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;adafruit&#39;</span><span class="p">,</span> <span class="s1">&#39;JD-T1800&#39;</span><span class="p">,</span> <span class="n">footprint</span> <span class="o">=</span> <span class="s1">&#39;JD-T1800&#39;</span><span class="p">)</span>
+
+<span class="c1">################## U1: MCU       ################## </span>
+
+<span class="n">v33a</span> <span class="o">+=</span> <span class="n">u1</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;VDD&#39;</span><span class="p">)</span>
+<span class="n">gnd</span> <span class="o">+=</span> <span class="n">u1</span><span class="p">[</span><span class="s1">&#39;^GND$&#39;</span><span class="p">]</span>
+<span class="n">divider</span><span class="p">(</span><span class="mf">2.4</span> <span class="o">/</span> <span class="mi">6</span><span class="p">,</span> <span class="n">v5</span><span class="p">,</span> <span class="n">gnd</span><span class="p">,</span> <span class="n">u1</span><span class="p">[</span><span class="s1">&#39;P1.5&#39;</span><span class="p">])</span>
+<span class="n">resetpullup</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;1K&#39;</span><span class="p">,</span> <span class="n">footprint</span> <span class="o">=</span> <span class="s1">&#39;Resistors_SMD:R_0402&#39;</span><span class="p">)</span>
+<span class="n">resetpullup</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">u1</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;RSTb/C2CK&#39;</span><span class="p">)</span>
+<span class="n">v33a</span> <span class="o">+=</span> <span class="n">resetpullup</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="c1">################## U2: FTDI      ################## </span>
+
+<span class="n">v5</span>  <span class="o">+=</span> <span class="n">u2</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;VCC&#39;</span><span class="p">)</span>
+<span class="n">v33a</span> <span class="o">+=</span> <span class="n">u2</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;VCCIO&#39;</span><span class="p">)</span>
+<span class="n">v33a</span> <span class="o">+=</span> <span class="n">u2</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;3V3OUT&#39;</span><span class="p">)</span>
+<span class="n">gnd</span> <span class="o">+=</span> <span class="n">u2</span><span class="p">[</span><span class="s1">&#39;^GND$&#39;</span><span class="p">]</span>
+<span class="n">gnd</span> <span class="o">+=</span> <span class="n">u2</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;AGND&#39;</span><span class="p">)</span>
+<span class="n">gnd</span> <span class="o">+=</span> <span class="n">u2</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;TEST&#39;</span><span class="p">)</span>
+<span class="n">u2</span><span class="p">[</span><span class="s1">&#39;RXD&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">u1</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;P0.4&#39;</span><span class="p">)</span>
+<span class="n">u2</span><span class="p">[</span><span class="s1">&#39;TXD&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">u1</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;P0.5&#39;</span><span class="p">)</span>
+<span class="n">NC</span> <span class="o">+=</span> <span class="n">u2</span><span class="p">[</span><span class="s1">&#39;RTS,CTS,DTR,DCR,DCD,RI,CBUS?,OSC[IO],~RESET~&#39;</span><span class="p">]</span>
+
+<span class="c1">################## J1: USB       ################## </span>
+
+<span class="n">gnd</span> <span class="o">+=</span> <span class="n">j1</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">),</span> <span class="n">j1</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;Shield&#39;</span><span class="p">)</span>
+<span class="n">v5</span> <span class="o">+=</span> <span class="n">j1</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;VBUS&#39;</span><span class="p">)</span>
+<span class="n">NC</span> <span class="o">+=</span> <span class="n">j1</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">]</span>
+
+<span class="c1">################## U3: regulator ################## </span>
+
+<span class="n">gnd</span> <span class="o">+=</span> <span class="n">u3</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
+<span class="n">v5b</span> <span class="o">+=</span> <span class="n">u3</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;VI&#39;</span><span class="p">)</span>
+<span class="n">v33b</span> <span class="o">+=</span> <span class="n">u3</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;VO&#39;</span><span class="p">)</span>
+
+<span class="c1">################## U4: current sensor ############# </span>
+
+<span class="n">rsense</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;.1&#39;</span><span class="p">,</span> <span class="n">footprint</span> <span class="o">=</span> <span class="s1">&#39;Resistors_SMD:R_0805&#39;</span><span class="p">)</span>
+<span class="n">rgain</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;2K4&#39;</span><span class="p">,</span> <span class="n">footprint</span> <span class="o">=</span> <span class="s1">&#39;Resistors_SMD:R_0402&#39;</span><span class="p">)</span>
+<span class="n">rgain</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">u4</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;OUT&#39;</span><span class="p">),</span> <span class="n">u1</span><span class="p">[</span><span class="s1">&#39;P1.6&#39;</span><span class="p">]</span>
+<span class="n">rgain</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gnd</span>
+<span class="n">v5</span> <span class="o">+=</span> <span class="n">u4</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;Vs+&#39;</span><span class="p">),</span> <span class="n">rsense</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">v5b</span> <span class="o">+=</span> <span class="n">rsense</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">u4</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;Vs-&#39;</span><span class="p">),</span> <span class="n">j3</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
+<span class="n">gnd</span> <span class="o">+=</span> <span class="n">u4</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
+<span class="n">NC</span> <span class="o">+=</span> <span class="n">u4</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;NC&#39;</span><span class="p">)</span>
+
+<span class="c1">################## J2: debug     ################## </span>
+
+<span class="n">j2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">v33a</span>
+<span class="n">j2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gnd</span>
+<span class="n">j2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+=</span> <span class="n">u1</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;P2.0/C2D&#39;</span><span class="p">)</span>
+<span class="n">j2</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+=</span> <span class="n">u1</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;RSTb/C2CK&#39;</span><span class="p">)</span>
+
+<span class="c1">################## J3: power out ################## </span>
+
+<span class="n">gnd</span> <span class="o">+=</span> <span class="n">j3</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">v33b</span> <span class="o">+=</span> <span class="n">j3</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+
+<span class="c1">################## J4: signal out ##################</span>
+
+<span class="n">j4</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">u1</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;P0.0&#39;</span><span class="p">)</span> <span class="c1"># SCK</span>
+<span class="n">j4</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">u1</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;P0.1&#39;</span><span class="p">)</span> <span class="c1"># MISO</span>
+<span class="n">j4</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+=</span> <span class="n">u1</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;P0.2&#39;</span><span class="p">)</span> <span class="c1"># MOSI</span>
+<span class="n">j4</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+=</span> <span class="n">u1</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;P0.3&#39;</span><span class="p">)</span> <span class="c1"># CS</span>
+<span class="n">j4</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">+=</span> <span class="n">u1</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;P0.6&#39;</span><span class="p">)</span> <span class="c1"># A</span>
+<span class="n">j4</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">+=</span> <span class="n">u1</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;P0.7&#39;</span><span class="p">)</span> <span class="c1"># B</span>
+
+<span class="c1">################## D1: display   ################## </span>
+
+<span class="n">gnd</span> <span class="o">+=</span> <span class="n">d1</span><span class="p">[</span><span class="s1">&#39;GND&#39;</span><span class="p">]</span>
+<span class="n">u1</span><span class="p">[</span><span class="s1">&#39;P1.0&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">d1</span><span class="p">[</span><span class="s1">&#39;CLOCK&#39;</span><span class="p">]</span>
+<span class="n">u1</span><span class="p">[</span><span class="s1">&#39;P1.[12]&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">d1</span><span class="p">[</span><span class="s1">&#39;DATA&#39;</span><span class="p">]</span>
+<span class="n">u1</span><span class="p">[</span><span class="s1">&#39;P1.3&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">d1</span><span class="p">[</span><span class="s1">&#39;CS&#39;</span><span class="p">]</span>
+<span class="n">u1</span><span class="p">[</span><span class="s1">&#39;P1.4&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">d1</span><span class="p">[</span><span class="s1">&#39;RS/DC&#39;</span><span class="p">]</span>
+<span class="n">v33a</span> <span class="o">+=</span> <span class="n">d1</span><span class="p">[</span><span class="s1">&#39;LEDA&#39;</span><span class="p">]</span>
+<span class="n">ledres</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;22&#39;</span><span class="p">,</span> <span class="n">footprint</span> <span class="o">=</span> <span class="s1">&#39;Resistors_SMD:R_0402&#39;</span><span class="p">)</span>
+<span class="n">ledres</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">d1</span><span class="p">[</span><span class="s1">&#39;LEDK&#39;</span><span class="p">]</span>
+<span class="n">gnd</span> <span class="o">+=</span> <span class="n">ledres</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">v33a</span> <span class="o">+=</span> <span class="n">d1</span><span class="p">[</span><span class="s1">&#39;RESET&#39;</span><span class="p">]</span>
+<span class="n">v33a</span> <span class="o">+=</span> <span class="n">d1</span><span class="p">[</span><span class="s1">&#39;VCC&#39;</span><span class="p">]</span>
+
+<span class="c1"># tp1 = Part(&#39;conn&#39;, &#39;TEST_1P&#39;)</span>
+<span class="c1"># tp1.footprint = &#39;Measurement_Points:Measurement_Point_Round-SMD-Pad_Small&#39;</span>
+
+<span class="k">def</span> <span class="nf">conn</span><span class="p">(</span><span class="o">*</span><span class="n">pins</span><span class="p">):</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
+    <span class="n">q</span> <span class="o">+=</span> <span class="n">pins</span>
+
+<span class="n">conn</span><span class="p">(</span><span class="n">j1</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;D+&#39;</span><span class="p">),</span> <span class="n">u2</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;USBD+&#39;</span><span class="p">))</span>
+<span class="n">conn</span><span class="p">(</span><span class="n">j1</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;D-&#39;</span><span class="p">),</span> <span class="n">u2</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;USBD-&#39;</span><span class="p">))</span>
+
+<span class="n">bypass</span><span class="p">(</span><span class="n">v33a</span><span class="p">)</span>            <span class="c1"># MCU (datasheet 5.1)</span>
+<span class="n">bypass</span><span class="p">(</span><span class="n">v33a</span><span class="p">,</span> <span class="s1">&#39;1uF&#39;</span><span class="p">)</span>
+<span class="n">bypass</span><span class="p">(</span><span class="n">v33a</span><span class="p">)</span>            <span class="c1"># FTDI</span>
+<span class="n">bypass</span><span class="p">(</span><span class="n">v5</span><span class="p">)</span>
+<span class="n">bypass</span><span class="p">(</span><span class="n">v5</span><span class="p">,</span> <span class="s1">&#39;10uF&#39;</span><span class="p">)</span>
+<span class="n">bypass</span><span class="p">(</span><span class="n">v33b</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">r1</span><span class="p">,</span> <span class="n">r2</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">TEMPLATE</span><span class="p">)</span>  <span class="c1"># Create two resistors.</span>
+    <span class="n">r1</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">r1</span><span class="o">.</span><span class="n">footprint</span> <span class="o">=</span> <span class="s1">&#39;1K&#39;</span><span class="p">,</span>  <span class="s1">&#39;Resistors_SMD:R_0805&#39;</span>  <span class="c1"># Set resistor values</span>
+    <span class="n">r2</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">r2</span><span class="o">.</span><span class="n">footprint</span> <span class="o">=</span> <span class="s1">&#39;500&#39;</span><span class="p">,</span> <span class="s1">&#39;Resistors_SMD:R_0805&#39;</span>  <span class="c1"># and footprints.</span>
+    <span class="n">r1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vin</span>      <span class="c1"># Connect the input to the first resistor.</span>
+    <span class="n">r2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gnd</span>      <span class="c1"># Connect the second resistor to ground.</span>
+    <span class="n">vout</span> <span class="o">+=</span> <span class="n">r1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">r2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Output comes from the connection of the two resistors.</span>
+
+<span class="n">ERC</span><span class="p">()</span>
+
+<span class="n">generate_netlist</span><span class="p">()</span>
+</code></pre></div>
+
+<p>I will confess I'm somewhat mystified by this code.
+It uses a method for a <code>Part</code> called <code>pin()</code> like this:</p>
+<div class="highlight"><pre><span></span><code><span class="n">gnd</span> <span class="o">+=</span> <span class="n">u3</span><span class="o">.</span><span class="n">pin</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>This connects the ground pin of the power regulator to ground.
+But I would have written that as:</p>
+<div class="highlight"><pre><span></span><code><span class="n">gnd</span> <span class="o">+=</span> <span class="n">u3</span><span class="p">[</span><span class="s1">&#39;GND&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<p>In fact, my version of SKiDL doesn't even <em>have</em> a method called <code>pin()</code>
+associated with a <code>Part</code> object.
+Probably this was done to add some capability or remove some flaw that wasn't
+readily noticeable to anyone but the designer.
+So this highlights another feature of SKiDL: since it's open source, you can modify it to do 
+whatever you want.</p>
+<p>Any way, these are two examples of using SKiDL that weren't done by me.
+If you have used SKiDL for something, <a href="mailto:devb@xess.com">drop me a line</a> and let me know.</p>
+		</div> <!--/#entry-content-->
+	</div> <!--/#main-->
+</div>  <!--/#post-->
+
+		</div>
+
+		<div id="footer">
+			<p> </p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>

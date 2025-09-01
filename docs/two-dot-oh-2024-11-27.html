@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>SKiDL &mdash; 2.0</title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="/skidl/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Oswald&family=Roboto+Condensed&display=swap" rel="stylesheet">
+		<!-- <style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style> -->
+		<link rel="alternate" type="application/atom+xml"
+			title="SKiDL — Flux Atom"
+			href="/skidl/" />
+		<!--[if lte IE 8]><script src="/skidl/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="/skidl"><img src="/skidl/images/banner.png" width="100%"></a></h1>
+				<!-- <h1 id="site-title"><a href="/skidl">SKiDL</a></h1> -->
+		</div><!-- /#banner -->
+
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/devbisme/skidl">Github</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/devbisme/skidl/discussions">Forum</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/category/posts.html">Blog</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/api/html/index.html">API</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/">Home</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+
+		<div class="page-title">
+		</div>
+
+		<div id="contents">
+
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<span class="date"><a href="/skidl/two-dot-oh-2024-11-27.html">Wed 27 November 2024</a></span>
+		/
+		<span class="byline"><a href="/skidl/author/dave-vandenbout.html">Dave Vandenbout</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/skidl/two-dot-oh-2024-11-27.html" title="Permalink to 2.0" rel="bookmark">2.0</a>
+		</h2>
+		<div class="entry-content">
+			<p>After three years since version 1.0, today marks the release of SKiDL version <strong>2.0.0</strong>.
+The increment in the major version number indicates that this release is not backward compatible
+with previous versions, so some SKiDL code may not work if:</p>
+<ol>
+<li>It relies on Python 2 (which is is no longer supported).</li>
+<li>It uses the @package decorator (which was dropped).</li>
+</ol>
+<p>If either of these things are important to you, then stick with version 1.2.3.</p>
+<p>Here's a list of other changes in 2.0.0:</p>
+<ul>
+<li>Additional <code>Part</code> attributes can be specified when exporting libraries.</li>
+<li>A <code>unexpio</code> dict has been to <code>Interface</code> objects for accessing I/O without buses expanded into individual nets.</li>
+<li><code>connect()</code> and <code>__iadd__()</code> methods were added to allow interconnection of <code>Interface</code> objects. </li>
+<li>Part libraries are pickled when first loaded for faster access on subsequent accesses.
+  The directory for storing the pickled library files is specified in the SKiDL configuration file.</li>
+<li>The <code>KICAD</code> tool identifier now points to <code>KICAD8</code>.</li>
+</ul>
+<p>Look at <a href="https://github.com/devbisme/skidl/blob/master/HISTORY.rst">SKiDL's complete history</a> for all the changes
+made in each release.</p>
+		</div> <!--/#entry-content-->
+	</div> <!--/#main-->
+</div>  <!--/#post-->
+
+		</div>
+
+		<div id="footer">
+			<p> </p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>

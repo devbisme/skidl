@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>SKiDL &mdash; The Worst Part of SKiDL</title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="/skidl/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Oswald&family=Roboto+Condensed&display=swap" rel="stylesheet">
+		<!-- <style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style> -->
+		<link rel="alternate" type="application/atom+xml"
+			title="SKiDL — Flux Atom"
+			href="/skidl/" />
+		<!--[if lte IE 8]><script src="/skidl/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="/skidl"><img src="/skidl/images/banner.png" width="100%"></a></h1>
+				<!-- <h1 id="site-title"><a href="/skidl">SKiDL</a></h1> -->
+		</div><!-- /#banner -->
+
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/devbisme/skidl">Github</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/devbisme/skidl/discussions">Forum</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/category/posts.html">Blog</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/api/html/index.html">API</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/">Home</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+
+		<div class="page-title">
+		</div>
+
+		<div id="contents">
+
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<span class="date"><a href="/skidl/worst-part-of-skidl-2019-09-30.html">Mon 30 September 2019</a></span>
+		/
+		<span class="byline"><a href="/skidl/author/dave-vandenbout.html">Dave Vandenbout</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/skidl/worst-part-of-skidl-2019-09-30.html" title="Permalink to The Worst Part of SKiDL" rel="bookmark">The Worst Part of SKiDL</a>
+		</h2>
+		<div class="entry-content">
+			<p>I created SKiDL to replace the manual tedium of drawing schematics with the
+advantages of modern programming languages: iteration, abstraction, hierarchy,
+and modularization.
+But one thing always stood out as a problem:</p>
+<p>Parts.</p>
+<p>Here's a snippet of SKiDL code to show what I mean.
+It instantiates a PIC10 microcontroller and connects it to some nets:</p>
+<div class="highlight"><pre><span></span><code><span class="n">uc</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">lib</span><span class="o">=</span><span class="s1">&#39;MCU_Microchip_PIC10.lib&#39;</span><span class="p">,</span>
+          <span class="n">name</span><span class="o">=</span><span class="s1">&#39;PIC10F202-IMC&#39;</span><span class="p">,</span>
+          <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Package_DFN_QFN:DFN-8-1EP_2x3mm_P0.5mm_EP0.61x2.2mm&#39;</span><span class="p">)</span>
+
+<span class="n">uc</span><span class="p">[</span><span class="s1">&#39;vdd, vss&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VCC&#39;</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
+<span class="n">uc</span><span class="p">[</span><span class="s1">&#39;gp[0:3]&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;GP&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</code></pre></div>
+
+<p>OK, how did I know <code>PIC10F202-IMC</code> would call up the particular part I needed?
+And how did I know it was in the <code>MCU_Microchip_PIC10.lib</code> library?
+And how did I get the names of the I/O pins?</p>
+<p>Obviously, all this information is available in KiCad, somewhere, but it's scattered
+around in various schematic symbol and PCB footprint libraries.
+First, you need to know which file contains the part you want and that's not always easy
+because some libraries are just a grab-bag of components someone threw together.
+Then you have to extract the part and I/O pin names from the file which is formatted
+for machines to read, not humans.
+Last but not least, you have to re-type all that stuff into your code.</p>
+<p>Traditional schematic editors (like KiCad's EESCHEMA) have a number of tools that
+try to make this easier.
+First, there's a <em>symbol chooser</em> that let's you scroll through a list of
+available libraries and parts and select the one you need.
+To make the list of parts more manageable, a <em>filter</em> field can be
+used so only those parts containing a particular text string will show up.</p>
+<p><img alt="EESCHEMA schematic symbol chooser." src="images/the-worst-part-of-skidl/symbol_chooser.png"></p>
+<p>Once you've selected a part, placing its symbol in the schematic will provide
+named pins where graphical signal nets can be attached. So that handles the I/O problem.</p>
+<p>Finally, after your schematic is finished, there's a <em>footprint assigner</em> where you can
+select and assign a physical footprint to go with each part symbol.</p>
+<p><img alt="EESCHEMA part footprint assigner." src="images/the-worst-part-of-skidl/cvpcb.png">
+These integrated, schematic-based tools aren't available when using SKiDL.
+A kludgy way to do something similar is to pull up the KiCad symbol editor and use it
+to find parts and their I/O pin names, and then use the footprint editor to scroll through possible footprints
+that are compatible. Then you have to extract the part, I/O, and footprint strings from these windows and type them
+into your SKiDL code. As I said: <em>kludgy</em>.</p>
+<p>To make things easier, I created a simple command that runs in
+the Python interpreter and finds parts matching a string or regular expression.
+Here's an example of using it to find the microcontroller part discussed above:</p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">skidl</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">skidl</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;PIC10&#39;</span><span class="p">)</span>
+<span class="n">MCU_Microchip_PIC10</span><span class="o">.</span><span class="n">lib</span><span class="p">:</span> <span class="n">PIC10F220</span><span class="o">-</span><span class="n">IMC</span> <span class="p">(</span><span class="mi">512</span><span class="n">W</span> <span class="n">Flash</span><span class="p">,</span> <span class="mi">24</span><span class="n">B</span> <span class="n">SRAM</span><span class="p">,</span> <span class="n">DFN8</span><span class="p">)</span>
+<span class="n">MCU_Microchip_PIC10</span><span class="o">.</span><span class="n">lib</span><span class="p">:</span> <span class="n">PIC10F202</span><span class="o">-</span><span class="n">IOT</span> <span class="p">(</span><span class="mi">512</span><span class="n">W</span> <span class="n">Flash</span><span class="p">,</span> <span class="mi">24</span><span class="n">B</span> <span class="n">SRAM</span><span class="p">,</span> <span class="n">SOT</span><span class="o">-</span><span class="mi">23</span><span class="o">-</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">MCU_Microchip_PIC10</span><span class="o">.</span><span class="n">lib</span><span class="p">:</span> <span class="n">PIC10F202</span><span class="o">-</span><span class="n">IMC</span> <span class="p">(</span><span class="mi">512</span><span class="n">W</span> <span class="n">Flash</span><span class="p">,</span> <span class="mi">24</span><span class="n">B</span> <span class="n">SRAM</span><span class="p">,</span> <span class="n">DFN8</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">MCU_Microchip_PIC10</span><span class="o">.</span><span class="n">lib</span><span class="p">:</span> <span class="n">PIC10F222</span><span class="o">-</span><span class="n">IOT</span> <span class="p">(</span><span class="mi">512</span><span class="n">W</span> <span class="n">Flash</span><span class="p">,</span> <span class="mi">24</span><span class="n">B</span> <span class="n">SRAM</span><span class="p">,</span> <span class="n">SOT</span><span class="o">-</span><span class="mi">23</span><span class="o">-</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">MCU_Microchip_PIC10</span><span class="o">.</span><span class="n">lib</span><span class="p">:</span> <span class="n">PIC10F220</span><span class="o">-</span><span class="n">IP</span> <span class="p">(</span><span class="mi">512</span><span class="n">W</span> <span class="n">Flash</span><span class="p">,</span> <span class="mi">24</span><span class="n">B</span> <span class="n">SRAM</span><span class="p">,</span> <span class="n">PDIP8</span><span class="p">)</span>
+<span class="n">MCU_Microchip_PIC10</span><span class="o">.</span><span class="n">lib</span><span class="p">:</span> <span class="n">PIC10F222</span><span class="o">-</span><span class="n">IP</span> <span class="p">(</span><span class="mi">512</span><span class="n">W</span> <span class="n">Flash</span><span class="p">,</span> <span class="mi">24</span><span class="n">B</span> <span class="n">SRAM</span><span class="p">,</span> <span class="n">PDIP8</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Then I added another command to display the device I/O pins for a specific part:</p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">skidl</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s1">&#39;mcu_microchip_pic10.lib&#39;</span><span class="p">,</span> <span class="s1">&#39;pic10f202-imc&#39;</span><span class="p">)</span>
+
+ <span class="n">PIC10F200</span><span class="o">-</span><span class="n">IMC</span> <span class="p">(</span><span class="n">PIC10F202</span><span class="o">-</span><span class="n">IMC</span><span class="p">):</span> <span class="mi">512</span><span class="n">W</span> <span class="n">Flash</span><span class="p">,</span> <span class="mi">24</span><span class="n">B</span> <span class="n">SRAM</span><span class="p">,</span> <span class="n">DFN8</span>
+    <span class="n">Pin</span> <span class="kc">None</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">VDD</span><span class="o">/</span><span class="n">POWER</span><span class="o">-</span><span class="n">IN</span>
+    <span class="n">Pin</span> <span class="kc">None</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="n">GP2</span><span class="o">/</span><span class="n">BIDIRECTIONAL</span>
+    <span class="n">Pin</span> <span class="kc">None</span><span class="o">/</span><span class="mi">4</span><span class="o">/</span><span class="n">GP1</span><span class="o">/</span><span class="n">BIDIRECTIONAL</span>
+    <span class="n">Pin</span> <span class="kc">None</span><span class="o">/</span><span class="mi">5</span><span class="o">/</span><span class="n">GP0</span><span class="o">/</span><span class="n">BIDIRECTIONAL</span>
+    <span class="n">Pin</span> <span class="kc">None</span><span class="o">/</span><span class="mi">7</span><span class="o">/</span><span class="n">VSS</span><span class="o">/</span><span class="n">POWER</span><span class="o">-</span><span class="n">IN</span>
+    <span class="n">Pin</span> <span class="kc">None</span><span class="o">/</span><span class="mi">8</span><span class="o">/</span><span class="n">GP3</span><span class="o">/</span><span class="n">INPUT</span>
+</code></pre></div>
+
+<p>These commands find the part library, name, and I/O, but you're still required to type all that
+back into your SKiDL code.
+And the problem of finding, choosing, and entering a footprint hasn't been addressed.</p>
+<p>What was needed was a nice, light-weight tool combining both part <em>and</em> footprint selection capabilities
+that delivered the result as text strings to enter into SKiDL code.
+So I built it: <a href="https://pypi.org/project/zyc/"><code>zyc</code></a>.
+(If you prefer a video tour of <code>zyc</code>, then <a href="https://youtu.be/YmRXruDYu3w">here</a> it is.)</p>
+<p><img alt="zyc part &amp; footprint assigner." src="images/the-worst-part-of-skidl/zyc.png"></p>
+<p><code>zyc</code> has two, cooperating panes: a part is searched for and selected in the top pane, and then the
+same is done for a footprint in the bottom pane. Then you can paste a SKiDL <code>Part(...)</code> instantiation
+with the part and footprint into a code editing window.</p>
+<p>To use <code>zyc</code>, start off by typing some search terms describing the part you want
+into the upper text-entry box (1) and hit <code>RETURN</code> or click the <code>Search</code> button (2).</p>
+<p><img alt="Entering part search terms in zyc." src="images/the-worst-part-of-skidl/zyc-part-search-terms.png"></p>
+<p><code>zyc</code> will scan through all the available parts looking for your search terms in the library names and
+the part names, aliases, descriptions, and keywords. (This initial search takes 20-30 seconds, but
+any further searches are quick because the part data gets cached.)
+The search terms can contain one or more text strings and/or regular expressions (REs).
+Any matching parts are displayed in the Library/Part table (1).
+Clicking on a row in the table (2) displays the part's description and keywords (3), datasheet hyperlink (4), and
+I/O pin table (5) on the right-side of the pane.</p>
+<p><img alt="zyc part search results." src="images/the-worst-part-of-skidl/zyc-part-search-results.png"></p>
+<p>Selecting a part also loads the footprint search text-entry box (6) with an initial set of search terms formed from
+the part's list of recommended footprints plus the number of part pins.
+You can edit these search terms and add more to modify the footprint search.
+(Which is handy because, in this case, the number of pins is wrong since the pin list only contains
+six entries but the actual number of pins is eight. So I'll just remove it.)
+Then press the <code>Search</code> button (7) to scan through all the footprints for matching terms.
+(As with parts, the initial footprint search takes 20-30 seconds but further searches are fast
+because of caching.)</p>
+<p>The footprints that match the search terms appear in the Library/Footprint table (1).
+In this case, there is only one.
+Selecting it makes the footprint description appear (2) as well as a drawing of the footprint (3).
+(If a hyperlink for the package datasheet was available, that would show up as well.)</p>
+<p>![zyc footprint search results.](images/the-worst-part-of-skidl/zyc-fp-search-results.png</p>
+<p>Once a part and footprint are selected, you can click on the <code>Copy</code> button in the upper panel (1)
+to place a <code>Part(...)</code> instantiation on the clipboard.</p>
+<p><img alt="zyc footprint search results." src="images/the-worst-part-of-skidl/zyc-part-fp-copy.png"></p>
+<p>Then you can go anywhere (such as your code editor) and paste the clipboard contents to get the part
+instantiation:</p>
+<div class="highlight"><pre><span></span><code><span class="n">uc</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">lib</span><span class="o">=</span><span class="s1">&#39;MCU_Microchip_PIC10.lib&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;PIC10F202-IMC&#39;</span><span class="p">,</span>
+          <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Package_DFN_QFN:DFN-8-1EP_2x3mm_P0.5mm_EP0.61x2.2mm&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>If you check the <code>Tmplt</code> box (2) and then click the <code>Copy</code> button, a part template (instead of an instance)
+gets placed on the clipboard and appears as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="n">uc</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">lib</span><span class="o">=</span><span class="s1">&#39;MCU_Microchip_PIC10.lib&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;PIC10F202-IMC&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">,</span>
+          <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Package_DFN_QFN:DFN-8-1EP_2x3mm_P0.5mm_EP0.61x2.2mm&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>To make it easier to connect the pins, <code>zyc</code> lets you select the names from the pin list column (1).
+Right-clicking on the table copies whatever is selected to the clipboard.</p>
+<p><img alt="zyc part pin copy." src="images/the-worst-part-of-skidl/zyc-pin-copy.png"></p>
+<p>Then the pin names can be pasted it into the code editor:</p>
+<div class="highlight"><pre><span></span><code><span class="n">uc</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">lib</span><span class="o">=</span><span class="s1">&#39;MCU_Microchip_PIC10.lib&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;PIC10F202-IMC&#39;</span><span class="p">,</span>
+          <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Package_DFN_QFN:DFN-8-1EP_2x3mm_P0.5mm_EP0.61x2.2mm&#39;</span><span class="p">)</span>
+<span class="s2">&quot;VDD&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;GP2&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;GP1&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;GP0&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;VSS&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;GP3&quot;</span>
+</code></pre></div>
+
+<p>Now you can use the strings to connect the microcontroller pins to various nets:</p>
+<div class="highlight"><pre><span></span><code><span class="n">uc</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">lib</span><span class="o">=</span><span class="s1">&#39;MCU_Microchip_PIC10.lib&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;PIC10F202-IMC&#39;</span><span class="p">,</span>
+          <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Package_DFN_QFN:DFN-8-1EP_2x3mm_P0.5mm_EP0.61x2.2mm&#39;</span><span class="p">)</span>
+<span class="n">uc</span><span class="p">[</span><span class="s2">&quot;VDD&quot;</span><span class="p">,</span> <span class="s2">&quot;VSS&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VCC&#39;</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
+<span class="n">uc</span><span class="p">[</span><span class="s2">&quot;GP0&quot;</span><span class="p">,</span> <span class="s2">&quot;GP1&quot;</span><span class="p">,</span> <span class="s2">&quot;GP2&quot;</span><span class="p">,</span> <span class="s2">&quot;GP3&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;GP&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</code></pre></div>
+
+<p><code>zyc</code> lets you double-click on any table column header to re-sort the table
+based on the contents of that column.
+This can be useful in grouping pins by their names, functions, or part units
+before selecting and pasting them.
+Using an FPGA as an example, double-clicking the <code>Unit</code> column (1)
+orders the table so you can select all the I/O pins in one of its banks (2).</p>
+<p><img alt="zyc part pin sort." src="images/the-worst-part-of-skidl/zyc-pin-sort.png"></p>
+<p>Then the pins can be pasted:</p>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;IO_0_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_0_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_25_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_25_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L1N_T0_AD0N_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L1N_T0_D01_DIN_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L1P_T0_AD0P_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L1P_T0_D00_MOSI_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L2N_T0_AD8N_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L2N_T0_D03_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L2P_T0_AD8P_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L2P_T0_D02_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L3N_T0_DQS_AD1N_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L3N_T0_DQS_EMCCLK_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L3P_T0_DQS_AD1P_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L3P_T0_DQS_PUDC_B_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L4N_T0_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L4N_T0_D05_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L4P_T0_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L4P_T0_D04_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L5N_T0_AD9N_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L5N_T0_D07_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L5P_T0_AD9P_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L5P_T0_D06_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L6N_T0_D08_VREF_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L6N_T0_VREF_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L6P_T0_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L6P_T0_FCS_B_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L7N_T1_AD2N_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L7N_T1_D10_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L7P_T1_AD2P_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L7P_T1_D09_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L8N_T1_AD10N_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L8N_T1_D12_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L8P_T1_AD10P_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L8P_T1_D11_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L9N_T1_DQS_AD3N_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L9N_T1_DQS_D13_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L9P_T1_DQS_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L9P_T1_DQS_AD3P_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L10N_T1_AD11N_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L10N_T1_D15_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L10P_T1_AD11P_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L10P_T1_D14_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L11N_T1_SRCC_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L11N_T1_SRCC_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L11P_T1_SRCC_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L11P_T1_SRCC_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L12N_T1_MRCC_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L12N_T1_MRCC_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L12P_T1_MRCC_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L12P_T1_MRCC_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L13N_T2_MRCC_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L13N_T2_MRCC_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L13P_T2_MRCC_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L13P_T2_MRCC_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L14N_T2_SRCC_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L14N_T2_SRCC_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L14P_T2_SRCC_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L14P_T2_SRCC_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L15N_T2_DQS_ADV_B_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L15N_T2_DQS_DOUT_CSO_B_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L15P_T2_DQS_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L15P_T2_DQS_RDWR_B_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L16N_T2_A15_D31_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L16N_T2_A27_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L16P_T2_A28_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L16P_T2_CSI_B_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L17N_T2_A13_D29_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L17N_T2_A25_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L17P_T2_A14_D30_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L17P_T2_A26_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L18N_T2_A11_D27_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L18N_T2_A23_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L18P_T2_A12_D28_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L18P_T2_A24_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L19N_T3_A09_D25_VREF_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L19N_T3_A21_VREF_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L19P_T3_A10_D26_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L19P_T3_A22_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L20N_T3_A07_D23_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L20N_T3_A19_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L20P_T3_A08_D24_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L20P_T3_A20_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L21N_T3_DQS_A06_D22_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L21N_T3_DQS_A18_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L21P_T3_DQS_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L21P_T3_DQS_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L22N_T3_A04_D20_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L22N_T3_A16_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L22P_T3_A05_D21_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L22P_T3_A17_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L23N_T3_A02_D18_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L23N_T3_FWE_B_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L23P_T3_A03_D19_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L23P_T3_FOE_B_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L24N_T3_A00_D16_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L24N_T3_RS0_15&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L24P_T3_A01_D17_14&quot;</span><span class="p">,</span> 
+<span class="s2">&quot;IO_L24P_T3_RS1_15&quot;</span>
+</code></pre></div>
+
+<p>This is definitely something that would be difficult to type manually without making a mistake!</p>
+<p><code>zyc</code> requires minimal setup.
+By default, it will use the <code>KICAD_SYMBOL_DIR</code> environment variable to look for part libraries,
+and it will look for the global footprint library table (<code>fp_lib_table</code>) in the default location
+where KiCad installs it on various OSes.
+You can also add or change the directories that are searched for part libraries (1) or for
+<code>fp_lib_table</code> files (2) using the menu items below:</p>
+<p><img alt="zyc path setup." src="images/the-worst-part-of-skidl/zyc-path-setup.png"></p>
+<p>It may happen that you change some part libraries or add more footprint files while <code>zyc</code> is
+running. If so, you'll want to refresh the part and footprint caches (3). </p>
+<p>If you want to try <code>zyc</code>, you can install it from the Github repo:</p>
+<div class="highlight"><pre><span></span><code>%<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/devbisme/skidl
+</code></pre></div>
+
+<p>To run it, just enter <code>zyc</code> at the command line.</p>
+		</div> <!--/#entry-content-->
+	</div> <!--/#main-->
+</div>  <!--/#post-->
+
+		</div>
+
+		<div id="footer">
+			<p> </p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>
