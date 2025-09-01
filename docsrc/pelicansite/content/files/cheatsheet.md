@@ -1,7 +1,7 @@
 ---
 geometry: 
   - landscape
-  - margin=0.2in
+  - margin=0.25in
 fontsize: 10pt
 columns: 2
 columnseprule: 0.3pt
@@ -23,7 +23,7 @@ header-includes: |
       \put(\LenToUnit{0.95\paperwidth},\LenToUnit{0.5\paperheight}){%
         \rotatebox{-90}{%
           \makebox[0pt][c]{%
-            \fontsize{32}{40}\selectfont\textbf{SKiDL CHEAT SHEET}%
+            \fontsize{32}{40}\selectfont\textbf{SKiDL 2.1 CHEAT SHEET}%
           }%
         }%
       }%
@@ -33,7 +33,7 @@ header-includes: |
 
 <!--
 To generate the PDF, use the following command:
-pandoc cheatsheet.md -o cheatsheet.pdf --pdf-engine=xelatex --variable geometry:landscape --variable geometry:margin=0.2in --variable documentclass=article --variable classoption=twocolumn --variable columnseprule=0.2pt --variable columnsep=0.2in --variable linestretch=0.87
+pandoc cheatsheet.md -o cheatsheet.pdf --pdf-engine=xelatex --variable geometry:landscape --variable geometry:margin=0.25in --variable documentclass=article --variable classoption=twocolumn --variable columnseprule=0.2pt --variable columnsep=0.2in --variable linestretch=0.87
 -->
 
 ### Basic Setup
