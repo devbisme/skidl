@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>SKiDL &mdash; Two Easy Pieces</title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="/skidl/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Oswald&family=Roboto+Condensed&display=swap" rel="stylesheet">
+		<!-- <style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style> -->
+		<link rel="alternate" type="application/atom+xml"
+			title="SKiDL — Flux Atom"
+			href="/skidl/" />
+		<!--[if lte IE 8]><script src="/skidl/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="/skidl"><img src="/skidl/images/banner.png" width="100%"></a></h1>
+				<!-- <h1 id="site-title"><a href="/skidl">SKiDL</a></h1> -->
+		</div><!-- /#banner -->
+
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/devbisme/skidl">Github</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/devbisme/skidl/discussions">Forum</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/category/posts.html">Blog</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/api/html/index.html">API</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/">Home</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+
+		<div class="page-title">
+		</div>
+
+		<div id="contents">
+
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<span class="date"><a href="/skidl/two-easy-pieces-2017-03-02.html">Thu 02 March 2017</a></span>
+		/
+		<span class="byline"><a href="/skidl/author/dave-vandenbout.html">Dave Vandenbout</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/skidl/two-easy-pieces-2017-03-02.html" title="Permalink to Two Easy Pieces" rel="bookmark">Two Easy Pieces</a>
+		</h2>
+		<div class="entry-content">
+			<p>I really wanted to call this post <em>Five Easy Pieces</em>, but I'm not 
+Jack Nicholson and I only had two simple SKiDL designs to show.
+So here they are.</p>
+<h3 id="led-clock">LED Clock</h3>
+<p><a href="https://forum.kicad.info/users/DougE">DougE</a> recently 
+<a href="https://forum.kicad.info/t/python-scripting-example-studio-clock/5387">posted a script</a>
+that will layout a clock face with 60 LEDs for the
+minute markers and 12 more LEDs for the hour markers like this:</p>
+<p><img alt="LED clock face." src="https://kicad-info.s3-us-west-2.amazonaws.com/original/2X/a/a0220a09fba9cd191e72b0c47917263b1347d601.png"></p>
+<p>He also posted his schematic for how the LEDs are interconnected:</p>
+<p><img alt="LED clock schematic." src="https://kicad-info.s3-us-west-2.amazonaws.com/original/2X/d/dc902a285be148a933d053d402db640f9ed62eef.png"></p>
+<p>Now a repetitive schematic like that just calls out for a SKiDL implementation, so 
+here's what I came up with:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">anodes</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>    <span class="c1"># 6-bit anode bus, but only use a[1]..a[5].</span>
+<span class="n">cathodes</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span> <span class="c1"># 16-bit cathode bus, but only use k[1]..k[15].</span>
+
+<span class="c1"># Create an LED template that will be copied for each LED needed.</span>
+<span class="n">led</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Diodes_SMD:D_0603&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
+
+<span class="c1"># Connect the 60 second LEDs to the anodes and cathodes.</span>
+<span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">anodes</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]:</span>             <span class="c1"># Connect LEDs between anodes 1, 2, 3, 4.</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">cathodes</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">15</span><span class="p">]:</span>      <span class="c1"># and cathodes 1, 2, 3, ... , 15.</span>
+        <span class="n">led</span><span class="p">()[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;K&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">a</span><span class="p">,</span> <span class="n">k</span>   <span class="c1"># Copy LED template and connect anode and cathode.</span>
+
+<span class="c1"># Now connect the 12 hour LEDs, all of which are attached to anode a[5].</span>
+<span class="c1"># The nested for loops select the cathodes in the correct order.</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">cathodes</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">10</span><span class="p">:</span><span class="mi">5</span><span class="p">]:</span> <span class="c1"># Connect k[2,7,12], k[3,8,13], k[4,9,14] and k[5,10,15].</span>
+        <span class="n">led</span><span class="p">()[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;K&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">anodes</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">k</span>  <span class="c1"># Copy LED and connect anode and cathode.</span>
+
+<span class="n">ERC</span><span class="p">()</span>               <span class="c1"># Look for rule violations.</span>
+<span class="n">generate_netlist</span><span class="p">()</span>  <span class="c1"># Generate netlist file.</span>
+</code></pre></div>
+
+<p>Saving my skidl script in a file called <code>led_clock.py</code>, I generated a netlist
+with the command:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>python<span class="w"> </span>led_clock.py
+</code></pre></div>
+
+<p>This stored the netlist into a file called <code>led_clock.net</code>. 
+I imported the netlist into <code>PCBNEW</code> which arranged the LEDs like this:</p>
+<p><img alt="Initial placement of clock LEDs." src="images/two-easy-pieces/clock-initial-placement.png"></p>
+<p>Obviously that doesn't look much like a clock face, but DougE's script should
+take care of that.
+I stored his script in a file called <code>place_and_route_led_clock.py</code> in my top-level
+directory, and then executed it in <code>PCBNEW</code>'s Python shell:</p>
+<p><img alt="Executing the clock LED placement script." src="images/two-easy-pieces/clock-python-shell.png"></p>
+<p>The script rearranged the LEDs and routed all the traces to create
+a clock face similar to the one above (except mine uses a smaller 0603 LED):</p>
+<p><img alt="LEDs rearranged into a clock face." src="images/two-easy-pieces/clock-led-placement.png"></p>
+<p>This SKiDL script is relatively simple because it uses only LEDs and the
+bus sizes are fixed for a particular clock face layout.
+The next piece shows what happens when a more generalized solution is desired.</p>
+<h3 id="vga-interface">VGA Interface</h3>
+<p>I sell a simple <a href="http://www.xess.com/shop/product/stickit-vga/">VGA interface</a>
+that forms a weighted sum of digital signals to create the analog 
+red, green and blue signals which drive a monitor.
+The guts of the circuit are shown below:</p>
+<p><img alt="VGA interface schematic." src="images/two-easy-pieces/vga-schematic.png"></p>
+<p>As it stands, this would be simple to implement in SKiDL.
+But why settle for a VGA interface with the red, green and blue color depths
+fixed at five bits when I could have a SKiDL script that generates any depth I want!
+The script shown below does that as follows:</p>
+<ol>
+<li>
+<p>The widths of the digital color buses are examined to determine the color depth.</p>
+</li>
+<li>
+<p>Extra bits are added to any of the color buses so they are all the same
+   width.</p>
+</li>
+<li>
+<p>The values of the resistor weights are calculated for the given color depth.</p>
+</li>
+<li>
+<p>The resistors are instantiated using
+   <a href="http://www.digikey.com/product-detail/en/cts-resistor-products/742C083472JP/742C083472JPCT-ND/1124533">resistor networks</a>,
+   each containing four isolated resistors.</p>
+</li>
+<li>
+<p>The resistors in each network are connected to the appropriate signal in the
+   red, green or blue color bus and the corresponding red, green or blue analog
+   VGA signal.</p>
+</li>
+<li>
+<p>The red, green and blue analog signals and the horizontal and
+   vertical sync signals are connected to a 15-pin VGA connector.</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="nd">@SubCircuit</span>
+<span class="k">def</span> <span class="nf">vga_port</span><span class="p">(</span><span class="n">red</span><span class="p">,</span> <span class="n">grn</span><span class="p">,</span> <span class="n">blu</span><span class="p">,</span> <span class="n">hsync</span><span class="p">,</span> <span class="n">vsync</span><span class="p">,</span> <span class="n">gnd</span><span class="p">,</span> <span class="n">logic_lvl</span><span class="o">=</span><span class="mf">3.3</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate analog RGB VGA port driven by red, grn, blu digital color buses.&quot;&quot;&quot;</span>
+
+    <span class="c1"># Determine the color depth by finding the max width of the digital color buses.</span>
+    <span class="c1"># (Note that the color buses don&#39;t have to be the same width.)</span>
+    <span class="n">depth</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">red</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">grn</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">blu</span><span class="p">))</span>
+
+    <span class="c1"># Add extra bus lines to any bus that&#39;s smaller than the depth and</span>
+    <span class="c1"># connect these extra lines to the original LSB bit of the bus.</span>
+    <span class="k">for</span> <span class="n">bus</span> <span class="ow">in</span> <span class="p">[</span><span class="n">red</span><span class="p">,</span> <span class="n">grn</span><span class="p">,</span> <span class="n">blu</span><span class="p">]:</span>
+        <span class="n">add_width</span> <span class="o">=</span> <span class="n">depth</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">bus</span><span class="p">)</span>  <span class="c1"># Number of lines to add to the bus.</span>
+        <span class="k">if</span> <span class="n">add_width</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">bus</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">add_width</span><span class="p">)</span>  <span class="c1"># Add lines to the beginning of the bus.</span>
+            <span class="n">bus</span><span class="p">[</span><span class="n">add_width</span><span class="p">]</span> <span class="o">+=</span> <span class="n">bus</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">add_width</span><span class="p">]</span>   <span class="c1"># Connect the added bus lines to original LSB.</span>
+
+    <span class="c1">######################################################################</span>
+    <span class="c1"># Calculate the resistor weights to support the given color depth.</span>
+    <span class="n">vga_input_impedance</span> <span class="o">=</span> <span class="mf">75.0</span>  <span class="c1"># Impedance of VGA analog inputs.</span>
+    <span class="n">vga_analog_max</span> <span class="o">=</span> <span class="mf">0.7</span>        <span class="c1"># Maximum brightness color voltage.</span>
+
+    <span class="c1"># Compute the resistance of the upper leg of the voltage divider that will </span>
+    <span class="c1"># drop the logic_lvl to the vga_analog_max level if the lower leg has</span>
+    <span class="c1"># a resistance of vga_input_impedance.</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="p">(</span><span class="n">logic_lvl</span> <span class="o">-</span> <span class="n">vga_analog_max</span><span class="p">)</span> <span class="o">*</span> <span class="n">vga_input_impedance</span> <span class="o">/</span> <span class="n">vga_analog_max</span>
+
+    <span class="c1"># The basic weight is R * (1 + 1/2 + 1/4 + ... + 1/2**(width-1)) </span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">R</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">([</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">2</span><span class="o">**</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">depth</span><span class="p">)])</span>
+
+    <span class="c1"># The most significant color bit has a weight of r. The next bit has a weight</span>
+    <span class="c1"># of 2r. The next bit has a weight of 4r, and so on. The weights are arranged</span>
+    <span class="c1"># in decreasing order so the least significant weight is at the start of the list.</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">r</span> <span class="o">*</span> <span class="mi">2</span><span class="o">**</span><span class="n">n</span><span class="p">))</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">depth</span><span class="p">))]</span>
+    <span class="c1">######################################################################</span>
+
+    <span class="c1"># Quad resistor packs are used to create weighted sums of the digital</span>
+    <span class="c1"># signals on the red, green and blue buses. (One resistor in each pack</span>
+    <span class="c1"># will not be used since there are only three colors.)</span>
+    <span class="n">res_network</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">xess_lib</span><span class="p">,</span> <span class="s1">&#39;RN4&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;CTS_742C083&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
+
+    <span class="c1"># Create a list of resistor packs, one for each weight.</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">res_network</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span>
+
+    <span class="c1"># Create the nets that will accept the weighted sums.</span>
+    <span class="n">analog_red</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>
+    <span class="n">analog_grn</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;G&#39;</span><span class="p">)</span>
+    <span class="n">analog_blu</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Match each resistor pack (least significant to most significant) with</span>
+    <span class="c1"># the the associated lines of each color bus (least significant to</span>
+    <span class="c1"># most significant) as follows:</span>
+    <span class="c1">#    res[0], red[0], grn[0], blu[0]</span>
+    <span class="c1">#    res[1], red[1], grn[1], blu[1]</span>
+    <span class="c1">#    ...</span>
+    <span class="c1"># Then attach the individual resistors in each pack between</span>
+    <span class="c1"># a color bus line and the associated analog color net:</span>
+    <span class="c1">#    red[0] --- (1)res[0](8) --- analog_red</span>
+    <span class="c1">#    grn[0] --- (2)res[0](7) --- analog_grn</span>
+    <span class="c1">#    blu[0] --- (3)res[0](6) --- analog_blu</span>
+    <span class="c1">#    red[1] --- (1)res[1](8) --- analog_red</span>
+    <span class="c1">#    grn[1] --- (2)res[1](7) --- analog_grn</span>
+    <span class="c1">#    blu[1] --- (3)res[1](6) --- analog_blu</span>
+    <span class="c1">#    ...</span>
+    <span class="k">for</span> <span class="n">w</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">red</span><span class="p">,</span> <span class="n">grn</span><span class="p">,</span> <span class="n">blu</span><span class="p">):</span>
+        <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span> <span class="o">+=</span> <span class="n">r</span><span class="p">,</span> <span class="n">analog_red</span>   <span class="c1"># Red uses the 1st resistor in each pack.</span>
+        <span class="n">w</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span> <span class="o">+=</span> <span class="n">g</span><span class="p">,</span> <span class="n">analog_grn</span>   <span class="c1"># Green uses the 2nd resistor in each pack.</span>
+        <span class="n">w</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span> <span class="o">+=</span> <span class="n">b</span><span class="p">,</span> <span class="n">analog_blu</span>   <span class="c1"># Blue uses the 3rd resistor in each pack.</span>
+        <span class="n">w</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span> <span class="o">+=</span> <span class="n">NC</span><span class="p">,</span> <span class="n">NC</span>   <span class="c1"># Attach the unused resistor in each pack to no-connect nets to suppress ERC warnings.</span>
+
+    <span class="c1"># VGA connector outputs the analog red, green and blue signals and the syncs.</span>
+    <span class="n">vga_conn</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;conn&#39;</span><span class="p">,</span> <span class="s1">&#39;DB15_FEMALE_HighDensity_MountingHoles&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;XESS:DB15-HD-FEMALE&#39;</span><span class="p">)</span>
+
+    <span class="n">vga_conn</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gnd</span>  <span class="c1"># Ground pins.</span>
+    <span class="n">vga_conn</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span>     <span class="o">+=</span> <span class="n">NC</span>   <span class="c1"># Unconnected pins.</span>
+    <span class="n">vga_conn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="o">+=</span> <span class="n">gnd</span>                 <span class="c1"># Ground connector shield.</span>
+    <span class="n">vga_conn</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="o">+=</span> <span class="n">analog_red</span>          <span class="c1"># Analog red signal.</span>
+    <span class="n">vga_conn</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>  <span class="o">+=</span> <span class="n">analog_grn</span>          <span class="c1"># Analog green signal.</span>
+    <span class="n">vga_conn</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>  <span class="o">+=</span> <span class="n">analog_blu</span>          <span class="c1"># Analog blue signal.</span>
+    <span class="n">vga_conn</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span> <span class="o">+=</span> <span class="n">hsync</span>               <span class="c1"># Horizontal sync.</span>
+    <span class="n">vga_conn</span><span class="p">[</span><span class="mi">14</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vsync</span>               <span class="c1"># Vertical sync.</span>
+</code></pre></div>
+
+<p>The <code>vga_port</code> subcircuit is combined
+with some connectors to build the complete VGA interface circuit:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Define some nets and buses.</span>
+
+<span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>    <span class="c1"># Ground reference.</span>
+<span class="n">gnd</span><span class="o">.</span><span class="n">drive</span> <span class="o">=</span> <span class="n">POWER</span>
+
+<span class="c1"># Five-bit digital buses carrying red, green, blue color values.</span>
+<span class="n">red</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;RED&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">grn</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;GRN&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">blu</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;BLU&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># VGA horizontal and vertical sync signals.</span>
+<span class="n">hsync</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;HSYNC&#39;</span><span class="p">)</span>
+<span class="n">vsync</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VSYNC&#39;</span><span class="p">)</span>
+
+<span class="n">xess_lib</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;C:\xesscorp\KiCad\libraries\xess.lib&#39;</span>
+
+<span class="c1"># Two PMOD headers and a breadboard header bring in the digital red, green,</span>
+<span class="c1"># and blue buses along with the horizontal and vertical sync.</span>
+<span class="c1"># (The PMOD and breadboard headers bring in the same signals. PMOD connectors</span>
+<span class="c1"># are used when the VGA interface connects to a StickIt! motherboard, and the</span>
+<span class="c1"># breadboard header is for attaching it to a breadboard.</span>
+<span class="n">pm</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">Part</span><span class="p">(</span><span class="n">xess_lib</span><span class="p">,</span> <span class="s1">&#39;PMOD-12&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;XESS:PMOD-12-MALE&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
+<span class="n">bread_board_conn</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;conn&#39;</span><span class="p">,</span> <span class="s1">&#39;CONN_01x18&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Pin_Headers:Pin_Header_Straight_1x18_Pitch2.54mm&#39;</span><span class="p">)</span>
+
+<span class="c1"># Connect the digital red, green and blue buses and the sync signals to</span>
+<span class="c1"># the pins of the PMOD and breadboard headers.</span>
+<span class="n">hsync</span>  <span class="o">+=</span> <span class="n">bread_board_conn</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>  <span class="n">pm</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;D0&#39;</span><span class="p">]</span> 
+<span class="n">vsync</span>  <span class="o">+=</span> <span class="n">bread_board_conn</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>  <span class="n">pm</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;D1&#39;</span><span class="p">]</span> 
+<span class="n">red</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+=</span> <span class="n">bread_board_conn</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>  <span class="n">pm</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;D2&#39;</span><span class="p">]</span> 
+<span class="n">grn</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+=</span> <span class="n">bread_board_conn</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>  <span class="n">pm</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;D3&#39;</span><span class="p">]</span> 
+<span class="n">blu</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+=</span> <span class="n">bread_board_conn</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>  <span class="n">pm</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;D4&#39;</span><span class="p">]</span> 
+<span class="n">red</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+=</span> <span class="n">bread_board_conn</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span>  <span class="n">pm</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;D5&#39;</span><span class="p">]</span> 
+<span class="n">grn</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+=</span> <span class="n">bread_board_conn</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span>  <span class="n">pm</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;D6&#39;</span><span class="p">]</span> 
+<span class="n">blu</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+=</span> <span class="n">bread_board_conn</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span>  <span class="n">pm</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;D7&#39;</span><span class="p">]</span> 
+<span class="n">red</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">bread_board_conn</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span>  <span class="n">pm</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;D0&#39;</span><span class="p">]</span> 
+<span class="n">grn</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">bread_board_conn</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">pm</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;D1&#39;</span><span class="p">]</span> 
+<span class="n">blu</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">bread_board_conn</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">pm</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;D2&#39;</span><span class="p">]</span> 
+<span class="n">red</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">bread_board_conn</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="n">pm</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;D3&#39;</span><span class="p">]</span> 
+<span class="n">grn</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">bread_board_conn</span><span class="p">[</span><span class="mi">13</span><span class="p">],</span> <span class="n">pm</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;D4&#39;</span><span class="p">]</span> 
+<span class="n">blu</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">bread_board_conn</span><span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="n">pm</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;D5&#39;</span><span class="p">]</span> 
+<span class="n">red</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">bread_board_conn</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="n">pm</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;D6&#39;</span><span class="p">]</span> 
+<span class="n">grn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">bread_board_conn</span><span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="n">pm</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;D7&#39;</span><span class="p">]</span> 
+<span class="n">blu</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">bread_board_conn</span><span class="p">[</span><span class="mi">17</span><span class="p">]</span>
+
+<span class="c1"># The VGA interface has no active components, so don&#39;t connect the PMOD&#39;s VCC pins.</span>
+<span class="n">NC</span>     <span class="o">+=</span> <span class="n">pm</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;VCC&#39;</span><span class="p">],</span> <span class="n">pm</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;VCC&#39;</span><span class="p">]</span>
+
+<span class="c1"># Connect the ground reference pins on all the connectors.</span>
+<span class="n">gnd</span>    <span class="o">+=</span> <span class="n">bread_board_conn</span><span class="p">[</span><span class="mi">18</span><span class="p">],</span> <span class="n">pm</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;GND&#39;</span><span class="p">],</span> <span class="n">pm</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;GND&#39;</span><span class="p">]</span>
+
+<span class="c1"># The PMOD ground pins are defined as power outputs so there will be an error</span>
+<span class="c1"># if they&#39;re connected together. Therefore, turn off the error checking on one</span>
+<span class="c1"># of them to swallow the error.</span>
+<span class="n">pm</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;GND&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">do_erc</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="c1"># Send the RGB buses and syncs to the VGA port circuit.</span>
+<span class="n">vga_port</span><span class="p">(</span><span class="n">red</span><span class="p">,</span> <span class="n">grn</span><span class="p">,</span> <span class="n">blu</span><span class="p">,</span> <span class="n">hsync</span><span class="p">,</span> <span class="n">vsync</span><span class="p">,</span> <span class="n">gnd</span><span class="p">)</span>
+
+<span class="n">ERC</span><span class="p">()</span>                <span class="c1"># Run error checks.</span>
+<span class="n">generate_netlist</span><span class="p">()</span>   <span class="c1"># Generate the netlist.</span>
+</code></pre></div>
+
+<p>Then it's just a matter of running the script:</p>
+<p><img alt="Running the VGA interface script." src="images/two-easy-pieces/vga-python-cmd.png"></p>
+<p>And then importing the netlist into <code>PCBNEW</code>:</p>
+<p><img alt="Initial placement of VGA interface components." src="images/two-easy-pieces/vga-initial-placement.png"></p>
+<p>After the tedious work of placing parts and routing wires, the final VGA interface PCB layout appears:</p>
+<p><img alt="Finished layout of VGA interface." src="images/two-easy-pieces/vga-final.png"></p>
+<p>Now, you could say this SKiDL script doesn't qualify as an "easy piece".
+There are some complications in the code, but that's what usually happens when
+you try to make a program less specific and more general.
+Making the script handle color buses with arbitrary and non-uniform sizes necessarily
+leads to the use of iterative loops and arcane code for handling <a href="https://en.wikipedia.org/wiki/Edge_case">edge cases</a>.
+But once that's done, it's <em>done</em>: I never have to design that circuit again
+(as I've done a number of times over the years).
+I just call the script when I need a VGA interface and it handles all the details.
+In effect, the SKiDL script is a <em>smart module</em> that encapsulates the design intent
+for not just one circuit, but for an entire family of circuits.
+And anyone else can use it in their designs, 
+similar to how programmers insert calls to subroutine libraries into their code.</p>
+		</div> <!--/#entry-content-->
+	</div> <!--/#main-->
+</div>  <!--/#post-->
+
+		</div>
+
+		<div id="footer">
+			<p> </p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>

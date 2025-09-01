@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>SKiDL &mdash; SKiDL Has Schematics!</title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="/skidl/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Oswald&family=Roboto+Condensed&display=swap" rel="stylesheet">
+		<!-- <style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style> -->
+		<link rel="alternate" type="application/atom+xml"
+			title="SKiDL — Flux Atom"
+			href="/skidl/" />
+		<!--[if lte IE 8]><script src="/skidl/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="/skidl"><img src="/skidl/images/banner.png" width="100%"></a></h1>
+				<!-- <h1 id="site-title"><a href="/skidl">SKiDL</a></h1> -->
+		</div><!-- /#banner -->
+
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/devbisme/skidl">Github</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/devbisme/skidl/discussions">Forum</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/category/posts.html">Blog</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/api/html/index.html">API</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/">Home</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+
+		<div class="page-title">
+		</div>
+
+		<div id="contents">
+
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<span class="date"><a href="/skidl/generating-editable-schematics-2023-07-14.html">Fri 14 July 2023</a></span>
+		/
+		<span class="byline"><a href="/skidl/author/dave-vandenbout.html">Dave Vandenbout</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/skidl/generating-editable-schematics-2023-07-14.html" title="Permalink to SKiDL Has Schematics!" rel="bookmark">SKiDL Has Schematics!</a>
+		</h2>
+		<div class="entry-content">
+			<p>The most frequently-asked question after <a href="https://www.youtube.com/watch?v=WErQYI2A36M">my talk about SKiDL at KiCon in 2019</a><br>
+was "Can it output schematics?"
+Quite disappointing since the whole point of SKiDL is to avoid schematics!
+But people want what they want, and maybe outputting schematics
+would help with the adoption of SKiDL if people could see what their code was generating.</p>
+<p>But I didn't want to write the code for this because I knew it was <em>hard!</em>
+Hard not just in the sense that it would have to intelligently place part symbols and route
+wires between them, but hard because the final result had to be <em>aesthetically pleasing</em>.
+(People are ~~anal~~ exceedingly picky about their schematics!)
+So even after a ton of work, everyone might say it's shit.</p>
+<p>So 2019 passed and I didn't work on it.
+And not in 2020, either.
+And 2021 looked like it was going to be a bust <em>until somebody else did it for me!</em>
+In August, <a href="https://github.com/shanemmattner">Shane Mattner</a> released an initial version
+that could convert SKiDL code into a KiCad schematic.
+By the time he stopped to pursue a new job, his code was able to create hierarchical
+schematics like this:</p>
+<p><img alt="STM32 top-level schematic by Shane Mattner." src="images/schematic-generation/mattner-stm32-top.png"></p>
+<p><img alt="STM32 microcontroller schematic by Shane Mattner." src="images/schematic-generation/mattner-stm32-uc.png"></p>
+<p><img alt="STM32 power circuit schematic by Shane Mattner." src="images/schematic-generation/mattner-stm32-pwr.png"></p>
+<p>There were a number of limitations with this initial version:</p>
+<ul>
+<li>The first part was arbitrarily selected as the anchor in each schematic page,
+  and then the rest of the parts were arranged around that.</li>
+<li>Only simple connections between parts were routed.</li>
+<li>Multi-unit parts weren't handled.</li>
+<li>Etc...</li>
+</ul>
+<p>But these were incidental to the main point:
+<em>the code could actually create KiCad-compatible schematics!</em></p>
+<p>Since Shane was on to bigger things, it was up to me to push forward with it.
+I couldn't just ignore it.
+A couple of months of refactoring and it would be ready for a general release.
+How hard could it be, right?</p>
+<p>Well, let's see how that turned out...</p>
+<h2 id="nov-dec-2021-refactoring">Nov - Dec, 2021: Refactoring</h2>
+<p>I started with basic housekeeping by implementing some geometric primitives
+like transformation matrices, points, vectors, bounding boxes, etc.
+I used these to rewrite pieces of the code that were handling part placement
+and wiring with ad-hoc calculations.
+I probably could have pulled in an existing Python package to do this, but
+many of those have dropped support for Python 2 and I was still supporting that
+so...</p>
+<p>Next, since SKiDL is intended to serve as a front-end for multiple EDA packages,
+I started to separate the KiCad-specific pieces of the code from the generic
+schematic-generation pieces.
+This partitioning also makes it easier to support the various versions of KiCad.
+(The schematic generation code development started when KiCad 5 was the current version,
+but now it's KiCad 7.)</p>
+<p>For handling hierarchy,
+the original code parsed information stored in SKiDL <code>Part</code> objects.
+I decided to make an explicit tree-like <code>Node</code> object that stores the schematic parts
+at each level of the hierarchy while maintaining links to child nodes at lower levels.
+This made it easier to manipulate entire sheets of the schematic such as the
+bounding box, placement, or how the hierarchy was expressed, either as linked subsheets
+or as blocks of circuitry within the parent sheet.</p>
+<p>While no new features were added during this phase, I made extensive modifications
+to the original code.
+It was a big help to have Shane's test examples so I could verify my code was
+producing the same results as his.</p>
+<h2 id="jan-may-2022-routing">Jan - May, 2022: Routing</h2>
+<p>As 2022 began, it became clear that the existing routing code was too limited.
+It could handle simple point-to-point wires, but failed on anything more
+complicated.
+For example, the routing shown below is for a connection I added between
+pins <code>PA15</code>, <code>PB15</code>, and <code>PC2</code> of the STM32 microcontroller:</p>
+<p><img alt="An example of poor routing." src="images/schematic-generation/mattner-poor-routing.png"></p>
+<p>The wires fail to avoid the net stub labels on pins <code>PB6</code> and <code>PB7</code> and
+then actually cross over the STM32 symbol.</p>
+<p>Note that the wire between parts <code>R6</code> and <code>D1</code> has no such problems because the
+placement code tries to align pins so they can be connected by
+a straight wire.
+But, most often, that isn't possible.</p>
+<p>So I decided to implement a more robust routing solution
+that runs through the following phases on each node of the circuit hierarchy:</p>
+<ol>
+<li>Generation of coarse routing cells between the parts in each node.</li>
+<li>Global routing of nets between part symbol pins through the coarse cells.</li>
+<li>Assignment of global routes to fixed terminals on the periphery of each routing cell.</li>
+<li>Detailed switchbox routing of nets between the terminals of each routing cell.</li>
+<li>Concatenation of detailed switchbox routes for each net to create a complete end-to-end wire.</li>
+</ol>
+<p>The figure below depicts the results of running these phases on a particular node:</p>
+<p><img alt="Results of each phase of routing." src="images/schematic-generation/routing-phase-results.png"></p>
+<p>Horizontal and vertical edges are extended from each corner of a part's bounding box
+(the green rectangles) to form an irregular matrix of coarse routing cells.
+Note that there are a lot of cells even for a node with few parts, and some of them can
+be quite small in one or both dimensions.</p>
+<p>The edges of each cell are labeled with the number of global routes that can pass through them, as
+determined by the length of the edge and the spacing allowed between wire traces
+(KiCad has a default schematic wiring grid of 50).
+The edge count is reduced for each global route that passes through it, and no route is allowed
+through once the count reaches zero.
+This prevents the formation of an unroutable mess by keeping too many routes from using the same cell.</p>
+<p>Each global route starts from an edge of a cell containing a pin of a net.
+The route segments fan out from this edge to the other edges of the cell that have non-zero edge counts.
+The endpoint of each segment is labeled with the
+<a href="https://algodaily.com/lessons/what-is-the-manhattan-distance">Manhattan distance</a>
+from the center of the source edge to the center of the destination edge and
+is then placed into a priority queue.
+The segment with the smallest endpoint distance is selected from the queue and the fan-out process
+is repeated with each added segment labeled with the sum of the selected segment and the length 
+of the new segment.
+In this way, the search spreads preferentially from the segment closest to the starting edge.
+When the search encounters an edge containing another pin of the net, then a global route
+with minimal total length has been found.
+If there are more pins on the net that have yet to be connected, then the search begins fanning out
+from the edge of the just-found pin (with a starting distance of zero) as well as the remaining edges
+in the priority queue.</p>
+<p>If there are multiple nets, then they are globally routed in order of their lengths with the 
+shortest nets first.
+I reasoned that shorter nets where the pins are closer together would have fewer options for
+routing connections than longer nets.</p>
+<p>Once all global routes are selected, the ends of each route segment have to be assigned to terminals
+on the wiring grid along the edges of the cells.
+You can see the final global route for a net as the thin, black edges connecting the brown
+terminal points in the figure above.</p>
+<p>Once the terminal points for each net are assigned to the edges of each cell,
+a <a href="https://doi.org/10.1016/0167-9260(85)90029-X">Greedy switchbox router.</a> is used to create the
+detailed routing within each cell.
+This is simple for the single net in the figure above, but gets much more
+complicated as multiple nets criss-cross each cell.</p>
+<p>Finally, all the detailed routes in each cell are concatenated to form complete routes
+for each net (the brown edges in the figure above).</p>
+<p>The fully-routed schematic for this example is shown below:</p>
+<p><img alt="Fully-routed schematic." src="images/schematic-generation/fully-routed-schematic.png"></p>
+<p>Near the end of the router development, I noticed a problem: some of the 
+switchbox cells were tiny and difficult to route because they weren't wide enough for even a single wire.
+So I added a phase to <em>coalesce</em> smaller switchboxes into larger ones by circulating around
+their N, W, S, and E edges, merging with surrounding cells until a part bounding box
+or the routing boundary were encountered.
+I also removed any switchboxes without global routes since they didn't need detailed routing.
+The result of applying this procedure is shown below:</p>
+<p><img alt="Coalesced switchboxes." src="images/schematic-generation/coalesced-switchboxes.png"></p>
+<h2 id="june-august-2022-placement">June - August, 2022: Placement</h2>
+<p>With the router working, I began to develop the code for placing schematic parts.
+I partitioned the placer into several phases that proceeded from the bottom-most leaf node
+up to the top node of the hierarchy:</p>
+<ol>
+<li>Expansion of part bounding boxes to allow room for routing.</li>
+<li>Grouping of node parts into those that are connected and floating.</li>
+<li>Force-directed placement of the parts within each group into blocks.</li>
+<li>Arranging the blocks to create the overall placement for the node.</li>
+</ol>
+<p>The innermost bounding box for a part includes the pins and any additional graphic elements.
+Some of the pins may be attached to <em>stub nets</em>, so labels for the net names are attached to the
+respective pins, thus expanding the part bounding box some more. Finally, the box is expanded further
+on each side depending upon how many pins are connected to non-stub nets. For example,
+if a part had ten pins connected to non-stub nets on its left side, then the left side of the
+bounding box would be pushed out by five wire trace widths to allow some room for routing to
+those pins.
+(The number of trace widths to allocate for a number of pins is an ad-hoc parameter I selected,
+but 0.5 seems to work, more or less.)
+After all this, even if the part bounding boxes were abutted to each other, there would still
+be no overlaps of the parts, their pins, or stub net labels while still leaving room for routing.</p>
+<p>A part within a node can be considered to be <em>connected</em> if it has an explicit wire to another part,
+or <em>floating</em> if it's pins only attach to stub nets (such as a bypass capacitor attached to Vdd and ground).
+A <em>connected group</em> is just a bunch of connected parts where there a path between any two parts through
+some intervening parts and/or nets.
+There can be multiple connected groups within a node's parts (or even none at all).
+A <em>floating group</em> is just a collection of all the floating parts, and there can only
+be one such group (or none at all).</p>
+<p>The parts in either group are moved using
+<a href="https://www.wikiwand.com/en/Force-directed_graph_drawing">force-directed placement</a>
+where attractive forces pull the parts together while repulsive forces push them apart.
+For a connected group, the attractive forces are exerted by the nets that connect them and
+the repulsive forces result from any overlap of their bounding boxes.
+The floating group is the same except, since there are no connecting nets, the attractive
+force is based upon the similarity of the parts (e.g., part types and values).</p>
+<p>There are many ways to compute an attractive force from a net connecting two pins, but the
+most obvious is to use the vector between the two pins and multiply it by some scaling factor.
+For a pin that connects to multiple pins on other parts, then the forces are calculated individually
+and summed together.
+The total force on a part is then the summation of the forces on each of its pins.
+A floating part with no net connections use a variant of this by having pseudo-nets from its
+attachment point to all the attachment points on the other
+floating parts along with weights that are proportional to the similarity between the parts.</p>
+<p>Repulsive forces arise when the bounding boxes of parts overlap.
+The force between two overlapping parts is proportional to and in the same direction as
+the smallest movement in the X or Y direction that would remove the overlap.
+If a part overlaps more than one other part, then the individual repulsive forces are summed.</p>
+<p>During placement, the movement of each part is influenced by the weighted sum of its attractive
+and repulsive forces as follows:</p>
+<blockquote>
+<p><code>total_force = (1-alpha) * attractive_force + alpha * repulsive_force</code></p>
+</blockquote>
+<p>At the start of placement, <code>alpha = 0</code> and the attractive forces pull all the parts together
+so the interconnecting nets are short and there are many overlaps.
+Then <code>alpha</code> is incrementally increased, causing the part overlaps to decrease while the
+net lengths increase.
+Finally when <code>alpha = 1</code>, all the forces are repulsive and the parts should be non-overlapping
+while the nets should still be somewhat short.
+An animation of this part placement evolution is shown below:</p>
+<p><img alt="Evolution of part placement." src="images/schematic-generation/placement-evolution.gif"></p>
+<p>After the placement evolution completes, the final phase is to <em>nudge</em> the parts so their pins
+align with the wiring grid.</p>
+<p>Once all the parts within the connected and floating part groups are placed,
+each block of parts is arranged using the same attractive/repulsive force scheme.
+In this case, since there are no interconnecting nets, the attractive force is based upon a 
+measure of similarity between the blocks while overlap of the blocks generates the
+repulsive force.
+A result of placing blocks this way is shown below.</p>
+<p><img alt="Result of block placement." src="images/schematic-generation/block-placement.png"></p>
+<p>Quite frankly, the block placement doesn't look great.
+But it was time to move on...</p>
+<h2 id="september-december-2022-integration">September - December, 2022: Integration</h2>
+<p>At this point, I <em>thought</em> I was ready to release the schematic generation code by year's end.</p>
+<p>My first task was to integrate the placement and routing phases, which wasn't too difficult.</p>
+<p>Then the KiCad EESCHEMA file had to be generated from the placed and routed circuit, which
+exposed a problem.
+When all this started at the end of 2021, KiCad version 5 was the current release and
+the code reflected that.
+Now, KiCad 6 was the current release with KiCad 7 on the near horizon, but the
+schematic generation code was still oriented toward KiCad 5.
+And my KiCad software had been updated to version 6 and no longer worked with my code.
+I tried installing side-by-side versions of 5 and 6, but it never worked very smoothly.
+So I created a set of
+<a href="https://github.com/devbisme/docker_kicad">Docker files for running KiCad versions 5, 6 and 7</a>.
+Then I could proceed with development using version 5 with the plan to
+upgrade to support 6 and 7 later.</p>
+<p>Once I was able to view KiCad 5 schematics again, I noticed a new problem:
+the router concatenates wire segments from each switchbox to create complete routes for
+each net, but this led to a large EESCHEMA file with wires built from many pieces.
+To fix this, I added code to merge colinear wire segments.
+I also added the placement of wire junctions to make connections more readily visible.</p>
+<p>Several features were also added during this period.
+The much-delayed multi-unit part support was finally built so
+parts like opamps and resistor arrays could be used.
+I also made it possible to override the automatic orientation of parts during placement
+by manually applying horizontal/vertical flips and rotations using the <code>symtx</code> attribute.</p>
+<p>As always, a large amount of refactoring, bug fixing, and documentation was being done.
+A major problem I noticed was that the global router sometimes generated odd routes that didn't look
+close to optimal (or even good).
+So I refactored and simplified the global router to get better results.</p>
+<p>Despite these efforts, the deadline for release by the end of the year passed without fanfare.</p>
+<h2 id="january-2023-back-to-placement">January, 2023: Back to Placement</h2>
+<p>As I entered the new year &ndash; again! &ndash; my attention returned to the part placer.</p>
+<p>I added a <code>retries</code> option for the number of times the place and route phases would run
+until a valid solution was found.
+After each iteration, the bounding box dimensions for the parts were multiplied by an 
+ad-hoc factor of 1.25 to increase the area for routing.</p>
+<p>To reduce the time to find a placement, the initial part positions were compressed into a smaller area
+so the parts would have to move less during the evolution phase of the placement.
+This didn't really do much either for runtime performance or the quality of results.</p>
+<p>Next, I changed the code to increase the similarity of floating parts attached to the same stub net
+so they'd be more strongly attracted to each other and improve the appearance of the placement.</p>
+<p>I modified the code that orients the parts during placement to use the
+<a href="https://www.wikiwand.com/en/Kernighan%E2%80%93Lin_algorithm">Kernighan-Lin algorithm</a>.
+In addition, the orientations are only optimized after an initial part placement that
+indicates where the parts are likely to go.
+Then the placement is done again with the new part orientations since those might lead to improvements.</p>
+<p>In order to manually orient net labels, I added support for the <code>netio</code> attribute of <code>Net</code> objects.
+By setting this to <code>input</code> or <code>output</code>, the net label will point outward to the left or right, respectively,
+since input nets typically come in from the left and output nets exit on the right.</p>
+<h2 id="february-march-2023-routing-beautifier">February - March, 2023: Routing Beautifier</h2>
+<p>Despite the changes in the placement phase, the schematic wiring still showed obvious imperfections:</p>
+<p><img alt="Schematic wiring jogs." src="images/schematic-generation/wire_jogs.png"></p>
+<p>I built some routing "beautifiers" to perform the following local optimizations:</p>
+<ul>
+<li>Trim multiple terminals on the same net from non-part switchbox faces of switchboxes so cycles can't form.</li>
+<li>Remove any remaining cycles by deleting wire segments.</li>
+<li>Replace stubs with straight segments.</li>
+<li>Replace doglegs with L-shaped segments.</li>
+</ul>
+<h2 id="march-june-2023-back-to-placement-again">March - June, 2023: Back to Placement, Again</h2>
+<p>The routing beautifiers helped, but not completely because you can't route your way out of a bad placement.
+So it was back to work on the placement routines with the following changes:</p>
+<ul>
+<li>I added a couple of functions after the part evolution stage to let parts jump over and align
+  with each other. ❌</li>
+<li>I added some code to enable/disable various placement options and gather statistics on total wire
+  length to get objective assessments on which options were useful. ✅</li>
+<li>To optimize part orientations, I tried a force function that computes the torque rather than the tension
+  on a part from the attractive net forces. ❌</li>
+<li>A multiplier was applied to the force of a direct point-to-point net (i.e., no fanout) in order to
+  "encourage" the connected parts to move together. ✅</li>
+<li>I tried various schedules for increasing <code>alpha</code> from 0 to 1 along with a variety of techniques
+  to determine when the parts had stabilized before moving to the next step of the schedule. ✅</li>
+<li>If no part orientations were changed, then the second placement run was skipped. ✅</li>
+<li>Rather than force-directed placement, I tried several multivariable optimizers from the
+  <code>scipy.optimize</code> package. ❌</li>
+<li>For multi-pin nets, I tried using pin centroids to calculate attractive forces rather than summing
+  pin-to-pin forces. ❌</li>
+<li>Net labels would disturb the placement of actual parts if they were placed simultaneously,
+  so I separated them and placed the net labels only after the part positions were set. ✅</li>
+<li>I forced part alignment by restricting part movements to either the X or Y direction during
+  portions of the evolution phase. ❌</li>
+<li>I locked the orientation of single-pin parts.
+  This prevented things like power and ground symbols from pointing the wrong direction.
+  (If someone needs a one-pin part oriented a certain way, they can always use the <code>symtx</code> attribute.) ✅</li>
+</ul>
+<p>(✅ = accepted: better results, ❌ = rejected: worse results)</p>
+<h2 id="july-2023-thats-all-folks">July, 2023: That's All, Folks!</h2>
+<p>Finally, I called "time" and decided this was the best I could do for now.
+I kept the most promising avenues that were generating the best results and stripped
+out the rest to simplify the code.
+(But they're still in Github. Github never forgets.)
+I fixed a few more bugs (which, of course, revealed some more bugs), merged it all into the
+<code>master</code> branch, and released it as version 1.2.0 of SKiDL.</p>
+<p>Just so I have at least one example in this post that shows a good schematics, there's this:</p>
+<p><img alt="Good schematic with bus routing." src="images/schematic-generation/bus-routing.png"></p>
+<p>At this point, it's better than what we had (which was nothing), but the quality of the schematics
+still needs improvement.
+I wish I'd not held it so long and released portions of it sooner so others could have helped
+focus the development.
+But I'm sure the community (even as small as it is) will provide enough feedback to drive further improvements
+(depending upon how much energy I and other volunteers have).
+I know I've already got a few enhancements to put on the Github issues list...</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/skidl/tag/schematics.html" rel="tag">schematics</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post-->
+
+		</div>
+
+		<div id="footer">
+			<p> </p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>

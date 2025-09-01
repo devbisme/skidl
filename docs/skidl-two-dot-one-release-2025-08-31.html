@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>SKiDL &mdash; SKiDL 2.1 Release</title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="/skidl/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Oswald&family=Roboto+Condensed&display=swap" rel="stylesheet">
+		<!-- <style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style> -->
+		<link rel="alternate" type="application/atom+xml"
+			title="SKiDL — Flux Atom"
+			href="/skidl/" />
+		<!--[if lte IE 8]><script src="/skidl/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="/skidl"><img src="/skidl/images/banner.png" width="100%"></a></h1>
+				<!-- <h1 id="site-title"><a href="/skidl">SKiDL</a></h1> -->
+		</div><!-- /#banner -->
+
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/devbisme/skidl">Github</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/devbisme/skidl/discussions">Forum</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/category/posts.html">Blog</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/api/html/index.html">API</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/">Home</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+
+		<div class="page-title">
+		</div>
+
+		<div id="contents">
+
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<span class="date"><a href="/skidl/skidl-two-dot-one-release-2025-08-31.html">Sun 31 August 2025</a></span>
+		/
+		<span class="byline"><a href="/skidl/author/dave-vandenbout.html">Dave Vandenbout</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/skidl/skidl-two-dot-one-release-2025-08-31.html" title="Permalink to SKiDL 2.1 Release" rel="bookmark">SKiDL 2.1 Release</a>
+		</h2>
+		<div class="entry-content">
+			<p>Today marks the release of SKiDL version <strong>2.1.0</strong>.
+The increment in the minor version number indicates that this release includes new features and improvements
+while maintaining backward compatibility with version 2.0.0.</p>
+<p>Here are the changes in 2.1.0:</p>
+<ul>
+<li><code>netlist_to_skidl</code> now generates hierarchical SKiDL code
+  that mirrors the hierarchy found in the netlist.</li>
+<li>Parts can be assigned a <em>part class</em> that stores attributes for a set of
+  parts.</li>
+<li>Nets can be assigned a <em>net class</em> that stores attributes for a set of
+  nets.</li>
+<li><code>SubCircuits</code> have taken over the <code>Group</code>
+  functionality. (<code>Group</code> has been maintained for backward
+  compatibility.)</li>
+<li><code>Circuits</code> now include a tree of <code>Node</code>
+  objects that store the hierarchical structure.</li>
+<li>Improved tracking of netlist objects back to the source line where
+  they were instantiated.</li>
+<li>InSpice has replaced PySpice to enable the use of newer versions of the
+  ngspice simulator.</li>
+<li>The <code>KICAD9</code> tool identifier was added to support KiCad 9.
+  <code>KICAD9</code> is now the default tool for new projects.</li>
+</ul>
+<p>See <a href="https://github.com/devbisme/skidl/blob/master/HISTORY.md">SKiDL's complete history</a> for all the changes
+made in each release.</p>
+		</div> <!--/#entry-content-->
+	</div> <!--/#main-->
+</div>  <!--/#post-->
+
+		</div>
+
+		<div id="footer">
+			<p> </p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>

@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>SKiDL &mdash; Building a USB-to-JTAG Interface Using SKiDL</title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="/skidl/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Oswald&family=Roboto+Condensed&display=swap" rel="stylesheet">
+		<!-- <style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style> -->
+		<link rel="alternate" type="application/atom+xml"
+			title="SKiDL — Flux Atom"
+			href="/skidl/" />
+		<!--[if lte IE 8]><script src="/skidl/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="/skidl"><img src="/skidl/images/banner.png" width="100%"></a></h1>
+				<!-- <h1 id="site-title"><a href="/skidl">SKiDL</a></h1> -->
+		</div><!-- /#banner -->
+
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/devbisme/skidl">Github</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/devbisme/skidl/discussions">Forum</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/category/posts.html">Blog</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/api/html/index.html">API</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/">Home</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+
+		<div class="page-title">
+		</div>
+
+		<div id="contents">
+
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<span class="date"><a href="/skidl/building-a-usb-to-jtag-interface-using-skidl-2017-01-19.html">Thu 19 January 2017</a></span>
+		/
+		<span class="byline"><a href="/skidl/author/dave-vandenbout.html">Dave Vandenbout</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/skidl/building-a-usb-to-jtag-interface-using-skidl-2017-01-19.html" title="Permalink to Building a USB-to-JTAG Interface Using SKiDL" rel="bookmark">Building a USB-to-JTAG Interface Using SKiDL</a>
+		</h2>
+		<div class="entry-content">
+			<p>This post describes using SKiDL for a USB-to-JTAG interface
+that was taken all the way from concept to physically building a device.</p>
+<p><img alt="Assembled USB-to-JTAG board." src="images/usb-to-jtag/assembled_brd.png"></p>
+<p>The interface is pretty simple. It's built from the following stuff:</p>
+<ul>
+<li>A PIC32MX220 microcontroller.</li>
+<li>A 12 MHz crystal.</li>
+<li>Some reset circuitry.</li>
+<li>A six-pin Microchip programming header (for the PIC32).</li>
+<li>A mini-USBB connector.</li>
+<li>A six-pin header for connecting to a JTAG port.</li>
+<li>A 5V-to-3.3V voltage regulator.</li>
+<li>A status LED.</li>
+</ul>
+<p>Here's a block diagram to help orient you as the SKiDL code is presented.</p>
+<p><img alt="USB-to-JTAG device block diagram." src="images/usb-to-jtag/block_diag.png"></p>
+<p>Any SKiDL project starts as a Python file.
+In this example, I created the file <code>intfc_brd.py</code>.
+The first line in the file imports all the functions and classes of the <code>skidl</code> module:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+</code></pre></div>
+
+<p>Next, I made strings that contain the paths to some of my personal KiCad symbol libraries.
+If these libraries ever move to another directory, then I only have to make a change here.
+(The libraries that come with KiCad are included by default by querying the <code>KISYSMOD</code> 
+environment variable.)</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Libraries.</span>
+<span class="n">xess_lib</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;C:\xesscorp\KiCad\libraries\xess.lib&#39;</span>
+<span class="n">pic32_lib</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;C:\xesscorp\KiCad\libraries\pic32.lib&#39;</span>
+<span class="n">pickit3_lib</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;C:\xesscorp\KiCad\libraries\pickit3.lib&#39;</span>
+</code></pre></div>
+
+<p>Then I made templates for a resistor and a capacitor from the standard KiCad <code>device</code> library.
+I'll make copies of these later on whenever I need one of these common components
+in the design.
+As with the libraries, if I ever need to modify these components (to use a 
+different footprint, for instance) then I only need to make the change here to
+have it take effect globally.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Some common parts used as templates.</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Resistors_SMD:R_0603&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
+<span class="n">cap</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Capacitors_SMD:C_0603&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
+</code></pre></div>
+
+<p>I start the actual circuit design by defining three nets that distribute power
+to all the other parts: ground, 5V from the USB port, and 3.3V generated by the
+voltage regulator.
+I also set the <code>drive</code> attribute of the ground and 5V nets to indicate they are
+for distributing power.
+(I didn't need to do that for the 3.3V net because that will happen automatically
+when it is connected to the output of the regulator.)</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Global nets.</span>
+<span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
+<span class="n">gnd</span><span class="o">.</span><span class="n">drive</span> <span class="o">=</span> <span class="n">POWER</span>
+<span class="n">vusb</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VUSB&#39;</span><span class="p">)</span>
+<span class="n">vusb</span><span class="o">.</span><span class="n">drive</span> <span class="o">=</span> <span class="n">POWER</span>
+<span class="n">vdd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;+3.3V&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Next, I instantiated a voltage regulator from my personal library: a Texas Instruments TPS79333.
+I also assigned an SOT-23-5 package to it from the <code>TO_SOT_Packages_SMD</code> footprint
+library distributed with KiCad.
+Since I only needed one of these regulators, I omitted the <code>dest=TEMPLATE</code> argument and
+instantiated it directly into the circuit instead of making it a template.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Regulate +5V VUSB down to +3.3V for VDD.</span>
+<span class="n">vreg</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">xess_lib</span><span class="p">,</span> <span class="s1">&#39;TPS793XX&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;TO_SOT_Packages_SMD:SOT-23-5&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>The input power to the regulator arrives on the 5V net from the USB port.
+The enable pin is also pulled high with the 5V net in order to enable the regulator.
+This can all be done with the following, single statement.
+(Note that I used names instead of numbers to reference the regulator pins.
+This makes the design intent clearer and decouples it from the pin numbering scheme
+of a particular package.) </p>
+<div class="highlight"><pre><span></span><code><span class="n">vreg</span><span class="p">[</span><span class="s1">&#39;IN, EN&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vusb</span>
+</code></pre></div>
+
+<p>The next two lines connect the ground pin of the regulator to the ground net,
+and the regulator output to the 3.3V net:</p>
+<div class="highlight"><pre><span></span><code><span class="n">vreg</span><span class="p">[</span><span class="s1">&#39;GND&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gnd</span>
+<span class="n">vreg</span><span class="p">[</span><span class="s1">&#39;OUT&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vdd</span>
+</code></pre></div>
+
+<p>The TPS79333 regulator also has a <em>noise reduction</em> pin where a small capacitor
+is attached to filter out hash on the regulated output.
+The <code>cap</code> template I created earlier is instantiated as <code>noise_cap</code> with an assigned value of 0.01 &mu;F.
+Then, the pins of <code>noise_cap</code> are attached to the noise reduction pin of the voltage
+regulator and ground, respectively.</p>
+<div class="highlight"><pre><span></span><code><span class="n">noise_cap</span> <span class="o">=</span> <span class="n">cap</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;0.01uf&#39;</span><span class="p">)</span>
+<span class="n">noise_cap</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vreg</span><span class="p">[</span><span class="s1">&#39;NR&#39;</span><span class="p">],</span> <span class="n">gnd</span>
+</code></pre></div>
+
+<p>Next up is the microcontroller: a PIC32MX220 in a 28-pin SSOP package.
+The part is found in my personal PIC32 library, and the SSOP package is
+in a KiCad footprint library.
+(The rather cryptic name for the PIC32 results from my naming the library part
+<code>PIC32MX2*0F***B</code> in order to cover all the Microchip PIC32MX 200-series variants
+with their differing memory sizes. Then I had to escape the <code>*</code> characters
+with backslashes to stop them from being interpreted as wildcards.) </p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Microcontroller.</span>
+<span class="n">pic32</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">pic32_lib</span><span class="p">,</span> <span class="s1">&#39;pic32MX2\*0F\*\*\*B-SSOP28-SOIC28-SPDIP28&#39;</span><span class="p">,</span>
+             <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Housings_SSOP:SSOP-28_5.3x10.2mm_Pitch0.65mm&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>All the power and ground pins of the microcontroller are connected with the next
+three statements. <em>Any</em> microcontroller pin with <code>VSS</code> within its name gets
+connected to ground, and <em>any</em> pins containing <code>VDD</code> are connected to +3.3V
+(this includes the analog power and ground pins, <code>AVSS</code> and <code>AVDD</code>).
+The same applies to the <code>VUSB3V3</code> pin, but here's only one of those so it really
+doesn't matter.</p>
+<div class="highlight"><pre><span></span><code><span class="n">pic32</span><span class="p">[</span><span class="s1">&#39;VSS&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gnd</span>
+<span class="n">pic32</span><span class="p">[</span><span class="s1">&#39;VDD&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vdd</span>  <span class="c1"># Main CPU power.</span>
+<span class="n">pic32</span><span class="p">[</span><span class="s1">&#39;VUSB3V3&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vdd</span>  <span class="c1"># Power to USB transceiver.</span>
+</code></pre></div>
+
+<p>The next statement connects the 5V pin from the USB port to the USB voltage monitoring
+pin of the microcontroller.
+I had to be careful with the name of the pin because there was <em>another</em> pin
+on the chip that contained <code>VBUS</code> in its name.
+I prevented that pin from being selected by surrounding <code>VBUS</code> with the <em>start</em> (<code>^</code>)
+and <em>end</em> (<code>$</code>) special characters for regular expressions so the pin name had to
+exactly match <code>VBUS</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">pic32</span><span class="p">[</span><span class="s1">&#39;^VBUS$&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vusb</span>  <span class="c1"># Monitor power pin of USB connector.</span>
+</code></pre></div>
+
+<p>The microcontroller needs some power supply bypass capacitors, so three 0.1 &mu;F
+capacitors are created (as a Python list) with two attached between the 3.3V supply rail and ground
+while the remaining capacitor connects to the <code>VCAP</code> pin to filter the internal CPU logic supply.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Bypass capacitors for microcontroller.</span>
+<span class="n">bypass</span> <span class="o">=</span> <span class="n">cap</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;0.1uf&#39;</span><span class="p">)</span>
+<span class="n">bypass</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span>
+<span class="n">bypass</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span>
+<span class="n">bypass</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pic32</span><span class="p">[</span><span class="s1">&#39;VCAP&#39;</span><span class="p">],</span> <span class="n">gnd</span>
+</code></pre></div>
+
+<p>The microcontroller reset circuit contains two resistors and a capacitor that
+create an RC time delay on the <code>MCLR</code> pin of the PIC32.
+The <code>r_pullup</code> and <code>filter_cap</code> components are connected in series between
+3.3V and ground to create a delayed release from reset upon power-up, and the <code>r_series</code> resistor carries
+the delayed signal to the <code>MCLR</code> pin.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Microcontroller MCLR circuitry:</span>
+<span class="c1">#   Pull-up resistor to VDD.</span>
+<span class="c1">#   Filter capacitor to delay exit of reset or eliminate glitches.</span>
+<span class="c1">#   Series resistor to isolate capacitor from device programmer.</span>
+<span class="n">r_pullup</span> <span class="o">=</span> <span class="n">res</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;10K&#39;</span><span class="p">)</span>
+<span class="n">filter_cap</span> <span class="o">=</span> <span class="n">cap</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;0.1uf&#39;</span><span class="p">)</span>
+<span class="n">r_pullup</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vdd</span>
+<span class="n">filter_cap</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">r_pullup</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">gnd</span>
+<span class="n">r_series</span> <span class="o">=</span> <span class="n">res</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="p">)</span>
+<span class="n">r_series</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">r_pullup</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">pic32</span><span class="p">[</span><span class="s1">&#39;MCLR&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<p>The next two lines instantiate a mini-B USB connector and attach the <code>D+</code> and <code>D-</code>
+data lines to the associated pins of the microcontroller.
+The USB power and ground pins are wired to the 5V and ground nets of the board.
+The USB connector also has an unused pin (<code>NC</code>) which is connected to a special
+<em>no-connect</em> net designated by <code>NC</code> (which prevents a warning when the ERC is run).</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># USB connector.</span>
+<span class="n">usb_conn</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">xess_lib</span><span class="p">,</span> <span class="s1">&#39;USBB&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;XESS:UX60SC-MB-5ST&#39;</span><span class="p">)</span>
+<span class="n">usb_conn</span><span class="p">[</span><span class="s1">&#39;D\+, D-, VCC, GND, NC&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pic32</span><span class="p">[</span><span class="s1">&#39;D\+, D-&#39;</span><span class="p">],</span> <span class="n">vusb</span><span class="p">,</span> <span class="n">gnd</span><span class="p">,</span> <span class="n">NC</span>
+</code></pre></div>
+
+<p>The shield pins of the USB connector are attached to ground through a parallel
+capacitor/resistor network.
+This is supposed to provide high-frequency RF shielding while preventing DC ground-loop currents.
+Or something like that. Nobody's really sure.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Noise filtering/isolation on the USB connector shield.</span>
+<span class="n">shld_cap</span> <span class="o">=</span> <span class="n">cap</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;4.7nf&#39;</span><span class="p">)</span>
+<span class="n">shld_res</span> <span class="o">=</span> <span class="n">res</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;1M&#39;</span><span class="p">)</span>
+<span class="n">shld_cap</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">usb_conn</span><span class="p">[</span><span class="s1">&#39;shield&#39;</span><span class="p">]</span>
+<span class="n">shld_res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">usb_conn</span><span class="p">[</span><span class="s1">&#39;shield&#39;</span><span class="p">]</span>
+<span class="n">gnd</span> <span class="o">+=</span> <span class="n">shld_cap</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">shld_res</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</code></pre></div>
+
+<p>The following statements implement
+a status LED driven by pin <code>RB4</code> of the PIC32 through a current-limiting resistor.
+Once again, note the use of the <code>A</code> (anode) and <code>K</code> (cathode) pin names for the LED
+instead of pin numbers in order to more clearly show design intent.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># LED with current-limiting resistor driven by microcontroller pin.</span>
+<span class="n">led</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;led&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Diodes_SMD:D_0603&#39;</span><span class="p">)</span>
+<span class="n">led_curr_limit</span> <span class="o">=</span> <span class="n">res</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="p">)</span>
+<span class="n">led_curr_limit</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pic32</span><span class="p">[</span><span class="s1">&#39;RB4&#39;</span><span class="p">],</span> <span class="n">led</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span>
+<span class="n">led</span><span class="p">[</span><span class="s1">&#39;K&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gnd</span>
+</code></pre></div>
+
+<p>A 12 MHz crystal in a four-pin package provides the frequency source for the microcontroller.
+Two of the pins (1 and 3) attach to the oscillator pins of the PIC32 (<code>OSC1</code> and <code>OSC2</code>),
+while the remaining two pins connect to ground.
+Two trim capacitors connect from the non-ground pins of the crystal to ground.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Crystal and trim capacitors.</span>
+<span class="n">xtal</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">xess_lib</span><span class="p">,</span> <span class="s1">&#39;XTAL4&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;XESS:32x25-4&#39;</span><span class="p">)</span>
+<span class="n">xtal</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;12 MHz&#39;</span>
+<span class="n">xtal</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gnd</span>
+<span class="n">pic32</span><span class="p">[</span><span class="s1">&#39;OSC1, OSC2&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">xtal</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">trim_cap</span> <span class="o">=</span> <span class="n">cap</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;10pf&#39;</span><span class="p">)</span>
+<span class="n">trim_cap</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">xtal</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">gnd</span>
+<span class="n">trim_cap</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">xtal</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">gnd</span>
+</code></pre></div>
+
+<p>A six-pin header provides the attachment point for a Microchip PICKit3 programmer
+that is used to program the flash memory of the PIC32.
+The PICKit3 port attaches to the <code>MCLR</code>, <code>PGEC</code> and <code>PGED</code> programming pins of the PIC32.
+It also connects to the 3.3V and ground nets so the PICKit3 can power the board
+during programming and debugging.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Port for attachment of device programmer.</span>
+<span class="n">prg_hdr</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">pickit3_lib</span><span class="p">,</span> <span class="s1">&#39;pickit3_hdr&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Pin_Headers:Pin_Header_Straight_1x06&#39;</span><span class="p">)</span>
+<span class="n">prg_hdr</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="s1">&#39;PRG&#39;</span>
+<span class="n">prg_hdr</span><span class="p">[</span><span class="s1">&#39;MCLR&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pic32</span><span class="p">[</span><span class="s1">&#39;MCLR&#39;</span><span class="p">]</span>
+<span class="n">prg_hdr</span><span class="p">[</span><span class="s1">&#39;PGC&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pic32</span><span class="p">[</span><span class="s1">&#39;PGEC1&#39;</span><span class="p">]</span>
+<span class="n">prg_hdr</span><span class="p">[</span><span class="s1">&#39;PGD&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pic32</span><span class="p">[</span><span class="s1">&#39;PGED1&#39;</span><span class="p">]</span>
+<span class="n">prg_hdr</span><span class="p">[</span><span class="s1">&#39;VDD&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vdd</span>
+<span class="n">prg_hdr</span><span class="p">[</span><span class="s1">&#39;GND&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gnd</span>
+</code></pre></div>
+
+<p>The microcontroller receives data packets from the USB port and translates them
+into JTAG signals that are driven through another six-pin header.
+The <code>TCK</code>, <code>TMS</code>, <code>TDI</code>, and <code>TDO</code> JTAG signals are attached to specific pins
+of the PIC32 that connect to dedicated SPI circuitry for fast JTAG transfers.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Port for attachment of FPGA programming pins.</span>
+<span class="n">port</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;conn&#39;</span><span class="p">,</span> <span class="s1">&#39;CONN_01x06&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Pin_Headers:Pin_Header_Straight_1x06&#39;</span><span class="p">)</span>
+<span class="n">port</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="s1">&#39;JTAG&#39;</span>
+<span class="n">port</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vusb</span><span class="p">,</span> <span class="n">gnd</span>
+<span class="n">port</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pic32</span><span class="p">[</span><span class="s1">&#39;SCK1&#39;</span><span class="p">]</span> <span class="c1"># SCK1 output for TMS.</span>
+<span class="n">port</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pic32</span><span class="p">[</span><span class="s1">&#39;RB5&#39;</span><span class="p">]</span>  <span class="c1"># PPS: SDI1 input for TDI.</span>
+<span class="n">port</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pic32</span><span class="p">[</span><span class="s1">&#39;RB15&#39;</span><span class="p">]</span> <span class="c1"># PPS: SS1 output for TMS.</span>
+<span class="n">port</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pic32</span><span class="p">[</span><span class="s1">&#39;RA4&#39;</span><span class="p">]</span>  <span class="c1"># PPS: SDO1 output for TDO.</span>
+</code></pre></div>
+
+<p>The next-to-last line of the file runs an <em>electrical rules check</em> (ERC) on the
+instantiated circuitry to try and detect any problems.
+Unconnected pins and conflicting drivers are the usual culprits it finds.</p>
+<div class="highlight"><pre><span></span><code><span class="n">ERC</span><span class="p">()</span>
+</code></pre></div>
+
+<p>The final line outputs the circuitry netlist into a file (<code>intfc_brd.net</code>, in this case).</p>
+<div class="highlight"><pre><span></span><code><span class="n">generate_netlist</span><span class="p">()</span>
+</code></pre></div>
+
+<p>Once the Python file is complete, the netlist is created by running the command:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>intfc_brd.py
+</code></pre></div>
+
+<p>Python will execute the script and generate the following warnings:</p>
+<div class="highlight"><pre><span></span><code>$ python intfc_brd.py
+
+ERC WARNING: Unconnected pin: BIDIRECTIONAL pin 2/PGED3/VREF+/CVREF+/AN0/C3INC/RPA0/CTED1/PMD7/RA0 of PIC32MX2*0F***B-SSOP28-SOIC28-SPDIP28/U2.
+ERC WARNING: Unconnected pin: BIDIRECTIONAL pin 3/PGEC3/VREF-/CVREF-/AN1/RPA1/CTED2/PMD6/RA1 of PIC32MX2*0F***B-SSOP28-SOIC28-SPDIP28/U2.
+ERC WARNING: Unconnected pin: BIDIRECTIONAL pin 6/AN4/C1INB/C2IND/RPB2/SDA2/CTED13/PMD2/RB2 of PIC32MX2*0F***B-SSOP28-SOIC28-SPDIP28/U2.
+ERC WARNING: Unconnected pin: BIDIRECTIONAL pin 7/AN5/C1INA/C2INC/RTCC/RPB3/SCL2/PMWR/RB3 of PIC32MX2*0F***B-SSOP28-SOIC28-SPDIP28/U2.
+ERC WARNING: Unconnected pin: BIDIRECTIONAL pin 16/TDI/RPB7/CTED3/PMD5/INT0/RB7 of PIC32MX2*0F***B-SSOP28-SOIC28-SPDIP28/U2.
+ERC WARNING: Unconnected pin: BIDIRECTIONAL pin 17/TCK/RPB8/SCL1/CTED10/PMD4/RB8 of PIC32MX2*0F***B-SSOP28-SOIC28-SPDIP28/U2.
+ERC WARNING: Unconnected pin: BIDIRECTIONAL pin 18/TDO/RPB9/SDA1/CTED4/PMD3/RB9 of PIC32MX2*0F***B-SSOP28-SOIC28-SPDIP28/U2.
+ERC WARNING: Unconnected pin: BIDIRECTIONAL pin 24/AN11/RPB13/CTPLS/PMRD/RB13 of PIC32MX2*0F***B-SSOP28-SOIC28-SPDIP28/U2.
+
+8 warnings found during ERC.
+0 errors found during ERC.
+
+
+No errors or warnings found during netlist generation.
+</code></pre></div>
+
+<p>The ERC warns that eight of the microcontroller pins are unconnected (because I'm not using them for anything).
+That might be a problem in a production design, but I'm willing to let it slide
+for this project.</p>
+<p>The contents of the generated netlist file look like this:</p>
+<div class="highlight"><pre><span></span><code>(export (version D)
+  (design
+    (source &quot;C:\xesscorp\PRODUCTS\XuLA_Developmental\fmw\intfc_brd\intfc_brd.py&quot;)
+    (date &quot;01/19/2017 06:11 PM&quot;)
+    (tool &quot;SKiDL (0.0.8)&quot;))
+  (components
+    ( (ref U1)
+      (value TPS793XX)
+      (footprint TO_SOT_Packages_SMD:SOT-23-5)
+      (libsource (lib C:\xesscorp\KiCad\libraries\xess.lib) (part TPS793XX)))
+    (comp (ref C1)
+      (value 0.01uf)
+      (footprint Capacitors_SMD:C_0603)
+      (fields
+        (field (name description) &quot;Unpolarized capacitor&quot;)
+        (field (name keywords) &quot;cap capacitor&quot;))
+      (libsource (lib device) (part C)))
+    (comp (ref U2)
+      (value PIC32MX2*0F***B-SSOP28-SOIC28-SPDIP28)
+      (footprint Housings_SSOP:SSOP-28_5.3x10.2mm_Pitch0.65mm)
+      (libsource (lib C:\xesscorp\KiCad\libraries\pic32.lib) (part PIC32MX2*0F***B-SSOP28-SOIC28-SPDIP28)))
+    (comp (ref C2)
+      (value 0.1uf)
+      (footprint Capacitors_SMD:C_0603)
+      (fields
+        (field (name description) &quot;Unpolarized capacitor&quot;)
+        (field (name keywords) &quot;cap capacitor&quot;))
+      (libsource (lib device) (part C)))
+    (comp (ref C3)
+      (value 0.1uf)
+      (footprint Capacitors_SMD:C_0603)
+      (fields
+        (field (name description) &quot;Unpolarized capacitor&quot;)
+        (field (name keywords) &quot;cap capacitor&quot;))
+      (libsource (lib device) (part C)))
+    (comp (ref C4)
+      (value 0.1uf)
+      (footprint Capacitors_SMD:C_0603)
+      (fields
+        (field (name description) &quot;Unpolarized capacitor&quot;)
+        (field (name keywords) &quot;cap capacitor&quot;))
+      (libsource (lib device) (part C)))
+    (comp (ref R1)
+      (value 10K)
+      (footprint Resistors_SMD:R_0603)
+      (fields
+        (field (name description) Resistor)
+        (field (name keywords) &quot;r res resistor&quot;))
+      (libsource (lib device) (part R)))
+    (comp (ref R2)
+      (value 1K)
+      (footprint Resistors_SMD:R_0603)
+      (fields
+        (field (name description) Resistor)
+        (field (name keywords) &quot;r res resistor&quot;))
+      (libsource (lib device) (part R)))
+    (comp (ref C5)
+      (value 0.1uf)
+      (footprint Capacitors_SMD:C_0603)
+      (fields
+        (field (name description) &quot;Unpolarized capacitor&quot;)
+        (field (name keywords) &quot;cap capacitor&quot;))
+      (libsource (lib device) (part C)))
+    (comp (ref USB1)
+      (value USBB)
+      (footprint XESS:UX60SC-MB-5ST)
+      (fields
+        (field (name description) &quot;USBB connector&quot;)
+        (field (name keywords) &quot;USB, USBB, connector&quot;))
+      (libsource (lib C:\xesscorp\KiCad\libraries\xess.lib) (part USBB)))
+    (comp (ref C6)
+      (value 4.7nf)
+      (footprint Capacitors_SMD:C_0603)
+      (fields
+        (field (name description) &quot;Unpolarized capacitor&quot;)
+        (field (name keywords) &quot;cap capacitor&quot;))
+      (libsource (lib device) (part C)))
+    (comp (ref R3)
+      (value 1M)
+      (footprint Resistors_SMD:R_0603)
+      (fields
+        (field (name description) Resistor)
+        (field (name keywords) &quot;r res resistor&quot;))
+      (libsource (lib device) (part R)))
+    (comp (ref D1)
+      (value LED)
+      (footprint Diodes_SMD:D_0603)
+      (fields
+        (field (name description) &quot;LED generic&quot;)
+        (field (name keywords) &quot;led diode&quot;))
+      (libsource (lib device) (part LED)))
+    (comp (ref R4)
+      (value 1K)
+      (footprint Resistors_SMD:R_0603)
+      (fields
+        (field (name description) Resistor)
+        (field (name keywords) &quot;r res resistor&quot;))
+      (libsource (lib device) (part R)))
+    (comp (ref Y1)
+      (value XTAL4)
+      (footprint XESS:32x25-4)
+      (libsource (lib C:\xesscorp\KiCad\libraries\xess.lib) (part XTAL4)))
+    (comp (ref C7)
+      (value 10pf)
+      (footprint Capacitors_SMD:C_0603)
+      (fields
+        (field (name description) &quot;Unpolarized capacitor&quot;)
+        (field (name keywords) &quot;cap capacitor&quot;))
+      (libsource (lib device) (part C)))
+    (comp (ref C8)
+      (value 10pf)
+      (footprint Capacitors_SMD:C_0603)
+      (fields
+        (field (name description) &quot;Unpolarized capacitor&quot;)
+        (field (name keywords) &quot;cap capacitor&quot;))
+      (libsource (lib device) (part C)))
+    (comp (ref PRG)
+      (value PICkit3_hdr)
+      (footprint Pin_Headers:Pin_Header_Straight_1x06)
+      (libsource (lib C:\xesscorp\KiCad\libraries\pickit3.lib) (part PICkit3_hdr)))
+    (comp (ref JTAG)
+      (value CONN_01X06)
+      (footprint Pin_Headers:Pin_Header_Straight_1x06)
+      (fields
+        (field (name description) &quot;Connector, single row, 01x06&quot;)
+        (field (name keywords) connector))
+      (libsource (lib conn) (part CONN_01X06))))
+  (nets
+    (net (code 0) (name VUSB)
+      (node (ref U2) (pin 15))
+      (node (ref U1) (pin 3))
+      (node (ref USB1) (pin 1))
+      (node (ref U1) (pin 1))
+      (node (ref JTAG) (pin 1)))
+    (net (code 1) (name GND)
+      (node (ref C3) (pin 2))
+      (node (ref C6) (pin 2))
+      (node (ref U1) (pin 2))
+      (node (ref U2) (pin 8))
+      (node (ref C1) (pin 2))
+      (node (ref R3) (pin 2))
+      (node (ref Y1) (pin 4))
+      (node (ref JTAG) (pin 2))
+      (node (ref PRG) (pin 3))
+      (node (ref U2) (pin 27))
+      (node (ref C4) (pin 2))
+      (node (ref USB1) (pin 5))
+      (node (ref C8) (pin 2))
+      (node (ref D1) (pin 1))
+      (node (ref Y1) (pin 2))
+      (node (ref C5) (pin 2))
+      (node (ref C2) (pin 2))
+      (node (ref C7) (pin 2))
+      (node (ref U2) (pin 19)))
+    (net (code 2) (name +3.3V)
+      (node (ref U2) (pin 23))
+      (node (ref C3) (pin 1))
+      (node (ref U1) (pin 5))
+      (node (ref R1) (pin 2))
+      (node (ref U2) (pin 28))
+      (node (ref U2) (pin 13))
+      (node (ref C2) (pin 1))
+      (node (ref PRG) (pin 2)))
+    (net (code 3) (name N$1)
+      (node (ref C1) (pin 1))
+      (node (ref U1) (pin 4)))
+    (net (code 4) (name N$2)
+      (node (ref C4) (pin 1))
+      (node (ref U2) (pin 20)))
+    (net (code 5) (name N$3)
+      (node (ref R2) (pin 1))
+      (node (ref R1) (pin 1))
+      (node (ref C5) (pin 1)))
+    (net (code 6) (name N$4)
+      (node (ref U2) (pin 1))
+      (node (ref PRG) (pin 1))
+      (node (ref R2) (pin 2)))
+    (net (code 7) (name N$5)
+      (node (ref U2) (pin 21))
+      (node (ref USB1) (pin 3)))
+    (net (code 8) (name N$6)
+      (node (ref USB1) (pin 2))
+      (node (ref U2) (pin 22)))
+
+    (net (code 10) (name N$7)
+      (node (ref R3) (pin 1))
+      (node (ref C6) (pin 1))
+      (node (ref USB1) (pin SH))
+      (node (ref USB1) (pin SH2)))
+    (net (code 11) (name N$8)
+      (node (ref U2) (pin 11))
+      (node (ref R4) (pin 1)))
+    (net (code 12) (name N$9)
+      (node (ref R4) (pin 2))
+      (node (ref D1) (pin 2)))
+    (net (code 13) (name N$10)
+      (node (ref C8) (pin 1))
+      (node (ref U2) (pin 9))
+      (node (ref Y1) (pin 3)))
+    (net (code 14) (name N$11)
+      (node (ref C7) (pin 1))
+      (node (ref Y1) (pin 1))
+      (node (ref U2) (pin 10)))
+    (net (code 15) (name N$12)
+      (node (ref U2) (pin 5))
+      (node (ref PRG) (pin 5)))
+    (net (code 16) (name N$13)
+      (node (ref PRG) (pin 4))
+      (node (ref U2) (pin 4)))
+    (net (code 17) (name N$14)
+      (node (ref JTAG) (pin 3))
+      (node (ref U2) (pin 25)))
+    (net (code 18) (name N$15)
+      (node (ref U2) (pin 14))
+      (node (ref JTAG) (pin 5)))
+    (net (code 19) (name N$16)
+      (node (ref U2) (pin 26))
+      (node (ref JTAG) (pin 4)))
+    (net (code 20) (name N$17)
+      (node (ref JTAG) (pin 6))
+      (node (ref U2) (pin 12))))
+)
+</code></pre></div>
+
+<p>When <code>intfc_brd.net</code> is taken in by KiCad's PCBNEW layout editor,
+the initial component arrangement looks something like this:</p>
+<p><img alt="USB-to-JTAG board with unplaced parts." src="images/usb-to-jtag/pcbnew-unplaced.png"></p>
+<p>After a suitable amount of fiddling (none of which has anything to do with SKiDL at this point),
+we get to a final PCB layout:</p>
+<p><img alt="Completed USB-to-JTAG board layout." src="images/usb-to-jtag/pcbnew-routed.png"></p>
+<p>The layout is translated into <a href="https://en.wikipedia.org/wiki/Gerber_format">Gerber files</a>
+that are sent for fabrication into a physical PCB.
+Parts are assembled with the PCB
+to arrive at the finished module shown at the beginning of this post.</p>
+<p>Initial testing of the interface board shows the microcontroller can be loaded
+with a program that successfully communicates over a USB link.
+While this is a relatively small board (18 components and 20 nets), it is my
+first end-to-end design using SKiDL.
+I'm encouraged by the fact no problems arose, although I found facets of
+SKiDL that need polishing.
+But that's always going to be the case.</p>
+		</div> <!--/#entry-content-->
+	</div> <!--/#main-->
+</div>  <!--/#post-->
+
+		</div>
+
+		<div id="footer">
+			<p> </p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>
