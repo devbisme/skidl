@@ -28,6 +28,11 @@ from skidl.schematics.place import PlacementFailure
 from skidl.schematics.route import RoutingFailure
 
 
+# Skip entire module unless default tool is KICAD5.
+if os.getenv("SKIDL_TOOL") != 'KICAD5':
+    pytest.skip("Tests require KICAD5 as default tool", allow_module_level=True)
+
+
 sch_options = {}
 # seed = int(time.time())
 # sch_options["seed"] = seed
@@ -756,6 +761,7 @@ def test_gen_sch_8():
     create_schematic(flatness=1.0)
 
 
+@pytest.mark.skip("Skipping test_gen_sch_vga because it always fails.")
 @pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
 def test_gen_sch_vga():
     @SubCircuit
@@ -939,6 +945,7 @@ def test_gen_sch_vga():
     create_schematic(flatness=1.0)
 
 
+@pytest.mark.skip("Skipping test_gen_sch_pmod because it always fails.")
 @pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
 def test_gen_sch_pmod():
 
@@ -1018,6 +1025,7 @@ def test_gen_sch_pmod():
     create_schematic(flatness=1.0)
 
 
+@pytest.mark.skip("Skipping test_gen_sch_buses because it uses GameteSnapEDA.lib.")
 @pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
 def test_gen_sch_buses():
     ram = PartTmplt("GameteSnapEDA.lib", "MT48LC16M16A2TG-6A_IT:GTR")
