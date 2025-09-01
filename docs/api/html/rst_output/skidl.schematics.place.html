@@ -49,14 +49,14 @@
 <dl class="py exception">
 <dt class="sig sig-object py" id="skidl.schematics.place.PlacementFailure">
 <em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.schematics.place.</span></span><span class="sig-name descname"><span class="pre">PlacementFailure</span></span><a class="reference internal" href="../_modules/skidl/schematics/place.html#PlacementFailure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.PlacementFailure" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.12/library/exceptions.html#Exception" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#Exception" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
 <p>Exception raised when parts or blocks could not be placed.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.schematics.place.Placer">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.schematics.place.</span></span><span class="sig-name descname"><span class="pre">Placer</span></span><a class="reference internal" href="../_modules/skidl/schematics/place.html#Placer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.place.Placer" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.12/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Mixin to add place function to Node class.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.schematics.place.Placer.get_attrs">
@@ -89,7 +89,7 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>node</strong> (<a class="reference internal" href="skidl.node.html#skidl.node.Node" title="skidl.node.Node"><em>Node</em></a>) – Node with parts.</p></li>
-<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em>, </em><em>optional</em>) – Dictionary of options and values. Defaults to {}.</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em>, </em><em>optional</em>) – Dictionary of options and values. Defaults to {}.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -98,7 +98,7 @@ list: List of internal nets connecting parts.
 list: List of Parts that are not connected to anything (floating).</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)">list</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -111,8 +111,8 @@ list: List of Parts that are not connected to anything (floating).</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>node</strong> (<a class="reference internal" href="skidl.node.html#skidl.node.Node" title="skidl.node.Node"><em>Node</em></a>) – Hierarchical node containing the parts and children to be placed.</p></li>
-<li><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Backend tool for schematics.</p></li>
-<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – Dictionary of options and values to control placement.</p></li>
+<li><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Backend tool for schematics.</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Dictionary of options and values to control placement.</p></li>
 </ul>
 </dd>
 </dl>
@@ -126,12 +126,12 @@ list: List of Parts that are not connected to anything (floating).</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>node</strong> (<a class="reference internal" href="skidl.node.html#skidl.node.Node" title="skidl.node.Node"><em>Node</em></a>) – Node with parts.</p></li>
-<li><p><strong>connected_parts</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – List of Part sets connected by nets.</p></li>
-<li><p><strong>floating_parts</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#set" title="(in Python v3.12)"><em>set</em></a>) – Set of Parts not connected by any of the internal nets.</p></li>
-<li><p><strong>children</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – Child nodes in the hierarchy.</p></li>
-<li><p><strong>non_sheets</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – Hierarchical set of Parts that are visible.</p></li>
-<li><p><strong>sheets</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – List of hierarchical blocks.</p></li>
-<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – Dict of options and values that enable/disable functions.</p></li>
+<li><p><strong>connected_parts</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – List of Part sets connected by nets.</p></li>
+<li><p><strong>floating_parts</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#set" title="(in Python v3.13)"><em>set</em></a>) – Set of Parts not connected by any of the internal nets.</p></li>
+<li><p><strong>children</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – Child nodes in the hierarchy.</p></li>
+<li><p><strong>non_sheets</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – Hierarchical set of Parts that are visible.</p></li>
+<li><p><strong>sheets</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – List of hierarchical blocks.</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Dict of options and values that enable/disable functions.</p></li>
 </ul>
 </dd>
 </dl>
@@ -145,9 +145,9 @@ list: List of Parts that are not connected to anything (floating).</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>node</strong> (<a class="reference internal" href="skidl.node.html#skidl.node.Node" title="skidl.node.Node"><em>Node</em></a>) – Node with parts.</p></li>
-<li><p><strong>parts</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – List of Part sets connected by nets.</p></li>
-<li><p><strong>nets</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – List of internal Nets connecting the parts.</p></li>
-<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – Dict of options and values that enable/disable functions.</p></li>
+<li><p><strong>parts</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – List of Part sets connected by nets.</p></li>
+<li><p><strong>nets</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – List of internal Nets connecting the parts.</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Dict of options and values that enable/disable functions.</p></li>
 </ul>
 </dd>
 </dl>
@@ -161,8 +161,8 @@ list: List of Parts that are not connected to anything (floating).</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>node</strong> (<a class="reference internal" href="skidl.node.html#skidl.node.Node" title="skidl.node.Node"><em>Node</em></a>) – Node with parts.</p></li>
-<li><p><strong>parts</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – List of Parts not connected by explicit nets.</p></li>
-<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – Dict of options and values that enable/disable functions.</p></li>
+<li><p><strong>parts</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – List of Parts not connected by explicit nets.</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Dict of options and values that enable/disable functions.</p></li>
 </ul>
 </dd>
 </dl>
@@ -190,7 +190,7 @@ list: List of Parts that are not connected to anything (floating).</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>part</strong> (<a class="reference internal" href="skidl.part.html#skidl.part.Part" title="skidl.part.Part"><em>Part</em></a>) – Part affected by forces from other connected parts.</p></li>
-<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – Dict of options and values that enable/disable functions.</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Dict of options and values that enable/disable functions.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -210,8 +210,8 @@ list: List of Parts that are not connected to anything (floating).</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>part</strong> (<a class="reference internal" href="skidl.part.html#skidl.part.Part" title="skidl.part.Part"><em>Part</em></a>) – Part affected by forces from other overlapping parts.</p></li>
-<li><p><strong>parts</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – List of parts to check for overlaps.</p></li>
-<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – Dict of options and values that enable/disable functions.</p></li>
+<li><p><strong>parts</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – List of parts to check for overlaps.</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Dict of options and values that enable/disable functions.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -231,8 +231,8 @@ list: List of Parts that are not connected to anything (floating).</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>part</strong> (<a class="reference internal" href="skidl.part.html#skidl.part.Part" title="skidl.part.Part"><em>Part</em></a>) – Part affected by forces from other overlapping parts.</p></li>
-<li><p><strong>parts</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – List of parts to check for overlaps.</p></li>
-<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – Dict of options and values that enable/disable functions.</p></li>
+<li><p><strong>parts</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – List of parts to check for overlaps.</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Dict of options and values that enable/disable functions.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
