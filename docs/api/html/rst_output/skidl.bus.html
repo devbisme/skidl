@@ -62,7 +62,7 @@ integer indices, slices, or net names.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – The name of the bus. If None, an implicit name will be generated.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The name of the bus. If None, an implicit name will be generated.</p></li>
 <li><p><strong>*args</strong> – Various objects to create bus from - can include integers (for width),
 pins, nets, or other buses.</p></li>
 </ul>
@@ -112,7 +112,7 @@ pins, nets, or other buses.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>num_copies</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – Number of copies to create.
+<li><p><strong>num_copies</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – Number of copies to create.
 If None, a single copy will be made.</p></li>
 <li><p><strong>circuit</strong> (<a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit" title="skidl.circuit.Circuit"><em>Circuit</em></a><em>, </em><em>optional</em>) – The circuit the copies will be added to.</p></li>
 <li><p><strong>**attribs</strong> – Attributes for the copies. If values are lists/tuples,
@@ -123,10 +123,10 @@ each copy gets the corresponding value.</p></li>
 <dd class="field-even"><p>A single Bus copy or list of copies.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#skidl.bus.Bus" title="skidl.bus.Bus">Bus</a> or <a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)">list</a>[<a class="reference internal" href="#skidl.bus.Bus" title="skidl.bus.Bus">Bus</a>]</p>
+<dd class="field-odd"><p><a class="reference internal" href="#skidl.bus.Bus" title="skidl.bus.Bus">Bus</a> or <a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference internal" href="#skidl.bus.Bus" title="skidl.bus.Bus">Bus</a>]</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.12/library/exceptions.html#ValueError" title="(in Python v3.12)"><strong>ValueError</strong></a> – If num_copies is not a non-negative integer.</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If num_copies is not a non-negative integer.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -157,7 +157,7 @@ with the given name is not found.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Name of the bus to fetch or create.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Name of the bus to fetch or create.</p></li>
 <li><p><strong>*args</strong> – Arguments to pass to the Bus constructor if creation is needed.</p></li>
 <li><p><strong>**attribs</strong> – Keyword arguments to pass to the Bus constructor if creation is needed.</p></li>
 </ul>
@@ -178,7 +178,7 @@ with the given name is not found.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Name or alias of the bus to find.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Name or alias of the bus to find.</p></li>
 <li><p><strong>circuit</strong> (<a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit" title="skidl.circuit.Circuit"><em>Circuit</em></a><em>, </em><em>optional</em>) – Circuit to search in. Defaults to default_circuit.</p></li>
 </ul>
 </dd>
@@ -200,7 +200,7 @@ with the given name is not found.</p>
 <dd class="field-odd"><p>Nets in this bus.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)">list</a>[<a class="reference internal" href="skidl.net.html#skidl.net.Net" title="skidl.net.Net">Net</a>]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference internal" href="skidl.net.html#skidl.net.Net" title="skidl.net.Net">Net</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -211,7 +211,7 @@ with the given name is not found.</p>
 <dd><p>Raise an error since accessing all pins across a bus is not supported.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/exceptions.html#Exception" title="(in Python v3.12)"><strong>Exception</strong></a> – Always raises an error.</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#Exception" title="(in Python v3.13)"><strong>Exception</strong></a> – Always raises an error.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -225,12 +225,12 @@ New nets will be given names based on the bus name and their position.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3.12/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – Position to insert objects.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Position to insert objects.</p></li>
 <li><p><strong>*objects</strong> – Objects to insert - integers, nets, pins, or buses.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.12/library/exceptions.html#ValueError" title="(in Python v3.12)"><strong>ValueError</strong></a> – If an unsupported object type is inserted.</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If an unsupported object type is inserted.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -245,7 +245,7 @@ New nets will be given names based on the bus name and their position.</p>
 <dd class="field-odd"><p>True if the bus has an implicitly generated name.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.12/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -260,7 +260,7 @@ New nets will be given names based on the bus name and their position.</p>
 <dd class="field-odd"><p>True if all nets in the bus are movable.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.12/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -276,7 +276,7 @@ circuit, the name will be adjusted to make it unique.</p>
 <dd class="field-odd"><p>The bus name.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -295,10 +295,10 @@ circuit, the name will be adjusted to make it unique.</p>
 <dd class="field-odd"><p>List of pins connected to the bus nets.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.12/library/stdtypes.html#list" title="(in Python v3.12)">list</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.12/library/exceptions.html#Exception" title="(in Python v3.12)"><strong>Exception</strong></a> – Always raises an error since accessing all pins across a bus is not supported.</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#Exception" title="(in Python v3.13)"><strong>Exception</strong></a> – Always raises an error since accessing all pins across a bus is not supported.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -317,7 +317,7 @@ circuit, the name will be adjusted to make it unique.</p>
 <dd class="field-odd"><p>The number of nets in the bus.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.12/library/functions.html#int" title="(in Python v3.12)">int</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
