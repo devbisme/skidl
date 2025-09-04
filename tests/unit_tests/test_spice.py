@@ -62,7 +62,7 @@ def test_lib_export_1():
 def test_xspice_1():
     set_default_tool(SPICE)
     # Component declarations showing various XSPICE styles.
-    vin = sinev(offset=1.65 @ u_V, amplitude=1.65 @ u_V, frequency=100e6)
+    vin = sinev(offset=1.65 @ u_V, amplitude=1.65 @ u_V, frequency=1e4)
 
     adc = Part(
         "pyspice",
@@ -71,8 +71,8 @@ def test_xspice_1():
         model=XspiceModel(
             "adc",
             "adc_bridge",
-            in_low=0.05 @ u_V,
-            in_high=0.1 @ u_V,
+            in_low=1.65 @ u_V,
+            in_high=1.65 @ u_V,
             rise_delay=1e-9 @ u_s,
             fall_delay=1e-9 @ u_s,
         ),
@@ -94,7 +94,7 @@ def test_xspice_1():
 
     dac = A(
         io=["dig_in[]", "anlg_out[]"],
-        model=XspiceModel("dac", "dac_bridge", out_low=1.0 @ u_V, out_high=3.3 @ u_V),
+        model=XspiceModel("dac", "dac_bridge", out_low=0.0 @ u_V, out_high=3.3 @ u_V),
     )
 
     r = R(value=1 @ u_kOhm)
@@ -103,7 +103,7 @@ def test_xspice_1():
     # buf2 = buf_tmp()
     # buf2["buf_in"] += NC
 
-    # Connections: sine wave -> ADC -> buffer -> DAC.
+    # Connections: sine wave -> ADC bridge -> buffer -> DAC bridge.
     # Attach to first pin in ADC anlg_in vector of pins.
     vin["p, n"] += adc["anlg_in"][0], gnd
     # Attach first pin of ADC dig_out vector to buffer.
@@ -116,7 +116,7 @@ def test_xspice_1():
     circ = generate_netlist()
     print(circ)
     sim = Simulator.factory().simulation(circ)
-    waveforms = sim.transient(step_time=0.1 @ u_ns, end_time=50 @ u_ns)
+    waveforms = sim.transient(step_time=1 @ u_us, end_time=2 @ u_ms)
     time = waveforms.time
     vin = waveforms[node(vin["p"])]
     vout = waveforms[node(r["p"])]
