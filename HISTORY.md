@@ -1,5 +1,9 @@
 # History
 
+## 2.1.2 (2025-XX-XX)
+
+- Fixed creation of SPICE netlists with illegal net names for XSPICE components.
+
 ## 2.1.1 (2025-08-31)
 
 - Added a cheatsheet for SKiDL 2.1.0.
