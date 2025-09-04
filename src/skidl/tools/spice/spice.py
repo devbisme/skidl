@@ -388,25 +388,27 @@ def gen_netlist(self, **kwargs):
 
     return circuit
 
+def _legalize_net_name(name):
+    """Replace any special chars in a name because Spice doesn't like them."""
+    return re.sub(r"\W", "_", name)
 
 @export_to_all
 def node(net_pin_part):
     if isinstance(net_pin_part, Net):
         # Replace any special chars in a net name because Spice doesn't like them.
-        return re.sub(r"\W", "_", net_pin_part.name)
+        return _legalize_net_name(net_pin_part.name)
     if isinstance(net_pin_part, Pin):
         # Replace any special chars in a net name because Spice doesn't like them.
-        return re.sub(r"\W", "_", net_pin_part.net.name)
+        return _legalize_net_name(net_pin_part.net.name)
     if isinstance(net_pin_part, Part):
         return net_pin_part.ref
 
-
 def _xspice_node(net_or_pin):
     if isinstance(net_or_pin, Net):
-        return net_or_pin.name
+        return _legalize_net_name(net_or_pin.name)
     if isinstance(net_or_pin, Pin):
         if net_or_pin.is_connected():
-            return net_or_pin.net.name
+            return _legalize_net_name(net_or_pin.net.name)
         else:
             # For XSPICE parts, unconnected pins are connected to NULL node.
             return "NULL"
