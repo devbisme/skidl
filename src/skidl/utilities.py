@@ -14,7 +14,7 @@ import hashlib
 import json
 import os
 import os.path
-from os.path import normpath, expandvars, expanduser
+from os.path import abspath, normpath, expandvars, expanduser
 import platform
 import re
 import sys
@@ -986,7 +986,7 @@ def is_binary_file(filename):
 
 @export_to_all
 def expand_path(path):
-    return normpath(expandvars(expanduser(path)))
+    return abspath(normpath(expandvars(expanduser(path))))
 
 @export_to_all
 def is_url(s):
@@ -1081,7 +1081,7 @@ def find_and_open_file(
                     if not exclude_binary or not is_binary_file(abs_filename):
                         try:
                             # Return the first file that matches the criteria.
-                            return open(abs_filename, encoding="latin_1"), abs_filename
+                            return open(abs_filename, encoding="latin_1"), expand_path(abs_filename)
                         except (IOError, FileNotFoundError, TypeError):
                             # File failed, so keep searching.
                             pass
