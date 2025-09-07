@@ -156,7 +156,7 @@ class SchLib(object):
                 # skidl.lib_search_paths[tool],
                 lib_section=lib_section,
             )
-            self.filename = filename
+            self.filename = abs_filename
             # Cache a reference to the library.
             if use_cache:
                 self._cache[lib_pickle_abs_fn] = self
