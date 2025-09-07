@@ -218,6 +218,15 @@ class SchLib(object):
             SchLib: The library with parts added.
         """
         return self.add_parts(*parts)
+    
+    def __iter__(self):
+        """
+        Make the library iterable over its parts.
+        
+        Returns:
+            iterator: An iterator over the parts in the library.
+        """
+        return iter(self.parts)
 
     @classmethod
     def reset(cls):
