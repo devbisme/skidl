@@ -13,12 +13,15 @@ regular expression searches and filtering on different properties.
 import os
 import os.path
 import re
+import sqlite3
+import threading
+import time
 
 from .logger import active_logger
 from .utilities import export_to_all, fullmatch, rmv_quotes, to_list, expand_path
 
 
-__all__ = ["search", "show"]
+__all__ = ["search", "show", "PartSearchDB"]
 
 
 # TODO: Use push-down automata to parse nested parenthetical expression
@@ -62,6 +65,260 @@ def _parse_search_terms(terms):
     terms = re.sub(r"[\'\"]", "", terms)  # Remove quotes.
     terms = terms + ".*"
     return terms
+
+
+class PartSearchDB:
+    """
+    Manage a parts search SQLite database.
+
+    The DB contains two tables:
+      - libraries(lib_file TEXT PRIMARY KEY, mtime REAL)
+      - parts(id INTEGER PRIMARY KEY, part_name TEXT, lib_file TEXT, search_text TEXT)
+
+    If the SQLite build supports FTS5, an auxiliary FTS virtual table is created
+    (parts_fts) for faster full-text MATCH queries; otherwise the class falls back
+    to LIKE-based searching.
+
+    The DB path is taken from skidl.config.part_search_db. If that attribute is
+    not present, defaults to os.path.join(skidl.config.pickle_dir, 'part_search.db').
+    """
+
+    _lock = threading.RLock()
+
+    def __init__(self, *lib_files, tool=None):
+        import skidl
+
+        self.tool = tool or skidl.config.tool
+        # Resolve DB path from config or fallback.
+        db_path = getattr(skidl.config, "part_search_db", None)
+        if not db_path:
+            db_path = os.path.join(skidl.config.pickle_dir, "part_search.db")
+        self.db_path = expand_path(db_path)
+
+        # Connect/create DB.
+        self._conn = sqlite3.connect(self.db_path)
+        self._conn.row_factory = sqlite3.Row
+        self._cur = self._conn.cursor()
+
+        # Use existing database or create a new one.
+        self._detect_and_init_db()
+
+        # Add or replace any libraries passed in.
+        self.add_libs(*lib_files)
+
+        # Reindex any libraries whose mtime differs from filesystem.
+        self._reindex_changed_libs()
+
+    def close(self):
+        try:
+            self._conn.commit()
+            self._conn.close()
+        except Exception:
+            pass
+
+    def _detect_and_init_db(self):
+        """
+        Create tables if they don't exist.
+        """
+        with self._lock:
+            # Create core tables.
+            self._cur.execute(
+                """
+                CREATE TABLE IF NOT EXISTS libraries (
+                    lib_file TEXT PRIMARY KEY,
+                    mtime REAL
+                )
+                """
+            )
+            self._cur.execute(
+                """
+                CREATE TABLE IF NOT EXISTS parts (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    part_name TEXT,
+                    lib_file TEXT,
+                    search_text TEXT,
+                    FOREIGN KEY(lib_file) REFERENCES libraries(lib_file)
+                )
+                """
+            )
+            self._conn.commit()
+
+    def _reindex_changed_libs(self):
+        """
+        For every library recorded in the DB, compare filesystem mtime; if different, reindex.
+        """
+
+        with self._lock:
+            self._cur.execute("SELECT lib_file, mtime FROM libraries")
+            rows = self._cur.fetchall()
+            for row in rows:
+                lib_file = row["lib_file"]
+                recorded_mtime = row["mtime"]
+                try:
+                    # Let SchLib resolve the filename; but the lib_file stored should be absolute path.
+                    if not os.path.exists(lib_file):
+                        self._rmv_lib(lib_file)
+                        continue
+                    mtime = os.path.getmtime(lib_file)
+                except OSError:
+                    continue
+
+                if mtime != recorded_mtime:
+                    # Reindex that library.
+                    try:
+                        self._index_lib(lib_file, self.tool)
+                    except Exception as e:
+                        active_logger.bare_warning(f"Failed to reindex library {lib_file}: {e}")
+
+    def add_libs(self, *lib_files):
+        """
+        Add or replace libraries listed in lib_files (iterable of filenames).
+        Each lib is indexed and its entry updated in the libraries table.
+        """
+        for lib_file in lib_files:
+            self._add_or_replace_lib(lib_file)
+
+    def _add_or_replace_lib(self, lib_file):
+        """
+        Add a single library file or replace existing entry and parts.
+        """
+
+        self._rmv_lib(lib_file)
+        self._index_lib(lib_file, self.tool)
+
+    def rmv_libs(self, *lib_files):
+        """
+        Remove libraries listed in lib_files (iterable of filenames).
+        Each lib and its parts are removed from the database.
+        """
+        for lib_file in lib_files:
+            self._rmv_lib(lib_file)
+
+    def _rmv_lib(self, lib_file):
+        """
+        Remove a single library file and its parts from the database.
+        """
+        # Expand path and resolve via SchLib to get absolute filename.
+        from .schlib import SchLib
+
+        # Use SchLib to resolve the filename (it will raise if not found).
+        try:
+            schlib = SchLib(filename=lib_file, tool=self.tool)
+            # Use absolute path recorded in SchLib.filename if available.
+            resolved = getattr(schlib, "filename", lib_file)
+        except Exception:
+            # Fall back to the raw lib_file path (maybe it's already absolute).
+            resolved = lib_file
+
+        resolved = expand_path(resolved)
+
+        with self._lock:
+            self._cur.execute("DELETE FROM parts WHERE lib_file = ?", (resolved,))
+            self._cur.execute("DELETE FROM libraries WHERE lib_file = ?", (resolved,))
+            self._conn.commit()
+        
+
+    def _index_lib(self, lib_path, tool):
+        """
+        Parse the library file and insert parts into parts table. Update library mtime.
+        lib_path should be an absolute path (or something SchLib can use).
+        """
+        from .schlib import SchLib
+
+        # Load the library using SchLib so it resolves and parses parts.
+        lib = SchLib(filename=lib_path, tool=tool)
+        # Use absolute filename stored by SchLib if present.
+        abs_fn = expand_path(getattr(lib, "filename", lib_path))
+
+        # Compute mtime. If file missing, use current time as fallback.
+        try:
+            mtime = os.path.getmtime(abs_fn)
+        except OSError:
+            mtime = time.time()
+
+        parts_to_insert = []
+        # Parse parts to collect searchable text.
+        for part in lib:
+            try:
+                # Partial parse to ensure aliases and description present.
+                part.parse(partial_parse=True)
+            except Exception:
+                # Ignore parse errors for indexing; try best-effort.
+                pass
+            aliases = " ".join(list(part.aliases)) if getattr(part, "aliases", None) else ""
+            descr = getattr(part, "description", "") or ""
+            keywords = " ".join(getattr(part, "keywords", [])) if getattr(part, "keywords", None) else ""
+            # Build search text: name, aliases, description, keywords.
+            search_text = " ".join(filter(None, [part.name, aliases, descr, keywords]))
+            parts_to_insert.append((part.name, abs_fn, search_text))
+
+        with self._lock:
+            # Insert/update library record.
+            self._cur.execute(
+                "INSERT OR REPLACE INTO libraries(lib_file, mtime) VALUES(?, ?)",
+                (abs_fn, mtime),
+            )
+            # Bulk insert parts.
+            if parts_to_insert:
+                self._cur.executemany(
+                    "INSERT INTO parts(part_name, lib_file, search_text) VALUES(?, ?, ?)",
+                    parts_to_insert,
+                )
+                self._conn.commit()
+            else:
+                # No parts found: commit library entry change.
+                self._conn.commit()
+
+    def _tokenize_query(self, query):
+        """
+        Parse query into a list of OR-groups, each group is list of terms (phrases kept).
+        '|' separates OR groups. Quoted phrases are preserved.
+        """
+        tokens = []
+        # Split by '|' to produce OR groups.
+        groups = [g.strip() for g in re.split(r"\s*\|\s*", query) if g.strip()]
+        for g in groups:
+            parts = []
+            for m in re.finditer(r'(?:"([^"]+)"|\'([^\']+)\'|(\S+))', g):
+                term = m.group(1) or m.group(2) or m.group(3)
+                parts.append(term)
+            if parts:
+                tokens.append(parts)
+        return tokens
+
+    def search(self, query, limit=None):
+        """
+        Search parts for the given query string.
+        Supports quoted phrases and '|' as OR.
+
+        Returns a list of (part_name, lib_file) tuples for matches.
+        """
+        if not query or not query.strip():
+            return []
+        tokens_groups = self._tokenize_query(query)
+
+        with self._lock:
+            where_clauses = []
+            params = []
+            for group in tokens_groups:
+                subclauses = []
+                for term in group:
+                    subclauses.append("search_text LIKE ?")
+                    params.append(f"%{term}%")
+                where_clauses.append("(" + " AND ".join(subclauses) + ")")
+            where_sql = " OR ".join(where_clauses)
+            sql = f"SELECT part_name, lib_file FROM parts WHERE {where_sql}"
+            if limit:
+                sql += f" LIMIT {int(limit)}"
+            self._cur.execute(sql, params)
+            rows = self._cur.fetchall()
+            return [(r["part_name"], r["lib_file"]) for r in rows]
+
+    def __del__(self):
+        try:
+            self.close()
+        except Exception:
+            pass
 
 
 @export_to_all
