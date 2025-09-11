@@ -1,9 +1,12 @@
 # History
 
-## 2.1.2 (2025-XX-XX)
+## 2.2.x (2025-XX-XX)
 
 - Fixed creation of SPICE netlists with illegal net names for XSPICE components.
-
+- SQLITE databases are used for part search to improve performance.
+- Added handling of storage directory for pickle files and databases to configuration management.
+- .skidlcfg is now searched for in platform-appropriate per-user directories.
+  
 ## 2.1.1 (2025-08-31)
 
 - Added a cheatsheet for SKiDL 2.1.0.
