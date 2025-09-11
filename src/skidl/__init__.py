@@ -63,7 +63,6 @@ from .part_query import (  # Component search and visualization functions
     search_footprints,
     search_footprints_iter,
     search_parts,
-    search_parts_iter,
     show,
     show_footprint,
     show_part,

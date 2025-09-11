@@ -10,10 +10,12 @@ across libraries, and to display their details. It includes support for
 regular expression searches and filtering on different properties.
 """
 
+from collections import namedtuple
 import os
 import os.path
 import re
 import sqlite3
+import sys
 import threading
 import time
 
@@ -24,17 +26,12 @@ from .utilities import export_to_all, fullmatch, rmv_quotes, to_list, expand_pat
 __all__ = ["search", "show", "PartSearchDB"]
 
 
-# TODO: Use push-down automata to parse nested parenthetical expression
-#       of AND/OR clauses for use in advanced part searching.
-#       https://stackoverflow.com/questions/4284991/parsing-nested-parentheses-in-python-grab-content-by-level
-
-
 def _parse_search_terms(terms):
     """
     Return a regular expression for a sequence of search terms.
 
     Converts a user-friendly search string into a regular expression pattern that can be
-    used for matching part and footprint attributes. The function handles quoted phrases 
+    used for matching part and footprint attributes. The function handles quoted phrases
     and logical OR operations.
 
     Substitute a zero-width lookahead assertion (?= ) for each term. Thus,
@@ -67,6 +64,47 @@ def _parse_search_terms(terms):
     return terms
 
 
+def get_all_lib_files(tool=None):
+    """
+    Return a list of all library files in the search paths for the given tool.
+
+    Args:
+        tool (str, optional): The ECAD tool format for the libraries to search.
+                             Defaults to the currently configured tool.
+
+    Returns:
+        list: A list of absolute paths to library files found in the search paths.
+    """
+
+    import skidl
+
+    tool = tool or skidl.get_default_tool()
+
+    # Gather all the lib files from all the directories in the search paths.
+    lib_files = list()
+    lib_suffixes = tuple(to_list(skidl.tools.lib_suffixes[tool]))
+    for lib_dir in skidl.lib_search_paths[tool]:
+
+        # Fully expand the path into an absolute path.
+        lib_dir = expand_path(lib_dir)
+
+        # Get all the library files in the search path.
+        try:
+            files = os.listdir(lib_dir)
+        except (FileNotFoundError, OSError):
+            active_logger.bare_warning(f"Could not open directory '{lib_dir}'")
+            files = []
+
+        files = [os.path.join(lib_dir, l) for l in files if l.endswith(lib_suffixes)]
+        lib_files.extend(files)
+
+    return lib_files
+
+
+# Keep a dictionary of part search databases for different tools.
+part_search_dbs = {}
+
+
 class PartSearchDB:
     """
     Manage a parts search SQLite database.
@@ -75,51 +113,39 @@ class PartSearchDB:
       - libraries(lib_file TEXT PRIMARY KEY, mtime REAL)
       - parts(id INTEGER PRIMARY KEY, part_name TEXT, lib_file TEXT, search_text TEXT)
 
-    If the SQLite build supports FTS5, an auxiliary FTS virtual table is created
-    (parts_fts) for faster full-text MATCH queries; otherwise the class falls back
-    to LIKE-based searching.
-
-    The DB path is taken from skidl.config.part_search_db. If that attribute is
-    not present, defaults to os.path.join(skidl.config.pickle_dir, 'part_search.db').
+    The DB path is taken from skidl.config.part_search_db_dir. If that attribute is
+    not present, defaults to the current directory.
     """
 
     _lock = threading.RLock()
 
-    def __init__(self, *lib_files, tool=None):
+    def __init__(self, db_dir=None, db_name=None, tool=None):
         import skidl
 
-        self.tool = tool or skidl.config.tool
-        # Resolve DB path from config or fallback.
-        db_path = getattr(skidl.config, "part_search_db", None)
-        if not db_path:
-            db_path = os.path.join(skidl.config.pickle_dir, "part_search.db")
-        self.db_path = expand_path(db_path)
+        self.tool = tool or skidl.get_default_tool()
+
+        # Resolve path to database. Libraries for each tool have their own database.
+        db_name = db_name or "part_search"
+        db_name = f"{db_name}_{self.tool}.db"
+        db_dir = db_dir or getattr(skidl.config, "part_search_db_dir", ".")
+        db_path = expand_path(os.path.join(db_dir, db_name))
 
         # Connect/create DB.
-        self._conn = sqlite3.connect(self.db_path)
+        self._conn = sqlite3.connect(db_path)
         self._conn.row_factory = sqlite3.Row
         self._cur = self._conn.cursor()
 
         # Use existing database or create a new one.
         self._detect_and_init_db()
 
-        # Add or replace any libraries passed in.
-        self.add_libs(*lib_files)
-
-        # Reindex any libraries whose mtime differs from filesystem.
-        self._reindex_changed_libs()
-
-    def close(self):
-        try:
-            self._conn.commit()
-            self._conn.close()
-        except Exception:
-            pass
+        # Update any libraries whose mtime differs from filesystem.
+        self.update_libs()
 
     def _detect_and_init_db(self):
         """
         Create tables if they don't exist.
         """
+
         with self._lock:
             # Create core tables.
             self._cur.execute(
@@ -137,16 +163,39 @@ class PartSearchDB:
                     part_name TEXT,
                     lib_file TEXT,
                     search_text TEXT,
+                    aliases TEXT,
+                    description TEXT,
+                    keywords TEXT,
                     FOREIGN KEY(lib_file) REFERENCES libraries(lib_file)
                 )
                 """
             )
+            # Try to ensure uniqueness on (part_name, lib_file) so we can use
+            # INSERT OR REPLACE to update parts based on those columns.
+            try:
+                self._cur.execute(
+                    """
+                    CREATE UNIQUE INDEX IF NOT EXISTS parts_part_lib_unique
+                    ON parts(part_name, lib_file)
+                    """
+                )
+            except sqlite3.OperationalError as e:
+                # If creating the unique index fails (e.g., due to existing duplicates),
+                # warn the user but continue – INSERT OR REPLACE will not be available.
+                active_logger.bare_warning(
+                    f"Could not create unique index on parts(part_name, lib_file): {e}"
+                )
+
             self._conn.commit()
 
-    def _reindex_changed_libs(self):
+    def _get_lib_file_status(self):
         """
-        For every library recorded in the DB, compare filesystem mtime; if different, reindex.
+        Return lists of missing, stale, and fresh library files.
         """
+
+        missing = []
+        stale = []
+        fresh = []
 
         with self._lock:
             self._cur.execute("SELECT lib_file, mtime FROM libraries")
@@ -155,80 +204,62 @@ class PartSearchDB:
                 lib_file = row["lib_file"]
                 recorded_mtime = row["mtime"]
                 try:
-                    # Let SchLib resolve the filename; but the lib_file stored should be absolute path.
                     if not os.path.exists(lib_file):
-                        self._rmv_lib(lib_file)
+                        missing.append(lib_file)
                         continue
                     mtime = os.path.getmtime(lib_file)
                 except OSError:
+                    missing.append(lib_file)
                     continue
 
                 if mtime != recorded_mtime:
-                    # Reindex that library.
-                    try:
-                        self._index_lib(lib_file, self.tool)
-                    except Exception as e:
-                        active_logger.bare_warning(f"Failed to reindex library {lib_file}: {e}")
+                    stale.append(lib_file)
+                else:
+                    fresh.append(lib_file)
+
+        return missing, stale, fresh
+
+    def load_from_lib_search_paths(self):
+        """
+        Load all libraries from the current skidl.lib_search_paths for the current tool.
+        """
+
+        # Get all files in the database that are fresh (up-to-date).
+        fresh_files = self._get_lib_file_status()[2]
+
+        # Update the files in the database that are not fresh.
+        not_fresh_files = set(get_all_lib_files(self.tool)) - set(fresh_files)
+        self.add_libs(*not_fresh_files)
 
     def add_libs(self, *lib_files):
         """
         Add or replace libraries listed in lib_files (iterable of filenames).
-        Each lib is indexed and its entry updated in the libraries table.
+        Each lib is added or updated in the libraries table and
+        its parts are added or updated in the parts table.
         """
+
         for lib_file in lib_files:
-            self._add_or_replace_lib(lib_file)
+            self.add_lib(lib_file)
 
-    def _add_or_replace_lib(self, lib_file):
-        """
-        Add a single library file or replace existing entry and parts.
-        """
-
-        self._rmv_lib(lib_file)
-        self._index_lib(lib_file, self.tool)
-
-    def rmv_libs(self, *lib_files):
-        """
-        Remove libraries listed in lib_files (iterable of filenames).
-        Each lib and its parts are removed from the database.
-        """
-        for lib_file in lib_files:
-            self._rmv_lib(lib_file)
-
-    def _rmv_lib(self, lib_file):
-        """
-        Remove a single library file and its parts from the database.
-        """
-        # Expand path and resolve via SchLib to get absolute filename.
-        from .schlib import SchLib
-
-        # Use SchLib to resolve the filename (it will raise if not found).
-        try:
-            schlib = SchLib(filename=lib_file, tool=self.tool)
-            # Use absolute path recorded in SchLib.filename if available.
-            resolved = getattr(schlib, "filename", lib_file)
-        except Exception:
-            # Fall back to the raw lib_file path (maybe it's already absolute).
-            resolved = lib_file
-
-        resolved = expand_path(resolved)
-
-        with self._lock:
-            self._cur.execute("DELETE FROM parts WHERE lib_file = ?", (resolved,))
-            self._cur.execute("DELETE FROM libraries WHERE lib_file = ?", (resolved,))
-            self._conn.commit()
-        
-
-    def _index_lib(self, lib_path, tool):
+    def add_lib(self, lib_path, tool=None):
         """
         Parse the library file and insert parts into parts table. Update library mtime.
         lib_path should be an absolute path (or something SchLib can use).
+        If the library is already in the database, then update it and all its parts.
         """
+
         from .schlib import SchLib
+
+        # Use provided tool or fall back to the DB's tool.
+        tool = tool or self.tool
 
         # Load the library using SchLib so it resolves and parses parts.
         lib = SchLib(filename=lib_path, tool=tool)
         # Use absolute filename stored by SchLib if present.
         abs_fn = expand_path(getattr(lib, "filename", lib_path))
+
+        # Give some feedback so user knows something is happening.
+        print(" " * 79, f"\rAdding {lib_path} ...", sep="", end="\r")
 
         # Compute mtime. If file missing, use current time as fallback.
         try:
@@ -243,14 +274,20 @@ class PartSearchDB:
                 # Partial parse to ensure aliases and description present.
                 part.parse(partial_parse=True)
             except Exception:
-                # Ignore parse errors for indexing; try best-effort.
-                pass
-            aliases = " ".join(list(part.aliases)) if getattr(part, "aliases", None) else ""
+                # Skip parts with parse errors.
+                continue
+            aliases = (
+                " ".join(list(part.aliases)) if getattr(part, "aliases", None) else ""
+            )
             descr = getattr(part, "description", "") or ""
-            keywords = " ".join(getattr(part, "keywords", [])) if getattr(part, "keywords", None) else ""
+            keywords = (
+                " ".join(getattr(part, "keywords", []))
+                if getattr(part, "keywords", None)
+                else ""
+            )
             # Build search text: name, aliases, description, keywords.
             search_text = " ".join(filter(None, [part.name, aliases, descr, keywords]))
-            parts_to_insert.append((part.name, abs_fn, search_text))
+            parts_to_insert.append((part.name, abs_fn, search_text, aliases, descr, keywords))
 
         with self._lock:
             # Insert/update library record.
@@ -258,10 +295,11 @@ class PartSearchDB:
                 "INSERT OR REPLACE INTO libraries(lib_file, mtime) VALUES(?, ?)",
                 (abs_fn, mtime),
             )
-            # Bulk insert parts.
+            # Bulk insert parts using INSERT OR REPLACE so entries keyed by
+            # (part_name, lib_file) are replaced rather than duplicated.
             if parts_to_insert:
                 self._cur.executemany(
-                    "INSERT INTO parts(part_name, lib_file, search_text) VALUES(?, ?, ?)",
+                    "INSERT OR REPLACE INTO parts(part_name, lib_file, search_text, aliases, description, keywords) VALUES(?, ?, ?, ?, ?, ?)",
                     parts_to_insert,
                 )
                 self._conn.commit()
@@ -269,22 +307,66 @@ class PartSearchDB:
                 # No parts found: commit library entry change.
                 self._conn.commit()
 
+    def update_libs(self):
+        """
+        For every library recorded in the DB, compare filesystem mtime; if different, update.
+        """
+
+        missing, stale, fresh = self._get_lib_file_status()
+        self.rmv_libs(*missing)
+        self.add_libs(*stale)
+
+    def rmv_libs(self, *lib_files):
+        """
+        Remove libraries listed in lib_files (iterable of filenames).
+        Each lib and its parts are removed from the database.
+        """
+
+        for lib_file in lib_files:
+            self.rmv_lib(lib_file)
+
+    def rmv_lib(self, lib_file):
+        """
+        Remove a single library file and its parts from the database.
+        """
+
+        # Expand path and resolve via SchLib to get absolute filename.
+        from .schlib import SchLib
+
+        # Use SchLib to resolve the filename (it will raise if not found).
+        try:
+            lib = SchLib(filename=lib_file, tool=self.tool)
+            # Use absolute path recorded in SchLib.filename if available.
+            resolved = getattr(lib, "filename", lib_file)
+        except Exception:
+            # Fall back to the raw lib_file path (maybe it's already absolute).
+            resolved = lib_file
+
+        resolved = expand_path(resolved)
+
+        with self._lock:
+            self._cur.execute("DELETE FROM parts WHERE lib_file = ?", (resolved,))
+            self._cur.execute("DELETE FROM libraries WHERE lib_file = ?", (resolved,))
+            self._conn.commit()
+
     def _tokenize_query(self, query):
         """
         Parse query into a list of OR-groups, each group is list of terms (phrases kept).
         '|' separates OR groups. Quoted phrases are preserved.
         """
-        tokens = []
+
+        or_terms = []
         # Split by '|' to produce OR groups.
-        groups = [g.strip() for g in re.split(r"\s*\|\s*", query) if g.strip()]
-        for g in groups:
-            parts = []
+        or_groups = [g.strip() for g in re.split(r"\s*\|\s*", query) if g.strip()]
+        for g in or_groups:
+            and_terms = []
             for m in re.finditer(r'(?:"([^"]+)"|\'([^\']+)\'|(\S+))', g):
+                # double-quoted, single-quoted, or non-white character string.
                 term = m.group(1) or m.group(2) or m.group(3)
-                parts.append(term)
-            if parts:
-                tokens.append(parts)
-        return tokens
+                and_terms.append(term)
+            if and_terms:
+                or_terms.append(and_terms)
+        return or_terms
 
     def search(self, query, limit=None):
         """
@@ -293,8 +375,16 @@ class PartSearchDB:
 
         Returns a list of (part_name, lib_file) tuples for matches.
         """
+
+        # Define a named tuple for the search results.
+        # The lib_path element will actually be the contents of the lib_file field.
+        # The lib_file element will be the library file name (path without the preceding path).
+        # The lib_name element will be the library file name without the suffix.
+        PartResult = namedtuple('PartResult', ['part_name', 'lib_path', 'lib_file', 'lib_name', 'aliases', 'description', 'keywords'])
+        
         if not query or not query.strip():
             return []
+
         tokens_groups = self._tokenize_query(query)
 
         with self._lock:
@@ -307,12 +397,27 @@ class PartSearchDB:
                     params.append(f"%{term}%")
                 where_clauses.append("(" + " AND ".join(subclauses) + ")")
             where_sql = " OR ".join(where_clauses)
-            sql = f"SELECT part_name, lib_file FROM parts WHERE {where_sql}"
+            sql = f"SELECT part_name, lib_file, aliases, description, keywords FROM parts WHERE {where_sql}"
             if limit:
                 sql += f" LIMIT {int(limit)}"
             self._cur.execute(sql, params)
             rows = self._cur.fetchall()
-            return [(r["part_name"], r["lib_file"]) for r in rows]
+
+        return [PartResult(r["part_name"], r["lib_file"], 
+                           os.path.basename(r["lib_file"]), 
+                           os.path.splitext(os.path.basename(r["lib_file"]))[0],
+                           r["aliases"], r["description"], r["keywords"]) for r in rows]
+
+    def close(self):
+        """
+        Close the database connection.
+        """
+
+        try:
+            self._conn.commit()
+            self._conn.close()
+        except Exception:
+            pass
 
     def __del__(self):
         try:
@@ -322,113 +427,54 @@ class PartSearchDB:
 
 
 @export_to_all
-def search_parts_iter(terms, tool=None):
-    """
-    Return an iterator of (lib, part) sequences that match regex terms.
-    
-    This generator function yields information about libraries being searched and parts
-    found that match the search terms.
-    
-    Args:
-        terms (str): Space-separated search terms to match against part attributes.
-        tool (str, optional): The ECAD tool format for the libraries to search. 
-                             Defaults to the currently configured tool.
-    
-    Yields:
-        tuple: Either progress information as ("LIB", lib_file, index, total) 
-               or part information as ("PART", lib_file, part_obj, part_alias).
-    """
-
-    import skidl
-    import skidl.tools
-
-    from .schlib import SchLib
-
-    tool = tool or skidl.config.tool
-
-    terms = _parse_search_terms(terms)
-
-    def mk_list(l):
-        """Make a list out of whatever is given."""
-        if isinstance(l, (list, tuple)):
-            return l
-        if not l:
-            return []
-        return [l]
-
-    # Gather all the lib files from all the directories in the search paths.
-    lib_files = list()
-    lib_suffixes = tuple(to_list(skidl.tools.lib_suffixes[tool]))
-    for lib_dir in skidl.lib_search_paths[tool]:
-
-        # Get all the library files in the search path.
-        try:
-            files = os.listdir(lib_dir)
-        except (FileNotFoundError, OSError):
-            active_logger.bare_warning(f"Could not open directory '{lib_dir}'")
-            files = []
-
-        files = [(lib_dir, l) for l in files if l.endswith(lib_suffixes)]
-        lib_files.extend(files)
-
-    num_lib_files = len(lib_files)
-
-    # Now search through the lib files for parts that match the search terms.
-    for idx, (lib_dir, lib_file) in enumerate(lib_files):
-
-        # If just entered a new lib file, yield the name of the file and
-        # where it is within the total number of files to search.
-        # (This is used for progress indicators.)
-        yield "LIB", lib_file, idx + 1, num_lib_files
-
-        # Parse the lib file to create a part library.
-        lib = SchLib(
-            os.path.join(lib_dir, lib_file), tool=tool
-        )  # Open the library file.
-
-        # Search the current library for parts with the given terms.
-        for part in mk_list(
-            # Get any matching parts from the library file.
-            lib.get_parts(use_backup_lib=False, search_text=terms)
-        ):
-            # Parse the part to instantiate the complete object.
-            part.parse(partial_parse=True)
-
-            # Return part name and aliases (everything is included in aliases).
-            for alias in list(part.aliases):
-                yield "PART", lib_file, part, alias
-
-
-@export_to_all
-def search_parts(terms, tool=None):
+def search_parts(terms, tool=None, fmt=None, file=None):
     """
     Print a list of parts with the regex terms within their name, alias, description or keywords.
-    
+
     Searches through all available libraries for parts matching the given terms and prints
     the results to the console.
-    
+
     Args:
-        terms (str): Space-separated search terms to match against part attributes.
+        terms (str): Search terms separated by spaces (AND) or | (OR) to match against part attributes.
         tool (str, optional): The ECAD tool format for the libraries to search.
                              Defaults to the currently configured tool.
-    
+        fmt (str, optional): A format string for displaying each part.
+                             Defaults to "{lib_name}: {part_name} ({description})".
+        file (file-like object, optional): The output stream to write results to.
+                                          Defaults to sys.stdout.
+
     Returns:
         None: Results are printed to the console.
     """
 
-    parts = set()
-    for part in search_parts_iter(terms, tool):
-        if part[0] == "LIB":
-            print(" " * 79, f"\rSearching {part[1]} ...", sep="", end="\r")
-        elif part[0] == "PART":
-            parts.add(part[1:4])
-    print(" " * 79, end="\r")
+    import skidl
 
-    # Print each part name sorted by the library where it was found.
-    for lib_file, part, part_name in sorted(list(parts), key=lambda p: p[0]):
-        print(
-            f"{lib_file}: {part_name} ({getattr(part, 'description', '???')})"
-        )
+    tool = tool or skidl.get_default_tool()
+    fmt = fmt or "{lib_name}: {part_name} ({description})"
+    file = file or sys.stdout
+
+    if tool not in part_search_dbs:
+        # Initialize and store the DB object for this tool.
+        part_search_dbs[tool] = PartSearchDB(tool=tool)
+    
+    # Load the database from the current library search paths for the given tool.
+    part_search_dbs[tool].load_from_lib_search_paths()
+
+    # Search the database for parts matching the search terms.
+    parts = part_search_dbs[tool].search(terms)
+
+    # Output the search results sorted by lib file path and part name.
+    for part in sorted(parts, key=lambda p: (p.lib_path, p.part_name)):
+        part_name = part.part_name
+        lib_path = part.lib_path
+        lib_file = part.lib_file
+        lib_name = part.lib_name
+        description = part.description
+        aliases = part.aliases
+        keywords = part.keywords
+        print(fmt.format(**locals()), file=file)
+
+    return
 
 
 @export_to_all
@@ -463,7 +509,7 @@ def show_part(lib, part_name, tool=None):
 class FootprintCache(dict):
     """
     Dict for storing footprints from all directories.
-    
+
     This cache stores footprint information from KiCad libraries to avoid
     repeatedly reading the same files from disk during searches.
     It maps library nicknames to a dict containing the path and module information.
@@ -472,7 +518,7 @@ class FootprintCache(dict):
     def __init__(self, *args, **kwargs):
         """
         Initialize the footprint cache.
-        
+
         Args:
             *args, **kwargs: Arguments passed to the dict constructor.
         """
@@ -482,7 +528,7 @@ class FootprintCache(dict):
     def reset(self):
         """
         Reset the footprint cache.
-        
+
         Clears all cached footprint data and marks the cache as invalid.
         """
         self.clear()  # Clear out cache.
@@ -491,10 +537,10 @@ class FootprintCache(dict):
     def load(self, path):
         """
         Load cache with footprints from libraries in fp-lib-table file.
-        
+
         Reads the fp-lib-table file in the given path to identify and load
         footprint libraries into the cache.
-        
+
         Args:
             path (str): Path to directory containing fp-lib-table file.
                        If no fp-lib-table is found, treats the path itself as a module library.
@@ -604,17 +650,17 @@ footprint_cache = FootprintCache()
 def search_footprints_iter(terms, tool=None):
     """
     Return an iterator over footprints that match the regex terms.
-    
+
     This generator function yields information about libraries being searched and footprints
     found that match the search terms.
-    
+
     Args:
         terms (str): Space-separated search terms to match against footprint attributes.
         tool (str, optional): The ECAD tool format for the footprint libraries to search.
                              Defaults to the currently configured tool.
-    
+
     Yields:
-        tuple: Either progress information as ("LIB", lib_name, index, total) 
+        tuple: Either progress information as ("LIB", lib_name, index, total)
                or footprint information as ("MODULE", lib_name, module_text, module_name).
     """
 
@@ -700,15 +746,15 @@ def search_footprints_iter(terms, tool=None):
 def search_footprints(terms, tool=None):
     """
     Print a list of footprints with the regex term within their description/tags.
-    
-    Searches through all available footprint libraries for footprints matching 
+
+    Searches through all available footprint libraries for footprints matching
     the given terms and prints the results to the console.
-    
+
     Args:
         terms (str): Space-separated search terms to match against footprint attributes.
         tool (str, optional): The ECAD tool format for the libraries to search.
                              Defaults to the currently configured tool.
-    
+
     Returns:
         None: Results are printed to the console.
     """
