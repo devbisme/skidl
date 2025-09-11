@@ -9,6 +9,7 @@ import os
 from skidl import *
 from skidl.tools import ALL_TOOLS
 from skidl.logger import rt_logger, erc_logger
+from skidl.config_ import SkidlConfig
 
 files_at_start = set([])
 
@@ -17,27 +18,14 @@ def setup_function():
     global files_at_start
     files_at_start = set(os.listdir(os.getcwd()))
 
+    config = SkidlConfig(KICAD) # Sets default tool.
+
+    # Set library search paths from config file.
+    for tool in lib_search_paths:
+        lib_search_paths[tool] = config.lib_search_paths[tool]
+
     # Mini-reset to remove circuitry but retain any loaded libraries.
     default_circuit.mini_reset()
-
-    # Setup part library search paths.
-    for tool in ALL_TOOLS:
-        # Each tool has a specific directory that stores the libraries used for testing.
-        lib_dir = os.path.join("test_data", tool)
-        lib_search_paths[tool] = [lib_dir]
-
-    # Extra library directory for SKiDL tool.
-    skidl_lib_dir = os.path.join("..", "src/skidl/tools/skidl/libs")
-    lib_search_paths[SKIDL].append(skidl_lib_dir)
-
-    # SPICE models from the SkyWater 130nm process.
-    skywater_lib_dir = os.path.join(
-        "test_data", "skywater", "models"
-    )
-    lib_search_paths[SPICE].append(skywater_lib_dir)
-
-    spice_lib_dir = os.path.join("test_data", "SpiceLib")
-    lib_search_paths[SPICE].append(spice_lib_dir)
 
     # Turn on backup part library creation.
     skidl.config.query_backup_lib = True

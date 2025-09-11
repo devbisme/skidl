@@ -1,0 +1,43 @@
+{
+    "skidl_storage_dir": "./storage",
+    "cfg_file_name": ".skidlcfg",
+    "tool": "kicad9",
+    "pickle_dir": "./storage/lib_pickle_dir",
+    "part_search_db_dir": "./storage",
+    "lib_search_paths": {
+        "kicad8": [
+            "test_data/kicad8"
+        ],
+        "spice": [
+            "test_data/spice",
+            "test_data/skywater/models",
+            "test_data/SpiceLib"
+        ],
+        "kicad7": [
+            "test_data/kicad7"
+        ],
+        "kicad6": [
+            "test_data/kicad6"
+        ],
+        "kicad9": [
+            "test_data/kicad9"
+        ],
+        "skidl": [
+            "../src/skidl/tools/skidl/libs"
+        ],
+        "kicad5": [
+            "test_data/kicad5"
+        ]
+    },
+    "query_backup_lib": true,
+    "backup_lib": null,
+    "footprint_search_paths": {
+        "kicad8": "/home/devb/.config/kicad/8.0",
+        "spice": "",
+        "kicad7": "/home/devb/.config/kicad/7.0",
+        "kicad6": "/home/devb/.config/kicad/6.0",
+        "kicad9": "/home/devb/.config/kicad/9.0",
+        "skidl": "",
+        "kicad5": "/home/devb/.config/kicad"
+    }
+}
