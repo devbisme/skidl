@@ -280,11 +280,7 @@ class PartSearchDB:
                 " ".join(list(part.aliases)) if getattr(part, "aliases", None) else ""
             )
             descr = getattr(part, "description", "") or ""
-            keywords = (
-                " ".join(getattr(part, "keywords", []))
-                if getattr(part, "keywords", None)
-                else ""
-            )
+            keywords = getattr(part, "keywords", "") or ""
             # Build search text: name, aliases, description, keywords.
             search_text = " ".join(filter(None, [part.name, aliases, descr, keywords]))
             parts_to_insert.append((part.name, abs_fn, search_text, aliases, descr, keywords))
