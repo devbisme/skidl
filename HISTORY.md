@@ -4,6 +4,7 @@
 
 - Fixed creation of SPICE netlists with illegal net names for XSPICE components.
 - SQLITE databases are used for part search to improve performance.
+- Added skidl-part-search command-line utility for searching part libraries.
 - Added handling of storage directory for pickle files and databases to configuration management.
 - .skidlcfg is now searched for in platform-appropriate per-user directories.
   
