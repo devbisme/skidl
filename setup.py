@@ -58,7 +58,8 @@ setup(
     packages=setuptools.find_packages(where="src"),
     entry_points={
         "console_scripts": [
-            "netlist_to_skidl = skidl.scripts.netlist_to_skidl_main:main"
+            "netlist_to_skidl = skidl.scripts.netlist_to_skidl_main:main",
+            "skidl-part-search = skidl.scripts.part_search_cli:main",
         ]
     },
     package_dir={"": "src"},
