@@ -13,5 +13,5 @@ def test_search_1(capfd):
     
     # KICAD 5 uses .lib files, while later versions use .kicad_sym files. And the
     # RF_Module library has different # of parts in it for various versions of KiCad.
-    assert out.count("RF_Module:") in (4,6,11,14,18)
+    assert out.count("RF_Module:") in (4,6,12,14,19)
 
