@@ -5,7 +5,7 @@ import sys
 
 import setuptools
 
-__version__ = "2.2.1"
+__version__ = "2.2.0"
 __author__ = "Dave Vandenbout"
 __email__ = "dave@vdb.name"
 
@@ -31,6 +31,7 @@ requirements = [
     "simp_sexp >= 0.3.0",
     "inspice; python_version>='3.11'",
     "ply",
+    "rich",
     "graphviz",
     "deprecation",
 ]
