@@ -154,16 +154,20 @@ def interactive_browse(db, parts, args, field_list, format_string):
         return
     
     current_index = 0
-    total_parts = len(parts)
+    num_parts = len(parts)
     
-    print(f"Browse mode: {total_parts} parts found.")
+    print(f"Browse mode: {num_parts} parts found.")
     print("Use UP/DOWN arrow keys to navigate, ENTER to show details, 's' for search mode, 'q' to quit.")
     print()
     
     def show_current_part():
         part = parts[current_index]
         # Clear the line and show current part
-        print(f"\r\033[K[{current_index + 1}/{total_parts}] {format_part(part, format_string)}", end='', flush=True)
+        print(f"\r\033[K[{current_index + 1}/{num_parts}] {format_part(part, format_string)} (ENTER/UP/DOWN/s/q)", end='', flush=True)
+
+    def show_pin(pin):
+        aliases = ",".join(sorted(pin.aliases, key=lambda a: a.lower()))
+        print(f"Pin#: {pin.num}, Names: {aliases}, Type: {pin.func.name}")
     
     def show_part_details():
         from skidl.part_query import show_part
@@ -182,8 +186,23 @@ def interactive_browse(db, parts, args, field_list, format_string):
                 print(f"Keywords: {part.keywords or 'N/A'}")
                 print("\nPins:")
                 if hasattr(template_part, 'pins') and template_part.pins:
-                    for pin in template_part.pins:
-                        print(f"  {pin}")
+                    if RICH_AVAILABLE:
+                        # Show pins as a table using rich
+                        console = Console()
+                        pin_table = Table(show_header=True, header_style="bold cyan")
+                        pin_table.add_column("Pin#", style="yellow", no_wrap=True)
+                        pin_table.add_column("Names", style="green")
+                        pin_table.add_column("Type", style="white")
+                        
+                        for pin in sorted(template_part.pins, key=lambda p: p.num):
+                            aliases = ",".join(sorted(pin.aliases, key=lambda a: a.lower()))
+                            pin_table.add_row(str(pin.num), aliases, pin.func.name)
+                        
+                        console.print(pin_table)
+                    else:
+                        # Fallback to plain text
+                        for pin in sorted(template_part.pins, key=lambda p: p.num):
+                            show_pin(pin)
                 else:
                     print("  No pins found or part not fully parsed.")
             else:
@@ -192,15 +211,15 @@ def interactive_browse(db, parts, args, field_list, format_string):
             print(f"Error loading part: {e}")
         
         print("-" * 60)
-        print("Press any key to continue browsing...")
-        
-        # Wait for any key press to continue
-        old_settings = termios.tcgetattr(sys.stdin)
-        try:
-            tty.setraw(sys.stdin.fileno())
-            sys.stdin.read(1)
-        finally:
-            termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
+        # print("Press any key to continue browsing...")
+        # 
+        # # Wait for any key press to continue
+        # old_settings = termios.tcgetattr(sys.stdin)
+        # try:
+        #     tty.setraw(sys.stdin.fileno())
+        #     sys.stdin.read(1)
+        # finally:
+        #     termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
         
         print()  # New line after key press
         show_current_part()  # Redisplay current part
@@ -240,7 +259,7 @@ def interactive_browse(db, parts, args, field_list, format_string):
                     current_index -= 1
                     show_current_part()
             elif key == '\x1b[B':  # Down arrow  
-                if current_index < total_parts - 1:
+                if current_index < num_parts - 1:
                     current_index += 1
                     show_current_part()
             elif key == 'h' or key == '?':
@@ -280,7 +299,9 @@ def interactive_search(db, args, field_list, format_string):
     readline.parse_and_bind('"\\e[A": previous-history')
     readline.parse_and_bind('"\\e[B": next-history')
     
-    current_parts = []  # Store current search results for browse mode
+    # current_parts = []  # Store current search results for browse mode
+    parts = db.search(args.terms, limit=args.limit)
+    current_parts = sorted(parts, key=lambda p: (p.lib_path, p.part_name))
     
     while True:
         try:
@@ -341,7 +362,7 @@ def main(argv=None):
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=f"""
 Format string examples:
-  Default: {DEFAULT_FORMAT}
+  Default: "{DEFAULT_FORMAT}"
   Simple:  "{{part_name}}"
   Detailed: "{{lib_name}}/{{part_name}} - {{description}}"
   Custom:   "Part: {{part_name}} | Library: {{lib_name}} | {{aliases}}"
@@ -373,7 +394,7 @@ Interactive mode:
         default=DEFAULT_FORMAT,
         help=(
             f"Output format string (default: '{DEFAULT_FORMAT}'). "
-            f"Available fields: {', '.join(AVAILABLE_FIELDS)}"
+            "See list of available fields below. "
         ),
     )
     parser.add_argument(
@@ -381,7 +402,7 @@ Interactive mode:
         default=DEFAULT_FIELDS,
         help=(
             "Comma-separated list of fields to display in order. "
-            f"Available: {', '.join(AVAILABLE_FIELDS)}. "
+            "See list of available fields below. "
             "Overrides --format if specified."
         ),
     )
@@ -419,7 +440,7 @@ Interactive mode:
         action="store_true",
         help=(
             "Enter interactive mode after initial search (if terms provided). "
-            "Allows multiple searches with command history support and browse mode."
+            "Allows multiple searches with command history support and part browse mode."
         ),
     )
 
@@ -462,8 +483,6 @@ Interactive mode:
 
     # Perform initial search if terms provided
     if args.terms:
-        parts = db.search(args.terms, limit=args.limit)
-        sorted_parts = sorted(parts, key=lambda p: (p.lib_path, p.part_name))
         perform_search_and_display(db, args.terms, args, field_list, format_string)
         
         # Add initial search to history for interactive mode
