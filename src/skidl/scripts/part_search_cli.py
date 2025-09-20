@@ -83,12 +83,13 @@ def perform_search_and_display(db, search_terms, args, field_list, format_string
     """
     parts = db.search(search_terms, limit=args.limit)
     sorted_parts = sorted(parts, key=lambda p: (p.lib_path, p.part_name))
+
+    # Use ANSI color code for bright yellow bold text.
+    found_info_text = f"\033[93m\033[1mFound {len(sorted_parts)} part(s) for: {search_terms}\033[0m"
+    print(found_info_text)
     
     if not sorted_parts:
-        print(f"No parts found for: {search_terms}")
         return 0
-    
-    print(f"Found {len(sorted_parts)} part(s) for: {search_terms}")
     
     # Format and output results
     if args.table:
@@ -129,6 +130,8 @@ def perform_search_and_display(db, search_terms, args, field_list, format_string
             if output_text:
                 print(output_text)
     
+    print(found_info_text)
+    
     return len(sorted_parts)
 
 
@@ -147,8 +150,8 @@ def interactive_search(db, args, field_list, format_string):
     print()
     
     # Configure readline for history
-    readline.parse_and_bind('"\e[A": history-search-backward')
-    readline.parse_and_bind('"\e[B": history-search-forward')
+    readline.parse_and_bind('"\\e[A": previous-history')
+    readline.parse_and_bind('"\\e[B": next-history')
     
     while True:
         try:
@@ -156,7 +159,7 @@ def interactive_search(db, args, field_list, format_string):
             
             # Check for exit commands
             if search_terms.lower() in ['quit', 'exit', 'q']:
-                print("Goodbye!")
+                # print("Goodbye!")
                 break
             
             # Skip empty input
@@ -171,7 +174,7 @@ def interactive_search(db, args, field_list, format_string):
             print()  # Add blank line between searches
             
         except (EOFError, KeyboardInterrupt):
-            print("\nGoodbye!")
+            # print("\nGoodbye!")
             break
 
 
