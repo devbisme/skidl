@@ -12,8 +12,6 @@ import argparse
 import sys
 import readline
 
-from tomlkit import table
-
 import skidl
 from skidl.part_query import PartSearchDB
 
