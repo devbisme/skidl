@@ -349,20 +349,144 @@ class PartSearchDB:
         """
         Parse query into a list of OR-groups, each group is list of terms (phrases kept).
         '|' separates OR groups. Quoted phrases are preserved.
+        Parentheses group terms and are expanded recursively.
+        
+        Examples:
+        - "a b" -> [["a", "b"]] (AND)
+        - "a | b" -> [["a"], ["b"]] (OR)
+        - "(a b) | c" -> [["a", "b"], ["c"]] (OR with grouped AND)
+        - "x (a | b)" -> [["x", "a"], ["x", "b"]] (expansion)
         """
-
-        or_terms = []
-        # Split by '|' to produce OR groups.
-        or_groups = [g.strip() for g in re.split(r"\s*\|\s*", query) if g.strip()]
-        for g in or_groups:
-            and_terms = []
-            for m in re.finditer(r'(?:"([^"]+)"|\'([^\']+)\'|(\S+))', g):
-                # double-quoted, single-quoted, or non-white character string.
-                term = m.group(1) or m.group(2) or m.group(3)
-                and_terms.append(term)
-            if and_terms:
-                or_terms.append(and_terms)
-        return or_terms
+        
+        def _expand_parentheses(tokens):
+            """
+            Recursively expand parentheses in a list of tokens.
+            Returns a list of lists representing OR groups.
+            """
+            result = []
+            i = 0
+            
+            while i < len(tokens):
+                if tokens[i] == '(':
+                    # Find matching closing parenthesis
+                    paren_count = 1
+                    j = i + 1
+                    while j < len(tokens) and paren_count > 0:
+                        if tokens[j] == '(':
+                            paren_count += 1
+                        elif tokens[j] == ')':
+                            paren_count -= 1
+                        j += 1
+                    
+                    if paren_count > 0:
+                        # Unmatched parenthesis, treat as regular token
+                        result.append(tokens[i])
+                        i += 1
+                    else:
+                        # Extract content within parentheses and recursively expand
+                        inner_tokens = tokens[i + 1:j - 1]
+                        inner_expanded = _expand_parentheses(inner_tokens)
+                        result.append(inner_expanded)
+                        i = j
+                else:
+                    result.append(tokens[i])
+                    i += 1
+            
+            return result
+        
+        def _tokenize_simple(text):
+            """Tokenize text handling quotes, pipes, and parentheses."""
+            tokens = []
+            i = 0
+            while i < len(text):
+                char = text[i]
+                
+                if char.isspace():
+                    i += 1
+                elif char in '"\'':
+                    # Handle quoted strings
+                    quote_char = char
+                    start = i + 1
+                    i += 1
+                    while i < len(text) and text[i] != quote_char:
+                        i += 1
+                    if i < len(text):
+                        tokens.append(text[start:i])
+                        i += 1
+                    else:
+                        # Unclosed quote, include the quote
+                        tokens.append(text[start - 1:])
+                        break
+                elif char == '|':
+                    tokens.append('|')
+                    i += 1
+                elif char in '()':
+                    tokens.append(char)
+                    i += 1
+                else:
+                    # Regular word
+                    start = i
+                    while i < len(text) and not text[i].isspace() and text[i] not in '|()':
+                        i += 1
+                    tokens.append(text[start:i])
+            
+            return tokens
+        
+        def _distribute_terms(expanded_tokens):
+            """
+            Convert expanded token structure into OR groups.
+            Handles distribution of terms across nested structures.
+            """
+            if not expanded_tokens:
+                return []
+            
+            # Convert single tokens or nested lists to OR groups
+            or_groups = []
+            current_and_group = []
+            
+            for token in expanded_tokens:
+                if token == '|':
+                    if current_and_group:
+                        or_groups.append(current_and_group)
+                        current_and_group = []
+                elif isinstance(token, list):
+                    # This is a nested structure from parentheses
+                    nested_or_groups = _distribute_terms(token)
+                    
+                    if not current_and_group:
+                        # No preceding terms, just add the nested groups
+                        or_groups.extend(nested_or_groups)
+                    else:
+                        # Distribute current AND terms across nested OR groups
+                        for nested_group in nested_or_groups:
+                            combined_group = current_and_group + nested_group
+                            or_groups.append(combined_group)
+                        current_and_group = []
+                else:
+                    # Regular term
+                    current_and_group.append(token)
+            
+            # Add any remaining AND group
+            if current_and_group:
+                or_groups.append(current_and_group)
+            
+            return or_groups
+        
+        # Main tokenization logic
+        if not query or not query.strip():
+            return []
+        
+        # First pass: tokenize handling quotes, pipes, and parentheses
+        tokens = _tokenize_simple(query.strip())
+        
+        # Second pass: expand parentheses recursively
+        expanded = _expand_parentheses(tokens)
+        
+        # Third pass: convert to OR groups with AND terms
+        or_groups = _distribute_terms(expanded)
+        
+        # Filter out empty groups
+        return [group for group in or_groups if group]
 
     def search(self, query, limit=None):
         """
