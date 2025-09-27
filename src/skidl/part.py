@@ -220,21 +220,23 @@ class Part(PinMixin, SkidlBaseObject):
         from skidl import SchLib, SKIDL
         from skidl.tools.spice import add_xspice_io
 
-        super().__init__()
+        # Initialize the base classes. Start with SkidlBaseObject to instantiate basic stuff.
+        # Then do PinMixin to set up handling of pins in the part. Don't do PinMixin first
+        # because its __getattr__ method will be overridden by __getattr__ in SkidlBaseObject.
+        SkidlBaseObject.__init__(self)
+        PinMixin.__init__(self)
 
         tool = tool or skidl.config.tool
 
         # Setup some part attributes that might be overwritten later on.
         self.do_erc = True  # Allow part to be included in ERC.
         self.unit = {}  # Dictionary for storing subunits of the part, if desired.
-        self.pins = []  # Start with no pins, but a place to store them.
         self.p = PinNumberSearch(self)  # Does pin search using only pin numbers.
         self.n = PinNameSearch(self)  # Does pin search using only pin names.
         self.name = name  # Assign initial part name.
         self._ref = ""  # Provide a member for holding a reference.
         self.tool = tool  # Initial type of part (SKIDL, KICAD, etc.)
         self.circuit = None  # Part starts off unassociated with any circuit.
-        self.match_pin_regex = False  # Don't allow regex matches of pin names.
         self._partclasses = PartClasses()  # List of part classes this part belongs to.
 
         # Create a Part from a library entry.
