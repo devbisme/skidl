@@ -244,105 +244,147 @@ from skidl import *
 
 ### Command-line Searching
 
-SKiDL provides a convenience function for searching for parts called
-(naturally) `search`.
+SKiDL provides the command-line utility `skidl-part-search` to search for parts.
+It offers both one-shot searches and an interactive mode with part browsing capabilities.
 For example, if you need an operational amplifier, then the following command would
 pull up a long list of likely candidates:
 
 ```terminal
->>> search('opamp')
-Amplifier_Audio.lib: OPA1622 (High-Fidelity, Bipolar-Input, Audio Operational Amplifier, VSON-10)
-Amplifier_Audio.lib: LM386 (Low Voltage Audio Power Amplifier, DIP-8/SOIC-8/SSOP-8)
-Amplifier_Difference.lib: LM733CH (Single Differential Amplifier, TO-5-10)
-Amplifier_Difference.lib: LM733H (Single Differential Amplifier, TO-5-10)
-Amplifier_Difference.lib: LM733CN (Single Differential Amplifier, DIP-14)
-Amplifier_Instrumentation.lib: INA326 (Precision, Rail-to-Rail I/O Instrumentation Amplifier, MSOP-8 package)
-Amplifier_Instrumentation.lib: INA327 (Precision, Rail-to-Rail I/O Instrumentation Amplifier, MSOP-10 package)
-Amplifier_Instrumentation.lib: INA129 (Precision, Low Power Instrumentation Amplifier G = 1 + 49.4kOhm/Rg, DIP-8/SOIC-8)
-Amplifier_Instrumentation.lib: INA128 (Precision, Low Power Instrumentation Amplifier G = 1 + 49.4kOhm/Rg, DIP-8/SOIC-8)
-Amplifier_Operational.lib: OPA842xD (Single rail-to-rail input/output 8 MHz operational amplifiers, SOIC-8)
-Amplifier_Operational.lib: OPA188xxD (Single rail-to-rail input/output 8 MHz operational amplifiers, SOIC-8)
-Amplifier_Operational.lib: OPA855xDSG (1.8 GHz Unity-Gain Bandwidth FET Input Amplifier, WSON-8)
-Amplifier_Operational.lib: SA5534 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
-...
+$ skidl-part-search opamp
+Found 419 part(s) for: opamp
+Amplifier_Audio | LM386 | Low Voltage Audio Power Amplifier, DIP-8/SOIC-8/SSOP-8
+Amplifier_Audio | OPA1622 | High-Fidelity, Bipolar-Input, Audio Operational Amplifier, VSON-10
+Amplifier_Difference | LM733CH | Single Differential Amplifier, TO-5-10
+Amplifier_Difference | LM733CN | Single Differential Amplifier, DIP-14
+Amplifier_Difference | LM733H | Single Differential Amplifier, TO-5-10
+Amplifier_Instrumentation | INA128 | Precision, Low Power Instrumentation Amplifier G = 1 + 50kOhm/Rg, DIP-8/SOIC-8...
 ```
 
-`search` accepts keywords and scans for them *anywhere* within the
+`skidl-part-search` accepts keywords and scans for them *anywhere* within the
 name, description and keywords of all the parts in the library path.
 (You can read more about how SKiDL handles libraries [here](#libraries).)
-If you want search for an *exact* match, then use a regular expression like the following:
-
-```terminal
->>> search('^lm386$')
-Amplifier_Audio.lib: LM386 (Low Voltage Audio Power Amplifier, DIP-8/SOIC-8/SSOP-8)
-```
-
-If you give `search` multiple terms, then it will find parts that contain *all*
+If you give it multiple terms, then it will find parts that contain *all*
 those terms:
 
 ```terminal
->>> search('opamp low-noise dip-8')
-Amplifier_Operational.lib: AD797 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
-Amplifier_Operational.lib: LM101 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
-Amplifier_Operational.lib: LM301 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
-Amplifier_Operational.lib: LT1012 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
-Amplifier_Operational.lib: SA5534 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
-Amplifier_Operational.lib: NE5534 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
-Amplifier_Operational.lib: LM201 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
+$ skidl-part-search 'opamp low-noise dip-8'
+Found 7 part(s) for: opamp low-noise dip-8
+Amplifier_Operational | NE5532 | Dual Low-Noise Operational Amplifiers, DIP-8/SOIC-8
+Amplifier_Operational | NE5534 | Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8
+Amplifier_Operational | NJM5532 | Dual Low-Noise Operational Amplifier, DIP-8/DMP-8/SIP-8
+Amplifier_Operational | SA5532 | Dual Low-Noise Operational Amplifiers, DIP-8/SOIC-8
+Amplifier_Operational | SA5534 | Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8
+Amplifier_Operational | TL071 | Single Low-Noise JFET-Input Operational Amplifiers, DIP-8/SOIC-8
+Amplifier_Operational | TL072 | Dual Low-Noise JFET-Input Operational Amplifiers, DIP-8/SOIC-8
 ```
 
 You may also use the `|` character to find parts that contain at least one of a set
 of choices:
 
 ```terminal
->>> search('opamp (low-noise|dip-8)')
-
-Amplifier_Audio.lib: LM386 (Low Voltage Audio Power Amplifier, DIP-8/SOIC-8/SSOP-8)
-Amplifier_Operational.lib: TLV2371P (Rail-to-Rail Input/Output Operational Amplifier, PDIP-8)
-Amplifier_Operational.lib: MAX4239ASA (Ultra-Low Offset/Drift, Low-Noise, Precision Amplifiers, SOIC-8)
-Amplifier_Operational.lib: LM4250 (Programmable Operational Amplifier, DIP-8/SOIC-8)
-Amplifier_Operational.lib: LF256 (Single JFET-Input Operational Amplifiers, DIP-8/SOIC-8)
-Amplifier_Operational.lib: MAX4239AUT (Ultra-Low Offset/Drift, Low-Noise, Precision Amplifiers, SOT-23-6)
-Amplifier_Operational.lib: LM6361 (Single High Speed Operational Amplifier, DIP-8/SOIC-8)
-Amplifier_Operational.lib: LF257 (Single JFET-Input Operational Amplifiers, DIP-8/SOIC-8)
-Amplifier_Operational.lib: AD8603 (Zero-Drift, Precision, Low-Noise, Rail-to-Rail Output, 36-V Operational Amplifier, TSOT-23-5)
+$ skidl-part-search 'opamp (low-noise|dip-8)'
+Found 118 part(s) for: opamp (low-noise|dip-8)
+Amplifier_Audio | LM386 | Low Voltage Audio Power Amplifier, DIP-8/SOIC-8/SSOP-8
+Amplifier_Instrumentation | INA128 | Precision, Low Power Instrumentation Amplifier G = 1 + 50kOhm/Rg, DIP-8/SOIC-8
+Amplifier_Instrumentation | INA129 | Precision, Low Power Instrumentation Amplifier G = 1 + 49.4kOhm/Rg, DIP-8/SOIC-8
+Amplifier_Operational | AD797 | Ultralow Distortion, Ultralow Noise Op Amp, DIP-8/SOIC-8
+Amplifier_Operational | AD8001AN | Current Feedback Amplifier, 800 MHz, 50mW, DIP-8
+Amplifier_Operational | AD817 | High Speed, Low Power Wide Supply Range Operational Amplifier, DIP-8/SOIC-8
 ...
 ```
 
 If you need to search for a string containing spaces, just enclose it in quotes:
 
 ```terminal
->>> search('opamp "high performance"')
-
-Amplifier_Operational.lib: OP77 (Single SoundPlus High Performance Audio Operational Amplifiers, DIP-8/SOIC-8)
-Amplifier_Operational.lib: LT1363 (Single SoundPlus High Performance Audio Operational Amplifiers, DIP-8/SOIC-8)
-Amplifier_Operational.lib: OP07 (Single SoundPlus High Performance Audio Operational Amplifiers, DIP-8/SOIC-8)
-Amplifier_Operational.lib: OPA134 (Single SoundPlus High Performance Audio Operational Amplifiers, DIP-8/SOIC-8)
+$ skidl-part-search 'opamp "high performance"'
+Found 7 part(s) for: opamp "high performance"
+Amplifier_Operational | NJM2114 | Dual High Performance Low Noise Operational Amplifier, DIP-8/DMP-8/SIP-8
+Amplifier_Operational | OPA134 | Single SoundPlus High Performance Audio Operational Amplifiers, DIP-8/SOIC-8
+Amplifier_Operational | OPA1602 | Dual SoundPlus High Performance, Bipolar-Input Audio Operational Amplifiers, SOIC-8/MSOP-8
+Amplifier_Operational | OPA1604 | Quad SoundPlus High Performance, Bipolar-Input Audio Operational Amplifiers, SOIC-14/TSSOP-14
+Amplifier_Operational | OPA1612AxD | Dual SoundPlus High Performance, Bipolar-Input Audio Operational Amplifiers, SOIC-8
+Amplifier_Operational | OPA2134 | Dual SoundPlus High Performance Audio Operational Amplifiers, DIP-8/SOIC-8
+Amplifier_Operational | OPA4134 | Quad SoundPlus High Performance Audio Operational Amplifiers, SOIC-14
 ```
 
-Once you have the part name and library, you can see the part's pin numbers, names
-and their functions using the `show` function:
+#### Interactive Mode with Part Browsing
+
+For more detailed exploration, you can use the interactive mode that allows you to search multiple times
+and browse through individual parts to see their pin details:
 
 ```terminal
->>> show('Amplifier_Audio', 'lm386')
+$ skidl-part-search --interactive
+Interactive search mode. Use up/down arrows for history.
+Type 'quit', 'exit', or 'q' to exit, 'browse' to enter browse mode.
 
- LM386 (): Low Voltage Audio Power Amplifier, DIP-8/SOIC-8/SSOP-8
-    Pin None/1/GAIN/INPUT
-    Pin None/2/-/INPUT
-    Pin None/3/+/INPUT
-    Pin None/4/GND/POWER-IN
-    Pin None/5/~/OUTPUT
-    Pin None/6/V+/POWER-IN
-    Pin None/7/BYPASS/INPUT
-    Pin None/8/GAIN/INPUT
+Search terms: lm358
+Found 2 part(s) for: lm358
+Amplifier_Operational | LM358 | Low-Power, Dual Operational Amplifiers, DIP-8/SOIC-8/TO-99-8
+Amplifier_Operational | LM358_DFN | Low-Power, Dual Operational Amplifiers, DFN-8
+Found 2 part(s) for: lm358
+Type 'browse' to navigate through results.
+
+Search terms: browse
+Browse mode: 2 parts found.
+Use UP/DOWN arrow keys to navigate, ENTER to show details, 's' for search mode, 'q' to quit.
+
+[1/2] Amplifier_Operational | LM358 | Low-Power, Dual Operational Amplifiers, DIP-8/SOIC-8/TO-99-8 (ENTER/UP/DOWN/s/q)
 ```
 
-`show` looks for *exact matches* of the part name in a library, so the following
-command raises an error:
+In browse mode, you can:
+- Use **UP/DOWN arrow keys** to navigate through the search results
+- Press **ENTER** to display detailed information about the selected part, including all its pins
+- Type **'s'** to return to search mode
+- Type **'q'** to quit
+
+When you press ENTER on a part, you'll see detailed pin information:
 
 ```terminal
->>> show('Amplifier_Audio', 'lm38')
-ERROR: Unable to find part lm38 in library linear.
+Showing details for: LM358 from Amplifier_Operational
+------------------------------------------------------------
+Part: LM358
+Library: Amplifier_Operational
+Description: Low-Power, Dual Operational Amplifiers, DIP-8/SOIC-8/TO-99-8
+Aliases: LM358
+Keywords: dual opamp
+
+Pins:
+┏━━━━━━┳━━━━━━━┳━━━━━━━━┓
+┃ Pin# ┃ Names ┃ Type   ┃
+┡━━━━━━╇━━━━━━━╇━━━━━━━━┩
+│ 1    │ p1,~  │ OUTPUT │
+│ 2    │ -,p2  │ INPUT  │
+│ 3    │ +,p3  │ INPUT  │
+│ 4    │ p4,V- │ PWRIN  │
+│ 5    │ +,p5  │ INPUT  │
+│ 6    │ -,p6  │ INPUT  │
+│ 7    │ p7,~  │ OUTPUT │
+│ 8    │ p8,V+ │ PWRIN  │
+└──────┴───────┴────────┘
+------------------------------------------------------------
+
+[1/2] Amplifier_Operational | LM358 | Low-Power, Dual Operational Amplifiers, DIP-8/SOIC-8/TO-99-8 (ENTER/UP/DOWN/s/q)
+```
+
+#### Output Formatting and Options
+
+The search utility supports various output formats and options:
+
+```terminal
+# Display results in a table format (requires rich module)
+$ skidl-part-search --table opamp
+
+# Limit the number of results
+$ skidl-part-search --limit 10 opamp
+
+# Search specific ECAD tool libraries
+$ skidl-part-search --tool kicad7 opamp
+
+# Custom output formatting
+$ skidl-part-search --format "{part_name} from {lib_name}" opamp
+
+# Save results to a file
+$ skidl-part-search --output results.txt opamp
 ```
 
 In addition to searching for parts, you may also search for footprints using the
@@ -1605,16 +1647,16 @@ class VoltageRegulator(SubCircuit):
         c_in = Part('Device', 'C', value='100nF')
         c_out = Part('Device', 'C', value='10uF')
         
-        # Build regulator circuit
-        self.vin & c_in & gnd
-        self.vin & reg['VI']
-        reg['VO'] & c_out & gnd
-        reg['GND'] & gnd
-        
         # Define I/O attributes
         self.vin = reg['VI']      # Voltage input
         self.vout = reg['VO']     # Regulated output
         self.gnd = reg['GND']     # Ground connection
+        
+        # Build regulator circuit
+        self.vin & c_in & gnd
+        self.vin & reg['VI']
+        reg['VO'] & c_out & gnd
+        reg['GND'] & self.gnd
 
 class MotorDriver(SubCircuit):
     """H-bridge motor driver module."""
@@ -1625,12 +1667,6 @@ class MotorDriver(SubCircuit):
         # Create H-bridge with MOSFETs
         q1, q2, q3, q4 = Part('Device', 'Q_NMOS_GSD', dest=TEMPLATE)(4)
         
-        # Build H-bridge topology
-        self.vcc & q1['D'] & q3['D']
-        q1['S'] & q2['D'] & self.motor_a
-        q3['S'] & q4['D'] & self.motor_b  
-        q2['S'] & q4['S'] & self.gnd
-        
         # Define I/O attributes
         self.vcc = Net()          # Motor supply voltage
         self.gnd = Net()          # Ground
@@ -1640,6 +1676,12 @@ class MotorDriver(SubCircuit):
         self.ctrl2 = q2['G']      # Control signal 2
         self.ctrl3 = q3['G']      # Control signal 3
         self.ctrl4 = q4['G']      # Control signal 4
+        
+        # Build H-bridge topology
+        self.vcc & q1['D'] & q3['D']
+        q1['S'] & q2['D'] & self.motor_a
+        q3['S'] & q4['D'] & self.motor_b  
+        q2['S'] & q4['S'] & self.gnd
 
 # Instantiate and connect modules
 regulator = VoltageRegulator()
@@ -2318,7 +2360,7 @@ by using the `circuit` parameter of the object constructors:
 >>> b = Bus('byte_bus', 8, circuit = my_circuit)
 ```
 
-Alternatively, you can use a context manager inside of which a `Circuit` object
+Alternatively, you can use a context manager inside which a `Circuit` object
 becomes the `default_circuit`:
 
 ```py
