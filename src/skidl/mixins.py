@@ -10,7 +10,6 @@ Classes:
 """
 
 from .logger import active_logger
-from .pin import Pin
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import (
     expand_indices,
@@ -149,7 +148,6 @@ class PinMixin():
             operators. The += operator first calls __getitem__, then __iadd__
             on the returned object, then __setitem__ with the result.
         """
-
         # If the iadd_flag is set, then it's OK that we got
         # here and don't issue an error. Also, delete the flag.
         if from_iadd(pins_nets_buses):
@@ -268,6 +266,107 @@ class PinMixin():
             # as part.ENBL or part.p5.
             pin.aliases += pin.name
             pin.aliases += "p" + str(pin.num)
+        return self
+
+    def create_pins(self, base_name, pin_count=None, connections=None):
+        """
+        Create one or more pins with systematic naming and numbering.
+        
+        This method creates multiple pins with names based on a common prefix
+        and systematic numbering. Pins can optionally be connected to provided
+        nets, buses, or other pins during creation.
+        
+        Args:
+            base_name (str): Base name for the pins. Pin indices will be appended
+                to this name (e.g., "DATA" becomes "DATA1", "DATA2", etc.).
+            pin_count (int, range, slice, list, tuple, or None): Specification of
+                how many pins to create and their numbering:
+                - int N: Creates N pins numbered 1 to N
+                - range or slice: Uses the range values for pin numbers
+                - tuple or list: Uses the provided list of pin numbers
+                - None: Creates single pin without index appended to name
+            connections (list, optional): List of nets, buses, or pins to connect
+                to each created pin. Must match the number of pins created.
+        
+        Returns:
+            Self: The part object with pins created, enabling method chaining.
+            
+        Raises:
+            ValueError: If connections list length doesn't match number of pins created.
+            
+        Examples:
+            >>> part.create_pins("DATA", 8)  # Creates DATA1, DATA2, ..., DATA8
+            >>> part.create_pins("ADDR", range(0, 16))  # Creates ADDR0 to ADDR15
+            >>> part.create_pins("CLK", None)  # Creates single pin named "CLK"
+            >>> part.create_pins("IO", 4, [net1, net2, net3, net4])  # With connections
+        """
+        from .netpinlist import NetPinList
+        from .part import Part
+        from .pin import Pin, PhantomPin
+
+        # Determine pin indices based on pin_count parameter
+        if pin_count is None:
+            if connections is None or len(connections)==1:
+                # Single pin without index
+                indices = [None]
+            else:
+                # Create as many pins as there are connections
+                indices = range(1, len(connections) + 1)
+        elif isinstance(pin_count, int):
+            # Integer N creates pins 1 to N
+            indices = range(1, pin_count + 1)
+        elif isinstance(pin_count, (range, slice, list, tuple)):
+            # Use range/slice directly
+            if isinstance(pin_count, slice):
+                # Convert slice to range
+                start = pin_count.start if pin_count.start is not None else 1
+                stop = pin_count.stop
+                step = pin_count.step if pin_count.step is not None else 1
+                indices = range(start, stop, step)
+            else:
+                indices = pin_count
+        else:
+            active_logger.error(f"pin_count must be int, range, slice, or None, got {type(pin_count)}")
+            return self
+        
+        # Validate connections list length if provided
+        if connections is not None:
+            connections = NetPinList(connections)
+            if len(connections) != len(indices):
+                active_logger.error(
+                    f"Number of connections ({len(connections)}) must match "
+                    f"number of pins created ({len(indices)})"
+                )
+                return self
+        
+        # Determine the class of pins to create.
+        if isinstance(self, Part):
+            pin_class = Pin  # Create regular pins for Parts.
+        else:
+            pin_class = PhantomPin  # Use PhantomPins for I/O of SubCircuit or Interface
+
+        # Create the pins
+        created_pins = []
+        for index in indices:
+            # Generate pin name
+            pin_num = len(self.pins) + 1  # Use next available number
+            if index is None:
+                pin_name = base_name
+            else:
+                pin_name = f"{base_name}{index}"
+            
+            # Create the pin.
+            pin = pin_class(num=pin_num, name=pin_name, part=self)
+
+            # Add the pin to the part so pin numbering is correct.
+            self.add_pins(pin)
+
+            created_pins.append(pin)
+        
+        # Connect created pins if connections provided
+        if connections:
+            connections += created_pins
+
         return self
 
     def rmv_pins(self, *pin_ids):
@@ -571,3 +670,36 @@ class PinMixin():
         """
         return sorted(self)
 
+    @property
+    def match_pin_regex(self):
+        """
+        Get the enable/disable flag for pin regular-expression matching.
+        
+        Returns:
+            bool: Current state of regex matching flag.
+        """
+        return self._match_pin_regex
+
+    @match_pin_regex.setter
+    def match_pin_regex(self, flag):
+        """
+        Set the regex matching flag.
+        
+        Args:
+            flag (bool): True to enable regex matching for pins, False to disable.
+            
+        Notes:
+            This also sets the flag for all units of the part.
+        """
+        self._match_pin_regex = flag
+
+        # Also set flag for units of the part.
+        for unit in self.unit.values():
+            unit._match_pin_regex = flag
+
+    @match_pin_regex.deleter
+    def match_pin_regex(self):
+        """
+        Delete the regex matching flag.
+        """
+        del self._match_pin_regex

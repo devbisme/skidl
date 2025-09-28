@@ -15,6 +15,7 @@ from simp_sexp import Sexp
 
 from .design_class import PartClasses
 from .design_class import NetClasses
+from .mixins import PinMixin
 from .scriptinfo import get_skidl_trace
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import export_to_all, get_unique_name
@@ -26,7 +27,7 @@ __all__ = ["SubCircuit", "subcircuit", "Group", "HIER_SEP"]
 HIER_SEP = "."  # Separator for hierarchical names.
 
 @export_to_all
-class Node(SkidlBaseObject):
+class Node(PinMixin, SkidlBaseObject):
     """
     Data structure for holding information about a node in the circuit hierarchy.
     
@@ -52,7 +53,8 @@ class Node(SkidlBaseObject):
                                         uses the default circuit.
             **attrs: Additional attributes to store in the node.
         """
-        super().__init__()
+        SkidlBaseObject.__init__(self)
+        PinMixin.__init__(self)
 
         if callable(name):
             # If this arg is a function, then the class is being used as a decorator.
@@ -208,6 +210,15 @@ class Node(SkidlBaseObject):
 
         # Create the spun-off node and return it.
         return Node(self.name, **local_kwargs)
+
+    def erc_desc(self):
+        """
+        Create description of SubCircuit for ERC and other error reporting.
+        
+        Returns:
+            str: A string description in the form "name"
+        """
+        return f"{self.name}"
 
     def to_tuple(self):
         """

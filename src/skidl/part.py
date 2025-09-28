@@ -1225,40 +1225,6 @@ class Part(PinMixin, SkidlBaseObject):
         """
         self._partclasses = PartClasses()
 
-    @property
-    def match_pin_regex(self):
-        """
-        Get the enable/disable flag for pin regular-expression matching.
-        
-        Returns:
-            bool: Current state of regex matching flag.
-        """
-        return self._match_pin_regex
-
-    @match_pin_regex.setter
-    def match_pin_regex(self, flag):
-        """
-        Set the regex matching flag.
-        
-        Args:
-            flag (bool): True to enable regex matching for pins, False to disable.
-            
-        Notes:
-            This also sets the flag for all units of the part.
-        """
-        self._match_pin_regex = flag
-
-        # Also set flag for units of the part.
-        for unit in self.unit.values():
-            unit._match_pin_regex = flag
-
-    @match_pin_regex.deleter
-    def match_pin_regex(self):
-        """
-        Delete the regex matching flag.
-        """
-        del self._match_pin_regex
-
 
 @export_to_all
 class PartUnit(Part):
