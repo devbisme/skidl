@@ -1653,9 +1653,9 @@ class VoltageRegulator(SubCircuit):
         self.gnd = reg['GND']     # Ground connection
         
         # Build regulator circuit
-        self.vin & c_in & gnd
+        self.vin & c_in & self.gnd
         self.vin & reg['VI']
-        reg['VO'] & c_out & gnd
+        reg['VO'] & c_out & self.gnd
         reg['GND'] & self.gnd
 
 class MotorDriver(SubCircuit):
