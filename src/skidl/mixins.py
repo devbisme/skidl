@@ -285,8 +285,9 @@ class PinMixin():
                 - range or slice: Uses the range values for pin numbers
                 - tuple or list: Uses the provided list of pin numbers
                 - None: Creates single pin without index appended to name
-            connections (list, optional): List of nets, buses, or pins to connect
+            connections (list or scalar, optional): List of nets, buses, or pins to connect
                 to each created pin. Must match the number of pins created.
+                A scalar Net, Pin, or Bus will will be converted to a list of one item.
         
         Returns:
             Self: The part object with pins created, enabling method chaining.
@@ -303,6 +304,11 @@ class PinMixin():
         from .netpinlist import NetPinList
         from .part import Part
         from .pin import Pin, PhantomPin
+
+        if connections is not None:
+            # This converts a single Net or Pin to a list but leaves a list unaltered.
+            # It also converts a Bus to a list of its nets.
+            connections = NetPinList(connections)
 
         # Determine pin indices based on pin_count parameter
         if pin_count is None:
@@ -331,7 +337,6 @@ class PinMixin():
         
         # Validate connections list length if provided
         if connections is not None:
-            connections = NetPinList(connections)
             if len(connections) != len(indices):
                 active_logger.error(
                     f"Number of connections ({len(connections)}) must match "
