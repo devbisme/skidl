@@ -338,3 +338,62 @@ def test_hierarchy_1():
         ('sub1_2', None,
           ('R2', 'C2'), None))),))"""
     assert str(default_circuit.active_node) == correct_hierarchy.strip()
+
+
+def test_hierarchy_2():
+    """Test nested subcircuits with fixed nets."""
+    r = Part("Device", "R", dest=TEMPLATE)
+    c = Part("Device", "C", dest=TEMPLATE)
+
+    class Sub(SubCircuit):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            # TODO: Fix so that activate/deactivate not needed.
+            self.circuit.activate(self)
+            # Create nets
+            my_vin, vout, my_gnd = Net(), Net(), Net()
+            # Create resistor and capacitor
+            r1 = r()
+            c1 = c()
+            # Connect resistor and capacitor between input and ground
+            my_vin & r1 & vout &c1 & my_gnd
+            self.create_pins("VIN", connections=my_vin)
+            self.create_pins("GND", connections=my_gnd)
+            self.create_pins("VOUT", connections=vout)
+            self.circuit.deactivate()
+
+    @subcircuit
+    def sub2(my_vin1, my_vin2, my_gnd):
+        # Instantiate subcircuits
+        s1 = Sub()
+        s2 = Sub()
+        # Connect the subcircuits to the nets
+        s1["VIN"] += my_vin1
+        my_vin2 += s2.VIN
+        my_gnd += s1["GND"]
+        s2.GND += my_gnd
+
+    # Create nets
+    vin1, vin2, gnd = Net("VIN1"), Net("VIN2"), Net("GND")
+    # Instantiate the subcircuit
+    sub = sub2(vin1, vin2, gnd)
+    # Create resistor and connect between input and ground
+    r1 = r()
+    vin1 & r1 & gnd
+
+    # Assertions to verify the circuit
+    assert len(gnd) == 3
+    assert len(vin1) == 2
+    assert len(vin2) == 1
+    correct_hierarchy = """
+(
+  ('R3',)
+  (
+    ('sub2_1', None,
+      (),
+      (
+        ('Sub1', None,
+          ('R1', 'C1'), None),
+        ('Sub2', None,
+          ('R2', 'C2'), None))),))"""
+    assert str(default_circuit.active_node) == correct_hierarchy.strip()
