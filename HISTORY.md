@@ -7,6 +7,7 @@
 - Added skidl-part-search command-line utility for searching part libraries.
 - Added handling of storage directory for pickle files and databases to configuration management.
 - .skidlcfg is now searched for in platform-appropriate per-user directories.
+- Alternate names in KiCad symbols are now added as aliases to part pins.
   
 ## 2.1.1 (2025-08-31)
 
