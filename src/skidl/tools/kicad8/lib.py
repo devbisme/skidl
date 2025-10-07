@@ -287,41 +287,35 @@ def parse_lib_part(part, partial_parse):
             # Pin electrical type immediately follows the "pin" tag.
             pin_func = pin_io_type_translation[pin[1].lower()]
 
-            # Find the pin name, number, and X/Y position.
-            pin_name = ""
-            pin_number = None
-            for item in pin:
-                item = to_list(item)
-                token_name = item[0].lower()
-                if token_name == "name":
-                    pin_name = item[1]
-                elif token_name == "number":
-                    pin_number = item[1]
-                elif token_name == "at":
-                    pin_x, pin_y, pin_angle = item[1:4]
-                    # TODO: Convert these units from mm to mils?
-                    # pin_x = round(pin_x * mils_per_mm)
-                    # pin_y = round(pin_y * mils_per_mm)
-                    pin_side = {0: "R", 90: "D", 180: "L", 270: "U"}[pin_angle]
-                elif token_name == "length":
-                    pin_length = item[1]
-                    # pin_length = round(mils_per_mm * pin_length)
+            # Find the pin attributes like name, number, etc.
+            pin_name = pin.search("/pin/name", ignore_case=True)
+            pin_name = pin_name[0][1] if pin_name else ""
+            pin_number = pin.search("/pin/number", ignore_case=True)
+            pin_number = pin_number[0][1] if pin_number else None
+            pin_length = pin.search("/pin/length", ignore_case=True)
+            pin_length = pin_length[0][1] if pin_length else 1000  # Default length is 1mm.
+            at = pin.search("/pin/at", ignore_case=True)
+            if at:
+                pin_x, pin_y = at[0][1:3]
+                pin_angle = at[0][3] if len(at[0]) > 3 else 0
+            alternate_names = pin.search("/pin/alternate", ignore_case=True)
+            aliases = [a[1] for a in alternate_names] if alternate_names else []
 
             # Add the pins that were found to the total part. Include the unit identifier
             # in the pin so we can find it later when the part unit is created.
-            part.add_pins(
-                Pin(
-                    name=pin_name,
-                    num=pin_number,
-                    func=pin_func,
-                    unit=unit,
-                    x=pin_x,
-                    y=pin_y,
-                    length=pin_length,
-                    rotation=pin_angle,
-                    orientation=pin_angle,
-                )
+            p = Pin(
+                name=pin_name,
+                num=pin_number,
+                func=pin_func,
+                unit=unit,
+                x=pin_x,
+                y=pin_y,
+                length=pin_length,
+                rotation=pin_angle,
+                orientation=pin_angle,
             )
+            p.aliases += aliases
+            part.add_pins(p)
 
         # Return true if the symbol had pins.
         return bool(symbol_pins)
