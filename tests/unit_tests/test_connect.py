@@ -214,3 +214,27 @@ def test_connect_11():
     n1[:] += p1, p2, p3[:]
     # Check net length
     assert len(n1) == 3
+
+def test_connect_12():
+    """
+    Test connecting multiple pins to nets and selecting one pin from multiple matching alternate names.
+    """
+    mcu = Part('MCU_ST_STM32F1','STM32F100C_4-6_Tx')
+    # Create nets
+    vss = Net("VSS")
+    vdd = Net("VDD")
+    sck = Net("SCK")
+    # Connect MCU pins to nets.
+    # Test multiple connections of VDD and VSS pins.
+    mcu["VDD"] += vdd
+    vss += mcu["VSS"]
+    # Test different ways of connecting a pin with an alternate name that matches multiple pins.
+    sck += mcu["SPI1_SCK"][39]
+    sck += mcu["SPI1_SCK"]["PB3"]
+    mcu["SPI1_SCK"].p39 += sck
+    # Check connections
+    assert mcu.is_connected() == True
+    assert len(vss) == 3
+    assert len(vdd) == 3
+    # Connecting the same pin in multiple ways should still result in just one connection.
+    assert len(sck) == 1
