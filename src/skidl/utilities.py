@@ -262,7 +262,8 @@ def list_or_scalar(lst):
         if len(lst) > 1:
             return lst  # Multi-element list, so return it unchanged.
         if len(lst) == 1:
-            return lst[0]  # Single-element list, so return the only element.
+            # lst may be a NetPinList, so convert to a regular list so normal indexing works.
+            return list(lst)[0]  # Single-element list, so return the only element.
         return None  # Empty list, so return None.
     return lst  # Must have been a scalar, so return that.
 
