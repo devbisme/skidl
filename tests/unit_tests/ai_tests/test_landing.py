@@ -254,7 +254,8 @@ class TestPinAccess:
         assert pin3.num == '3'
         
         # Access multiple pins
-        pins = pic10[3, 1, 6]
+        # Cast NetPinList to list so standard indexing works.
+        pins = list(pic10[3, 1, 6])
         assert len(pins) == 3
         assert pins[0].num == '3'
         assert pins[1].num == '1'

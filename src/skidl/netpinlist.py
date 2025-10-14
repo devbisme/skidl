@@ -16,7 +16,7 @@ from .logger import active_logger
 from .net import Net
 from .network import Network
 from .pin import Pin
-from .utilities import expand_buses, export_to_all, flatten, set_iadd
+from .utilities import expand_buses, export_to_all, flatten, list_or_scalar, set_iadd, filter_list
 
 
 @export_to_all
@@ -166,6 +166,37 @@ class NetPinList(list):
         set_iadd(self, True)
 
         return self
+    
+    def __getitem__(self, key):
+        """
+        Get item(s) from the NetPinList with bus expansion.
+        This method supports indexing, slicing, and filtering by pin/net number
+        or alias.
+        Args:
+            key: An integer index, a slice object, or a pin/net number/alias.
+        Returns:
+            A single Pin/Net if an integer index or matching number/alias is provided,
+            or a NetPinList if a slice or multiple matches are found.
+        """
+        expanded = expand_buses(self)
+        if isinstance(key, slice):
+            return NetPinList(expanded[key])
+        else:
+            if isinstance(key, int):
+                return list_or_scalar(NetPinList(filter_list(expanded, num=key)))
+            else:
+                return list_or_scalar(NetPinList(filter_list(expanded, aliases=key)))
+            
+    def __getattr__(self, alias):
+        """
+        Return all pins/nets in the list with the given alias.
+        
+        Args:
+            alias: The name of the alias to retrieve.
+        Returns:
+            A NetPinList of pins/nets from all pins/nets in the list.
+        """
+        return self[alias]
 
     def create_network(self):
         """
