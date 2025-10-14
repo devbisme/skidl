@@ -219,7 +219,10 @@ def test_connect_12():
     """
     Test connecting multiple pins to nets and selecting one pin from multiple matching alternate names.
     """
-    mcu = Part('MCU_ST_STM32F1','STM32F100C_4-6_Tx')
+    try:
+        mcu = Part('MCU_ST_STM32F1','STM32F100C_4-6_Tx')
+    except FileNotFoundError:
+        pytest.skip("Part library not found.")    
     # Create nets
     vss = Net("VSS")
     vdd = Net("VDD")
