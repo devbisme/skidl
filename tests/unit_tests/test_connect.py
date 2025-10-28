@@ -241,3 +241,14 @@ def test_connect_12():
     assert len(vdd) == 3
     # Connecting the same pin in multiple ways should still result in just one connection.
     assert len(sck) == 1
+
+def test_connect_13():
+    """
+    Test connecting to pins with alternate names containing spaces.
+    """
+    try:
+        mcu = Part('MCU_ST_STM32G0','STM32G030F6Px')
+    except FileNotFoundError:
+        pytest.skip("Part library not found.")
+    assert len(mcu["'SYS_SWCLK (PA14)', pa14 pa15"]) == 3
+
