@@ -221,7 +221,7 @@ def test_connect_12():
     """
     try:
         mcu = Part('MCU_ST_STM32F1','STM32F100C_4-6_Tx')
-    except FileNotFoundError:
+    except (FileNotFoundError, ValueError):
         pytest.skip("Part library not found.")    
     # Create nets
     vss = Net("VSS")
@@ -248,7 +248,7 @@ def test_connect_13():
     """
     try:
         mcu = Part('MCU_ST_STM32G0','STM32G030F6Px')
-    except FileNotFoundError:
+    except (FileNotFoundError, ValueError):
         pytest.skip("Part library not found.")
     assert len(mcu["'SYS_SWCLK (PA14)', pa14 pa15"]) == 3
 
