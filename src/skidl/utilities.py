@@ -553,6 +553,93 @@ def rmv_unique_name(lst, attrib, name):
 
 
 @export_to_all
+def split_unquoted(pattern, string, maxsplit=0, flags=0):
+    """
+    Split a string by a regex pattern, but ignore matches within quoted substrings.
+    
+    This function works like re.split() but does not split on delimiters that appear
+    within single-quoted or double-quoted strings. Quotes can be escaped with backslash.
+    
+    Args:
+        pattern (str): Regular expression pattern to split on.
+        string (str): The string to split.
+        maxsplit (int, optional): Maximum number of splits to perform. 0 means no limit. Defaults to 0.
+        flags (int, optional): Regex flags to pass to re.split. Defaults to 0.
+        
+    Returns:
+        list: List of substrings split by the pattern, with quoted sections preserved.
+        
+    Example:
+        >>> split_unquoted(r',', 'a,b,"c,d",e')
+        ['a', 'b', '"c,d"', 'e']
+        >>> split_unquoted(r'\s+', 'hello world "foo bar" test')
+        ['hello', 'world', '"foo bar"', 'test']
+    """
+    result = []
+    current = []
+    in_quote = None  # None, '"', or "'"
+    escaped = False
+    splits_done = 0
+    
+    i = 0
+    while i < len(string):
+        char = string[i]
+        
+        # Handle escape sequences
+        if escaped:
+            current.append(char)
+            escaped = False
+            i += 1
+            continue
+            
+        if char == '\\':
+            current.append(char)
+            escaped = True
+            i += 1
+            continue
+        
+        # Handle quotes
+        if char in ('"', "'"):
+            if in_quote is None:
+                in_quote = char
+            elif in_quote == char:
+                in_quote = None
+            # Strip the quotes from the quoted substring.
+            # current.append(char)
+            i += 1
+            continue
+        
+        # If we're inside quotes, just append the character
+        if in_quote is not None:
+            current.append(char)
+            i += 1
+            continue
+        
+        # We're outside quotes, so check if we match the pattern.
+        if maxsplit == 0 or splits_done < maxsplit:
+            # Look for the delimiter at the start of the remainder of the string.
+            match = re.match(pattern, string[i:], flags=flags)
+            if match:
+                # Found a delimiter outside quotes and at the start of the remaining string.
+                if current or result:  # Don't add empty strings at the start
+                    result.append(''.join(current))
+                    current = []
+                splits_done += 1
+                i += len(match.group(0))
+                continue
+        
+        # No match, just append the character
+        current.append(char)
+        i += 1
+    
+    # Add any remaining content
+    if current or result:
+        result.append(''.join(current))
+    
+    return result
+
+
+@export_to_all
 def fullmatch(regex, string, flags=0):
     """
     Emulate python-3.4 re.fullmatch() function.
@@ -807,14 +894,14 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
             ids.append(indx)
         elif isinstance(indx, Rgx):
             # Rgx might contain multiple indices with a separator.
-            for id in re.split(INDEX_SEPARATOR, indx):
+            for id in split_unquoted(INDEX_SEPARATOR, indx):
                 # If the id is a valid bus expression, then the exploded bus lines
                 # are added to the list of ids. If not, the original id is
                 # added to the list.
                 ids.extend((Rgx(i) for i in explode(id.strip())))
         elif isinstance(indx, str):
             # String might contain multiple indices with a separator.
-            for id in re.split(INDEX_SEPARATOR, indx):
+            for id in split_unquoted(INDEX_SEPARATOR, indx):
                 # If the id is a valid bus expression, then the exploded bus lines
                 # are added to the list of ids. If not, the original id is
                 # added to the list.
