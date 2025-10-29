@@ -8,6 +8,7 @@
 - Added handling of storage directory for pickle files and databases to configuration management.
 - .skidlcfg is now searched for in platform-appropriate per-user directories.
 - Alternate names in KiCad symbols are now added as aliases to part pins.
+- Subcircuit I/O can now be accessed as if it were a Part using bracket ([]) indexing.
   
 ## 2.1.1 (2025-08-31)
 
