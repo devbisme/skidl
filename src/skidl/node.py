@@ -132,6 +132,26 @@ class Node(PinMixin, SkidlBaseObject):
         """
         self.circuit.deactivate()
 
+    def initialize(self, *args, **kwargs):
+        """
+        Initialize an instance of a subcircuit class and place it as a child of the currently active Node.
+        
+        This method creates a Node object without calling its __init__ method,
+        allowing for custom initialization or deserialization scenarios.
+        
+        Args:
+            *args: Positional arguments to pass to the Node __init__ function.
+            **kwargs: Keyword arguments to pass to the Node __init__ function.
+        """
+        super(self.__class__, self).__init__(*args, **kwargs)
+        self.circuit.activate(self)
+
+    def finalize(self):
+        """
+        Exit the creation of an instance of a subcircuit class and return to the parent Node in the hierarchy.
+        """
+        self.circuit.deactivate()
+
     def __call__(self, *args, **kwargs):
         """
         Call the node's function within the hierarchical context.

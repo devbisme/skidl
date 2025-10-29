@@ -347,9 +347,8 @@ def test_hierarchy_2():
 
     class Sub(SubCircuit):
         def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            # TODO: Fix so that activate/deactivate not needed.
-            self.circuit.activate(self)
+            self.initialize(*args, **kwargs)
+
             # Create nets
             my_vin, vout, my_gnd = Net(), Net(), Net()
             # Create resistor and capacitor
@@ -360,7 +359,8 @@ def test_hierarchy_2():
             self.create_pins("VIN", connections=my_vin)
             self.create_pins("GND", connections=my_gnd)
             self.create_pins("VOUT", connections=vout)
-            self.circuit.deactivate()
+
+            self.finalize()
 
     @subcircuit
     def sub2(my_vin1, my_vin2, my_gnd):
