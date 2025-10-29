@@ -224,6 +224,24 @@ def test_bus_get_pull_1():
     # Ensure no additional buses are added to the default circuit.
     assert len(default_circuit.buses) == 1
 
+def test_bus_net_aliases():
+    """Test bus net aliases."""
+    b1 = Bus("a", 4)
+    b1[0].aliases += "net1", "net2"
+    b1[1].aliases += "net3", "net4"
+    b1[2].aliases += "net5", "net6"
+    b1[3].aliases += "net7", "net8"
+    assert set(b1[0,1]) == {b1[0], b1[1]}
+    assert set(b1["net1"]) == {b1[0]}
+    assert set(b1["net2"]) == {b1[0]}
+    assert set(b1["net3"]) == {b1[1]}
+    assert set(b1["net4"]) == {b1[1]}
+    # assert set(b1["net[4,5]"]) == {b1[1], b1[2]}
+    assert set(b1["net4,net5"]) == {b1[1], b1[2]}
+    assert set(b1["net[7:8]"]) == {b1[3]}
+    assert set(b1["net1,net[5:6]"]) == {b1[0], b1[2]}
+    assert b1["net9"] == None
+
 
 def test_bus_netclass_1():
     """Test assigning netclass to a bus."""

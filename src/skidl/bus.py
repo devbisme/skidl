@@ -164,7 +164,9 @@ class Bus(SkidlBaseObject):
             if isinstance(ident, int):
                 nets.append(self.nets[ident])
             elif isinstance(ident, str):
-                nets.extend(filter_list(self.nets, name=ident))
+                # Look for nets with matching names or aliases.
+                # Since names are always included in the aliases, just check aliases.
+                nets.extend(filter_list(self.nets, aliases=ident))
             else:
                 active_logger.raise_(
                     TypeError, f"Can't index bus with a {type(ident)}."
@@ -179,6 +181,7 @@ class Bus(SkidlBaseObject):
             return nets[0]
 
         # Multiple nets selected, so return them as a NetPinList list.
+        # NOTE: Should we warn if the same net was selected more than once?
         return NetPinList(nets)
 
     def __setitem__(self, ids, pins_nets_buses):

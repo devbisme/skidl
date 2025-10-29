@@ -15,6 +15,7 @@ from simp_sexp import Sexp
 
 from .design_class import PartClasses
 from .design_class import NetClasses
+from .mixins import PinMixin
 from .scriptinfo import get_skidl_trace
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import export_to_all, get_unique_name
@@ -26,7 +27,7 @@ __all__ = ["SubCircuit", "subcircuit", "Group", "HIER_SEP"]
 HIER_SEP = "."  # Separator for hierarchical names.
 
 @export_to_all
-class Node(SkidlBaseObject):
+class Node(PinMixin, SkidlBaseObject):
     """
     Data structure for holding information about a node in the circuit hierarchy.
     
@@ -52,7 +53,8 @@ class Node(SkidlBaseObject):
                                         uses the default circuit.
             **attrs: Additional attributes to store in the node.
         """
-        super().__init__()
+        SkidlBaseObject.__init__(self)
+        PinMixin.__init__(self)
 
         if callable(name):
             # If this arg is a function, then the class is being used as a decorator.
@@ -127,6 +129,26 @@ class Node(SkidlBaseObject):
             type: Exception type if an exception occurred.
             value: Exception value if an exception occurred.
             traceback: Traceback if an exception occurred.
+        """
+        self.circuit.deactivate()
+
+    def initialize(self, *args, **kwargs):
+        """
+        Initialize an instance of a subcircuit class and place it as a child of the currently active Node.
+        
+        This method creates a Node object without calling its __init__ method,
+        allowing for custom initialization or deserialization scenarios.
+        
+        Args:
+            *args: Positional arguments to pass to the Node __init__ function.
+            **kwargs: Keyword arguments to pass to the Node __init__ function.
+        """
+        super(self.__class__, self).__init__(*args, **kwargs)
+        self.circuit.activate(self)
+
+    def finalize(self):
+        """
+        Exit the creation of an instance of a subcircuit class and return to the parent Node in the hierarchy.
         """
         self.circuit.deactivate()
 
@@ -208,6 +230,15 @@ class Node(SkidlBaseObject):
 
         # Create the spun-off node and return it.
         return Node(self.name, **local_kwargs)
+
+    def erc_desc(self):
+        """
+        Create description of SubCircuit for ERC and other error reporting.
+        
+        Returns:
+            str: A string description in the form "name"
+        """
+        return f"{self.name}"
 
     def to_tuple(self):
         """
