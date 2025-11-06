@@ -570,10 +570,10 @@ def split_unquoted(pattern, string, maxsplit=0, flags=0):
         list: List of substrings split by the pattern, with quoted sections preserved.
         
     Example:
-        >>> split_unquoted(r',', 'a,b,"c,d",e')
+        >>> split_unquoted(',', 'a,b,"c,d",e')
         ['a', 'b', '"c,d"', 'e']
-        >>> split_unquoted(r'\s+', 'hello world "foo bar" test')
-        ['hello', 'world', '"foo bar"', 'test']
+        >>> split_unquoted('\s+', 'hello world "foo bar" test')
+        ['hello', 'world', 'foo bar', 'test']
     """
     result = []
     current = []
