@@ -1,14 +1,20 @@
 # History
 
-## 2.2.x (2025-XX-XX)
+## 2.2.0 (2025-11-09)
 
 - Fixed creation of SPICE netlists with illegal net names for XSPICE components.
 - SQLITE databases are used for part search to improve performance.
+- Add `__iter__` to `SchLib` to allow iteration over parts in the library.
 - Added skidl-part-search command-line utility for searching part libraries.
+- Part searches can now include nested, parenthesized search terms.
 - Added handling of storage directory for pickle files and databases to configuration management.
 - .skidlcfg is now searched for in platform-appropriate per-user directories.
 - Alternate names in KiCad symbols are now added as aliases to part pins.
+- Added chained indexing (`prt[name1][name2]`) or attributes (`prt[name1].name2`) to select a single pin from a list of part pins that all match with `name1`.
+- Pin names containing spaces are now allowed if they are enclosed in single or double quotes.
 - Subcircuit I/O can now be accessed as if it were a Part using bracket ([]) indexing.
+- Individual bus lines can now be assigned and accessed by aliases.
+- `initialize()` and `finalize()` were added to maintain hierarchy when using `SubCircuit` subclasses.
   
 ## 2.1.1 (2025-08-31)
 
