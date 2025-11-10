@@ -17,6 +17,8 @@ create a finished circuit board.
     - [Accessing SKiDL](#accessing-skidl)
     - [Finding Parts](#finding-parts)
         - [Command-line Searching](#command-line-searching)
+            - [Interactive Mode with Part Browsing](#interactive-mode-with-part-browsing)
+            - [Output Formatting and Options](#output-formatting-and-options)
         - [Zyc: A GUI Search Tool](#zyc-a-gui-search-tool)
     - [Instantiating Parts](#instantiating-parts)
     - [Connecting Pins](#connecting-pins)
@@ -41,12 +43,14 @@ create a finished circuit board.
     - [Hierarchy](#hierarchy)
         - [Method 1: SubCircuit Decorator with Interface Return](#method-1-subcircuit-decorator-with-interface-return)
         - [Method 2: SubCircuit Subclassing with I/O Attributes](#method-2-subcircuit-subclassing-with-io-attributes)
-        - [Method 3: Context-Based Hierarchy with SubCircuit](#method-3-context-based-hierarchy-with-subcircuit)
+        - [Method 3: SubCircuit Context Manager](#method-3-subcircuit-context-manager)
     - [Libraries](#libraries)
     - [Doodads](#doodads)
         - [No Connects](#no-connects)
         - [Net and Pin Drive Levels](#net-and-pin-drive-levels)
         - [Pin, Net, Bus Equivalencies](#pin-net-bus-equivalencies)
+        - [Disambiguating Part Pins with Identical Names](#disambiguating-part-pins-with-identical-names)
+        - [Part-Like Access of Subcircuit Modules](#part-like-access-of-subcircuit-modules)
         - [Selectively Supressing ERC Messages](#selectively-supressing-erc-messages)
         - [Customizable ERC Using `erc_assert()`](#customizable-erc-using-erc_assert)
         - [Handling Empty Footprints](#handling-empty-footprints)
@@ -931,6 +935,13 @@ attached to the power pin of the processor when it's expressed like this:
 pic10['VDD'] += Net('supply_5V')
 ```
 
+If a pin name contains spaces, then enclose the name within nested quotes:
+```py
+>>> pic10['GP1'].aliases += 'name with spaces'
+>>> pic10['"name with spaces"']
+Pin U2/3/GP1,GP1,name with spaces,p3/BIDIRECTIONAL
+```
+
 Like pin numbers, pin names can also be used as attributes to access the pin:
 
 ```terminal
@@ -1560,78 +1571,95 @@ as a part attribute:
 
 ## Hierarchy
 
-SKiDL supports hierarchical design through three different approaches: decorated functions that return interfaces, subclassed modules with I/O attributes, and context-based hierarchy. Each approach offers different advantages depending on your design style and requirements.
+SKiDL supports hierarchical design using decorated functions that return interfaces,
+subclassed modules with I/O attributes, and context-based hierarchy.
+You can combine and nest these approaches as needed. For example, use subclassed modules for complex reusable blocks like motor drivers, decorated functions for parameterizable filters, and context-based hierarchy for organizing collections of parts like bypass capacitors.
 
 ### Method 1: SubCircuit Decorator with Interface Return
 
-The most functional approach uses the `@SubCircuit` decorator on functions that return an `Interface` object containing the subcircuit's I/O connections. This approach treats subcircuits as pure functions that transform inputs to outputs.
+This approach uses the `@SubCircuit` decorator on functions that return an `Interface` object containing the subcircuit's I/O connections.
 
 ```py
 from skidl import *
 
-# Define a global resistor template.
-r = Part('Device', 'R', footprint='Resistor_SMD.pretty:R_0805_2012Metric', dest=TEMPLATE)
-opamp = Part('Amplifier_Operational', 'LM358', dest=TEMPLATE)
-
 @SubCircuit
-def voltage_reference():
-    """Creates a 2.5V voltage reference using a voltage divider."""
-    vcc, gnd = Net('VCC'), Net('GND')
+def voltage_regulator():
+    """3.3V linear voltage regulator module."""
+
+    # Create voltage regulator and filter capacitors
+    reg = Part('Regulator_Linear', 'AMS1117-3.3')
+    c_in = Part('Device', 'C', value='100nF')
+    c_out = Part('Device', 'C', value='10uF')
     
-    # Create voltage divider
-    r_upper = r(value='10K')
-    r_lower = r(value='10K')
-    vcc & r_upper & r_lower & gnd
-    
-    # Return interface with the reference voltage
+    # Attach input/output filter capacitors.
+    reg['VI'] & c_in & reg['GND']
+    reg['VO'] & c_out & reg['GND']
+
+    # Return interface connections
     return Interface(
-        vref = r_upper[2],  # Junction between resistors
-        vcc = vcc,
-        gnd = gnd
-    )
+        vin=reg['VI'],      # Unregulated supply voltage
+        vout=reg['VO'],     # Regulated output voltage
+        gnd=reg['GND']      # Ground connection
+        )
 
-@SubCircuit
-def amplifier(gain=10):
-    """Non-inverting amplifier with configurable gain."""
-    op = opamp()
-    r_feedback = r(value=f'{(gain-1)*1000}')  # Gain = 1 + Rf/Rin
-    r_input = r(value='1K')
+@subcircuit
+def motor_driver():
+    """H-bridge motor driver module."""
     
-    # Build non-inverting amplifier
-    op['V-'] & r_input & gnd
-    op['V-'] & r_feedback & op['V+']
+    # Create MOSFETs for H-bridge
+    q1, q2, q3, q4 = Part('Transistor_FET', 'Q_NMOS_GSD', dest=TEMPLATE)(4)
     
+    # Define local nets for power and motor connections
+    vcc, gnd = Net(), Net()          # Motor supply voltages
+    motor_a, motor_b = Net(), Net()  # Motor terminals
+    
+    # Build H-bridge topology
+    vcc & q1['D,S'] & motor_a & q2['D,S'] & gnd
+    vcc & q3['D,S'] & motor_b & q4['D,S'] & gnd
+
+    # Return interface connections
     return Interface(
-        inp = op['V+'],      # Non-inverting input
-        out = op['V+'],      # Output
-        vcc = op['V+'],      # Positive supply
-        gnd = gnd            # Ground reference
-    )
+        vcc=vcc,             # Motor supply voltage
+        gnd=gnd,             # Ground
+        motor_a=motor_a,     # Motor terminal A
+        motor_b=motor_b,     # Motor terminal B
+        ctrl1=q1['G'],       # Control signal 1
+        ctrl2=q2['G'],       # Control signal 2
+        ctrl3=q3['G'],       # Control signal 3
+        ctrl4=q4['G']        # Control signal 4
+        )
 
-# Create and connect the subcircuits
-vref_if = voltage_reference()
-amp_if = amplifier(gain=5)
+# Instantiate subcircuit modules
+regulator = voltage_regulator()
+motor_drv = motor_driver()
 
-# Connect the voltage reference to the amplifier
-amp_if.inp += vref_if.vref
-amp_if.vcc += vref_if.vcc
-amp_if.gnd += vref_if.gnd
+# Instantiate a DC motor
+motor = Part("Motor", "Motor_DC")
 
-# Connect to external nets
-input_signal = Net('INPUT')
-output_signal = Net('OUTPUT')
-power_5v = Net('5V')
-system_gnd = Net('SYSTEM_GND')
+# Create nets for power distribution
+power_12v = Net('12V_IN')
+power_3v3 = Net('3V3')
+system_gnd = Net('GND')
 
-input_signal += amp_if.inp
-output_signal += amp_if.out
-power_5v += vref_if.vcc
-system_gnd += vref_if.gnd
+# Connect power distribution to subcircuit module interfaces
+power_12v += regulator.vin, motor_drv.vcc
+power_3v3 += regulator.vout
+system_gnd += regulator.gnd, motor_drv.gnd
+
+# Connect control signals to microcontroller
+mcu = Part('MCU_ST_STM32F1', 'STM32F103C8Tx')
+mcu['PA0,PA1,PA2,PA3'] += motor_drv.ctrl1, motor_drv.ctrl2, motor_drv.ctrl3, motor_drv.ctrl4
+
+# Connect motor
+motor["+"] += motor_drv.motor_a
+motor["-"] += motor_drv.motor_b
+
+generate_netlist()
 ```
 
 ### Method 2: SubCircuit Subclassing with I/O Attributes
 
-The object-oriented approach involves subclassing `SubCircuit` to create reusable modules with well-defined I/O attributes. This approach is ideal for creating libraries of standard circuit blocks.
+The object-oriented approach involves subclassing `SubCircuit` to create modules with I/O attributes.
 
 ```py
 from skidl import *
@@ -1639,10 +1667,11 @@ from skidl import *
 class VoltageRegulator(SubCircuit):
     """3.3V linear voltage regulator module."""
     
-    def __init__(self, input_voltage=5.0):
-        super().__init__()
-        
-        # Create the regulator circuit
+    def __init__(self):
+        # Initialize this subcircuit. DO NOT USE super().__init__()!
+        self.initialize()
+
+        # Create voltage regulator and filter capacitors
         reg = Part('Regulator_Linear', 'AMS1117-3.3')
         c_in = Part('Device', 'C', value='100nF')
         c_out = Part('Device', 'C', value='10uF')
@@ -1652,20 +1681,22 @@ class VoltageRegulator(SubCircuit):
         self.vout = reg['VO']     # Regulated output
         self.gnd = reg['GND']     # Ground connection
         
-        # Build regulator circuit
+        # Attach input/output filter capacitors
         self.vin & c_in & self.gnd
-        self.vin & reg['VI']
-        reg['VO'] & c_out & self.gnd
-        reg['GND'] & self.gnd
+        self.vout & c_out & self.gnd
+
+        # Finalize the creation of the subcircuit
+        self.finalize()
 
 class MotorDriver(SubCircuit):
     """H-bridge motor driver module."""
     
     def __init__(self):
-        super().__init__()
+        # Initialize this subcircuit. DO NOT USE super().__init__()!
+        self.initialize()
         
-        # Create H-bridge with MOSFETs
-        q1, q2, q3, q4 = Part('Device', 'Q_NMOS_GSD', dest=TEMPLATE)(4)
+        # Create MOSFETS for H-bridge
+        q1, q2, q3, q4 = Part('Transistor_FET', 'Q_NMOS_GSD', dest=TEMPLATE)(4)
         
         # Define I/O attributes
         self.vcc = Net()          # Motor supply voltage
@@ -1678,104 +1709,97 @@ class MotorDriver(SubCircuit):
         self.ctrl4 = q4['G']      # Control signal 4
         
         # Build H-bridge topology
-        self.vcc & q1['D'] & q3['D']
-        q1['S'] & q2['D'] & self.motor_a
-        q3['S'] & q4['D'] & self.motor_b  
-        q2['S'] & q4['S'] & self.gnd
+        self.vcc & q1['D,S'] & self.motor_a & q2['D,S'] & self.gnd
+        self.vcc & q3['D,S'] & self.motor_b & q4['D,S'] & self.gnd
 
-# Instantiate and connect modules
+        # Finalize the creation of the subcircuit
+        self.finalize()
+
+# Instantiate subcircuit modules
 regulator = VoltageRegulator()
-motor = MotorDriver()
+motor_drv = MotorDriver()
 
-# Connect power distribution
+# Instantiate a DC motor
+motor = Part("Motor", "Motor_DC")
+
+# Create nets for power distribution
 power_12v = Net('12V_IN')
 power_3v3 = Net('3V3')
 system_gnd = Net('GND')
 
-power_12v += regulator.vin
+# Connect power distribution to subcircuit modules
+power_12v += regulator.vin, motor_drv.vcc
 power_3v3 += regulator.vout
-system_gnd += regulator.gnd, motor.gnd
+system_gnd += regulator.gnd, motor_drv.gnd
 
-# Connect motor power from 12V rail
-power_12v += motor.vcc
-
-# Connect control signals
+# Connect control signals using module attributes
 mcu = Part('MCU_ST_STM32F1', 'STM32F103C8Tx')
-mcu['PA0,PA1,PA2,PA3'] += motor.ctrl1, motor.ctrl2, motor.ctrl3, motor.ctrl4
+mcu['PA0,PA1,PA2,PA3'] += motor_drv.ctrl1, motor_drv.ctrl2, motor_drv.ctrl3, motor_drv.ctrl4
+
+# Connect motor
+motor["+"] += motor_drv.motor_a
+motor["-"] += motor_drv.motor_b
+
+generate_netlist()
 ```
 
-### Method 3: Context-Based Hierarchy with SubCircuit
+### Method 3: SubCircuit Context Manager
 
-The simplest approach uses `SubCircuit` as a context manager to create hierarchical groupings without defining functions or classes. This method is ideal for organizing complex designs into logical sections.
+The final approach uses `SubCircuit` as a context manager to create hierarchical groupings without defining functions or classes.
+This allows grouping of components into logical sections, but unlike the other approaches, re-using a group is not possible.
 
 ```py
 from skidl import *
 
-# Create main system nets
-vcc_5v = Net('VCC_5V')
-vcc_3v3 = Net('VCC_3V3') 
-gnd = Net('GND')
-spi_clk = Net('SPI_CLK')
-spi_mosi = Net('SPI_MOSI')
-spi_miso = Net('SPI_MISO')
+# Create nets for power distribution
+power_12v = Net('12V_IN')
+power_3v3 = Net('3V3')
+system_gnd = Net('GND')
 
-# Power supply section
-with SubCircuit('power_supply') as power:
-    # 5V to 3.3V regulator
+with SubCircuit('voltage_regulator') as voltage_regulator:
+    """3.3V linear voltage regulator."""
+
+    # Create voltage regulator and filter capacitors
     reg = Part('Regulator_Linear', 'AMS1117-3.3')
-    c1 = Part('Device', 'C', value='100nF')
-    c2 = Part('Device', 'C', value='10uF')
+    c_in = Part('Device', 'C', value='100nF')
+    c_out = Part('Device', 'C', value='10uF')
     
-    vcc_5v & c1 & gnd
-    vcc_5v & reg['VI']
-    reg['VO'] & c2 & gnd
-    reg['VO'] & vcc_3v3
-    reg['GND'] & gnd
+    # Attach power in/out connections and input/output filter capacitors
+    power_12v & reg['VI'] & c_in & system_gnd
+    power_3v3 & reg['VO'] & c_out & system_gnd
 
-# Microcontroller section  
-with SubCircuit('microcontroller') as mcu_section:
-    mcu = Part('MCU_ST_STM32F1', 'STM32F103C8Tx')
+with SubCircuit('motor_driver') as motor_driver:
+    """H-bridge motor driver."""
     
-    # Power connections
-    mcu['VDD,VDDA'] += vcc_3v3
-    mcu['VSS,VSSA'] += gnd
+    # Create MOSFETs for H-bridge
+    q1, q2, q3, q4 = Part('Transistor_FET', 'Q_NMOS_GSD', dest=TEMPLATE)(4)
     
-    # SPI peripheral connections
-    mcu['PA5'] += spi_clk   # SPI1_SCK
-    mcu['PA6'] += spi_miso  # SPI1_MISO  
-    mcu['PA7'] += spi_mosi  # SPI1_MOSI
+    # Define local nets for connecting motor
+    motor_a, motor_b = Net(), Net()  # Motor terminals
+    
+    # Build H-bridge topology
+    power_12v & q1['D,S'] & motor_a & q2['D,S'] & system_gnd
+    power_12v & q3['D,S'] & motor_b & q4['D,S'] & system_gnd
 
-# Sensor interface section
-with SubCircuit('sensors') as sensor_section:
-    # SPI temperature sensor
-    temp_sensor = Part('Sensor_Temperature', 'MAX31855')
-    
-    # SPI connections
-    temp_sensor['SCK'] += spi_clk
-    temp_sensor['SO'] += spi_miso
-    temp_sensor['CS'] += mcu['PA4']  # Chip select
-    
-    # Power connections
-    temp_sensor['VCC'] += vcc_3v3
-    temp_sensor['GND'] += gnd
+    # H-bridge control pins.
+    motor_ctrl1=q1['G']
+    motor_ctrl2=q2['G']
+    motor_ctrl3=q3['G']
+    motor_ctrl4=q4['G']
 
-# Display section
-with SubCircuit('display') as display_section:
-    lcd = Part('Display_Character', 'HD44780')
-    
-    # Connect to microcontroller
-    mcu['PB0,PB1,PB2,PB3,PB4,PB5'] += lcd['D4,D5,D6,D7,E,RS']
-    lcd['VSS,RW'] += gnd
-    lcd['VDD'] += vcc_3v3
+# Instantiate a DC motor
+motor = Part("Motor", "Motor_DC")
+
+# Connect control signals to microcontroller
+mcu = Part('MCU_ST_STM32F1', 'STM32F103C8Tx')
+mcu['PA0,PA1,PA2,PA3'] += motor_ctrl1, motor_ctrl2, motor_ctrl3, motor_ctrl4
+
+# Connect motor
+motor["+"] += motor_a
+motor["-"] += motor_b
+
+generate_netlist()
 ```
-
-Each approach has its strengths:
-
-- **Decorated functions** excel at creating reusable, parameterizable modules that clearly define their interfaces
-- **Subclassed modules** provide the most structured approach with explicit I/O definitions, ideal for complex reusable blocks  
-- **Context-based hierarchy** offers the simplest syntax for organizing designs without the overhead of function definitions
-
-You can mix and match these approaches as needed. For example, use subclassed modules for complex reusable blocks like motor drivers, decorated functions for parameterizable filters, and context-based hierarchy for organizing the top-level system architecture.
 
 
 ## Libraries
@@ -2056,6 +2080,68 @@ bus3:
 >>> c.width
 1
 ```
+
+### Disambiguating Part Pins with Identical Names
+
+If multiple pins of a part are given the same name or alias, then accessing a pin using 
+that name will return a list:
+
+```python
+>>> mcu = Part('MCU_ST_STM32F1','STM32F100C_4-6_Tx')
+>>> mcu["SPI1_SCK"]
+[Pin U1/39/PB3,p39,TIM2_CH2,PB3,SPI1_SCK,SYS_JTDO-TRACESWO/BIDIRECTIONAL,
+ Pin U1/15/PA5,DAC_OUT2,p15,SPI1_SCK,ADC1_IN5,PA5/BIDIRECTIONAL]
+```
+
+To select only one of the pins, use chained indexing as shown here:
+
+```python
+>>> mcu["SPI1_SCK"]["PB3"]  # Use a unique pin name
+Pin U1/39/PB3,p39,TIM2_CH2,PB3,SPI1_SCK,SYS_JTDO-TRACESWO/BIDIRECTIONAL
+
+>>> mcu["SPI1_SCK"].p39     # Use a unique pin attribute
+Pin U1/39/PB3,p39,TIM2_CH2,PB3,SPI1_SCK,SYS_JTDO-TRACESWO/BIDIRECTIONAL
+
+>>> mcu["SPI1_SCK"][39]     # Use the pin number
+Pin U1/39/PB3,p39,TIM2_CH2,PB3,SPI1_SCK,SYS_JTDO-TRACESWO/BIDIRECTIONAL
+```
+
+### Part-Like Access of Subcircuit Modules
+
+Modules created as [subclasses of `SubCircuit`](#method-2-subcircuit-subclassing-with-io-attributes) can be
+used like parts with named pins as shown below:
+
+```python
+class VoltageDivider(SubCircuit):
+    def __init__(self, *args, **kwargs):
+        self.initialize(*args, **kwargs)
+
+        # Create local nets
+        vin, vout, gnd = Net(), Net(), Net()
+
+        # Create resistors
+        r1 = Part("Device", "R", value="10k")
+        r2 = Part("Device", "R", value="20k")
+
+        # Create a voltage divider
+        vin & r1 & vout & r2 & gnd
+
+        # Define I/O pins for the subcircuit module
+        self.create_pins("VIN", connections=vin)
+        self.create_pins("VOUT", connections=vout)
+        self.create_pins("GND", connections=gnd)
+
+        self.finalize()
+
+# Instantiate the voltage divider module
+vdiv = VoltageDivider()
+
+# Connect the voltage divider module I/O using part-like syntax
+vdiv['VIN'] += Net('+5V')   # Using pin name as index
+vdiv.VOUT   += Net('2.5V')  # Using pin name as attribute
+vdiv[3]     += Net('GND')   # Using pin number
+```
+
 
 ### Selectively Supressing ERC Messages
 
