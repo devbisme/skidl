@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.netpinlist &#8212; SKiDL 2.1.1 documentation</title>
+    <title>skidl.netpinlist &#8212; SKiDL 2.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=841abef3"></script>
+    <script src="../../_static/documentation_options.js?v=b21de401"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.netpinlist</a></li> 
       </ul>
@@ -62,7 +62,7 @@
 <span class="kn">from</span> <span class="nn">.net</span> <span class="kn">import</span> <span class="n">Net</span>
 <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
 <span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">Pin</span>
-<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="n">expand_buses</span><span class="p">,</span> <span class="n">export_to_all</span><span class="p">,</span> <span class="n">flatten</span><span class="p">,</span> <span class="n">set_iadd</span>
+<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="n">expand_buses</span><span class="p">,</span> <span class="n">export_to_all</span><span class="p">,</span> <span class="n">flatten</span><span class="p">,</span> <span class="n">list_or_scalar</span><span class="p">,</span> <span class="n">set_iadd</span><span class="p">,</span> <span class="n">filter_list</span>
 
 
 <div class="viewcode-block" id="NetPinList">
@@ -214,6 +214,37 @@
         <span class="n">set_iadd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span>
+    
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get item(s) from the NetPinList with bus expansion.</span>
+<span class="sd">        This method supports indexing, slicing, and filtering by pin/net number</span>
+<span class="sd">        or alias.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            key: An integer index, a slice object, or a pin/net number/alias.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            A single Pin/Net if an integer index or matching number/alias is provided,</span>
+<span class="sd">            or a NetPinList if a slice or multiple matches are found.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">expanded</span> <span class="o">=</span> <span class="n">expand_buses</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">NetPinList</span><span class="p">(</span><span class="n">expanded</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">list_or_scalar</span><span class="p">(</span><span class="n">NetPinList</span><span class="p">(</span><span class="n">filter_list</span><span class="p">(</span><span class="n">expanded</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">key</span><span class="p">)))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">list_or_scalar</span><span class="p">(</span><span class="n">NetPinList</span><span class="p">(</span><span class="n">filter_list</span><span class="p">(</span><span class="n">expanded</span><span class="p">,</span> <span class="n">aliases</span><span class="o">=</span><span class="n">key</span><span class="p">)))</span>
+            
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alias</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return all pins/nets in the list with the given alias.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            alias: The name of the alias to retrieve.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            A NetPinList of pins/nets from all pins/nets in the list.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">alias</span><span class="p">]</span>
 
 <div class="viewcode-block" id="NetPinList.create_network">
 <a class="viewcode-back" href="../../rst_output/skidl.netpinlist.html#skidl.netpinlist.NetPinList.create_network">[docs]</a>
@@ -387,7 +418,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.netpinlist</a></li> 
       </ul>

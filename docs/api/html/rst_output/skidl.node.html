@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.node module &#8212; SKiDL 2.1.1 documentation</title>
+    <title>skidl.node module &#8212; SKiDL 2.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=841abef3"></script>
+    <script src="../_static/documentation_options.js?v=b21de401"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.node module</a></li> 
       </ul>
     </div>  
@@ -58,7 +58,7 @@ and contain parts, allowing for structured circuit design and organization.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.node.Node">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.node.</span></span><span class="sig-name descname"><span class="pre">Node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attrs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/node.html#Node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.node.Node" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject" title="skidl.skidlbaseobj.SkidlBaseObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">SkidlBaseObject</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="skidl.mixins.html#skidl.mixins.PinMixin" title="skidl.mixins.PinMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">PinMixin</span></code></a>, <a class="reference internal" href="skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject" title="skidl.skidlbaseobj.SkidlBaseObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">SkidlBaseObject</span></code></a></p>
 <p>Data structure for holding information about a node in the circuit hierarchy.</p>
 <p>A Node represents a hierarchical container that can hold circuit parts and
 maintain parent-child relationships with other nodes. This enables organized
@@ -74,6 +74,26 @@ child node. Ensures the child has a unique name among siblings.</p>
 <dd class="field-odd"><p><strong>child</strong> (<a class="reference internal" href="#skidl.node.Node" title="skidl.node.Node"><em>Node</em></a>) – The child node to add to this node.</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.node.Node.erc_desc">
+<span class="sig-name descname"><span class="pre">erc_desc</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/node.html#Node.erc_desc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.node.Node.erc_desc" title="Link to this definition">¶</a></dt>
+<dd><p>Create description of SubCircuit for ERC and other error reporting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A string description in the form “name”</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.node.Node.finalize">
+<span class="sig-name descname"><span class="pre">finalize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/node.html#Node.finalize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.node.Node.finalize" title="Link to this definition">¶</a></dt>
+<dd><p>Exit the creation of an instance of a subcircuit class and return to the parent Node in the hierarchy.</p>
 </dd></dl>
 
 <dl class="py property">
@@ -112,6 +132,22 @@ the names from each node in the hierarchy chain.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)">tuple</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.node.Node.initialize">
+<span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/node.html#Node.initialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.node.Node.initialize" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize an instance of a subcircuit class and place it as a child of the currently active Node.</p>
+<p>This method creates a Node object without calling its __init__ method,
+allowing for custom initialization or deserialization scenarios.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*args</strong> – Positional arguments to pass to the Node __init__ function.</p></li>
+<li><p><strong>**kwargs</strong> – Keyword arguments to pass to the Node __init__ function.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -227,8 +263,11 @@ children, including their names, tags, parts, and hierarchical structure.</p>
 <li><a class="reference internal" href="#skidl.node.Group"><code class="docutils literal notranslate"><span class="pre">Group</span></code></a></li>
 <li><a class="reference internal" href="#skidl.node.Node"><code class="docutils literal notranslate"><span class="pre">Node</span></code></a><ul>
 <li><a class="reference internal" href="#skidl.node.Node.add_child"><code class="docutils literal notranslate"><span class="pre">Node.add_child()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.node.Node.erc_desc"><code class="docutils literal notranslate"><span class="pre">Node.erc_desc()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.node.Node.finalize"><code class="docutils literal notranslate"><span class="pre">Node.finalize()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.node.Node.hiernodes"><code class="docutils literal notranslate"><span class="pre">Node.hiernodes</span></code></a></li>
 <li><a class="reference internal" href="#skidl.node.Node.hiertuple"><code class="docutils literal notranslate"><span class="pre">Node.hiertuple</span></code></a></li>
+<li><a class="reference internal" href="#skidl.node.Node.initialize"><code class="docutils literal notranslate"><span class="pre">Node.initialize()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.node.Node.netclasses"><code class="docutils literal notranslate"><span class="pre">Node.netclasses</span></code></a></li>
 <li><a class="reference internal" href="#skidl.node.Node.partclasses"><code class="docutils literal notranslate"><span class="pre">Node.partclasses</span></code></a></li>
 <li><a class="reference internal" href="#skidl.node.Node.spin_off"><code class="docutils literal notranslate"><span class="pre">Node.spin_off()</span></code></a></li>
@@ -273,7 +312,7 @@ children, including their names, tags, parts, and hierarchical structure.</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.node module</a></li> 
       </ul>
     </div>

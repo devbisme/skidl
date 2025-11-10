@@ -1,0 +1,7 @@
+skidl.mixins module
+===================
+
+.. automodule:: skidl.mixins
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.tools.kicad9.lib &#8212; SKiDL 2.1.1 documentation</title>
+    <title>skidl.tools.kicad9.lib &#8212; SKiDL 2.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../../../_static/documentation_options.js?v=841abef3"></script>
+    <script src="../../../../_static/documentation_options.js?v=b21de401"></script>
     <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.1.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad9.lib</a></li> 
       </ul>
@@ -344,41 +344,35 @@
             <span class="c1"># Pin electrical type immediately follows the &quot;pin&quot; tag.</span>
             <span class="n">pin_func</span> <span class="o">=</span> <span class="n">pin_io_type_translation</span><span class="p">[</span><span class="n">pin</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
 
-            <span class="c1"># Find the pin name, number, and X/Y position.</span>
-            <span class="n">pin_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-            <span class="n">pin_number</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">pin</span><span class="p">:</span>
-                <span class="n">item</span> <span class="o">=</span> <span class="n">to_list</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-                <span class="n">token_name</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-                <span class="k">if</span> <span class="n">token_name</span> <span class="o">==</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span>
-                    <span class="n">pin_name</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-                <span class="k">elif</span> <span class="n">token_name</span> <span class="o">==</span> <span class="s2">&quot;number&quot;</span><span class="p">:</span>
-                    <span class="n">pin_number</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-                <span class="k">elif</span> <span class="n">token_name</span> <span class="o">==</span> <span class="s2">&quot;at&quot;</span><span class="p">:</span>
-                    <span class="n">pin_x</span><span class="p">,</span> <span class="n">pin_y</span><span class="p">,</span> <span class="n">pin_angle</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
-                    <span class="c1"># TODO: Convert these units from mm to mils?</span>
-                    <span class="c1"># pin_x = round(pin_x * mils_per_mm)</span>
-                    <span class="c1"># pin_y = round(pin_y * mils_per_mm)</span>
-                    <span class="n">pin_side</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span> <span class="mi">90</span><span class="p">:</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="mi">180</span><span class="p">:</span> <span class="s2">&quot;L&quot;</span><span class="p">,</span> <span class="mi">270</span><span class="p">:</span> <span class="s2">&quot;U&quot;</span><span class="p">}[</span><span class="n">pin_angle</span><span class="p">]</span>
-                <span class="k">elif</span> <span class="n">token_name</span> <span class="o">==</span> <span class="s2">&quot;length&quot;</span><span class="p">:</span>
-                    <span class="n">pin_length</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="c1"># pin_length = round(mils_per_mm * pin_length)</span>
+            <span class="c1"># Find the pin attributes like name, number, etc.</span>
+            <span class="n">pin_name</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/pin/name&quot;</span><span class="p">,</span> <span class="n">ignore_case</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">pin_name</span> <span class="o">=</span> <span class="n">pin_name</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">pin_name</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">pin_number</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/pin/number&quot;</span><span class="p">,</span> <span class="n">ignore_case</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">pin_number</span> <span class="o">=</span> <span class="n">pin_number</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">pin_number</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="n">pin_length</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/pin/length&quot;</span><span class="p">,</span> <span class="n">ignore_case</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">pin_length</span> <span class="o">=</span> <span class="n">pin_length</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">pin_length</span> <span class="k">else</span> <span class="mi">1000</span>  <span class="c1"># Default length is 1mm.</span>
+            <span class="n">at</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/pin/at&quot;</span><span class="p">,</span> <span class="n">ignore_case</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">at</span><span class="p">:</span>
+                <span class="n">pin_x</span><span class="p">,</span> <span class="n">pin_y</span> <span class="o">=</span> <span class="n">at</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+                <span class="n">pin_angle</span> <span class="o">=</span> <span class="n">at</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">at</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">3</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="n">alternate_names</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/pin/alternate&quot;</span><span class="p">,</span> <span class="n">ignore_case</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">aliases</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">alternate_names</span><span class="p">]</span> <span class="k">if</span> <span class="n">alternate_names</span> <span class="k">else</span> <span class="p">[]</span>
 
             <span class="c1"># Add the pins that were found to the total part. Include the unit identifier</span>
             <span class="c1"># in the pin so we can find it later when the part unit is created.</span>
-            <span class="n">part</span><span class="o">.</span><span class="n">add_pins</span><span class="p">(</span>
-                <span class="n">Pin</span><span class="p">(</span>
-                    <span class="n">name</span><span class="o">=</span><span class="n">pin_name</span><span class="p">,</span>
-                    <span class="n">num</span><span class="o">=</span><span class="n">pin_number</span><span class="p">,</span>
-                    <span class="n">func</span><span class="o">=</span><span class="n">pin_func</span><span class="p">,</span>
-                    <span class="n">unit</span><span class="o">=</span><span class="n">unit</span><span class="p">,</span>
-                    <span class="n">x</span><span class="o">=</span><span class="n">pin_x</span><span class="p">,</span>
-                    <span class="n">y</span><span class="o">=</span><span class="n">pin_y</span><span class="p">,</span>
-                    <span class="n">length</span><span class="o">=</span><span class="n">pin_length</span><span class="p">,</span>
-                    <span class="n">rotation</span><span class="o">=</span><span class="n">pin_angle</span><span class="p">,</span>
-                    <span class="n">orientation</span><span class="o">=</span><span class="n">pin_angle</span><span class="p">,</span>
-                <span class="p">)</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">pin_name</span><span class="p">,</span>
+                <span class="n">num</span><span class="o">=</span><span class="n">pin_number</span><span class="p">,</span>
+                <span class="n">func</span><span class="o">=</span><span class="n">pin_func</span><span class="p">,</span>
+                <span class="n">unit</span><span class="o">=</span><span class="n">unit</span><span class="p">,</span>
+                <span class="n">x</span><span class="o">=</span><span class="n">pin_x</span><span class="p">,</span>
+                <span class="n">y</span><span class="o">=</span><span class="n">pin_y</span><span class="p">,</span>
+                <span class="n">length</span><span class="o">=</span><span class="n">pin_length</span><span class="p">,</span>
+                <span class="n">rotation</span><span class="o">=</span><span class="n">pin_angle</span><span class="p">,</span>
+                <span class="n">orientation</span><span class="o">=</span><span class="n">pin_angle</span><span class="p">,</span>
             <span class="p">)</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">aliases</span> <span class="o">+=</span> <span class="n">aliases</span>
+            <span class="n">part</span><span class="o">.</span><span class="n">add_pins</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 
         <span class="c1"># Return true if the symbol had pins.</span>
         <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">symbol_pins</span><span class="p">)</span>
@@ -557,7 +551,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.1.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad9.lib</a></li> 
       </ul>

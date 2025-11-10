@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.utilities module &#8212; SKiDL 2.1.1 documentation</title>
+    <title>skidl.utilities module &#8212; SKiDL 2.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=841abef3"></script>
+    <script src="../_static/documentation_options.js?v=b21de401"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.utilities module</a></li> 
       </ul>
     </div>  
@@ -729,6 +729,37 @@ by get_unique_name() when it is no longer needed.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="skidl.utilities.split_unquoted">
+<span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">split_unquoted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxsplit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#split_unquoted"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.split_unquoted" title="Link to this definition">¶</a></dt>
+<dd><p>Split a string by a regex pattern, but ignore matches within quoted substrings.</p>
+<p>This function works like re.split() but does not split on delimiters that appear
+within single-quoted or double-quoted strings. Quotes can be escaped with backslash.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pattern</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Regular expression pattern to split on.</p></li>
+<li><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The string to split.</p></li>
+<li><p><strong>maxsplit</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – Maximum number of splits to perform. 0 means no limit. Defaults to 0.</p></li>
+<li><p><strong>flags</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – Regex flags to pass to re.split. Defaults to 0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of substrings split by the pattern, with quoted sections preserved.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">split_unquoted</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;a,b,&quot;c,d&quot;,e&#39;</span><span class="p">)</span>
+<span class="go">[&#39;a&#39;, &#39;b&#39;, &#39;&quot;c,d&quot;&#39;, &#39;e&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">split_unquoted</span><span class="p">(</span><span class="s1">&#39;\s+&#39;</span><span class="p">,</span> <span class="s1">&#39;hello world &quot;foo bar&quot; test&#39;</span><span class="p">)</span>
+<span class="go">[&#39;hello&#39;, &#39;world&#39;, &#39;foo bar&#39;, &#39;test&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.to_list">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">to_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#to_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.to_list" title="Link to this definition">¶</a></dt>
 <dd><p>Convert a scalar value to a list or return x if it is already a list-like object.</p>
@@ -794,6 +825,7 @@ by get_unique_name() when it is no longer needed.</p>
 <li><a class="reference internal" href="#skidl.utilities.set_attr"><code class="docutils literal notranslate"><span class="pre">set_attr()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.utilities.set_iadd"><code class="docutils literal notranslate"><span class="pre">set_iadd()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.utilities.sgn"><code class="docutils literal notranslate"><span class="pre">sgn()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.utilities.split_unquoted"><code class="docutils literal notranslate"><span class="pre">split_unquoted()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.utilities.to_list"><code class="docutils literal notranslate"><span class="pre">to_list()</span></code></a></li>
 </ul>
 </li>
@@ -830,7 +862,7 @@ by get_unique_name() when it is no longer needed.</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.utilities module</a></li> 
       </ul>
     </div>

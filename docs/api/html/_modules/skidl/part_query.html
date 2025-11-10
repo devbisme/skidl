@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.part_query &#8212; SKiDL 2.1.1 documentation</title>
+    <title>skidl.part_query &#8212; SKiDL 2.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=841abef3"></script>
+    <script src="../../_static/documentation_options.js?v=b21de401"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.part_query</a></li> 
       </ul>
@@ -56,20 +56,20 @@
 <span class="sd">regular expression searches and filtering on different properties.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">os.path</span>
 <span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span> <span class="nn">time</span>
 
 <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
 <span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span><span class="p">,</span> <span class="n">fullmatch</span><span class="p">,</span> <span class="n">rmv_quotes</span><span class="p">,</span> <span class="n">to_list</span><span class="p">,</span> <span class="n">expand_path</span>
 
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;search&quot;</span><span class="p">,</span> <span class="s2">&quot;show&quot;</span><span class="p">]</span>
-
-
-<span class="c1"># TODO: Use push-down automata to parse nested parenthetical expression</span>
-<span class="c1">#       of AND/OR clauses for use in advanced part searching.</span>
-<span class="c1">#       https://stackoverflow.com/questions/4284991/parsing-nested-parentheses-in-python-grab-content-by-level</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;search&quot;</span><span class="p">,</span> <span class="s2">&quot;show&quot;</span><span class="p">,</span> <span class="s2">&quot;PartSearchDB&quot;</span><span class="p">]</span>
 
 
 <span class="k">def</span> <span class="nf">_parse_search_terms</span><span class="p">(</span><span class="n">terms</span><span class="p">):</span>
@@ -77,7 +77,7 @@
 <span class="sd">    Return a regular expression for a sequence of search terms.</span>
 
 <span class="sd">    Converts a user-friendly search string into a regular expression pattern that can be</span>
-<span class="sd">    used for matching part and footprint attributes. The function handles quoted phrases </span>
+<span class="sd">    used for matching part and footprint attributes. The function handles quoted phrases</span>
 <span class="sd">    and logical OR operations.</span>
 
 <span class="sd">    Substitute a zero-width lookahead assertion (?= ) for each term. Thus,</span>
@@ -110,47 +110,29 @@
     <span class="k">return</span> <span class="n">terms</span>
 
 
-<div class="viewcode-block" id="search_parts_iter">
-<a class="viewcode-back" href="../../rst_output/skidl.part_query.html#skidl.part_query.search_parts_iter">[docs]</a>
-<span class="nd">@export_to_all</span>
-<span class="k">def</span> <span class="nf">search_parts_iter</span><span class="p">(</span><span class="n">terms</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">get_all_lib_files</span><span class="p">(</span><span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Return an iterator of (lib, part) sequences that match regex terms.</span>
-<span class="sd">    </span>
-<span class="sd">    This generator function yields information about libraries being searched and parts</span>
-<span class="sd">    found that match the search terms.</span>
-<span class="sd">    </span>
+<span class="sd">    Return a list of all library files in the search paths for the given tool.</span>
+
 <span class="sd">    Args:</span>
-<span class="sd">        terms (str): Space-separated search terms to match against part attributes.</span>
-<span class="sd">        tool (str, optional): The ECAD tool format for the libraries to search. </span>
+<span class="sd">        tool (str, optional): The ECAD tool format for the libraries to search.</span>
 <span class="sd">                             Defaults to the currently configured tool.</span>
-<span class="sd">    </span>
-<span class="sd">    Yields:</span>
-<span class="sd">        tuple: Either progress information as (&quot;LIB&quot;, lib_file, index, total) </span>
-<span class="sd">               or part information as (&quot;PART&quot;, lib_file, part_obj, part_alias).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: A list of absolute paths to library files found in the search paths.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="kn">import</span> <span class="nn">skidl</span>
-    <span class="kn">import</span> <span class="nn">skidl.tools</span>
 
-    <span class="kn">from</span> <span class="nn">.schlib</span> <span class="kn">import</span> <span class="n">SchLib</span>
-
-    <span class="n">tool</span> <span class="o">=</span> <span class="n">tool</span> <span class="ow">or</span> <span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">tool</span>
-
-    <span class="n">terms</span> <span class="o">=</span> <span class="n">_parse_search_terms</span><span class="p">(</span><span class="n">terms</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">mk_list</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Make a list out of whatever is given.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
-            <span class="k">return</span> <span class="n">l</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">l</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[]</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">l</span><span class="p">]</span>
+    <span class="n">tool</span> <span class="o">=</span> <span class="n">tool</span> <span class="ow">or</span> <span class="n">skidl</span><span class="o">.</span><span class="n">get_default_tool</span><span class="p">()</span>
 
     <span class="c1"># Gather all the lib files from all the directories in the search paths.</span>
     <span class="n">lib_files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
     <span class="n">lib_suffixes</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">to_list</span><span class="p">(</span><span class="n">skidl</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">lib_suffixes</span><span class="p">[</span><span class="n">tool</span><span class="p">]))</span>
     <span class="k">for</span> <span class="n">lib_dir</span> <span class="ow">in</span> <span class="n">skidl</span><span class="o">.</span><span class="n">lib_search_paths</span><span class="p">[</span><span class="n">tool</span><span class="p">]:</span>
+
+        <span class="c1"># Fully expand the path into an absolute path.</span>
+        <span class="n">lib_dir</span> <span class="o">=</span> <span class="n">expand_path</span><span class="p">(</span><span class="n">lib_dir</span><span class="p">)</span>
 
         <span class="c1"># Get all the library files in the search path.</span>
         <span class="k">try</span><span class="p">:</span>
@@ -159,70 +141,535 @@
             <span class="n">active_logger</span><span class="o">.</span><span class="n">bare_warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not open directory &#39;</span><span class="si">{</span><span class="n">lib_dir</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
             <span class="n">files</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="n">files</span> <span class="o">=</span> <span class="p">[(</span><span class="n">lib_dir</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="n">l</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">lib_suffixes</span><span class="p">)]</span>
+        <span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lib_dir</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="n">l</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">lib_suffixes</span><span class="p">)]</span>
         <span class="n">lib_files</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
 
-    <span class="n">num_lib_files</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lib_files</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">lib_files</span>
 
-    <span class="c1"># Now search through the lib files for parts that match the search terms.</span>
-    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">lib_dir</span><span class="p">,</span> <span class="n">lib_file</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lib_files</span><span class="p">):</span>
 
-        <span class="c1"># If just entered a new lib file, yield the name of the file and</span>
-        <span class="c1"># where it is within the total number of files to search.</span>
-        <span class="c1"># (This is used for progress indicators.)</span>
-        <span class="k">yield</span> <span class="s2">&quot;LIB&quot;</span><span class="p">,</span> <span class="n">lib_file</span><span class="p">,</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num_lib_files</span>
+<span class="c1"># Keep a dictionary of part search databases for different tools.</span>
+<span class="n">part_search_dbs</span> <span class="o">=</span> <span class="p">{}</span>
 
-        <span class="c1"># Parse the lib file to create a part library.</span>
-        <span class="n">lib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lib_dir</span><span class="p">,</span> <span class="n">lib_file</span><span class="p">),</span> <span class="n">tool</span><span class="o">=</span><span class="n">tool</span>
-        <span class="p">)</span>  <span class="c1"># Open the library file.</span>
 
-        <span class="c1"># Search the current library for parts with the given terms.</span>
-        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">mk_list</span><span class="p">(</span>
-            <span class="c1"># Get any matching parts from the library file.</span>
-            <span class="n">lib</span><span class="o">.</span><span class="n">get_parts</span><span class="p">(</span><span class="n">use_backup_lib</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">search_text</span><span class="o">=</span><span class="n">terms</span><span class="p">)</span>
-        <span class="p">):</span>
-            <span class="c1"># Parse the part to instantiate the complete object.</span>
-            <span class="n">part</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">partial_parse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="PartSearchDB">
+<a class="viewcode-back" href="../../rst_output/skidl.part_query.html#skidl.part_query.PartSearchDB">[docs]</a>
+<span class="k">class</span> <span class="nc">PartSearchDB</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Manage a parts search SQLite database.</span>
 
-            <span class="c1"># Return part name and aliases (everything is included in aliases).</span>
-            <span class="k">for</span> <span class="n">alias</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">aliases</span><span class="p">):</span>
-                <span class="k">yield</span> <span class="s2">&quot;PART&quot;</span><span class="p">,</span> <span class="n">lib_file</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="n">alias</span></div>
+<span class="sd">    The DB contains two tables:</span>
+<span class="sd">      - libraries(lib_file TEXT PRIMARY KEY, mtime REAL)</span>
+<span class="sd">      - parts(id INTEGER PRIMARY KEY, part_name TEXT, lib_file TEXT, search_text TEXT)</span>
+
+<span class="sd">    The DB path is taken from skidl.config.part_search_db_dir. If that attribute is</span>
+<span class="sd">    not present, defaults to the current directory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">RLock</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">db_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">skidl</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tool</span> <span class="o">=</span> <span class="n">tool</span> <span class="ow">or</span> <span class="n">skidl</span><span class="o">.</span><span class="n">get_default_tool</span><span class="p">()</span>
+
+        <span class="c1"># Resolve path to database. Libraries for each tool have their own database.</span>
+        <span class="n">db_name</span> <span class="o">=</span> <span class="n">db_name</span> <span class="ow">or</span> <span class="s2">&quot;part_search&quot;</span>
+        <span class="n">db_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">db_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tool</span><span class="si">}</span><span class="s2">.db&quot;</span>
+        <span class="n">db_dir</span> <span class="o">=</span> <span class="n">db_dir</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="s2">&quot;part_search_db_dir&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+        <span class="n">db_path</span> <span class="o">=</span> <span class="n">expand_path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">db_dir</span><span class="p">,</span> <span class="n">db_name</span><span class="p">))</span>
+
+        <span class="c1"># Connect/create DB.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">db_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_conn</span><span class="o">.</span><span class="n">row_factory</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">Row</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+        <span class="c1"># Use existing database or create a new one.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_detect_and_init_db</span><span class="p">()</span>
+
+        <span class="c1"># Update any libraries whose mtime differs from filesystem.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_libs</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_detect_and_init_db</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create tables if they don&#39;t exist.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="c1"># Create core tables.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                CREATE TABLE IF NOT EXISTS libraries (</span>
+<span class="sd">                    lib_file TEXT PRIMARY KEY,</span>
+<span class="sd">                    mtime REAL</span>
+<span class="sd">                )</span>
+<span class="sd">                &quot;&quot;&quot;</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                CREATE TABLE IF NOT EXISTS parts (</span>
+<span class="sd">                    id INTEGER PRIMARY KEY AUTOINCREMENT,</span>
+<span class="sd">                    part_name TEXT,</span>
+<span class="sd">                    lib_file TEXT,</span>
+<span class="sd">                    search_text TEXT,</span>
+<span class="sd">                    aliases TEXT,</span>
+<span class="sd">                    description TEXT,</span>
+<span class="sd">                    keywords TEXT,</span>
+<span class="sd">                    FOREIGN KEY(lib_file) REFERENCES libraries(lib_file)</span>
+<span class="sd">                )</span>
+<span class="sd">                &quot;&quot;&quot;</span>
+            <span class="p">)</span>
+            <span class="c1"># Try to ensure uniqueness on (part_name, lib_file) so we can use</span>
+            <span class="c1"># INSERT OR REPLACE to update parts based on those columns.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+<span class="w">                    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                    CREATE UNIQUE INDEX IF NOT EXISTS parts_part_lib_unique</span>
+<span class="sd">                    ON parts(part_name, lib_file)</span>
+<span class="sd">                    &quot;&quot;&quot;</span>
+                <span class="p">)</span>
+            <span class="k">except</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">OperationalError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="c1"># If creating the unique index fails (e.g., due to existing duplicates),</span>
+                <span class="c1"># warn the user but continue – INSERT OR REPLACE will not be available.</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">bare_warning</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Could not create unique index on parts(part_name, lib_file): </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_get_lib_file_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return lists of missing, stale, and fresh library files.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">missing</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">stale</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">fresh</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT lib_file, mtime FROM libraries&quot;</span><span class="p">)</span>
+            <span class="n">rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+                <span class="n">lib_file</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;lib_file&quot;</span><span class="p">]</span>
+                <span class="n">recorded_mtime</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;mtime&quot;</span><span class="p">]</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">lib_file</span><span class="p">):</span>
+                        <span class="n">missing</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lib_file</span><span class="p">)</span>
+                        <span class="k">continue</span>
+                    <span class="n">mtime</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getmtime</span><span class="p">(</span><span class="n">lib_file</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+                    <span class="n">missing</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lib_file</span><span class="p">)</span>
+                    <span class="k">continue</span>
+
+                <span class="k">if</span> <span class="n">mtime</span> <span class="o">!=</span> <span class="n">recorded_mtime</span><span class="p">:</span>
+                    <span class="n">stale</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lib_file</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">fresh</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lib_file</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">missing</span><span class="p">,</span> <span class="n">stale</span><span class="p">,</span> <span class="n">fresh</span>
+
+<div class="viewcode-block" id="PartSearchDB.load_from_lib_search_paths">
+<a class="viewcode-back" href="../../rst_output/skidl.part_query.html#skidl.part_query.PartSearchDB.load_from_lib_search_paths">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_from_lib_search_paths</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load all libraries from the current skidl.lib_search_paths for the current tool.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Get all files in the database that are fresh (up-to-date).</span>
+        <span class="n">fresh_files</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_lib_file_status</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="c1"># Update the files in the database that are not fresh.</span>
+        <span class="n">not_fresh_files</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">get_all_lib_files</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tool</span><span class="p">))</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">fresh_files</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_libs</span><span class="p">(</span><span class="o">*</span><span class="n">not_fresh_files</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PartSearchDB.add_libs">
+<a class="viewcode-back" href="../../rst_output/skidl.part_query.html#skidl.part_query.PartSearchDB.add_libs">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_libs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">lib_files</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add or replace libraries listed in lib_files (iterable of filenames).</span>
+<span class="sd">        Each lib is added or updated in the libraries table and</span>
+<span class="sd">        its parts are added or updated in the parts table.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">lib_file</span> <span class="ow">in</span> <span class="n">lib_files</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_lib</span><span class="p">(</span><span class="n">lib_file</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PartSearchDB.add_lib">
+<a class="viewcode-back" href="../../rst_output/skidl.part_query.html#skidl.part_query.PartSearchDB.add_lib">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_lib</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lib_path</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parse the library file and insert parts into parts table. Update library mtime.</span>
+<span class="sd">        lib_path should be an absolute path (or something SchLib can use).</span>
+<span class="sd">        If the library is already in the database, then update it and all its parts.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="kn">from</span> <span class="nn">.schlib</span> <span class="kn">import</span> <span class="n">SchLib</span>
+
+        <span class="c1"># Use provided tool or fall back to the DB&#39;s tool.</span>
+        <span class="n">tool</span> <span class="o">=</span> <span class="n">tool</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">tool</span>
+
+        <span class="c1"># Load the library using SchLib so it resolves and parses parts.</span>
+        <span class="n">lib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">lib_path</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="n">tool</span><span class="p">)</span>
+        <span class="c1"># Use absolute filename stored by SchLib if present.</span>
+        <span class="n">abs_fn</span> <span class="o">=</span> <span class="n">expand_path</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span> <span class="s2">&quot;filename&quot;</span><span class="p">,</span> <span class="n">lib_path</span><span class="p">))</span>
+
+        <span class="c1"># Give some feedback so user knows something is happening.</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">79</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">Adding </span><span class="si">{</span><span class="n">lib_path</span><span class="si">}</span><span class="s2"> ...&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Compute mtime. If file missing, use current time as fallback.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">mtime</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getmtime</span><span class="p">(</span><span class="n">abs_fn</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+            <span class="n">mtime</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+        <span class="n">parts_to_insert</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Parse parts to collect searchable text.</span>
+        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">lib</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># Partial parse to ensure aliases and description present.</span>
+                <span class="n">part</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">partial_parse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="c1"># Skip parts with parse errors.</span>
+                <span class="k">continue</span>
+            <span class="n">aliases</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">aliases</span><span class="p">))</span> <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;aliases&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+            <span class="p">)</span>
+            <span class="n">descr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">keywords</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;keywords&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+            <span class="c1"># Build search text: name, aliases, description, keywords.</span>
+            <span class="n">search_text</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="p">[</span><span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">aliases</span><span class="p">,</span> <span class="n">descr</span><span class="p">,</span> <span class="n">keywords</span><span class="p">]))</span>
+            <span class="n">parts_to_insert</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">abs_fn</span><span class="p">,</span> <span class="n">search_text</span><span class="p">,</span> <span class="n">aliases</span><span class="p">,</span> <span class="n">descr</span><span class="p">,</span> <span class="n">keywords</span><span class="p">))</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="c1"># Insert/update library record.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                <span class="s2">&quot;INSERT OR REPLACE INTO libraries(lib_file, mtime) VALUES(?, ?)&quot;</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">abs_fn</span><span class="p">,</span> <span class="n">mtime</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="c1"># Bulk insert parts using INSERT OR REPLACE so entries keyed by</span>
+            <span class="c1"># (part_name, lib_file) are replaced rather than duplicated.</span>
+            <span class="k">if</span> <span class="n">parts_to_insert</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cur</span><span class="o">.</span><span class="n">executemany</span><span class="p">(</span>
+                    <span class="s2">&quot;INSERT OR REPLACE INTO parts(part_name, lib_file, search_text, aliases, description, keywords) VALUES(?, ?, ?, ?, ?, ?)&quot;</span><span class="p">,</span>
+                    <span class="n">parts_to_insert</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># No parts found: commit library entry change.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="PartSearchDB.update_libs">
+<a class="viewcode-back" href="../../rst_output/skidl.part_query.html#skidl.part_query.PartSearchDB.update_libs">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_libs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        For every library recorded in the DB, compare filesystem mtime; if different, update.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">missing</span><span class="p">,</span> <span class="n">stale</span><span class="p">,</span> <span class="n">fresh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_lib_file_status</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rmv_libs</span><span class="p">(</span><span class="o">*</span><span class="n">missing</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_libs</span><span class="p">(</span><span class="o">*</span><span class="n">stale</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PartSearchDB.rmv_libs">
+<a class="viewcode-back" href="../../rst_output/skidl.part_query.html#skidl.part_query.PartSearchDB.rmv_libs">[docs]</a>
+    <span class="k">def</span> <span class="nf">rmv_libs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">lib_files</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove libraries listed in lib_files (iterable of filenames).</span>
+<span class="sd">        Each lib and its parts are removed from the database.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">lib_file</span> <span class="ow">in</span> <span class="n">lib_files</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rmv_lib</span><span class="p">(</span><span class="n">lib_file</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PartSearchDB.rmv_lib">
+<a class="viewcode-back" href="../../rst_output/skidl.part_query.html#skidl.part_query.PartSearchDB.rmv_lib">[docs]</a>
+    <span class="k">def</span> <span class="nf">rmv_lib</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lib_file</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove a single library file and its parts from the database.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Expand path and resolve via SchLib to get absolute filename.</span>
+        <span class="kn">from</span> <span class="nn">.schlib</span> <span class="kn">import</span> <span class="n">SchLib</span>
+
+        <span class="c1"># Use SchLib to resolve the filename (it will raise if not found).</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">lib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">lib_file</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tool</span><span class="p">)</span>
+            <span class="c1"># Use absolute path recorded in SchLib.filename if available.</span>
+            <span class="n">resolved</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span> <span class="s2">&quot;filename&quot;</span><span class="p">,</span> <span class="n">lib_file</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="c1"># Fall back to the raw lib_file path (maybe it&#39;s already absolute).</span>
+            <span class="n">resolved</span> <span class="o">=</span> <span class="n">lib_file</span>
+
+        <span class="n">resolved</span> <span class="o">=</span> <span class="n">expand_path</span><span class="p">(</span><span class="n">resolved</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DELETE FROM parts WHERE lib_file = ?&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">resolved</span><span class="p">,))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DELETE FROM libraries WHERE lib_file = ?&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">resolved</span><span class="p">,))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div>
+
+
+    <span class="k">def</span> <span class="nf">_tokenize_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parse query into a list of OR-groups, each group is list of terms (phrases kept).</span>
+<span class="sd">        &#39;|&#39; separates OR groups. Quoted phrases are preserved.</span>
+<span class="sd">        Parentheses group terms and are expanded recursively.</span>
+<span class="sd">        </span>
+<span class="sd">        Examples:</span>
+<span class="sd">        - &quot;a b&quot; -&gt; [[&quot;a&quot;, &quot;b&quot;]] (AND)</span>
+<span class="sd">        - &quot;a | b&quot; -&gt; [[&quot;a&quot;], [&quot;b&quot;]] (OR)</span>
+<span class="sd">        - &quot;(a b) | c&quot; -&gt; [[&quot;a&quot;, &quot;b&quot;], [&quot;c&quot;]] (OR with grouped AND)</span>
+<span class="sd">        - &quot;x (a | b)&quot; -&gt; [[&quot;x&quot;, &quot;a&quot;], [&quot;x&quot;, &quot;b&quot;]] (expansion)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">def</span> <span class="nf">_expand_parentheses</span><span class="p">(</span><span class="n">tokens</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Recursively expand parentheses in a list of tokens.</span>
+<span class="sd">            Returns a list of lists representing OR groups.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+            
+            <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">tokens</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;(&#39;</span><span class="p">:</span>
+                    <span class="c1"># Find matching closing parenthesis</span>
+                    <span class="n">paren_count</span> <span class="o">=</span> <span class="mi">1</span>
+                    <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span> <span class="ow">and</span> <span class="n">paren_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">tokens</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;(&#39;</span><span class="p">:</span>
+                            <span class="n">paren_count</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="k">elif</span> <span class="n">tokens</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;)&#39;</span><span class="p">:</span>
+                            <span class="n">paren_count</span> <span class="o">-=</span> <span class="mi">1</span>
+                        <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+                    
+                    <span class="k">if</span> <span class="n">paren_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="c1"># Unmatched parenthesis, treat as regular token</span>
+                        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># Extract content within parentheses and recursively expand</span>
+                        <span class="n">inner_tokens</span> <span class="o">=</span> <span class="n">tokens</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+                        <span class="n">inner_expanded</span> <span class="o">=</span> <span class="n">_expand_parentheses</span><span class="p">(</span><span class="n">inner_tokens</span><span class="p">)</span>
+                        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inner_expanded</span><span class="p">)</span>
+                        <span class="n">i</span> <span class="o">=</span> <span class="n">j</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            
+            <span class="k">return</span> <span class="n">result</span>
+        
+        <span class="k">def</span> <span class="nf">_tokenize_simple</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;Tokenize text handling quotes, pipes, and parentheses.&quot;&quot;&quot;</span>
+            <span class="n">tokens</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+                <span class="n">char</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                
+                <span class="k">if</span> <span class="n">char</span><span class="o">.</span><span class="n">isspace</span><span class="p">():</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">elif</span> <span class="n">char</span> <span class="ow">in</span> <span class="s1">&#39;&quot;</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="p">:</span>
+                    <span class="c1"># Handle quoted strings</span>
+                    <span class="n">quote_char</span> <span class="o">=</span> <span class="n">char</span>
+                    <span class="n">start</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="ow">and</span> <span class="n">text</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">quote_char</span><span class="p">:</span>
+                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+                        <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">i</span><span class="p">])</span>
+                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># Unclosed quote, include the quote</span>
+                        <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="n">start</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:])</span>
+                        <span class="k">break</span>
+                <span class="k">elif</span> <span class="n">char</span> <span class="o">==</span> <span class="s1">&#39;|&#39;</span><span class="p">:</span>
+                    <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">elif</span> <span class="n">char</span> <span class="ow">in</span> <span class="s1">&#39;()&#39;</span><span class="p">:</span>
+                    <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">char</span><span class="p">)</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Regular word</span>
+                    <span class="n">start</span> <span class="o">=</span> <span class="n">i</span>
+                    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">text</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">isspace</span><span class="p">()</span> <span class="ow">and</span> <span class="n">text</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="s1">&#39;|()&#39;</span><span class="p">:</span>
+                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">i</span><span class="p">])</span>
+            
+            <span class="k">return</span> <span class="n">tokens</span>
+        
+        <span class="k">def</span> <span class="nf">_distribute_terms</span><span class="p">(</span><span class="n">expanded_tokens</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Convert expanded token structure into OR groups.</span>
+<span class="sd">            Handles distribution of terms across nested structures.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">expanded_tokens</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">[]</span>
+            
+            <span class="c1"># Convert single tokens or nested lists to OR groups</span>
+            <span class="n">or_groups</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">current_and_group</span> <span class="o">=</span> <span class="p">[]</span>
+            
+            <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">expanded_tokens</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">token</span> <span class="o">==</span> <span class="s1">&#39;|&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">current_and_group</span><span class="p">:</span>
+                        <span class="n">or_groups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_and_group</span><span class="p">)</span>
+                        <span class="n">current_and_group</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                    <span class="c1"># This is a nested structure from parentheses</span>
+                    <span class="n">nested_or_groups</span> <span class="o">=</span> <span class="n">_distribute_terms</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+                    
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">current_and_group</span><span class="p">:</span>
+                        <span class="c1"># No preceding terms, just add the nested groups</span>
+                        <span class="n">or_groups</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">nested_or_groups</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># Distribute current AND terms across nested OR groups</span>
+                        <span class="k">for</span> <span class="n">nested_group</span> <span class="ow">in</span> <span class="n">nested_or_groups</span><span class="p">:</span>
+                            <span class="n">combined_group</span> <span class="o">=</span> <span class="n">current_and_group</span> <span class="o">+</span> <span class="n">nested_group</span>
+                            <span class="n">or_groups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">combined_group</span><span class="p">)</span>
+                        <span class="n">current_and_group</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Regular term</span>
+                    <span class="n">current_and_group</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+            
+            <span class="c1"># Add any remaining AND group</span>
+            <span class="k">if</span> <span class="n">current_and_group</span><span class="p">:</span>
+                <span class="n">or_groups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_and_group</span><span class="p">)</span>
+            
+            <span class="k">return</span> <span class="n">or_groups</span>
+        
+        <span class="c1"># Main tokenization logic</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">query</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">query</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        
+        <span class="c1"># First pass: tokenize handling quotes, pipes, and parentheses</span>
+        <span class="n">tokens</span> <span class="o">=</span> <span class="n">_tokenize_simple</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+        
+        <span class="c1"># Second pass: expand parentheses recursively</span>
+        <span class="n">expanded</span> <span class="o">=</span> <span class="n">_expand_parentheses</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+        
+        <span class="c1"># Third pass: convert to OR groups with AND terms</span>
+        <span class="n">or_groups</span> <span class="o">=</span> <span class="n">_distribute_terms</span><span class="p">(</span><span class="n">expanded</span><span class="p">)</span>
+        
+        <span class="c1"># Filter out empty groups</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">group</span> <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">or_groups</span> <span class="k">if</span> <span class="n">group</span><span class="p">]</span>
+
+<div class="viewcode-block" id="PartSearchDB.search">
+<a class="viewcode-back" href="../../rst_output/skidl.part_query.html#skidl.part_query.PartSearchDB.search">[docs]</a>
+    <span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Search parts for the given query string.</span>
+<span class="sd">        Supports quoted phrases and &#39;|&#39; as OR.</span>
+
+<span class="sd">        Returns a list of (part_name, lib_file) tuples for matches.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Define a named tuple for the search results.</span>
+        <span class="c1"># The lib_path element will actually be the contents of the lib_file field.</span>
+        <span class="c1"># The lib_file element will be the library file name (path without the preceding path).</span>
+        <span class="c1"># The lib_name element will be the library file name without the suffix.</span>
+        <span class="n">PartResult</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;PartResult&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;part_name&#39;</span><span class="p">,</span> <span class="s1">&#39;lib_path&#39;</span><span class="p">,</span> <span class="s1">&#39;lib_file&#39;</span><span class="p">,</span> <span class="s1">&#39;lib_name&#39;</span><span class="p">,</span> <span class="s1">&#39;aliases&#39;</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="s1">&#39;keywords&#39;</span><span class="p">])</span>
+        
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">query</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">query</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="n">tokens_groups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tokenize_query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="n">where_clauses</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">tokens_groups</span><span class="p">:</span>
+                <span class="n">subclauses</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">group</span><span class="p">:</span>
+                    <span class="n">subclauses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;search_text LIKE ?&quot;</span><span class="p">)</span>
+                    <span class="n">params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;%</span><span class="si">{</span><span class="n">term</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+                <span class="n">where_clauses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="s2">&quot; AND &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subclauses</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span><span class="p">)</span>
+            <span class="n">where_sql</span> <span class="o">=</span> <span class="s2">&quot; OR &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">where_clauses</span><span class="p">)</span>
+            <span class="n">sql</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT part_name, lib_file, aliases, description, keywords FROM parts WHERE </span><span class="si">{</span><span class="n">where_sql</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">if</span> <span class="n">limit</span><span class="p">:</span>
+                <span class="n">sql</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; LIMIT </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">limit</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+            <span class="n">rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">PartResult</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;part_name&quot;</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;lib_file&quot;</span><span class="p">],</span> 
+                           <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;lib_file&quot;</span><span class="p">]),</span> 
+                           <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;lib_file&quot;</span><span class="p">]))[</span><span class="mi">0</span><span class="p">],</span>
+                           <span class="n">r</span><span class="p">[</span><span class="s2">&quot;aliases&quot;</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;keywords&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="PartSearchDB.close">
+<a class="viewcode-back" href="../../rst_output/skidl.part_query.html#skidl.part_query.PartSearchDB.close">[docs]</a>
+    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Close the database connection.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="search_parts">
 <a class="viewcode-back" href="../../rst_output/skidl.part_query.html#skidl.part_query.search_parts">[docs]</a>
 <span class="nd">@export_to_all</span>
-<span class="k">def</span> <span class="nf">search_parts</span><span class="p">(</span><span class="n">terms</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">search_parts</span><span class="p">(</span><span class="n">terms</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Print a list of parts with the regex terms within their name, alias, description or keywords.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Searches through all available libraries for parts matching the given terms and prints</span>
 <span class="sd">    the results to the console.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Args:</span>
-<span class="sd">        terms (str): Space-separated search terms to match against part attributes.</span>
+<span class="sd">        terms (str): Search terms separated by spaces (AND) or | (OR) to match against part attributes.</span>
 <span class="sd">        tool (str, optional): The ECAD tool format for the libraries to search.</span>
 <span class="sd">                             Defaults to the currently configured tool.</span>
-<span class="sd">    </span>
+<span class="sd">        fmt (str, optional): A format string for displaying each part.</span>
+<span class="sd">                             Defaults to &quot;{lib_name}: {part_name} ({description})&quot;.</span>
+<span class="sd">        file (file-like object, optional): The output stream to write results to.</span>
+<span class="sd">                                          Defaults to sys.stdout.</span>
+
 <span class="sd">    Returns:</span>
 <span class="sd">        None: Results are printed to the console.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">parts</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">search_parts_iter</span><span class="p">(</span><span class="n">terms</span><span class="p">,</span> <span class="n">tool</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">part</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;LIB&quot;</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">79</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">Searching </span><span class="si">{</span><span class="n">part</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> ...&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">part</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;PART&quot;</span><span class="p">:</span>
-            <span class="n">parts</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">part</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">79</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">skidl</span>
 
-    <span class="c1"># Print each part name sorted by the library where it was found.</span>
-    <span class="k">for</span> <span class="n">lib_file</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="n">part_name</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">parts</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-        <span class="nb">print</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">lib_file</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">part_name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;description&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;???&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span>
-        <span class="p">)</span></div>
+    <span class="n">tool</span> <span class="o">=</span> <span class="n">tool</span> <span class="ow">or</span> <span class="n">skidl</span><span class="o">.</span><span class="n">get_default_tool</span><span class="p">()</span>
+    <span class="n">fmt</span> <span class="o">=</span> <span class="n">fmt</span> <span class="ow">or</span> <span class="s2">&quot;</span><span class="si">{lib_name}</span><span class="s2">: </span><span class="si">{part_name}</span><span class="s2"> (</span><span class="si">{description}</span><span class="s2">)&quot;</span>
+    <span class="n">file</span> <span class="o">=</span> <span class="n">file</span> <span class="ow">or</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span>
+
+    <span class="k">if</span> <span class="n">tool</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">part_search_dbs</span><span class="p">:</span>
+        <span class="c1"># Initialize and store the DB object for this tool.</span>
+        <span class="n">part_search_dbs</span><span class="p">[</span><span class="n">tool</span><span class="p">]</span> <span class="o">=</span> <span class="n">PartSearchDB</span><span class="p">(</span><span class="n">tool</span><span class="o">=</span><span class="n">tool</span><span class="p">)</span>
+    
+    <span class="c1"># Load the database from the current library search paths for the given tool.</span>
+    <span class="n">part_search_dbs</span><span class="p">[</span><span class="n">tool</span><span class="p">]</span><span class="o">.</span><span class="n">load_from_lib_search_paths</span><span class="p">()</span>
+
+    <span class="c1"># Search the database for parts matching the search terms.</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="n">part_search_dbs</span><span class="p">[</span><span class="n">tool</span><span class="p">]</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">terms</span><span class="p">)</span>
+
+    <span class="c1"># Output the search results sorted by lib file path and part name.</span>
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">lib_path</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">part_name</span><span class="p">)):</span>
+        <span class="n">part_name</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">part_name</span>
+        <span class="n">lib_path</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">lib_path</span>
+        <span class="n">lib_file</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">lib_file</span>
+        <span class="n">lib_name</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">lib_name</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">description</span>
+        <span class="n">aliases</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">aliases</span>
+        <span class="n">keywords</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">keywords</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">()),</span> <span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span>
+
+    <span class="k">return</span></div>
 
 
 
@@ -261,7 +708,7 @@
 <span class="k">class</span> <span class="nc">FootprintCache</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Dict for storing footprints from all directories.</span>
-<span class="sd">    </span>
+
 <span class="sd">    This cache stores footprint information from KiCad libraries to avoid</span>
 <span class="sd">    repeatedly reading the same files from disk during searches.</span>
 <span class="sd">    It maps library nicknames to a dict containing the path and module information.</span>
@@ -270,7 +717,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the footprint cache.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            *args, **kwargs: Arguments passed to the dict constructor.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -280,7 +727,7 @@
     <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Reset the footprint cache.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Clears all cached footprint data and marks the cache as invalid.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>  <span class="c1"># Clear out cache.</span>
@@ -289,10 +736,10 @@
     <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Load cache with footprints from libraries in fp-lib-table file.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Reads the fp-lib-table file in the given path to identify and load</span>
 <span class="sd">        footprint libraries into the cache.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            path (str): Path to directory containing fp-lib-table file.</span>
 <span class="sd">                       If no fp-lib-table is found, treats the path itself as a module library.</span>
@@ -404,17 +851,17 @@
 <span class="k">def</span> <span class="nf">search_footprints_iter</span><span class="p">(</span><span class="n">terms</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return an iterator over footprints that match the regex terms.</span>
-<span class="sd">    </span>
+
 <span class="sd">    This generator function yields information about libraries being searched and footprints</span>
 <span class="sd">    found that match the search terms.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        terms (str): Space-separated search terms to match against footprint attributes.</span>
 <span class="sd">        tool (str, optional): The ECAD tool format for the footprint libraries to search.</span>
 <span class="sd">                             Defaults to the currently configured tool.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Yields:</span>
-<span class="sd">        tuple: Either progress information as (&quot;LIB&quot;, lib_name, index, total) </span>
+<span class="sd">        tuple: Either progress information as (&quot;LIB&quot;, lib_name, index, total)</span>
 <span class="sd">               or footprint information as (&quot;MODULE&quot;, lib_name, module_text, module_name).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -503,15 +950,15 @@
 <span class="k">def</span> <span class="nf">search_footprints</span><span class="p">(</span><span class="n">terms</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Print a list of footprints with the regex term within their description/tags.</span>
-<span class="sd">    </span>
-<span class="sd">    Searches through all available footprint libraries for footprints matching </span>
+
+<span class="sd">    Searches through all available footprint libraries for footprints matching</span>
 <span class="sd">    the given terms and prints the results to the console.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        terms (str): Space-separated search terms to match against footprint attributes.</span>
 <span class="sd">        tool (str, optional): The ECAD tool format for the libraries to search.</span>
 <span class="sd">                             Defaults to the currently configured tool.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Returns:</span>
 <span class="sd">        None: Results are printed to the console.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -585,7 +1032,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.part_query</a></li> 
       </ul>

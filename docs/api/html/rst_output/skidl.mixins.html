@@ -1,0 +1,467 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>skidl.mixins module &#8212; SKiDL 2.2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../_static/documentation_options.js?v=b21de401"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../"><img src="../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.mixins module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-skidl.mixins">
+<span id="skidl-mixins-module"></span><h1>skidl.mixins module<a class="headerlink" href="#module-skidl.mixins" title="Link to this heading">¶</a></h1>
+<p>Mixin classes for SKiDL objects.</p>
+<p>This module provides mixin classes that add specific functionality to SKiDL objects.
+The mixins are designed to be combined with base classes to provide additional
+capabilities without requiring deep inheritance hierarchies.</p>
+<dl class="simple">
+<dt>Classes:</dt><dd><p>PinMixin: Adds pin management functionality to parts and other objects.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="skidl.mixins.PinMixin">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.mixins.</span></span><span class="sig-name descname"><span class="pre">PinMixin</span></span><a class="reference internal" href="../_modules/skidl/mixins.html#PinMixin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.mixins.PinMixin" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Mixin class that adds pin-related methods and functionality to a class.</p>
+<p>This mixin provides comprehensive pin management capabilities including:
+- Adding, removing, and manipulating pins
+- Pin selection using various criteria (names, numbers, regex patterns)
+- Pin connection and disconnection operations
+- Pin aliasing and naming utilities</p>
+<p>The mixin maintains a list of pins and provides multiple ways to access them,
+including bracket notation, attribute access, and iteration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="skidl.mixins.PinMixin.pins">
+<span class="sig-name descname"><span class="pre">pins</span></span><a class="headerlink" href="#skidl.mixins.PinMixin.pins" title="Link to this definition">¶</a></dt>
+<dd><p>List of Pin objects belonging to the part.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="skidl.mixins.PinMixin._match_pin_regex">
+<span class="sig-name descname"><span class="pre">_match_pin_regex</span></span><a class="headerlink" href="#skidl.mixins.PinMixin._match_pin_regex" title="Link to this definition">¶</a></dt>
+<dd><p>Enable/disable regex matching for pin names and aliases.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">MyPart</span><span class="p">(</span><span class="n">PinMixin</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+<span class="gp">... </span>        <span class="c1"># Add pins to the part</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">add_pins</span><span class="p">(</span><span class="n">Pin</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;VCC&#39;</span><span class="p">),</span> <span class="n">Pin</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;GND&#39;</span><span class="p">))</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">part</span> <span class="o">=</span> <span class="n">MyPart</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcc_pin</span> <span class="o">=</span> <span class="n">part</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Get pin by number</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gnd_pin</span> <span class="o">=</span> <span class="n">part</span><span class="p">[</span><span class="s1">&#39;GND&#39;</span><span class="p">]</span>  <span class="c1"># Get pin by name</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.mixins.PinMixin.add_pins">
+<span class="sig-name descname"><span class="pre">add_pins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pins</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/mixins.html#PinMixin.add_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.mixins.PinMixin.add_pins" title="Link to this definition">¶</a></dt>
+<dd><p>Add one or more pins to the part.</p>
+<p>This method adds pins to the part and sets up proper relationships
+and aliases. Each pin gets a back-reference to the part, and
+automatic aliases are created for pin names and numbers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>*pins</strong> – Variable number of Pin objects or iterables of Pin objects
+to add to the part.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The part object with pins added, enabling method chaining.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Self</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Automatic aliases are created:
+- Pin name becomes an alias
+- “p” + pin number becomes an alias (e.g., “p1” for pin 1)</p>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">part</span><span class="o">.</span><span class="n">add_pins</span><span class="p">(</span><span class="n">Pin</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;VCC&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">part</span><span class="o">.</span><span class="n">add_pins</span><span class="p">([</span><span class="n">Pin</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;GND&#39;</span><span class="p">),</span> <span class="n">Pin</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;DATA&#39;</span><span class="p">)])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.mixins.PinMixin.associate_pins">
+<span class="sig-name descname"><span class="pre">associate_pins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/mixins.html#PinMixin.associate_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.mixins.PinMixin.associate_pins" title="Link to this definition">¶</a></dt>
+<dd><p>Ensure all pins have proper back-references to this part.</p>
+<p>This method updates each pin’s ‘part’ attribute to point back to
+this part object, maintaining bidirectional relationships between
+parts and their pins. This is typically called after pins are
+added or when the part structure is modified.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.mixins.PinMixin.create_pins">
+<span class="sig-name descname"><span class="pre">create_pins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pin_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connections</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/mixins.html#PinMixin.create_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.mixins.PinMixin.create_pins" title="Link to this definition">¶</a></dt>
+<dd><p>Create one or more pins with systematic naming and numbering.</p>
+<p>This method creates multiple pins with names based on a common prefix
+and systematic numbering. Pins can optionally be connected to provided
+nets, buses, or other pins during creation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base_name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Base name for the pins. Pin indices will be appended
+to this name (e.g., “DATA” becomes “DATA1”, “DATA2”, etc.).</p></li>
+<li><p><strong>pin_count</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#range" title="(in Python v3.13)"><em>range</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#slice" title="(in Python v3.13)"><em>slice</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>, or </em><em>None</em>) – Specification of
+how many pins to create and their numbering:
+- int N: Creates N pins numbered 1 to N
+- range or slice: Uses the range values for pin numbers
+- tuple or list: Uses the provided list of pin numbers
+- None: Creates single pin without index appended to name</p></li>
+<li><p><strong>connections</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em> or </em><em>scalar</em><em>, </em><em>optional</em>) – List of nets, buses, or pins to connect
+to each created pin. Must match the number of pins created.
+A scalar Net, Pin, or Bus will will be converted to a list of one item.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The part object with pins created, enabling method chaining.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Self</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If connections list length doesn’t match number of pins created.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">part</span><span class="o">.</span><span class="n">create_pins</span><span class="p">(</span><span class="s2">&quot;DATA&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>  <span class="c1"># Creates DATA1, DATA2, ..., DATA8</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">part</span><span class="o">.</span><span class="n">create_pins</span><span class="p">(</span><span class="s2">&quot;ADDR&quot;</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span>  <span class="c1"># Creates ADDR0 to ADDR15</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">part</span><span class="o">.</span><span class="n">create_pins</span><span class="p">(</span><span class="s2">&quot;CLK&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>  <span class="c1"># Creates single pin named &quot;CLK&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">part</span><span class="o">.</span><span class="n">create_pins</span><span class="p">(</span><span class="s2">&quot;IO&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="n">net1</span><span class="p">,</span> <span class="n">net2</span><span class="p">,</span> <span class="n">net3</span><span class="p">,</span> <span class="n">net4</span><span class="p">])</span>  <span class="c1"># With connections</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.mixins.PinMixin.disconnect">
+<span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/mixins.html#PinMixin.disconnect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.mixins.PinMixin.disconnect" title="Link to this definition">¶</a></dt>
+<dd><p>Disconnect all pins from their connected nets.</p>
+<p>This method breaks all electrical connections to the part by
+disconnecting each pin from any nets it may be connected to.
+The part becomes electrically isolated after this operation.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">part</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>  <span class="c1"># Disconnect all pins from nets</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.mixins.PinMixin.get_pins">
+<span class="sig-name descname"><span class="pre">get_pins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pin_ids</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">criteria</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/mixins.html#PinMixin.get_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.mixins.PinMixin.get_pins" title="Link to this definition">¶</a></dt>
+<dd><p>Get pins matching specified identifiers and criteria.</p>
+<p>This is the core pin selection method that supports multiple selection
+modes including exact matching, regex patterns, and attribute-based
+filtering. It provides flexible pin selection capabilities for various
+use cases.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>*pin_ids</strong> – Pin identifiers for selection:
+- Integers or strings for exact pin number matches
+- Strings for exact pin name/alias matches
+- Regex patterns (when regex matching enabled)
+- Slices for pin number ranges
+- Lists/tuples of any combination above
+If empty, selects all pins.</p>
+</dd>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>criteria</strong> – Attribute-based filtering criteria as key=value pairs.</p></li>
+<li><p><strong>silent</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Suppress error messages if True. Defaults to False.</p></li>
+<li><p><strong>only_search_numbers</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Restrict search to pin numbers only.
+Defaults to False.</p></li>
+<li><p><strong>only_search_names</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Restrict search to pin names/aliases only.
+Defaults to False.</p></li>
+<li><p><strong>match_regex</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Enable regex pattern matching for names.
+Defaults to False, or uses part’s match_pin_regex setting.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>Single Pin object if exactly one match found</p></li>
+<li><p>List of Pin objects if multiple matches found</p></li>
+<li><p>None if no matches found and silent=True</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin" title="skidl.pin.Pin">Pin</a>, <a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a>, or None</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If no pins found and silent=False.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pins</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">get_pins</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># Get pins 1, 2, 3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analog_pins</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">get_pins</span><span class="p">(</span><span class="n">func</span><span class="o">=</span><span class="s1">&#39;analog&#39;</span><span class="p">)</span>  <span class="c1"># Pins with analog function</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">power_pins</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">get_pins</span><span class="p">(</span><span class="s1">&#39;VCC&#39;</span><span class="p">,</span> <span class="s1">&#39;VDD&#39;</span><span class="p">,</span> <span class="s1">&#39;GND&#39;</span><span class="p">)</span>  <span class="c1"># Named pins</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pattern_pins</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">get_pins</span><span class="p">(</span><span class="s1">&#39;A[0-9]+&#39;</span><span class="p">,</span> <span class="n">match_regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Regex</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="skidl.mixins.PinMixin.match_pin_regex">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">match_pin_regex</span></span><a class="headerlink" href="#skidl.mixins.PinMixin.match_pin_regex" title="Link to this definition">¶</a></dt>
+<dd><p>Get the enable/disable flag for pin regular-expression matching.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Current state of regex matching flag.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="skidl.mixins.PinMixin.ordered_pins">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ordered_pins</span></span><a class="headerlink" href="#skidl.mixins.PinMixin.ordered_pins" title="Link to this definition">¶</a></dt>
+<dd><p>Get the pins sorted in a consistent order.</p>
+<p>Returns the part’s pins in sorted order, typically by pin number
+where possible, falling back to name-based sorting for non-numeric pins.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Sorted list of the part’s Pin objects.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_pins</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">ordered_pins</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">ordered_pins</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pin </span><span class="si">{</span><span class="n">pin</span><span class="o">.</span><span class="n">num</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">pin</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.mixins.PinMixin.rename_pin">
+<span class="sig-name descname"><span class="pre">rename_pin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_pin_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/mixins.html#PinMixin.rename_pin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.mixins.PinMixin.rename_pin" title="Link to this definition">¶</a></dt>
+<dd><p>Change the name of a pin.</p>
+<p>Finds the pin matching the given identifier and updates its name
+to the new value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pin_id</strong> – Current identifier (name or number) of the pin to rename.</p></li>
+<li><p><strong>new_pin_name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – New name to assign to the pin.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">part</span><span class="o">.</span><span class="n">rename_pin</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;POWER&#39;</span><span class="p">)</span>  <span class="c1"># Rename pin 1 to &#39;POWER&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">part</span><span class="o">.</span><span class="n">rename_pin</span><span class="p">(</span><span class="s1">&#39;RESET&#39;</span><span class="p">,</span> <span class="s1">&#39;RST&#39;</span><span class="p">)</span>  <span class="c1"># Rename RESET pin to RST</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.mixins.PinMixin.renumber_pin">
+<span class="sig-name descname"><span class="pre">renumber_pin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_pin_num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/mixins.html#PinMixin.renumber_pin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.mixins.PinMixin.renumber_pin" title="Link to this definition">¶</a></dt>
+<dd><p>Change the number of a pin.</p>
+<p>Finds the pin matching the given identifier and updates its number
+to the new value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pin_id</strong> – Current identifier (name or number) of the pin to renumber.</p></li>
+<li><p><strong>new_pin_num</strong> – New number to assign to the pin.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">part</span><span class="o">.</span><span class="n">renumber_pin</span><span class="p">(</span><span class="s1">&#39;RESET&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>  <span class="c1"># Change RESET pin to number 100</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">part</span><span class="o">.</span><span class="n">renumber_pin</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># Change pin 1 to pin 5</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.mixins.PinMixin.rmv_pins">
+<span class="sig-name descname"><span class="pre">rmv_pins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pin_ids</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/mixins.html#PinMixin.rmv_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.mixins.PinMixin.rmv_pins" title="Link to this definition">¶</a></dt>
+<dd><p>Remove one or more pins from the part.</p>
+<p>Removes pins that match the given identifiers (names or numbers).
+The pins are permanently removed from the part’s pin list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>*pin_ids</strong> – Pin identifiers (names or numbers) of pins to remove.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">part</span><span class="o">.</span><span class="n">rmv_pins</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;RESET&#39;</span><span class="p">)</span>  <span class="c1"># Remove pin 1 and RESET pin</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">part</span><span class="o">.</span><span class="n">rmv_pins</span><span class="p">(</span><span class="s1">&#39;VCC&#39;</span><span class="p">,</span> <span class="s1">&#39;GND&#39;</span><span class="p">)</span>  <span class="c1"># Remove power pins</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.mixins.PinMixin.split_pin_names">
+<span class="sig-name descname"><span class="pre">split_pin_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delimiters</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/mixins.html#PinMixin.split_pin_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.mixins.PinMixin.split_pin_names" title="Link to this definition">¶</a></dt>
+<dd><p>Split pin names using delimiters and add subnames as aliases.</p>
+<p>This method takes pin names that contain delimiter characters and
+splits them into component parts, adding each part as an alias
+to the pin. This enables more flexible pin access patterns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>delimiters</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – String containing characters to use as delimiters
+for splitting pin names.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">part</span><span class="o">.</span><span class="n">split_pin_names</span><span class="p">(</span><span class="s1">&#39;_-/&#39;</span><span class="p">)</span>  <span class="c1"># Split on underscore, dash, slash</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Pin named &quot;DATA_IN&quot; would get aliases &quot;DATA&quot; and &quot;IN&quot;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.mixins.PinMixin.swap_pins">
+<span class="sig-name descname"><span class="pre">swap_pins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin_id1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pin_id2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/mixins.html#PinMixin.swap_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.mixins.PinMixin.swap_pins" title="Link to this definition">¶</a></dt>
+<dd><p>Swap the names and numbers between two pins.</p>
+<p>This method exchanges the name and number attributes between two pins,
+effectively swapping their identities while maintaining their physical
+connections and other properties.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pin_id1</strong> – Identifier (name or number) of the first pin.</p></li>
+<li><p><strong>pin_id2</strong> – Identifier (name or number) of the second pin.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">part</span><span class="o">.</span><span class="n">swap_pins</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># Swap pins 1 and 2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">part</span><span class="o">.</span><span class="n">swap_pins</span><span class="p">(</span><span class="s1">&#39;RESET&#39;</span><span class="p">,</span> <span class="s1">&#39;ENABLE&#39;</span><span class="p">)</span>  <span class="c1"># Swap named pins</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">skidl.mixins module</a><ul>
+<li><a class="reference internal" href="#skidl.mixins.PinMixin"><code class="docutils literal notranslate"><span class="pre">PinMixin</span></code></a><ul>
+<li><a class="reference internal" href="#skidl.mixins.PinMixin.pins"><code class="docutils literal notranslate"><span class="pre">PinMixin.pins</span></code></a></li>
+<li><a class="reference internal" href="#skidl.mixins.PinMixin._match_pin_regex"><code class="docutils literal notranslate"><span class="pre">PinMixin._match_pin_regex</span></code></a></li>
+<li><a class="reference internal" href="#skidl.mixins.PinMixin.add_pins"><code class="docutils literal notranslate"><span class="pre">PinMixin.add_pins()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.mixins.PinMixin.associate_pins"><code class="docutils literal notranslate"><span class="pre">PinMixin.associate_pins()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.mixins.PinMixin.create_pins"><code class="docutils literal notranslate"><span class="pre">PinMixin.create_pins()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.mixins.PinMixin.disconnect"><code class="docutils literal notranslate"><span class="pre">PinMixin.disconnect()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.mixins.PinMixin.get_pins"><code class="docutils literal notranslate"><span class="pre">PinMixin.get_pins()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.mixins.PinMixin.match_pin_regex"><code class="docutils literal notranslate"><span class="pre">PinMixin.match_pin_regex</span></code></a></li>
+<li><a class="reference internal" href="#skidl.mixins.PinMixin.ordered_pins"><code class="docutils literal notranslate"><span class="pre">PinMixin.ordered_pins</span></code></a></li>
+<li><a class="reference internal" href="#skidl.mixins.PinMixin.rename_pin"><code class="docutils literal notranslate"><span class="pre">PinMixin.rename_pin()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.mixins.PinMixin.renumber_pin"><code class="docutils literal notranslate"><span class="pre">PinMixin.renumber_pin()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.mixins.PinMixin.rmv_pins"><code class="docutils literal notranslate"><span class="pre">PinMixin.rmv_pins()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.mixins.PinMixin.split_pin_names"><code class="docutils literal notranslate"><span class="pre">PinMixin.split_pin_names()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.mixins.PinMixin.swap_pins"><code class="docutils literal notranslate"><span class="pre">PinMixin.swap_pins()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rst_output/skidl.mixins.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.mixins module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>

@@ -31,6 +31,7 @@ Submodules
    skidl.geometry
    skidl.interface
    skidl.logger
+   skidl.mixins
    skidl.net
    skidl.netlist_to_skidl
    skidl.netpinlist

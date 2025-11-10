@@ -1,0 +1,7 @@
+skidl.scripts.part\_search\_cli module
+======================================
+
+.. automodule:: skidl.scripts.part_search_cli
+   :members:
+   :show-inheritance:
+   :undoc-members:

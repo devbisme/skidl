@@ -1,0 +1,831 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.mixins &#8212; SKiDL 2.2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../../_static/documentation_options.js?v=b21de401"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../../"><img src="../../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.mixins</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skidl.mixins</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Mixin classes for SKiDL objects.</span>
+
+<span class="sd">This module provides mixin classes that add specific functionality to SKiDL objects.</span>
+<span class="sd">The mixins are designed to be combined with base classes to provide additional</span>
+<span class="sd">capabilities without requiring deep inheritance hierarchies.</span>
+
+<span class="sd">Classes:</span>
+<span class="sd">    PinMixin: Adds pin management functionality to parts and other objects.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
+<span class="kn">from</span> <span class="nn">.skidlbaseobj</span> <span class="kn">import</span> <span class="n">SkidlBaseObject</span>
+<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">expand_indices</span><span class="p">,</span>
+    <span class="n">filter_list</span><span class="p">,</span>
+    <span class="n">flatten</span><span class="p">,</span>
+    <span class="n">from_iadd</span><span class="p">,</span>
+    <span class="n">list_or_scalar</span><span class="p">,</span>
+    <span class="n">rmv_iadd</span><span class="p">,</span>
+    <span class="n">Rgx</span><span class="p">,</span>
+<span class="p">)</span>
+
+<div class="viewcode-block" id="PinMixin">
+<a class="viewcode-back" href="../../rst_output/skidl.mixins.html#skidl.mixins.PinMixin">[docs]</a>
+<span class="k">class</span> <span class="nc">PinMixin</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Mixin class that adds pin-related methods and functionality to a class.</span>
+<span class="sd">    </span>
+<span class="sd">    This mixin provides comprehensive pin management capabilities including:</span>
+<span class="sd">    - Adding, removing, and manipulating pins</span>
+<span class="sd">    - Pin selection using various criteria (names, numbers, regex patterns)</span>
+<span class="sd">    - Pin connection and disconnection operations</span>
+<span class="sd">    - Pin aliasing and naming utilities</span>
+<span class="sd">    </span>
+<span class="sd">    The mixin maintains a list of pins and provides multiple ways to access them,</span>
+<span class="sd">    including bracket notation, attribute access, and iteration.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        pins (list): List of Pin objects belonging to the part.</span>
+<span class="sd">        _match_pin_regex (bool): Enable/disable regex matching for pin names and aliases.</span>
+<span class="sd">    </span>
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; class MyPart(PinMixin):</span>
+<span class="sd">        ...     def __init__(self):</span>
+<span class="sd">        ...         super().__init__()</span>
+<span class="sd">        ...         # Add pins to the part</span>
+<span class="sd">        ...         self.add_pins(Pin(num=1, name=&#39;VCC&#39;), Pin(num=2, name=&#39;GND&#39;))</span>
+<span class="sd">        ...</span>
+<span class="sd">        &gt;&gt;&gt; part = MyPart()</span>
+<span class="sd">        &gt;&gt;&gt; vcc_pin = part[1]  # Get pin by number</span>
+<span class="sd">        &gt;&gt;&gt; gnd_pin = part[&#39;GND&#39;]  # Get pin by name</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the PinMixin.</span>
+<span class="sd">        </span>
+<span class="sd">        Sets up the pin list and configures default settings for pin matching.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pins</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># List of pins in the part.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_match_pin_regex</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Disable regex matching of pin names/aliases by default.</span>
+
+    <span class="k">def</span> <span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">pins</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add one or more pins to the part using the += operator.</span>
+<span class="sd">        </span>
+<span class="sd">        This method allows pins to be added using the += operator syntax,</span>
+<span class="sd">        which is more intuitive than calling add_pins() directly.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            *pins: Variable number of Pin objects to add to the part.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Self: The part object with added pins, allowing for method chaining.</span>
+<span class="sd">            </span>
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; part += Pin(num=1, name=&#39;VCC&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; part += [Pin(num=2, name=&#39;GND&#39;), Pin(num=3, name=&#39;DATA&#39;)]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_pins</span><span class="p">(</span><span class="o">*</span><span class="n">pins</span><span class="p">)</span>
+    
+
+    <span class="c1"># Get pins from a part using brackets, e.g. [1,5:9,&#39;A[0-9]+&#39;].</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">pin_ids</span><span class="p">,</span> <span class="o">**</span><span class="n">criteria</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return pins selected by pin numbers, names, or other criteria.</span>
+
+<span class="sd">        This method enables bracket notation for pin selection, supporting</span>
+<span class="sd">        various selection methods including exact matches, regex patterns,</span>
+<span class="sd">        and attribute-based filtering.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            *pin_ids: Pin identifiers which can be:</span>
+<span class="sd">                - integers or strings for pin numbers</span>
+<span class="sd">                - strings for pin names</span>
+<span class="sd">                - regex patterns (if regex matching is enabled)</span>
+<span class="sd">                - slices for ranges of pins</span>
+<span class="sd">                - lists or tuples of any of the above</span>
+<span class="sd">                If empty, selects all pins.</span>
+
+<span class="sd">        Keyword Args:</span>
+<span class="sd">            criteria: Key/value pairs specifying pin attributes that must match.</span>
+<span class="sd">                Common criteria include &#39;func&#39; for pin function, &#39;unit&#39; for</span>
+<span class="sd">                unit number, etc.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Pin, NetPinList, or None: </span>
+<span class="sd">                - Single Pin if exactly one match found</span>
+<span class="sd">                - NetPinList if multiple matches found  </span>
+<span class="sd">                - None if no matches found</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; pin1 = part[1]  # Get pin by number</span>
+<span class="sd">            &gt;&gt;&gt; reset_pin = part[&#39;RESET&#39;]  # Get pin by name</span>
+<span class="sd">            &gt;&gt;&gt; power_pins = part[&#39;VCC&#39;, &#39;VDD&#39;, &#39;GND&#39;]  # Multiple pins</span>
+<span class="sd">            &gt;&gt;&gt; analog_pins = part[func=&#39;analog&#39;]  # Pins with specific function</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pins</span><span class="p">(</span><span class="o">*</span><span class="n">pin_ids</span><span class="p">,</span> <span class="o">**</span><span class="n">criteria</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">pins_nets_buses</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prevent direct assignment to pins while allowing += operator.</span>
+
+<span class="sd">        This method is a work-around that allows the use of the += for making</span>
+<span class="sd">        connections to pins while prohibiting direct assignment. Python</span>
+<span class="sd">        processes something like my_part[&#39;GND&#39;] += gnd as follows::</span>
+
+<span class="sd">            1. Part.__getitem__ is called with &#39;GND&#39; as the index. This</span>
+<span class="sd">               returns a single Pin or a NetPinList.</span>
+<span class="sd">            2. The Pin.__iadd__ or NetPinList.__iadd__ method is passed</span>
+<span class="sd">               the thing to connect to the pin (gnd in this case). This method</span>
+<span class="sd">               makes the actual connection to the part pin or pins. Then it</span>
+<span class="sd">               creates an iadd_flag attribute in the object it returns.</span>
+<span class="sd">            3. Finally, Part.__setitem__ is called. If the iadd_flag attribute</span>
+<span class="sd">               is true in the passed argument, then __setitem__ was entered</span>
+<span class="sd">               as part of processing the += operator. If there is no</span>
+<span class="sd">               iadd_flag attribute, then __setitem__ was entered as a result</span>
+<span class="sd">               of using a direct assignment, which is not allowed.</span>
+<span class="sd">               </span>
+<span class="sd">        Args:</span>
+<span class="sd">            ids: Pin identifiers being assigned to.</span>
+<span class="sd">            pins_nets_buses: Object being assigned to the pins.</span>
+<span class="sd">            </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            TypeError: If direct assignment is attempted (no iadd_flag present).</span>
+<span class="sd">            </span>
+<span class="sd">        Note:</span>
+<span class="sd">            This is part of Python&#39;s mechanism for handling augmented assignment</span>
+<span class="sd">            operators. The += operator first calls __getitem__, then __iadd__</span>
+<span class="sd">            on the returned object, then __setitem__ with the result.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If the iadd_flag is set, then it&#39;s OK that we got</span>
+        <span class="c1"># here and don&#39;t issue an error. Also, delete the flag.</span>
+        <span class="k">if</span> <span class="n">from_iadd</span><span class="p">(</span><span class="n">pins_nets_buses</span><span class="p">):</span>
+            <span class="n">rmv_iadd</span><span class="p">(</span><span class="n">pins_nets_buses</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c1"># No iadd_flag or it wasn&#39;t set. This means a direct assignment</span>
+        <span class="c1"># was made to the pin, which is not allowed.</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t assign to a part! Use the += operator.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Enable attribute-style access to pins using their aliases.</span>
+<span class="sd">        </span>
+<span class="sd">        When a normal attribute lookup fails, this method searches for pins</span>
+<span class="sd">        that have the requested attribute name as an alias. This allows</span>
+<span class="sd">        pins to be accessed as attributes of the part.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            attr (str): The attribute name being requested.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Pin or NetPinList: </span>
+<span class="sd">                - Single Pin if exactly one pin has this alias</span>
+<span class="sd">                - NetPinList if multiple pins have this alias</span>
+<span class="sd">            </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            AttributeError: If no pins have the requested alias and the</span>
+<span class="sd">                attribute doesn&#39;t exist in the base class.</span>
+<span class="sd">                </span>
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; part.RESET  # Access pin with &#39;RESET&#39; alias</span>
+<span class="sd">            &gt;&gt;&gt; part.p1     # Access pin 1 using &#39;p1&#39; alias</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">skidl.netpinlist</span> <span class="kn">import</span> <span class="n">NetPinList</span>
+
+        <span class="c1"># Look for the attribute name in the list of pin aliases.</span>
+        <span class="n">pins</span> <span class="o">=</span> <span class="p">[</span><span class="n">pin</span> <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span> <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">aliases</span> <span class="o">==</span> <span class="n">attr</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">pins</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pins</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># Return a single pin if only one alias match was found.</span>
+                <span class="k">return</span> <span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Return list of pins if multiple matches were found.</span>
+                <span class="c1"># Return a NetPinList instead of a vanilla list so += operator works!</span>
+                <span class="k">return</span> <span class="n">NetPinList</span><span class="p">(</span><span class="n">pins</span><span class="p">)</span>
+
+        <span class="c1"># No pin aliases matched, so use the __getattr__ for the subclass.</span>
+        <span class="c1"># Don&#39;t use super(). It leads to long runtimes under Python 2.7.</span>
+        <span class="k">return</span> <span class="n">SkidlBaseObject</span><span class="o">.</span><span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Enable iteration over the part&#39;s pins.</span>
+<span class="sd">        </span>
+<span class="sd">        This method makes the part object iterable, allowing direct iteration</span>
+<span class="sd">        over its pins using for loops and other iteration constructs.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            generator: Generator expression yielding Pin objects.</span>
+<span class="sd">            </span>
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; for pin in part:</span>
+<span class="sd">            ...     print(f&quot;Pin {pin.num}: {pin.name}&quot;)</span>
+<span class="sd">            &gt;&gt;&gt; pin_names = [pin.name for pin in part]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Get the list pf pins for this part using the getattribute for the</span>
+        <span class="c1"># basest object to prevent infinite recursion within the __getattr__ method.</span>
+        <span class="c1"># Don&#39;t use super() because it leads to long runtimes under Python 2.7.</span>
+        <span class="n">self_pins</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;pins&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">self_pins</span><span class="p">)</span>  <span class="c1"># Return generator expr.</span>
+
+<div class="viewcode-block" id="PinMixin.associate_pins">
+<a class="viewcode-back" href="../../rst_output/skidl.mixins.html#skidl.mixins.PinMixin.associate_pins">[docs]</a>
+    <span class="k">def</span> <span class="nf">associate_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ensure all pins have proper back-references to this part.</span>
+<span class="sd">        </span>
+<span class="sd">        This method updates each pin&#39;s &#39;part&#39; attribute to point back to</span>
+<span class="sd">        this part object, maintaining bidirectional relationships between</span>
+<span class="sd">        parts and their pins. This is typically called after pins are</span>
+<span class="sd">        added or when the part structure is modified.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">part</span> <span class="o">=</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="PinMixin.add_pins">
+<a class="viewcode-back" href="../../rst_output/skidl.mixins.html#skidl.mixins.PinMixin.add_pins">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">pins</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add one or more pins to the part.</span>
+<span class="sd">        </span>
+<span class="sd">        This method adds pins to the part and sets up proper relationships</span>
+<span class="sd">        and aliases. Each pin gets a back-reference to the part, and </span>
+<span class="sd">        automatic aliases are created for pin names and numbers.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            *pins: Variable number of Pin objects or iterables of Pin objects</span>
+<span class="sd">                to add to the part.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Self: The part object with pins added, enabling method chaining.</span>
+<span class="sd">            </span>
+<span class="sd">        Note:</span>
+<span class="sd">            Automatic aliases are created:</span>
+<span class="sd">            - Pin name becomes an alias</span>
+<span class="sd">            - &quot;p&quot; + pin number becomes an alias (e.g., &quot;p1&quot; for pin 1)</span>
+<span class="sd">            </span>
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; part.add_pins(Pin(num=1, name=&#39;VCC&#39;))</span>
+<span class="sd">            &gt;&gt;&gt; part.add_pins([Pin(num=2, name=&#39;GND&#39;), Pin(num=3, name=&#39;DATA&#39;)])</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">flatten</span><span class="p">(</span><span class="n">pins</span><span class="p">):</span>
+            <span class="n">pin</span><span class="o">.</span><span class="n">part</span> <span class="o">=</span> <span class="bp">self</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
+            <span class="c1"># Create attributes so pin can be accessed by name or number such</span>
+            <span class="c1"># as part.ENBL or part.p5.</span>
+            <span class="n">pin</span><span class="o">.</span><span class="n">aliases</span> <span class="o">+=</span> <span class="n">pin</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">pin</span><span class="o">.</span><span class="n">aliases</span> <span class="o">+=</span> <span class="s2">&quot;p&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">num</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="PinMixin.create_pins">
+<a class="viewcode-back" href="../../rst_output/skidl.mixins.html#skidl.mixins.PinMixin.create_pins">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_name</span><span class="p">,</span> <span class="n">pin_count</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">connections</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create one or more pins with systematic naming and numbering.</span>
+<span class="sd">        </span>
+<span class="sd">        This method creates multiple pins with names based on a common prefix</span>
+<span class="sd">        and systematic numbering. Pins can optionally be connected to provided</span>
+<span class="sd">        nets, buses, or other pins during creation.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            base_name (str): Base name for the pins. Pin indices will be appended</span>
+<span class="sd">                to this name (e.g., &quot;DATA&quot; becomes &quot;DATA1&quot;, &quot;DATA2&quot;, etc.).</span>
+<span class="sd">            pin_count (int, range, slice, list, tuple, or None): Specification of</span>
+<span class="sd">                how many pins to create and their numbering:</span>
+<span class="sd">                - int N: Creates N pins numbered 1 to N</span>
+<span class="sd">                - range or slice: Uses the range values for pin numbers</span>
+<span class="sd">                - tuple or list: Uses the provided list of pin numbers</span>
+<span class="sd">                - None: Creates single pin without index appended to name</span>
+<span class="sd">            connections (list or scalar, optional): List of nets, buses, or pins to connect</span>
+<span class="sd">                to each created pin. Must match the number of pins created.</span>
+<span class="sd">                A scalar Net, Pin, or Bus will will be converted to a list of one item.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Self: The part object with pins created, enabling method chaining.</span>
+<span class="sd">            </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If connections list length doesn&#39;t match number of pins created.</span>
+<span class="sd">            </span>
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; part.create_pins(&quot;DATA&quot;, 8)  # Creates DATA1, DATA2, ..., DATA8</span>
+<span class="sd">            &gt;&gt;&gt; part.create_pins(&quot;ADDR&quot;, range(0, 16))  # Creates ADDR0 to ADDR15</span>
+<span class="sd">            &gt;&gt;&gt; part.create_pins(&quot;CLK&quot;, None)  # Creates single pin named &quot;CLK&quot;</span>
+<span class="sd">            &gt;&gt;&gt; part.create_pins(&quot;IO&quot;, 4, [net1, net2, net3, net4])  # With connections</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">.netpinlist</span> <span class="kn">import</span> <span class="n">NetPinList</span>
+        <span class="kn">from</span> <span class="nn">.part</span> <span class="kn">import</span> <span class="n">Part</span>
+        <span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">Pin</span><span class="p">,</span> <span class="n">PhantomPin</span>
+
+        <span class="k">if</span> <span class="n">connections</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># This converts a single Net or Pin to a list but leaves a list unaltered.</span>
+            <span class="c1"># It also converts a Bus to a list of its nets.</span>
+            <span class="n">connections</span> <span class="o">=</span> <span class="n">NetPinList</span><span class="p">(</span><span class="n">connections</span><span class="p">)</span>
+
+        <span class="c1"># Determine pin indices based on pin_count parameter</span>
+        <span class="k">if</span> <span class="n">pin_count</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">connections</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">connections</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># Single pin without index</span>
+                <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Create as many pins as there are connections</span>
+                <span class="n">indices</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">connections</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pin_count</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="c1"># Integer N creates pins 1 to N</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">pin_count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pin_count</span><span class="p">,</span> <span class="p">(</span><span class="nb">range</span><span class="p">,</span> <span class="nb">slice</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+            <span class="c1"># Use range/slice directly</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pin_count</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+                <span class="c1"># Convert slice to range</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="n">pin_count</span><span class="o">.</span><span class="n">start</span> <span class="k">if</span> <span class="n">pin_count</span><span class="o">.</span><span class="n">start</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">1</span>
+                <span class="n">stop</span> <span class="o">=</span> <span class="n">pin_count</span><span class="o">.</span><span class="n">stop</span>
+                <span class="n">step</span> <span class="o">=</span> <span class="n">pin_count</span><span class="o">.</span><span class="n">step</span> <span class="k">if</span> <span class="n">pin_count</span><span class="o">.</span><span class="n">step</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">1</span>
+                <span class="n">indices</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">indices</span> <span class="o">=</span> <span class="n">pin_count</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pin_count must be int, range, slice, or None, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">pin_count</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        
+        <span class="c1"># Validate connections list length if provided</span>
+        <span class="k">if</span> <span class="n">connections</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">connections</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">):</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Number of connections (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">connections</span><span class="p">)</span><span class="si">}</span><span class="s2">) must match &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;number of pins created (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span>
+                <span class="p">)</span>
+                <span class="k">return</span> <span class="bp">self</span>
+        
+        <span class="c1"># Determine the class of pins to create.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Part</span><span class="p">):</span>
+            <span class="n">pin_class</span> <span class="o">=</span> <span class="n">Pin</span>  <span class="c1"># Create regular pins for Parts.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pin_class</span> <span class="o">=</span> <span class="n">PhantomPin</span>  <span class="c1"># Use PhantomPins for I/O of SubCircuit or Interface</span>
+
+        <span class="c1"># Create the pins</span>
+        <span class="n">created_pins</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
+            <span class="c1"># Generate pin name</span>
+            <span class="n">pin_num</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># Use next available number</span>
+            <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">pin_name</span> <span class="o">=</span> <span class="n">base_name</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">pin_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_name</span><span class="si">}{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span>
+            
+            <span class="c1"># Create the pin.</span>
+            <span class="n">pin</span> <span class="o">=</span> <span class="n">pin_class</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="n">pin_num</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">pin_name</span><span class="p">,</span> <span class="n">part</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+
+            <span class="c1"># Add the pin to the part so pin numbering is correct.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_pins</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
+
+            <span class="n">created_pins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
+        
+        <span class="c1"># Connect created pins if connections provided</span>
+        <span class="k">if</span> <span class="n">connections</span><span class="p">:</span>
+            <span class="n">connections</span> <span class="o">+=</span> <span class="n">created_pins</span>
+
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="PinMixin.rmv_pins">
+<a class="viewcode-back" href="../../rst_output/skidl.mixins.html#skidl.mixins.PinMixin.rmv_pins">[docs]</a>
+    <span class="k">def</span> <span class="nf">rmv_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">pin_ids</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove one or more pins from the part.</span>
+<span class="sd">        </span>
+<span class="sd">        Removes pins that match the given identifiers (names or numbers).</span>
+<span class="sd">        The pins are permanently removed from the part&#39;s pin list.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            *pin_ids: Pin identifiers (names or numbers) of pins to remove.</span>
+<span class="sd">            </span>
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; part.rmv_pins(1, &#39;RESET&#39;)  # Remove pin 1 and RESET pin</span>
+<span class="sd">            &gt;&gt;&gt; part.rmv_pins(&#39;VCC&#39;, &#39;GND&#39;)  # Remove power pins</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pin</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">num</span> <span class="ow">in</span> <span class="n">pin_ids</span> <span class="ow">or</span> <span class="n">pin</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">pin_ids</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">pins</span><span class="p">[</span><span class="n">i</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="PinMixin.swap_pins">
+<a class="viewcode-back" href="../../rst_output/skidl.mixins.html#skidl.mixins.PinMixin.swap_pins">[docs]</a>
+    <span class="k">def</span> <span class="nf">swap_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin_id1</span><span class="p">,</span> <span class="n">pin_id2</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Swap the names and numbers between two pins.</span>
+<span class="sd">        </span>
+<span class="sd">        This method exchanges the name and number attributes between two pins,</span>
+<span class="sd">        effectively swapping their identities while maintaining their physical</span>
+<span class="sd">        connections and other properties.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            pin_id1: Identifier (name or number) of the first pin.</span>
+<span class="sd">            pin_id2: Identifier (name or number) of the second pin.</span>
+<span class="sd">            </span>
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; part.swap_pins(1, 2)  # Swap pins 1 and 2</span>
+<span class="sd">            &gt;&gt;&gt; part.swap_pins(&#39;RESET&#39;, &#39;ENABLE&#39;)  # Swap named pins</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pin</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="n">pin_num_name</span> <span class="o">=</span> <span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">num</span><span class="p">,</span> <span class="n">pin</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">pin_id1</span> <span class="ow">in</span> <span class="n">pin_num_name</span><span class="p">:</span>
+                <span class="n">i1</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="k">elif</span> <span class="n">pin_id2</span> <span class="ow">in</span> <span class="n">pin_num_name</span><span class="p">:</span>
+                <span class="n">i2</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="k">if</span> <span class="n">i1</span> <span class="ow">and</span> <span class="n">i2</span><span class="p">:</span>
+                <span class="k">break</span>
+        <span class="k">if</span> <span class="n">i1</span> <span class="ow">and</span> <span class="n">i2</span><span class="p">:</span>
+            <span class="n">pins</span><span class="p">[</span><span class="n">i1</span><span class="p">]</span><span class="o">.</span><span class="n">num</span><span class="p">,</span> <span class="n">pins</span><span class="p">[</span><span class="n">i1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">pins</span><span class="p">[</span><span class="n">i2</span><span class="p">]</span><span class="o">.</span><span class="n">num</span><span class="p">,</span> <span class="n">pins</span><span class="p">[</span><span class="n">i2</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">pins</span><span class="p">[</span><span class="n">i2</span><span class="p">]</span><span class="o">.</span><span class="n">num</span><span class="p">,</span>
+                <span class="n">pins</span><span class="p">[</span><span class="n">i2</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="n">pins</span><span class="p">[</span><span class="n">i1</span><span class="p">]</span><span class="o">.</span><span class="n">num</span><span class="p">,</span>
+                <span class="n">pins</span><span class="p">[</span><span class="n">i1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PinMixin.rename_pin">
+<a class="viewcode-back" href="../../rst_output/skidl.mixins.html#skidl.mixins.PinMixin.rename_pin">[docs]</a>
+    <span class="k">def</span> <span class="nf">rename_pin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin_id</span><span class="p">,</span> <span class="n">new_pin_name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Change the name of a pin.</span>
+<span class="sd">        </span>
+<span class="sd">        Finds the pin matching the given identifier and updates its name</span>
+<span class="sd">        to the new value.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            pin_id: Current identifier (name or number) of the pin to rename.</span>
+<span class="sd">            new_pin_name (str): New name to assign to the pin.</span>
+<span class="sd">            </span>
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; part.rename_pin(1, &#39;POWER&#39;)  # Rename pin 1 to &#39;POWER&#39;</span>
+<span class="sd">            &gt;&gt;&gt; part.rename_pin(&#39;RESET&#39;, &#39;RST&#39;)  # Rename RESET pin to RST</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">pin_id</span> <span class="ow">in</span> <span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">num</span><span class="p">,</span> <span class="n">pin</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
+                <span class="n">pin</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">new_pin_name</span>
+                <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="PinMixin.renumber_pin">
+<a class="viewcode-back" href="../../rst_output/skidl.mixins.html#skidl.mixins.PinMixin.renumber_pin">[docs]</a>
+    <span class="k">def</span> <span class="nf">renumber_pin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin_id</span><span class="p">,</span> <span class="n">new_pin_num</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Change the number of a pin.</span>
+<span class="sd">        </span>
+<span class="sd">        Finds the pin matching the given identifier and updates its number</span>
+<span class="sd">        to the new value.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            pin_id: Current identifier (name or number) of the pin to renumber.</span>
+<span class="sd">            new_pin_num: New number to assign to the pin.</span>
+<span class="sd">            </span>
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; part.renumber_pin(&#39;RESET&#39;, 100)  # Change RESET pin to number 100</span>
+<span class="sd">            &gt;&gt;&gt; part.renumber_pin(1, 5)  # Change pin 1 to pin 5</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">pin_id</span> <span class="ow">in</span> <span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">num</span><span class="p">,</span> <span class="n">pin</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
+                <span class="n">pin</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">new_pin_num</span>
+                <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="PinMixin.get_pins">
+<a class="viewcode-back" href="../../rst_output/skidl.mixins.html#skidl.mixins.PinMixin.get_pins">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">pin_ids</span><span class="p">,</span> <span class="o">**</span><span class="n">criteria</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get pins matching specified identifiers and criteria.</span>
+
+<span class="sd">        This is the core pin selection method that supports multiple selection</span>
+<span class="sd">        modes including exact matching, regex patterns, and attribute-based</span>
+<span class="sd">        filtering. It provides flexible pin selection capabilities for various</span>
+<span class="sd">        use cases.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            *pin_ids: Pin identifiers for selection:</span>
+<span class="sd">                - Integers or strings for exact pin number matches</span>
+<span class="sd">                - Strings for exact pin name/alias matches  </span>
+<span class="sd">                - Regex patterns (when regex matching enabled)</span>
+<span class="sd">                - Slices for pin number ranges</span>
+<span class="sd">                - Lists/tuples of any combination above</span>
+<span class="sd">                If empty, selects all pins.</span>
+
+<span class="sd">        Keyword Args:</span>
+<span class="sd">            criteria: Attribute-based filtering criteria as key=value pairs.</span>
+<span class="sd">            silent (bool, optional): Suppress error messages if True. Defaults to False.</span>
+<span class="sd">            only_search_numbers (bool, optional): Restrict search to pin numbers only. </span>
+<span class="sd">                Defaults to False.</span>
+<span class="sd">            only_search_names (bool, optional): Restrict search to pin names/aliases only.</span>
+<span class="sd">                Defaults to False.</span>
+<span class="sd">            match_regex (bool, optional): Enable regex pattern matching for names.</span>
+<span class="sd">                Defaults to False, or uses part&#39;s match_pin_regex setting.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Pin, list, or None:</span>
+<span class="sd">                - Single Pin object if exactly one match found</span>
+<span class="sd">                - List of Pin objects if multiple matches found</span>
+<span class="sd">                - None if no matches found and silent=True</span>
+<span class="sd">                </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If no pins found and silent=False.</span>
+<span class="sd">            </span>
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; pins = part.get_pins(1, 2, 3)  # Get pins 1, 2, 3</span>
+<span class="sd">            &gt;&gt;&gt; analog_pins = part.get_pins(func=&#39;analog&#39;)  # Pins with analog function</span>
+<span class="sd">            &gt;&gt;&gt; power_pins = part.get_pins(&#39;VCC&#39;, &#39;VDD&#39;, &#39;GND&#39;)  # Named pins</span>
+<span class="sd">            &gt;&gt;&gt; pattern_pins = part.get_pins(&#39;A[0-9]+&#39;, match_regex=True)  # Regex</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="kn">from</span> <span class="nn">.alias</span> <span class="kn">import</span> <span class="n">Alias</span>
+        <span class="kn">from</span> <span class="nn">.netpinlist</span> <span class="kn">import</span> <span class="n">NetPinList</span>
+
+        <span class="c1"># Extract option for suppressing error messages.</span>
+        <span class="n">silent</span> <span class="o">=</span> <span class="n">criteria</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;silent&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># Extract restrictions on searching for only pin names or numbers.</span>
+        <span class="n">only_search_numbers</span> <span class="o">=</span> <span class="n">criteria</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;only_search_numbers&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">only_search_names</span> <span class="o">=</span> <span class="n">criteria</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;only_search_names&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># Extract permission to search for regex matches in pin names/aliases.</span>
+        <span class="n">match_regex</span> <span class="o">=</span> <span class="n">criteria</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;match_regex&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">match_pin_regex</span>
+
+        <span class="c1"># If no pin identifiers were given, then use a wildcard that will</span>
+        <span class="c1"># select all pins.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">pin_ids</span><span class="p">:</span>
+            <span class="n">pin_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">Rgx</span><span class="p">(</span><span class="s2">&quot;.*&quot;</span><span class="p">)]</span>
+
+        <span class="c1"># Determine the minimum and maximum pin ids if they don&#39;t already exist.</span>
+        <span class="k">if</span> <span class="s2">&quot;min_pin&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;max_pin&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">min_pin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_pin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_min_max_pins</span><span class="p">()</span>
+
+        <span class="c1"># Go through the list of pin IDs one-by-one.</span>
+        <span class="n">pins</span> <span class="o">=</span> <span class="n">NetPinList</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">p_id</span> <span class="ow">in</span> <span class="n">expand_indices</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_pin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_pin</span><span class="p">,</span> <span class="n">match_regex</span><span class="p">,</span> <span class="o">*</span><span class="n">pin_ids</span><span class="p">):</span>
+
+            <span class="c1"># If only names are being searched, the search of pin numbers is skipped.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">only_search_names</span><span class="p">:</span>
+                <span class="c1"># Does pin ID (either integer or string) match a pin number...</span>
+                <span class="n">tmp_pins</span> <span class="o">=</span> <span class="n">filter_list</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">p_id</span><span class="p">),</span> <span class="n">do_str_match</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">criteria</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">tmp_pins</span><span class="p">:</span>
+                    <span class="n">pins</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">tmp_pins</span><span class="p">)</span>
+                    <span class="k">continue</span>
+
+            <span class="c1"># if only numbers are being searched, then search of pin names is skipped.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">only_search_numbers</span><span class="p">:</span>
+                <span class="c1"># OK, assume it&#39;s not a pin number but a pin name or alias.</span>
+                <span class="c1"># Look for an exact match.</span>
+
+                <span class="c1"># Check pin aliases for an exact match.</span>
+                <span class="n">tmp_pins</span> <span class="o">=</span> <span class="n">filter_list</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">,</span> <span class="n">aliases</span><span class="o">=</span><span class="n">p_id</span><span class="p">,</span> <span class="n">do_str_match</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">criteria</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">tmp_pins</span><span class="p">:</span>
+                    <span class="n">pins</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">tmp_pins</span><span class="p">)</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># Check pin names for an exact match.</span>
+                <span class="n">tmp_pins</span> <span class="o">=</span> <span class="n">filter_list</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">p_id</span><span class="p">,</span> <span class="n">do_str_match</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">criteria</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">tmp_pins</span><span class="p">:</span>
+                    <span class="n">pins</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">tmp_pins</span><span class="p">)</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># Skip regex matching if not enabled.</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">match_regex</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># OK, pin ID is not a pin number and doesn&#39;t exactly match a pin</span>
+                <span class="c1"># name or alias. Does it match as a regex?</span>
+                <span class="n">p_id_re</span> <span class="o">=</span> <span class="n">p_id</span>
+
+                <span class="c1"># Check pin aliases for a regex match.</span>
+                <span class="n">tmp_pins</span> <span class="o">=</span> <span class="n">filter_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">,</span> <span class="n">aliases</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">p_id_re</span><span class="p">),</span> <span class="o">**</span><span class="n">criteria</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">tmp_pins</span><span class="p">:</span>
+                    <span class="n">pins</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">tmp_pins</span><span class="p">)</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># Check the pin names for a regex match.</span>
+                <span class="n">tmp_pins</span> <span class="o">=</span> <span class="n">filter_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">p_id_re</span><span class="p">,</span> <span class="o">**</span><span class="n">criteria</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">tmp_pins</span><span class="p">:</span>
+                    <span class="n">pins</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">tmp_pins</span><span class="p">)</span>
+                    <span class="k">continue</span>
+
+        <span class="c1"># Log an error if no pins were selected using the pin ids.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">pins</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">silent</span><span class="p">:</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;No pins found using </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="si">}</span><span class="s2">[</span><span class="si">{</span><span class="n">pin_ids</span><span class="si">}</span><span class="s2">]&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">list_or_scalar</span><span class="p">(</span><span class="n">pins</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PinMixin.disconnect">
+<a class="viewcode-back" href="../../rst_output/skidl.mixins.html#skidl.mixins.PinMixin.disconnect">[docs]</a>
+    <span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Disconnect all pins from their connected nets.</span>
+<span class="sd">        </span>
+<span class="sd">        This method breaks all electrical connections to the part by</span>
+<span class="sd">        disconnecting each pin from any nets it may be connected to.</span>
+<span class="sd">        The part becomes electrically isolated after this operation.</span>
+<span class="sd">        </span>
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; part.disconnect()  # Disconnect all pins from nets</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">pin</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="PinMixin.split_pin_names">
+<a class="viewcode-back" href="../../rst_output/skidl.mixins.html#skidl.mixins.PinMixin.split_pin_names">[docs]</a>
+    <span class="k">def</span> <span class="nf">split_pin_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delimiters</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Split pin names using delimiters and add subnames as aliases.</span>
+<span class="sd">        </span>
+<span class="sd">        This method takes pin names that contain delimiter characters and</span>
+<span class="sd">        splits them into component parts, adding each part as an alias</span>
+<span class="sd">        to the pin. This enables more flexible pin access patterns.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            delimiters (str): String containing characters to use as delimiters</span>
+<span class="sd">                for splitting pin names.</span>
+<span class="sd">                </span>
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; part.split_pin_names(&#39;_-/&#39;)  # Split on underscore, dash, slash</span>
+<span class="sd">            &gt;&gt;&gt; # Pin named &quot;DATA_IN&quot; would get aliases &quot;DATA&quot; and &quot;IN&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">delimiters</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+                <span class="c1"># Split pin name and add subnames as aliases to the pin.</span>
+                <span class="n">pin</span><span class="o">.</span><span class="n">split_name</span><span class="p">(</span><span class="n">delimiters</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="nf">_find_min_max_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Find the minimum and maximum numeric pin numbers.</span>
+<span class="sd">        </span>
+<span class="sd">        This internal method scans all pins to find the lowest and highest</span>
+<span class="sd">        numbered pins (considering only pins with integer numbers). These</span>
+<span class="sd">        values are used for pin range operations and indexing.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: A tuple of (min_pin_number, max_pin_number) as integers.</span>
+<span class="sd">                Returns (0, 0) if no numeric pins are found.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pin_nums</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">pin_nums</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">num</span><span class="p">))</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="k">pass</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="c1"># This happens if the part has no pins.</span>
+            <span class="k">pass</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">pin_nums</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">pin_nums</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="c1"># This happens if the part has no integer-labeled pins.</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ordered_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the pins sorted in a consistent order.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns the part&#39;s pins in sorted order, typically by pin number</span>
+<span class="sd">        where possible, falling back to name-based sorting for non-numeric pins.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list: Sorted list of the part&#39;s Pin objects.</span>
+<span class="sd">            </span>
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; sorted_pins = part.ordered_pins</span>
+<span class="sd">            &gt;&gt;&gt; for pin in part.ordered_pins:</span>
+<span class="sd">            ...     print(f&quot;Pin {pin.num}: {pin.name}&quot;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">match_pin_regex</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the enable/disable flag for pin regular-expression matching.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: Current state of regex matching flag.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_match_pin_regex</span>
+
+    <span class="nd">@match_pin_regex</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">match_pin_regex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flag</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the regex matching flag.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            flag (bool): True to enable regex matching for pins, False to disable.</span>
+<span class="sd">            </span>
+<span class="sd">        Notes:</span>
+<span class="sd">            This also sets the flag for all units of the part.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_match_pin_regex</span> <span class="o">=</span> <span class="n">flag</span>
+
+        <span class="c1"># Also set flag for units of the part.</span>
+        <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">unit</span><span class="o">.</span><span class="n">_match_pin_regex</span> <span class="o">=</span> <span class="n">flag</span>
+
+    <span class="nd">@match_pin_regex</span><span class="o">.</span><span class="n">deleter</span>
+    <span class="k">def</span> <span class="nf">match_pin_regex</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete the regex matching flag.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_match_pin_regex</span></div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.mixins</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>

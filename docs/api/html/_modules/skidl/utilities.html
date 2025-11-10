@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.utilities &#8212; SKiDL 2.1.1 documentation</title>
+    <title>skidl.utilities &#8212; SKiDL 2.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=841abef3"></script>
+    <script src="../../_static/documentation_options.js?v=b21de401"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.utilities</a></li> 
       </ul>
@@ -60,7 +60,7 @@
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">os.path</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">normpath</span><span class="p">,</span> <span class="n">expandvars</span><span class="p">,</span> <span class="n">expanduser</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">abspath</span><span class="p">,</span> <span class="n">normpath</span><span class="p">,</span> <span class="n">expandvars</span><span class="p">,</span> <span class="n">expanduser</span>
 <span class="kn">import</span> <span class="nn">platform</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -343,7 +343,8 @@
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">lst</span>  <span class="c1"># Multi-element list, so return it unchanged.</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">lst</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Single-element list, so return the only element.</span>
+            <span class="c1"># lst may be a NetPinList, so convert to a regular list so normal indexing works.</span>
+            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">lst</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Single-element list, so return the only element.</span>
         <span class="k">return</span> <span class="kc">None</span>  <span class="c1"># Empty list, so return None.</span>
     <span class="k">return</span> <span class="n">lst</span>  <span class="c1"># Must have been a scalar, so return that.</span></div>
 
@@ -666,6 +667,96 @@
 
 
 
+<div class="viewcode-block" id="split_unquoted">
+<a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.split_unquoted">[docs]</a>
+<span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">split_unquoted</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">maxsplit</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Split a string by a regex pattern, but ignore matches within quoted substrings.</span>
+<span class="sd">    </span>
+<span class="sd">    This function works like re.split() but does not split on delimiters that appear</span>
+<span class="sd">    within single-quoted or double-quoted strings. Quotes can be escaped with backslash.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        pattern (str): Regular expression pattern to split on.</span>
+<span class="sd">        string (str): The string to split.</span>
+<span class="sd">        maxsplit (int, optional): Maximum number of splits to perform. 0 means no limit. Defaults to 0.</span>
+<span class="sd">        flags (int, optional): Regex flags to pass to re.split. Defaults to 0.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        list: List of substrings split by the pattern, with quoted sections preserved.</span>
+<span class="sd">        </span>
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; split_unquoted(&#39;,&#39;, &#39;a,b,&quot;c,d&quot;,e&#39;)</span>
+<span class="sd">        [&#39;a&#39;, &#39;b&#39;, &#39;&quot;c,d&quot;&#39;, &#39;e&#39;]</span>
+<span class="sd">        &gt;&gt;&gt; split_unquoted(&#39;\s+&#39;, &#39;hello world &quot;foo bar&quot; test&#39;)</span>
+<span class="sd">        [&#39;hello&#39;, &#39;world&#39;, &#39;foo bar&#39;, &#39;test&#39;]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">current</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">in_quote</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># None, &#39;&quot;&#39;, or &quot;&#39;&quot;</span>
+    <span class="n">escaped</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">splits_done</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+        <span class="n">char</span> <span class="o">=</span> <span class="n">string</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        
+        <span class="c1"># Handle escape sequences</span>
+        <span class="k">if</span> <span class="n">escaped</span><span class="p">:</span>
+            <span class="n">current</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">char</span><span class="p">)</span>
+            <span class="n">escaped</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">continue</span>
+            
+        <span class="k">if</span> <span class="n">char</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">:</span>
+            <span class="n">current</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">char</span><span class="p">)</span>
+            <span class="n">escaped</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">continue</span>
+        
+        <span class="c1"># Handle quotes</span>
+        <span class="k">if</span> <span class="n">char</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">,</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">in_quote</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">in_quote</span> <span class="o">=</span> <span class="n">char</span>
+            <span class="k">elif</span> <span class="n">in_quote</span> <span class="o">==</span> <span class="n">char</span><span class="p">:</span>
+                <span class="n">in_quote</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="c1"># Strip the quotes from the quoted substring.</span>
+            <span class="c1"># current.append(char)</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">continue</span>
+        
+        <span class="c1"># If we&#39;re inside quotes, just append the character</span>
+        <span class="k">if</span> <span class="n">in_quote</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">current</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">char</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">continue</span>
+        
+        <span class="c1"># We&#39;re outside quotes, so check if we match the pattern.</span>
+        <span class="k">if</span> <span class="n">maxsplit</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">splits_done</span> <span class="o">&lt;</span> <span class="n">maxsplit</span><span class="p">:</span>
+            <span class="c1"># Look for the delimiter at the start of the remainder of the string.</span>
+            <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">string</span><span class="p">[</span><span class="n">i</span><span class="p">:],</span> <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+                <span class="c1"># Found a delimiter outside quotes and at the start of the remaining string.</span>
+                <span class="k">if</span> <span class="n">current</span> <span class="ow">or</span> <span class="n">result</span><span class="p">:</span>  <span class="c1"># Don&#39;t add empty strings at the start</span>
+                    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current</span><span class="p">))</span>
+                    <span class="n">current</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">splits_done</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+                <span class="k">continue</span>
+        
+        <span class="c1"># No match, just append the character</span>
+        <span class="n">current</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">char</span><span class="p">)</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+    <span class="c1"># Add any remaining content</span>
+    <span class="k">if</span> <span class="n">current</span> <span class="ow">or</span> <span class="n">result</span><span class="p">:</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current</span><span class="p">))</span>
+    
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+
 <div class="viewcode-block" id="fullmatch">
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.fullmatch">[docs]</a>
 <span class="nd">@export_to_all</span>
@@ -929,14 +1020,14 @@
             <span class="n">ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">indx</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">indx</span><span class="p">,</span> <span class="n">Rgx</span><span class="p">):</span>
             <span class="c1"># Rgx might contain multiple indices with a separator.</span>
-            <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">INDEX_SEPARATOR</span><span class="p">,</span> <span class="n">indx</span><span class="p">):</span>
+            <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">split_unquoted</span><span class="p">(</span><span class="n">INDEX_SEPARATOR</span><span class="p">,</span> <span class="n">indx</span><span class="p">):</span>
                 <span class="c1"># If the id is a valid bus expression, then the exploded bus lines</span>
                 <span class="c1"># are added to the list of ids. If not, the original id is</span>
                 <span class="c1"># added to the list.</span>
                 <span class="n">ids</span><span class="o">.</span><span class="n">extend</span><span class="p">((</span><span class="n">Rgx</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">explode</span><span class="p">(</span><span class="nb">id</span><span class="o">.</span><span class="n">strip</span><span class="p">())))</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">indx</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="c1"># String might contain multiple indices with a separator.</span>
-            <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">INDEX_SEPARATOR</span><span class="p">,</span> <span class="n">indx</span><span class="p">):</span>
+            <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">split_unquoted</span><span class="p">(</span><span class="n">INDEX_SEPARATOR</span><span class="p">,</span> <span class="n">indx</span><span class="p">):</span>
                 <span class="c1"># If the id is a valid bus expression, then the exploded bus lines</span>
                 <span class="c1"># are added to the list of ids. If not, the original id is</span>
                 <span class="c1"># added to the list.</span>
@@ -1127,7 +1218,7 @@
 <a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.expand_path">[docs]</a>
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">expand_path</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">normpath</span><span class="p">(</span><span class="n">expandvars</span><span class="p">(</span><span class="n">expanduser</span><span class="p">(</span><span class="n">path</span><span class="p">)))</span></div>
+    <span class="k">return</span> <span class="n">abspath</span><span class="p">(</span><span class="n">normpath</span><span class="p">(</span><span class="n">expandvars</span><span class="p">(</span><span class="n">expanduser</span><span class="p">(</span><span class="n">path</span><span class="p">))))</span></div>
 
 
 <div class="viewcode-block" id="is_url">
@@ -1228,7 +1319,7 @@
                     <span class="k">if</span> <span class="ow">not</span> <span class="n">exclude_binary</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">is_binary_file</span><span class="p">(</span><span class="n">abs_filename</span><span class="p">):</span>
                         <span class="k">try</span><span class="p">:</span>
                             <span class="c1"># Return the first file that matches the criteria.</span>
-                            <span class="k">return</span> <span class="nb">open</span><span class="p">(</span><span class="n">abs_filename</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;latin_1&quot;</span><span class="p">),</span> <span class="n">abs_filename</span>
+                            <span class="k">return</span> <span class="nb">open</span><span class="p">(</span><span class="n">abs_filename</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;latin_1&quot;</span><span class="p">),</span> <span class="n">expand_path</span><span class="p">(</span><span class="n">abs_filename</span><span class="p">)</span>
                         <span class="k">except</span> <span class="p">(</span><span class="ne">IOError</span><span class="p">,</span> <span class="ne">FileNotFoundError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
                             <span class="c1"># File failed, so keep searching.</span>
                             <span class="k">pass</span>
@@ -1394,7 +1485,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.utilities</a></li> 
       </ul>

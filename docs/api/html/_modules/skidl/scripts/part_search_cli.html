@@ -1,0 +1,604 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.scripts.part_search_cli &#8212; SKiDL 2.2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../../../_static/documentation_options.js?v=b21de401"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../../../"><img src="../../../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.scripts.part_search_cli</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skidl.scripts.part_search_cli</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Command-line interface to search SKiDL part libraries.</span>
+
+<span class="sd">This script uses the PartSearchDB to load libraries from paths configured</span>
+<span class="sd">in the user&#39;s .skidlcfg (via skidl.lib_search_paths) and search for</span>
+<span class="sd">parts matching the given query terms. All output is plain text with</span>
+<span class="sd">customizable formatting and field selection.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">readline</span>
+
+<span class="kn">import</span> <span class="nn">skidl</span>
+<span class="kn">from</span> <span class="nn">skidl.part_query</span> <span class="kn">import</span> <span class="n">PartSearchDB</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">rich.console</span> <span class="kn">import</span> <span class="n">Console</span>
+    <span class="kn">from</span> <span class="nn">rich.table</span> <span class="kn">import</span> <span class="n">Table</span>
+    <span class="n">RICH_AVAILABLE</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">RICH_AVAILABLE</span> <span class="o">=</span> <span class="kc">False</span>
+
+
+<span class="c1"># Available part attributes that can be displayed and description labels.</span>
+<span class="n">AVAILABLE_FIELDS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;part_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Part Name&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;lib_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Library&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;lib_file&quot;</span><span class="p">:</span> <span class="s2">&quot;Library File&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;lib_path&quot;</span><span class="p">:</span> <span class="s2">&quot;Library Path&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Description&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;aliases&quot;</span><span class="p">:</span> <span class="s2">&quot;Aliases&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;keywords&quot;</span><span class="p">:</span> <span class="s2">&quot;Keywords&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1"># Default format template</span>
+<span class="n">DEFAULT_FORMAT</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{lib_name}</span><span class="s2">: </span><span class="si">{part_name}</span><span class="s2"> (</span><span class="si">{description}</span><span class="s2">)&quot;</span>
+<span class="n">DEFAULT_FIELDS</span> <span class="o">=</span> <span class="s2">&quot;lib_name,part_name,description&quot;</span>
+
+
+<div class="viewcode-block" id="format_part">
+<a class="viewcode-back" href="../../../rst_output/skidl.scripts.part_search_cli.html#skidl.scripts.part_search_cli.format_part">[docs]</a>
+<span class="k">def</span> <span class="nf">format_part</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">format_string</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Format a single part using the provided format string.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        part: PartResult namedtuple with part information</span>
+<span class="sd">        format_string: Python format string with field placeholders</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        str: Formatted part information</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Create a dict of all available fields for formatting</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;part_name&quot;</span><span class="p">:</span> <span class="n">part</span><span class="o">.</span><span class="n">part_name</span><span class="p">,</span>
+        <span class="s2">&quot;lib_name&quot;</span><span class="p">:</span> <span class="n">part</span><span class="o">.</span><span class="n">lib_name</span><span class="p">,</span>
+        <span class="s2">&quot;lib_file&quot;</span><span class="p">:</span> <span class="n">part</span><span class="o">.</span><span class="n">lib_file</span><span class="p">,</span>
+        <span class="s2">&quot;lib_path&quot;</span><span class="p">:</span> <span class="n">part</span><span class="o">.</span><span class="n">lib_path</span><span class="p">,</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="n">part</span><span class="o">.</span><span class="n">description</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;aliases&quot;</span><span class="p">:</span> <span class="n">part</span><span class="o">.</span><span class="n">aliases</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;keywords&quot;</span><span class="p">:</span> <span class="n">part</span><span class="o">.</span><span class="n">keywords</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">format_string</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">fields</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;ERROR: Unknown field </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2"> in format string&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="perform_search_and_display">
+<a class="viewcode-back" href="../../../rst_output/skidl.scripts.part_search_cli.html#skidl.scripts.part_search_cli.perform_search_and_display">[docs]</a>
+<span class="k">def</span> <span class="nf">perform_search_and_display</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">search_terms</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">field_list</span><span class="p">,</span> <span class="n">format_string</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Perform search and display results based on current arguments.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        db: PartSearchDB instance</span>
+<span class="sd">        search_terms: Search query string</span>
+<span class="sd">        args: Parsed command line arguments</span>
+<span class="sd">        field_list: List of fields to display</span>
+<span class="sd">        format_string: Format string for output</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        int: Number of results found</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">search_terms</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">limit</span><span class="p">)</span>
+    <span class="n">sorted_parts</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">lib_path</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">part_name</span><span class="p">))</span>
+
+    <span class="c1"># Use ANSI color code for bright yellow bold text.</span>
+    <span class="n">found_info_text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[93m</span><span class="se">\033</span><span class="s2">[1mFound </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">sorted_parts</span><span class="p">)</span><span class="si">}</span><span class="s2"> part(s) for: </span><span class="si">{</span><span class="n">search_terms</span><span class="si">}</span><span class="se">\033</span><span class="s2">[0m&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">found_info_text</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">sorted_parts</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    
+    <span class="c1"># Format and output results</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">table</span><span class="p">:</span>
+        <span class="c1"># Display as table using rich</span>
+        <span class="n">console</span> <span class="o">=</span> <span class="n">Console</span><span class="p">()</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">show_header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold magenta&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Column headers</span>
+        <span class="n">col_hdrs</span> <span class="o">=</span> <span class="p">[[</span><span class="n">AVAILABLE_FIELDS</span><span class="p">[</span><span class="n">fld</span><span class="p">],</span> <span class="n">color</span><span class="p">]</span> <span class="k">for</span> <span class="n">fld</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">field_list</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;cyan&quot;</span><span class="p">,</span> <span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;magenta&quot;</span><span class="p">])]</span>
+        <span class="c1"># Add columns</span>
+        <span class="n">no_wrap</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">for</span> <span class="n">col_hdr</span> <span class="ow">in</span> <span class="n">col_hdrs</span><span class="p">:</span>
+            <span class="n">table</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="n">col_hdr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">col_hdr</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">no_wrap</span><span class="o">=</span><span class="n">no_wrap</span><span class="p">)</span>
+            <span class="n">no_wrap</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Only the first column is no_wrap</span>
+        
+        <span class="c1"># Add rows</span>
+        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">sorted_parts</span><span class="p">:</span>
+            <span class="n">row_data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">field_list</span><span class="p">]</span>
+            <span class="n">table</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="o">*</span><span class="n">row_data</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+                <span class="n">console</span> <span class="o">=</span> <span class="n">Console</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">fp</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">)</span>
+                <span class="n">console</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">console</span> <span class="o">=</span> <span class="n">Console</span><span class="p">()</span>
+            <span class="n">console</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Format as text</span>
+        <span class="n">output_lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">format_part</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">format_string</span><span class="p">)</span> <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">sorted_parts</span><span class="p">]</span>
+        <span class="n">output_text</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_lines</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">output_text</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">fp</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">output_text</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">output_text</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="n">found_info_text</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">sorted_parts</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="interactive_browse">
+<a class="viewcode-back" href="../../../rst_output/skidl.scripts.part_search_cli.html#skidl.scripts.part_search_cli.interactive_browse">[docs]</a>
+<span class="k">def</span> <span class="nf">interactive_browse</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">parts</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">field_list</span><span class="p">,</span> <span class="n">format_string</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Browse through search results with arrow keys and display part details.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        db: PartSearchDB instance</span>
+<span class="sd">        parts: List of PartResult objects from search</span>
+<span class="sd">        args: Parsed command line arguments</span>
+<span class="sd">        field_list: List of fields to display</span>
+<span class="sd">        format_string: Format string for output</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">termios</span>
+    <span class="kn">import</span> <span class="nn">tty</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">parts</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No parts to browse. Perform a search first.&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+    
+    <span class="n">current_index</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">num_parts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Browse mode: </span><span class="si">{</span><span class="n">num_parts</span><span class="si">}</span><span class="s2"> parts found.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Use UP/DOWN arrow keys to navigate, ENTER to show details, &#39;s&#39; for search mode, &#39;q&#39; to quit.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">show_current_part</span><span class="p">():</span>
+        <span class="n">part</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="n">current_index</span><span class="p">]</span>
+        <span class="c1"># Clear the line and show current part</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\r\033</span><span class="s2">[K[</span><span class="si">{</span><span class="n">current_index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">num_parts</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">format_part</span><span class="p">(</span><span class="n">part</span><span class="p">,</span><span class="w"> </span><span class="n">format_string</span><span class="p">)</span><span class="si">}</span><span class="s2"> (ENTER/UP/DOWN/s/q)&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">show_pin</span><span class="p">(</span><span class="n">pin</span><span class="p">):</span>
+        <span class="n">aliases</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">aliases</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">a</span><span class="o">.</span><span class="n">lower</span><span class="p">()))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pin#: </span><span class="si">{</span><span class="n">pin</span><span class="o">.</span><span class="n">num</span><span class="si">}</span><span class="s2">, Names: </span><span class="si">{</span><span class="n">aliases</span><span class="si">}</span><span class="s2">, Type: </span><span class="si">{</span><span class="n">pin</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">show_part_details</span><span class="p">():</span>
+        <span class="kn">from</span> <span class="nn">skidl.part_query</span> <span class="kn">import</span> <span class="n">show_part</span>
+        <span class="n">part</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="n">current_index</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">Showing details for: </span><span class="si">{</span><span class="n">part</span><span class="o">.</span><span class="n">part_name</span><span class="si">}</span><span class="s2"> from </span><span class="si">{</span><span class="n">part</span><span class="o">.</span><span class="n">lib_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+        
+        <span class="c1"># Try to show the part using show_part function</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">template_part</span> <span class="o">=</span> <span class="n">show_part</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">lib_path</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">part_name</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">tool</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">template_part</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Part: </span><span class="si">{</span><span class="n">template_part</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Library: </span><span class="si">{</span><span class="n">part</span><span class="o">.</span><span class="n">lib_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Description: </span><span class="si">{</span><span class="n">part</span><span class="o">.</span><span class="n">description</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;N/A&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Aliases: </span><span class="si">{</span><span class="n">part</span><span class="o">.</span><span class="n">aliases</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;N/A&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Keywords: </span><span class="si">{</span><span class="n">part</span><span class="o">.</span><span class="n">keywords</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;N/A&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Pins:&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">template_part</span><span class="p">,</span> <span class="s1">&#39;pins&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">template_part</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">RICH_AVAILABLE</span><span class="p">:</span>
+                        <span class="c1"># Show pins as a table using rich</span>
+                        <span class="n">console</span> <span class="o">=</span> <span class="n">Console</span><span class="p">()</span>
+                        <span class="n">pin_table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">show_header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold cyan&quot;</span><span class="p">)</span>
+                        <span class="n">pin_table</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">&quot;Pin#&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                        <span class="n">pin_table</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">&quot;Names&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">)</span>
+                        <span class="n">pin_table</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">&quot;Type&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+                        
+                        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">template_part</span><span class="o">.</span><span class="n">pins</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">num</span><span class="p">):</span>
+                            <span class="n">aliases</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">aliases</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">a</span><span class="o">.</span><span class="n">lower</span><span class="p">()))</span>
+                            <span class="n">pin_table</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">num</span><span class="p">),</span> <span class="n">aliases</span><span class="p">,</span> <span class="n">pin</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                        
+                        <span class="n">console</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">pin_table</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># Fallback to plain text</span>
+                        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">template_part</span><span class="o">.</span><span class="n">pins</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">num</span><span class="p">):</span>
+                            <span class="n">show_pin</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  No pins found or part not fully parsed.&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Could not load part details.&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error loading part: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+        <span class="c1"># print(&quot;Press any key to continue browsing...&quot;)</span>
+        <span class="c1"># </span>
+        <span class="c1"># # Wait for any key press to continue</span>
+        <span class="c1"># old_settings = termios.tcgetattr(sys.stdin)</span>
+        <span class="c1"># try:</span>
+        <span class="c1">#     tty.setraw(sys.stdin.fileno())</span>
+        <span class="c1">#     sys.stdin.read(1)</span>
+        <span class="c1"># finally:</span>
+        <span class="c1">#     termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)</span>
+        
+        <span class="nb">print</span><span class="p">()</span>  <span class="c1"># New line after key press</span>
+        <span class="n">show_current_part</span><span class="p">()</span>  <span class="c1"># Redisplay current part</span>
+    
+    <span class="k">def</span> <span class="nf">get_key</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a single key press from stdin.&quot;&quot;&quot;</span>
+        <span class="n">old_settings</span> <span class="o">=</span> <span class="n">termios</span><span class="o">.</span><span class="n">tcgetattr</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">tty</span><span class="o">.</span><span class="n">setraw</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">fileno</span><span class="p">())</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            
+            <span class="c1"># Handle escape sequences (arrow keys)</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">&#39;</span><span class="p">:</span>  <span class="c1"># ESC sequence</span>
+                <span class="n">key</span> <span class="o">+=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+                
+            <span class="k">return</span> <span class="n">key</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">termios</span><span class="o">.</span><span class="n">tcsetattr</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">,</span> <span class="n">termios</span><span class="o">.</span><span class="n">TCSADRAIN</span><span class="p">,</span> <span class="n">old_settings</span><span class="p">)</span>
+    
+    <span class="c1"># Show initial part</span>
+    <span class="n">show_current_part</span><span class="p">()</span>
+    
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">get_key</span><span class="p">()</span>
+            
+            <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;q&#39;</span> <span class="ow">or</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="se">\x03</span><span class="s1">&#39;</span><span class="p">:</span>  <span class="c1"># &#39;q&#39; or Ctrl+C</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">break</span>
+            <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;s&#39;</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Returning to search mode...&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="s1">&#39;search&#39;</span>
+            <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span> <span class="ow">or</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">:</span>  <span class="c1"># Enter key</span>
+                <span class="n">show_part_details</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">[A&#39;</span><span class="p">:</span>  <span class="c1"># Up arrow</span>
+                <span class="k">if</span> <span class="n">current_index</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">current_index</span> <span class="o">-=</span> <span class="mi">1</span>
+                    <span class="n">show_current_part</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">[B&#39;</span><span class="p">:</span>  <span class="c1"># Down arrow  </span>
+                <span class="k">if</span> <span class="n">current_index</span> <span class="o">&lt;</span> <span class="n">num_parts</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">current_index</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">show_current_part</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;h&#39;</span> <span class="ow">or</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;?&#39;</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">Commands:&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  UP/DOWN arrows - Navigate parts&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  ENTER - Show part details&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  s - Return to search mode&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  h/? - Show this help&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  q - Exit&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Press any key to continue...&quot;</span><span class="p">)</span>
+                <span class="n">get_key</span><span class="p">()</span>
+                <span class="nb">print</span><span class="p">()</span>
+                <span class="n">show_current_part</span><span class="p">()</span>
+                
+        <span class="k">except</span> <span class="p">(</span><span class="ne">EOFError</span><span class="p">,</span> <span class="ne">KeyboardInterrupt</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">break</span>
+    
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+
+<div class="viewcode-block" id="interactive_search">
+<a class="viewcode-back" href="../../../rst_output/skidl.scripts.part_search_cli.html#skidl.scripts.part_search_cli.interactive_search">[docs]</a>
+<span class="k">def</span> <span class="nf">interactive_search</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">field_list</span><span class="p">,</span> <span class="n">format_string</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run interactive search mode with command history support.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        db: PartSearchDB instance</span>
+<span class="sd">        args: Parsed command line arguments</span>
+<span class="sd">        field_list: List of fields to display</span>
+<span class="sd">        format_string: Format string for output</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Interactive search mode. Use up/down arrows for history.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type &#39;quit&#39;, &#39;exit&#39;, or &#39;q&#39; to exit, &#39;browse&#39; to enter browse mode.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+    
+    <span class="c1"># Configure readline for history</span>
+    <span class="n">readline</span><span class="o">.</span><span class="n">parse_and_bind</span><span class="p">(</span><span class="s1">&#39;&quot;</span><span class="se">\\</span><span class="s1">e[A&quot;: previous-history&#39;</span><span class="p">)</span>
+    <span class="n">readline</span><span class="o">.</span><span class="n">parse_and_bind</span><span class="p">(</span><span class="s1">&#39;&quot;</span><span class="se">\\</span><span class="s1">e[B&quot;: next-history&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># current_parts = []  # Store current search results for browse mode</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">terms</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">limit</span><span class="p">)</span>
+    <span class="n">current_parts</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">lib_path</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">part_name</span><span class="p">))</span>
+    
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">search_terms</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Search terms: &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            
+            <span class="c1"># Check for exit commands</span>
+            <span class="k">if</span> <span class="n">search_terms</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;quit&#39;</span><span class="p">,</span> <span class="s1">&#39;exit&#39;</span><span class="p">,</span> <span class="s1">&#39;q&#39;</span><span class="p">]:</span>
+                <span class="k">break</span>
+            
+            <span class="c1"># Check for browse mode command</span>
+            <span class="k">if</span> <span class="n">search_terms</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;browse&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">current_parts</span><span class="p">:</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="n">interactive_browse</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">current_parts</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">field_list</span><span class="p">,</span> <span class="n">format_string</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="s1">&#39;search&#39;</span><span class="p">:</span>
+                        <span class="k">continue</span>  <span class="c1"># Return to search mode</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">break</span>  <span class="c1"># Exit if browse mode was quit</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No search results to browse. Perform a search first.&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
+            
+            <span class="c1"># Check for help command</span>
+            <span class="k">if</span> <span class="n">search_terms</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;help&#39;</span><span class="p">,</span> <span class="s1">&#39;h&#39;</span><span class="p">]:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Commands:&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  &lt;search terms&gt; - Search for parts&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  browse/b - Enter browse mode (if results available)&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  help/h - Show this help&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  quit/q - Exit&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
+            
+            <span class="c1"># Skip empty input</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">search_terms</span><span class="p">:</span>
+                <span class="k">continue</span>
+            
+            <span class="c1"># Add to history (readline automatically handles this)</span>
+            <span class="n">readline</span><span class="o">.</span><span class="n">add_history</span><span class="p">(</span><span class="n">search_terms</span><span class="p">)</span>
+            
+            <span class="c1"># Perform search and display results</span>
+            <span class="n">parts</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">search_terms</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">limit</span><span class="p">)</span>
+            <span class="n">current_parts</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">lib_path</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">part_name</span><span class="p">))</span>
+            
+            <span class="n">perform_search_and_display</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">search_terms</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">field_list</span><span class="p">,</span> <span class="n">format_string</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">current_parts</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type &#39;browse&#39; to navigate through results.&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">()</span>  <span class="c1"># Add blank line between searches</span>
+            
+        <span class="k">except</span> <span class="p">(</span><span class="ne">EOFError</span><span class="p">,</span> <span class="ne">KeyboardInterrupt</span><span class="p">):</span>
+            <span class="k">break</span></div>
+
+
+
+<div class="viewcode-block" id="main">
+<a class="viewcode-back" href="../../../rst_output/skidl.scripts.part_search_cli.html#skidl.scripts.part_search_cli.main">[docs]</a>
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">argv</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">argv</span> <span class="o">=</span> <span class="n">argv</span> <span class="ow">or</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Search SKiDL part libraries (paths come from .skidlcfg).&quot;</span>
+        <span class="p">),</span>
+        <span class="n">formatter_class</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">RawDescriptionHelpFormatter</span><span class="p">,</span>
+        <span class="n">epilog</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Format string examples:</span>
+<span class="s2">  Default: &quot;</span><span class="si">{</span><span class="n">DEFAULT_FORMAT</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="s2">  Simple:  &quot;</span><span class="se">{{</span><span class="s2">part_name</span><span class="se">}}</span><span class="s2">&quot;</span>
+<span class="s2">  Detailed: &quot;</span><span class="se">{{</span><span class="s2">lib_name</span><span class="se">}}</span><span class="s2">/</span><span class="se">{{</span><span class="s2">part_name</span><span class="se">}}</span><span class="s2"> - </span><span class="se">{{</span><span class="s2">description</span><span class="se">}}</span><span class="s2">&quot;</span>
+<span class="s2">  Custom:   &quot;Part: </span><span class="se">{{</span><span class="s2">part_name</span><span class="se">}}</span><span class="s2"> | Library: </span><span class="se">{{</span><span class="s2">lib_name</span><span class="se">}}</span><span class="s2"> | </span><span class="se">{{</span><span class="s2">aliases</span><span class="se">}}</span><span class="s2">&quot;</span>
+
+<span class="s2">Available fields: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">AVAILABLE_FIELDS</span><span class="p">)</span><span class="si">}</span>
+
+<span class="s2">Interactive mode:</span>
+<span class="s2">  Use --interactive to enter interactive search mode after initial search.</span>
+<span class="s2">  Commands: &#39;quit&#39;, &#39;exit&#39;, &#39;q&#39; to exit. Up/down arrows for search history.</span>
+<span class="s2">        &quot;&quot;&quot;</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;terms&quot;</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Search terms (Separate terms by space for AND, | for OR. Use quotes for phrases). &quot;</span>
+            <span class="s2">&quot;Optional in interactive mode.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--tool&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;ECAD tool name (e.g. kicad6, kicad7, kicad8, kicad9).&quot;</span>
+        <span class="p">),</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">skidl</span><span class="o">.</span><span class="n">get_default_tool</span><span class="p">(),</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--format&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">DEFAULT_FORMAT</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Output format string (default: &#39;</span><span class="si">{</span><span class="n">DEFAULT_FORMAT</span><span class="si">}</span><span class="s2">&#39;). &quot;</span>
+            <span class="s2">&quot;See list of available fields below. &quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--fields&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">DEFAULT_FIELDS</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Comma-separated list of fields to display in order. &quot;</span>
+            <span class="s2">&quot;See list of available fields below. &quot;</span>
+            <span class="s2">&quot;Overrides --format if specified.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--separator&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot; | &quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Field separator when using --fields (default: &#39; | &#39;)&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--limit&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Limit number of results&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--output&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;-o&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Write results to file (defaults to stdout)&quot;</span>
+        <span class="p">),</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--table&quot;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Display results as a table (requires rich module).&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--interactive&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;-i&quot;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Enter interactive mode after initial search (if terms provided). &quot;</span>
+            <span class="s2">&quot;Allows multiple searches with command history support and part browse mode.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">argv</span><span class="p">)</span>
+
+    <span class="c1"># Check for table mode requirements</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">table</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">RICH_AVAILABLE</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: --table option requires the &#39;rich&#39; module. &quot;</span>
+              <span class="s2">&quot;Install with: pip install rich&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="c1"># Check if we have search terms or interactive mode</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">terms</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">interactive</span><span class="p">:</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Search terms are required unless using --interactive mode&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Create/load DB for the requested tool</span>
+    <span class="n">db</span> <span class="o">=</span> <span class="n">PartSearchDB</span><span class="p">(</span><span class="n">tool</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">tool</span><span class="p">)</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">load_from_lib_search_paths</span><span class="p">()</span>
+
+    <span class="c1"># Determine field list if using --fields</span>
+    <span class="n">field_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">args</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)]</span>
+
+    <span class="c1"># Determine output format</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">fields</span><span class="p">:</span>
+        <span class="c1"># Use field list mode</span>
+        <span class="n">invalid_fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">field_list</span> <span class="k">if</span> <span class="n">f</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">AVAILABLE_FIELDS</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">invalid_fields</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: Invalid fields: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">invalid_fields</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                  <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Available fields: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">AVAILABLE_FIELDS</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                  <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        
+        <span class="c1"># Create format string from field list</span>
+        <span class="n">format_placeholders</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;{&quot;</span> <span class="o">+</span> <span class="n">field</span> <span class="o">+</span> <span class="s2">&quot;}&quot;</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">field_list</span><span class="p">]</span>
+        <span class="n">format_string</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">separator</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">format_placeholders</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Use custom format string</span>
+        <span class="n">format_string</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">format</span>
+
+    <span class="c1"># Perform initial search if terms provided</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">terms</span><span class="p">:</span>
+        <span class="n">perform_search_and_display</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">terms</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">field_list</span><span class="p">,</span> <span class="n">format_string</span><span class="p">)</span>
+        
+        <span class="c1"># Add initial search to history for interactive mode</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">interactive</span><span class="p">:</span>
+            <span class="n">readline</span><span class="o">.</span><span class="n">add_history</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">terms</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">()</span>
+
+    <span class="c1"># Enter interactive mode if requested</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">interactive</span><span class="p">:</span>
+        <span class="n">interactive_search</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">field_list</span><span class="p">,</span> <span class="n">format_string</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="mi">0</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.scripts.part_search_cli</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>

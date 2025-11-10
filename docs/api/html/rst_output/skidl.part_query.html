@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.part_query module &#8212; SKiDL 2.1.1 documentation</title>
+    <title>skidl.part_query module &#8212; SKiDL 2.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=841abef3"></script>
+    <script src="../_static/documentation_options.js?v=b21de401"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.part_query module</a></li> 
       </ul>
     </div>  
@@ -49,18 +49,93 @@
 <p>This module provides utilities to search for electronic parts and footprints
 across libraries, and to display their details. It includes support for
 regular expression searches and filtering on different properties.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="skidl.part_query.PartSearchDB">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">PartSearchDB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#PartSearchDB"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.PartSearchDB" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Manage a parts search SQLite database.</p>
+<dl class="simple">
+<dt>The DB contains two tables:</dt><dd><ul class="simple">
+<li><p>libraries(lib_file TEXT PRIMARY KEY, mtime REAL)</p></li>
+<li><p>parts(id INTEGER PRIMARY KEY, part_name TEXT, lib_file TEXT, search_text TEXT)</p></li>
+</ul>
+</dd>
+</dl>
+<p>The DB path is taken from skidl.config.part_search_db_dir. If that attribute is
+not present, defaults to the current directory.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.part_query.PartSearchDB.add_lib">
+<span class="sig-name descname"><span class="pre">add_lib</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#PartSearchDB.add_lib"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.PartSearchDB.add_lib" title="Link to this definition">¶</a></dt>
+<dd><p>Parse the library file and insert parts into parts table. Update library mtime.
+lib_path should be an absolute path (or something SchLib can use).
+If the library is already in the database, then update it and all its parts.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.part_query.PartSearchDB.add_libs">
+<span class="sig-name descname"><span class="pre">add_libs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">lib_files</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#PartSearchDB.add_libs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.PartSearchDB.add_libs" title="Link to this definition">¶</a></dt>
+<dd><p>Add or replace libraries listed in lib_files (iterable of filenames).
+Each lib is added or updated in the libraries table and
+its parts are added or updated in the parts table.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.part_query.PartSearchDB.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#PartSearchDB.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.PartSearchDB.close" title="Link to this definition">¶</a></dt>
+<dd><p>Close the database connection.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.part_query.PartSearchDB.load_from_lib_search_paths">
+<span class="sig-name descname"><span class="pre">load_from_lib_search_paths</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#PartSearchDB.load_from_lib_search_paths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.PartSearchDB.load_from_lib_search_paths" title="Link to this definition">¶</a></dt>
+<dd><p>Load all libraries from the current skidl.lib_search_paths for the current tool.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.part_query.PartSearchDB.rmv_lib">
+<span class="sig-name descname"><span class="pre">rmv_lib</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#PartSearchDB.rmv_lib"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.PartSearchDB.rmv_lib" title="Link to this definition">¶</a></dt>
+<dd><p>Remove a single library file and its parts from the database.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.part_query.PartSearchDB.rmv_libs">
+<span class="sig-name descname"><span class="pre">rmv_libs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">lib_files</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#PartSearchDB.rmv_libs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.PartSearchDB.rmv_libs" title="Link to this definition">¶</a></dt>
+<dd><p>Remove libraries listed in lib_files (iterable of filenames).
+Each lib and its parts are removed from the database.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.part_query.PartSearchDB.search">
+<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#PartSearchDB.search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.PartSearchDB.search" title="Link to this definition">¶</a></dt>
+<dd><p>Search parts for the given query string.
+Supports quoted phrases and ‘|’ as OR.</p>
+<p>Returns a list of (part_name, lib_file) tuples for matches.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.part_query.PartSearchDB.update_libs">
+<span class="sig-name descname"><span class="pre">update_libs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#PartSearchDB.update_libs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.PartSearchDB.update_libs" title="Link to this definition">¶</a></dt>
+<dd><p>For every library recorded in the DB, compare filesystem mtime; if different, update.</p>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.part_query.search">
-<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part_query.search" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part_query.search" title="Link to this definition">¶</a></dt>
 <dd><p>Print a list of parts with the regex terms within their name, alias, description or keywords.</p>
 <p>Searches through all available libraries for parts matching the given terms and prints
 the results to the console.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>terms</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Space-separated search terms to match against part attributes.</p></li>
+<li><p><strong>terms</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Search terms separated by spaces (AND) or | (OR) to match against part attributes.</p></li>
 <li><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The ECAD tool format for the libraries to search.
 Defaults to the currently configured tool.</p></li>
+<li><p><strong>fmt</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – A format string for displaying each part.
+Defaults to “{lib_name}: {part_name} ({description})”.</p></li>
+<li><p><strong>file</strong> (<em>file-like object</em><em>, </em><em>optional</em>) – The output stream to write results to.
+Defaults to sys.stdout.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -121,16 +196,20 @@ Defaults to the currently configured tool.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.part_query.search_parts">
-<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">search_parts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#search_parts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.search_parts" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">search_parts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#search_parts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.search_parts" title="Link to this definition">¶</a></dt>
 <dd><p>Print a list of parts with the regex terms within their name, alias, description or keywords.</p>
 <p>Searches through all available libraries for parts matching the given terms and prints
 the results to the console.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>terms</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Space-separated search terms to match against part attributes.</p></li>
+<li><p><strong>terms</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Search terms separated by spaces (AND) or | (OR) to match against part attributes.</p></li>
 <li><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The ECAD tool format for the libraries to search.
 Defaults to the currently configured tool.</p></li>
+<li><p><strong>fmt</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – A format string for displaying each part.
+Defaults to “{lib_name}: {part_name} ({description})”.</p></li>
+<li><p><strong>file</strong> (<em>file-like object</em><em>, </em><em>optional</em>) – The output stream to write results to.
+Defaults to sys.stdout.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -138,30 +217,6 @@ Defaults to the currently configured tool.</p></li>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="skidl.part_query.search_parts_iter">
-<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">search_parts_iter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#search_parts_iter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.search_parts_iter" title="Link to this definition">¶</a></dt>
-<dd><p>Return an iterator of (lib, part) sequences that match regex terms.</p>
-<p>This generator function yields information about libraries being searched and parts
-found that match the search terms.</p>
-<dl class="field-list">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>terms</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Space-separated search terms to match against part attributes.</p></li>
-<li><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The ECAD tool format for the libraries to search.
-Defaults to the currently configured tool.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Yields<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>tuple</em> –</p>
-<dl class="simple">
-<dt>Either progress information as (“LIB”, lib_file, index, total)</dt><dd><p>or part information as (“PART”, lib_file, part_obj, part_alias).</p>
-</dd>
-</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -230,11 +285,21 @@ Defaults to the currently configured tool.</p></li>
     <h3><a href="../index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">skidl.part_query module</a><ul>
+<li><a class="reference internal" href="#skidl.part_query.PartSearchDB"><code class="docutils literal notranslate"><span class="pre">PartSearchDB</span></code></a><ul>
+<li><a class="reference internal" href="#skidl.part_query.PartSearchDB.add_lib"><code class="docutils literal notranslate"><span class="pre">PartSearchDB.add_lib()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part_query.PartSearchDB.add_libs"><code class="docutils literal notranslate"><span class="pre">PartSearchDB.add_libs()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part_query.PartSearchDB.close"><code class="docutils literal notranslate"><span class="pre">PartSearchDB.close()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part_query.PartSearchDB.load_from_lib_search_paths"><code class="docutils literal notranslate"><span class="pre">PartSearchDB.load_from_lib_search_paths()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part_query.PartSearchDB.rmv_lib"><code class="docutils literal notranslate"><span class="pre">PartSearchDB.rmv_lib()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part_query.PartSearchDB.rmv_libs"><code class="docutils literal notranslate"><span class="pre">PartSearchDB.rmv_libs()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part_query.PartSearchDB.search"><code class="docutils literal notranslate"><span class="pre">PartSearchDB.search()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.part_query.PartSearchDB.update_libs"><code class="docutils literal notranslate"><span class="pre">PartSearchDB.update_libs()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#skidl.part_query.search"><code class="docutils literal notranslate"><span class="pre">search()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.part_query.search_footprints"><code class="docutils literal notranslate"><span class="pre">search_footprints()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.part_query.search_footprints_iter"><code class="docutils literal notranslate"><span class="pre">search_footprints_iter()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.part_query.search_parts"><code class="docutils literal notranslate"><span class="pre">search_parts()</span></code></a></li>
-<li><a class="reference internal" href="#skidl.part_query.search_parts_iter"><code class="docutils literal notranslate"><span class="pre">search_parts_iter()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.part_query.show"><code class="docutils literal notranslate"><span class="pre">show()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.part_query.show_footprint"><code class="docutils literal notranslate"><span class="pre">show_footprint()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.part_query.show_part"><code class="docutils literal notranslate"><span class="pre">show_part()</span></code></a></li>
@@ -273,7 +338,7 @@ Defaults to the currently configured tool.</p></li>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.1.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.part_query module</a></li> 
       </ul>
     </div>

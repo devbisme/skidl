@@ -13,3 +13,4 @@ Submodules
    :maxdepth: 4
 
    skidl.scripts.netlist_to_skidl_main
+   skidl.scripts.part_search_cli

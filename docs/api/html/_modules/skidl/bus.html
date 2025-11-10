@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.bus &#8212; SKiDL 2.1.1 documentation</title>
+    <title>skidl.bus &#8212; SKiDL 2.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=841abef3"></script>
+    <script src="../../_static/documentation_options.js?v=b21de401"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.bus</a></li> 
       </ul>
@@ -212,7 +212,9 @@
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ident</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
                 <span class="n">nets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">[</span><span class="n">ident</span><span class="p">])</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ident</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-                <span class="n">nets</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">filter_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">ident</span><span class="p">))</span>
+                <span class="c1"># Look for nets with matching names or aliases.</span>
+                <span class="c1"># Since names are always included in the aliases, just check aliases.</span>
+                <span class="n">nets</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">filter_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">,</span> <span class="n">aliases</span><span class="o">=</span><span class="n">ident</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">TypeError</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Can&#39;t index bus with a </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">ident</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
@@ -227,6 +229,7 @@
             <span class="k">return</span> <span class="n">nets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="c1"># Multiple nets selected, so return them as a NetPinList list.</span>
+        <span class="c1"># NOTE: Should we warn if the same net was selected more than once?</span>
         <span class="k">return</span> <span class="n">NetPinList</span><span class="p">(</span><span class="n">nets</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">pins_nets_buses</span><span class="p">):</span>
@@ -758,7 +761,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.1.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.bus</a></li> 
       </ul>

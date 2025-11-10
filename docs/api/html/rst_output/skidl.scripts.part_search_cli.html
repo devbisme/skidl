@@ -1,0 +1,196 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>skidl.scripts.part_search_cli module &#8212; SKiDL 2.2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../_static/documentation_options.js?v=b21de401"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../"><img src="../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.scripts.part_search_cli module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-skidl.scripts.part_search_cli">
+<span id="skidl-scripts-part-search-cli-module"></span><h1>skidl.scripts.part_search_cli module<a class="headerlink" href="#module-skidl.scripts.part_search_cli" title="Link to this heading">¶</a></h1>
+<p>Command-line interface to search SKiDL part libraries.</p>
+<p>This script uses the PartSearchDB to load libraries from paths configured
+in the user’s .skidlcfg (via skidl.lib_search_paths) and search for
+parts matching the given query terms. All output is plain text with
+customizable formatting and field selection.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.scripts.part_search_cli.format_part">
+<span class="sig-prename descclassname"><span class="pre">skidl.scripts.part_search_cli.</span></span><span class="sig-name descname"><span class="pre">format_part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format_string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/scripts/part_search_cli.html#format_part"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.scripts.part_search_cli.format_part" title="Link to this definition">¶</a></dt>
+<dd><p>Format a single part using the provided format string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>part</strong> – PartResult namedtuple with part information</p></li>
+<li><p><strong>format_string</strong> – Python format string with field placeholders</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Formatted part information</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.scripts.part_search_cli.interactive_browse">
+<span class="sig-prename descclassname"><span class="pre">skidl.scripts.part_search_cli.</span></span><span class="sig-name descname"><span class="pre">interactive_browse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format_string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/scripts/part_search_cli.html#interactive_browse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.scripts.part_search_cli.interactive_browse" title="Link to this definition">¶</a></dt>
+<dd><p>Browse through search results with arrow keys and display part details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> – PartSearchDB instance</p></li>
+<li><p><strong>parts</strong> – List of PartResult objects from search</p></li>
+<li><p><strong>args</strong> – Parsed command line arguments</p></li>
+<li><p><strong>field_list</strong> – List of fields to display</p></li>
+<li><p><strong>format_string</strong> – Format string for output</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.scripts.part_search_cli.interactive_search">
+<span class="sig-prename descclassname"><span class="pre">skidl.scripts.part_search_cli.</span></span><span class="sig-name descname"><span class="pre">interactive_search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format_string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/scripts/part_search_cli.html#interactive_search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.scripts.part_search_cli.interactive_search" title="Link to this definition">¶</a></dt>
+<dd><p>Run interactive search mode with command history support.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> – PartSearchDB instance</p></li>
+<li><p><strong>args</strong> – Parsed command line arguments</p></li>
+<li><p><strong>field_list</strong> – List of fields to display</p></li>
+<li><p><strong>format_string</strong> – Format string for output</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.scripts.part_search_cli.main">
+<span class="sig-prename descclassname"><span class="pre">skidl.scripts.part_search_cli.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/scripts/part_search_cli.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.scripts.part_search_cli.main" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.scripts.part_search_cli.perform_search_and_display">
+<span class="sig-prename descclassname"><span class="pre">skidl.scripts.part_search_cli.</span></span><span class="sig-name descname"><span class="pre">perform_search_and_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format_string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/scripts/part_search_cli.html#perform_search_and_display"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.scripts.part_search_cli.perform_search_and_display" title="Link to this definition">¶</a></dt>
+<dd><p>Perform search and display results based on current arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> – PartSearchDB instance</p></li>
+<li><p><strong>search_terms</strong> – Search query string</p></li>
+<li><p><strong>args</strong> – Parsed command line arguments</p></li>
+<li><p><strong>field_list</strong> – List of fields to display</p></li>
+<li><p><strong>format_string</strong> – Format string for output</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Number of results found</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">skidl.scripts.part_search_cli module</a><ul>
+<li><a class="reference internal" href="#skidl.scripts.part_search_cli.format_part"><code class="docutils literal notranslate"><span class="pre">format_part()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.scripts.part_search_cli.interactive_browse"><code class="docutils literal notranslate"><span class="pre">interactive_browse()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.scripts.part_search_cli.interactive_search"><code class="docutils literal notranslate"><span class="pre">interactive_search()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.scripts.part_search_cli.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.scripts.part_search_cli.perform_search_and_display"><code class="docutils literal notranslate"><span class="pre">perform_search_and_display()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rst_output/skidl.scripts.part_search_cli.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.scripts.part_search_cli module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2025, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>

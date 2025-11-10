@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.tools.spice.spice &#8212; SKiDL 2.1.1 documentation</title>
+    <title>skidl.tools.spice.spice &#8212; SKiDL 2.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../../../_static/documentation_options.js?v=841abef3"></script>
+    <script src="../../../../_static/documentation_options.js?v=b21de401"></script>
     <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.1.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.spice.spice</a></li> 
       </ul>
@@ -452,6 +452,9 @@
     <span class="k">return</span> <span class="n">circuit</span></div>
 
 
+<span class="k">def</span> <span class="nf">_legalize_net_name</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Replace any special chars in a name because Spice doesn&#39;t like them.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\W&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
 <div class="viewcode-block" id="node">
 <a class="viewcode-back" href="../../../../rst_output/skidl.tools.spice.spice.html#skidl.tools.spice.spice.node">[docs]</a>
@@ -459,21 +462,20 @@
 <span class="k">def</span> <span class="nf">node</span><span class="p">(</span><span class="n">net_pin_part</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">net_pin_part</span><span class="p">,</span> <span class="n">Net</span><span class="p">):</span>
         <span class="c1"># Replace any special chars in a net name because Spice doesn&#39;t like them.</span>
-        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\W&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="n">net_pin_part</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_legalize_net_name</span><span class="p">(</span><span class="n">net_pin_part</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">net_pin_part</span><span class="p">,</span> <span class="n">Pin</span><span class="p">):</span>
         <span class="c1"># Replace any special chars in a net name because Spice doesn&#39;t like them.</span>
-        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\W&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="n">net_pin_part</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_legalize_net_name</span><span class="p">(</span><span class="n">net_pin_part</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">net_pin_part</span><span class="p">,</span> <span class="n">Part</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">net_pin_part</span><span class="o">.</span><span class="n">ref</span></div>
 
 
-
 <span class="k">def</span> <span class="nf">_xspice_node</span><span class="p">(</span><span class="n">net_or_pin</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">net_or_pin</span><span class="p">,</span> <span class="n">Net</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">net_or_pin</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">return</span> <span class="n">_legalize_net_name</span><span class="p">(</span><span class="n">net_or_pin</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">net_or_pin</span><span class="p">,</span> <span class="n">Pin</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">net_or_pin</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
-            <span class="k">return</span> <span class="n">net_or_pin</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">return</span> <span class="n">_legalize_net_name</span><span class="p">(</span><span class="n">net_or_pin</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># For XSPICE parts, unconnected pins are connected to NULL node.</span>
             <span class="k">return</span> <span class="s2">&quot;NULL&quot;</span>
@@ -822,7 +824,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.1.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.spice.spice</a></li> 
       </ul>

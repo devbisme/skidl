@@ -64,7 +64,11 @@ create a finished circuit board.</p>
 <li><a href="#basic-usage">Basic Usage</a><ul>
 <li><a href="#accessing-skidl">Accessing SKiDL</a></li>
 <li><a href="#finding-parts">Finding Parts</a><ul>
-<li><a href="#command-line-searching">Command-line Searching</a></li>
+<li><a href="#command-line-searching">Command-line Searching</a><ul>
+<li><a href="#interactive-mode-with-part-browsing">Interactive Mode with Part Browsing</a></li>
+<li><a href="#output-formatting-and-options">Output Formatting and Options</a></li>
+</ul>
+</li>
 <li><a href="#zyc-a-gui-search-tool">Zyc: A GUI Search Tool</a></li>
 </ul>
 </li>
@@ -97,7 +101,7 @@ create a finished circuit board.</p>
 <li><a href="#hierarchy">Hierarchy</a><ul>
 <li><a href="#method-1-subcircuit-decorator-with-interface-return">Method 1: SubCircuit Decorator with Interface Return</a></li>
 <li><a href="#method-2-subcircuit-subclassing-with-io-attributes">Method 2: SubCircuit Subclassing with I/O Attributes</a></li>
-<li><a href="#method-3-context-based-hierarchy-with-subcircuit">Method 3: Context-Based Hierarchy with SubCircuit</a></li>
+<li><a href="#method-3-subcircuit-context-manager">Method 3: SubCircuit Context Manager</a></li>
 </ul>
 </li>
 <li><a href="#libraries">Libraries</a></li>
@@ -105,6 +109,8 @@ create a finished circuit board.</p>
 <li><a href="#no-connects">No Connects</a></li>
 <li><a href="#net-and-pin-drive-levels">Net and Pin Drive Levels</a></li>
 <li><a href="#pin-net-bus-equivalencies">Pin, Net, Bus Equivalencies</a></li>
+<li><a href="#disambiguating-part-pins-with-identical-names">Disambiguating Part Pins with Identical Names</a></li>
+<li><a href="#part-like-access-of-subcircuit-modules">Part-Like Access of Subcircuit Modules</a></li>
 <li><a href="#selectively-supressing-erc-messages">Selectively Supressing ERC Messages</a></li>
 <li><a href="#customizable-erc-using-erc_assert">Customizable ERC Using <code>erc_assert()</code></a></li>
 <li><a href="#handling-empty-footprints">Handling Empty Footprints</a></li>
@@ -277,91 +283,130 @@ executed as a Python script.</p>
 
 <h2 id="finding-parts">Finding Parts</h2>
 <h3 id="command-line-searching">Command-line Searching</h3>
-<p>SKiDL provides a convenience function for searching for parts called
-(naturally) <code>search</code>.
+<p>SKiDL provides the command-line utility <code>skidl-part-search</code> to search for parts.
+It offers both one-shot searches and an interactive mode with part browsing capabilities.
 For example, if you need an operational amplifier, then the following command would
 pull up a long list of likely candidates:</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;</span><span class="p">&gt;</span><span class="w"> </span><span class="nx">search</span><span class="p">(</span><span class="err">&#39;</span><span class="nx">opamp</span><span class="err">&#39;</span><span class="p">)</span>
-<span class="nx">Amplifier_Audio</span><span class="p">.</span><span class="nx">lib</span><span class="p">:</span><span class="w"> </span><span class="nx">OPA1622</span><span class="w"> </span><span class="p">(</span><span class="nx">High</span><span class="o">-</span><span class="nx">Fidelity</span><span class="p">,</span><span class="w"> </span><span class="nx">Bipolar</span><span class="o">-</span><span class="nx">Input</span><span class="p">,</span><span class="w"> </span><span class="nx">Audio</span><span class="w"> </span><span class="nx">Operational</span><span class="w"> </span><span class="nx">Amplifier</span><span class="p">,</span><span class="w"> </span><span class="nx">VSON</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span>
-<span class="nx">Amplifier_Audio</span><span class="p">.</span><span class="nx">lib</span><span class="p">:</span><span class="w"> </span><span class="nx">LM386</span><span class="w"> </span><span class="p">(</span><span class="nx">Low</span><span class="w"> </span><span class="nx">Voltage</span><span class="w"> </span><span class="nx">Audio</span><span class="w"> </span><span class="nx">Power</span><span class="w"> </span><span class="nx">Amplifier</span><span class="p">,</span><span class="w"> </span><span class="nx">DIP</span><span class="o">-</span><span class="mi">8</span><span class="o">/</span><span class="nx">SOIC</span><span class="o">-</span><span class="mi">8</span><span class="o">/</span><span class="nx">SSOP</span><span class="o">-</span><span class="mi">8</span><span class="p">)</span>
-<span class="nx">Amplifier_Difference</span><span class="p">.</span><span class="nx">lib</span><span class="p">:</span><span class="w"> </span><span class="nx">LM733CH</span><span class="w"> </span><span class="p">(</span><span class="nx">Single</span><span class="w"> </span><span class="nx">Differential</span><span class="w"> </span><span class="nx">Amplifier</span><span class="p">,</span><span class="w"> </span><span class="nx">TO</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span>
-<span class="nx">Amplifier_Difference</span><span class="p">.</span><span class="nx">lib</span><span class="p">:</span><span class="w"> </span><span class="nx">LM733H</span><span class="w"> </span><span class="p">(</span><span class="nx">Single</span><span class="w"> </span><span class="nx">Differential</span><span class="w"> </span><span class="nx">Amplifier</span><span class="p">,</span><span class="w"> </span><span class="nx">TO</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span>
-<span class="nx">Amplifier_Difference</span><span class="p">.</span><span class="nx">lib</span><span class="p">:</span><span class="w"> </span><span class="nx">LM733CN</span><span class="w"> </span><span class="p">(</span><span class="nx">Single</span><span class="w"> </span><span class="nx">Differential</span><span class="w"> </span><span class="nx">Amplifier</span><span class="p">,</span><span class="w"> </span><span class="nx">DIP</span><span class="o">-</span><span class="mi">14</span><span class="p">)</span>
-<span class="nx">Amplifier_Instrumentation</span><span class="p">.</span><span class="nx">lib</span><span class="p">:</span><span class="w"> </span><span class="nx">INA326</span><span class="w"> </span><span class="p">(</span><span class="nx">Precision</span><span class="p">,</span><span class="w"> </span><span class="nx">Rail</span><span class="o">-</span><span class="nx">to</span><span class="o">-</span><span class="nx">Rail</span><span class="w"> </span><span class="nx">I</span><span class="o">/</span><span class="nx">O</span><span class="w"> </span><span class="nx">Instrumentation</span><span class="w"> </span><span class="nx">Amplifier</span><span class="p">,</span><span class="w"> </span><span class="nx">MSOP</span><span class="o">-</span><span class="mi">8</span><span class="w"> </span><span class="kn">package</span><span class="p">)</span>
-<span class="nx">Amplifier_Instrumentation</span><span class="p">.</span><span class="nx">lib</span><span class="p">:</span><span class="w"> </span><span class="nx">INA327</span><span class="w"> </span><span class="p">(</span><span class="nx">Precision</span><span class="p">,</span><span class="w"> </span><span class="nx">Rail</span><span class="o">-</span><span class="nx">to</span><span class="o">-</span><span class="nx">Rail</span><span class="w"> </span><span class="nx">I</span><span class="o">/</span><span class="nx">O</span><span class="w"> </span><span class="nx">Instrumentation</span><span class="w"> </span><span class="nx">Amplifier</span><span class="p">,</span><span class="w"> </span><span class="nx">MSOP</span><span class="o">-</span><span class="mi">10</span><span class="w"> </span><span class="kn">package</span><span class="p">)</span>
-<span class="nx">Amplifier_Instrumentation</span><span class="p">.</span><span class="nx">lib</span><span class="p">:</span><span class="w"> </span><span class="nx">INA129</span><span class="w"> </span><span class="p">(</span><span class="nx">Precision</span><span class="p">,</span><span class="w"> </span><span class="nx">Low</span><span class="w"> </span><span class="nx">Power</span><span class="w"> </span><span class="nx">Instrumentation</span><span class="w"> </span><span class="nx">Amplifier</span><span class="w"> </span><span class="nx">G</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m m-Double">49.4</span><span class="nx">kOhm</span><span class="o">/</span><span class="nx">Rg</span><span class="p">,</span><span class="w"> </span><span class="nx">DIP</span><span class="o">-</span><span class="mi">8</span><span class="o">/</span><span class="nx">SOIC</span><span class="o">-</span><span class="mi">8</span><span class="p">)</span>
-<span class="nx">Amplifier_Instrumentation</span><span class="p">.</span><span class="nx">lib</span><span class="p">:</span><span class="w"> </span><span class="nx">INA128</span><span class="w"> </span><span class="p">(</span><span class="nx">Precision</span><span class="p">,</span><span class="w"> </span><span class="nx">Low</span><span class="w"> </span><span class="nx">Power</span><span class="w"> </span><span class="nx">Instrumentation</span><span class="w"> </span><span class="nx">Amplifier</span><span class="w"> </span><span class="nx">G</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m m-Double">49.4</span><span class="nx">kOhm</span><span class="o">/</span><span class="nx">Rg</span><span class="p">,</span><span class="w"> </span><span class="nx">DIP</span><span class="o">-</span><span class="mi">8</span><span class="o">/</span><span class="nx">SOIC</span><span class="o">-</span><span class="mi">8</span><span class="p">)</span>
-<span class="nx">Amplifier_Operational</span><span class="p">.</span><span class="nx">lib</span><span class="p">:</span><span class="w"> </span><span class="nx">OPA842xD</span><span class="w"> </span><span class="p">(</span><span class="nx">Single</span><span class="w"> </span><span class="nx">rail</span><span class="o">-</span><span class="nx">to</span><span class="o">-</span><span class="nx">rail</span><span class="w"> </span><span class="nx">input</span><span class="o">/</span><span class="nx">output</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="nx">MHz</span><span class="w"> </span><span class="nx">operational</span><span class="w"> </span><span class="nx">amplifiers</span><span class="p">,</span><span class="w"> </span><span class="nx">SOIC</span><span class="o">-</span><span class="mi">8</span><span class="p">)</span>
-<span class="nx">Amplifier_Operational</span><span class="p">.</span><span class="nx">lib</span><span class="p">:</span><span class="w"> </span><span class="nx">OPA188xxD</span><span class="w"> </span><span class="p">(</span><span class="nx">Single</span><span class="w"> </span><span class="nx">rail</span><span class="o">-</span><span class="nx">to</span><span class="o">-</span><span class="nx">rail</span><span class="w"> </span><span class="nx">input</span><span class="o">/</span><span class="nx">output</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="nx">MHz</span><span class="w"> </span><span class="nx">operational</span><span class="w"> </span><span class="nx">amplifiers</span><span class="p">,</span><span class="w"> </span><span class="nx">SOIC</span><span class="o">-</span><span class="mi">8</span><span class="p">)</span>
-<span class="nx">Amplifier_Operational</span><span class="p">.</span><span class="nx">lib</span><span class="p">:</span><span class="w"> </span><span class="nx">OPA855xDSG</span><span class="w"> </span><span class="p">(</span><span class="m m-Double">1.8</span><span class="w"> </span><span class="nx">GHz</span><span class="w"> </span><span class="nx">Unity</span><span class="o">-</span><span class="nx">Gain</span><span class="w"> </span><span class="nx">Bandwidth</span><span class="w"> </span><span class="nx">FET</span><span class="w"> </span><span class="nx">Input</span><span class="w"> </span><span class="nx">Amplifier</span><span class="p">,</span><span class="w"> </span><span class="nx">WSON</span><span class="o">-</span><span class="mi">8</span><span class="p">)</span>
-<span class="nx">Amplifier_Operational</span><span class="p">.</span><span class="nx">lib</span><span class="p">:</span><span class="w"> </span><span class="nx">SA5534</span><span class="w"> </span><span class="p">(</span><span class="nx">Single</span><span class="w"> </span><span class="nx">Low</span><span class="o">-</span><span class="nx">Noise</span><span class="w"> </span><span class="nx">Operational</span><span class="w"> </span><span class="nx">Amplifiers</span><span class="p">,</span><span class="w"> </span><span class="nx">DIP</span><span class="o">-</span><span class="mi">8</span><span class="o">/</span><span class="nx">SOIC</span><span class="o">-</span><span class="mi">8</span><span class="p">)</span>
-<span class="o">...</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>skidl-part-search<span class="w"> </span>opamp
+Found<span class="w"> </span><span class="m">419</span><span class="w"> </span>part<span class="o">(</span>s<span class="o">)</span><span class="w"> </span><span class="k">for</span>:<span class="w"> </span>opamp
+Amplifier_Audio<span class="w"> </span><span class="p">|</span><span class="w"> </span>LM386<span class="w"> </span><span class="p">|</span><span class="w"> </span>Low<span class="w"> </span>Voltage<span class="w"> </span>Audio<span class="w"> </span>Power<span class="w"> </span>Amplifier,<span class="w"> </span>DIP-8/SOIC-8/SSOP-8
+Amplifier_Audio<span class="w"> </span><span class="p">|</span><span class="w"> </span>OPA1622<span class="w"> </span><span class="p">|</span><span class="w"> </span>High-Fidelity,<span class="w"> </span>Bipolar-Input,<span class="w"> </span>Audio<span class="w"> </span>Operational<span class="w"> </span>Amplifier,<span class="w"> </span>VSON-10
+Amplifier_Difference<span class="w"> </span><span class="p">|</span><span class="w"> </span>LM733CH<span class="w"> </span><span class="p">|</span><span class="w"> </span>Single<span class="w"> </span>Differential<span class="w"> </span>Amplifier,<span class="w"> </span>TO-5-10
+Amplifier_Difference<span class="w"> </span><span class="p">|</span><span class="w"> </span>LM733CN<span class="w"> </span><span class="p">|</span><span class="w"> </span>Single<span class="w"> </span>Differential<span class="w"> </span>Amplifier,<span class="w"> </span>DIP-14
+Amplifier_Difference<span class="w"> </span><span class="p">|</span><span class="w"> </span>LM733H<span class="w"> </span><span class="p">|</span><span class="w"> </span>Single<span class="w"> </span>Differential<span class="w"> </span>Amplifier,<span class="w"> </span>TO-5-10
+Amplifier_Instrumentation<span class="w"> </span><span class="p">|</span><span class="w"> </span>INA128<span class="w"> </span><span class="p">|</span><span class="w"> </span>Precision,<span class="w"> </span>Low<span class="w"> </span>Power<span class="w"> </span>Instrumentation<span class="w"> </span>Amplifier<span class="w"> </span><span class="nv">G</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>+<span class="w"> </span>50kOhm/Rg,<span class="w"> </span>DIP-8/SOIC-8...
 </code></pre></div>
 
-<p><code>search</code> accepts keywords and scans for them <em>anywhere</em> within the
+<p><code>skidl-part-search</code> accepts keywords and scans for them <em>anywhere</em> within the
 name, description and keywords of all the parts in the library path.
 (You can read more about how SKiDL handles libraries <a href="#libraries">here</a>.)
-If you want search for an <em>exact</em> match, then use a regular expression like the following:</p>
-<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; search(&#39;^lm386$&#39;)
-Amplifier_Audio.lib: LM386 (Low Voltage Audio Power Amplifier, DIP-8/SOIC-8/SSOP-8)
-</code></pre></div>
-
-<p>If you give <code>search</code> multiple terms, then it will find parts that contain <em>all</em>
+If you give it multiple terms, then it will find parts that contain <em>all</em>
 those terms:</p>
-<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; search(&#39;opamp low-noise dip-8&#39;)
-Amplifier_Operational.lib: AD797 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
-Amplifier_Operational.lib: LM101 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
-Amplifier_Operational.lib: LM301 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
-Amplifier_Operational.lib: LT1012 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
-Amplifier_Operational.lib: SA5534 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
-Amplifier_Operational.lib: NE5534 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
-Amplifier_Operational.lib: LM201 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>skidl-part-search<span class="w"> </span><span class="s1">&#39;opamp low-noise dip-8&#39;</span>
+Found<span class="w"> </span><span class="m">7</span><span class="w"> </span>part<span class="o">(</span>s<span class="o">)</span><span class="w"> </span><span class="k">for</span>:<span class="w"> </span>opamp<span class="w"> </span>low-noise<span class="w"> </span>dip-8
+Amplifier_Operational<span class="w"> </span><span class="p">|</span><span class="w"> </span>NE5532<span class="w"> </span><span class="p">|</span><span class="w"> </span>Dual<span class="w"> </span>Low-Noise<span class="w"> </span>Operational<span class="w"> </span>Amplifiers,<span class="w"> </span>DIP-8/SOIC-8
+Amplifier_Operational<span class="w"> </span><span class="p">|</span><span class="w"> </span>NE5534<span class="w"> </span><span class="p">|</span><span class="w"> </span>Single<span class="w"> </span>Low-Noise<span class="w"> </span>Operational<span class="w"> </span>Amplifiers,<span class="w"> </span>DIP-8/SOIC-8
+Amplifier_Operational<span class="w"> </span><span class="p">|</span><span class="w"> </span>NJM5532<span class="w"> </span><span class="p">|</span><span class="w"> </span>Dual<span class="w"> </span>Low-Noise<span class="w"> </span>Operational<span class="w"> </span>Amplifier,<span class="w"> </span>DIP-8/DMP-8/SIP-8
+Amplifier_Operational<span class="w"> </span><span class="p">|</span><span class="w"> </span>SA5532<span class="w"> </span><span class="p">|</span><span class="w"> </span>Dual<span class="w"> </span>Low-Noise<span class="w"> </span>Operational<span class="w"> </span>Amplifiers,<span class="w"> </span>DIP-8/SOIC-8
+Amplifier_Operational<span class="w"> </span><span class="p">|</span><span class="w"> </span>SA5534<span class="w"> </span><span class="p">|</span><span class="w"> </span>Single<span class="w"> </span>Low-Noise<span class="w"> </span>Operational<span class="w"> </span>Amplifiers,<span class="w"> </span>DIP-8/SOIC-8
+Amplifier_Operational<span class="w"> </span><span class="p">|</span><span class="w"> </span>TL071<span class="w"> </span><span class="p">|</span><span class="w"> </span>Single<span class="w"> </span>Low-Noise<span class="w"> </span>JFET-Input<span class="w"> </span>Operational<span class="w"> </span>Amplifiers,<span class="w"> </span>DIP-8/SOIC-8
+Amplifier_Operational<span class="w"> </span><span class="p">|</span><span class="w"> </span>TL072<span class="w"> </span><span class="p">|</span><span class="w"> </span>Dual<span class="w"> </span>Low-Noise<span class="w"> </span>JFET-Input<span class="w"> </span>Operational<span class="w"> </span>Amplifiers,<span class="w"> </span>DIP-8/SOIC-8
 </code></pre></div>
 
 <p>You may also use the <code>|</code> character to find parts that contain at least one of a set
 of choices:</p>
-<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; search(&#39;opamp (low-noise|dip-8)&#39;)
-
-Amplifier_Audio.lib: LM386 (Low Voltage Audio Power Amplifier, DIP-8/SOIC-8/SSOP-8)
-Amplifier_Operational.lib: TLV2371P (Rail-to-Rail Input/Output Operational Amplifier, PDIP-8)
-Amplifier_Operational.lib: MAX4239ASA (Ultra-Low Offset/Drift, Low-Noise, Precision Amplifiers, SOIC-8)
-Amplifier_Operational.lib: LM4250 (Programmable Operational Amplifier, DIP-8/SOIC-8)
-Amplifier_Operational.lib: LF256 (Single JFET-Input Operational Amplifiers, DIP-8/SOIC-8)
-Amplifier_Operational.lib: MAX4239AUT (Ultra-Low Offset/Drift, Low-Noise, Precision Amplifiers, SOT-23-6)
-Amplifier_Operational.lib: LM6361 (Single High Speed Operational Amplifier, DIP-8/SOIC-8)
-Amplifier_Operational.lib: LF257 (Single JFET-Input Operational Amplifiers, DIP-8/SOIC-8)
-Amplifier_Operational.lib: AD8603 (Zero-Drift, Precision, Low-Noise, Rail-to-Rail Output, 36-V Operational Amplifier, TSOT-23-5)
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>skidl-part-search<span class="w"> </span><span class="s1">&#39;opamp (low-noise|dip-8)&#39;</span>
+Found<span class="w"> </span><span class="m">118</span><span class="w"> </span>part<span class="o">(</span>s<span class="o">)</span><span class="w"> </span><span class="k">for</span>:<span class="w"> </span>opamp<span class="w"> </span><span class="o">(</span>low-noise<span class="p">|</span>dip-8<span class="o">)</span>
+Amplifier_Audio<span class="w"> </span><span class="p">|</span><span class="w"> </span>LM386<span class="w"> </span><span class="p">|</span><span class="w"> </span>Low<span class="w"> </span>Voltage<span class="w"> </span>Audio<span class="w"> </span>Power<span class="w"> </span>Amplifier,<span class="w"> </span>DIP-8/SOIC-8/SSOP-8
+Amplifier_Instrumentation<span class="w"> </span><span class="p">|</span><span class="w"> </span>INA128<span class="w"> </span><span class="p">|</span><span class="w"> </span>Precision,<span class="w"> </span>Low<span class="w"> </span>Power<span class="w"> </span>Instrumentation<span class="w"> </span>Amplifier<span class="w"> </span><span class="nv">G</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>+<span class="w"> </span>50kOhm/Rg,<span class="w"> </span>DIP-8/SOIC-8
+Amplifier_Instrumentation<span class="w"> </span><span class="p">|</span><span class="w"> </span>INA129<span class="w"> </span><span class="p">|</span><span class="w"> </span>Precision,<span class="w"> </span>Low<span class="w"> </span>Power<span class="w"> </span>Instrumentation<span class="w"> </span>Amplifier<span class="w"> </span><span class="nv">G</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>+<span class="w"> </span><span class="m">49</span>.4kOhm/Rg,<span class="w"> </span>DIP-8/SOIC-8
+Amplifier_Operational<span class="w"> </span><span class="p">|</span><span class="w"> </span>AD797<span class="w"> </span><span class="p">|</span><span class="w"> </span>Ultralow<span class="w"> </span>Distortion,<span class="w"> </span>Ultralow<span class="w"> </span>Noise<span class="w"> </span>Op<span class="w"> </span>Amp,<span class="w"> </span>DIP-8/SOIC-8
+Amplifier_Operational<span class="w"> </span><span class="p">|</span><span class="w"> </span>AD8001AN<span class="w"> </span><span class="p">|</span><span class="w"> </span>Current<span class="w"> </span>Feedback<span class="w"> </span>Amplifier,<span class="w"> </span><span class="m">800</span><span class="w"> </span>MHz,<span class="w"> </span>50mW,<span class="w"> </span>DIP-8
+Amplifier_Operational<span class="w"> </span><span class="p">|</span><span class="w"> </span>AD817<span class="w"> </span><span class="p">|</span><span class="w"> </span>High<span class="w"> </span>Speed,<span class="w"> </span>Low<span class="w"> </span>Power<span class="w"> </span>Wide<span class="w"> </span>Supply<span class="w"> </span>Range<span class="w"> </span>Operational<span class="w"> </span>Amplifier,<span class="w"> </span>DIP-8/SOIC-8
 ...
 </code></pre></div>
 
 <p>If you need to search for a string containing spaces, just enclose it in quotes:</p>
-<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; search(&#39;opamp &quot;high performance&quot;&#39;)
-
-Amplifier_Operational.lib: OP77 (Single SoundPlus High Performance Audio Operational Amplifiers, DIP-8/SOIC-8)
-Amplifier_Operational.lib: LT1363 (Single SoundPlus High Performance Audio Operational Amplifiers, DIP-8/SOIC-8)
-Amplifier_Operational.lib: OP07 (Single SoundPlus High Performance Audio Operational Amplifiers, DIP-8/SOIC-8)
-Amplifier_Operational.lib: OPA134 (Single SoundPlus High Performance Audio Operational Amplifiers, DIP-8/SOIC-8)
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>skidl-part-search<span class="w"> </span><span class="s1">&#39;opamp &quot;high performance&quot;&#39;</span>
+Found<span class="w"> </span><span class="m">7</span><span class="w"> </span>part<span class="o">(</span>s<span class="o">)</span><span class="w"> </span><span class="k">for</span>:<span class="w"> </span>opamp<span class="w"> </span><span class="s2">&quot;high performance&quot;</span>
+Amplifier_Operational<span class="w"> </span><span class="p">|</span><span class="w"> </span>NJM2114<span class="w"> </span><span class="p">|</span><span class="w"> </span>Dual<span class="w"> </span>High<span class="w"> </span>Performance<span class="w"> </span>Low<span class="w"> </span>Noise<span class="w"> </span>Operational<span class="w"> </span>Amplifier,<span class="w"> </span>DIP-8/DMP-8/SIP-8
+Amplifier_Operational<span class="w"> </span><span class="p">|</span><span class="w"> </span>OPA134<span class="w"> </span><span class="p">|</span><span class="w"> </span>Single<span class="w"> </span>SoundPlus<span class="w"> </span>High<span class="w"> </span>Performance<span class="w"> </span>Audio<span class="w"> </span>Operational<span class="w"> </span>Amplifiers,<span class="w"> </span>DIP-8/SOIC-8
+Amplifier_Operational<span class="w"> </span><span class="p">|</span><span class="w"> </span>OPA1602<span class="w"> </span><span class="p">|</span><span class="w"> </span>Dual<span class="w"> </span>SoundPlus<span class="w"> </span>High<span class="w"> </span>Performance,<span class="w"> </span>Bipolar-Input<span class="w"> </span>Audio<span class="w"> </span>Operational<span class="w"> </span>Amplifiers,<span class="w"> </span>SOIC-8/MSOP-8
+Amplifier_Operational<span class="w"> </span><span class="p">|</span><span class="w"> </span>OPA1604<span class="w"> </span><span class="p">|</span><span class="w"> </span>Quad<span class="w"> </span>SoundPlus<span class="w"> </span>High<span class="w"> </span>Performance,<span class="w"> </span>Bipolar-Input<span class="w"> </span>Audio<span class="w"> </span>Operational<span class="w"> </span>Amplifiers,<span class="w"> </span>SOIC-14/TSSOP-14
+Amplifier_Operational<span class="w"> </span><span class="p">|</span><span class="w"> </span>OPA1612AxD<span class="w"> </span><span class="p">|</span><span class="w"> </span>Dual<span class="w"> </span>SoundPlus<span class="w"> </span>High<span class="w"> </span>Performance,<span class="w"> </span>Bipolar-Input<span class="w"> </span>Audio<span class="w"> </span>Operational<span class="w"> </span>Amplifiers,<span class="w"> </span>SOIC-8
+Amplifier_Operational<span class="w"> </span><span class="p">|</span><span class="w"> </span>OPA2134<span class="w"> </span><span class="p">|</span><span class="w"> </span>Dual<span class="w"> </span>SoundPlus<span class="w"> </span>High<span class="w"> </span>Performance<span class="w"> </span>Audio<span class="w"> </span>Operational<span class="w"> </span>Amplifiers,<span class="w"> </span>DIP-8/SOIC-8
+Amplifier_Operational<span class="w"> </span><span class="p">|</span><span class="w"> </span>OPA4134<span class="w"> </span><span class="p">|</span><span class="w"> </span>Quad<span class="w"> </span>SoundPlus<span class="w"> </span>High<span class="w"> </span>Performance<span class="w"> </span>Audio<span class="w"> </span>Operational<span class="w"> </span>Amplifiers,<span class="w"> </span>SOIC-14
 </code></pre></div>
 
-<p>Once you have the part name and library, you can see the part's pin numbers, names
-and their functions using the <code>show</code> function:</p>
-<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; show(&#39;Amplifier_Audio&#39;, &#39;lm386&#39;)
+<h4 id="interactive-mode-with-part-browsing">Interactive Mode with Part Browsing</h4>
+<p>For more detailed exploration, you can use the interactive mode that allows you to search multiple times
+and browse through individual parts to see their pin details:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>skidl-part-search<span class="w"> </span>--interactive
+Interactive<span class="w"> </span>search<span class="w"> </span>mode.<span class="w"> </span>Use<span class="w"> </span>up/down<span class="w"> </span>arrows<span class="w"> </span><span class="k">for</span><span class="w"> </span>history.
+Type<span class="w"> </span><span class="s1">&#39;quit&#39;</span>,<span class="w"> </span><span class="s1">&#39;exit&#39;</span>,<span class="w"> </span>or<span class="w"> </span><span class="s1">&#39;q&#39;</span><span class="w"> </span>to<span class="w"> </span>exit,<span class="w"> </span><span class="s1">&#39;browse&#39;</span><span class="w"> </span>to<span class="w"> </span>enter<span class="w"> </span>browse<span class="w"> </span>mode.
 
- LM386 (): Low Voltage Audio Power Amplifier, DIP-8/SOIC-8/SSOP-8
-    Pin None/1/GAIN/INPUT
-    Pin None/2/-/INPUT
-    Pin None/3/+/INPUT
-    Pin None/4/GND/POWER-IN
-    Pin None/5/~/OUTPUT
-    Pin None/6/V+/POWER-IN
-    Pin None/7/BYPASS/INPUT
-    Pin None/8/GAIN/INPUT
+Search<span class="w"> </span>terms:<span class="w"> </span>lm358
+Found<span class="w"> </span><span class="m">2</span><span class="w"> </span>part<span class="o">(</span>s<span class="o">)</span><span class="w"> </span><span class="k">for</span>:<span class="w"> </span>lm358
+Amplifier_Operational<span class="w"> </span><span class="p">|</span><span class="w"> </span>LM358<span class="w"> </span><span class="p">|</span><span class="w"> </span>Low-Power,<span class="w"> </span>Dual<span class="w"> </span>Operational<span class="w"> </span>Amplifiers,<span class="w"> </span>DIP-8/SOIC-8/TO-99-8
+Amplifier_Operational<span class="w"> </span><span class="p">|</span><span class="w"> </span>LM358_DFN<span class="w"> </span><span class="p">|</span><span class="w"> </span>Low-Power,<span class="w"> </span>Dual<span class="w"> </span>Operational<span class="w"> </span>Amplifiers,<span class="w"> </span>DFN-8
+Found<span class="w"> </span><span class="m">2</span><span class="w"> </span>part<span class="o">(</span>s<span class="o">)</span><span class="w"> </span><span class="k">for</span>:<span class="w"> </span>lm358
+Type<span class="w"> </span><span class="s1">&#39;browse&#39;</span><span class="w"> </span>to<span class="w"> </span>navigate<span class="w"> </span>through<span class="w"> </span>results.
+
+Search<span class="w"> </span>terms:<span class="w"> </span>browse
+Browse<span class="w"> </span>mode:<span class="w"> </span><span class="m">2</span><span class="w"> </span>parts<span class="w"> </span>found.
+Use<span class="w"> </span>UP/DOWN<span class="w"> </span>arrow<span class="w"> </span>keys<span class="w"> </span>to<span class="w"> </span>navigate,<span class="w"> </span>ENTER<span class="w"> </span>to<span class="w"> </span>show<span class="w"> </span>details,<span class="w"> </span><span class="s1">&#39;s&#39;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>search<span class="w"> </span>mode,<span class="w"> </span><span class="s1">&#39;q&#39;</span><span class="w"> </span>to<span class="w"> </span>quit.
+
+<span class="o">[</span><span class="m">1</span>/2<span class="o">]</span><span class="w"> </span>Amplifier_Operational<span class="w"> </span><span class="p">|</span><span class="w"> </span>LM358<span class="w"> </span><span class="p">|</span><span class="w"> </span>Low-Power,<span class="w"> </span>Dual<span class="w"> </span>Operational<span class="w"> </span>Amplifiers,<span class="w"> </span>DIP-8/SOIC-8/TO-99-8<span class="w"> </span><span class="o">(</span>ENTER/UP/DOWN/s/q<span class="o">)</span>
 </code></pre></div>
 
-<p><code>show</code> looks for <em>exact matches</em> of the part name in a library, so the following
-command raises an error:</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;</span><span class="p">&gt;</span><span class="w"> </span><span class="nx">show</span><span class="p">(</span><span class="err">&#39;</span><span class="nx">Amplifier_Audio</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">lm38</span><span class="err">&#39;</span><span class="p">)</span>
-<span class="nx">ERROR</span><span class="p">:</span><span class="w"> </span><span class="nx">Unable</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">find</span><span class="w"> </span><span class="nx">part</span><span class="w"> </span><span class="nx">lm38</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="kn">library</span><span class="w"> </span><span class="nx">linear</span><span class="p">.</span>
+<p>In browse mode, you can:
+- Use <strong>UP/DOWN arrow keys</strong> to navigate through the search results
+- Press <strong>ENTER</strong> to display detailed information about the selected part, including all its pins
+- Type <strong>'s'</strong> to return to search mode
+- Type <strong>'q'</strong> to quit</p>
+<p>When you press ENTER on a part, you'll see detailed pin information:</p>
+<div class="highlight"><pre><span></span><code>Showing details for: LM358 from Amplifier_Operational
+------------------------------------------------------------
+Part: LM358
+Library: Amplifier_Operational
+Description: Low-Power, Dual Operational Amplifiers, DIP-8/SOIC-8/TO-99-8
+Aliases: LM358
+Keywords: dual opamp
+
+Pins:
+┏━━━━━━┳━━━━━━━┳━━━━━━━━┓
+┃ Pin# ┃ Names ┃ Type   ┃
+┡━━━━━━╇━━━━━━━╇━━━━━━━━┩
+│ 1    │ p1,~  │ OUTPUT │
+│ 2    │ -,p2  │ INPUT  │
+│ 3    │ +,p3  │ INPUT  │
+│ 4    │ p4,V- │ PWRIN  │
+│ 5    │ +,p5  │ INPUT  │
+│ 6    │ -,p6  │ INPUT  │
+│ 7    │ p7,~  │ OUTPUT │
+│ 8    │ p8,V+ │ PWRIN  │
+└──────┴───────┴────────┘
+------------------------------------------------------------
+
+[1/2] Amplifier_Operational | LM358 | Low-Power, Dual Operational Amplifiers, DIP-8/SOIC-8/TO-99-8 (ENTER/UP/DOWN/s/q)
+</code></pre></div>
+
+<h4 id="output-formatting-and-options">Output Formatting and Options</h4>
+<p>The search utility supports various output formats and options:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Display results in a table format (requires rich module)</span>
+<span class="o">$</span><span class="w"> </span><span class="n">skidl</span><span class="o">-</span><span class="n">part</span><span class="o">-</span><span class="n">search</span><span class="w"> </span><span class="o">--</span><span class="n">table</span><span class="w"> </span><span class="n">opamp</span>
+
+<span class="c1"># Limit the number of results</span>
+<span class="o">$</span><span class="w"> </span><span class="n">skidl</span><span class="o">-</span><span class="n">part</span><span class="o">-</span><span class="n">search</span><span class="w"> </span><span class="o">--</span><span class="n">limit</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="n">opamp</span>
+
+<span class="c1"># Search specific ECAD tool libraries</span>
+<span class="o">$</span><span class="w"> </span><span class="n">skidl</span><span class="o">-</span><span class="n">part</span><span class="o">-</span><span class="n">search</span><span class="w"> </span><span class="o">--</span><span class="k">tool</span><span class="w"> </span><span class="n">kicad7</span><span class="w"> </span><span class="n">opamp</span>
+
+<span class="c1"># Custom output formatting</span>
+<span class="o">$</span><span class="w"> </span><span class="n">skidl</span><span class="o">-</span><span class="n">part</span><span class="o">-</span><span class="n">search</span><span class="w"> </span><span class="o">--</span><span class="n">format</span><span class="w"> </span><span class="s2">&quot;{part_name} from {lib_name}&quot;</span><span class="w"> </span><span class="n">opamp</span>
+
+<span class="c1"># Save results to a file</span>
+<span class="o">$</span><span class="w"> </span><span class="n">skidl</span><span class="o">-</span><span class="n">part</span><span class="o">-</span><span class="n">search</span><span class="w"> </span><span class="o">--</span><span class="n">output</span><span class="w"> </span><span class="n">results</span><span class="o">.</span><span class="n">txt</span><span class="w"> </span><span class="n">opamp</span>
 </code></pre></div>
 
 <p>In addition to searching for parts, you may also search for footprints using the
@@ -782,6 +827,12 @@ access pins by their names.
 For example, it's more obvious that a voltage supply net is being
 attached to the power pin of the processor when it's expressed like this:</p>
 <div class="highlight"><pre><span></span><code><span class="n">pic10</span><span class="p">[</span><span class="s1">&#39;VDD&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;supply_5V&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>If a pin name contains spaces, then enclose the name within nested quotes:</p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">pic10</span><span class="p">[</span><span class="s1">&#39;GP1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">aliases</span> <span class="o">+=</span> <span class="s1">&#39;name with spaces&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">pic10</span><span class="p">[</span><span class="s1">&#39;&quot;name with spaces&quot;&#39;</span><span class="p">]</span>
+<span class="n">Pin</span> <span class="n">U2</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="n">GP1</span><span class="p">,</span><span class="n">GP1</span><span class="p">,</span><span class="n">name</span> <span class="k">with</span> <span class="n">spaces</span><span class="p">,</span><span class="n">p3</span><span class="o">/</span><span class="n">BIDIRECTIONAL</span>
 </code></pre></div>
 
 <p>Like pin numbers, pin names can also be used as attributes to access the pin:</p>
@@ -1294,111 +1345,125 @@ as a part attribute:</p>
 </code></pre></div>
 
 <h2 id="hierarchy">Hierarchy</h2>
-<p>SKiDL supports hierarchical design through three different approaches: decorated functions that return interfaces, subclassed modules with I/O attributes, and context-based hierarchy. Each approach offers different advantages depending on your design style and requirements.</p>
+<p>SKiDL supports hierarchical design using decorated functions that return interfaces,
+subclassed modules with I/O attributes, and context-based hierarchy.
+You can combine and nest these approaches as needed. For example, use subclassed modules for complex reusable blocks like motor drivers, decorated functions for parameterizable filters, and context-based hierarchy for organizing collections of parts like bypass capacitors.</p>
 <h3 id="method-1-subcircuit-decorator-with-interface-return">Method 1: SubCircuit Decorator with Interface Return</h3>
-<p>The most functional approach uses the <code>@SubCircuit</code> decorator on functions that return an <code>Interface</code> object containing the subcircuit's I/O connections. This approach treats subcircuits as pure functions that transform inputs to outputs.</p>
+<p>This approach uses the <code>@SubCircuit</code> decorator on functions that return an <code>Interface</code> object containing the subcircuit's I/O connections.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="c1"># Define a global resistor template.</span>
-<span class="n">r</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Resistor_SMD.pretty:R_0805_2012Metric&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
-<span class="n">opamp</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Amplifier_Operational&#39;</span><span class="p">,</span> <span class="s1">&#39;LM358&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
-
 <span class="nd">@SubCircuit</span>
-<span class="k">def</span> <span class="nf">voltage_reference</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates a 2.5V voltage reference using a voltage divider.&quot;&quot;&quot;</span>
-    <span class="n">vcc</span><span class="p">,</span> <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VCC&#39;</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">voltage_regulator</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;3.3V linear voltage regulator module.&quot;&quot;&quot;</span>
 
-    <span class="c1"># Create voltage divider</span>
-    <span class="n">r_upper</span> <span class="o">=</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;10K&#39;</span><span class="p">)</span>
-    <span class="n">r_lower</span> <span class="o">=</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;10K&#39;</span><span class="p">)</span>
-    <span class="n">vcc</span> <span class="o">&amp;</span> <span class="n">r_upper</span> <span class="o">&amp;</span> <span class="n">r_lower</span> <span class="o">&amp;</span> <span class="n">gnd</span>
+    <span class="c1"># Create voltage regulator and filter capacitors</span>
+    <span class="n">reg</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Regulator_Linear&#39;</span><span class="p">,</span> <span class="s1">&#39;AMS1117-3.3&#39;</span><span class="p">)</span>
+    <span class="n">c_in</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;100nF&#39;</span><span class="p">)</span>
+    <span class="n">c_out</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;10uF&#39;</span><span class="p">)</span>
 
-    <span class="c1"># Return interface with the reference voltage</span>
+    <span class="c1"># Attach input/output filter capacitors.</span>
+    <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;VI&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">c_in</span> <span class="o">&amp;</span> <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;GND&#39;</span><span class="p">]</span>
+    <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;VO&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">c_out</span> <span class="o">&amp;</span> <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;GND&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Return interface connections</span>
     <span class="k">return</span> <span class="n">Interface</span><span class="p">(</span>
-        <span class="n">vref</span> <span class="o">=</span> <span class="n">r_upper</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>  <span class="c1"># Junction between resistors</span>
-        <span class="n">vcc</span> <span class="o">=</span> <span class="n">vcc</span><span class="p">,</span>
-        <span class="n">gnd</span> <span class="o">=</span> <span class="n">gnd</span>
-    <span class="p">)</span>
+        <span class="n">vin</span><span class="o">=</span><span class="n">reg</span><span class="p">[</span><span class="s1">&#39;VI&#39;</span><span class="p">],</span>      <span class="c1"># Unregulated supply voltage</span>
+        <span class="n">vout</span><span class="o">=</span><span class="n">reg</span><span class="p">[</span><span class="s1">&#39;VO&#39;</span><span class="p">],</span>     <span class="c1"># Regulated output voltage</span>
+        <span class="n">gnd</span><span class="o">=</span><span class="n">reg</span><span class="p">[</span><span class="s1">&#39;GND&#39;</span><span class="p">]</span>      <span class="c1"># Ground connection</span>
+        <span class="p">)</span>
 
-<span class="nd">@SubCircuit</span>
-<span class="k">def</span> <span class="nf">amplifier</span><span class="p">(</span><span class="n">gain</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Non-inverting amplifier with configurable gain.&quot;&quot;&quot;</span>
-    <span class="n">op</span> <span class="o">=</span> <span class="n">opamp</span><span class="p">()</span>
-    <span class="n">r_feedback</span> <span class="o">=</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="p">(</span><span class="n">gain</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">1000</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># Gain = 1 + Rf/Rin</span>
-    <span class="n">r_input</span> <span class="o">=</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="p">)</span>
+<span class="nd">@subcircuit</span>
+<span class="k">def</span> <span class="nf">motor_driver</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;H-bridge motor driver module.&quot;&quot;&quot;</span>
 
-    <span class="c1"># Build non-inverting amplifier</span>
-    <span class="n">op</span><span class="p">[</span><span class="s1">&#39;V-&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">r_input</span> <span class="o">&amp;</span> <span class="n">gnd</span>
-    <span class="n">op</span><span class="p">[</span><span class="s1">&#39;V-&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">r_feedback</span> <span class="o">&amp;</span> <span class="n">op</span><span class="p">[</span><span class="s1">&#39;V+&#39;</span><span class="p">]</span>
+    <span class="c1"># Create MOSFETs for H-bridge</span>
+    <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">,</span> <span class="n">q3</span><span class="p">,</span> <span class="n">q4</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Transistor_FET&#39;</span><span class="p">,</span> <span class="s1">&#39;Q_NMOS_GSD&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)(</span><span class="mi">4</span><span class="p">)</span>
 
+    <span class="c1"># Define local nets for power and motor connections</span>
+    <span class="n">vcc</span><span class="p">,</span> <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(),</span> <span class="n">Net</span><span class="p">()</span>          <span class="c1"># Motor supply voltages</span>
+    <span class="n">motor_a</span><span class="p">,</span> <span class="n">motor_b</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(),</span> <span class="n">Net</span><span class="p">()</span>  <span class="c1"># Motor terminals</span>
+
+    <span class="c1"># Build H-bridge topology</span>
+    <span class="n">vcc</span> <span class="o">&amp;</span> <span class="n">q1</span><span class="p">[</span><span class="s1">&#39;D,S&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">motor_a</span> <span class="o">&amp;</span> <span class="n">q2</span><span class="p">[</span><span class="s1">&#39;D,S&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">gnd</span>
+    <span class="n">vcc</span> <span class="o">&amp;</span> <span class="n">q3</span><span class="p">[</span><span class="s1">&#39;D,S&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">motor_b</span> <span class="o">&amp;</span> <span class="n">q4</span><span class="p">[</span><span class="s1">&#39;D,S&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">gnd</span>
+
+    <span class="c1"># Return interface connections</span>
     <span class="k">return</span> <span class="n">Interface</span><span class="p">(</span>
-        <span class="n">inp</span> <span class="o">=</span> <span class="n">op</span><span class="p">[</span><span class="s1">&#39;V+&#39;</span><span class="p">],</span>      <span class="c1"># Non-inverting input</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="n">op</span><span class="p">[</span><span class="s1">&#39;V+&#39;</span><span class="p">],</span>      <span class="c1"># Output</span>
-        <span class="n">vcc</span> <span class="o">=</span> <span class="n">op</span><span class="p">[</span><span class="s1">&#39;V+&#39;</span><span class="p">],</span>      <span class="c1"># Positive supply</span>
-        <span class="n">gnd</span> <span class="o">=</span> <span class="n">gnd</span>            <span class="c1"># Ground reference</span>
-    <span class="p">)</span>
+        <span class="n">vcc</span><span class="o">=</span><span class="n">vcc</span><span class="p">,</span>             <span class="c1"># Motor supply voltage</span>
+        <span class="n">gnd</span><span class="o">=</span><span class="n">gnd</span><span class="p">,</span>             <span class="c1"># Ground</span>
+        <span class="n">motor_a</span><span class="o">=</span><span class="n">motor_a</span><span class="p">,</span>     <span class="c1"># Motor terminal A</span>
+        <span class="n">motor_b</span><span class="o">=</span><span class="n">motor_b</span><span class="p">,</span>     <span class="c1"># Motor terminal B</span>
+        <span class="n">ctrl1</span><span class="o">=</span><span class="n">q1</span><span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">],</span>       <span class="c1"># Control signal 1</span>
+        <span class="n">ctrl2</span><span class="o">=</span><span class="n">q2</span><span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">],</span>       <span class="c1"># Control signal 2</span>
+        <span class="n">ctrl3</span><span class="o">=</span><span class="n">q3</span><span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">],</span>       <span class="c1"># Control signal 3</span>
+        <span class="n">ctrl4</span><span class="o">=</span><span class="n">q4</span><span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">]</span>        <span class="c1"># Control signal 4</span>
+        <span class="p">)</span>
 
-<span class="c1"># Create and connect the subcircuits</span>
-<span class="n">vref_if</span> <span class="o">=</span> <span class="n">voltage_reference</span><span class="p">()</span>
-<span class="n">amp_if</span> <span class="o">=</span> <span class="n">amplifier</span><span class="p">(</span><span class="n">gain</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="c1"># Instantiate subcircuit modules</span>
+<span class="n">regulator</span> <span class="o">=</span> <span class="n">voltage_regulator</span><span class="p">()</span>
+<span class="n">motor_drv</span> <span class="o">=</span> <span class="n">motor_driver</span><span class="p">()</span>
 
-<span class="c1"># Connect the voltage reference to the amplifier</span>
-<span class="n">amp_if</span><span class="o">.</span><span class="n">inp</span> <span class="o">+=</span> <span class="n">vref_if</span><span class="o">.</span><span class="n">vref</span>
-<span class="n">amp_if</span><span class="o">.</span><span class="n">vcc</span> <span class="o">+=</span> <span class="n">vref_if</span><span class="o">.</span><span class="n">vcc</span>
-<span class="n">amp_if</span><span class="o">.</span><span class="n">gnd</span> <span class="o">+=</span> <span class="n">vref_if</span><span class="o">.</span><span class="n">gnd</span>
+<span class="c1"># Instantiate a DC motor</span>
+<span class="n">motor</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Motor&quot;</span><span class="p">,</span> <span class="s2">&quot;Motor_DC&quot;</span><span class="p">)</span>
 
-<span class="c1"># Connect to external nets</span>
-<span class="n">input_signal</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;INPUT&#39;</span><span class="p">)</span>
-<span class="n">output_signal</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;OUTPUT&#39;</span><span class="p">)</span>
-<span class="n">power_5v</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;5V&#39;</span><span class="p">)</span>
-<span class="n">system_gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;SYSTEM_GND&#39;</span><span class="p">)</span>
+<span class="c1"># Create nets for power distribution</span>
+<span class="n">power_12v</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;12V_IN&#39;</span><span class="p">)</span>
+<span class="n">power_3v3</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;3V3&#39;</span><span class="p">)</span>
+<span class="n">system_gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
 
-<span class="n">input_signal</span> <span class="o">+=</span> <span class="n">amp_if</span><span class="o">.</span><span class="n">inp</span>
-<span class="n">output_signal</span> <span class="o">+=</span> <span class="n">amp_if</span><span class="o">.</span><span class="n">out</span>
-<span class="n">power_5v</span> <span class="o">+=</span> <span class="n">vref_if</span><span class="o">.</span><span class="n">vcc</span>
-<span class="n">system_gnd</span> <span class="o">+=</span> <span class="n">vref_if</span><span class="o">.</span><span class="n">gnd</span>
+<span class="c1"># Connect power distribution to subcircuit module interfaces</span>
+<span class="n">power_12v</span> <span class="o">+=</span> <span class="n">regulator</span><span class="o">.</span><span class="n">vin</span><span class="p">,</span> <span class="n">motor_drv</span><span class="o">.</span><span class="n">vcc</span>
+<span class="n">power_3v3</span> <span class="o">+=</span> <span class="n">regulator</span><span class="o">.</span><span class="n">vout</span>
+<span class="n">system_gnd</span> <span class="o">+=</span> <span class="n">regulator</span><span class="o">.</span><span class="n">gnd</span><span class="p">,</span> <span class="n">motor_drv</span><span class="o">.</span><span class="n">gnd</span>
+
+<span class="c1"># Connect control signals to microcontroller</span>
+<span class="n">mcu</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;MCU_ST_STM32F1&#39;</span><span class="p">,</span> <span class="s1">&#39;STM32F103C8Tx&#39;</span><span class="p">)</span>
+<span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;PA0,PA1,PA2,PA3&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">motor_drv</span><span class="o">.</span><span class="n">ctrl1</span><span class="p">,</span> <span class="n">motor_drv</span><span class="o">.</span><span class="n">ctrl2</span><span class="p">,</span> <span class="n">motor_drv</span><span class="o">.</span><span class="n">ctrl3</span><span class="p">,</span> <span class="n">motor_drv</span><span class="o">.</span><span class="n">ctrl4</span>
+
+<span class="c1"># Connect motor</span>
+<span class="n">motor</span><span class="p">[</span><span class="s2">&quot;+&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">motor_drv</span><span class="o">.</span><span class="n">motor_a</span>
+<span class="n">motor</span><span class="p">[</span><span class="s2">&quot;-&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">motor_drv</span><span class="o">.</span><span class="n">motor_b</span>
+
+<span class="n">generate_netlist</span><span class="p">()</span>
 </code></pre></div>
 
 <h3 id="method-2-subcircuit-subclassing-with-io-attributes">Method 2: SubCircuit Subclassing with I/O Attributes</h3>
-<p>The object-oriented approach involves subclassing <code>SubCircuit</code> to create reusable modules with well-defined I/O attributes. This approach is ideal for creating libraries of standard circuit blocks.</p>
+<p>The object-oriented approach involves subclassing <code>SubCircuit</code> to create modules with I/O attributes.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">class</span> <span class="nc">VoltageRegulator</span><span class="p">(</span><span class="n">SubCircuit</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;3.3V linear voltage regulator module.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_voltage</span><span class="o">=</span><span class="mf">5.0</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Initialize this subcircuit. DO NOT USE super().__init__()!</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
 
-        <span class="c1"># Create the regulator circuit</span>
+        <span class="c1"># Create voltage regulator and filter capacitors</span>
         <span class="n">reg</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Regulator_Linear&#39;</span><span class="p">,</span> <span class="s1">&#39;AMS1117-3.3&#39;</span><span class="p">)</span>
         <span class="n">c_in</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;100nF&#39;</span><span class="p">)</span>
         <span class="n">c_out</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;10uF&#39;</span><span class="p">)</span>
-
-        <span class="c1"># Build regulator circuit</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">vin</span> <span class="o">&amp;</span> <span class="n">c_in</span> <span class="o">&amp;</span> <span class="n">gnd</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">vin</span> <span class="o">&amp;</span> <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;VI&#39;</span><span class="p">]</span>
-        <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;VO&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">c_out</span> <span class="o">&amp;</span> <span class="n">gnd</span>
-        <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;GND&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">gnd</span>
 
         <span class="c1"># Define I/O attributes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vin</span> <span class="o">=</span> <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;VI&#39;</span><span class="p">]</span>      <span class="c1"># Voltage input</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vout</span> <span class="o">=</span> <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;VO&#39;</span><span class="p">]</span>     <span class="c1"># Regulated output</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gnd</span> <span class="o">=</span> <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;GND&#39;</span><span class="p">]</span>     <span class="c1"># Ground connection</span>
 
+        <span class="c1"># Attach input/output filter capacitors</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vin</span> <span class="o">&amp;</span> <span class="n">c_in</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">gnd</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vout</span> <span class="o">&amp;</span> <span class="n">c_out</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">gnd</span>
+
+        <span class="c1"># Finalize the creation of the subcircuit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">finalize</span><span class="p">()</span>
+
 <span class="k">class</span> <span class="nc">MotorDriver</span><span class="p">(</span><span class="n">SubCircuit</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;H-bridge motor driver module.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1"># Initialize this subcircuit. DO NOT USE super().__init__()!</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
 
-        <span class="c1"># Create H-bridge with MOSFETs</span>
-        <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">,</span> <span class="n">q3</span><span class="p">,</span> <span class="n">q4</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;Q_NMOS_GSD&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)(</span><span class="mi">4</span><span class="p">)</span>
-
-        <span class="c1"># Build H-bridge topology</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">vcc</span> <span class="o">&amp;</span> <span class="n">q1</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">q3</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">]</span>
-        <span class="n">q1</span><span class="p">[</span><span class="s1">&#39;S&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">q2</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">motor_a</span>
-        <span class="n">q3</span><span class="p">[</span><span class="s1">&#39;S&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">q4</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">motor_b</span>  
-        <span class="n">q2</span><span class="p">[</span><span class="s1">&#39;S&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">q4</span><span class="p">[</span><span class="s1">&#39;S&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">gnd</span>
+        <span class="c1"># Create MOSFETS for H-bridge</span>
+        <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">,</span> <span class="n">q3</span><span class="p">,</span> <span class="n">q4</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Transistor_FET&#39;</span><span class="p">,</span> <span class="s1">&#39;Q_NMOS_GSD&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)(</span><span class="mi">4</span><span class="p">)</span>
 
         <span class="c1"># Define I/O attributes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vcc</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>          <span class="c1"># Motor supply voltage</span>
@@ -1410,96 +1475,96 @@ as a part attribute:</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">ctrl3</span> <span class="o">=</span> <span class="n">q3</span><span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">]</span>      <span class="c1"># Control signal 3</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ctrl4</span> <span class="o">=</span> <span class="n">q4</span><span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">]</span>      <span class="c1"># Control signal 4</span>
 
-<span class="c1"># Instantiate and connect modules</span>
-<span class="n">regulator</span> <span class="o">=</span> <span class="n">VoltageRegulator</span><span class="p">()</span>
-<span class="n">motor</span> <span class="o">=</span> <span class="n">MotorDriver</span><span class="p">()</span>
+        <span class="c1"># Build H-bridge topology</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vcc</span> <span class="o">&amp;</span> <span class="n">q1</span><span class="p">[</span><span class="s1">&#39;D,S&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">motor_a</span> <span class="o">&amp;</span> <span class="n">q2</span><span class="p">[</span><span class="s1">&#39;D,S&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">gnd</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vcc</span> <span class="o">&amp;</span> <span class="n">q3</span><span class="p">[</span><span class="s1">&#39;D,S&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">motor_b</span> <span class="o">&amp;</span> <span class="n">q4</span><span class="p">[</span><span class="s1">&#39;D,S&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">gnd</span>
 
-<span class="c1"># Connect power distribution</span>
+        <span class="c1"># Finalize the creation of the subcircuit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">finalize</span><span class="p">()</span>
+
+<span class="c1"># Instantiate subcircuit modules</span>
+<span class="n">regulator</span> <span class="o">=</span> <span class="n">VoltageRegulator</span><span class="p">()</span>
+<span class="n">motor_drv</span> <span class="o">=</span> <span class="n">MotorDriver</span><span class="p">()</span>
+
+<span class="c1"># Instantiate a DC motor</span>
+<span class="n">motor</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Motor&quot;</span><span class="p">,</span> <span class="s2">&quot;Motor_DC&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create nets for power distribution</span>
 <span class="n">power_12v</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;12V_IN&#39;</span><span class="p">)</span>
 <span class="n">power_3v3</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;3V3&#39;</span><span class="p">)</span>
 <span class="n">system_gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
 
-<span class="n">power_12v</span> <span class="o">+=</span> <span class="n">regulator</span><span class="o">.</span><span class="n">vin</span>
+<span class="c1"># Connect power distribution to subcircuit modules</span>
+<span class="n">power_12v</span> <span class="o">+=</span> <span class="n">regulator</span><span class="o">.</span><span class="n">vin</span><span class="p">,</span> <span class="n">motor_drv</span><span class="o">.</span><span class="n">vcc</span>
 <span class="n">power_3v3</span> <span class="o">+=</span> <span class="n">regulator</span><span class="o">.</span><span class="n">vout</span>
-<span class="n">system_gnd</span> <span class="o">+=</span> <span class="n">regulator</span><span class="o">.</span><span class="n">gnd</span><span class="p">,</span> <span class="n">motor</span><span class="o">.</span><span class="n">gnd</span>
+<span class="n">system_gnd</span> <span class="o">+=</span> <span class="n">regulator</span><span class="o">.</span><span class="n">gnd</span><span class="p">,</span> <span class="n">motor_drv</span><span class="o">.</span><span class="n">gnd</span>
 
-<span class="c1"># Connect motor power from 12V rail</span>
-<span class="n">power_12v</span> <span class="o">+=</span> <span class="n">motor</span><span class="o">.</span><span class="n">vcc</span>
-
-<span class="c1"># Connect control signals</span>
+<span class="c1"># Connect control signals using module attributes</span>
 <span class="n">mcu</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;MCU_ST_STM32F1&#39;</span><span class="p">,</span> <span class="s1">&#39;STM32F103C8Tx&#39;</span><span class="p">)</span>
-<span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;PA0,PA1,PA2,PA3&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">motor</span><span class="o">.</span><span class="n">ctrl1</span><span class="p">,</span> <span class="n">motor</span><span class="o">.</span><span class="n">ctrl2</span><span class="p">,</span> <span class="n">motor</span><span class="o">.</span><span class="n">ctrl3</span><span class="p">,</span> <span class="n">motor</span><span class="o">.</span><span class="n">ctrl4</span>
+<span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;PA0,PA1,PA2,PA3&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">motor_drv</span><span class="o">.</span><span class="n">ctrl1</span><span class="p">,</span> <span class="n">motor_drv</span><span class="o">.</span><span class="n">ctrl2</span><span class="p">,</span> <span class="n">motor_drv</span><span class="o">.</span><span class="n">ctrl3</span><span class="p">,</span> <span class="n">motor_drv</span><span class="o">.</span><span class="n">ctrl4</span>
+
+<span class="c1"># Connect motor</span>
+<span class="n">motor</span><span class="p">[</span><span class="s2">&quot;+&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">motor_drv</span><span class="o">.</span><span class="n">motor_a</span>
+<span class="n">motor</span><span class="p">[</span><span class="s2">&quot;-&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">motor_drv</span><span class="o">.</span><span class="n">motor_b</span>
+
+<span class="n">generate_netlist</span><span class="p">()</span>
 </code></pre></div>
 
-<h3 id="method-3-context-based-hierarchy-with-subcircuit">Method 3: Context-Based Hierarchy with SubCircuit</h3>
-<p>The simplest approach uses <code>SubCircuit</code> as a context manager to create hierarchical groupings without defining functions or classes. This method is ideal for organizing complex designs into logical sections.</p>
+<h3 id="method-3-subcircuit-context-manager">Method 3: SubCircuit Context Manager</h3>
+<p>The final approach uses <code>SubCircuit</code> as a context manager to create hierarchical groupings without defining functions or classes.
+This allows grouping of components into logical sections, but unlike the other approaches, re-using a group is not possible.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="c1"># Create main system nets</span>
-<span class="n">vcc_5v</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VCC_5V&#39;</span><span class="p">)</span>
-<span class="n">vcc_3v3</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VCC_3V3&#39;</span><span class="p">)</span> 
-<span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
-<span class="n">spi_clk</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;SPI_CLK&#39;</span><span class="p">)</span>
-<span class="n">spi_mosi</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;SPI_MOSI&#39;</span><span class="p">)</span>
-<span class="n">spi_miso</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;SPI_MISO&#39;</span><span class="p">)</span>
+<span class="c1"># Create nets for power distribution</span>
+<span class="n">power_12v</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;12V_IN&#39;</span><span class="p">)</span>
+<span class="n">power_3v3</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;3V3&#39;</span><span class="p">)</span>
+<span class="n">system_gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
 
-<span class="c1"># Power supply section</span>
-<span class="k">with</span> <span class="n">SubCircuit</span><span class="p">(</span><span class="s1">&#39;power_supply&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">power</span><span class="p">:</span>
-    <span class="c1"># 5V to 3.3V regulator</span>
+<span class="k">with</span> <span class="n">SubCircuit</span><span class="p">(</span><span class="s1">&#39;voltage_regulator&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">voltage_regulator</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;3.3V linear voltage regulator.&quot;&quot;&quot;</span>
+
+    <span class="c1"># Create voltage regulator and filter capacitors</span>
     <span class="n">reg</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Regulator_Linear&#39;</span><span class="p">,</span> <span class="s1">&#39;AMS1117-3.3&#39;</span><span class="p">)</span>
-    <span class="n">c1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;100nF&#39;</span><span class="p">)</span>
-    <span class="n">c2</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;10uF&#39;</span><span class="p">)</span>
+    <span class="n">c_in</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;100nF&#39;</span><span class="p">)</span>
+    <span class="n">c_out</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;10uF&#39;</span><span class="p">)</span>
 
-    <span class="n">vcc_5v</span> <span class="o">&amp;</span> <span class="n">c1</span> <span class="o">&amp;</span> <span class="n">gnd</span>
-    <span class="n">vcc_5v</span> <span class="o">&amp;</span> <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;VI&#39;</span><span class="p">]</span>
-    <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;VO&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">c2</span> <span class="o">&amp;</span> <span class="n">gnd</span>
-    <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;VO&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">vcc_3v3</span>
-    <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;GND&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">gnd</span>
+    <span class="c1"># Attach power in/out connections and input/output filter capacitors</span>
+    <span class="n">power_12v</span> <span class="o">&amp;</span> <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;VI&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">c_in</span> <span class="o">&amp;</span> <span class="n">system_gnd</span>
+    <span class="n">power_3v3</span> <span class="o">&amp;</span> <span class="n">reg</span><span class="p">[</span><span class="s1">&#39;VO&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">c_out</span> <span class="o">&amp;</span> <span class="n">system_gnd</span>
 
-<span class="c1"># Microcontroller section  </span>
-<span class="k">with</span> <span class="n">SubCircuit</span><span class="p">(</span><span class="s1">&#39;microcontroller&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">mcu_section</span><span class="p">:</span>
-    <span class="n">mcu</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;MCU_ST_STM32F1&#39;</span><span class="p">,</span> <span class="s1">&#39;STM32F103C8Tx&#39;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">SubCircuit</span><span class="p">(</span><span class="s1">&#39;motor_driver&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">motor_driver</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;H-bridge motor driver.&quot;&quot;&quot;</span>
 
-    <span class="c1"># Power connections</span>
-    <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;VDD,VDDA&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vcc_3v3</span>
-    <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;VSS,VSSA&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gnd</span>
+    <span class="c1"># Create MOSFETs for H-bridge</span>
+    <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">,</span> <span class="n">q3</span><span class="p">,</span> <span class="n">q4</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Transistor_FET&#39;</span><span class="p">,</span> <span class="s1">&#39;Q_NMOS_GSD&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)(</span><span class="mi">4</span><span class="p">)</span>
 
-    <span class="c1"># SPI peripheral connections</span>
-    <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;PA5&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">spi_clk</span>   <span class="c1"># SPI1_SCK</span>
-    <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;PA6&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">spi_miso</span>  <span class="c1"># SPI1_MISO  </span>
-    <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;PA7&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">spi_mosi</span>  <span class="c1"># SPI1_MOSI</span>
+    <span class="c1"># Define local nets for connecting motor</span>
+    <span class="n">motor_a</span><span class="p">,</span> <span class="n">motor_b</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(),</span> <span class="n">Net</span><span class="p">()</span>  <span class="c1"># Motor terminals</span>
 
-<span class="c1"># Sensor interface section</span>
-<span class="k">with</span> <span class="n">SubCircuit</span><span class="p">(</span><span class="s1">&#39;sensors&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">sensor_section</span><span class="p">:</span>
-    <span class="c1"># SPI temperature sensor</span>
-    <span class="n">temp_sensor</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Sensor_Temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;MAX31855&#39;</span><span class="p">)</span>
+    <span class="c1"># Build H-bridge topology</span>
+    <span class="n">power_12v</span> <span class="o">&amp;</span> <span class="n">q1</span><span class="p">[</span><span class="s1">&#39;D,S&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">motor_a</span> <span class="o">&amp;</span> <span class="n">q2</span><span class="p">[</span><span class="s1">&#39;D,S&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">system_gnd</span>
+    <span class="n">power_12v</span> <span class="o">&amp;</span> <span class="n">q3</span><span class="p">[</span><span class="s1">&#39;D,S&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">motor_b</span> <span class="o">&amp;</span> <span class="n">q4</span><span class="p">[</span><span class="s1">&#39;D,S&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">system_gnd</span>
 
-    <span class="c1"># SPI connections</span>
-    <span class="n">temp_sensor</span><span class="p">[</span><span class="s1">&#39;SCK&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">spi_clk</span>
-    <span class="n">temp_sensor</span><span class="p">[</span><span class="s1">&#39;SO&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">spi_miso</span>
-    <span class="n">temp_sensor</span><span class="p">[</span><span class="s1">&#39;CS&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;PA4&#39;</span><span class="p">]</span>  <span class="c1"># Chip select</span>
+    <span class="c1"># H-bridge control pins.</span>
+    <span class="n">motor_ctrl1</span><span class="o">=</span><span class="n">q1</span><span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">]</span>
+    <span class="n">motor_ctrl2</span><span class="o">=</span><span class="n">q2</span><span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">]</span>
+    <span class="n">motor_ctrl3</span><span class="o">=</span><span class="n">q3</span><span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">]</span>
+    <span class="n">motor_ctrl4</span><span class="o">=</span><span class="n">q4</span><span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">]</span>
 
-    <span class="c1"># Power connections</span>
-    <span class="n">temp_sensor</span><span class="p">[</span><span class="s1">&#39;VCC&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vcc_3v3</span>
-    <span class="n">temp_sensor</span><span class="p">[</span><span class="s1">&#39;GND&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gnd</span>
+<span class="c1"># Instantiate a DC motor</span>
+<span class="n">motor</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Motor&quot;</span><span class="p">,</span> <span class="s2">&quot;Motor_DC&quot;</span><span class="p">)</span>
 
-<span class="c1"># Display section</span>
-<span class="k">with</span> <span class="n">SubCircuit</span><span class="p">(</span><span class="s1">&#39;display&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">display_section</span><span class="p">:</span>
-    <span class="n">lcd</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Display_Character&#39;</span><span class="p">,</span> <span class="s1">&#39;HD44780&#39;</span><span class="p">)</span>
+<span class="c1"># Connect control signals to microcontroller</span>
+<span class="n">mcu</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;MCU_ST_STM32F1&#39;</span><span class="p">,</span> <span class="s1">&#39;STM32F103C8Tx&#39;</span><span class="p">)</span>
+<span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;PA0,PA1,PA2,PA3&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">motor_ctrl1</span><span class="p">,</span> <span class="n">motor_ctrl2</span><span class="p">,</span> <span class="n">motor_ctrl3</span><span class="p">,</span> <span class="n">motor_ctrl4</span>
 
-    <span class="c1"># Connect to microcontroller</span>
-    <span class="n">mcu</span><span class="p">[</span><span class="s1">&#39;PB0,PB1,PB2,PB3,PB4,PB5&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">lcd</span><span class="p">[</span><span class="s1">&#39;D4,D5,D6,D7,E,RS&#39;</span><span class="p">]</span>
-    <span class="n">lcd</span><span class="p">[</span><span class="s1">&#39;VSS,RW&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gnd</span>
-    <span class="n">lcd</span><span class="p">[</span><span class="s1">&#39;VDD&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vcc_3v3</span>
+<span class="c1"># Connect motor</span>
+<span class="n">motor</span><span class="p">[</span><span class="s2">&quot;+&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">motor_a</span>
+<span class="n">motor</span><span class="p">[</span><span class="s2">&quot;-&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">motor_b</span>
+
+<span class="n">generate_netlist</span><span class="p">()</span>
 </code></pre></div>
 
-<p>Each approach has its strengths:</p>
-<ul>
-<li><strong>Decorated functions</strong> excel at creating reusable, parameterizable modules that clearly define their interfaces</li>
-<li><strong>Subclassed modules</strong> provide the most structured approach with explicit I/O definitions, ideal for complex reusable blocks  </li>
-<li><strong>Context-based hierarchy</strong> offers the simplest syntax for organizing designs without the overhead of function definitions</li>
-</ul>
-<p>You can mix and match these approaches as needed. For example, use subclassed modules for complex reusable blocks like motor drivers, decorated functions for parameterizable filters, and context-based hierarchy for organizing the top-level system architecture.</p>
 <h2 id="libraries">Libraries</h2>
 <p>As you've already seen, SKiDL gets its parts from <em>part libraries</em>.
 By default, SKiDL finds the libraries provided by KiCad (using the <code>KICAD_SYMBOL_DIR</code>
@@ -1728,6 +1793,59 @@ are defined for each object:</p>
 8
 &gt;&gt;&gt; c.width
 1
+</code></pre></div>
+
+<h3 id="disambiguating-part-pins-with-identical-names">Disambiguating Part Pins with Identical Names</h3>
+<p>If multiple pins of a part are given the same name or alias, then accessing a pin using 
+that name will return a list:</p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">mcu</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;MCU_ST_STM32F1&#39;</span><span class="p">,</span><span class="s1">&#39;STM32F100C_4-6_Tx&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">mcu</span><span class="p">[</span><span class="s2">&quot;SPI1_SCK&quot;</span><span class="p">]</span>
+<span class="p">[</span><span class="n">Pin</span> <span class="n">U1</span><span class="o">/</span><span class="mi">39</span><span class="o">/</span><span class="n">PB3</span><span class="p">,</span><span class="n">p39</span><span class="p">,</span><span class="n">TIM2_CH2</span><span class="p">,</span><span class="n">PB3</span><span class="p">,</span><span class="n">SPI1_SCK</span><span class="p">,</span><span class="n">SYS_JTDO</span><span class="o">-</span><span class="n">TRACESWO</span><span class="o">/</span><span class="n">BIDIRECTIONAL</span><span class="p">,</span>
+ <span class="n">Pin</span> <span class="n">U1</span><span class="o">/</span><span class="mi">15</span><span class="o">/</span><span class="n">PA5</span><span class="p">,</span><span class="n">DAC_OUT2</span><span class="p">,</span><span class="n">p15</span><span class="p">,</span><span class="n">SPI1_SCK</span><span class="p">,</span><span class="n">ADC1_IN5</span><span class="p">,</span><span class="n">PA5</span><span class="o">/</span><span class="n">BIDIRECTIONAL</span><span class="p">]</span>
+</code></pre></div>
+
+<p>To select only one of the pins, use chained indexing as shown here:</p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">mcu</span><span class="p">[</span><span class="s2">&quot;SPI1_SCK&quot;</span><span class="p">][</span><span class="s2">&quot;PB3&quot;</span><span class="p">]</span>  <span class="c1"># Use a unique pin name</span>
+<span class="n">Pin</span> <span class="n">U1</span><span class="o">/</span><span class="mi">39</span><span class="o">/</span><span class="n">PB3</span><span class="p">,</span><span class="n">p39</span><span class="p">,</span><span class="n">TIM2_CH2</span><span class="p">,</span><span class="n">PB3</span><span class="p">,</span><span class="n">SPI1_SCK</span><span class="p">,</span><span class="n">SYS_JTDO</span><span class="o">-</span><span class="n">TRACESWO</span><span class="o">/</span><span class="n">BIDIRECTIONAL</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">mcu</span><span class="p">[</span><span class="s2">&quot;SPI1_SCK&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">p39</span>     <span class="c1"># Use a unique pin attribute</span>
+<span class="n">Pin</span> <span class="n">U1</span><span class="o">/</span><span class="mi">39</span><span class="o">/</span><span class="n">PB3</span><span class="p">,</span><span class="n">p39</span><span class="p">,</span><span class="n">TIM2_CH2</span><span class="p">,</span><span class="n">PB3</span><span class="p">,</span><span class="n">SPI1_SCK</span><span class="p">,</span><span class="n">SYS_JTDO</span><span class="o">-</span><span class="n">TRACESWO</span><span class="o">/</span><span class="n">BIDIRECTIONAL</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">mcu</span><span class="p">[</span><span class="s2">&quot;SPI1_SCK&quot;</span><span class="p">][</span><span class="mi">39</span><span class="p">]</span>     <span class="c1"># Use the pin number</span>
+<span class="n">Pin</span> <span class="n">U1</span><span class="o">/</span><span class="mi">39</span><span class="o">/</span><span class="n">PB3</span><span class="p">,</span><span class="n">p39</span><span class="p">,</span><span class="n">TIM2_CH2</span><span class="p">,</span><span class="n">PB3</span><span class="p">,</span><span class="n">SPI1_SCK</span><span class="p">,</span><span class="n">SYS_JTDO</span><span class="o">-</span><span class="n">TRACESWO</span><span class="o">/</span><span class="n">BIDIRECTIONAL</span>
+</code></pre></div>
+
+<h3 id="part-like-access-of-subcircuit-modules">Part-Like Access of Subcircuit Modules</h3>
+<p>Modules created as <a href="#method-2-subcircuit-subclassing-with-io-attributes">subclasses of <code>SubCircuit</code></a> can be
+used like parts with named pins as shown below:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">VoltageDivider</span><span class="p">(</span><span class="n">SubCircuit</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Create local nets</span>
+        <span class="n">vin</span><span class="p">,</span> <span class="n">vout</span><span class="p">,</span> <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(),</span> <span class="n">Net</span><span class="p">(),</span> <span class="n">Net</span><span class="p">()</span>
+
+        <span class="c1"># Create resistors</span>
+        <span class="n">r1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;10k&quot;</span><span class="p">)</span>
+        <span class="n">r2</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;20k&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Create a voltage divider</span>
+        <span class="n">vin</span> <span class="o">&amp;</span> <span class="n">r1</span> <span class="o">&amp;</span> <span class="n">vout</span> <span class="o">&amp;</span> <span class="n">r2</span> <span class="o">&amp;</span> <span class="n">gnd</span>
+
+        <span class="c1"># Define I/O pins for the subcircuit module</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_pins</span><span class="p">(</span><span class="s2">&quot;VIN&quot;</span><span class="p">,</span> <span class="n">connections</span><span class="o">=</span><span class="n">vin</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_pins</span><span class="p">(</span><span class="s2">&quot;VOUT&quot;</span><span class="p">,</span> <span class="n">connections</span><span class="o">=</span><span class="n">vout</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_pins</span><span class="p">(</span><span class="s2">&quot;GND&quot;</span><span class="p">,</span> <span class="n">connections</span><span class="o">=</span><span class="n">gnd</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">finalize</span><span class="p">()</span>
+
+<span class="c1"># Instantiate the voltage divider module</span>
+<span class="n">vdiv</span> <span class="o">=</span> <span class="n">VoltageDivider</span><span class="p">()</span>
+
+<span class="c1"># Connect the voltage divider module I/O using part-like syntax</span>
+<span class="n">vdiv</span><span class="p">[</span><span class="s1">&#39;VIN&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;+5V&#39;</span><span class="p">)</span>   <span class="c1"># Using pin name as index</span>
+<span class="n">vdiv</span><span class="o">.</span><span class="n">VOUT</span>   <span class="o">+=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;2.5V&#39;</span><span class="p">)</span>  <span class="c1"># Using pin name as attribute</span>
+<span class="n">vdiv</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>     <span class="o">+=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>   <span class="c1"># Using pin number</span>
 </code></pre></div>
 
 <h3 id="selectively-supressing-erc-messages">Selectively Supressing ERC Messages</h3>
@@ -2076,7 +2194,7 @@ by using the <code>circuit</code> parameter of the object constructors:</p>
 &gt;&gt;&gt; b = Bus(&#39;byte_bus&#39;, 8, circuit = my_circuit)
 </code></pre></div>
 
-<p>Alternatively, you can use a context manager inside of which a <code>Circuit</code> object
+<p>Alternatively, you can use a context manager inside which a <code>Circuit</code> object
 becomes the <code>default_circuit</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="n">my_circuit</span> <span class="o">=</span> <span class="n">Circuit</span><span class="p">()</span>
 <span class="k">with</span> <span class="n">my_circuit</span><span class="p">:</span>
