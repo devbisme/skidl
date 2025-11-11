@@ -45,6 +45,28 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
+		<span class="date"><a href="/skidl/package-decorator-2020-05-27.html">Wed 27 May 2020</a></span>
+		/
+		<span class="byline"><a href="/skidl/author/dave-vandenbout.html">Dave Vandenbout</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/skidl/package-decorator-2020-05-27.html" title="Permalink to Good Things Come In Packages!" rel="bookmark">Good Things Come In Packages!</a>
+		</h2>
+		<div class="entry-content">
+			<p>Up to now, SKiDL supported hierarchy by applying the <code>@subcircuit</code> decorator to a Python function:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@subcircuit</span>
+<span class="k">def</span> <span class="nf">analog_average</span><span class="p">(</span><span class="n">in1</span><span class="p">,</span> <span class="n">in2</span><span class="p">,</span> <span class="n">avg</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Output the average of the two inputs.&quot;&quot;&quot;</span>
+
+    <span class="c1"># Create two 1K resistors.</span>
+    <span class="n">r1</span><span class="p">,</span> <span class="n">r2</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
+
+    <span class="c1"># Each input connects thru a resistor to the …</span></code></pre></div>
+		</div> <!--/#entry-content-->
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
 		<span class="date"><a href="/skidl/skidl-forum-2020-05-20.html">Wed 20 May 2020</a></span>
 		/
 		<span class="byline"><a href="/skidl/author/dave-vandenbout.html">Dave Vandenbout</a></span>
@@ -215,24 +237,6 @@ Here are two examples.</p>
 made with a cascaded string of APA102 RGB LEDs controlled through an SPI interface:</p>
 <p><img alt="Blinkenface PCB" src="images/others-use-it-too/blinkenface_pcb.png"></p>
 <p>Th majority of Blinkenface is just a …</p>
-		</div> <!--/#entry-content-->
-	</div> <!--/#main-->
-</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
-	<div class="entry-meta">
-		<span class="date"><a href="/skidl/reuse-leds-2018-05-15.html">Tue 15 May 2018</a></span>
-		/
-		<span class="byline"><a href="/skidl/author/dave-vandenbout.html">Dave Vandenbout</a></span>
-	</div> <!-- /#entry-meta -->
-	<div class="main">
-		<h2 class="entry-title">
-			<a href="/skidl/reuse-leds-2018-05-15.html" title="Permalink to Reusability Ain't What It Used To Be" rel="bookmark">Reusability Ain't What It Used To Be</a>
-		</h2>
-		<div class="entry-content">
-			<p>Sometimes you need a quick circuit that does one, specific thing.
-Other times, you want to create a general design that can be re-used in multiple instances.
-I'll demonstrate the evolution from a specific to a general SKiDL design using a simple set of LEDs.</p>
-<h3 id="four-leds">Four LEDs</h3>
-<p>Here's a simple …</p>
 		</div> <!--/#entry-content-->
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">

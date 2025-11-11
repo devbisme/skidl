@@ -1,5 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>SKiDL - posts</title><link href="/skidl/" rel="alternate"/><link href="/skidl/feeds/posts.atom.xml" rel="self"/><id>/skidl/</id><updated>2025-08-31T00:00:00-04:00</updated><entry><title>SKiDL Cheatsheet</title><link href="/skidl/skidl-cheatsheet-2025-08-31.html" rel="alternate"/><published>2025-08-31T00:00:00-04:00</published><updated>2025-08-31T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2025-08-31:/skidl/skidl-cheatsheet-2025-08-31.html</id><content type="html">&lt;p&gt;A &lt;a href="/skidl/files/cheatsheet.pdf"&gt;cheatsheet&lt;/a&gt; for SKiDL 2.1.0 is now available.
+<feed xmlns="http://www.w3.org/2005/Atom"><title>SKiDL - posts</title><link href="/skidl/" rel="alternate"/><link href="/skidl/feeds/posts.atom.xml" rel="self"/><id>/skidl/</id><updated>2025-11-10T00:00:00-05:00</updated><entry><title>SKiDL 2.2 Release</title><link href="/skidl/skidl-two-dot-two-release-2025-11-10.html" rel="alternate"/><published>2025-11-10T00:00:00-05:00</published><updated>2025-11-10T00:00:00-05:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2025-11-10:/skidl/skidl-two-dot-two-release-2025-11-10.html</id><summary type="html">&lt;p&gt;Today marks the release of SKiDL version &lt;strong&gt;2.2.0&lt;/strong&gt;.
+The increment in the minor version number indicates that this release includes new features and improvements
+while maintaining backward compatibility with version 2.1.&lt;/p&gt;
+&lt;p&gt;Here are the changes in 2.2.0:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;skidl-part-search&lt;/code&gt; command-line utility has been added for …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;Today marks the release of SKiDL version &lt;strong&gt;2.2.0&lt;/strong&gt;.
+The increment in the minor version number indicates that this release includes new features and improvements
+while maintaining backward compatibility with version 2.1.&lt;/p&gt;
+&lt;p&gt;Here are the changes in 2.2.0:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;skidl-part-search&lt;/code&gt; command-line utility has been added for searching part libraries.
+  This utility uses an SQLite database to store part data extracted from symbol libraries.
+  The initialization of the database takes several minutes, but after that queries for
+  parts are &lt;em&gt;fast&lt;/em&gt; and will remain so since the database only needs to be initialized once.
+  Part searching can be done in a batch or interactive mode.
+  In interactive mode, details on part I/O can be browsed.
+  Part queries can now include nested, parenthesized search terms with Boolean operators.&lt;/li&gt;
+&lt;li&gt;.skidlcfg configuration files are now searched for in platform-appropriate per-user directories.&lt;/li&gt;
+&lt;li&gt;Alternate names in KiCad symbols are now added as aliases to part pins.&lt;/li&gt;
+&lt;li&gt;Chained indexing (&lt;code&gt;prt[name1][name2]&lt;/code&gt;) or attributes (&lt;code&gt;prt[name1].name2&lt;/code&gt;) can now be used
+  to select a single pin from a list of part pins that all match with &lt;code&gt;name1&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Pin names containing spaces are now allowed if they are enclosed in single or double quotes.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;initialize()&lt;/code&gt; and &lt;code&gt;finalize()&lt;/code&gt; were added to maintain hierarchy when using &lt;code&gt;SubCircuit&lt;/code&gt; subclasses.&lt;/li&gt;
+&lt;li&gt;The I/O of a Subcircuit module can now be accessed using bracket ([]) indexing as if the module were a Part.&lt;/li&gt;
+&lt;li&gt;Individual bus lines can now be assigned and accessed by aliases.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;See &lt;a href="https://github.com/devbisme/skidl/blob/master/HISTORY.md"&gt;SKiDL's complete history&lt;/a&gt; for all the changes
+made in each release.&lt;/p&gt;</content><category term="posts"/></entry><entry><title>SKiDL Cheatsheet</title><link href="/skidl/skidl-cheatsheet-2025-08-31.html" rel="alternate"/><published>2025-08-31T00:00:00-04:00</published><updated>2025-08-31T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2025-08-31:/skidl/skidl-cheatsheet-2025-08-31.html</id><content type="html">&lt;p&gt;A &lt;a href="/skidl/files/cheatsheet.pdf"&gt;cheatsheet&lt;/a&gt; for SKiDL 2.1.0 is now available.
 Print it out, laminate it, and keep it handy for all your SKiDL coding needs!&lt;/p&gt;</content><category term="posts"/></entry><entry><title>SKiDL 2.1 Release</title><link href="/skidl/skidl-two-dot-one-release-2025-08-31.html" rel="alternate"/><published>2025-08-31T00:00:00-04:00</published><updated>2025-08-31T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2025-08-31:/skidl/skidl-two-dot-one-release-2025-08-31.html</id><summary type="html">&lt;p&gt;Today marks the release of SKiDL version &lt;strong&gt;2.1.0&lt;/strong&gt;.
 The increment in the minor version number indicates that this release includes new features and improvements
 while maintaining backward compatibility with version 2.0.0.&lt;/p&gt;

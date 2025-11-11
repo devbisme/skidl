@@ -44,6 +44,25 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
+		<span class="date"><a href="/skidl/skidl-two-dot-two-release-2025-11-10.html">Mon 10 November 2025</a></span>
+		/
+		<span class="byline"><a href="/skidl/author/dave-vandenbout.html">Dave Vandenbout</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/skidl/skidl-two-dot-two-release-2025-11-10.html" title="Permalink to SKiDL 2.2 Release" rel="bookmark">SKiDL 2.2 Release</a>
+		</h2>
+		<div class="entry-content">
+			<p>Today marks the release of SKiDL version <strong>2.2.0</strong>.
+The increment in the minor version number indicates that this release includes new features and improvements
+while maintaining backward compatibility with version 2.1.</p>
+<p>Here are the changes in 2.2.0:</p>
+<ul>
+<li>The <code>skidl-part-search</code> command-line utility has been added for …</li></ul>
+		</div> <!--/#entry-content-->
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
 		<span class="date"><a href="/skidl/skidl-cheatsheet-2025-08-31.html">Sun 31 August 2025</a></span>
 		/
 		<span class="byline"><a href="/skidl/author/dave-vandenbout.html">Dave Vandenbout</a></span>
@@ -203,28 +222,6 @@ It's like running <a href="https://en.wikipedia.org/wiki/Lint_(software)"><code>
 And as with <code>lint</code>, you get a whole bunch of warnings that don't matter but which
 <em>obscure the ones that do</em>.</p>
 <p>SKiDL tries to …</p>
-		</div> <!--/#entry-content-->
-	</div> <!--/#main-->
-</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
-	<div class="entry-meta">
-		<span class="date"><a href="/skidl/package-decorator-2020-05-27.html">Wed 27 May 2020</a></span>
-		/
-		<span class="byline"><a href="/skidl/author/dave-vandenbout.html">Dave Vandenbout</a></span>
-	</div> <!-- /#entry-meta -->
-	<div class="main">
-		<h2 class="entry-title">
-			<a href="/skidl/package-decorator-2020-05-27.html" title="Permalink to Good Things Come In Packages!" rel="bookmark">Good Things Come In Packages!</a>
-		</h2>
-		<div class="entry-content">
-			<p>Up to now, SKiDL supported hierarchy by applying the <code>@subcircuit</code> decorator to a Python function:</p>
-<div class="highlight"><pre><span></span><code><span class="nd">@subcircuit</span>
-<span class="k">def</span> <span class="nf">analog_average</span><span class="p">(</span><span class="n">in1</span><span class="p">,</span> <span class="n">in2</span><span class="p">,</span> <span class="n">avg</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Output the average of the two inputs.&quot;&quot;&quot;</span>
-
-    <span class="c1"># Create two 1K resistors.</span>
-    <span class="n">r1</span><span class="p">,</span> <span class="n">r2</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
-
-    <span class="c1"># Each input connects thru a resistor to the …</span></code></pre></div>
 		</div> <!--/#entry-content-->
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">
