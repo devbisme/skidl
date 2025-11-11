@@ -211,7 +211,7 @@ class SkidlConfig(Config):
         # If no configuration files were found, set some default footprint search paths.
         if "footprint_search_paths" not in self:
             self["footprint_search_paths"] = {
-                tool: tool_modules[tool].get_fp_lib_tbl_dir() for tool in ALL_TOOLS
+                tool: [tool_modules[tool].get_fp_lib_tbl_dir()] for tool in ALL_TOOLS
             }
 
         # Cause the footprint cache to be invalidated if the footprint search path changes.
