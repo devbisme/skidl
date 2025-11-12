@@ -754,7 +754,8 @@ class Circuit(SkidlBaseObject):
         Generate a netlist for the circuit.
         
         Args:
-            file_ (str or file object, optional): File to write netlist to.
+            file (str or file object, optional): File to write netlist to.
+            file_ (str or file object, optional): Same as file arg. Kept for backward compatibility.
             tool (str, optional): The EDA tool to generate the netlist for.
             do_backup (bool, optional): If True, create a library with all parts in the circuit.
             **kwargs: Additional arguments passed to the tool-specific netlist generator.
@@ -782,7 +783,7 @@ class Circuit(SkidlBaseObject):
         #     Get file the netlist will be stored in (if any).
         #     Get flag controlling the generation of a backup library.
         tool = kwargs.pop("tool", skidl.config.tool)
-        file_ = kwargs.pop("file_", None)
+        file_ = kwargs.pop("file_", kwargs.pop("file", None))
         do_backup = kwargs.pop("do_backup", True)
 
         # Pass these settings from the Circuit object if they are not already set.
@@ -794,8 +795,14 @@ class Circuit(SkidlBaseObject):
         active_logger.report_summary("generating netlist")
 
         if not self.no_files:
-            with opened(file_ or (get_script_name() + ".net"), "w") as f:
-                f.write(str(netlist))
+            # Check if file_ is already a file-like object (e.g., io.StringIO)
+            if hasattr(file_, 'write'):
+                # It's a file-like object, write directly to it
+                file_.write(str(netlist))
+            else:
+                # It's a filename or None, use opened() context manager
+                with opened(file_ or (get_script_name() + ".net"), "w") as f:
+                    f.write(str(netlist))
 
         if do_backup:
             self.backup_parts()  # Create a new backup lib for the circuit parts.

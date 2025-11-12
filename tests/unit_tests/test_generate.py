@@ -223,3 +223,11 @@ def test_global_net_names():
     assert RR1[1].net.name == 'net1'
     assert RR2[2].net.name == 'net2'
 
+def test_stringio():
+    """Test output to file-like object."""
+    import io
+    hier_circuit()
+    output = io.StringIO()
+    generate_netlist(file=output)
+    print(output.getvalue())
+
