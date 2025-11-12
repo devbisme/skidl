@@ -795,14 +795,8 @@ class Circuit(SkidlBaseObject):
         active_logger.report_summary("generating netlist")
 
         if not self.no_files:
-            # Check if file_ is already a file-like object (e.g., io.StringIO)
-            if hasattr(file_, 'write'):
-                # It's a file-like object, write directly to it
-                file_.write(str(netlist))
-            else:
-                # It's a filename or None, use opened() context manager
-                with opened(file_ or (get_script_name() + ".net"), "w") as f:
-                    f.write(str(netlist))
+            with opened(file_ or (get_script_name() + ".net"), "w") as f:
+                f.write(str(netlist))
 
         if do_backup:
             self.backup_parts()  # Create a new backup lib for the circuit parts.
