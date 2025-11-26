@@ -48,13 +48,13 @@ setup(
     long_description_content_type="text/markdown",
     author=__author__,
     author_email=__email__,
-    url="https://github.com/devbisme/skidl",
+    url="https://github.com/meesokim/skidl",
     python_requires=">=3.6",
     project_urls={
         "Documentation": "https://devbisme.github.io/skidl",
-        "Source": "https://github.com/devbisme/skidl",
-        "Changelog": "https://github.com/devbisme/skidl/blob/master/HISTORY.md",
-        "Tracker": "https://github.com/devbisme/skidl/issues",
+        "Source": "https://github.com/meesokim/skidl",
+        "Changelog": "https://github.com/meesokim/skidl/blob/master/HISTORY.md",
+        "Tracker": "https://github.com/meesokim/skidl/issues",
     },
     packages=setuptools.find_packages(where="src"),
     entry_points={
