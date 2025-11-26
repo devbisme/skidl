@@ -388,9 +388,10 @@ class PinMixin():
             >>> part.rmv_pins(1, 'RESET')  # Remove pin 1 and RESET pin
             >>> part.rmv_pins('VCC', 'GND')  # Remove power pins
         """
-        for i, pin in enumerate(self):
-            if pin.num in pin_ids or pin.name in pin_ids:
-                del pins[i]
+        for pin_id in pin_ids:
+            for i, pin in enumerate(self):
+                if pin.num == pin_id or pin.name == pin_id:
+                    del self.pins[i]
 
     def swap_pins(self, pin_id1, pin_id2):
         """
