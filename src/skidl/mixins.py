@@ -385,6 +385,9 @@ class PinMixin():
             >>> part.rmv_pins('VCC', 'GND')  # Remove power pins
         """
 
+        # All pin numbers and names are stored as strings, so convert ids to strings.
+        pin_ids = [str(pin_id) for pin_id in pin_ids]
+
         # Remove pins in reverse order to avoid index shifting issues.
         for i, pin in reversed(tuple(enumerate(self))):
             if pin.num in pin_ids or pin.name in pin_ids:
@@ -406,6 +409,11 @@ class PinMixin():
             >>> part.swap_pins(1, 2)  # Swap pins 1 and 2
             >>> part.swap_pins('RESET', 'ENABLE')  # Swap named pins
         """
+
+        # All pin numbers and names are stored as strings, so convert ids to strings.
+        pin_id1 = str(pin_id1)
+        pin_id2 = str(pin_id2)
+
         pins = self.pins
         i1, i2 = None, None
         for i, pin in enumerate(pins):
@@ -415,7 +423,7 @@ class PinMixin():
             elif pin_id2 in pin_num_name:
                 i2 = i
             if i1!=None and i2!=None:
-                # Swap pin numbers and names
+                # Found both pins, so swap pin numbers and names
                 pins[i1].num, pins[i1].name, pins[i2].num, pins[i2].name = (
                     pins[i2].num,
                     pins[i2].name,
@@ -440,9 +448,12 @@ class PinMixin():
             >>> part.rename_pin(1, 'POWER')  # Rename pin 1 to 'POWER'
             >>> part.rename_pin('RESET', 'RST')  # Rename RESET pin to RST
         """
+
+        # All pin numbers and names are stored as strings, so convert id to string.
+        pin_id = str(pin_id)
         for pin in self:
             if pin_id in (pin.num, pin.name):
-                # Change pin name
+                # Found pin so change its name
                 pin.name = new_pin_name
                 return
 
@@ -461,9 +472,12 @@ class PinMixin():
             >>> part.renumber_pin('RESET', 100)  # Change RESET pin to number 100
             >>> part.renumber_pin(1, 5)  # Change pin 1 to pin 5
         """
+
+        # All pin numbers and names are stored as strings, so convert id to string.
+        pin_id = str(pin_id)
         for pin in self:
             if pin_id in (pin.num, pin.name):
-                # Change pin number
+                # Found pin so change its number
                 pin.num = new_pin_num
                 return
 
