@@ -262,10 +262,9 @@ class PinMixin():
         for pin in flatten(pins):
             pin.part = self
             self.pins.append(pin)
-            # Create attributes so pin can be accessed by name or number such
+            # Create aliases so pin can be accessed by name or number such
             # as part.ENBL or part.p5.
-            pin.aliases += pin.name
-            pin.aliases += "p" + str(pin.num)
+            pin.aliases += pin.name, f"p{pin.num}"
         return self
 
     def create_pins(self, base_name, pin_count=None, connections=None):
@@ -388,9 +387,11 @@ class PinMixin():
             >>> part.rmv_pins(1, 'RESET')  # Remove pin 1 and RESET pin
             >>> part.rmv_pins('VCC', 'GND')  # Remove power pins
         """
-        for i, pin in enumerate(self):
+
+        # Remove pins in reverse order to avoid index shifting issues.
+        for i, pin in reversed(tuple(enumerate(self))):
             if pin.num in pin_ids or pin.name in pin_ids:
-                del pins[i]
+                del self.pins[i]
 
     def swap_pins(self, pin_id1, pin_id2):
         """
@@ -408,22 +409,31 @@ class PinMixin():
             >>> part.swap_pins(1, 2)  # Swap pins 1 and 2
             >>> part.swap_pins('RESET', 'ENABLE')  # Swap named pins
         """
+        pins = self.pins
         i1, i2 = None, None
-        for i, pin in enumerate(self):
+        for i, pin in enumerate(pins):
             pin_num_name = (pin.num, pin.name)
             if pin_id1 in pin_num_name:
                 i1 = i
             elif pin_id2 in pin_num_name:
                 i2 = i
-            if i1 and i2:
-                break
-        if i1 and i2:
-            pins[i1].num, pins[i1].name, pins[i2].num, pins[i2].name = (
-                pins[i2].num,
-                pins[i2].name,
-                pins[i1].num,
-                pins[i1].name,
-            )
+            if i1!=None and i2!=None:
+                # The two pins to swap have been found.
+                # Remove old aliases
+                pins[i1].aliases -= pins[i1].name, f"p{pins[i1].num}"
+                pins[i2].aliases -= pins[i2].name, f"p{pins[i2].num}"
+                # Swap pin numbers and names
+                pins[i1].num, pins[i1].name, pins[i2].num, pins[i2].name = (
+                    pins[i2].num,
+                    pins[i2].name,
+                    pins[i1].num,
+                    pins[i1].name,
+                )
+                # Add new aliases
+                pins[i1].aliases += pins[i1].name, f"p{pins[i1].num}"
+                pins[i2].aliases += pins[i2].name, f"p{pins[i2].num}"
+                # The swap has been made, so we're done.
+                return
 
     def rename_pin(self, pin_id, new_pin_name):
         """
@@ -442,7 +452,12 @@ class PinMixin():
         """
         for pin in self:
             if pin_id in (pin.num, pin.name):
+                # Remove old alias
+                pin.aliases -= pin.name
+                # Change pin name
                 pin.name = new_pin_name
+                # Add new alias
+                pin.aliases += pin.name
                 return
 
     def renumber_pin(self, pin_id, new_pin_num):
@@ -462,7 +477,12 @@ class PinMixin():
         """
         for pin in self:
             if pin_id in (pin.num, pin.name):
+                # Remove old alias
+                pin.aliases -= f"p{pin.num}"
+                # Change pin number
                 pin.num = new_pin_num
+                # Add new alias
+                pin.aliases += f"p{pin.num}"
                 return
 
     def get_pins(self, *pin_ids, **criteria):
