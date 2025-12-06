@@ -1282,13 +1282,7 @@ def opened(f_or_fn, mode):
         with open(f_or_fn, mode, encoding="utf-8") as f:
             yield f
     elif hasattr(f_or_fn, "fileno"):
-        if mode.replace("+", "") == f_or_fn.mode.replace("+", ""):
-            # same mode, can reuse file handle
-            yield f_or_fn
-        else:
-            # open in new mode
-            with os.fdopen(f_or_fn.fileno(), mode) as f:
-                yield f
+        yield f_or_fn
     else:
         raise TypeError(
             f"argument must be a filename or a file-like object (is: {type(f_or_fn)})"
