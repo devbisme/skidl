@@ -867,6 +867,43 @@ class Pin(SkidlBaseObject):
         return n
 
     @property
+    def num(self):
+        """
+        Get the pin number.
+        
+        Returns:
+            str or int: Pin number
+        """
+        return self._num
+    
+    @num.setter
+    def num(self, num):
+        """
+        Set the pin number.
+        
+        Args:
+            num (str or int): Pin number to assign
+        """
+        del self.num  # Remove any pre-existing num.
+        self._num = num
+        
+        # Only add a pin alias for the number if it's a non-empty string or integer.
+        if (isinstance(num, str) and len(num)>0) or isinstance(num, int):
+            self.aliases += f"p{num}"  # Add new num to aliases.
+
+    @num.deleter
+    def num(self):
+        """
+        Delete the pin number.
+        """
+        try:
+            self.aliases.discard(self._num)
+            self._num = None
+        except AttributeError:
+            pass
+
+
+    @property
     def pins(self):
         """
         Get a list of pins (just this pin for a Pin object).
