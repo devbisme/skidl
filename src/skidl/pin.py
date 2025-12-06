@@ -885,10 +885,11 @@ class Pin(SkidlBaseObject):
             num (str or int): Pin number to assign
         """
         del self.num  # Remove any pre-existing num.
+        num = str(num) if num is not None else ""  # Store num as a string.
         self._num = num
         
-        # Only add a pin alias for the number if it's a non-empty string or integer.
-        if (isinstance(num, str) and len(num)>0) or isinstance(num, int):
+        # Only add a pin alias for the number if it's a non-empty string.
+        if num:
             self.aliases += f"p{num}"  # Add new num to aliases.
 
     @num.deleter
