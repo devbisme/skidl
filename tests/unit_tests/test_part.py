@@ -317,7 +317,7 @@ def test_create_pins_basic():
     assert actual_names == expected_names
     
     # Check that pins have sequential numbers
-    pin_numbers = [pin.num for pin in new_pins]
+    pin_numbers = [int(pin.num) for pin in new_pins]
     assert pin_numbers == list(range(initial_pin_count + 1, initial_pin_count + 5))
 
 

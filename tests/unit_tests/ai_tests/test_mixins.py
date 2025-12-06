@@ -61,7 +61,7 @@ def test_rename_pin_changes_name():
 
     assert part.pins[0].name == "NEW"
     assert part[1].name == "NEW"
-    assert part["NEW"].num == 1
+    assert part["NEW"].num == '1'
 
 
 def test_renumber_pin_changes_number():
@@ -70,6 +70,6 @@ def test_renumber_pin_changes_number():
 
     part.renumber_pin("P", 99)
 
-    assert part.pins[0].num == 99
-    assert part[99].num == 99
-    assert part["P"].num == 99
+    assert part.pins[0].num == '99'
+    assert part[99].num == '99'
+    assert part["P"].num == '99'
