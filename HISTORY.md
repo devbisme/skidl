@@ -1,5 +1,11 @@
 # History
 
+## 2.2.1 (2025-12-13)
+
+- Pin aliases are now updated after pin deletion, renaming, renumbering, and swapping.
+- Footprint search paths for each version of KiCad are now lists of paths rather than a single path.
+- File-like objects (like StringIO) are now accepted for things like netlist generation outputs. 
+
 ## 2.2.0 (2025-11-09)
 
 - Fixed creation of SPICE netlists with illegal net names for XSPICE components.
