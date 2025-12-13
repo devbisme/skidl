@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.utilities &#8212; SKiDL 2.2.0 documentation</title>
+    <title>skidl.utilities &#8212; SKiDL 2.2.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=b21de401"></script>
+    <script src="../../_static/documentation_options.js?v=16656018"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.utilities</a></li> 
       </ul>
@@ -1441,13 +1441,7 @@
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">f_or_fn</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="k">yield</span> <span class="n">f</span>
     <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">f_or_fn</span><span class="p">,</span> <span class="s2">&quot;fileno&quot;</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">mode</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;+&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">f_or_fn</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;+&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
-            <span class="c1"># same mode, can reuse file handle</span>
-            <span class="k">yield</span> <span class="n">f_or_fn</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># open in new mode</span>
-            <span class="k">with</span> <span class="n">os</span><span class="o">.</span><span class="n">fdopen</span><span class="p">(</span><span class="n">f_or_fn</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span> <span class="n">mode</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                <span class="k">yield</span> <span class="n">f</span>
+        <span class="k">yield</span> <span class="n">f_or_fn</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;argument must be a filename or a file-like object (is: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">f_or_fn</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span>
@@ -1485,7 +1479,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.utilities</a></li> 
       </ul>

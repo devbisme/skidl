@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.circuit &#8212; SKiDL 2.2.0 documentation</title>
+    <title>skidl.circuit &#8212; SKiDL 2.2.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=b21de401"></script>
+    <script src="../../_static/documentation_options.js?v=16656018"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.circuit</a></li> 
       </ul>
@@ -870,7 +870,8 @@
 <span class="sd">        Generate a netlist for the circuit.</span>
 <span class="sd">        </span>
 <span class="sd">        Args:</span>
-<span class="sd">            file_ (str or file object, optional): File to write netlist to.</span>
+<span class="sd">            file (str or file object, optional): File to write netlist to.</span>
+<span class="sd">            file_ (str or file object, optional): Same as file arg. Kept for backward compatibility.</span>
 <span class="sd">            tool (str, optional): The EDA tool to generate the netlist for.</span>
 <span class="sd">            do_backup (bool, optional): If True, create a library with all parts in the circuit.</span>
 <span class="sd">            **kwargs: Additional arguments passed to the tool-specific netlist generator.</span>
@@ -898,7 +899,7 @@
         <span class="c1">#     Get file the netlist will be stored in (if any).</span>
         <span class="c1">#     Get flag controlling the generation of a backup library.</span>
         <span class="n">tool</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;tool&quot;</span><span class="p">,</span> <span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">tool</span><span class="p">)</span>
-        <span class="n">file_</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;file_&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">file_</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;file_&quot;</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
         <span class="n">do_backup</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;do_backup&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
         <span class="c1"># Pass these settings from the Circuit object if they are not already set.</span>
@@ -1681,7 +1682,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.circuit</a></li> 
       </ul>

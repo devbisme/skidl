@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.config_ &#8212; SKiDL 2.2.0 documentation</title>
+    <title>skidl.config_ &#8212; SKiDL 2.2.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=b21de401"></script>
+    <script src="../../_static/documentation_options.js?v=16656018"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.config_</a></li> 
       </ul>
@@ -271,7 +271,7 @@
         <span class="c1"># If no configuration files were found, set some default footprint search paths.</span>
         <span class="k">if</span> <span class="s2">&quot;footprint_search_paths&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
             <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;footprint_search_paths&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="n">tool</span><span class="p">:</span> <span class="n">tool_modules</span><span class="p">[</span><span class="n">tool</span><span class="p">]</span><span class="o">.</span><span class="n">get_fp_lib_tbl_dir</span><span class="p">()</span> <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="n">ALL_TOOLS</span>
+                <span class="n">tool</span><span class="p">:</span> <span class="p">[</span><span class="n">tool_modules</span><span class="p">[</span><span class="n">tool</span><span class="p">]</span><span class="o">.</span><span class="n">get_fp_lib_tbl_dir</span><span class="p">()]</span> <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="n">ALL_TOOLS</span>
             <span class="p">}</span>
 
         <span class="c1"># Cause the footprint cache to be invalidated if the footprint search path changes.</span>
@@ -326,7 +326,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.config_</a></li> 
       </ul>
