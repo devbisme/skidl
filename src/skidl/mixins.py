@@ -9,6 +9,7 @@ Classes:
     PinMixin: Adds pin management functionality to parts and other objects.
 """
 
+import sys
 from .logger import active_logger
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import (
@@ -385,12 +386,17 @@ class PinMixin():
             >>> part.rmv_pins('VCC', 'GND')  # Remove power pins
         """
 
+        # Expand pin_ids to a flat list of individual pin numbers/names.
+        pin_ids = list(set(expand_indices(0, sys.maxsize, False, *pin_ids)))
+
         # All pin numbers and names are stored as strings, so convert ids to strings.
         pin_ids = [str(pin_id) for pin_id in pin_ids]
 
         # Remove pins in reverse order to avoid index shifting issues.
         for i, pin in reversed(tuple(enumerate(self))):
-            if pin.num in pin_ids or pin.name in pin_ids:
+            # Look for an intersection of the pin name and aliases with the pin_ids to remove.
+            pin_id = set((pin.num, *pin.aliases))
+            if not pin_id.isdisjoint(pin_ids):
                 del self.pins[i]
 
     def swap_pins(self, pin_id1, pin_id2):
@@ -417,7 +423,7 @@ class PinMixin():
         pins = self.pins
         i1, i2 = None, None
         for i, pin in enumerate(pins):
-            pin_num_name = (pin.num, pin.name)
+            pin_num_name = (pin.num, *pin.aliases)
             if pin_id1 in pin_num_name:
                 i1 = i
             elif pin_id2 in pin_num_name:
@@ -452,7 +458,7 @@ class PinMixin():
         # All pin numbers and names are stored as strings, so convert id to string.
         pin_id = str(pin_id)
         for pin in self:
-            if pin_id in (pin.num, pin.name):
+            if pin_id in (pin.num, *pin.aliases):
                 # Found pin so change its name
                 pin.name = new_pin_name
                 return
@@ -476,7 +482,7 @@ class PinMixin():
         # All pin numbers and names are stored as strings, so convert id to string.
         pin_id = str(pin_id)
         for pin in self:
-            if pin_id in (pin.num, pin.name):
+            if pin_id in (pin.num, *pin.aliases):
                 # Found pin so change its number
                 pin.num = new_pin_num
                 return
