@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>SKiDL - posts</title><link href="/skidl/" rel="alternate"/><link href="/skidl/feeds/posts.atom.xml" rel="self"/><id>/skidl/</id><updated>2025-11-10T00:00:00-05:00</updated><entry><title>SKiDL 2.2 Release</title><link href="/skidl/skidl-two-dot-two-release-2025-11-10.html" rel="alternate"/><published>2025-11-10T00:00:00-05:00</published><updated>2025-11-10T00:00:00-05:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2025-11-10:/skidl/skidl-two-dot-two-release-2025-11-10.html</id><summary type="html">&lt;p&gt;Today marks the release of SKiDL version &lt;strong&gt;2.2.0&lt;/strong&gt;.
+<feed xmlns="http://www.w3.org/2005/Atom"><title>SKiDL - posts</title><link href="/skidl/" rel="alternate"/><link href="/skidl/feeds/posts.atom.xml" rel="self"/><id>/skidl/</id><updated>2025-12-26T00:00:00-05:00</updated><entry><title>SKiDL 2.2.1 Release</title><link href="/skidl/skidl-two-dot-two-dot-one-release-2025-12-26.html" rel="alternate"/><published>2025-12-26T00:00:00-05:00</published><updated>2025-12-26T00:00:00-05:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2025-12-26:/skidl/skidl-two-dot-two-dot-one-release-2025-12-26.html</id><summary type="html">&lt;p&gt;Today marks the release of SKiDL version &lt;strong&gt;2.2.1&lt;/strong&gt;.
+This release fixes a few bugs to get ready for the new year.&lt;/p&gt;
+&lt;p&gt;Here are the changes in 2.2.1:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Pin aliases are now updated after pin deletion, renaming, renumbering, and swapping.&lt;/li&gt;
+&lt;li&gt;Footprint search paths for each version of …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;Today marks the release of SKiDL version &lt;strong&gt;2.2.1&lt;/strong&gt;.
+This release fixes a few bugs to get ready for the new year.&lt;/p&gt;
+&lt;p&gt;Here are the changes in 2.2.1:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Pin aliases are now updated after pin deletion, renaming, renumbering, and swapping.&lt;/li&gt;
+&lt;li&gt;Footprint search paths for each version of KiCad are now lists of paths rather than a single path.&lt;/li&gt;
+&lt;li&gt;File-like objects (like StringIO) are now accepted for things like netlist generation outputs. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;See &lt;a href="https://github.com/devbisme/skidl/blob/master/HISTORY.md"&gt;SKiDL's complete history&lt;/a&gt; for all the changes
+made in each release.&lt;/p&gt;</content><category term="posts"/></entry><entry><title>SKiDL 2.2 Release</title><link href="/skidl/skidl-two-dot-two-release-2025-11-10.html" rel="alternate"/><published>2025-11-10T00:00:00-05:00</published><updated>2025-11-10T00:00:00-05:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2025-11-10:/skidl/skidl-two-dot-two-release-2025-11-10.html</id><summary type="html">&lt;p&gt;Today marks the release of SKiDL version &lt;strong&gt;2.2.0&lt;/strong&gt;.
 The increment in the minor version number indicates that this release includes new features and improvements
 while maintaining backward compatibility with version 2.1.&lt;/p&gt;
 &lt;p&gt;Here are the changes in 2.2.0:&lt;/p&gt;
