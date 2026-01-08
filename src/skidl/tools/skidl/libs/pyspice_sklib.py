@@ -545,6 +545,7 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(
                 "kw": {
                     "value": "dc_value",
                     "dc_value": "dc_value",
+                    "ac_value": "ac_value",
                     "p": "plus",
                     "n": "minus",
                 },
@@ -1253,6 +1254,7 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(
                 "kw": {
                     "value": "dc_value",
                     "dc_value": "dc_value",
+                    "ac_value": "ac_value",
                     "p": "plus",
                     "n": "minus",
                 },
