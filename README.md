@@ -132,3 +132,24 @@ set KICAD_SYMBOL_DIR=C:\Program Files\KiCad\share\kicad\symbols
 3. **Get help**: Join discussions in our [user forum](https://github.com/devbisme/skidl/discussions)
 4. **Convert existing designs**: Use the `netlist_to_skidl` tool to convert KiCad designs to SKiDL
 
+
+
+## Simple SKiDL Example for Beginners
+
+Here is a minimal example that shows how to define a resistor and an LED connected in series using SKiDL:
+
+```python
+from skidl import *
+
+# Create a resistor and LED.
+r = Part('device', 'R', value='1k')
+led = Part('device', 'LED')
+
+# Connect resistor to LED.
+r[1] += led[1]
+r[2] += led[2]
+
+# Generate the netlist.
+generate_netlist()
+
+
