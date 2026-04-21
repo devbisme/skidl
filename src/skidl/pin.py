@@ -560,8 +560,8 @@ class Pin(SkidlBaseObject):
             bool: True if the pin is assigned (either has a non-integer number or 
                   an integer number less than or equal to MAX_PIN_SIZE), False otherwise.
         Note:
-            A pin is considered assigned if it has either a string/non-integer identifier
-            or an integer pin number within the valid range (1 to MAX_PIN_SIZE).
+            A pin is considered assigned if it has a pin number that's either a 
+            string/non-integer identifier or an integer within the valid range (1 to MAX_PIN_SIZE).
         """
         return not isinstance(self.num, int) or self.num <= self.MAX_PIN_NUM
 
