@@ -18,20 +18,17 @@ d1 = Part('Regulator_Switching',  'LM5017MR')
 
 # Connect the nets and resistors.
 vin & d1.VIN & r1 & d1.RON
-vout & c1 & gnd
-d1.FB & r2 & vout
-gnd += d1.RTN
-vout += d1.SW
+d1.FB & r2 & d1.SW & vout & c1 & gnd
 
 # connect the rest of the pins to gnd
-for pin in d1.pins:
-    if pin.name in ['ULVO', 'FB', 'VCC', 'BST', 'RTNPAD']:
-        gnd += d1[pin.name]
+d1['RTN ULVO FB VCC BST RTNPAD'] += gnd
 
 ####################################################################################################
 from skidl.pyspice import *
 set_default_tool(SPICE)
 lib_search_paths[SPICE] = ["../../test_data/SpiceLib"]
+
+d1.RTN += gnd
 
 # map from skidl to pyspice. 1 is the skidl pin number, p is the pyspice pin number
 r1.convert_for_spice(R, {1: "p", 2: "n"})
@@ -45,12 +42,12 @@ from InSpice import Simulator
 from InSpice.Unit import *
 
 circuit = generate_netlist()
+circuit.V('VI', vin.name, gnd.name, 20@u_V)
 print(circuit)
 
 # The rest would be similar to the example from the PySpice documentation:
 # https://pyspice.fabrice-salvaire.fr/releases/v1.6/
 
-circuit.V('VI', vin.name, gnd.name, 20@u_V)
 try:
     simulator = Simulator.factory()
     simulation = simulator.simulation(circuit, temperature=25, nominal_temperature=25)
