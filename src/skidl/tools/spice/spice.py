@@ -416,13 +416,13 @@ def _xspice_node(net_or_pin):
 
 def _get_spice_ref(part):
     """Return a SPICE reference ID for the part."""
-    if part.ref.startswith(part.ref_prefix):
-        return part.ref[len(part.ref_prefix) :]
-    return part.ref
+    return part.ref.removeprefix(part.ref_prefix)
 
 
 def _get_kwargs(part, kw):
     """Return a dict of keyword arguments to PySpice element constructor."""
+    from skidl.part import PinNumberSearch, PinNameSearch
+
     kwargs = {}
 
     for key, param_name in kw.items():
@@ -443,18 +443,26 @@ def _get_kwargs(part, kw):
             # If the keyword argument is a Pin, skip it. It gets handled below.
             elif isinstance(part_attr, Pin):
                 continue
+            # These methods that search for pins in a part have attribute names "p" and "n"
+            # which can be confused with the "p" and "n" pins of a SPICE element, so skip them.
+            elif isinstance(part_attr, (PinNumberSearch, PinNameSearch)):
+                continue
             else:
                 kwargs.update({param_name: part_attr})
 
-    for pin in part.pins:
-        if pin.is_connected():
+    spice_pins = getattr(part, "spice_pins", part.pins)
+    reordered_part_pins = getattr(part, "reordered_part_pins", part.pins)
+    pins = zip(spice_pins, reordered_part_pins)
+    for spice_pin, part_pin in pins:
+        if part_pin.is_connected():
             try:
-                param_name = kw[pin.name]
-                kwargs.update({param_name: node(pin)})
+                param_name = kw[spice_pin.name]
             except KeyError:
                 active_logger.error(
-                    f"Part {part.ref}-{part.name} has no {pin.name} pin: {part}"
+                    f"Part {part.ref}-{part.name} has no {spice_pin.name} pin: {part}"
                     )
+            else:
+                kwargs.update({param_name: node(part_pin)})
 
     return kwargs
 
@@ -487,16 +495,10 @@ def add_part_to_circuit(part, circuit):
     try:
         kwargs["model"] = part.model.name
     except (KeyError, AttributeError):
-        # Don't change model kw param if it doesn't exist or is a string.
         pass
 
     # Add the part to the PySpice circuit.
     getattr(circuit, part.pyspice["name"])(*args, **kwargs)
-
-
-def _get_net_names(part):
-    """Return a list of net names attached to the pins of a part."""
-    return [node(pin) for pin in part.pins if pin.is_connected()]
 
 
 class Parameters(dict):
@@ -528,7 +530,7 @@ def add_subcircuit_to_circuit(part, circuit):
         args = [part.ref]
 
     args.append(part.name)
-    args.extend(_get_net_names(part))
+    args.extend([node(pin) for pin in getattr(part, "reordered_part_pins", part.pins) if pin.is_connected()])
 
     # Add the part to the PySpice circuit.
     from skidl.pyspice import Parameters
@@ -609,7 +611,7 @@ def convert_for_spice(part, spice_part, pin_map):
     Args:
         part: SKiDL Part object that will be converted for use as a SPICE component.
         spice_part (Part): The type of SPICE Part to be converted to.
-        pin_map (dict): Dict with pin numbers/names of part as keys and num/names of spice_part pins as replacement values.
+        pin_map (dict): Dict with pin IDs of part as keys and pin IDs of spice_part pins as values.
     """
 
     # Give the part access to the PySpice information from the SPICE part.
@@ -618,18 +620,16 @@ def convert_for_spice(part, spice_part, pin_map):
     # Give the part the additional aliases from the SPICE part.
     part.aliases += spice_part.aliases
 
-    # Look-up pin names/numbers to create a mapping between actual Pin objects.
-    pin_map = [[part[str(dst)], spice_part[str(src)]] for dst, src in pin_map.items()]
+    # Get the pin numbers for the part and SPICE part and create a mapping between them.
+    part_pin_nums = [part[pin_id].num for pin_id in pin_map.keys()]
+    spice_part_pin_names = [spice_part[pin_id].name for pin_id in pin_map.values()]
+    pin_map = dict(zip(spice_part_pin_names, part_pin_nums))
 
-    # Pull some info from the SPICE part pins into the part pins.
-    for dst_pin, src_pin in pin_map:
-        dst_pin.num = src_pin.num
-        dst_pin.name = src_pin.name
-        dst_pin.aliases += src_pin.aliases
-    
-    # reorder the part pins based on spice part pins orders
-    # active_logger.info("Reordering pins for part {part.ref}")
-    part.pins = [next(pin for pin in part.pins if pin.num == src.num or pin.name == src.name) for src in spice_part.pins]
+    part.spice_pins = spice_part.pins
+    part.reordered_part_pins = [part[pin_map[spice_part_pin.name]] for spice_part_pin in spice_part.pins]
+
+    # Create a separate list of the part pins with the same order as the SPICE part pins.
+    # part.spice_pins = [part[pin_map[spice_part_pin.name]] for spice_part_pin in spice_part.pins]
 
 
 class XspicePinList(list):
