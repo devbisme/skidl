@@ -20,7 +20,7 @@ from skidl.tools.spice import (
 
 # Pin aliases.
 _POS_DIPOLE_ALIASES = ["+", "plus", "anode", "A"]
-_NEG_DIPOLE_ALIASES = ["-", "minus", "m", "negative", "neg", "cathode", "C", "K"]
+_NEG_DIPOLE_ALIASES = ["-", "minus", "negative", "neg", "cathode", "C", "K"]
 _POS_IN_PORT_ALIASES = ["+i", "i+", "input_plus", "plus_input"]
 _NEG_IN_PORT_ALIASES = ["-i", "i-", "input_minus", "minus_input"]
 _POS_OUT_PORT_ALIASES = ["+o", "o+", "output_plus", "plus_output"]
