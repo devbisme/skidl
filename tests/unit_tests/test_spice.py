@@ -9,17 +9,6 @@ import pytest
 if os.getenv("TEST_SPICE") != '1':
     pytest.skip("Skip SPICE tests", allow_module_level=True)
 
-# Check if spice tests should run
-# import sys
-# spice_tests_enabled = False
-# for i, arg in enumerate(sys.argv):
-#     if arg == "-m":
-#         if sys.argv[i + 1] == "spice":
-#             spice_tests_enabled = True
-#             break
-# if not spice_tests_enabled:
-#     pytest.skip("Spice tests not enabled", allow_module_level=True)
-
 try:
     import matplotlib.pyplot as plt
 except ModuleNotFoundError:
@@ -134,7 +123,7 @@ def test_part_convert_for_spice():
     r1 = Part("Device", "R", value=1 @ u_kOhm)
     r2 = Part("Device", "R", value=2 @ u_kOhm)
 
-    vcc.convert_for_spice(V, {1: "p", 2: "n"})
+    vcc.convert_for_spice(V, {"+": "p", "-": "n"})
     r1.convert_for_spice(R, {1: "p", 2: "n"})
     r2.convert_for_spice(R, {1: "p", 2: "n"})
 
@@ -143,7 +132,7 @@ def test_part_convert_for_spice():
     vout.netio = "o"
     gnd.netio = "o"
 
-    gnd & vcc["n p"] & vin & r1 & vout & r2 & gnd
+    gnd & vcc["- +"] & vin & r1 & vout & r2 & gnd
 
     generate_svg()
 
