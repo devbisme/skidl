@@ -1,7 +1,7 @@
 # Import the skidl library.
 from skidl import *
 
-set_default_tool(KICAD8)
+set_default_tool(KICAD9)
 
 # Create input & output voltages and ground reference.
 vin, vout, gnd = Net('VI'), Net('VO'), Net('GND')
@@ -22,6 +22,10 @@ d1.FB & r2 & d1.SW & vout & c1 & gnd
 
 # connect the rest of the pins to gnd
 d1['RTN ULVO FB VCC BST RTNPAD'] += gnd
+
+# Generate a netlist prior to converting the part for use by SPICE. This will be used to verify 
+# that the netlist generated after the conversion is the same as this one.
+generate_netlist(file="voltage_regulator_before_spice.net")
 
 ####################################################################################################
 from skidl.pyspice import *
@@ -57,3 +61,10 @@ analysis = simulation.operating_point()
 
 for node in analysis.nodes.values():
     print(f'Node {str(node)}: {float(node[0]):5.2f} V') # Fixme: format value + unit
+
+####################################################################################################
+
+# Regenerate the netlist to verify it's the same as before. This also tests that the part can be 
+# converted for use by SPICE and then back to a regular SKiDL part without losing any information.
+set_default_tool(KICAD9)
+generate_netlist(file="voltage_regulator_after_spice.net")
