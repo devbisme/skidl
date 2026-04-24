@@ -77,10 +77,10 @@ vout = waveforms[node(sw["p"])]  # Voltage at drain of the MOSFET.
 
 # Plot the input and output waveforms.
 figure = plt.figure(1)
-plt.title("Current-Controlled Switch Inverter Output Vs. Input Voltage")
+plt.title("Current-Controlled Switch Inverter Output Vs. Time")
 plt.xlabel("Time (ms)")
 plt.ylabel("Voltage (V)")
-plt.plot(time * 1000, vin)
+# plt.plot(time * 1000, vin)
 plt.plot(time * 1000, vout)
 plt.legend(("Input Voltage", "Output Voltage"), loc=(1.1, 0.5))
 plt.show()
@@ -303,7 +303,7 @@ current = -dc_vals[
 ]  # Get the current coming out of the positive terminal of the voltage source.
 
 # Print a table showing the current through the resistor for the various applied voltages.
-print(f"{:^7s}{:^7s}".format("V", " I (mA)"))
+print("{:^7s}{:^7s}".format("V", " I (mA)"))
 print("=" * 15)
 for v, i in zip(voltage.as_ndarray(), current.as_ndarray() * 1000):
     print(f"{v:6.2f} {i:6.2f}")
