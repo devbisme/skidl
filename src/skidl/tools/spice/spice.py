@@ -450,9 +450,24 @@ def _get_kwargs(part, kw):
             else:
                 kwargs.update({param_name: part_attr})
 
+    # If this part was converted to a SPICE part, then use the SPICE part pins and
+    # the reordered part pins that match the order of the SPICE part pins.
+    # Otherwise, this part is probably a native SPICE part and doesn't have these
+    # attributes so use its pins directly.
     spice_pins = getattr(part, "spice_pins", part.pins)
     reordered_part_pins = getattr(part, "reordered_part_pins", part.pins)
+
+    # Associate the SPICE part pins with the part pins. If the part was converted 
+    # for use by SPICE, then the reordered part pins are in the same order as the SPICE part pins.
+    # Otherwise, the part is an actual SPICE part so its pins in their original order
+    # are in the same order as the SPICE part pins.
     pins = zip(spice_pins, reordered_part_pins)
+
+    # Go through the part pins and add items to kwargs with the SPICE pin name
+    # as the key and the name of the connected net as the value.
+    # Note that for converted SPICE parts, the net is attached to the original
+    # pin of the part and not the SPICE pin. For native SPICE parts, the
+    # part pins are used for everything.
     for spice_pin, part_pin in pins:
         if part_pin.is_connected():
             try:
@@ -514,7 +529,7 @@ class Parameters(dict):
 @export_to_all
 def add_subcircuit_to_circuit(part, circuit):
     """
-    Add a .SUBCKT part to a PySpice Circuit object.
+    Add a part defined by a .SUBCKT to a PySpice Circuit object.
 
     Args:
         part: SKiDL Part object.
@@ -522,23 +537,28 @@ def add_subcircuit_to_circuit(part, circuit):
     """
 
     # The device reference is always the first positional argument.
-    # sometimes we convert part from a U to X. In this case, we need to use the part name as the reference
-    # to avoid conflict with the subcircuit name
+    # sometimes we convert part from a U to X. In this case, we need to
+    # use the part name as the reference to avoid conflict with the subcircuit name
     if part.ref.startswith(part.pyspice["name"]):
         args = [_get_spice_ref(part)]
     else:
         args = [part.ref]
 
+    # Create the list of arguments for the subcircuit starting with the subcircuit name
+    # followed by the pins in the order they were defined in the SPICE part.
+    # If the part was converted for use by SPICE, then use the reordered pins that match the order of the
+    # SPICE part pins. Otherwise, the part is an actual SPICE part so its pins in their original order.
     args.append(part.name)
     args.extend([node(pin) for pin in getattr(part, "reordered_part_pins", part.pins) if pin.is_connected()])
 
-    # Add the part to the PySpice circuit.
-    from skidl.pyspice import Parameters
-
+    # Create the list of keyword arguments for the subcircuit. These are the parameters that are 
+    # defined in the part and that match the parameter names in the SPICE subcircuit definition.
     params = {}
-    for k, v in part.__dict__.items():
+    for v in vars(part).values():
         if isinstance(v, Parameters):
-            params = v
+            params.update(v)
+
+    # Add the part to the PySpice circuit.
     getattr(circuit, part.pyspice["name"])(*args, **params)
 
 
@@ -614,22 +634,19 @@ def convert_for_spice(part, spice_part, pin_map):
         pin_map (dict): Dict with pin IDs of part as keys and pin IDs of spice_part pins as values.
     """
 
-    # Give the part access to the PySpice information from the SPICE part.
+    # Give the part access to the PySpice information and pins from the SPICE part.
     part.pyspice = spice_part.pyspice
-
-    # Give the part the additional aliases from the SPICE part.
-    part.aliases += spice_part.aliases
-
-    # Get the pin numbers for the part and SPICE part and create a mapping between them.
-    part_pin_nums = [part[pin_id].num for pin_id in pin_map.keys()]
-    spice_part_pin_names = [spice_part[pin_id].name for pin_id in pin_map.values()]
-    pin_map = dict(zip(spice_part_pin_names, part_pin_nums))
-
     part.spice_pins = spice_part.pins
-    part.reordered_part_pins = [part[pin_map[spice_part_pin.name]] for spice_part_pin in spice_part.pins]
 
-    # Create a separate list of the part pins with the same order as the SPICE part pins.
-    # part.spice_pins = [part[pin_map[spice_part_pin.name]] for spice_part_pin in spice_part.pins]
+    # Create a mapping between the SPICE part pins and the part pins.
+    map = {}
+    for part_pin, spice_part_pin in pin_map.items():
+        map[id(spice_part[spice_part_pin])] = part[part_pin]
+
+    # Create a reordered set of part pins to match the order of the SPICE part pins.
+    # That way we can just iterate through the part pins when generating a SPICE netlist
+    # and they will be in the right order for the SPICE part.
+    part.reordered_part_pins = [map[id(pin)] for pin in spice_part.pins]
 
 
 class XspicePinList(list):
