@@ -228,6 +228,11 @@ class Pin(SkidlBaseObject):
         for k, v in list(attribs.items()):
             setattr(self, k, v)
 
+        # Always set the name last (even if it's already set) so it will
+        # be added to the list of pin aliases.
+        if "name" in attribs.keys():
+            self.name = attribs["name"]
+
     def __str__(self):
         """
         Return a description of this pin as a string.
