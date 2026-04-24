@@ -348,7 +348,7 @@ def test_all_parts():
 
     # Plot the input and output waveforms.
     figure = plt.figure(1)
-    plt.title("Current-Controlled Switch Inverter Output Vs. Input Voltage")
+    plt.title("Current-Controlled Switch Inverter Output Voltage vs. Time")
     plt.xlabel("Time (ms)")
     plt.ylabel("Voltage (V)")
     # plt.plot(time*1000, vin)
