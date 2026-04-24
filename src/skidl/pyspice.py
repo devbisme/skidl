@@ -36,10 +36,8 @@ except ImportError:
 
 from skidl import *
 from .tools.spice import *
-from .tools.skidl.libs.pyspice_sklib import *
+from .tools.skidl.libs.pyspice_sklib import pyspice_lib
 
-
-_splib = SchLib("pyspice", tool=SKIDL)  # Read-in the SPICE part library.
 
 set_default_tool(SPICE)  # Set the library format for reading SKiDL libraries.
 
@@ -48,7 +46,7 @@ gnd.fixed_name = True  # Make sure ground keeps it's name of "0" during net merg
 
 # Place all the PySpice parts into the namespace so they can be instantiated easily.
 _this_module = sys.modules[__name__]
-for p in _splib.get_parts():
+for p in pyspice_lib.get_parts():
     # Add the part name to the module namespace.
     setattr(_this_module, p.name, p)
     # Add all the part aliases to the module namespace.
