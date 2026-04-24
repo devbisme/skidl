@@ -132,3 +132,51 @@ set KICAD_SYMBOL_DIR=C:\Program Files\KiCad\share\kicad\symbols
 3. **Get help**: Join discussions in our [user forum](https://github.com/devbisme/skidl/discussions)
 4. **Convert existing designs**: Use the `netlist_to_skidl` tool to convert KiCad designs to SKiDL
 
+## Troubleshooting
+
+### "No libraries found" or symbol resolution errors
+
+SKiDL needs to know where your KiCad symbol libraries are. If `KICAD_SYMBOL_DIR` is not
+set or points to the wrong path, parts won't resolve.
+
+**Find your KiCad symbol library path:**
+
+```bash
+# Linux (package manager install)
+ls /usr/share/kicad/symbols/
+
+# Linux (Flatpak)
+ls /var/lib/flatpak/app/org.kicad.KiCad/current/active/files/share/kicad/symbols/
+
+# macOS (Homebrew)
+ls /Applications/KiCad/KiCad.app/Contents/SharedSupport/symbols/
+
+# Windows (typical)
+dir "C:\Program Files\KiCad\8.0\share\kicad\symbols"
+```
+
+**Set the environment variable:**
+
+```bash
+# Linux/macOS — add to ~/.bashrc, ~/.zshrc, or ~/.zprofile
+export KICAD_SYMBOL_DIR="/usr/share/kicad/symbols"
+
+# Windows PowerShell
+[System.Environment]::SetEnvironmentVariable("KICAD_SYMBOL_DIR", "C:\Program Files\KiCad\8.0\share\kicad\symbols", "User")
+```
+
+**Verify it works:**
+
+```bash
+python -c "from skidl import Part; r = Part('Device', 'R'); print(f'Found: {r.name}')"
+```
+
+### KiCad version compatibility
+
+SKiDL supports KiCad 5 through 9. If you see parsing errors with newer KiCad library
+files, make sure you're running the latest version of SKiDL:
+
+```bash
+pip install --upgrade skidl
+```
+
