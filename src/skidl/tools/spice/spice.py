@@ -457,24 +457,21 @@ def _get_kwargs(part, kw):
     spice_pins = getattr(part, "spice_pins", part.pins)
     reordered_part_pins = getattr(part, "reordered_part_pins", part.pins)
 
-    # Associate the SPICE part pins with the part pins. If the part was converted 
-    # for use by SPICE, then the reordered part pins are in the same order as the SPICE part pins.
-    # Otherwise, the part is an actual SPICE part so its pins in their original order
-    # are in the same order as the SPICE part pins.
-    pins = zip(spice_pins, reordered_part_pins)
-
-    # Go through the part pins and add items to kwargs with the SPICE pin name
-    # as the key and the name of the connected net as the value.
-    # Note that for converted SPICE parts, the net is attached to the original
-    # pin of the part and not the SPICE pin. For native SPICE parts, the
-    # part pins are used for everything.
-    for spice_pin, part_pin in pins:
+    # Associate the SPICE pin names with the corresponding reordered part pin numbers.
+    # These will be used to fetch the names of the nets attached to the part pins
+    # and assign them to the SPICE part pin names. We can't use the reordered part pin
+    # directly because it may no longer be the same as the actual part pin due to
+    # part copying using templates and thus wouldn't have a valid net assigned.
+    # So use the pin name to fetch the active part pin and get the net from that.
+    reordered_part_pin_nums = [pin.num for pin in reordered_part_pins]
+    for spice_pin, part_pin_num in list(zip(spice_pins, reordered_part_pin_nums)):
+        part_pin = part[part_pin_num] # Actual part pin with attached net.
         if part_pin.is_connected():
             try:
                 param_name = kw[spice_pin.name]
             except KeyError:
                 active_logger.error(
-                    f"Part {part.ref}-{part.name} has no {spice_pin.name} pin: {part}"
+                    f"Part {part.ref}-{part.name} has no {spice_pin_name} pin: {part}"
                     )
             else:
                 kwargs.update({param_name: node(part_pin)})
