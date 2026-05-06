@@ -130,13 +130,34 @@ class PartSexp:
     """
 
     def __init__(self, sexp):
-        self.sheetpath = sexp.search("/comp/sheetpath/names").value
-        self.ref = sexp.search("/comp/ref").value
-        self.value = sexp.search("/comp/value").value
-        self.footprint = sexp.search("/comp/footprint").value
-        self.name = sexp.search("/comp/libsource/part").value
-        self.lib = sexp.search("/comp/libsource/lib").value
-        self.properties = [PropertySexp(prop) for prop in sexp.search("/comp/property")]
+        try:
+            self.sheetpath = sexp.search("/comp/sheetpath/names").value
+        except ValueError:
+            self.sheetpath = ""
+        try:
+            self.ref = sexp.search("/comp/ref").value
+        except ValueError:
+            self.ref = ""
+        try:
+            self.value = sexp.search("/comp/value").value
+        except ValueError:
+            self.value = ""
+        try:
+            self.footprint = sexp.search("/comp/footprint").value
+        except ValueError:
+            self.footprint = ""
+        try:
+            self.name = sexp.search("/comp/libsource/part").value
+        except ValueError:
+            self.name = ""
+        try:
+            self.lib = sexp.search("/comp/libsource/lib").value
+        except ValueError:
+            self.lib = ""
+        try:
+            self.properties = [PropertySexp(prop) for prop in sexp.search("/comp/property")]
+        except ValueError:
+            self.properties = []
 
 
 class PropertySexp:
