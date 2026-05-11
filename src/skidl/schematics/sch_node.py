@@ -367,7 +367,7 @@ class SchNode(Placer, Router):
 
         # Flatten each instance in a group until the slack is used up.
         for child_type, child_type_size in sorted_child_type_sizes:
-            if child_type_size <= slack:
+            if slack > 0 and child_type_size <= slack:
                 # Include the circuitry of each child instance directly in the sheet.
                 for child in child_types[child_type]:
                     child.flattened = True
