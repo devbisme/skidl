@@ -1084,14 +1084,8 @@ def _calc_sheet_tx(bbox):
 # ---------------------------------------------------------------------------
 
 
-def _fix_sheet_filename(node):
-    """Ensure node.sheet_filename uses .kicad_sch extension (SchNode defaults to .sch)."""
-    node.sheet_filename = node.sheet_filename or "no_sheet_filename"
-    node.sheet_filename = os.path.splitext(node.sheet_filename)[0] + ".kicad_sch"
-
-
 @export_to_all
-def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
+def node_to_sexp_schematic(node, uuid_path, initial_lib_symbols={}, sheet_tx=Tx(), version=20230409):
     """Convert a SchNode tree to S-expression schematic(s).
 
     Follows the same recursive pattern as kicad5's node_to_eeschema():
@@ -1102,6 +1096,7 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
     Args:
         node: SchNode to convert.
         uuid_path: Hierarchical UUID path to this node.
+        initial_lib_symbols: Optional dict of lib_symbols to include in the root sheet (not used in recursive calls).
         sheet_tx: Parent sheet transformation matrix.
         version: S-expression version number (20240108 for kicad6, 20230409 for kicad8/9).
 
@@ -1109,32 +1104,31 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
         list[Sexp]: S-expression elements (parts, wires, labels, or a sheet ref).
     """
     # Fix filename extension for KiCad 6+ S-expression format.
-    _fix_sheet_filename(node)
 
-    elements = []
+    """Ensure node.sheet_filename uses .kicad_sch extension (SchNode defaults to .sch)."""
+    node.sheet_filename = node.sheet_filename or "no_sheet_filename"
+    node.sheet_filename = os.path.splitext(node.sheet_filename)[0] + ".kicad_sch"
 
     if node.flattened:
-        tx = node.tx * sheet_tx
-        # Remove this flattened node's UUID from the path since it won't have its own sheet.
+        # Flattened node doesn't get its own sheet, so remove its UUID.
         uuid_path = "/".join(uuid_path.split("/")[:-1])
+        # Flattened node shares the parent sheet, so apply the parent's sheet_tx.
+        tx = node.tx * sheet_tx
     else:
-        # Unflattened node gets its own sheet.
-        flattened_bbox = node.internal_bbox()
-        tx, paper = _calc_sheet_tx(flattened_bbox)
+        # Compute the transform and sheet paper size for this node's sheet.
+        tx, paper = _calc_sheet_tx(node.internal_bbox())
+
+    # Storage for S-expression elements of schematic.
+    elements = []
 
     # Recurse into children.
     for i, child in enumerate(node.children.values()):
         # Give each child a unique UUID path based on its name and index.
-        child_uuid_path = f"{uuid_path}/{_gen_uuid(f'{child.name}_{i}')}"
-        elements.extend(node_to_sexp_schematic(child, child_uuid_path, tx, version=version))
-
-    # Collect lib_symbols needed for this node's parts.
-    lib_symbols = {}
-    for part in node.parts:
-        if not isinstance(part, NetTerminal):
-            lib_id = f"{part.lib.filename}:{part.name}"
-            if lib_id not in lib_symbols:
-                lib_symbols[lib_id] = part
+        child.uuid = _gen_uuid(f"{child.name}_{i}")
+        child_uuid_path = f"{uuid_path}/{child.uuid}"
+        # Get elements for child sheet (or for inclusion in this sheet if child is flattened).
+        # Never pass initial_lib_symbols to children - only the root sheet gets those, and they don't propagate down the hierarchy.
+        elements.extend(node_to_sexp_schematic(child, child_uuid_path, sheet_tx=tx, version=version))
 
     # Generate part S-expressions.
     for part in node.parts:
@@ -1165,12 +1159,49 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
                 elements.append(label)
 
     if node.flattened:
-        # Return elements for inclusion in the parent sheet.
+        # This node is flattened, so return elements for inclusion in the parent sheet.
         return elements
 
-    # --- Unflattened node: write a separate .kicad_sch file. ---
+    # --- Unflattened node: write a separate .kicad_sch file for this sheet. ---
 
-    # Add hierarchical labels for boundary nets (nets that cross the sheet boundary).
+    schematic = Sexp(
+        [
+            "kicad_sch",
+            ["version", version],
+            ["generator", "skidl"],
+            ["generator_version", __version__],
+            ["uuid", node.uuid],
+            ["paper", paper],
+        ]
+    )
+
+    # Add title block to schematic sheet.
+    schematic.append(Sexp(create_title_block_sexp(node.title)))
+
+    # Collect lib_symbols needed for this node's parts.
+    lib_symbols = {**initial_lib_symbols}  # Start with any lib_symbols passed from the parent.
+    for part in node.parts:
+        if not isinstance(part, NetTerminal):
+            lib_id = f"{part.lib.filename}:{part.name}"
+            lib_symbols[lib_id] = part
+    
+    # Build lib_symbols section for this sheet.
+    lib_symbols_sexp = Sexp(["lib_symbols"])
+    for lib_id, part in lib_symbols.items():
+        lib_symbols_sexp.append(Sexp(part_to_lib_symbol_definition(part)))
+
+    # Add power lib_symbols for any power symbols used in this sheet.
+    for pwr_name in sorted(_used_power_symbols):
+        pwr_lib_id = f"power:{pwr_name}"
+        if pwr_lib_id not in lib_symbols:
+            pwr_sexp = _extract_power_lib_symbol(pwr_name)
+            if pwr_sexp:
+                lib_symbols_sexp.append(pwr_sexp)
+
+    # Add lib_symbols section to schematic.
+    schematic.append(lib_symbols_sexp)
+
+    # Collect hierarchical labels for boundary nets (nets that cross the sheet boundary).
     if hasattr(node, "get_boundary_nets"):
         boundary_nets = node.get_boundary_nets()
         hlabel_y = 10.0  # Starting Y position in mm for labels along the left edge.
@@ -1185,32 +1216,7 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
             )
             hlabel_y += 2.54
 
-    # Build lib_symbols section for this sheet.
-    lib_symbols_sexp = Sexp(["lib_symbols"])
-    for lib_id, part in lib_symbols.items():
-        lib_symbols_sexp.append(Sexp(part_to_lib_symbol_definition(part)))
-
-    # Add power lib_symbols for any power symbols used in this sheet.
-    for pwr_name in sorted(_used_power_symbols):
-        pwr_lib_id = f"power:{pwr_name}"
-        if pwr_lib_id not in lib_symbols:
-            pwr_sexp = _extract_power_lib_symbol(pwr_name)
-            if pwr_sexp:
-                lib_symbols_sexp.append(pwr_sexp)
-
-    schematic = Sexp(
-        [
-            "kicad_sch",
-            ["version", version],
-            ["generator", "skidl"],
-            ["generator_version", __version__],
-            ["uuid", _gen_uuid(uuid_path)],
-            ["paper", paper if not node.flattened else "A3"],
-        ]
-    )
-    schematic.append(Sexp(create_title_block_sexp(node.title)))
-    schematic.append(lib_symbols_sexp)
-
+    # Add all the collected elements of the schematic.
     for elem in elements:
         schematic.append(elem)
 
@@ -1218,7 +1224,7 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
     filepath = os.path.join(node.filepath, node.sheet_filename)
     _write_sexp_schematic(schematic, filepath)
 
-    # Return a hierarchical sheet reference for this node.
+    # Return a hierarchical sheet reference for this node to be included in the parent sheet.
     sheet_uuid = uuid_path.split("/")[-1] # Use the last UUID in the path for the sheet UUID.
     return [create_hierarchical_sheet_sexp(node, sheet_uuid, sheet_tx)]
 
@@ -1242,95 +1248,33 @@ def write_top_schematic(circuit, node, filepath, top_name, title, version=202304
         title: Schematic title.
         version: S-expression version number.
     """
-    top_name = top_name or "schematic"
-    _fix_sheet_filename(node)
     _reset_power_symbol_state()
 
-    node_uuid = _gen_uuid(node.name)
-    uuid_path = f"/{node_uuid}"
+    node.title = title
+    node.sheet_filename = top_name or "schematic"
+    node.filepath = filepath
 
-    # Calculate root sheet transform.
-    root_bbox = node.internal_bbox()
-    sheet_tx, paper = _calc_sheet_tx(root_bbox)
+    # Top node is never flattened because it has no parent to accept its contents, so it must always generate a sheet.
+    node.flattened = False
 
-    elements = []
+    # Generate a deterministic UUID for the top node based on its name.
+    node.uuid = _gen_uuid(node.name)
 
-    # Recurse into children — they write their own files if unflattened.
-    for i, child in enumerate(node.children.values()):
-        # Give each child a unique UUID path based on its name and index.
-        child_uuid_path = f"{uuid_path}/{_gen_uuid(f'{child.name}_{i}')}"
-        elements.extend(node_to_sexp_schematic(child, child_uuid_path, sheet_tx, version=version))
+    # UUID paths start from this root node. Used for hierarchical sheet references.
+    uuid_path = f"/{node.uuid}"
 
     # Collect lib_symbols for ALL parts in the circuit.
     lib_symbols = {}
     for part in circuit.parts:
         if not isinstance(part, NetTerminal):
             lib_id = f"{part.lib.filename}:{part.name}"
-            if lib_id not in lib_symbols:
-                lib_symbols[lib_id] = part
+            lib_symbols[lib_id] = part
 
-    # Generate part S-expressions for root-level parts.
-    for part in node.parts:
-        if isinstance(part, NetTerminal):
-            label = net_label_to_sexp(part.pins[0], tx=sheet_tx, force=True)
-            if label:
-                elements.append(label)
-        else:
-            elements.append(part_to_sexp(part, uuid_path, tx=sheet_tx))
-
-    # Generate wire S-expressions (split at junction points).
-    for net, wire in node.wires.items():
-        net_junctions = node.junctions.get(net, [])
-        elements.extend(wire_to_sexp(net, wire, tx=sheet_tx, junctions=net_junctions))
-
-    # Generate junction S-expressions.
-    for net, junctions in node.junctions.items():
-        elements.extend(junction_to_sexp(net, junctions, tx=sheet_tx))
-
-    # Generate net labels for stubbed pins.
-    for part in node.parts:
-        if isinstance(part, NetTerminal):
-            continue
-        for pin in part:
-            label = net_label_to_sexp(pin, tx=sheet_tx)
-            if label:
-                elements.append(label)
-
-    # Build lib_symbols section.
-    lib_symbols_sexp = Sexp(["lib_symbols"])
-    for lib_id, part in lib_symbols.items():
-        lib_symbols_sexp.append(Sexp(part_to_lib_symbol_definition(part)))
-
-    # Add power lib_symbols for any power symbols used in this schematic.
-    for pwr_name in sorted(_used_power_symbols):
-        pwr_lib_id = f"power:{pwr_name}"
-        if pwr_lib_id not in lib_symbols:
-            pwr_sexp = _extract_power_lib_symbol(pwr_name)
-            if pwr_sexp:
-                lib_symbols_sexp.append(pwr_sexp)
-
-    schematic = Sexp(
-        [
-            "kicad_sch",
-            ["version", version],
-            ["generator", "skidl"],
-            ["generator_version", __version__],
-            ["uuid", node_uuid],
-            ["paper", paper],
-        ]
-    )
-    schematic.append(Sexp(create_title_block_sexp(title)))
-    schematic.append(lib_symbols_sexp)
-
-    for elem in elements:
-        schematic.append(elem)
-
-    # Write root schematic.
-    output_file = os.path.join(filepath, f"{top_name}.kicad_sch")
-    os.makedirs(filepath, exist_ok=True)
-    _write_sexp_schematic(schematic, output_file)
+    # Write root schematic. Ignore the returned sheet ref since this is the top-level sheet.
+    _ = node_to_sexp_schematic(node, uuid_path=uuid_path, initial_lib_symbols=lib_symbols, version=version)
 
     # Optional: validate with kicad-cli if available.
+    output_file = os.path.join(node.filepath, node.sheet_filename)
     _validate_with_kicad_cli(output_file)
 
     return output_file
