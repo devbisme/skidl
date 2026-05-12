@@ -44,6 +44,6 @@ def test_interface_12():
     hierarchy2 = default_circuit.active_node.to_tuple()
     assert str(hierarchy) == str(hierarchy2)
     print(str(default_circuit.active_node))
-    breakpoint()
+    generate_schematic(title="My Title", flatness=1)
 
 test_interface_12()
