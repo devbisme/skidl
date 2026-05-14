@@ -64,11 +64,6 @@ def init_pwr():
     pwr_symbol_names = set([p.name for p in pwr_lib])
 
 
-def _get_power_lib_text():
-    """Load the raw text of the power symbol library. Cached."""
-    return pwr_lib_text
-
-
 def _get_power_symbol_names():
     """Return set of available power symbol names from the KiCad library."""
     return pwr_symbol_names
@@ -752,7 +747,7 @@ def net_label_to_sexp(pin, tx=Tx(), force=False):
     pt = pin_pt * part_tx * tx
 
     # Map pin orientation to angle (degrees).
-    orient_map = {"R": 180, "D": 90, "L": 0, "U": 270}
+    orient_map = {"R": 180, "D": 270, "L": 0, "U": 90}
     angle = orient_map[calc_pin_dir(pin)]
 
     # Justify depends on label direction.
