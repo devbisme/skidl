@@ -67,56 +67,11 @@ def init_pwr():
 def _get_power_lib_text():
     """Load the raw text of the power symbol library. Cached."""
     return pwr_lib_text
-    from skidl import get_default_tool
-
-    kicad_version = get_default_tool()[len("kicad"):]
-
-    global _power_lib_text_cache
-    if _power_lib_text_cache is not None:
-        return _power_lib_text_cache
-
-    for path in [
-        os.environ.get(f"KICAD{kicad_version}_SYMBOL_DIR", ""),
-        "/usr/share/kicad/symbols",
-        "/usr/local/share/kicad/symbols",
-        os.path.expanduser(f"~/.local/share/kicad/{kicad_version}.0/symbols"),
-    ]:
-        lib_path = os.path.join(path, "power.kicad_sym") if path else ""
-        if lib_path and os.path.exists(lib_path):
-            with open(lib_path, "r") as f:
-                _power_lib_text_cache = f.read()
-            return _power_lib_text_cache
-
-    _power_lib_text_cache = ""
-    return _power_lib_text_cache
 
 
 def _get_power_symbol_names():
     """Return set of available power symbol names from the KiCad library."""
     return pwr_symbol_names
-    global _power_symbol_names_cache
-    if _power_symbol_names_cache is not None:
-        return _power_symbol_names_cache
-
-    import re
-
-    text = _get_power_lib_text()
-    if text:
-        # Match top-level symbol definitions: (symbol "NAME" at indent level 1.
-        _power_symbol_names_cache = set(
-            re.findall(r'^\t\(symbol "([^"]+)"', text, re.MULTILINE)
-        )
-    else:
-        # Fallback: hardcoded common power names.
-        _power_symbol_names_cache = {
-            "GND", "AGND", "DGND", "PGND", "GNDA", "GNDD", "GNDREF",
-            "VCC", "VDD", "VSS", "VEE", "VBUS", "VBAT",
-            "+3V3", "+3.3V", "+5V", "+12V", "+1V8", "+2V5", "+1V5",
-            "+3.3VA", "+3.3VADC", "+3.3VDAC",
-            "AVCC", "AVDD", "DVCC", "DVDD",
-        }
-
-    return _power_symbol_names_cache
 
 
 def _extract_power_lib_symbol_raw(name):
@@ -129,103 +84,6 @@ def _extract_power_lib_symbol_raw(name):
         str: Raw S-expression text for the symbol, or None if not found.
     """
     return pwr_symbol_sexp_dict.get(name, None)
-    import re
-
-    text = _get_power_lib_text()
-    if not text:
-        return None
-
-    # Find the symbol definition start.
-    pattern = re.compile(r'^\t\(symbol "' + re.escape(name) + r'"', re.MULTILINE)
-    match = pattern.search(text)
-    if not match:
-        return None
-
-    # Extract from opening paren to matching closing paren.
-    start = match.start() + 1  # Skip the leading tab.
-    depth = 0
-    i = start
-    while i < len(text):
-        if text[i] == "(":
-            depth += 1
-        elif text[i] == ")":
-            depth -= 1
-            if depth == 0:
-                return text[start:i + 1]
-        i += 1
-
-    return None
-
-
-def _parse_sexp_text(text):
-    """Parse an S-expression string into a nested list structure.
-
-    Handles escaped quotes inside quoted strings (e.g. ``"name \\"GND\\""``)
-    which are common in KiCad power symbol Description fields.
-
-    Args:
-        text: S-expression string like '(symbol "GND" (pin ...))'.
-
-    Returns:
-        list: Nested list suitable for Sexp().
-    """
-    # Tokenize: handle escaped quotes inside quoted strings.
-    tokens = []
-    i = 0
-    while i < len(text):
-        c = text[i]
-        if c in " \t\n\r":
-            i += 1
-        elif c == "(":
-            tokens.append("(")
-            i += 1
-        elif c == ")":
-            tokens.append(")")
-            i += 1
-        elif c == '"':
-            # Quoted string — collect until unescaped closing quote.
-            j = i + 1
-            chars = []
-            while j < len(text):
-                if text[j] == "\\" and j + 1 < len(text):
-                    chars.append(text[j + 1])
-                    j += 2
-                elif text[j] == '"':
-                    j += 1
-                    break
-                else:
-                    chars.append(text[j])
-                    j += 1
-            tokens.append(("Q", "".join(chars)))  # Tagged as quoted.
-            i = j
-        else:
-            # Unquoted token.
-            j = i
-            while j < len(text) and text[j] not in " \t\n\r()\"":
-                j += 1
-            tokens.append(text[i:j])
-            i = j
-
-    stack = [[]]
-    for token in tokens:
-        if token == "(":
-            stack.append([])
-        elif token == ")":
-            completed = stack.pop()
-            stack[-1].append(completed)
-        elif isinstance(token, tuple) and token[0] == "Q":
-            stack[-1].append(token[1])  # Quoted string value.
-        else:
-            # Try numeric conversion for unquoted tokens.
-            try:
-                stack[-1].append(int(token))
-            except ValueError:
-                try:
-                    stack[-1].append(float(token))
-                except ValueError:
-                    stack[-1].append(token)
-    # Return the single top-level expression.
-    return stack[0][0] if stack[0] else []
 
 
 def _extract_power_lib_symbol(name):
@@ -245,16 +103,6 @@ def _extract_power_lib_symbol(name):
     # Change the symbol name from "NAME" to "power:NAME" for lib_id matching.
     pwr_sym_sexp[1] = f"power:{name}"
     return pwr_sym_sexp
-    raw = _extract_power_lib_symbol_raw(name)
-    if not raw:
-        return None
-
-    parsed = _parse_sexp_text(raw)
-    if parsed and len(parsed) > 1:
-        # Change the symbol name from "NAME" to "power:NAME" for lib_id matching.
-        parsed[1] = f"power:{name}"
-
-    return Sexp(parsed)
 
 
 def _power_symbol_to_sexp(pin, net_name, tx):
@@ -1165,7 +1013,6 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
     # for pwr_name in sorted(_used_power_symbols):
         pwr_lib_id = f"power:{pwr_name}"
         pwr_symbols[pwr_lib_id] = pwr_name
-    print(f"Local power symbols in {node.name}: {', '.join(pwr_symbols.keys())}")
 
     # Recurse into children.
     for i, child in enumerate(node.children.values()):
@@ -1177,8 +1024,6 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
         elements.extend(sexp_list)
         lib_symbols.update(part_dict)
         pwr_symbols.update(pwr_dict)
-
-    print(f"Total power symbols in {node.name}: {', '.join(pwr_symbols.keys())}")
 
     # Generate part S-expressions.
     for part in node.parts:
@@ -1292,8 +1137,6 @@ def write_top_schematic(circuit, node, filepath, top_name, title, version=202304
     """
 
     init_pwr()
-
-    # _reset_power_symbol_state()
 
     node.title = title
     node.sheet_filename = top_name or "schematic"
