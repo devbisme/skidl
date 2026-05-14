@@ -27,6 +27,7 @@ from simp_sexp import Sexp
 from skidl.geometry import Point, Tx
 from skidl.pckg_info import __version__
 from skidl.schematics.net_terminal import NetTerminal
+from skidl.schlib import SchLib
 from skidl.utilities import export_to_all
 
 # UUID namespace — same as gen_netlist.py so UUIDs are cross-referenceable.
@@ -46,8 +47,26 @@ _used_power_symbols = set()
 _pwr_counter = [0]
 
 
+def init_pwr():
+    """Initialize power symbol state at the start of schematic generation."""
+
+    global pwr_symbol_sexp_dict, pwr_symbol_names
+
+    _reset_power_symbol_state()
+
+    # Just read in the power symbols at the start.
+    pwr_lib = SchLib("power")
+    with open(pwr_lib.filepath, "r") as f:
+        pwr_lib_text = f.read()
+    pwr_lib_sexp = Sexp(pwr_lib_text)
+    pwr_symbol_sexps = pwr_lib_sexp.search("/kicad_symbol_lib/symbol")
+    pwr_symbol_sexp_dict = {sym[1]:sym for sym in pwr_symbol_sexps}
+    pwr_symbol_names = set([p.name for p in pwr_lib])
+
+
 def _get_power_lib_text():
     """Load the raw text of the power symbol library. Cached."""
+    return pwr_lib_text
     from skidl import get_default_tool
 
     kicad_version = get_default_tool()[len("kicad"):]
@@ -74,6 +93,7 @@ def _get_power_lib_text():
 
 def _get_power_symbol_names():
     """Return set of available power symbol names from the KiCad library."""
+    return pwr_symbol_names
     global _power_symbol_names_cache
     if _power_symbol_names_cache is not None:
         return _power_symbol_names_cache
@@ -108,6 +128,7 @@ def _extract_power_lib_symbol_raw(name):
     Returns:
         str: Raw S-expression text for the symbol, or None if not found.
     """
+    return pwr_symbol_sexp_dict.get(name, None)
     import re
 
     text = _get_power_lib_text()
@@ -219,6 +240,10 @@ def _extract_power_lib_symbol(name):
     Returns:
         Sexp: Parsed symbol definition, or None if not found.
     """
+    pwr_sym_sexp = _extract_power_lib_symbol_raw(name)
+    # Change the symbol name from "NAME" to "power:NAME" for lib_id matching.
+    pwr_sym_sexp[1] = f"power:{name}"
+    return pwr_sym_sexp
     raw = _extract_power_lib_symbol_raw(name)
     if not raw:
         return None
@@ -1132,8 +1157,8 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
 
     # Add power lib_symbols for any power symbols used in this sheet.
     pwr_symbols = {}
-    for pwr_name in _used_power_symbols:
-    # for pwr_name in sorted(_used_power_symbols):
+    # for pwr_name in _used_power_symbols:
+    for pwr_name in sorted(_used_power_symbols):
         pwr_lib_id = f"power:{pwr_name}"
         pwr_symbols[pwr_lib_id] = pwr_name
 
@@ -1143,12 +1168,10 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
         child.uuid = _gen_uuid(f"{child.name}_{i}")
         child_uuid_path = f"{uuid_path}/{child.uuid}"
         # Get elements for child sheet (or for inclusion in this sheet if child is flattened).
-        # Never pass initial_lib_symbols to children - only the root sheet gets those, and they don't propagate down the hierarchy.
         sexp_list, part_dict, pwr_dict, _ = node_to_sexp_schematic(child, child_uuid_path, sheet_tx=tx, version=version)
         elements.extend(sexp_list)
         lib_symbols.update(part_dict)
         pwr_symbols.update(pwr_dict)
-        # elements.extend(node_to_sexp_schematic(child, child_uuid_path, sheet_tx=tx, version=version))
 
     # Generate part S-expressions.
     for part in node.parts:
@@ -1260,7 +1283,10 @@ def write_top_schematic(circuit, node, filepath, top_name, title, version=202304
         title: Schematic title.
         version: S-expression version number.
     """
-    _reset_power_symbol_state()
+
+    init_pwr()
+
+    # _reset_power_symbol_state()
 
     node.title = title
     node.sheet_filename = top_name or "schematic"
@@ -1274,13 +1300,6 @@ def write_top_schematic(circuit, node, filepath, top_name, title, version=202304
 
     # UUID paths start from this root node. Used for hierarchical sheet references.
     uuid_path = f"/{node.uuid}"
-
-    # Collect lib_symbols for ALL parts in the circuit.
-    # lib_symbols = {}
-    # for part in circuit.parts:
-    #     if not isinstance(part, NetTerminal):
-    #         lib_id = f"{part.lib.filename}:{part.name}"
-    #         lib_symbols[lib_id] = part
 
     # Write root schematic. Ignore returned items except name of top-level sheet file.
     _, _, _, output_file = node_to_sexp_schematic(node, uuid_path=uuid_path, version=version)
