@@ -366,6 +366,8 @@ class SchNode(Placer, Router):
         )
 
         # Flatten each instance in a group until the slack is used up.
+        # Start from the smallest group so that small, simple children are more likely to be flattened 
+        # while large, complicated children are included using hierarchical sheets.
         for child_type, child_type_size in sorted_child_type_sizes:
             if slack > 0 and child_type_size <= slack:
                 # Include the circuitry of each child instance directly in the sheet.
@@ -373,6 +375,9 @@ class SchNode(Placer, Router):
                     child.flattened = True
                 # Reduce the slack by the sum of the child sizes.
                 slack -= child_type_size
+                # Increase the complexity of this node by the sum of the child sizes
+                # since they are now included in this sheet.
+                self.complexity += child_type_size
             else:
                 # Not enough slack left. Add these children as hierarchical sheets.
                 for child in child_types[child_type]:
