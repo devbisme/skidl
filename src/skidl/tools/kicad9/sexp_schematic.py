@@ -37,22 +37,14 @@ _NAMESPACE_UUID = uuid.UUID("7026fcc6-e1a0-409e-aaf4-6a17ea82654f")
 # Power symbol support
 # ---------------------------------------------------------------------------
 
-# Cached set of power symbol names from the KiCad library.
-_power_symbol_names_cache = None
-# Cached raw S-expression text for power lib symbols.
-_power_lib_text_cache = None
-# Track which power symbols are used in the current schematic.
-_used_power_symbols = set()
-# Counter for #PWR references.
-_pwr_counter = [0]
 
-
-def init_pwr():
+def init_power_symbol_data():
     """Initialize power symbol state at the start of schematic generation."""
 
-    global pwr_symbol_sexp_dict, pwr_symbol_names
+    global pwr_symbol_sexp_dict, pwr_symbol_names, _used_power_symbols, _pwr_counter
 
-    _reset_power_symbol_state()
+    _used_power_symbols = set()
+    _pwr_counter = [0]
 
     # Just read in the power symbols at the start.
     pwr_lib = SchLib("power")
@@ -62,23 +54,6 @@ def init_pwr():
     pwr_symbol_sexps = pwr_lib_sexp.search("/kicad_symbol_lib/symbol")
     pwr_symbol_sexp_dict = {sym[1]:sym for sym in pwr_symbol_sexps}
     pwr_symbol_names = set([p.name for p in pwr_lib])
-
-
-def _get_power_symbol_names():
-    """Return set of available power symbol names from the KiCad library."""
-    return pwr_symbol_names
-
-
-def _extract_power_lib_symbol_raw(name):
-    """Extract the raw S-expression text for a power symbol.
-
-    Args:
-        name: Power symbol name (e.g., "GND", "+3V3").
-
-    Returns:
-        str: Raw S-expression text for the symbol, or None if not found.
-    """
-    return pwr_symbol_sexp_dict.get(name, None)
 
 
 def _extract_power_lib_symbol(name):
@@ -94,7 +69,7 @@ def _extract_power_lib_symbol(name):
         Sexp: Parsed symbol definition, or None if not found.
     """
     from copy import deepcopy
-    pwr_sym_sexp = deepcopy(_extract_power_lib_symbol_raw(name))
+    pwr_sym_sexp = deepcopy(pwr_symbol_sexp_dict.get(name, None))
     # Change the symbol name from "NAME" to "power:NAME" for lib_id matching.
     pwr_sym_sexp[1] = f"power:{name}"
     return pwr_sym_sexp
@@ -226,13 +201,6 @@ def _power_symbol_to_sexp(pin, net_name, tx):
     )
 
     return symbol
-
-
-def _reset_power_symbol_state():
-    """Reset power symbol state between schematic generations."""
-    global _used_power_symbols
-    _used_power_symbols = set()
-    _pwr_counter[0] = 0
 
 
 def _gen_uuid(name=""):
@@ -729,7 +697,7 @@ def net_label_to_sexp(pin, tx=Tx(), force=False):
     # Check if this net matches a known KiCad power symbol.
     # If so, emit a power symbol instance instead of a global_label.
     # This eliminates power_pin_not_driven ERC errors.
-    if pin.is_connected() and pin.net.name in _get_power_symbol_names():
+    if pin.is_connected() and pin.net.name in pwr_symbol_names:
         pwr = _power_symbol_to_sexp(pin, pin.net.name, tx)
         if pwr:
             return pwr
@@ -852,7 +820,7 @@ def create_hierarchical_sheet_sexp(node, sheet_uuid, sheet_tx):
         pin_y = by + pin_spacing
         for net in boundary_nets:
             # Skip power nets that become power symbols (they don't need sheet pins).
-            if net.name in _get_power_symbol_names():
+            if net.name in pwr_symbol_names:
                 continue
             # Skip stubbed nets (they use global labels).
             if getattr(net, "stub", False) or getattr(net, "_stub", False):
@@ -1002,7 +970,7 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
     # Add power lib_symbols for any power symbols used in this sheet.
     pwr_symbols = {}
     for net in node.wires:
-        if net.name in _get_power_symbol_names():
+        if net.name in pwr_symbol_names:
             _used_power_symbols.add(net.name)
     for pwr_name in _used_power_symbols:
     # for pwr_name in sorted(_used_power_symbols):
@@ -1089,7 +1057,7 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
         hlabel_y = 10.0  # Starting Y position in mm for labels along the left edge.
         for net in boundary_nets:
             # Skip power nets and stubbed nets.
-            if net.name in _get_power_symbol_names():
+            if net.name in pwr_symbol_names:
                 continue
             if getattr(net, "stub", False) or getattr(net, "_stub", False):
                 continue
@@ -1131,7 +1099,7 @@ def write_top_schematic(circuit, node, filepath, top_name, title, version=202304
         version: S-expression version number.
     """
 
-    init_pwr()
+    init_power_symbol_data()
 
     node.title = title
     node.sheet_filename = top_name or "schematic"
