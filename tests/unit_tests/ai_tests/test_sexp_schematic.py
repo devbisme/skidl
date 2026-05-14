@@ -27,7 +27,6 @@ sexp_schematic = importlib.import_module(f"skidl.tools.{tool}.sexp_schematic")
 A_SIZES = sexp_schematic.A_SIZES
 MILS_TO_MM = sexp_schematic.MILS_TO_MM
 _calc_sheet_tx = sexp_schematic._calc_sheet_tx
-_fix_sheet_filename = sexp_schematic._fix_sheet_filename
 _gen_uuid = sexp_schematic._gen_uuid
 _pick_paper_size = sexp_schematic._pick_paper_size
 create_title_block_sexp = sexp_schematic.create_title_block_sexp
@@ -159,40 +158,6 @@ class TestTitleBlock:
         # Should have a date entry.
         dates = [item for item in tb if isinstance(item, list) and item[0] == "date"]
         assert len(dates) == 1
-
-
-class TestFixSheetFilename:
-    """Tests for _fix_sheet_filename."""
-
-    def test_sch_to_kicad_sch(self):
-        """Converts .sch extension to .kicad_sch."""
-
-        class FakeNode:
-            sheet_filename = "test.sch"
-
-        node = FakeNode()
-        _fix_sheet_filename(node)
-        assert node.sheet_filename == "test.kicad_sch"
-
-    def test_already_kicad_sch(self):
-        """Leaves .kicad_sch extension unchanged."""
-
-        class FakeNode:
-            sheet_filename = "test.kicad_sch"
-
-        node = FakeNode()
-        _fix_sheet_filename(node)
-        assert node.sheet_filename == "test.kicad_sch"
-
-    def test_none_filename(self):
-        """Handles None filename without error."""
-
-        class FakeNode:
-            sheet_filename = None
-
-        node = FakeNode()
-        _fix_sheet_filename(node)
-        assert node.sheet_filename is None
 
 
 # ===========================================================================

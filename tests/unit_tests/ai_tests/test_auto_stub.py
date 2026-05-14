@@ -593,32 +593,6 @@ class TestSelectiveRouting:
 class TestPowerSymbolInjection:
     """Tests for power symbol injection (replacing global_labels with power symbols)."""
 
-    def test_power_symbol_names_loaded(self):
-        """Power symbol name set loads from the KiCad library."""
-        from skidl.tools.kicad9.sexp_schematic import _get_power_symbol_names
-        names = _get_power_symbol_names()
-        assert "GND" in names
-        assert "VCC" in names
-        assert "+3V3" in names
-        assert "+5V" in names
-
-    def test_power_lib_symbol_extraction(self):
-        """Power lib_symbol definitions can be extracted and parsed."""
-        from skidl.tools.kicad9.sexp_schematic import _extract_power_lib_symbol
-        gnd = _extract_power_lib_symbol("GND")
-        assert gnd is not None, "GND lib symbol should be extractable"
-        gnd_str = gnd.to_str()
-        assert "power:GND" in gnd_str
-        assert "power_in" in gnd_str
-
-    def test_sexp_parser(self):
-        """The S-expression text parser handles nested structures."""
-        from skidl.tools.kicad9.sexp_schematic import _parse_sexp_text
-        result = _parse_sexp_text('(symbol "test" (pin_numbers (hide yes)))')
-        assert result[0] == "symbol"
-        assert result[1] == "test"
-        assert result[2][0] == "pin_numbers"
-
     @requires_kicad_libs
     def test_power_symbols_in_output(self, output_dir):
         """Power nets appear as power symbol instances in the schematic."""

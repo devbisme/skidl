@@ -28,17 +28,18 @@ def test_interface_12():
         s2.my_gnd += my_gnd
 
     # Create nets
-    vin1, vin2, gnd = Net("VIN1"), Net("VIN2"), Net("GND")
+    vin1, vin2, gnd, vdd = Net("VIN1"), Net("VIN2"), Net("GND"), Net("VDD")
     # Instantiate the subcircuit
     sub = sub2(vin1, vin2, gnd, tag="sub")
     # Create resistor and connect between input and ground
     r1 = r()
-    vin1 & r1 & gnd
+    vdd & r1 & gnd
 
     # Assertions to verify the circuit
     assert len(gnd) == 3
-    assert len(vin1) == 2
+    assert len(vin1) == 1
     assert len(vin2) == 1
+    assert len(vdd) == 1
 
     hierarchy = default_circuit.active_node.to_tuple()
     hierarchy2 = default_circuit.active_node.to_tuple()
