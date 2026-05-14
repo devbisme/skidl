@@ -240,7 +240,8 @@ def _extract_power_lib_symbol(name):
     Returns:
         Sexp: Parsed symbol definition, or None if not found.
     """
-    pwr_sym_sexp = _extract_power_lib_symbol_raw(name)
+    from copy import deepcopy
+    pwr_sym_sexp = deepcopy(_extract_power_lib_symbol_raw(name))
     # Change the symbol name from "NAME" to "power:NAME" for lib_id matching.
     pwr_sym_sexp[1] = f"power:{name}"
     return pwr_sym_sexp
@@ -1157,10 +1158,14 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
 
     # Add power lib_symbols for any power symbols used in this sheet.
     pwr_symbols = {}
-    # for pwr_name in _used_power_symbols:
-    for pwr_name in sorted(_used_power_symbols):
+    for net in node.wires:
+        if net.name in _get_power_symbol_names():
+            _used_power_symbols.add(net.name)
+    for pwr_name in _used_power_symbols:
+    # for pwr_name in sorted(_used_power_symbols):
         pwr_lib_id = f"power:{pwr_name}"
         pwr_symbols[pwr_lib_id] = pwr_name
+    print(f"Local power symbols in {node.name}: {', '.join(pwr_symbols.keys())}")
 
     # Recurse into children.
     for i, child in enumerate(node.children.values()):
@@ -1172,6 +1177,8 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
         elements.extend(sexp_list)
         lib_symbols.update(part_dict)
         pwr_symbols.update(pwr_dict)
+
+    print(f"Total power symbols in {node.name}: {', '.join(pwr_symbols.keys())}")
 
     # Generate part S-expressions.
     for part in node.parts:
