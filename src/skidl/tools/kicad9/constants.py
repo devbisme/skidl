@@ -14,3 +14,6 @@ BLK_INT_PAD = 2 * GRID
 BLK_EXT_PAD = 2 * GRID
 DRAWING_BOX_RESIZE = 100
 HIER_TERM_SIZE = 50
+
+# Minimum clearance (mils) when offsetting labels to avoid component overlap.
+LABEL_DECONFLICT_MARGIN = 50
