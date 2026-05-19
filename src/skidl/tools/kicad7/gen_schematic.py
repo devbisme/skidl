@@ -65,18 +65,22 @@ FIXABLE_ERROR_TYPES = frozenset(
 
 
 def auto_stub_nets(circuit, **options):
-    """Auto-stub power nets and high-fanout nets before generation.
+    """Auto-stub clearly global power nets and high-fanout nets before generation.
 
     Only modifies nets that haven't been explicitly set by the user.
     Called when auto_stub=True is passed to gen_schematic().
 
     Args:
         circuit: The Circuit object containing nets to analyze.
-        options: Dict of options. Recognizes 'auto_stub_fanout' (default 5).
+        options: Dict of options. Recognizes 'auto_stub_fanout' (default 5)
+            and 'auto_stub_power_fanout' (default max(auto_stub_fanout, 6)).
     """
     import sys
 
     fanout_threshold = options.get("auto_stub_fanout", 5)
+    power_fanout_threshold = options.get(
+        "auto_stub_power_fanout", max(fanout_threshold, 6)
+    )
     stubbed_power = []
     stubbed_fanout = []
 
@@ -88,11 +92,12 @@ def auto_stub_nets(circuit, **options):
 
         # Power nets: anything starting with "+" or matching common power names.
         if net.name.startswith("+") or _POWER_NET_RE.match(net.name):
-            net._stub = True
-            net._stub_explicit = False
-            for pin in net.get_pins():
-                pin.stub = True
-            stubbed_power.append(f"{net.name}({len(net.pins)})")
+            if len(net.pins) >= power_fanout_threshold:
+                net._stub = True
+                net._stub_explicit = False
+                for pin in net.get_pins():
+                    pin.stub = True
+                stubbed_power.append(f"{net.name}({len(net.pins)})")
             continue
 
         # High fanout nets: many pins connected to the same net.
@@ -218,7 +223,8 @@ def _classify_and_stub_complex_nets(circuit, node, **options):
 
     Called after placement succeeds, before routing. Nets with too many pins
     or pins too far apart get converted to labels for reliable connectivity.
-    Simple 2-3 pin short-distance nets remain as wires.
+    Small nearby functional clusters remain visible so local signal flow is
+    still obvious to a human reader.
 
     Args:
         circuit: The Circuit object.
@@ -227,13 +233,12 @@ def _classify_and_stub_complex_nets(circuit, node, **options):
             auto_stub_max_wire_pins (int): Max pins for wire routing. Default 3.
             auto_stub_max_wire_dist (int): Max manhattan distance (mils) for wires. Default 2000.
     """
-    from skidl.geometry import Point
-
     max_wire_pins = options.get("auto_stub_max_wire_pins", 3)
     max_wire_dist = options.get("auto_stub_max_wire_dist", 2000)
 
     node_parts = set(node.parts)
     stubbed_count = 0
+    partial_stubbed_count = 0
 
     for net in node.get_internal_nets():
         if getattr(net, "_stub_explicit", False):
@@ -242,6 +247,39 @@ def _classify_and_stub_complex_nets(circuit, node, **options):
             continue
 
         pins = [p for p in net.pins if p.part in node_parts]
+        if len(pins) < 2:
+            continue
+
+        clusters = node._cluster_pins_by_distance(net, pins, **options)
+        local_clusters = [
+            cluster
+            for cluster in clusters
+            if len(cluster) >= 2
+            and node._prefer_visible_wire_postplacement(net, cluster, **options)
+        ]
+        if local_clusters:
+            best_cluster = local_clusters[0]
+            if len(best_cluster) < len(pins):
+                visible_pin_ids = {id(pin) for pin in best_cluster}
+                for pin in pins:
+                    if id(pin) not in visible_pin_ids:
+                        pin.stub = True
+                partial_stubbed_count += 1
+                continue
+
+        # Use geometry-aware local heuristics so nearby circuit structure stays
+        # visible, and reserve labels for clearly global or long-distance nets.
+        if node._prefer_visible_wire_postplacement(net, pins, **options):
+            continue
+
+        name = str(getattr(net, "name", "") or "")
+        if node._is_power_net_name(name) or node._is_bus_net_name(name):
+            net._stub = True
+            net._stub_explicit = False
+            for p in net.get_pins():
+                p.stub = True
+            stubbed_count += 1
+            continue
 
         # Too many pins → label.
         if len(pins) > max_wire_pins:
@@ -253,34 +291,20 @@ def _classify_and_stub_complex_nets(circuit, node, **options):
             continue
 
         # Pins too far apart → label.
-        if len(pins) >= 2:
-            pts = []
-            for p in pins:
-                pin_pt = getattr(p, "place_pt", getattr(p, "pt", Point(p.x, p.y)))
-                part_tx = getattr(p.part, "tx", None)
-                if part_tx:
-                    pts.append(pin_pt * part_tx)
-                else:
-                    pts.append(pin_pt)
+        max_dist, _, _ = node._net_geometry_stats(pins)
+        if max_dist > max_wire_dist:
+            net._stub = True
+            net._stub_explicit = False
+            for p in net.get_pins():
+                p.stub = True
+            stubbed_count += 1
 
-            max_dist = 0
-            for i, a in enumerate(pts):
-                for b in pts[i + 1:]:
-                    dist = abs(a.x - b.x) + abs(a.y - b.y)
-                    if dist > max_dist:
-                        max_dist = dist
-
-            if max_dist > max_wire_dist:
-                net._stub = True
-                net._stub_explicit = False
-                for p in net.get_pins():
-                    p.stub = True
-                stubbed_count += 1
-
-    if stubbed_count:
+    if stubbed_count or partial_stubbed_count:
         from skidl.logger import active_logger
         active_logger.info(
-            f"  [selective_routing] Stubbed {stubbed_count} complex nets after placement"
+            "  [selective_routing] "
+            f"Stubbed {stubbed_count} complex nets and "
+            f"converted {partial_stubbed_count} distant pin groups to labels after placement"
         )
 
 

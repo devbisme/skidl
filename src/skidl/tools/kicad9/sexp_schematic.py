@@ -1400,5 +1400,6 @@ def _write_sexp_schematic(schematic, filepath):
     schematic.add_quotes(need_quote)
     schematic.add_quotes(need_quote_alternate, stop_idx=2)
 
-    with open(filepath, "w") as f:
+    # KiCad .kicad_sch 为 UTF-8；Windows 默认 locale 为 GBK 时会因中文属性写入失败
+    with open(filepath, "w", encoding="utf-8") as f:
         f.write(schematic.to_str())
