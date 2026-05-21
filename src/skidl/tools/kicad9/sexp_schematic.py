@@ -25,6 +25,7 @@ from collections import OrderedDict
 from simp_sexp import Sexp
 
 from skidl.geometry import Point, Tx
+from skidl.net import NCNet
 from skidl.pckg_info import __version__
 from skidl.schematics.net_terminal import NetTerminal
 from skidl.schlib import SchLib
@@ -917,6 +918,256 @@ def _calc_sheet_tx(bbox):
 
 
 # ---------------------------------------------------------------------------
+# No-connect flags
+# ---------------------------------------------------------------------------
+
+
+def _gen_no_connect_flags(node, tx):
+    """Generate no_connect flag S-expressions for pins on NCNet."""
+    flags = []
+    for part in node.parts:
+        if isinstance(part, NetTerminal):
+            continue
+        for pin in part:
+            if not isinstance(getattr(pin, "net", None), NCNet):
+                continue
+            pin_pt = getattr(pin, "pt", Point(pin.x, pin.y))
+            part_tx = getattr(pin.part, "tx", Tx())
+            pt = pin_pt * part_tx * tx
+            flags.append(
+                Sexp(
+                    [
+                        "no_connect",
+                        ["at", _round_mm(pt.x), _round_mm(pt.y)],
+                        ["uuid", _gen_uuid(f"nc:{part.ref}:{pin.num}:{pt.x}:{pt.y}")],
+                    ]
+                )
+            )
+    return flags
+
+
+# ---------------------------------------------------------------------------
+# Snap placement post-processing
+# ---------------------------------------------------------------------------
+
+
+def _kicad_pin_pos(pin, part_tx, sheet_tx):
+    """Compute pin position as KiCad renders it from symbol placement."""
+    import math
+
+    angle_deg, mx, my = part_tx.analyze_transform()
+    composed = part_tx * sheet_tx
+    ox = _round_mm(composed.origin.x)
+    oy = _round_mm(composed.origin.y)
+
+    px, py = pin.x, -pin.y
+
+    theta = math.radians(-angle_deg)
+    cos_t, sin_t = math.cos(theta), math.sin(theta)
+    rx = px * cos_t - py * sin_t
+    ry = px * sin_t + py * cos_t
+
+    if mx:
+        ry = -ry
+    if my:
+        rx = -rx
+
+    return _round_mm(ox + rx), _round_mm(oy + ry)
+
+
+def _find_wireable_nets(node, tx, max_dist_mm=80.0):
+    """Suppress labels for pins connected by snap (overlapping positions).
+
+    Only active when snap placement has run (node has snap marker attributes).
+    """
+    node_part_ids = {id(p) for p in node.parts}
+    wired_pin_ids = set()
+
+    seen_nets = set()
+    for part in node.parts:
+        if isinstance(part, NetTerminal):
+            continue
+        for pin in part:
+            if not pin.stub or not pin.is_connected():
+                continue
+            net = pin.net
+            if id(net) in seen_nets:
+                continue
+            seen_nets.add(id(net))
+
+            is_power = net.name in pwr_symbol_names
+
+            if is_power:
+                pins_in_node = [
+                    p for p in net.pins
+                    if id(p.part) in node_part_ids
+                    and not isinstance(p.part, NetTerminal)
+                ]
+            else:
+                pins_in_node = [
+                    p for p in net.pins
+                    if id(p.part) in node_part_ids
+                    and not isinstance(p.part, NetTerminal)
+                    and p.stub
+                ]
+            if len(pins_in_node) < 2:
+                continue
+
+            positions = []
+            for p in pins_in_node:
+                x, y = _kicad_pin_pos(p, getattr(p.part, "tx", Tx()), tx)
+                positions.append((x, y, p))
+
+            parent = list(range(len(positions)))
+
+            def find(i):
+                while parent[i] != i:
+                    parent[i] = parent[parent[i]]
+                    i = parent[i]
+                return i
+
+            for i in range(len(positions)):
+                for j in range(i + 1, len(positions)):
+                    dist = ((positions[i][0] - positions[j][0]) ** 2 +
+                            (positions[i][1] - positions[j][1]) ** 2) ** 0.5
+                    if dist < 0.01:
+                        ri, rj = find(i), find(j)
+                        if ri != rj:
+                            parent[ri] = rj
+
+            clusters = {}
+            for i in range(len(positions)):
+                r = find(i)
+                clusters.setdefault(r, []).append(i)
+
+            all_real_pins = [
+                p for p in net.pins
+                if not isinstance(p.part, NetTerminal)
+            ]
+            has_pins_outside = len(all_real_pins) > len(pins_in_node)
+
+            for members in clusters.values():
+                if len(members) < 2:
+                    continue
+
+                pins_outside_cluster = len(pins_in_node) - len(members)
+
+                if not has_pins_outside and pins_outside_cluster == 0:
+                    for idx in members:
+                        wired_pin_ids.add(id(positions[idx][2]))
+                else:
+                    for idx in members[1:]:
+                        wired_pin_ids.add(id(positions[idx][2]))
+
+    return wired_pin_ids, []
+
+
+def _gen_power_bus_wires(node, tx, max_gap_mm=10.0):
+    """Generate wire segments connecting co-linear power net pins.
+
+    Finds subgroups of 3+ pins on the same power net that share an X or Y
+    coordinate (within 0.1mm) AND are spaced within max_gap_mm of each
+    neighbour.
+    """
+    from collections import defaultdict
+
+    node_part_ids = {id(p) for p in node.parts}
+    bus_pin_ids = set()
+    wires = []
+
+    seen_nets = set()
+    for part in node.parts:
+        if isinstance(part, NetTerminal):
+            continue
+        for pin in part:
+            if not pin.is_connected():
+                continue
+            net = pin.net
+            if id(net) in seen_nets:
+                continue
+            seen_nets.add(id(net))
+
+            if net.name not in pwr_symbol_names:
+                continue
+
+            pins_in_node = [
+                p for p in net.pins
+                if id(p.part) in node_part_ids
+                and not isinstance(p.part, NetTerminal)
+                and len(p.part.pins) == 2
+                and not all(
+                    pp.is_connected() and pp.net.name in pwr_symbol_names
+                    for pp in p.part.pins
+                )
+            ]
+            if len(pins_in_node) < 3:
+                continue
+
+            positions = []
+            for p in pins_in_node:
+                x, y = _kicad_pin_pos(p, getattr(p.part, "tx", Tx()), tx)
+                positions.append((_round_mm(x), _round_mm(y), p))
+
+            x_groups = defaultdict(list)
+            for pos in positions:
+                x_key = round(pos[0], 1)
+                x_groups[x_key].append(pos)
+
+            y_groups = defaultdict(list)
+            for pos in positions:
+                y_key = round(pos[1], 1)
+                y_groups[y_key].append(pos)
+
+            def _split_runs(sorted_group, axis):
+                runs = [[sorted_group[0]]]
+                for j in range(1, len(sorted_group)):
+                    gap = abs(sorted_group[j][axis] - sorted_group[j - 1][axis])
+                    if gap <= max_gap_mm:
+                        runs[-1].append(sorted_group[j])
+                    else:
+                        runs.append([sorted_group[j]])
+                return [r for r in runs if len(r) >= 3]
+
+            def _emit_run(run, net_name):
+                for j in range(len(run) - 1):
+                    x1, y1, _ = run[j]
+                    x2, y2, _ = run[j + 1]
+                    wires.append(
+                        Sexp(
+                            [
+                                "wire",
+                                ["pts", ["xy", x1, y1], ["xy", x2, y2]],
+                                ["stroke", ["width", 0], ["type", "default"]],
+                                [
+                                    "uuid",
+                                    _gen_uuid(
+                                        f"pbus:{net_name}:{x1}:{y1}:{x2}:{y2}"
+                                    ),
+                                ],
+                            ]
+                        )
+                    )
+                for _, _, p in run[:-1]:
+                    bus_pin_ids.add(id(p))
+
+            for x_key, group in x_groups.items():
+                if len(group) < 3:
+                    continue
+                group.sort(key=lambda p: p[1])
+                for run in _split_runs(group, axis=1):
+                    _emit_run(run, net.name)
+
+            for y_key, group in y_groups.items():
+                if len(group) < 3:
+                    continue
+                group.sort(key=lambda p: p[0])
+                for run in _split_runs(group, axis=0):
+                    _emit_run(run, net.name)
+
+    return wires, bus_pin_ids
+
+
+# ---------------------------------------------------------------------------
 # Recursive hierarchy walker — node_to_sexp_schematic
 # ---------------------------------------------------------------------------
 
@@ -973,7 +1224,6 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
         if net.name in pwr_symbol_names:
             _used_power_symbols.add(net.name)
     for pwr_name in _used_power_symbols:
-    # for pwr_name in sorted(_used_power_symbols):
         pwr_lib_id = f"power:{pwr_name}"
         pwr_symbols[pwr_lib_id] = pwr_name
 
@@ -991,7 +1241,6 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
     # Generate part S-expressions.
     for part in node.parts:
         if isinstance(part, NetTerminal):
-            # NetTerminals become net labels.
             label = net_label_to_sexp(part.pins[0], tx=tx, force=True)
             if label:
                 elements.append(label)
@@ -1007,14 +1256,84 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
     for net, junctions in node.junctions.items():
         elements.extend(junction_to_sexp(net, junctions, tx=tx))
 
-    # Generate net labels for stubbed pins.
+    # Snap-placement post-processing: only active when _snap_two_pin_parts
+    # actually moved parts (non-empty marker attributes).
+    snap_ran = bool(
+        getattr(node, "_tjunction_wires", None)
+        or getattr(node, "_power_cap_wires", None)
+        or getattr(node, "_tjunction_suppressed_pins", None)
+        or getattr(node, "_power_cap_suppressed_pins", None)
+    )
+    wired_pin_ids = set()
+
+    if snap_ran:
+        wired_pin_ids, direct_wires = _find_wireable_nets(node, tx)
+        elements.extend(direct_wires)
+
+        power_wires, bus_pin_ids = _gen_power_bus_wires(node, tx)
+        elements.extend(power_wires)
+        wired_pin_ids.update(bus_pin_ids)
+
+    for tjw in getattr(node, "_tjunction_wires", []):
+        x1_mil, y1_mil, x2_mil, y2_mil = tjw
+        p1 = Point(x1_mil, y1_mil) * tx
+        p2 = Point(x2_mil, y2_mil) * tx
+        x1, y1 = _round_mm(p1.x), _round_mm(p1.y)
+        x2, y2 = _round_mm(p2.x), _round_mm(p2.y)
+        elements.append(
+            Sexp(
+                [
+                    "wire",
+                    ["pts", ["xy", x1, y1], ["xy", x2, y2]],
+                    ["stroke", ["width", 0], ["type", "default"]],
+                    ["uuid", _gen_uuid(f"tjwire:{x1}:{y1}:{x2}:{y2}")],
+                ]
+            )
+        )
+
+    wired_pin_ids.update(getattr(node, "_tjunction_suppressed_pins", set()))
+
+    for pcw in getattr(node, "_power_cap_wires", []):
+        x1_mil, y1_mil, x2_mil, y2_mil = pcw
+        p1 = Point(x1_mil, y1_mil) * tx
+        p2 = Point(x2_mil, y2_mil) * tx
+        x1, y1 = _round_mm(p1.x), _round_mm(p1.y)
+        x2, y2 = _round_mm(p2.x), _round_mm(p2.y)
+        elements.append(
+            Sexp(
+                [
+                    "wire",
+                    ["pts", ["xy", x1, y1], ["xy", x2, y2]],
+                    ["stroke", ["width", 0], ["type", "default"]],
+                    ["uuid", _gen_uuid(f"pcwire:{x1}:{y1}:{x2}:{y2}")],
+                ]
+            )
+        )
+    wired_pin_ids.update(getattr(node, "_power_cap_suppressed_pins", set()))
+
+    # Generate net labels for stubbed pins (skip pins connected by snap wires).
     for part in node.parts:
         if isinstance(part, NetTerminal):
             continue
         for pin in part:
+            if id(pin) in wired_pin_ids:
+                continue
             label = net_label_to_sexp(pin, tx=tx)
             if label:
                 elements.append(label)
+            elif (
+                snap_ran
+                and len(part.pins) == 2
+                and not pin.stub
+                and pin.is_connected()
+                and pin.net.name in pwr_symbol_names
+            ):
+                label = net_label_to_sexp(pin, tx=tx, force=True)
+                if label:
+                    elements.append(label)
+
+    if snap_ran:
+        elements.extend(_gen_no_connect_flags(node, tx))
 
     if node.flattened:
         # This node is flattened, so return elements for inclusion in the parent sheet.
@@ -1035,15 +1354,15 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
 
     # Add title block to schematic sheet.
     schematic.append(Sexp(create_title_block_sexp(node.title)))
-    
+
     # Build lib_symbols section for this sheet.
     lib_symbols_sexp = Sexp(["lib_symbols"])
     for part in lib_symbols.values():
         lib_symbols_sexp.append(Sexp(part_to_lib_symbol_definition(part)))
 
     # Add S-expressions for any power symbols used in this sheet.
-    for id, pwr_name in pwr_symbols.items():
-        if id not in lib_symbols:
+    for sym_id, pwr_name in pwr_symbols.items():
+        if sym_id not in lib_symbols:
             pwr_sexp = _extract_power_lib_symbol(pwr_name)
             if pwr_sexp:
                 lib_symbols_sexp.append(pwr_sexp)
@@ -1054,9 +1373,8 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
     # Collect hierarchical labels for boundary nets (nets that cross the sheet boundary).
     if hasattr(node, "get_boundary_nets"):
         boundary_nets = node.get_boundary_nets()
-        hlabel_y = 10.0  # Starting Y position in mm for labels along the left edge.
+        hlabel_y = 10.0
         for net in boundary_nets:
-            # Skip power nets and stubbed nets.
             if net.name in pwr_symbol_names:
                 continue
             if getattr(net, "stub", False) or getattr(net, "_stub", False):
@@ -1075,7 +1393,7 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
     _write_sexp_schematic(schematic, filepath)
 
     # Return a hierarchical sheet reference for this node to be included in the parent sheet.
-    sheet_uuid = uuid_path.split("/")[-1] # Use the last UUID in the path for the sheet UUID.
+    sheet_uuid = uuid_path.split("/")[-1]
     return [create_hierarchical_sheet_sexp(node, sheet_uuid, sheet_tx)], {}, {}, filepath
 
 
