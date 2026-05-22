@@ -240,7 +240,17 @@ def _classify_and_stub_complex_nets(circuit, node, **options):
     stubbed_count = 0
     partial_stubbed_count = 0
 
+    preserve_wire_nets = set()
+    if options.get("driver_rail_routing", True):
+        from skidl.schematics.topology import driver_wire_preserve_net_set
+
+        preserve_wire_nets = driver_wire_preserve_net_set(
+            node, node.get_internal_nets(), **options
+        )
+
     for net in node.get_internal_nets():
+        if net in preserve_wire_nets:
+            continue
         if getattr(net, "_stub_explicit", False):
             continue
         if getattr(net, "_stub", False):
@@ -673,6 +683,10 @@ def gen_schematic(
                 )
             if options.get("auto_stub", False):
                 _classify_and_stub_complex_nets(circuit, node, **options)
+            if options.get("driver_rail_routing", True):
+                from skidl.schematics.topology import restore_driver_wire_nets_deep
+
+                restore_driver_wire_nets_deep(node, **options)
             if options.get("schematic_progress", False):
                 active_logger.info("[schematic] 布线 route ...")
             node.route(**options)
@@ -774,6 +788,8 @@ def gen_schematic(
                     )
                     break
 
+        # 供 Circuit.generate_schematic 在 warnings/errors 汇总之后输出 topology 日志。
+        circuit._schematic_sch_root = node
         return
 
     # All retries exhausted.

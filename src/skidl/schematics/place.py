@@ -32,6 +32,8 @@ from .debug_draw import (
     draw_text,
 )
 from skidl.geometry import BBox, Point, Segment, Tx, Vector
+from .topology import apply_topology_or_trunk_layout
+from .trunk_layout import build_part_adjacency, expand_main_ic_keepout
 
 
 __all__ = [
@@ -1150,7 +1152,8 @@ class Placer:
 
         return connected_parts, internal_nets, floating_parts
 
-    _ROW_PLACE_THRESHOLD = 20
+    # 超过此数量的连通组走 rowbased+结构化 human_readable；TG032 等 ~10 件小板也需分区摆放。
+    _ROW_PLACE_THRESHOLD = 8
 
     def _part_ref_key(node, part):
         """Return a stable sort key for parts."""
@@ -1770,14 +1773,7 @@ class Placer:
             return
 
         # Build adjacency graph: part → set of neighbors.
-        part_set = set(real_parts)
-        adjacency = defaultdict(set)
-        for net in nets:
-            net_parts = [p for p in (pin.part for pin in net.pins) if p in part_set]
-            for i, p1 in enumerate(net_parts):
-                for p2 in net_parts[i + 1:]:
-                    adjacency[id(p1)].add(p2)
-                    adjacency[id(p2)].add(p1)
+        adjacency = build_part_adjacency(real_parts, nets)
 
         if human_readable:
             # 用稳定可读布局替代随机/机械 BFS，减少多次运行时版图漂移。
@@ -1787,7 +1783,9 @@ class Placer:
 
             roles = {part: node._classify_part_role(part) for part in real_parts}
             main_part = node._find_main_part(real_parts, adjacency=adjacency)
+            node._human_readable_main_part = main_part
             main_part.tx = Tx().move(Point(0, 0))
+            expand_main_ic_keepout(main_part, GRID)
             main_bbox = main_part.place_bbox * main_part.tx
 
             def connected_to(part_a, part_b):
@@ -1893,6 +1891,17 @@ class Placer:
             # 分区摆放后再做几何对齐（主干共线、支路分层、左右对称、去重叠）。
             node._align_connected_geometry(
                 real_parts, adjacency, roles, main_part
+            )
+
+            apply_topology_or_trunk_layout(
+                node,
+                real_parts,
+                nets,
+                roles,
+                main_part,
+                grid=GRID,
+                blk_int_pad=BLK_INT_PAD,
+                **options,
             )
 
             for part in real_parts:
@@ -2015,6 +2024,20 @@ class Placer:
                 part_ref_key=node._part_ref_key,
                 grid=GRID,
                 blk_int_pad=BLK_INT_PAD,
+            )
+            roles = {part: node._classify_part_role(part) for part in real_parts}
+            main_part = node._find_main_part(real_parts)
+            node._human_readable_main_part = main_part
+            expand_main_ic_keepout(main_part, GRID)
+            apply_topology_or_trunk_layout(
+                node,
+                real_parts,
+                nets,
+                roles,
+                main_part,
+                grid=GRID,
+                blk_int_pad=BLK_INT_PAD,
+                **options,
             )
             for part in real_parts:
                 snap_to_grid(part)
