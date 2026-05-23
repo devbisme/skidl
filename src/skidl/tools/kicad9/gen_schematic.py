@@ -354,7 +354,7 @@ def _handle_fallback(circuit, tool_module, filepath, top_name, title, flatness,
     node.place(expansion_factor=1.0, **options)
     node.route(**options)
     output_file = write_top_schematic(
-        circuit, node, filepath, top_name, title, version=20230409
+        circuit, node, filepath, top_name, title, version=20250114
     )
     finalize_parts_and_nets(circuit, **options)
 
@@ -696,10 +696,9 @@ def gen_schematic(
             )
             continue
 
-        # Generate S-expression schematic using shared module.
-        # KiCad 8/9 use version 20230409.
+        # Generate S-expression schematic using the KiCad 9 schema version.
         output_file = write_top_schematic(
-            circuit, node, filepath, top_name, title, version=20230409
+            circuit, node, filepath, top_name, title, version=20250114
         )
 
         active_logger.info(f"Schematic written to {output_file}")
@@ -748,7 +747,7 @@ def gen_schematic(
                             _classify_and_stub_complex_nets(circuit, node, **options)
                         node.route(**options)
                         output_file = write_top_schematic(
-                            circuit, node, filepath, top_name, title, version=20230409
+                            circuit, node, filepath, top_name, title, version=20250114
                         )
                         finalize_parts_and_nets(circuit, **options)
                         erc_regen_ok = True

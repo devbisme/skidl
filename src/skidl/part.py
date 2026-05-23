@@ -11,6 +11,7 @@ to form complete circuits.
 """
 
 import functools
+import re
 from collections.abc import Iterable
 from copy import copy
 from random import randint
@@ -42,6 +43,17 @@ __all__ = ["NETLIST", "LIBRARY", "TEMPLATE", "PartTmplt", "SkidlPart"]
 #   LIBRARY: The part will be placed in the part list for a library.
 #   TEMPLATE: The part will be used as a template to be copied from.
 NETLIST, LIBRARY, TEMPLATE = ["NETLIST", "LIBRARY", "TEMPLATE"]
+
+
+_REFERENCE_ID_RE = re.compile(r"^([A-Za-z#]+)(\d+)(.*)$")
+
+
+def split_reference(ref):
+    """Return the prefix and numeric suffix from a reference designator."""
+    match = _REFERENCE_ID_RE.match(str(ref or "").strip())
+    if not match:
+        return str(ref or "").strip().rstrip("?"), None
+    return match.group(1), int(match.group(2))
 
 
 class PinNumberSearch(object):
@@ -1066,7 +1078,24 @@ class Part(PinMixin, SkidlBaseObject):
         # Now name the object with the given reference or some variation
         # of it that doesn't collide with anything else in the list.
         self._ref = get_unique_name(self.circuit.parts, "ref", self.ref_prefix, r)
+        self._sync_reference_identity(original_ref=r)
         return
+
+    def _sync_reference_identity(self, original_ref=None):
+        """Store the assigned full reference as this part's stable identity."""
+        full_ref = str(self._ref or "").strip()
+        if original_ref is not None:
+            self.original_ref = str(original_ref or "").strip()
+        if not full_ref:
+            self.ref_number = None
+            return
+
+        prefix, number = split_reference(full_ref)
+        if prefix:
+            self.ref_prefix = prefix
+        self.ref_number = number
+        self.fields["Reference"] = full_ref
+        self.fields["reference"] = full_ref
 
     @ref.deleter
     def ref(self):

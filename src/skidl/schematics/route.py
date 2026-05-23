@@ -2105,35 +2105,124 @@ class Router:
 
         return False
 
+    def _route_simple_manhattan_net(node, net, pins):
+        """Try routing a 2-pin net with a small set of direct Manhattan paths.
+
+        This keeps nearby point-to-point nets out of the global/switchbox router,
+        which is more expensive and can fail unnecessarily on tiny local nets that
+        only need one or two orthogonal segments.
+        """
+
+        if len(pins) != 2:
+            return False
+
+        p1 = (pins[0].pt * pins[0].part.tx).round()
+        p2 = (pins[1].pt * pins[1].part.tx).round()
+        if p1 == p2:
+            return False
+
+        ignored_parts = {pins[0].part, pins[1].part}
+
+        def ordered_segment(pt1, pt2):
+            seg = Segment(copy.copy(pt1), copy.copy(pt2))
+            if seg.p2 < seg.p1:
+                seg.p1, seg.p2 = seg.p2, seg.p1
+            return seg
+
+        def path_segments(points):
+            segments = []
+            for pt1, pt2 in zip(points[:-1], points[1:]):
+                if pt1 == pt2:
+                    continue
+                if pt1.x != pt2.x and pt1.y != pt2.y:
+                    return None
+                segments.append(ordered_segment(pt1, pt2))
+            return segments
+
+        def path_is_clear(segments):
+            if not segments:
+                return False
+            return not any(
+                node._segment_obstructed(
+                    seg, net=net, ignored_parts=ignored_parts
+                )
+                for seg in segments
+            )
+
+        def segment_length(seg):
+            return abs(seg.p2.x - seg.p1.x) + abs(seg.p2.y - seg.p1.y)
+
+        candidate_paths = []
+
+        if p1.x == p2.x or p1.y == p2.y:
+            direct = path_segments([p1, p2])
+            if direct:
+                candidate_paths.append(direct)
+
+        for corner in (Point(p1.x, p2.y), Point(p2.x, p1.y)):
+            path = path_segments([p1, corner, p2])
+            if path:
+                candidate_paths.append(path)
+
+        obstacle_bboxes = [(part.bbox * part.tx).round() for part in node.parts]
+        lane_xs = {p1.x, p2.x}
+        lane_ys = {p1.y, p2.y}
+        for bbox in obstacle_bboxes:
+            lane_xs.update((bbox.min.x, bbox.max.x))
+            lane_ys.update((bbox.min.y, bbox.max.y))
+
+        for lane_x in sorted(lane_xs):
+            path = path_segments(
+                [p1, Point(lane_x, p1.y), Point(lane_x, p2.y), p2]
+            )
+            if path:
+                candidate_paths.append(path)
+
+        for lane_y in sorted(lane_ys):
+            path = path_segments(
+                [p1, Point(p1.x, lane_y), Point(p2.x, lane_y), p2]
+            )
+            if path:
+                candidate_paths.append(path)
+
+        unique_paths = []
+        seen = set()
+        for path in candidate_paths:
+            key = tuple(
+                (seg.p1.x, seg.p1.y, seg.p2.x, seg.p2.y) for seg in path
+            )
+            if key in seen:
+                continue
+            seen.add(key)
+            unique_paths.append(path)
+
+        unique_paths.sort(
+            key=lambda path: (
+                len(path),
+                sum(segment_length(seg) for seg in path),
+                tuple((seg.p1.x, seg.p1.y, seg.p2.x, seg.p2.y) for seg in path),
+            )
+        )
+
+        for path in unique_paths:
+            if path_is_clear(path):
+                node.wires[net].extend(path)
+                for pt in (p1, p2):
+                    if pt not in pin_pts:
+                        pin_pts.append(pt)
+                return True
+
+        return False
+
     def route_straight_nets(node, nets):
-        """Route aligned 2-pin nets directly before invoking the general router."""
+        """Route simple 2-pin nets directly before invoking the general router."""
 
         direct_routed = []
 
         for net in nets:
             pins = list(node.get_internal_pins(net))
-            if len(pins) != 2:
-                continue
-
-            p1 = (pins[0].pt * pins[0].part.tx).round()
-            p2 = (pins[1].pt * pins[1].part.tx).round()
-            if p1 == p2 or (p1.x != p2.x and p1.y != p2.y):
-                continue
-
-            seg = Segment(copy.copy(p1), copy.copy(p2))
-            if seg.p2 < seg.p1:
-                seg.p1, seg.p2 = seg.p2, seg.p1
-
-            if node._segment_obstructed(
-                seg, net=net, ignored_parts={pins[0].part, pins[1].part}
-            ):
-                continue
-
-            node.wires[net].append(seg)
-            for pt in (p1, p2):
-                if pt not in pin_pts:
-                    pin_pts.append(pt)
-            direct_routed.append(net)
+            if node._route_simple_manhattan_net(net, pins):
+                direct_routed.append(net)
 
         return direct_routed
 
