@@ -1322,6 +1322,17 @@ class Circuit(SkidlBaseObject):
 
         active_logger.report_summary("generating schematic")
 
+        # topology 摘要放在 schematic 阶段 warnings/errors 汇总之后，便于 grep 识别结果。
+        sch_root = getattr(self, "_schematic_sch_root", None)
+        if sch_root is not None:
+            from skidl.schematics.topology import log_topology_summaries_deep
+
+            # 收尾 topology 行紧跟 warnings/errors 汇总，不受 schematic_progress 关闭影响。
+            topo_log_opts = dict(kwargs)
+            topo_log_opts["schematic_progress"] = True
+            log_topology_summaries_deep(sch_root, topo_log_opts)
+            delattr(self, "_schematic_sch_root")
+
     def generate_dot(
         self,
         file_=None,

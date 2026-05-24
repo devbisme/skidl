@@ -65,18 +65,22 @@ FIXABLE_ERROR_TYPES = frozenset(
 
 
 def auto_stub_nets(circuit, **options):
-    """Auto-stub power nets and high-fanout nets before generation.
+    """Auto-stub clearly global power nets and high-fanout nets before generation.
 
     Only modifies nets that haven't been explicitly set by the user.
     Called when auto_stub=True is passed to gen_schematic().
 
     Args:
         circuit: The Circuit object containing nets to analyze.
-        options: Dict of options. Recognizes 'auto_stub_fanout' (default 5).
+        options: Dict of options. Recognizes 'auto_stub_fanout' (default 5)
+            and 'auto_stub_power_fanout' (default max(auto_stub_fanout, 6)).
     """
     import sys
 
     fanout_threshold = options.get("auto_stub_fanout", 5)
+    power_fanout_threshold = options.get(
+        "auto_stub_power_fanout", max(fanout_threshold, 6)
+    )
     stubbed_power = []
     stubbed_fanout = []
 
@@ -88,11 +92,12 @@ def auto_stub_nets(circuit, **options):
 
         # Power nets: anything starting with "+" or matching common power names.
         if net.name.startswith("+") or _POWER_NET_RE.match(net.name):
-            net._stub = True
-            net._stub_explicit = False
-            for pin in net.get_pins():
-                pin.stub = True
-            stubbed_power.append(f"{net.name}({len(net.pins)})")
+            if len(net.pins) >= power_fanout_threshold:
+                net._stub = True
+                net._stub_explicit = False
+                for pin in net.get_pins():
+                    pin.stub = True
+                stubbed_power.append(f"{net.name}({len(net.pins)})")
             continue
 
         # High fanout nets: many pins connected to the same net.
@@ -218,7 +223,8 @@ def _classify_and_stub_complex_nets(circuit, node, **options):
 
     Called after placement succeeds, before routing. Nets with too many pins
     or pins too far apart get converted to labels for reliable connectivity.
-    Simple 2-3 pin short-distance nets remain as wires.
+    Small nearby functional clusters remain visible so local signal flow is
+    still obvious to a human reader.
 
     Args:
         circuit: The Circuit object.
@@ -227,21 +233,63 @@ def _classify_and_stub_complex_nets(circuit, node, **options):
             auto_stub_max_wire_pins (int): Max pins for wire routing. Default 3.
             auto_stub_max_wire_dist (int): Max manhattan distance (mils) for wires. Default 2000.
     """
-    from skidl.geometry import Point
-
     max_wire_pins = options.get("auto_stub_max_wire_pins", 3)
     max_wire_dist = options.get("auto_stub_max_wire_dist", 2000)
 
     node_parts = set(node.parts)
     stubbed_count = 0
+    partial_stubbed_count = 0
+
+    preserve_wire_nets = set()
+    if options.get("driver_rail_routing", True):
+        from skidl.schematics.topology import driver_wire_preserve_net_set
+
+        preserve_wire_nets = driver_wire_preserve_net_set(
+            node, node.get_internal_nets(), **options
+        )
 
     for net in node.get_internal_nets():
+        if net in preserve_wire_nets:
+            continue
         if getattr(net, "_stub_explicit", False):
             continue
         if getattr(net, "_stub", False):
             continue
 
         pins = [p for p in net.pins if p.part in node_parts]
+        if len(pins) < 2:
+            continue
+
+        clusters = node._cluster_pins_by_distance(net, pins, **options)
+        local_clusters = [
+            cluster
+            for cluster in clusters
+            if len(cluster) >= 2
+            and node._prefer_visible_wire_postplacement(net, cluster, **options)
+        ]
+        if local_clusters:
+            best_cluster = local_clusters[0]
+            if len(best_cluster) < len(pins):
+                visible_pin_ids = {id(pin) for pin in best_cluster}
+                for pin in pins:
+                    if id(pin) not in visible_pin_ids:
+                        pin.stub = True
+                partial_stubbed_count += 1
+                continue
+
+        # Use geometry-aware local heuristics so nearby circuit structure stays
+        # visible, and reserve labels for clearly global or long-distance nets.
+        if node._prefer_visible_wire_postplacement(net, pins, **options):
+            continue
+
+        name = str(getattr(net, "name", "") or "")
+        if node._is_power_net_name(name) or node._is_bus_net_name(name):
+            net._stub = True
+            net._stub_explicit = False
+            for p in net.get_pins():
+                p.stub = True
+            stubbed_count += 1
+            continue
 
         # Too many pins → label.
         if len(pins) > max_wire_pins:
@@ -253,34 +301,20 @@ def _classify_and_stub_complex_nets(circuit, node, **options):
             continue
 
         # Pins too far apart → label.
-        if len(pins) >= 2:
-            pts = []
-            for p in pins:
-                pin_pt = getattr(p, "place_pt", getattr(p, "pt", Point(p.x, p.y)))
-                part_tx = getattr(p.part, "tx", None)
-                if part_tx:
-                    pts.append(pin_pt * part_tx)
-                else:
-                    pts.append(pin_pt)
+        max_dist, _, _ = node._net_geometry_stats(pins)
+        if max_dist > max_wire_dist:
+            net._stub = True
+            net._stub_explicit = False
+            for p in net.get_pins():
+                p.stub = True
+            stubbed_count += 1
 
-            max_dist = 0
-            for i, a in enumerate(pts):
-                for b in pts[i + 1:]:
-                    dist = abs(a.x - b.x) + abs(a.y - b.y)
-                    if dist > max_dist:
-                        max_dist = dist
-
-            if max_dist > max_wire_dist:
-                net._stub = True
-                net._stub_explicit = False
-                for p in net.get_pins():
-                    p.stub = True
-                stubbed_count += 1
-
-    if stubbed_count:
+    if stubbed_count or partial_stubbed_count:
         from skidl.logger import active_logger
         active_logger.info(
-            f"  [selective_routing] Stubbed {stubbed_count} complex nets after placement"
+            "  [selective_routing] "
+            f"Stubbed {stubbed_count} complex nets and "
+            f"converted {partial_stubbed_count} distant pin groups to labels after placement"
         )
 
 
@@ -496,6 +530,11 @@ def gen_schematic(
     title="SKiDL-Generated Schematic",
     flatness=0.0,
     retries=2,
+    spacing=0.8,
+    compactness=0.2,
+    prefer_straight=True,
+    bend_penalty=400.0,
+    route_length_weight=None,
     **options,
 ):
     """Create a KiCad 9 schematic file from a Circuit object.
@@ -508,6 +547,21 @@ def gen_schematic(
         flatness (float, optional): Determines how much the hierarchy is flattened in the schematic.
             Defaults to 0.0 (completely hierarchical). Use 1.0 to flatten everything into one sheet.
         retries (int, optional): Number of times to re-try if routing fails. Defaults to 2.
+        spacing (float, optional): Global layout spacing factor (0.5–3.0). Values >1.0
+            produce a looser layout with more whitespace between parts; <1.0 produces
+            a tighter layout. Defaults to 0.8.
+        compactness (float, optional): Additional compactness bias in the range 0.0–1.0.
+            Higher values tighten placement by reducing the effective spacing used for
+            placement expansion. Defaults to 0.2.
+        prefer_straight (bool, optional): If True, route selection prefers straighter
+            paths over purely shortest-length paths. Defaults to True.
+        bend_penalty (float, optional): Additional routing cost charged each time the
+            global route changes direction. Larger values discourage jogs and doglegs.
+            Defaults to 400.0 (about 8 routing grid units).
+        route_length_weight (float, optional): Weight applied to global route segment
+            length when comparing candidate paths. Use values below 1.0 together with
+            prefer_straight/bend_penalty to accept slightly longer but straighter paths.
+            Defaults to 1.0 unless prefer_straight=True, in which case 0.6 is used.
         options (dict, optional): Dict of options and values, usually for drawing/debugging.
 
     Auto-stub options (pass as keyword arguments):
@@ -570,6 +624,28 @@ def gen_schematic(
 
     _setup_kicad_env()
 
+    # spacing 参数校验：范围 0.5~3.0，控制器件间距的全局缩放
+    spacing = max(0.5, min(3.0, float(spacing)))
+    compactness = max(0.0, min(1.0, float(compactness)))
+    bend_penalty = max(0.0, float(bend_penalty))
+    if route_length_weight is None:
+        route_length_weight = 0.6 if prefer_straight else 1.0
+    route_length_weight = max(0.05, float(route_length_weight))
+
+    # 用显式 compactness 偏置 spacing，而不是埋在魔法常量里，方便用户理解与回退。
+    effective_spacing = max(0.5, min(3.0, spacing * (1.0 - 0.35 * compactness)))
+
+    options["spacing"] = effective_spacing
+    options["compactness"] = compactness
+    options["prefer_straight"] = bool(prefer_straight)
+    options["bend_penalty"] = bend_penalty
+    options["route_length_weight"] = route_length_weight
+    options.setdefault("reuse_junctions", prefer_straight)
+    # 美观优先策略默认开启 human_readable；显式传 False 可回退旧版随机布局。
+    options.setdefault("human_readable", True)
+    # 输出 place/route/cleanup 阶段日志，便于定位卡顿（不需要时设 schematic_progress=False）
+    options.setdefault("schematic_progress", True)
+
     # Part placement options that should always be turned on.
     options["use_push_pull"] = True
     options["rotate_parts"] = True
@@ -580,10 +656,17 @@ def gen_schematic(
     if options.get("auto_stub", False):
         auto_stub_nets(circuit, **options)
 
-    expansion_factor = 1.0
+    # 初始 expansion_factor 受紧凑度修正后的 spacing 缩放；重试时在此基础上继续放大
+    expansion_factor = 1.0 * effective_spacing
     failure_type = None
 
     for attempt in range(retries):
+        if options.get("schematic_progress", False):
+            active_logger.info(
+                f"[schematic] 第 {attempt + 1}/{retries} 次尝试，"
+                f"expansion_factor={expansion_factor:.2f}"
+            )
+
         preprocess_circuit(circuit, **options)
 
         node = SchNode(
@@ -591,10 +674,24 @@ def gen_schematic(
         )
 
         try:
+            if options.get("schematic_progress", False):
+                active_logger.info("[schematic] 布局 place ...")
             node.place(expansion_factor=expansion_factor, **options)
+            if options.get("schematic_progress", False):
+                active_logger.info(
+                    f"[schematic] 布局完成，顶层子页 {len(node.children)} 个"
+                )
             if options.get("auto_stub", False):
                 _classify_and_stub_complex_nets(circuit, node, **options)
+            if options.get("driver_rail_routing", True):
+                from skidl.schematics.topology import restore_driver_wire_nets_deep
+
+                restore_driver_wire_nets_deep(node, **options)
+            if options.get("schematic_progress", False):
+                active_logger.info("[schematic] 布线 route ...")
             node.route(**options)
+            if options.get("schematic_progress", False):
+                active_logger.info("[schematic] 布线完成，写入原理图 ...")
 
         except PlacementFailure as e:
             finalize_parts_and_nets(circuit, **options)
@@ -691,6 +788,8 @@ def gen_schematic(
                     )
                     break
 
+        # 供 Circuit.generate_schematic 在 warnings/errors 汇总之后输出 topology 日志。
+        circuit._schematic_sch_root = node
         return
 
     # All retries exhausted.

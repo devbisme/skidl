@@ -1197,5 +1197,5 @@ def _write_sexp_schematic(schematic, filepath):
     schematic.add_quotes(need_quote)
     schematic.add_quotes(need_quote_alternate, stop_idx=2)
 
-    with open(filepath, "w") as f:
+    with open(filepath, "w", encoding="utf-8") as f:
         f.write(schematic.to_str())
