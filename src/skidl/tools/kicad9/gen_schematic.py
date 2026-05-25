@@ -470,13 +470,7 @@ def _handle_fallback(circuit, tool_module, filepath, top_name, title, flatness,
     node.route(**options)
     _log_attach_export_state(node, options)
     output_file = write_top_schematic(
-        circuit,
-        node,
-        filepath,
-        top_name,
-        title,
-        version=20250114,
-        flatten=bool(options.get("flatten", False) or options.get("export_flat", False)),
+        circuit, node, filepath, top_name, title, version=20250114
     )
     finalize_parts_and_nets(circuit, **options)
 
@@ -641,7 +635,6 @@ def gen_schematic(
     top_name=get_script_name(),
     title="SKiDL-Generated Schematic",
     flatness=0.0,
-    flatten=False,
     retries=2,
     spacing=0.8,
     compactness=0.2,
@@ -659,8 +652,6 @@ def gen_schematic(
         title (str, optional): The title of the schematic. Defaults to "SKiDL-Generated Schematic".
         flatness (float, optional): Determines how much the hierarchy is flattened in the schematic.
             Defaults to 0.0 (completely hierarchical). Use 1.0 to flatten everything into one sheet.
-        flatten (bool, optional): If True, export one standalone schematic page
-            instead of a hierarchy wrapper with child sheet files. Defaults to False.
         retries (int, optional): Number of times to re-try if routing fails. Defaults to 2.
         spacing (float, optional): Global layout spacing factor (0.5–3.0). Values >1.0
             produce a looser layout with more whitespace between parts; <1.0 produces
@@ -755,8 +746,6 @@ def gen_schematic(
     options["prefer_straight"] = bool(prefer_straight)
     options["bend_penalty"] = bend_penalty
     options["route_length_weight"] = route_length_weight
-    options["flatten"] = bool(flatten)
-    options["export_flat"] = bool(options.get("export_flat", False) or flatten)
     options.setdefault("reuse_junctions", prefer_straight)
     # 美观优先策略默认开启 human_readable；显式传 False 可回退旧版随机布局。
     options.setdefault("human_readable", True)
@@ -830,13 +819,7 @@ def gen_schematic(
         # Generate S-expression schematic using the KiCad 9 schema version.
         _log_attach_export_state(node, options)
         output_file = write_top_schematic(
-            circuit,
-            node,
-            filepath,
-            top_name,
-            title,
-            version=20250114,
-            flatten=options["export_flat"],
+            circuit, node, filepath, top_name, title, version=20250114
         )
 
         active_logger.info(f"Schematic written to {output_file}")
@@ -885,13 +868,7 @@ def gen_schematic(
                             _classify_and_stub_complex_nets(circuit, node, **options)
                         node.route(**options)
                         output_file = write_top_schematic(
-                            circuit,
-                            node,
-                            filepath,
-                            top_name,
-                            title,
-                            version=20250114,
-                            flatten=options["export_flat"],
+                            circuit, node, filepath, top_name, title, version=20250114
                         )
                         finalize_parts_and_nets(circuit, **options)
                         erc_regen_ok = True
