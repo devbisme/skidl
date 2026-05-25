@@ -27,6 +27,111 @@ from .bboxes import calc_hier_label_bbox, calc_symbol_bbox
 __all__ = []
 
 
+def _attach_debug_enabled(options=None):
+    if options and options.get("schematic_attach_debug") is not None:
+        return bool(options.get("schematic_attach_debug"))
+    value = str(os.environ.get("SKIDL_SCH_DEBUG_ATTACH", "") or "").strip().lower()
+    return value not in ("", "0", "false", "no", "off")
+
+
+def _attach_debug_log(options, message):
+    if not _attach_debug_enabled(options):
+        return
+    from skidl.logger import active_logger
+
+    active_logger.info("[attach-debug] %s" % message)
+
+
+def _segment_coords(seg):
+    return ((int(seg.p1.x), int(seg.p1.y)), (int(seg.p2.x), int(seg.p2.y)))
+
+
+def _wire_signature(net, seg):
+    name = str(getattr(net, "name", "") or "")
+    return (name,) + _segment_coords(seg)
+
+
+def _wire_count_summary(wires):
+    return {str(getattr(net, "name", "") or ""): len(segs) for net, segs in sorted(
+        wires.items(), key=lambda item: str(getattr(item[0], "name", "") or "")
+    )}
+
+
+def _log_attach_export_state(node, options):
+    if not _attach_debug_enabled(options):
+        return
+
+    def _subtree_wire_total(current):
+        total = sum(len(wire) for wire in getattr(current, "wires", {}).values())
+        for child in getattr(current, "children", {}).values():
+            total += _subtree_wire_total(child)
+        return total
+
+    def _walk(current, stage):
+        total_wires = sum(len(wire) for wire in current.wires.values())
+        _attach_debug_log(
+            options,
+            "%s node_id=%s sheet=%s node_wires_id=%s export_wires_id=%s total_nets=%d total_wires=%d subtree_total_wires=%d child_count=%d flattened=%s per_net=%s"
+            % (
+                stage,
+                id(current),
+                getattr(current, "name", "?"),
+                id(current.wires),
+                id(current.wires),
+                len(current.wires),
+                total_wires,
+                _subtree_wire_total(current),
+                len(getattr(current, "children", {})),
+                getattr(current, "flattened", False),
+                _wire_count_summary(current.wires),
+            ),
+        )
+        for child_name, child in sorted(
+            getattr(current, "children", {}).items(),
+            key=lambda item: str(item[0]),
+        ):
+            _attach_debug_log(
+                options,
+                "%s child-link parent_id=%s parent_sheet=%s child_name=%s child_id=%s child_sheet=%s child_wires_id=%s"
+                % (
+                    stage,
+                    id(current),
+                    getattr(current, "name", "?"),
+                    child_name,
+                    id(child),
+                    getattr(child, "name", "?"),
+                    id(getattr(child, "wires", {})),
+                ),
+            )
+            _walk(child, stage)
+
+    _walk(node, "export preflight")
+
+    repair_info = getattr(node, "_attach_debug_last_repair", None) or {}
+    current_signatures = {
+        _wire_signature(net, seg)
+        for net, wire in node.wires.items()
+        for seg in wire
+    }
+    expected = set(repair_info.get("added_stub_signatures", []))
+    if expected:
+        present = expected & current_signatures
+        missing = expected - current_signatures
+        _attach_debug_log(
+            options,
+            "export stub_presence present=%d missing=%d"
+            % (len(present), len(missing)),
+        )
+        for item in repair_info.get("added_stub_details", []):
+            _attach_debug_log(
+                options,
+                "export stub_expected net=%s seg=%s"
+                % (item["net"], item["coords"]),
+            )
+        for signature in sorted(missing):
+            _attach_debug_log(options, "export stub_missing %s" % (signature,))
+
+
 def _setup_kicad_env():
     """Set KiCad footprint directory if not already set.
 
@@ -363,8 +468,15 @@ def _handle_fallback(circuit, tool_module, filepath, top_name, title, flatness,
     node = SchNode(circuit, tool_module, filepath, top_name, title, flatness)
     node.place(expansion_factor=1.0, **options)
     node.route(**options)
+    _log_attach_export_state(node, options)
     output_file = write_top_schematic(
-        circuit, node, filepath, top_name, title, version=20250114
+        circuit,
+        node,
+        filepath,
+        top_name,
+        title,
+        version=20250114,
+        flatten=bool(options.get("flatten", False) or options.get("export_flat", False)),
     )
     finalize_parts_and_nets(circuit, **options)
 
@@ -529,6 +641,7 @@ def gen_schematic(
     top_name=get_script_name(),
     title="SKiDL-Generated Schematic",
     flatness=0.0,
+    flatten=False,
     retries=2,
     spacing=0.8,
     compactness=0.2,
@@ -546,6 +659,8 @@ def gen_schematic(
         title (str, optional): The title of the schematic. Defaults to "SKiDL-Generated Schematic".
         flatness (float, optional): Determines how much the hierarchy is flattened in the schematic.
             Defaults to 0.0 (completely hierarchical). Use 1.0 to flatten everything into one sheet.
+        flatten (bool, optional): If True, export one standalone schematic page
+            instead of a hierarchy wrapper with child sheet files. Defaults to False.
         retries (int, optional): Number of times to re-try if routing fails. Defaults to 2.
         spacing (float, optional): Global layout spacing factor (0.5–3.0). Values >1.0
             produce a looser layout with more whitespace between parts; <1.0 produces
@@ -640,6 +755,8 @@ def gen_schematic(
     options["prefer_straight"] = bool(prefer_straight)
     options["bend_penalty"] = bend_penalty
     options["route_length_weight"] = route_length_weight
+    options["flatten"] = bool(flatten)
+    options["export_flat"] = bool(options.get("export_flat", False) or flatten)
     options.setdefault("reuse_junctions", prefer_straight)
     # 美观优先策略默认开启 human_readable；显式传 False 可回退旧版随机布局。
     options.setdefault("human_readable", True)
@@ -711,8 +828,15 @@ def gen_schematic(
             continue
 
         # Generate S-expression schematic using the KiCad 9 schema version.
+        _log_attach_export_state(node, options)
         output_file = write_top_schematic(
-            circuit, node, filepath, top_name, title, version=20250114
+            circuit,
+            node,
+            filepath,
+            top_name,
+            title,
+            version=20250114,
+            flatten=options["export_flat"],
         )
 
         active_logger.info(f"Schematic written to {output_file}")
@@ -761,7 +885,13 @@ def gen_schematic(
                             _classify_and_stub_complex_nets(circuit, node, **options)
                         node.route(**options)
                         output_file = write_top_schematic(
-                            circuit, node, filepath, top_name, title, version=20250114
+                            circuit,
+                            node,
+                            filepath,
+                            top_name,
+                            title,
+                            version=20250114,
+                            flatten=options["export_flat"],
                         )
                         finalize_parts_and_nets(circuit, **options)
                         erc_regen_ok = True

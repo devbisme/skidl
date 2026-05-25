@@ -8,6 +8,7 @@ Autorouter for generating wiring between symbols in a schematic.
 
 import copy
 import heapq
+import os
 import random
 import sys
 from collections import Counter, defaultdict
@@ -186,6 +187,7 @@ def route_driver_rails(node, nets, **options):
     top_set = set(plan.get("top_nets", []))
     bottom_set = set(plan.get("bottom_nets", []))
     net_set = set(nets)
+    rail_spans = plan.get("rail_spans", {}) or {}
 
     def _net_side(net):
         if net in top_set:
@@ -206,8 +208,13 @@ def route_driver_rails(node, nets, **options):
             continue
 
         pin_pts = [(pin.pt * pin.part.tx).round() for pin in pins]
-        x_min = min(plan["x_min"], min(pt.x for pt in pin_pts))
-        x_max = max(plan["x_max"], max(pt.x for pt in pin_pts))
+        span = rail_spans.get(net)
+        if span is None or len(span) != 2:
+            x_min = min(plan["x_min"], min(pt.x for pt in pin_pts))
+            x_max = max(plan["x_max"], max(pt.x for pt in pin_pts))
+        else:
+            x_min = min(span[0], min(pt.x for pt in pin_pts))
+            x_max = max(span[1], max(pt.x for pt in pin_pts))
         rail_y = _shift_driver_rail_y(node, rail_y, x_min, x_max, grid, side)
 
         segs = [Segment(Point(x_min, rail_y), Point(x_max, rail_y))]
@@ -225,6 +232,7 @@ def route_driver_rails(node, nets, **options):
     chain_handled = route_driver_chain_local_nets(node, nets, **options)
     handled |= chain_handled
     node._driver_prerouted_nets = handled
+    _attach_debug_log_wire_stage(node, options, "driver_rail_preroute_after")
     if options.get("schematic_progress", False) and handled:
         from skidl.logger import active_logger
 
@@ -238,6 +246,1285 @@ def route_driver_rails(node, nets, **options):
 
 def _net_name_for_log(net):
     return str(getattr(net, "name", "") or "")
+
+
+def _driver_preroute_attach_points(node, net, segments, main_seg):
+    points = []
+    axis = "h" if main_seg.p1.y == main_seg.p2.y else "v"
+    fixed = main_seg.p1.y if axis == "h" else main_seg.p1.x
+
+    for pin in getattr(net, "pins", []):
+        pt = _pin_anchor_point(pin)
+        if pt is None:
+            continue
+        if axis == "h" and pt.y == fixed:
+            points.append(pt.x)
+        elif axis == "v" and pt.x == fixed:
+            points.append(pt.y)
+
+    for seg in segments:
+        if seg is main_seg or seg.p1 == seg.p2:
+            continue
+        if axis == "h" and seg.p1.x == seg.p2.x:
+            if min(seg.p1.y, seg.p2.y) <= fixed <= max(seg.p1.y, seg.p2.y):
+                points.append(seg.p1.x)
+        elif axis == "v" and seg.p1.y == seg.p2.y:
+            if min(seg.p1.x, seg.p2.x) <= fixed <= max(seg.p1.x, seg.p2.x):
+                points.append(seg.p1.y)
+
+    for jpt in getattr(node, "junctions", {}).get(net, []):
+        if axis == "h" and jpt.y == fixed:
+            points.append(jpt.x)
+        elif axis == "v" and jpt.x == fixed:
+            points.append(jpt.y)
+
+    unique = sorted(set(int(v) for v in points))
+    return unique
+
+
+def _linear_main_attach_points(node, net, segments, main_seg):
+    """Collect conservative attach points that anchor the main linear segment."""
+    axis = "h" if main_seg.p1.y == main_seg.p2.y else "v"
+    fixed = main_seg.p1.y if axis == "h" else main_seg.p1.x
+    lo = min(main_seg.p1.x, main_seg.p2.x) if axis == "h" else min(main_seg.p1.y, main_seg.p2.y)
+    hi = max(main_seg.p1.x, main_seg.p2.x) if axis == "h" else max(main_seg.p1.y, main_seg.p2.y)
+    attach = {}
+
+    def add_attach(coord, reason):
+        coord = int(coord)
+        if coord < lo or coord > hi:
+            return
+        attach.setdefault(coord, set()).add(reason)
+
+    for pin in getattr(net, "pins", []):
+        pt = _pin_anchor_point(pin)
+        if pt is None:
+            continue
+        if axis == "h" and pt.y == fixed:
+            add_attach(pt.x, "pin_attach")
+        elif axis == "v" and pt.x == fixed:
+            add_attach(pt.y, "pin_attach")
+
+    for seg in segments:
+        if seg is main_seg or seg.p1 == seg.p2:
+            continue
+        if axis == "h":
+            if seg.p1.x == seg.p2.x and min(seg.p1.y, seg.p2.y) <= fixed <= max(seg.p1.y, seg.p2.y):
+                jpt = Point(seg.p1.x, fixed)
+                reason = "branch_point" if _point_on_segment_interior(seg, jpt) else "stub_attach"
+                add_attach(seg.p1.x, reason)
+            for endpoint in (seg.p1, seg.p2):
+                if endpoint.y == fixed and lo <= endpoint.x <= hi:
+                    add_attach(endpoint.x, "branch_point")
+        else:
+            if seg.p1.y == seg.p2.y and min(seg.p1.x, seg.p2.x) <= fixed <= max(seg.p1.x, seg.p2.x):
+                jpt = Point(fixed, seg.p1.y)
+                reason = "branch_point" if _point_on_segment_interior(seg, jpt) else "stub_attach"
+                add_attach(seg.p1.y, reason)
+            for endpoint in (seg.p1, seg.p2):
+                if endpoint.x == fixed and lo <= endpoint.y <= hi:
+                    add_attach(endpoint.y, "branch_point")
+
+    for jpt in getattr(node, "junctions", {}).get(net, []):
+        if axis == "h" and jpt.y == fixed:
+            add_attach(jpt.x, "junction")
+        elif axis == "v" and jpt.x == fixed:
+            add_attach(jpt.y, "junction")
+
+    return {coord: tuple(sorted(reasons)) for coord, reasons in attach.items()}
+
+
+def _tail_prune_log(net, old_end, new_end, distance, attach_types):
+    from skidl.logger import active_logger
+
+    attach_desc = "_and_".join(attach_types) if attach_types else "attach"
+    active_logger.info("[tail_prune]")
+    active_logger.info("net=%s" % _net_name_for_log(net))
+    active_logger.info("old_end=(%d,%d)" % (old_end.x, old_end.y))
+    active_logger.info("new_end=(%d,%d)" % (new_end.x, new_end.y))
+    active_logger.info("prune_distance=%d" % int(distance))
+    active_logger.info("attach_point_type=%s" % attach_desc)
+    active_logger.info("reason=endpoint_beyond_last_%s" % attach_desc)
+
+
+def _prune_linear_endpoint_tails(node, net, segments, grid):
+    if len(segments) < 2:
+        return segments
+
+    linear = [
+        seg for seg in segments if seg.p1 != seg.p2 and (seg.p1.y == seg.p2.y or seg.p1.x == seg.p2.x)
+    ]
+    if not linear:
+        return segments
+
+    main_seg = max(linear, key=lambda seg: (seg.p2 - seg.p1).magnitude)
+    attach = _linear_main_attach_points(node, net, linear, main_seg)
+    if not attach:
+        return segments
+
+    axis = "h" if main_seg.p1.y == main_seg.p2.y else "v"
+    low = min(main_seg.p1.x, main_seg.p2.x) if axis == "h" else min(main_seg.p1.y, main_seg.p2.y)
+    high = max(main_seg.p1.x, main_seg.p2.x) if axis == "h" else max(main_seg.p1.y, main_seg.p2.y)
+    coords = sorted(attach)
+    margin = max(0, min(int(grid), int(grid)))
+    new_low = low
+    new_high = high
+
+    if coords:
+        first_attach = coords[0]
+        last_attach = coords[-1]
+        if first_attach - low > margin:
+            new_low = first_attach - margin
+        if high - last_attach > margin:
+            new_high = last_attach + margin
+
+    if new_high <= new_low or (new_low == low and new_high == high):
+        return segments
+
+    if axis == "h":
+        new_main = Segment(Point(new_low, main_seg.p1.y), Point(new_high, main_seg.p1.y))
+        old_lo_end = Point(low, main_seg.p1.y)
+        old_hi_end = Point(high, main_seg.p1.y)
+        new_lo_end = Point(new_low, main_seg.p1.y)
+        new_hi_end = Point(new_high, main_seg.p1.y)
+    else:
+        new_main = Segment(Point(main_seg.p1.x, new_low), Point(main_seg.p1.x, new_high))
+        old_lo_end = Point(main_seg.p1.x, low)
+        old_hi_end = Point(main_seg.p1.x, high)
+        new_lo_end = Point(main_seg.p1.x, new_low)
+        new_hi_end = Point(main_seg.p1.x, new_high)
+
+    if new_low != low:
+        _tail_prune_log(net, old_lo_end, new_lo_end, new_low - low, attach.get(coords[0], ()))
+    if new_high != high:
+        _tail_prune_log(net, old_hi_end, new_hi_end, high - new_high, attach.get(coords[-1], ()))
+
+    pruned = []
+    replaced = False
+    for seg in segments:
+        if seg is main_seg and not replaced:
+            pruned.append(new_main)
+            replaced = True
+        else:
+            pruned.append(seg)
+    return pruned
+
+
+def _prune_driver_preroute_tails(node, net, segments, grid):
+    return _prune_linear_endpoint_tails(node, net, segments, grid)
+
+
+def _attach_debug_enabled(options=None):
+    if options and options.get("schematic_attach_debug") is not None:
+        return bool(options.get("schematic_attach_debug"))
+    value = str(os.environ.get("SKIDL_SCH_DEBUG_ATTACH", "") or "").strip().lower()
+    return value not in ("", "0", "false", "no", "off")
+
+
+def _attach_debug_log(options, message):
+    if not _attach_debug_enabled(options):
+        return
+    from skidl.logger import active_logger
+
+    active_logger.info("[attach-debug] %s" % message)
+
+
+def _segment_coords(seg):
+    return ((int(seg.p1.x), int(seg.p1.y)), (int(seg.p2.x), int(seg.p2.y)))
+
+
+def _format_segment(seg):
+    (x1, y1), (x2, y2) = _segment_coords(seg)
+    return "(%d,%d)->(%d,%d)" % (x1, y1, x2, y2)
+
+
+def _pin_label(pin):
+    part = getattr(pin, "part", None)
+    ref = getattr(part, "ref", "?") if part is not None else "?"
+    num = getattr(pin, "num", "?")
+    name = getattr(pin, "name", "") or ""
+    return "%s pin %s/%s" % (ref, num, name)
+
+
+def _pin_net_name(pin):
+    net = getattr(pin, "net", None)
+    return _net_name_for_log(net) if net is not None else ""
+
+
+def _wire_signature(seg, net=None):
+    return (_net_name_for_log(net),) + _segment_coords(seg)
+
+
+def _part_value_name(part):
+    value = str(getattr(part, "value", "") or "").strip()
+    name = str(getattr(part, "name", "") or "").strip()
+    if value and name and value != name:
+        return "%s / %s" % (value, name)
+    return value or name or ""
+
+
+def _is_attach_focus_part(part):
+    if part is None:
+        return False
+    ref = str(getattr(part, "ref", "") or "").upper()
+    ident = ("%s %s" % (_part_value_name(part), ref)).upper()
+    if ref.startswith(("L", "C", "R", "D")):
+        return True
+    if ref == "U2":
+        return True
+    return "PT4115" in ident
+
+
+def _is_attach_focus_pin(pin):
+    return _is_attach_focus_part(getattr(pin, "part", None))
+
+
+def _is_simple_two_pin_passive(part):
+    if part is None:
+        return False
+    pins = list(getattr(part, "pins", []) or [])
+    if len(pins) != 2:
+        return False
+    ref = str(getattr(part, "ref", "") or "").upper()
+    ident = ("%s %s" % (_part_value_name(part), ref)).upper()
+    if ref.startswith(("R", "C", "L")):
+        return True
+    return any(token in ident for token in ("RES", "CAP", "IND"))
+
+
+def _pin_anchor_point(pin):
+    """Return the absolute schematic anchor point for a pin, if available."""
+    part = getattr(pin, "part", None)
+    pt = getattr(pin, "pt", None)
+    tx = getattr(part, "tx", None) if part is not None else None
+    if part is None or pt is None or tx is None:
+        return None
+    return (pt * tx).round()
+
+
+def _point_on_segment(seg, pt):
+    return seg.p1.x <= pt.x <= seg.p2.x and seg.p1.y <= pt.y <= seg.p2.y
+
+
+def _point_on_segment_interior(seg, pt):
+    if not _point_on_segment(seg, pt):
+        return False
+    return pt != seg.p1 and pt != seg.p2
+
+
+def _point_is_wire_endpoint(segments, pt):
+    return any(pt == seg.p1 or pt == seg.p2 for seg in segments)
+
+
+def _point_segment_degree(segments, pt):
+    return sum(1 for seg in segments if pt == seg.p1 or pt == seg.p2)
+
+
+def _segment_orientation(seg):
+    if seg.p1.x == seg.p2.x:
+        return "vertical"
+    if seg.p1.y == seg.p2.y:
+        return "horizontal"
+    return None
+
+
+def _segment_other_end(seg, pt):
+    if seg.p1 == pt:
+        return seg.p2
+    if seg.p2 == pt:
+        return seg.p1
+    return None
+
+
+def _segment_hits_other_parts(node, segment, ignored_parts=None):
+    ignored_parts = set(ignored_parts or ())
+    segment_bbox = BBox(segment.p1, segment.p2)
+    for part in getattr(node, "parts", []):
+        if part in ignored_parts:
+            continue
+        bbox = getattr(part, "bbox", None)
+        tx = getattr(part, "tx", None)
+        if bbox is None or tx is None:
+            continue
+        if (bbox * tx).intersects(segment_bbox):
+            return True
+    return False
+
+
+def _point_hits_other_net(node, net, pt):
+    for other_net, other_segments in node.wires.items():
+        if other_net is net:
+            continue
+        for other in other_segments:
+            if _point_on_segment(other, pt):
+                return True
+    return False
+
+
+def _segments_intersect(seg_a, seg_b):
+    if seg_a.p1.x == seg_a.p2.x == seg_b.p1.x == seg_b.p2.x:
+        return seg_a.p1.y <= seg_b.p2.y and seg_a.p2.y >= seg_b.p1.y
+    if seg_a.p1.y == seg_a.p2.y == seg_b.p1.y == seg_b.p2.y:
+        return seg_a.p1.x <= seg_b.p2.x and seg_a.p2.x >= seg_b.p1.x
+    if seg_a.p1.x == seg_a.p2.x:
+        vseg, hseg = seg_a, seg_b
+    else:
+        vseg, hseg = seg_b, seg_a
+    return (
+        hseg.p1.x <= vseg.p1.x <= hseg.p2.x
+        and vseg.p1.y <= hseg.p1.y <= vseg.p2.y
+    )
+
+
+def _segment_hits_other_net(node, net, segment):
+    for other_net, other_segments in node.wires.items():
+        if other_net is net:
+            continue
+        for other in other_segments:
+            if _segments_intersect(segment, other):
+                return True
+    return False
+
+
+def is_pin_attached(pin, wires):
+    """Return True if a pin anchor already lands on a same-net wire endpoint."""
+    pt = _pin_anchor_point(pin)
+    if pt is None:
+        return False
+    return _point_is_wire_endpoint(wires, pt)
+
+
+def _split_wire_at_point(segments, seg, pt):
+    if not _point_on_segment_interior(seg, pt):
+        return False
+    segments.remove(seg)
+    segments.append(Segment(copy.copy(seg.p1), copy.copy(pt)))
+    segments.append(Segment(copy.copy(pt), copy.copy(seg.p2)))
+    return True
+
+
+def find_nearest_same_net_wire(pin, net_wires, max_dist):
+    """Find the nearest same-net wire a pin can conservatively attach to."""
+    best = _find_best_same_net_wire(pin, net_wires)
+    if best is None:
+        return None
+    if best["distance"] > max_dist:
+        return None
+    return best
+
+
+def _find_best_same_net_wire(pin, net_wires):
+    """Find the nearest same-net wire candidate regardless of distance limit."""
+    pin_pt = _pin_anchor_point(pin)
+    if pin_pt is None:
+        return None
+
+    best = None
+    for seg in net_wires:
+        target = None
+        if _point_on_segment(seg, pin_pt):
+            target = pin_pt
+        elif seg.p1.y == seg.p2.y and seg.p1.x <= pin_pt.x <= seg.p2.x:
+            target = Point(pin_pt.x, seg.p1.y)
+        elif seg.p1.x == seg.p2.x and seg.p1.y <= pin_pt.y <= seg.p2.y:
+            target = Point(seg.p1.x, pin_pt.y)
+        else:
+            for endpoint in (seg.p1, seg.p2):
+                if endpoint.x == pin_pt.x or endpoint.y == pin_pt.y:
+                    target = copy.copy(endpoint)
+                    break
+
+        if target is None:
+            continue
+
+        dist = abs(pin_pt.x - target.x) + abs(pin_pt.y - target.y)
+        candidate = {
+            "distance": dist,
+            "target": target,
+            "segment": seg,
+            "needs_split": _point_on_segment_interior(seg, target),
+        }
+        if best is None or (
+            candidate["distance"],
+            target.x,
+            target.y,
+        ) < (
+            best["distance"],
+            best["target"].x,
+            best["target"].y,
+        ):
+            best = candidate
+
+    return best
+
+
+def _find_best_other_net_wire(node, pin, pin_net):
+    best = None
+    for other_net, other_wires in node.wires.items():
+        if other_net is pin_net:
+            continue
+        candidate = _find_best_same_net_wire(pin, other_wires)
+        if candidate is None:
+            continue
+        enriched = dict(candidate)
+        enriched["net"] = other_net
+        if best is None or (
+            candidate["distance"],
+            candidate["target"].x,
+            candidate["target"].y,
+            _net_name_for_log(other_net),
+        ) < (
+            best["distance"],
+            best["target"].x,
+            best["target"].y,
+            _net_name_for_log(best["net"]),
+        ):
+            best = enriched
+    return best
+
+
+def _normalized_segment(seg):
+    if seg.p2 < seg.p1:
+        return Segment(copy.copy(seg.p2), copy.copy(seg.p1))
+    return Segment(copy.copy(seg.p1), copy.copy(seg.p2))
+
+
+def _find_collinear_passive_attach(pin, net_wires, max_snap, max_extend):
+    """Prefer extending a nearby trunk axis for simple passive pins."""
+    part = getattr(pin, "part", None)
+    if not _is_simple_two_pin_passive(part):
+        return None
+
+    pin_pt = _pin_anchor_point(pin)
+    if pin_pt is None:
+        return None
+
+    best = None
+    for seg in net_wires:
+        if seg.p1.x == seg.p2.x:
+            direction = "vertical"
+            axis = seg.p1.x
+            axis_offset = abs(pin_pt.x - axis)
+            if axis_offset > max_snap:
+                continue
+            lo = min(seg.p1.y, seg.p2.y)
+            hi = max(seg.p1.y, seg.p2.y)
+            if lo <= pin_pt.y <= hi:
+                continue
+            target = Point(axis, pin_pt.y)
+            extend_gap = lo - pin_pt.y if pin_pt.y < lo else pin_pt.y - hi
+            endpoint = copy.copy(seg.p1 if abs(seg.p1.y - pin_pt.y) <= abs(seg.p2.y - pin_pt.y) else seg.p2)
+        elif seg.p1.y == seg.p2.y:
+            direction = "horizontal"
+            axis = seg.p1.y
+            axis_offset = abs(pin_pt.y - axis)
+            if axis_offset > max_snap:
+                continue
+            lo = min(seg.p1.x, seg.p2.x)
+            hi = max(seg.p1.x, seg.p2.x)
+            if lo <= pin_pt.x <= hi:
+                continue
+            target = Point(pin_pt.x, axis)
+            extend_gap = lo - pin_pt.x if pin_pt.x < lo else pin_pt.x - hi
+            endpoint = copy.copy(seg.p1 if abs(seg.p1.x - pin_pt.x) <= abs(seg.p2.x - pin_pt.x) else seg.p2)
+        else:
+            continue
+
+        if extend_gap > max_extend:
+            continue
+
+        candidate = {
+            "segment": seg,
+            "target": target,
+            "direction": direction,
+            "axis_offset": axis_offset,
+            "extend_gap": extend_gap,
+            "endpoint": endpoint,
+            "distance": axis_offset + extend_gap,
+        }
+        if best is None or (
+            candidate["axis_offset"],
+            candidate["extend_gap"],
+            candidate["distance"],
+            candidate["target"].x,
+            candidate["target"].y,
+        ) < (
+            best["axis_offset"],
+            best["extend_gap"],
+            best["distance"],
+            best["target"].x,
+            best["target"].y,
+        ):
+            best = candidate
+
+    return best
+
+
+def try_collinear_passive_attach(node, net, pin, wire_info=None, **options):
+    """Align simple passive pin repair to a nearby trunk axis when safe."""
+    grid = int(options.get("grid", globals().get("GRID", 100)))
+    snap_limit = int(options.get("passive_collinear_snap_dist", 2 * grid))
+    extend_limit = int(options.get("passive_collinear_extend_dist", 2 * grid))
+    segments = node.wires.get(net, [])
+    candidate = _find_collinear_passive_attach(pin, segments, snap_limit, extend_limit)
+    if candidate is None:
+        return False, "no_collinear_attach", None, False
+
+    pin_pt = _pin_anchor_point(pin)
+    if pin_pt is None:
+        return False, "pin/net missing", None, False
+
+    old_seg = _normalized_segment(candidate["segment"])
+    endpoint = candidate["endpoint"]
+    target = candidate["target"]
+    extension = _normalized_segment(Segment(copy.copy(endpoint), copy.copy(target)).round())
+    if extension.p1 != extension.p2 and _segment_hits_other_net(node, net, extension):
+        _attach_debug_log(
+            options,
+            "[collinear_attach] ref=%s pin=%s old=%s new=%s trunk_direction=%s result=blocked"
+            % (
+                getattr(getattr(pin, "part", None), "ref", "?"),
+                getattr(pin, "num", "?"),
+                _format_segment(old_seg),
+                _format_segment(extension),
+                candidate["direction"],
+            ),
+        )
+        return False, "collinear_blocked", None, False
+
+    new_seg = _normalized_segment(Segment(
+        copy.copy(target if candidate["segment"].p1 == endpoint else candidate["segment"].p1),
+        copy.copy(target if candidate["segment"].p2 == endpoint else candidate["segment"].p2),
+    ).round())
+    candidate["segment"].p1 = new_seg.p1
+    candidate["segment"].p2 = new_seg.p2
+
+    _attach_debug_log(
+        options,
+        "[collinear_attach] ref=%s pin=%s old=%s new=%s trunk_direction=%s"
+        % (
+            getattr(getattr(pin, "part", None), "ref", "?"),
+            getattr(pin, "num", "?"),
+            _format_segment(old_seg),
+            _format_segment(new_seg),
+            candidate["direction"],
+        ),
+    )
+
+    if pin_pt == target:
+        _attach_debug_log(
+            options,
+            "[aligned_attach] ref=%s pin=%s old_geometry=%s new_geometry=%s trunk_direction=%s"
+            % (
+                getattr(getattr(pin, "part", None), "ref", "?"),
+                getattr(pin, "num", "?"),
+                _format_segment(old_seg),
+                _format_segment(new_seg),
+                candidate["direction"],
+            ),
+        )
+        return True, "aligned_attach", None, False
+
+    stub = _normalized_segment(Segment(copy.copy(pin_pt), copy.copy(target)).round())
+    if stub.p1 == stub.p2 or _segment_hits_other_net(node, net, stub):
+        candidate["segment"].p1 = old_seg.p1
+        candidate["segment"].p2 = old_seg.p2
+        return False, "stub would hit other net", None, False
+
+    if any(
+        (seg.p1 == stub.p1 and seg.p2 == stub.p2)
+        or (seg.p1 == stub.p2 and seg.p2 == stub.p1)
+        for seg in segments
+    ):
+        _attach_debug_log(
+            options,
+            "[aligned_attach] ref=%s pin=%s old_geometry=%s new_geometry=%s trunk_direction=%s"
+            % (
+                getattr(getattr(pin, "part", None), "ref", "?"),
+                getattr(pin, "num", "?"),
+                _format_segment(old_seg),
+                _format_segment(new_seg),
+                candidate["direction"],
+            ),
+        )
+        return True, "aligned_attach", None, False
+
+    segments.append(stub)
+    _attach_debug_log(
+        options,
+        "[stub_replaced] ref=%s pin=%s old_geometry=%s new_geometry=%s trunk_direction=%s"
+        % (
+            getattr(getattr(pin, "part", None), "ref", "?"),
+            getattr(pin, "num", "?"),
+            _format_segment(wire_info["segment"])
+            if isinstance(wire_info, dict) and wire_info.get("segment") is not None
+            else "none",
+            _format_segment(stub),
+            candidate["direction"],
+        ),
+    )
+    return True, "added", stub, False
+
+
+def _wire_count_summary(wires):
+    return {name: count for name, count in sorted(
+        [(_net_name_for_log(net), len(segs)) for net, segs in wires.items()],
+        key=lambda item: item[0],
+    )}
+
+
+def _attach_debug_log_wire_stage(node, options, stage, wires=None):
+    if not _attach_debug_enabled(options):
+        return
+    def _subtree_wire_total(current):
+        total = sum(len(segs) for segs in getattr(current, "wires", {}).values())
+        for child in getattr(current, "children", {}).values():
+            total += _subtree_wire_total(child)
+        return total
+
+    wires = wires if wires is not None else getattr(node, "wires", {})
+    summary = _wire_count_summary(wires)
+    subtree_total_wires = _subtree_wire_total(node)
+    _attach_debug_log(
+        options,
+        "wire-stage stage=%s node_id=%s sheet=%s wires_id=%s total_nets=%d total_wires=%d subtree_total_wires=%d per_net=%s"
+        % (
+            stage,
+            id(node),
+            getattr(node, "name", "?"),
+            id(wires),
+            len(wires),
+            sum(len(segs) for segs in wires.values()),
+            subtree_total_wires,
+            summary,
+        ),
+    )
+
+
+def _format_wire_candidate(candidate):
+    if candidate is None:
+        return "none"
+    seg = candidate.get("segment")
+    net_name = _net_name_for_log(candidate.get("net"))
+    suffix = " dist=%d" % candidate["distance"]
+    if net_name:
+        suffix += " net=%s" % net_name
+    if seg is None:
+        return "none"
+    return "%s%s" % (_format_segment(seg), suffix)
+
+
+def _attach_debug_log_pin_audit(
+    node,
+    pin,
+    options,
+    pin_net=None,
+    same_candidate=None,
+    other_candidate=None,
+    skipped_reason="",
+    attached=None,
+):
+    if not _attach_debug_enabled(options) or not _is_attach_focus_pin(pin):
+        return
+    part = getattr(pin, "part", None)
+    anchor = _pin_anchor_point(pin)
+    if pin_net is None:
+        pin_net = getattr(pin, "net", None)
+    if attached is None:
+        attached = (
+            pin_net in getattr(node, "wires", {})
+            and is_pin_attached(pin, node.wires.get(pin_net, []))
+        )
+    _attach_debug_log(
+        options,
+        "pin-audit ref=%s value_name=%s pin=%s/%s net=%s anchor=%s attached=%s nearest_same=%s nearest_other=%s repair_skipped=%s skip_reason=%s"
+        % (
+            getattr(part, "ref", "?") if part is not None else "?",
+            _part_value_name(part),
+            getattr(pin, "num", "?"),
+            getattr(pin, "name", "") or "",
+            _net_name_for_log(pin_net),
+            "(%d,%d)" % (anchor.x, anchor.y) if anchor is not None else "None",
+            attached,
+            _format_wire_candidate(same_candidate),
+            _format_wire_candidate(other_candidate),
+            bool(skipped_reason),
+            skipped_reason or "none",
+        ),
+    )
+
+
+def add_short_stub_from_pin_to_wire(node, net, pin, wire_info):
+    """Attach a pin to a same-net wire using a short orthogonal stub."""
+    pin_pt = _pin_anchor_point(pin)
+    if pin_pt is None or wire_info is None:
+        return False, "pin/net missing", None, False
+
+    target = wire_info["target"]
+    if _point_hits_other_net(node, net, target):
+        return False, "stub would hit other net", None, False
+
+    segments = node.wires.get(net, [])
+    split_done = False
+    if wire_info.get("needs_split"):
+        if _point_hits_other_net(node, net, target):
+            return False, "stub would hit other net", None, split_done
+        if not _split_wire_at_point(segments, wire_info["segment"], target):
+            return False, "unsupported geometry", None, split_done
+        split_done = True
+
+    if pin_pt == target:
+        return True, "already attached", None, split_done
+
+    stub = Segment(copy.copy(pin_pt), copy.copy(target)).round()
+    if stub.p1 == stub.p2 or _segment_hits_other_net(node, net, stub):
+        return False, "stub would hit other net", None, split_done
+
+    if any(
+        (seg.p1 == stub.p1 and seg.p2 == stub.p2)
+        or (seg.p1 == stub.p2 and seg.p2 == stub.p1)
+        for seg in segments
+    ):
+        return False, "already attached", None, split_done
+
+    if stub.p2 < stub.p1:
+        stub.p1, stub.p2 = stub.p2, stub.p1
+    segments.append(stub)
+    return True, "added", stub, split_done
+
+
+def _trim_dangling_non_pin_stubs(segments, pin_points):
+    """Recursively trim non-pin leaves from a same-net segment list."""
+    trimmed = list(segments)
+    pin_points = set(pin_points or [])
+    while True:
+        degree = defaultdict(list)
+        for seg in trimmed:
+            degree[seg.p1].append(seg)
+            degree[seg.p2].append(seg)
+        stubs = {
+            segs[0]
+            for pt, segs in degree.items()
+            if len(segs) == 1 and pt not in pin_points
+        }
+        if not stubs:
+            return trimmed
+        trimmed = [seg for seg in trimmed if seg not in stubs]
+
+
+def _log_passive_attach_jog(options, event, pin, net, reason, old_segments=None, new_segment=None):
+    part = getattr(pin, "part", None)
+    payload = [
+        "[%s]" % event,
+        "part=%s" % (getattr(part, "ref", "?") if part is not None else "?"),
+        "pin=%s" % getattr(pin, "num", getattr(pin, "name", "?")),
+        "net=%s" % _net_name_for_log(net),
+        "reason=%s" % reason,
+    ]
+    if old_segments is not None:
+        payload.append("old_segments=%s" % str(list(old_segments)))
+    if new_segment is not None:
+        payload.append("new_segment=%s" % str(new_segment))
+    _attach_debug_log(options, " ".join(payload))
+
+
+def _find_straight_stub_target_for_passive_pin(
+    pin, segments, pin_seg=None, exclude_segments=None
+):
+    """Find a same-net trunk point a passive pin can reach with one straight segment."""
+    pin_pt = _pin_anchor_point(pin)
+    if pin_pt is None:
+        return None
+
+    exclude_segments = set(exclude_segments or ())
+    if pin_seg is None:
+        pin_segments = [
+            seg
+            for seg in segments
+            if seg not in exclude_segments and pin_pt in (seg.p1, seg.p2)
+        ]
+        if len(pin_segments) != 1:
+            return None
+        pin_seg = pin_segments[0]
+
+    pin_orientation = _segment_orientation(pin_seg)
+    if pin_orientation not in ("horizontal", "vertical"):
+        return None
+
+    best = None
+    for seg in segments:
+        if seg in exclude_segments:
+            continue
+        if pin_orientation == "vertical":
+            if seg.p1.y != seg.p2.y or not (seg.p1.x <= pin_pt.x <= seg.p2.x):
+                continue
+            target = Point(pin_pt.x, seg.p1.y)
+        else:
+            if seg.p1.x != seg.p2.x or not (seg.p1.y <= pin_pt.y <= seg.p2.y):
+                continue
+            target = Point(seg.p1.x, pin_pt.y)
+
+        if target == pin_pt:
+            continue
+
+        candidate = {
+            "segment": seg,
+            "target": target,
+            "distance": abs(pin_pt.x - target.x) + abs(pin_pt.y - target.y),
+            "needs_split": _point_on_segment_interior(seg, target),
+        }
+        if best is None or (
+            candidate["distance"],
+            candidate["target"].x,
+            candidate["target"].y,
+        ) < (
+            best["distance"],
+            best["target"].x,
+            best["target"].y,
+        ):
+            best = candidate
+
+    return best
+
+
+def _try_replace_passive_l_jog_with_straight_stub(node, net, pin, **options):
+    """Collapse a passive pin's tiny same-net L jog into one straight stub when safe."""
+    part = getattr(pin, "part", None)
+    if not _is_simple_two_pin_passive(part):
+        _log_passive_attach_jog(options, "passive_attach_jog_skipped", pin, net, "not_passive")
+        return False, "not_passive"
+
+    segments = node.wires.get(net, [])
+    pin_pt = _pin_anchor_point(pin)
+    if pin_pt is None or not segments:
+        return False, "no_same_net_trunk"
+
+    pin_segments = [seg for seg in segments if pin_pt in (seg.p1, seg.p2)]
+    if len(pin_segments) != 1:
+        reason = "multiple_branches" if len(pin_segments) > 1 else "not_collinear"
+        _log_passive_attach_jog(options, "passive_attach_jog_skipped", pin, net, reason)
+        return False, reason
+
+    first = pin_segments[0]
+    corner = _segment_other_end(first, pin_pt)
+    if corner is None:
+        _log_passive_attach_jog(options, "passive_attach_jog_skipped", pin, net, "not_collinear")
+        return False, "not_collinear"
+
+    corner_branches = [
+        seg for seg in segments if seg is not first and corner in (seg.p1, seg.p2)
+    ]
+    if len(corner_branches) != 1:
+        _log_passive_attach_jog(options, "passive_attach_jog_skipped", pin, net, "multiple_branches")
+        return False, "multiple_branches"
+
+    orthogonal = [
+        seg
+        for seg in corner_branches
+        if _segment_orientation(seg) != _segment_orientation(first)
+    ]
+    if len(orthogonal) != 1:
+        _log_passive_attach_jog(options, "passive_attach_jog_skipped", pin, net, "not_collinear")
+        return False, "not_collinear"
+
+    second = orthogonal[0]
+    direct = _find_straight_stub_target_for_passive_pin(
+        pin, segments, pin_seg=first, exclude_segments={first, second}
+    )
+    if direct is None:
+        _log_passive_attach_jog(options, "passive_attach_jog_skipped", pin, net, "not_collinear")
+        return False, "no_same_net_trunk"
+
+    target = direct["target"]
+    new_stub = _normalized_segment(Segment(copy.copy(pin_pt), copy.copy(target)).round())
+    if new_stub.p1 == new_stub.p2 or corner == target:
+        _log_passive_attach_jog(options, "passive_attach_jog_skipped", pin, net, "not_collinear")
+        return False, "already_straight"
+
+    if _segment_hits_other_net(node, net, new_stub) or _segment_hits_other_parts(
+        node, new_stub, ignored_parts={part}
+    ):
+        _log_passive_attach_jog(
+            options,
+            "passive_attach_jog_skipped",
+            pin,
+            net,
+            "would_hit_other_net",
+            old_segments=[_segment_coords(first), _segment_coords(second)],
+            new_segment=_segment_coords(new_stub),
+        )
+        return False, "would_hit_other_net"
+
+    trunk_seg = direct["segment"]
+    split_done = False
+    if direct["needs_split"]:
+        split_done = _split_wire_at_point(segments, trunk_seg, target)
+        if not split_done:
+            return False, "already_straight"
+
+    if first in segments:
+        segments.remove(first)
+    if second in segments:
+        segments.remove(second)
+
+    duplicate = any(
+        (seg.p1 == new_stub.p1 and seg.p2 == new_stub.p2)
+        or (seg.p1 == new_stub.p2 and seg.p2 == new_stub.p1)
+        for seg in segments
+    )
+    if not duplicate:
+        segments.append(new_stub)
+
+    pin_points = {
+        _pin_anchor_point(net_pin)
+        for net_pin in getattr(net, "pins", [])
+        if _pin_anchor_point(net_pin) is not None
+    }
+    node.wires[net] = _trim_dangling_non_pin_stubs(segments, pin_points)
+    _log_passive_attach_jog(
+        options,
+        "passive_attach_jog_removed",
+        pin,
+        net,
+        "collinear_trunk_attach",
+        old_segments=[_segment_coords(first), _segment_coords(second)],
+        new_segment=_segment_coords(new_stub),
+    )
+    return True, "straight_stub_available"
+
+
+def simplify_passive_attach_jogs(node, nets=None, **options):
+    """Remove tiny passive-pin attach jogs when a straight same-net trunk attach is safe."""
+    nets = list(nets or node.wires.keys())
+    simplified = 0
+    for net in nets:
+        if not node.wires.get(net):
+            continue
+        pins = _driver_route_pins(node, net)
+        if not pins and hasattr(node, "get_internal_pins"):
+            pins = list(node.get_internal_pins(net))
+        for pin in pins:
+            if getattr(pin, "net", None) is not net:
+                continue
+            changed, _reason = _try_replace_passive_l_jog_with_straight_stub(
+                node, net, pin, **options
+            )
+            simplified += 1 if changed else 0
+    return simplified
+
+
+def repair_unattached_same_net_pins(node, nets=None, **options):
+    """Conservatively attach pins to nearby same-net wires after routing."""
+    grid = int(options.get("grid", globals().get("GRID", 100)))
+    max_dist = int(options.get("pin_attach_repair_dist", 2 * grid))
+    nets = list(nets or node.wires.keys())
+    target_nets = set(nets)
+    repaired = 0
+    added_stubs = []
+    split_count = 0
+    stats = {
+        "scanned_pins": 0,
+        "already_attached": 0,
+        "no_net": 0,
+        "no_same_net_wire": 0,
+        "nearest_too_far": 0,
+        "blocked_by_other_net": 0,
+        "unsupported_geometry": 0,
+        "repaired_stub_count": 0,
+        "split_wire_count": 0,
+        "repaired_pin_count": 0,
+    }
+
+    if _attach_debug_enabled(options):
+        _attach_debug_log(
+            options,
+            "repair start sheet=%s nets=%d max_dist=%d existing_wires=%d"
+            % (
+                getattr(node, "name", "?"),
+                len(nets),
+                max_dist,
+                sum(len(segs) for segs in node.wires.values()),
+            ),
+        )
+        _attach_debug_log_wire_stage(node, options, "repair_unattached_same_net_pins_before")
+
+    for net in nets:
+        segments = node.wires.get(net)
+        if not segments:
+            _attach_debug_log(
+                options,
+                "net=%s skip-net reason=no same-net wires"
+                % _net_name_for_log(net),
+            )
+            continue
+
+        pins = _driver_route_pins(node, net)
+        if not pins and hasattr(node, "get_internal_pins"):
+            pins = list(node.get_internal_pins(net))
+
+        for pin in pins:
+            stats["scanned_pins"] += 1
+            pin_net = getattr(pin, "net", None)
+            pin_pt = _pin_anchor_point(pin)
+            same_net_segments = node.wires.get(pin_net) if pin_net is not None else None
+            nearest_any = (
+                _find_best_same_net_wire(pin, same_net_segments or [])
+                if same_net_segments
+                else None
+            )
+            nearest_other = _find_best_other_net_wire(node, pin, pin_net)
+
+            if pin_net is not net:
+                _attach_debug_log_pin_audit(
+                    node,
+                    pin,
+                    options,
+                    pin_net=pin_net,
+                    same_candidate=nearest_any,
+                    other_candidate=nearest_other,
+                    skipped_reason="not_in_target_scope",
+                )
+                _attach_debug_log(
+                    options,
+                    "%s skipped: reason=not in target scope target_net=%s actual_net=%s"
+                    % (_pin_label(pin), _net_name_for_log(net), _pin_net_name(pin)),
+                )
+                continue
+
+            if pin_pt is None or pin_net is None:
+                stats["no_net"] += 1
+                _attach_debug_log_pin_audit(
+                    node,
+                    pin,
+                    options,
+                    pin_net=pin_net,
+                    same_candidate=nearest_any,
+                    other_candidate=nearest_other,
+                    skipped_reason="no_net_or_anchor",
+                    attached=False,
+                )
+                _attach_debug_log(
+                    options,
+                    "%s skipped: reason=pin/net missing" % _pin_label(pin),
+                )
+                continue
+
+            if pin_net not in target_nets:
+                _attach_debug_log_pin_audit(
+                    node,
+                    pin,
+                    options,
+                    pin_net=pin_net,
+                    same_candidate=nearest_any,
+                    other_candidate=nearest_other,
+                    skipped_reason="not_in_target_scope",
+                )
+                _attach_debug_log(
+                    options,
+                    "%s skipped: reason=not in target scope" % _pin_label(pin),
+                )
+                continue
+
+            if is_pin_attached(pin, segments):
+                stats["already_attached"] += 1
+                _attach_debug_log_pin_audit(
+                    node,
+                    pin,
+                    options,
+                    pin_net=pin_net,
+                    same_candidate=nearest_any,
+                    other_candidate=nearest_other,
+                    skipped_reason="already_attached",
+                    attached=True,
+                )
+                _attach_debug_log(
+                    options,
+                    "%s skipped: reason=already attached" % _pin_label(pin),
+                )
+                continue
+
+            if not same_net_segments:
+                stats["no_same_net_wire"] += 1
+                _attach_debug_log_pin_audit(
+                    node,
+                    pin,
+                    options,
+                    pin_net=pin_net,
+                    same_candidate=nearest_any,
+                    other_candidate=nearest_other,
+                    skipped_reason="no_same_net_wire",
+                    attached=False,
+                )
+                _attach_debug_log(
+                    options,
+                    "%s skipped: reason=no same-net wires" % _pin_label(pin),
+                )
+                continue
+
+            wire_info = nearest_any
+            if wire_info is None:
+                stats["unsupported_geometry"] += 1
+                _attach_debug_log_pin_audit(
+                    node,
+                    pin,
+                    options,
+                    pin_net=pin_net,
+                    same_candidate=nearest_any,
+                    other_candidate=nearest_other,
+                    skipped_reason="unsupported_geometry",
+                    attached=False,
+                )
+                _attach_debug_log(
+                    options,
+                    "%s skipped: reason=unsupported geometry" % _pin_label(pin),
+                )
+                continue
+            if wire_info["distance"] > max_dist:
+                stats["nearest_too_far"] += 1
+                _attach_debug_log_pin_audit(
+                    node,
+                    pin,
+                    options,
+                    pin_net=pin_net,
+                    same_candidate=nearest_any,
+                    other_candidate=nearest_other,
+                    skipped_reason="nearest_too_far",
+                    attached=False,
+                )
+                _attach_debug_log(
+                    options,
+                    "%s skipped: reason=nearest wire too far actual_dist=%d limit=%d nearest=%s"
+                    % (
+                        _pin_label(pin),
+                        wire_info["distance"],
+                        max_dist,
+                        _format_segment(wire_info["segment"]),
+                    ),
+                )
+                continue
+            added, reason, stub, split_done = try_collinear_passive_attach(
+                node,
+                net,
+                pin,
+                wire_info=wire_info,
+                **options
+            )
+            if not added and reason not in ("no_collinear_attach", "collinear_blocked"):
+                _attach_debug_log(
+                    options,
+                    "%s collinear attach fallback: reason=%s"
+                    % (_pin_label(pin), reason),
+                )
+            if not added:
+                added, reason, stub, split_done = add_short_stub_from_pin_to_wire(
+                    node, net, pin, wire_info
+                )
+            if added:
+                repaired += 1
+                stats["repaired_pin_count"] += 1
+                split_count += 1 if split_done else 0
+                stats["split_wire_count"] += 1 if split_done else 0
+                if stub is not None:
+                    added_stubs.append((net, stub))
+                    stats["repaired_stub_count"] += 1
+                _attach_debug_log_pin_audit(
+                    node,
+                    pin,
+                    options,
+                    pin_net=pin_net,
+                    same_candidate=nearest_any,
+                    other_candidate=nearest_other,
+                    skipped_reason="",
+                    attached=True,
+                )
+                _attach_debug_log(
+                    options,
+                    "%s repaired: target=%s split=%s stub=%s"
+                    % (
+                        _pin_label(pin),
+                        "(%d,%d)" % (wire_info["target"].x, wire_info["target"].y),
+                        split_done,
+                        _format_segment(stub) if stub is not None else "none",
+                    ),
+                )
+            else:
+                if reason == "stub would hit other net":
+                    stats["blocked_by_other_net"] += 1
+                    skip_reason = "blocked_by_other_net"
+                elif reason == "unsupported geometry":
+                    stats["unsupported_geometry"] += 1
+                    skip_reason = "unsupported_geometry"
+                else:
+                    skip_reason = reason.replace(" ", "_")
+                _attach_debug_log_pin_audit(
+                    node,
+                    pin,
+                    options,
+                    pin_net=pin_net,
+                    same_candidate=nearest_any,
+                    other_candidate=nearest_other,
+                    skipped_reason=skip_reason,
+                    attached=False,
+                )
+                _attach_debug_log(
+                    options,
+                    "%s skipped: reason=%s target=%s"
+                    % (
+                        _pin_label(pin),
+                        reason,
+                        "(%d,%d)" % (wire_info["target"].x, wire_info["target"].y),
+                    ),
+                )
+
+    if options.get("schematic_progress", False) and repaired:
+        from skidl.logger import active_logger
+
+        active_logger.info(
+            "[schematic] same-net pin attach repair: %d pin(s)" % repaired
+        )
+
+    if _attach_debug_enabled(options):
+        node._attach_debug_last_repair = {
+            "added_stub_signatures": [_wire_signature(seg, net) for net, seg in added_stubs],
+            "added_stub_details": [
+                {
+                    "net": _net_name_for_log(net),
+                    "coords": _segment_coords(seg),
+                }
+                for net, seg in added_stubs
+            ],
+            "split_count": split_count,
+            "repaired_count": repaired,
+            "stats": stats,
+            "wires_id": id(node.wires),
+        }
+        _attach_debug_log(
+            options,
+            "repair stats scanned_pins=%d already_attached=%d no_net=%d no_same_net_wire=%d nearest_too_far=%d blocked_by_other_net=%d unsupported_geometry=%d repaired_stub_count=%d split_wire_count=%d repaired_pin_count=%d"
+            % (
+                stats["scanned_pins"],
+                stats["already_attached"],
+                stats["no_net"],
+                stats["no_same_net_wire"],
+                stats["nearest_too_far"],
+                stats["blocked_by_other_net"],
+                stats["unsupported_geometry"],
+                stats["repaired_stub_count"],
+                stats["split_wire_count"],
+                stats["repaired_pin_count"],
+            ),
+        )
+        for net, seg in added_stubs:
+            _attach_debug_log(
+                options,
+                "repair wire net=%s seg=%s"
+                % (_net_name_for_log(net), _format_segment(seg)),
+            )
+        _attach_debug_log_wire_stage(node, options, "repair_unattached_same_net_pins_after")
+
+    simplify_passive_attach_jogs(node, nets, **options)
+
+    return repaired
 
 
 ###################################################################
@@ -2858,6 +4145,7 @@ class Router:
         route_opts = getattr(node, "_route_options", {}) or {}
         human_readable = route_opts.get("human_readable", False)
         reuse_junctions = route_opts.get("reuse_junctions", True)
+        grid = int(route_opts.get("grid", globals().get("GRID", 100)))
         sheet = getattr(node, "name", "?")
 
         def plog(msg):
@@ -3954,6 +5242,7 @@ class Router:
         )
 
         prerouted = set(getattr(node, "_driver_prerouted_nets", set()) or [])
+        _attach_debug_log_wire_stage(node, route_opts, "cleanup_wires_before")
 
         # Do a generalized cleanup of the wire segments of each net.
         for net, segments in node.wires.items():
@@ -4097,14 +5386,19 @@ class Router:
                 keep_cleaning = True
 
         plog(f"[schematic] cleanup 结束 sheet={sheet}，共 {clean_round} 轮")
+        _attach_debug_log_wire_stage(node, route_opts, "cleanup_wires_after")
 
         if human_readable:
             # 在通用清理后追加保守的人类化处理：只做不改变连通性的局部简化。
             plog(f"[schematic] humanize_wires sheet={sheet}")
             node.humanize_wires()
+            _attach_debug_log_wire_stage(node, route_opts, "humanize_wires_after")
 
     def humanize_wires(node):
         """Apply conservative post-cleanup wiring simplifications."""
+
+        route_opts = getattr(node, "_route_options", {}) or {}
+        grid = int(route_opts.get("grid", globals().get("GRID", 100)))
 
         def seg_key(seg):
             return (
@@ -4121,6 +5415,7 @@ class Router:
 
         for net, segments in node.wires.items():
             if net in prerouted:
+                node.wires[net] = _prune_driver_preroute_tails(node, net, segments, grid)
                 continue
 
             cleaned = []
@@ -4172,7 +5467,7 @@ class Router:
 
             # 删除非常短的 stub，保留连接主干的必要线段。
             # Segment 无 length 属性；用端点差的 magnitude（正交线段即几何长度）。
-            stub_thresh = max(1, GRID // 2)
+            stub_thresh = max(1, grid // 2)
             trimmed = []
             for seg in cleaned:
                 seg_len = (seg.p2 - seg.p1).magnitude
@@ -4190,7 +5485,11 @@ class Router:
                         continue
                 trimmed.append(seg)
 
+            if is_trunk_net_name(net_name):
+                trimmed = _prune_linear_endpoint_tails(node, net, trimmed, grid)
+
             node.wires[net] = trimmed
+            simplify_passive_attach_jogs(node, [net], **route_opts)
 
     def add_junctions(node):
         """Add X & T-junctions where wire segments in the same net meet."""
@@ -4325,7 +5624,10 @@ class Router:
 
             if not routed_nets:
                 node.cleanup_wires()
+                repair_unattached_same_net_pins(node, internal_nets, **options)
                 node.add_junctions()
+                _attach_debug_log_wire_stage(node, options, "add_junctions_after")
+                _attach_debug_log_wire_stage(node, options, "route_complete")
                 node.rmv_routing_stuff()
                 rmv_attr(node, ("_route_options",))
                 return
@@ -4406,8 +5708,13 @@ class Router:
             # Now clean-up the wires and add junctions.
             _sch_progress(options, f"[schematic] cleanup_wires sheet={sheet} ...")
             node.cleanup_wires()
+            _sch_progress(options, f"[schematic] pin_attach_repair sheet={sheet}")
+            repair_unattached_same_net_pins(node, internal_nets, **options)
+            _attach_debug_log_wire_stage(node, options, "repair_unattached_same_net_pins_after")
             _sch_progress(options, f"[schematic] add_junctions sheet={sheet}")
             node.add_junctions()
+            _attach_debug_log_wire_stage(node, options, "add_junctions_after")
+            _attach_debug_log_wire_stage(node, options, "route_complete")
             _sch_progress(options, f"[schematic] 布线完成 sheet={sheet}")
 
             # If enabled, draw the global and detailed routing for debug purposes.
