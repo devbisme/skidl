@@ -18,9 +18,28 @@ from skidl import Part
 from skidl.utilities import export_to_all, rmv_attr
 from .debug_draw import draw_end, draw_endpoint, draw_routing, draw_seg, draw_start, draw_text
 from skidl.geometry import BBox, Point, Segment, Tx, Vector, tx_rot_90
+from .topology import (
+    build_driver_rail_plan,
+    restore_driver_wire_nets,
+    topology_route_rank_bias,
+)
+from .trunk_layout import is_trunk_net_name, trunk_route_rank_bias
 
 
 __all__ = ["RoutingFailure", "GlobalRoutingFailure", "SwitchboxRoutingFailure"]
+
+
+def _build_route_part_obstacles(node, human_readable=False):
+    """构建布线障碍 bbox；human_readable 下主控 IC 外扩 keepout。"""
+    grid = globals().get("GRID", 100)
+    main_part = getattr(node, "_human_readable_main_part", None)
+    obstacles = []
+    for part in node.parts:
+        bbox = part.bbox * part.tx
+        if human_readable and part is main_part:
+            bbox = bbox.resize(Vector(grid * 1.5, grid * 1.5))
+        obstacles.append((part, bbox))
+    return obstacles
 
 
 def _sch_progress(options, message):
@@ -29,6 +48,196 @@ def _sch_progress(options, message):
         from skidl.logger import active_logger
 
         active_logger.info(message)
+
+
+def _driver_rail_corridor_hits_bbox(bb, rail_y, x_min, x_max, grid, side="top"):
+    """与 topology._rail_corridor_intersects_bbox 相同，供预布线避让。"""
+    if x_max < bb.min.x or x_min > bb.max.x:
+        return False
+    if side == "top":
+        band_lo, band_hi = rail_y, rail_y + grid
+    else:
+        band_lo, band_hi = rail_y - grid, rail_y
+    return not (bb.max.y < band_lo or bb.min.y > band_hi)
+
+
+def _shift_driver_rail_y(node, rail_y, x_min, x_max, grid, side, max_tries=5):
+    """预布线前再次外移 rail_y，避免水平线穿过器件可见外框（非 place_bbox 膨胀）。"""
+    from skidl.schematics.topology import _part_visual_bbox
+
+    real = [p for p in node.parts if getattr(p, "ref", None) and getattr(p, "tx", None)]
+    for _ in range(max_tries):
+        blocked = False
+        for part in real:
+            bb = _part_visual_bbox(part)
+            if bb is None:
+                continue
+            if _driver_rail_corridor_hits_bbox(bb, rail_y, x_min, x_max, grid, side):
+                blocked = True
+                break
+        if not blocked:
+            return rail_y
+        if side == "top":
+            rail_y -= grid
+        else:
+            rail_y += grid
+    return rail_y
+
+
+def _refresh_driver_rail_plan(node, nets, options):
+    """布线前按当前可见外框重算 rail 走廊（lbl_bbox，不受 place 膨胀影响）。"""
+    topology = getattr(node, "_last_topology_result", None) or {}
+    if topology.get("kind") != "generic_driver" or topology.get("fallback") is not False:
+        return getattr(node, "_driver_rail_plan", None) or {"enabled": False}
+    parts = [p for p in node.parts if getattr(p, "ref", None)]
+    main = topology.get("main_part") or getattr(node, "_human_readable_main_part", None)
+    if not parts or main is None:
+        return {"enabled": False}
+    plan = build_driver_rail_plan(node, parts, nets, topology, main, **options)
+    node._driver_rail_plan = plan
+    return plan
+
+
+def _driver_route_pins(node, net):
+    """driver 预布线用引脚：不受 auto_stub 的 pin.stub 影响。"""
+    from skidl.schematics.place import is_net_terminal
+
+    return [
+        pin
+        for pin in net.pins
+        if pin.part in node.parts and not is_net_terminal(pin.part)
+    ]
+
+
+def _driver_chain_bus_y(pin_pts, grid):
+    """
+    主链行内水平母线的 Y。
+    不用 (top_y + bottom_y) / 2：place 膨胀 bbox 会把 plan 的 bottom_y 拉得很远。
+    用引脚 Y 中位数下移一格，避免离群 pin 或膨胀 bbox 把母线甩到页面底部。
+    """
+    if not pin_pts:
+        return 0
+    ys = sorted(pt.y for pt in pin_pts)
+    row_y = ys[len(ys) // 2]
+    return Point(0, row_y + grid).snap(grid).y
+
+
+def route_driver_chain_local_nets(node, nets, **options):
+    """
+    主链行内网（含 Net-(D1-A)/Net-(D1-K)）：水平短母线 + 竖 stub，不走 switchbox 绕框。
+    """
+    plan = getattr(node, "_driver_rail_plan", None) or {}
+    if not plan.get("enabled"):
+        return set()
+    row_parts = set(getattr(node, "_driver_chain_parts", set()) or [])
+    if not row_parts:
+        return set()
+
+    grid = int(plan.get("grid", options.get("grid", 100)))
+    rail_handled = set(getattr(node, "_driver_rail_routed_nets", set()) or [])
+    handled = set()
+
+    for net in nets:
+        if net in rail_handled:
+            continue
+        pins = _driver_route_pins(node, net)
+        if len(pins) < 2:
+            continue
+        if {pin.part for pin in pins} - row_parts:
+            continue
+
+        pin_pts = [(pin.pt * pin.part.tx).round() for pin in pins]
+        bus_y = _driver_chain_bus_y(pin_pts, grid)
+        x_min = min(pt.x for pt in pin_pts)
+        x_max = max(pt.x for pt in pin_pts)
+        segs = [Segment(Point(x_min, bus_y), Point(x_max, bus_y))]
+        for pt in pin_pts:
+            stub_end = Point(pt.x, bus_y)
+            if pt != stub_end:
+                segs.append(Segment(copy.copy(pt), stub_end))
+        node.wires[net] = segs
+        handled.add(net)
+
+    if options.get("schematic_progress", False) and handled:
+        from skidl.logger import active_logger
+
+        active_logger.info(
+            "[schematic] driver chain pre-route: %d nets %s"
+            % (len(handled), [_net_name_for_log(n) for n in handled])
+        )
+    return handled
+
+
+def route_driver_rails(node, nets, **options):
+    """
+    generic_driver rail 预布线：顶/底水平长线 + 引脚短竖 stub。
+    不经过 switchbox；handled 网由后续 global/switchbox 跳过。
+    """
+    plan = _refresh_driver_rail_plan(node, nets, options)
+    if not plan.get("enabled"):
+        return set()
+    if not options.get("driver_rail_routing", True):
+        return set()
+    if not options.get("human_readable", False):
+        return set()
+
+    grid = int(plan.get("grid", options.get("grid", 100)))
+    handled = set()
+    top_set = set(plan.get("top_nets", []))
+    bottom_set = set(plan.get("bottom_nets", []))
+    net_set = set(nets)
+
+    def _net_side(net):
+        if net in top_set:
+            return "top", plan["top_y"]
+        if net in bottom_set:
+            return "bottom", plan["bottom_y"]
+        return None, None
+
+    for net in list(top_set) + list(bottom_set):
+        if net not in net_set:
+            continue
+        side, rail_y = _net_side(net)
+        if side is None:
+            continue
+
+        pins = _driver_route_pins(node, net)
+        if not pins:
+            continue
+
+        pin_pts = [(pin.pt * pin.part.tx).round() for pin in pins]
+        x_min = min(plan["x_min"], min(pt.x for pt in pin_pts))
+        x_max = max(plan["x_max"], max(pt.x for pt in pin_pts))
+        rail_y = _shift_driver_rail_y(node, rail_y, x_min, x_max, grid, side)
+
+        segs = [Segment(Point(x_min, rail_y), Point(x_max, rail_y))]
+        for pt in pin_pts:
+            if pt.y == rail_y and pt.x >= x_min and pt.x <= x_max:
+                continue
+            stub_end = Point(pt.x, rail_y)
+            if pt != stub_end:
+                segs.append(Segment(copy.copy(pt), stub_end))
+
+        node.wires[net] = segs
+        handled.add(net)
+
+    node._driver_rail_routed_nets = handled
+    chain_handled = route_driver_chain_local_nets(node, nets, **options)
+    handled |= chain_handled
+    node._driver_prerouted_nets = handled
+    if options.get("schematic_progress", False) and handled:
+        from skidl.logger import active_logger
+
+        names = [_net_name_for_log(n) for n in handled]
+        active_logger.info(
+            "[schematic] driver rail pre-route: %d nets %s"
+            % (len(handled), names)
+        )
+    return handled
+
+
+def _net_name_for_log(net):
+    return str(getattr(net, "name", "") or "")
 
 
 ###################################################################
@@ -2083,12 +2292,16 @@ class Router:
         """Return True if a segment intersects another part or overlaps another net."""
 
         ignored_parts = ignored_parts or set()
+        route_opts = getattr(node, "_route_options", {}) or {}
+        part_obstacles = _build_route_part_obstacles(
+            node, route_opts.get("human_readable", False)
+        )
 
         segment_bbox = BBox(segment.p1, segment.p2)
-        for part in node.parts:
+        for part, part_bbox in part_obstacles:
             if part in ignored_parts:
                 continue
-            if (part.bbox * part.tx).intersects(segment_bbox):
+            if part_bbox.intersects(segment_bbox):
                 return True
 
         segment_bbox = segment_bbox.resize(Vector(2, 2))
@@ -2508,7 +2721,16 @@ class Router:
             bbox = BBox()
             for pin in node.get_internal_pins(net):
                 bbox.add(pin.route_pt)
-            return (bbox.w + bbox.h, len(net.pins))
+            name = str(getattr(net, "name", "") or "")
+            if human_readable:
+                topo = getattr(node, "_last_topology_result", None)
+                if topo and topo.get("kind") == "generic_driver" and topo.get("matched"):
+                    route_bias = topology_route_rank_bias(net, topo)
+                else:
+                    route_bias = trunk_route_rank_bias(name)
+            else:
+                route_bias = 0
+            return (route_bias + bbox.w + bbox.h, len(net.pins))
 
         # Set order in which nets will be routed.
         nets.sort(key=rank_net)
@@ -3526,7 +3748,8 @@ class Router:
             每次至多改一处，便于与 merge/split/remove_jogs 交替收敛。
             """
 
-            snap_dist = GRID * 2
+            net_name = str(getattr(net, "name", "") or "")
+            snap_dist = GRID * 3 if is_trunk_net_name(net_name) else GRID * 2
 
             def manhattan_dist(a, b):
                 return abs(a.x - b.x) + abs(a.y - b.y)
@@ -3707,7 +3930,7 @@ class Router:
             return segments, True
 
         # Get part bounding boxes so parts can be avoided when modifying net segments.
-        part_obstacles = [(part, part.bbox * part.tx) for part in node.parts]
+        part_obstacles = _build_route_part_obstacles(node, human_readable)
         part_bboxes = [bbox for _, bbox in part_obstacles]
 
         # Get dict of bounding boxes for the nets in this node.
@@ -3717,7 +3940,10 @@ class Router:
         net_internal_pins = dict()
         net_pin_pts = dict()
         for net in node.wires.keys():
-            net_internal_pins[net] = list(node.get_internal_pins(net))
+            pins = _driver_route_pins(node, net)
+            if not pins:
+                pins = list(node.get_internal_pins(net))
+            net_internal_pins[net] = pins
             net_pin_pts[net] = [
                 (pin.pt * pin.part.tx).round() for pin in net_internal_pins[net]
             ]
@@ -3727,8 +3953,17 @@ class Router:
             f"{len(node.wires)} 网 / {sum(len(s) for s in node.wires.values())} 段"
         )
 
+        prerouted = set(getattr(node, "_driver_prerouted_nets", set()) or [])
+
         # Do a generalized cleanup of the wire segments of each net.
         for net, segments in node.wires.items():
+            if net in prerouted:
+                segments = [seg.round() for seg in segments]
+                segments = [seg for seg in segments if seg.p1 != seg.p2]
+                order_seg_points(segments)
+                node.wires[net] = segments
+                continue
+
             # Round the wire segment endpoints to integers.
             segments = [seg.round() for seg in segments]
 
@@ -3789,6 +4024,12 @@ class Router:
 
             for net, segments in node.wires.items():
                 net_label = getattr(net, "name", str(net))
+                if net in prerouted:
+                    # rail/主链预布线不再 split/去 jog，避免把水平母线拆成绕框折线。
+                    segments = [seg for seg in segments if seg.p1 != seg.p2]
+                    node.wires[net] = segments
+                    continue
+
                 # 先 split 一次，再只跑 remove_jogs；避免「去 jog → split → 又出现 jog」振荡。
                 segments = split_segments(segments, net_pin_pts[net])
 
@@ -3876,7 +4117,12 @@ class Router:
         # 使用 part bbox 作为硬障碍，避免“美化”导致导线穿过器件。
         part_bboxes = [p.bbox * p.tx for p in node.parts]
 
+        prerouted = set(getattr(node, "_driver_prerouted_nets", set()) or [])
+
         for net, segments in node.wires.items():
+            if net in prerouted:
+                continue
+
             cleaned = []
             for seg in segments:
                 if seg.p1 == seg.p2:
@@ -3887,6 +4133,42 @@ class Router:
 
             # 先按几何顺序稳定排序，便于后续重复运行获得相同结果。
             cleaned = sorted(cleaned, key=seg_key)
+
+            net_name = str(getattr(net, "name", "") or "")
+            if is_trunk_net_name(net_name) and len(cleaned) >= 2:
+                merged = []
+                horz = sorted(
+                    [s for s in cleaned if s.p1.y == s.p2.y], key=seg_key
+                )
+                vert = sorted(
+                    [s for s in cleaned if s.p1.x == s.p2.x], key=seg_key
+                )
+                other = [s for s in cleaned if s not in horz and s not in vert]
+
+                def merge_axis(segs, axis):
+                    if not segs:
+                        return []
+                    out = [segs[0]]
+                    for seg in segs[1:]:
+                        prev = out[-1]
+                        if axis == "h" and prev.p1.y == seg.p1.y:
+                            if prev.p2.x == seg.p1.x:
+                                prev.p2 = Point(max(prev.p2.x, seg.p2.x), prev.p1.y)
+                                continue
+                            if seg.p2.x == prev.p1.x:
+                                prev.p1 = Point(min(prev.p1.x, seg.p1.x), prev.p1.y)
+                                continue
+                        if axis == "v" and prev.p1.x == seg.p1.x:
+                            if prev.p2.y == seg.p1.y:
+                                prev.p2 = Point(prev.p1.x, max(prev.p2.y, seg.p2.y))
+                                continue
+                            if seg.p2.y == prev.p1.y:
+                                prev.p1 = Point(prev.p1.x, min(prev.p1.y, seg.p1.y))
+                                continue
+                        out.append(seg)
+                    return out
+
+                cleaned = merge_axis(horz, "h") + merge_axis(vert, "v") + other
 
             # 删除非常短的 stub，保留连接主干的必要线段。
             # Segment 无 length 属性；用端点差的 magnitude（正交线段即几何长度）。
@@ -4016,7 +4298,14 @@ class Router:
         if not internal_nets:
             return
 
+        restore_driver_wire_nets(node, internal_nets, **options)
+
         try:
+            if options.get("human_readable"):
+                real_parts = [p for p in node.parts if getattr(p, "ref", None)]
+                if real_parts and not getattr(node, "_human_readable_main_part", None):
+                    node._human_readable_main_part = node._find_main_part(real_parts)
+
             _sch_progress(
                 options,
                 f"[schematic] 布线 sheet={sheet}，{len(node.parts)} 件 / "
@@ -4027,7 +4316,12 @@ class Router:
 
             # Priority 1: directly route aligned point-to-point nets when unobstructed.
             direct_nets = set(node.route_straight_nets(internal_nets))
-            routed_nets = [net for net in internal_nets if net not in direct_nets]
+            rail_handled = route_driver_rails(node, internal_nets, **options)
+            routed_nets = [
+                net
+                for net in internal_nets
+                if net not in direct_nets and net not in rail_handled
+            ]
 
             if not routed_nets:
                 node.cleanup_wires()
