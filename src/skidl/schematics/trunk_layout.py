@@ -8,6 +8,34 @@ from collections import defaultdict
 
 from skidl.geometry import Point, Tx, Vector
 
+_TOP_TRUNK_TOKENS = (
+    "LED+",
+    "VIN",
+    "VCC",
+    "VDD",
+    "VBUS",
+    "VBAT",
+    "VSUP",
+    "24V",
+    "12V",
+    "9V",
+    "5V",
+    "3V3",
+    "3V",
+    "1V8",
+    "POWER",
+    "PWR",
+    "SUPPLY",
+    "B+",
+    "BAT+",
+    "IN+",
+    "DC_IN",
+    "W+",
+)
+_BOTTOM_TRUNK_TOKENS = ("LED-", "GND", "AGND", "DGND", "PGND", "VSS", "W-")
+_RIGHT_TRUNK_TOKENS = ("OUT", "LOAD", "DRV", "SW")
+_LEFT_TRUNK_TOKENS = ("IN", "SENSE", "FB", "ADC", "CTRL", "PWM", "DIM")
+
 
 def build_part_adjacency(parts, nets):
     """根据 nets 构建 part 邻接图。"""
@@ -22,6 +50,27 @@ def build_part_adjacency(parts, nets):
     return adjacency
 
 
+def _matched_tokens(text, tokens):
+    if not text:
+        return []
+    upper = str(text).upper()
+    matches = []
+    for token in tokens:
+        token_u = str(token).upper()
+        if token_u in upper and token_u not in matches:
+            matches.append(token_u)
+    matches.sort(key=len, reverse=True)
+    return matches
+
+
+def _trunk_debug_log(options, tag, message):
+    if not options.get("schematic_progress", False):
+        return
+    from skidl.logger import active_logger
+
+    active_logger.info("[%s] %s" % (tag, message))
+
+
 def _net_name_side_scores(net_name_u):
     """按网名给 top/bottom/left/right 打分；LED+/LED- 优先于泛化 LED token。"""
     scores = {"top": 0, "bottom": 0, "left": 0, "right": 0}
@@ -31,21 +80,16 @@ def _net_name_side_scores(net_name_u):
     if "LED-" in net_name_u or net_name_u.endswith("/LED-"):
         scores["bottom"] += 12
 
-    top_tokens = ("VCC", "VDD", "VIN", "VBUS", "24V", "12V", "5V", "3V3", "W+")
-    bottom_tokens = ("GND", "AGND", "DGND", "PGND", "VSS", "W-")
-    right_tokens = ("OUT", "LOAD", "DRV", "SW")
-    left_tokens = ("IN", "SENSE", "FB", "ADC", "CTRL", "PWM", "DIM")
-
-    for token in top_tokens:
+    for token in _TOP_TRUNK_TOKENS:
         if token in net_name_u:
             scores["top"] += 3
-    for token in bottom_tokens:
+    for token in _BOTTOM_TRUNK_TOKENS:
         if token in net_name_u:
             scores["bottom"] += 3
-    for token in right_tokens:
+    for token in _RIGHT_TRUNK_TOKENS:
         if token in net_name_u:
             scores["right"] += 2
-    for token in left_tokens:
+    for token in _LEFT_TRUNK_TOKENS:
         if token in net_name_u:
             scores["left"] += 2
 
@@ -54,6 +98,168 @@ def _net_name_side_scores(net_name_u):
         scores["right"] += 2
 
     return scores
+
+
+def _pin_names_on_part_for_net(main_part, net):
+    if main_part is None:
+        return []
+    names = []
+    for pin in getattr(net, "pins", []):
+        if getattr(pin, "part", None) is main_part:
+            names.append(str(getattr(pin, "name", "") or "").upper())
+    return names
+
+
+def _is_anonymous_net_name(net_name):
+    text = str(net_name or "").strip().upper()
+    return text.startswith("NET-(") or text.startswith("NET_(")
+
+
+def allow_anonymous_input_rail_promotion(net_name, direction, categories, reasons, fanout):
+    """
+    Allow only strongly evidenced anonymous input nets to participate as top rails.
+
+    This stays intentionally conservative:
+    - anonymous control/switch/sense nets are not promoted
+    - only top/input-like candidates are considered
+    - promotion requires multiple topology hints, not just one token
+    """
+    if not _is_anonymous_net_name(net_name):
+        return False
+    categories = {str(cat).lower() for cat in (categories or [])}
+    reasons = list(reasons or [])
+    if direction != "top" or "input" not in categories:
+        return False
+    if categories.intersection({"control", "switch", "sense"}):
+        return False
+
+    evidence_score = 0
+    has_main_input_pin = any(reason.startswith("main_pin:") for reason in reasons)
+    if has_main_input_pin:
+        evidence_score += 3
+    if "semantic:input" in reasons:
+        evidence_score += 2
+    if "connected_to_ic" in reasons:
+        evidence_score += 1
+    if "input_cap" in reasons:
+        evidence_score += 1
+    if "input_connector" in reasons:
+        evidence_score += 1
+    if "input_diode" in reasons:
+        evidence_score += 1
+    if fanout >= 4 or "fanout>=4" in reasons:
+        evidence_score += 2
+    elif fanout >= 3 or "fanout>=3" in reasons:
+        evidence_score += 1
+
+    strong_context = sum(
+        1
+        for reason in ("input_cap", "input_connector", "input_diode", "connected_to_ic")
+        if reason in reasons
+    )
+    return has_main_input_pin and evidence_score >= 6 and strong_context >= 2
+
+
+def _score_trunk_candidate(node, net, net_parts, roles, main_part):
+    net_name = str(getattr(net, "name", "") or "")
+    net_name_u = net_name.upper()
+    side_score = _net_name_side_scores(net_name_u)
+    reasons = []
+    token_hits = []
+    categories = set()
+
+    for side, tokens in (
+        ("top", _TOP_TRUNK_TOKENS),
+        ("bottom", _BOTTOM_TRUNK_TOKENS),
+        ("right", _RIGHT_TRUNK_TOKENS),
+        ("left", _LEFT_TRUNK_TOKENS),
+    ):
+        hits = _matched_tokens(net_name_u, tokens)
+        if hits:
+            token_hits.extend("%s:%s" % (side, token) for token in hits)
+            reasons.extend("token:%s" % token for token in hits)
+
+    pin_names = _pin_names_on_part_for_net(main_part, net)
+    pin_top_hits = []
+    pin_bottom_hits = []
+    pin_left_hits = []
+    pin_right_hits = []
+    for pname in pin_names:
+        pin_top_hits.extend(_matched_tokens(pname, _TOP_TRUNK_TOKENS))
+        pin_bottom_hits.extend(_matched_tokens(pname, _BOTTOM_TRUNK_TOKENS))
+        pin_left_hits.extend(_matched_tokens(pname, _LEFT_TRUNK_TOKENS))
+        pin_right_hits.extend(_matched_tokens(pname, _RIGHT_TRUNK_TOKENS))
+
+    if pin_top_hits:
+        side_score["top"] += 4
+        reasons.append("main_pin:%s" % pin_top_hits[0])
+        categories.add("input")
+    if pin_bottom_hits:
+        side_score["bottom"] += 4
+        reasons.append("main_pin:%s" % pin_bottom_hits[0])
+        categories.add("ground")
+    if pin_left_hits:
+        side_score["left"] += 2
+        reasons.append("main_pin:%s" % pin_left_hits[0])
+        categories.add("control")
+    if pin_right_hits:
+        side_score["right"] += 2
+        reasons.append("main_pin:%s" % pin_right_hits[0])
+        categories.add("switch")
+
+    fanout = len(net_parts)
+    if fanout >= 4:
+        reasons.append("fanout>=4")
+    elif fanout >= 3:
+        reasons.append("fanout>=3")
+    elif fanout >= 2:
+        reasons.append("fanout>=2")
+
+    refs = [str(getattr(part, "ref", "") or "").upper() for part in net_parts]
+    if side_score["top"] > 0:
+        categories.add("input")
+        if any(ref.startswith("C") for ref in refs):
+            side_score["top"] += 2
+            reasons.append("input_cap")
+        if any(ref.startswith(("J", "P", "CN")) for ref in refs):
+            side_score["top"] += 1
+            reasons.append("input_connector")
+        if any(ref.startswith("D") for ref in refs):
+            side_score["top"] += 1
+            reasons.append("input_diode")
+        if any(ref.startswith("L") for ref in refs):
+            side_score["top"] += 1
+            reasons.append("inductor_near")
+    if side_score["bottom"] > 0 and main_part in net_parts:
+        categories.add("ground")
+        side_score["bottom"] += 1
+        reasons.append("connected_to_ic")
+
+    if main_part in net_parts:
+        for side in side_score:
+            if side_score[side] > 0:
+                side_score[side] += 2 if side in ("top", "bottom") else 1
+        reasons.append("connected_to_ic")
+
+    if node._is_power_net_name(net_name_u):
+        if any(t in net_name_u for t in ("GND", "VSS", "W-", "LED-")):
+            side_score["bottom"] += 3
+            reasons.append("power_net_name:bottom")
+            categories.add("ground")
+        else:
+            side_score["top"] += 3
+            reasons.append("power_net_name:top")
+            categories.add("input")
+
+    return {
+        "net": net,
+        "name": net_name_u,
+        "side_score": side_score,
+        "fanout": fanout,
+        "reasons": reasons,
+        "token_hits": token_hits,
+        "categories": sorted(categories),
+    }
 
 
 def is_trunk_net_name(name):
@@ -84,19 +290,22 @@ def classify_trunk_nets(node, parts, nets, roles, main_part, **options):
 
     part_set = set(parts)
     side_candidates = {"top": [], "bottom": [], "left": [], "right": []}
+    debug_meta = {}
 
     for net in nets:
         net_name = str(getattr(net, "name", "") or "")
         net_name_u = net_name.upper()
-        is_named = bool(net_name) and not net_name_u.startswith("NET-(")
+        is_named = bool(net_name) and not _is_anonymous_net_name(net_name_u)
 
         net_parts = node._net_connected_parts(net, allowed_parts=part_set)
         fanout = len(net_parts)
         if fanout < 2:
             continue
 
-        side_score = _net_name_side_scores(net_name_u)
+        meta = _score_trunk_candidate(node, net, net_parts, roles, main_part)
+        side_score = meta["side_score"]
         has_strong_token = max(side_score.values()) >= 3
+        debug_meta[net_name_u] = meta
 
         if (
             fanout <= 3
@@ -123,18 +332,63 @@ def classify_trunk_nets(node, parts, nets, roles, main_part, **options):
             + (2 if is_named else 0)
         )
 
-        if node._is_power_net_name(net_name_u):
-            if any(t in net_name_u for t in ("GND", "VSS", "W-", "LED-")):
-                side_score["bottom"] += 3
-            else:
-                side_score["top"] += 2
-
         best_side = max(side_score, key=side_score.get)
         if side_score[best_side] <= 0:
+            meta["rejected_reason"] = "non_positive_side_score"
+            continue
+
+        anonymous_promoted = allow_anonymous_input_rail_promotion(
+            net_name_u,
+            best_side,
+            meta.get("categories", []),
+            meta.get("reasons", []),
+            fanout,
+        )
+        if not is_named and not anonymous_promoted:
+            meta["rejected_reason"] = "anonymous_or_blank"
             continue
 
         total_score = base_score + side_score[best_side]
+        meta["score"] = total_score
+        meta["best_side"] = best_side
+        meta["rejected_reason"] = ""
+        _trunk_debug_log(
+            options,
+            "rail_candidate",
+            "net=%s fanout=%s score=%s matched_tokens=%s selected_direction=%s rejected_reason=%s reasons=%s"
+            % (
+                net_name_u or "<anon>",
+                meta.get("fanout", 0),
+                total_score,
+                meta.get("token_hits", []),
+                best_side,
+                meta.get("rejected_reason"),
+                meta.get("reasons", []),
+            ),
+        )
+        if anonymous_promoted:
+            _trunk_debug_log(
+                options,
+                "rail_promoted",
+                "net=%s semantic=input reasons=%s"
+                % (net_name_u or "<anon>", meta.get("reasons", [])),
+            )
+        _trunk_debug_log(
+            options,
+            "rail_score",
+            "net=%s top=%s bottom=%s left=%s right=%s fanout=%s token_matched=%s"
+            % (
+                net_name_u or "<anon>",
+                side_score["top"],
+                side_score["bottom"],
+                side_score["left"],
+                side_score["right"],
+                fanout,
+                meta.get("token_hits", []),
+            ),
+        )
         if total_score < options.get("trunk_score_threshold", 6):
+            meta["rejected_reason"] = "below_trunk_score_threshold"
             continue
 
         side_candidates[best_side].append((total_score, net))
@@ -144,6 +398,39 @@ def classify_trunk_nets(node, parts, nets, roles, main_part, **options):
     for side, candidates in side_candidates.items():
         candidates.sort(key=lambda item: item[0], reverse=True)
         trunk_map[side] = [net for _, net in candidates[:max_per_side]]
+
+    node._trunk_candidate_debug = debug_meta
+    for net_name, meta in debug_meta.items():
+        if meta.get("rejected_reason"):
+            _trunk_debug_log(
+                options,
+                "rail_rejected",
+                "net=%s fanout=%s score=%s matched_tokens=%s selected_direction=%s rejected_reason=%s"
+                % (
+                    net_name or "<anon>",
+                    meta.get("fanout", 0),
+                    meta.get("score", 0),
+                    meta.get("token_hits", []),
+                    meta.get("best_side"),
+                    meta.get("rejected_reason"),
+                ),
+            )
+    for side, selected in trunk_map.items():
+        for net in selected:
+            meta = debug_meta.get(str(getattr(net, "name", "") or "").upper(), {})
+            _trunk_debug_log(
+                options,
+                "rail_selected",
+                "net=%s score=%s reasons=%s token_matched=%s fanout=%s final_direction=%s"
+                % (
+                    str(getattr(net, "name", "") or "").upper() or "<anon>",
+                    meta.get("score", 0),
+                    meta.get("reasons", []),
+                    meta.get("token_hits", []),
+                    meta.get("fanout", 0),
+                    side,
+                ),
+            )
 
     return trunk_map
 

@@ -632,7 +632,7 @@ def part_to_lib_symbol_definition(part):
             [
                 "property",
                 "Reference",
-                part.ref_prefix or "U",
+                getattr(part, "ref", None) or part.ref_prefix or "U",
                 ["at", 2.032, 0, 90],
                 ["effects", ["font", ["size", 1.27, 1.27]]],
             ],
@@ -1235,6 +1235,11 @@ def write_top_schematic(circuit, node, filepath, top_name, title, version=202304
         title: Schematic title.
         version: S-expression version number.
     """
+    if hasattr(circuit, "annotate_parts"):
+        # Ensure placeholder references such as D? are resolved before any
+        # symbol instances, properties, or sheet files are emitted.
+        circuit.annotate_parts()
+
     top_name = top_name or "schematic"
     _fix_sheet_filename(node)
     _reset_power_symbol_state()

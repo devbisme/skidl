@@ -18,6 +18,7 @@ import tempfile
 import uuid
 
 import pytest
+from simp_sexp import Sexp
 
 from skidl import get_default_tool
 from skidl.geometry import BBox, Point, Tx
@@ -27,9 +28,16 @@ sexp_schematic = importlib.import_module(f"skidl.tools.{tool}.sexp_schematic")
 A_SIZES = sexp_schematic.A_SIZES
 MILS_TO_MM = sexp_schematic.MILS_TO_MM
 _calc_sheet_tx = sexp_schematic._calc_sheet_tx
+_child_instance_path = sexp_schematic._child_instance_path
+_append_missing_symbol_instances = sexp_schematic._append_missing_symbol_instances
+_fix_reference_block = sexp_schematic._fix_reference_block
+_fix_exported_schematic_references = sexp_schematic._fix_exported_schematic_references
 _fix_sheet_filename = sexp_schematic._fix_sheet_filename
 _gen_uuid = sexp_schematic._gen_uuid
+_is_symbol_instance = sexp_schematic._is_symbol_instance
 _pick_paper_size = sexp_schematic._pick_paper_size
+_reference_queues = sexp_schematic._reference_queues
+_sheet_project_name = sexp_schematic._sheet_project_name
 create_title_block_sexp = sexp_schematic.create_title_block_sexp
 
 
@@ -195,9 +203,215 @@ class TestFixSheetFilename:
         assert node.sheet_filename is None
 
 
+class TestSheetProjectName:
+    """Tests for deriving KiCad project names from sheet filenames."""
+
+    def test_uses_sheet_basename_without_extension(self):
+        """A child sheet file name maps to its local KiCad project name."""
+        assert _sheet_project_name("4micro2_top1.kicad_sch") == "4micro2_top1"
+
+    def test_falls_back_for_empty_filename(self):
+        """An empty filename keeps the provided fallback project name."""
+        assert _sheet_project_name("", fallback="demo") == "demo"
+
+
+class TestReferenceRepair:
+    """Tests for post-write reference repair in generated schematics."""
+
+    class _MockPart:
+        def __init__(self, ref):
+            self.ref = ref
+
+    def test_fix_reference_block_preserves_numeric_suffix(self):
+        """A prefix-only Reference property is repaired to the full assigned ref."""
+        refs_by_prefix = _reference_queues([self._MockPart("D13")])
+        block = (
+            '(symbol (lib_id "Device:D")\n'
+            '  (property "Reference" "D")\n'
+            '  (instances (project "SKiDL-Generated" (path "/" (reference "D") (unit 1))))\n'
+            ')'
+        )
+
+        fixed = _fix_reference_block(block, refs_by_prefix, {})
+
+        assert '(property "Reference" "D13")' in fixed
+        assert '(reference "D13")' in fixed
+        assert '(property "Reference" "D")' not in fixed
+
+    def test_fix_exported_schematic_references_updates_file(self, tmp_path):
+        """The file-level repair rewrites serialized prefix-only references."""
+        schematic = tmp_path / "refs.kicad_sch"
+        schematic.write_text(
+            '(kicad_sch\n'
+            '  (symbol (lib_id "Device:D")\n'
+            '    (property "Reference" "D")\n'
+            '    (instances (project "SKiDL-Generated" (path "/" (reference "D") (unit 1))))\n'
+            '  )\n'
+            '  (symbol (lib_id "Device:R")\n'
+            '    (property "Reference" "R")\n'
+            '    (instances (project "SKiDL-Generated" (path "/" (reference "R") (unit 1))))\n'
+            '  )\n'
+            ')\n',
+            encoding="utf-8",
+        )
+
+        _fix_exported_schematic_references(
+            str(schematic),
+            [self._MockPart("D13"), self._MockPart("R1")],
+        )
+
+        content = schematic.read_text(encoding="utf-8")
+        assert '(property "Reference" "D13")' in content
+        assert '(reference "D13")' in content
+        assert '(property "Reference" "R1")' in content
+        assert '(reference "R1")' in content
+
+    def test_fix_reference_block_leaves_lib_symbol_definitions_unchanged(self):
+        """Embedded lib symbols must not be rewritten during instance ref repair."""
+        refs_by_prefix = _reference_queues([self._MockPart("D13")])
+        block = (
+            '(symbol "Device:D"\n'
+            '  (property "Reference" "D")\n'
+            '  (symbol "D_1_1" (text "D?" (at 0 2.54 0)))\n'
+            ')'
+        )
+
+        fixed = _fix_reference_block(block, refs_by_prefix, {})
+
+        assert fixed == block
+
+    def test_lib_symbol_definition_keeps_library_names_stable(self):
+        """Embedded lib symbols should keep stable lib IDs and unit symbol names."""
+
+        class _MockLib:
+            filename = "Device"
+
+        class _MockPart:
+            lib = _MockLib()
+            name = "D"
+            ref = "D13"
+            ref_prefix = "D"
+            datasheet = "~"
+            description = "Diode"
+            draw_cmds = {
+                1: [
+                    ["text", "D?", ["at", 0, 2.54, 0], ["effects", ["font", ["size", 1.27, 1.27]]]],
+                    ["text", "D", ["at", 0, 2.54, 0], ["effects", ["font", ["size", 1.27, 1.27]]]],
+                    ["property", "Reference", "D?", ["at", 0, 2.54, 0], ["effects", ["font", ["size", 1.27, 1.27]]]],
+                    ["pin", "1", ["at", 0, 0, 0]],
+                ]
+            }
+
+        symbol_def = sexp_schematic.part_to_lib_symbol_definition(_MockPart())
+        symbol_text = str(Sexp(symbol_def))
+
+        assert 'Device:D__D13' not in symbol_text
+        assert '(property "Reference" "D13")' not in symbol_text
+        assert '(property "Reference" "D"' in symbol_text
+        assert '(text "D?"' not in symbol_text
+        assert '(text "D"' not in symbol_text
+
+    def test_part_to_sexp_uses_full_reference_on_placed_symbol(self):
+        """Placed symbol instances must carry the annotated full reference."""
+
+        class _MockLib:
+            filename = "Device"
+
+        class _MockPart:
+            lib = _MockLib()
+            name = "LED"
+            ref = "D?"
+            ref_prefix = "D"
+            value = "LED"
+            footprint = ""
+            datasheet = "~"
+            description = "Indicator LED"
+            fields = {"Reference": "D13"}
+            pins = []
+            hiername = "top/LED1"
+
+        symbol = sexp_schematic.part_to_sexp(_MockPart())
+        symbol_text = str(symbol)
+
+        assert '(property "Reference" "D13"' in symbol_text
+        assert '(reference "D13")' in symbol_text
+        assert '(property "Reference" "D?"' not in symbol_text
+
+    def test_part_to_sexp_uses_explicit_project_and_instance_path(self):
+        """Placed symbol instances serialize the caller-provided project/path."""
+
+        class _MockLib:
+            filename = "Device"
+
+        class _MockPart:
+            lib = _MockLib()
+            name = "LED"
+            ref = "D13"
+            ref_prefix = "D"
+            value = "LED"
+            footprint = ""
+            datasheet = "~"
+            description = "Indicator LED"
+            fields = {"Reference": "D13"}
+            pins = []
+            hiername = "top/LED1"
+
+        symbol = sexp_schematic.part_to_sexp(
+            _MockPart(),
+            instance_path="/root-uuid",
+            project_name="demo_project",
+        )
+        symbol_text = str(symbol)
+
+        assert '(project "demo_project"' in symbol_text
+        assert '(path "/root-uuid"' in symbol_text
+
+    def test_append_missing_symbol_instances_adds_part_instances(self):
+        """A sheet with no placed part symbols gets one instance per SKiDL part."""
+
+        class _MockLib:
+            filename = "Device"
+
+        class _MockPart:
+            lib = _MockLib()
+            ref = "R1"
+            ref_prefix = "R"
+            name = "R"
+            value = "1K"
+            footprint = ""
+            datasheet = "~"
+            description = "Resistor"
+            fields = {"Reference": "R1"}
+            pins = []
+            hiername = "top/R1"
+
+        elements = []
+        _append_missing_symbol_instances(elements, [_MockPart()], Tx(), instance_path="/")
+
+        assert len(elements) == 1
+        assert _is_symbol_instance(elements[0])
+        symbol_text = str(elements[0])
+        assert '(lib_id "Device:R")' in symbol_text
+        assert '(property "Reference" "R1"' in symbol_text
+
+
 # ===========================================================================
 # Layer 2: Structural validation — parse output, no KiCad needed
 # ===========================================================================
+
+
+class TestInstancePaths:
+    """Tests for KiCad symbol instance path generation."""
+
+    def test_child_instance_path_from_root(self):
+        """Child sheets hang directly under the root '/' instance path."""
+        assert _child_instance_path("/", "child-uuid") == "/child-uuid"
+
+    def test_child_instance_path_nested(self):
+        """Nested child sheets extend the full parent instance path."""
+        assert _child_instance_path("/parent-uuid", "child-uuid") == (
+            "/parent-uuid/child-uuid"
+        )
 
 
 def validate_kicad_sch(content):
@@ -260,7 +474,7 @@ class TestStructuralValidation:
     def test_valid_minimal(self):
         """Minimal valid schematic passes validation."""
         content = """(kicad_sch
-  (version 20230409)
+  (version 20250114)
   (generator "skidl")
   (uuid "abc-123")
   (lib_symbols)
@@ -270,7 +484,7 @@ class TestStructuralValidation:
     def test_unbalanced_parens(self):
         """Unbalanced parentheses fail validation."""
         content = (
-            "(kicad_sch (version 20230409) (generator skidl) (uuid abc) (lib_symbols)"
+            "(kicad_sch (version 20250114) (generator skidl) (uuid abc) (lib_symbols)"
         )
         with pytest.raises(AssertionError, match="Unbalanced"):
             validate_kicad_sch(content)
@@ -284,7 +498,7 @@ class TestStructuralValidation:
     def test_mils_coordinates_detected(self):
         """Coordinates in mils range (>5000) are caught."""
         content = """(kicad_sch
-  (version 20230409)
+  (version 20250114)
   (generator "skidl")
   (uuid "abc")
   (lib_symbols)
@@ -406,6 +620,44 @@ def _generate_multi_part(output_dir):
     return filepath
 
 
+def _generate_hierarchical_child(output_dir):
+    """Generate a small hierarchical design and return top + child paths."""
+    from skidl import Circuit, Net, Part, subcircuit
+
+    circuit = Circuit(name="hierarchy_test")
+
+    @subcircuit
+    def led_stage(vin, vout):
+        r = Part("Device", "R", value="1K")
+        d = Part("Device", "LED", value="LED")
+        vin += r[1]
+        r[2] += d[2]
+        d[1] += vout
+
+    with circuit:
+        vin = Net("VIN")
+        vout = Net("VOUT")
+        led_stage(vin, vout)
+        circuit.generate_schematic(
+            filepath=output_dir,
+            top_name="hierarchy_test",
+            flatness=0.0,
+        )
+
+    top_path = os.path.join(output_dir, "hierarchy_test.kicad_sch")
+    assert os.path.exists(top_path), f"Top schematic file not generated at {top_path}"
+
+    with open(top_path, encoding="utf-8") as f:
+        top_content = f.read()
+
+    match = re.search(r'\(property "Sheetfile" "([^"]+\.kicad_sch)"', top_content)
+    assert match, "Top schematic did not emit a child Sheetfile property"
+
+    child_path = os.path.join(output_dir, match.group(1))
+    assert os.path.exists(child_path), f"Child schematic file not generated at {child_path}"
+    return top_path, child_path
+
+
 class TestEndToEndDivider:
     """End-to-end tests with a simple resistor divider."""
 
@@ -434,6 +686,21 @@ class TestEndToEndDivider:
             # A4 is 297x210mm — coordinates should be in that ballpark.
             assert abs(x) < 1200, f"x={x} too large for mm"
             assert abs(y) < 850, f"y={y} too large for mm"
+
+
+    def test_divider_symbol_instances_use_root_uuid_path_and_full_refs(self, output_dir):
+        """Root-sheet symbol instances use a KiCad-style root UUID path and full refs."""
+        filepath = _generate_simple_divider(output_dir)
+        with open(filepath, encoding="utf-8") as f:
+            content = f.read()
+
+        assert re.search(r"\(symbol\s+\(lib_id\s+\"Device:R\"", content)
+        assert re.search(r'\(path "/[0-9a-f-]+"' , content)
+        assert '(project "divider_test"' in content
+        assert '(property "Reference" "R1"' in content
+        assert '(property "Reference" "R2"' in content
+        assert '(reference "R1")' in content
+        assert '(reference "R2")' in content
 
 
 class TestEndToEndAndGate:
@@ -493,6 +760,26 @@ class TestEndToEndMultiPart:
         with open(filepath) as f:
             content = f.read()
         validate_kicad_sch(content)
+
+
+class TestEndToEndHierarchy:
+    """End-to-end tests for hierarchical sheet instance serialization."""
+
+    def test_child_sheet_symbols_use_local_project_and_uuid_path(self, output_dir):
+        """Child sheets serialize symbol instances against their own file/project context."""
+        _, child_path = _generate_hierarchical_child(output_dir)
+
+        with open(child_path, encoding="utf-8") as f:
+            content = f.read()
+
+        child_name = os.path.splitext(os.path.basename(child_path))[0]
+        child_uuid = _gen_uuid(f"sheet:{os.path.basename(child_path)}")
+
+        assert f'(project "{child_name}"' in content
+        assert f'(uuid "{child_uuid}")' in content
+        assert f'(path "/{child_uuid}"' in content
+        assert re.search(r'\(reference "R\d+"\)', content)
+        assert re.search(r'\(reference "D\d+"\)', content)
 
 
 # ===========================================================================

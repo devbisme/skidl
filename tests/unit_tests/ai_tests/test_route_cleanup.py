@@ -28,6 +28,7 @@ class DummyNode:
         return list(self._net_pins[net])
 
     _segment_obstructed = route_module.Router._segment_obstructed
+    _route_simple_manhattan_net = route_module.Router._route_simple_manhattan_net
     route_straight_nets = route_module.Router.route_straight_nets
 
 
@@ -109,6 +110,41 @@ def test_route_straight_nets_skips_blocked_direct_segment():
     pin_a = DummyPin(left, Point(0, 0))
     pin_b = DummyPin(right, Point(20, 0))
     node = DummyNode([left, right, blocker], {net: []}, {net: [pin_a, pin_b]})
+
+    routed = node.route_straight_nets([net])
+
+    assert routed == []
+    assert node.wires[net] == []
+
+
+def test_route_straight_nets_routes_clear_l_shaped_two_pin_net():
+    net = object()
+    lower = DummyPart(BBox(Point(-1, -1), Point(1, 1)))
+    upper = DummyPart(BBox(Point(19, 19), Point(21, 21)))
+    pin_a = DummyPin(lower, Point(0, 0))
+    pin_b = DummyPin(upper, Point(20, 20))
+    node = DummyNode([lower, upper], {net: []}, {net: [pin_a, pin_b]})
+
+    routed = node.route_straight_nets([net])
+
+    assert routed == [net]
+    assert len(node.wires[net]) == 2
+    assert {
+        _seg_coords(seg) for seg in node.wires[net]
+    } in (
+        {((0, 0), (0, 20)), ((0, 20), (20, 20))},
+        {((0, 0), (20, 0)), ((20, 0), (20, 20))},
+    )
+
+
+def test_route_straight_nets_skips_blocked_l_shaped_two_pin_net():
+    net = object()
+    lower = DummyPart(BBox(Point(-1, -1), Point(1, 1)))
+    upper = DummyPart(BBox(Point(19, 19), Point(21, 21)))
+    blocker = DummyPart(BBox(Point(5, -5), Point(15, 25)))
+    pin_a = DummyPin(lower, Point(0, 0))
+    pin_b = DummyPin(upper, Point(20, 20))
+    node = DummyNode([lower, upper, blocker], {net: []}, {net: [pin_a, pin_b]})
 
     routed = node.route_straight_nets([net])
 

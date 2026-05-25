@@ -5,6 +5,7 @@ human_readable 模式下的功能拓扑识别（首版：generic driver）。
 与 trunk-aware 布局互斥：matched 时仅 apply_generic_driver_layout，否则 apply_trunk_aware_layout。
 """
 
+import os
 import re
 from collections import defaultdict
 
@@ -14,12 +15,36 @@ from skidl.schematics.trunk_layout import (
     _place_parts_in_row,
     _resolve_overlaps,
     _set_part_center_x_safe,
+    allow_anonymous_input_rail_promotion,
     apply_trunk_aware_layout,
     classify_trunk_nets,
 )
 
 # 网名 / pin 名 token（双通道分类）
-_INPUT_TOKENS = ("VIN", "VCC", "VDD", "VM", "VBAT", "24V", "12V", "5V", "3V3", "SUPPLY", "POWER")
+_INPUT_TOKENS = (
+    "VIN",
+    "VCC",
+    "VDD",
+    "VM",
+    "VBAT",
+    "VBUS",
+    "VSUP",
+    "24V",
+    "12V",
+    "9V",
+    "5V",
+    "3V3",
+    "3V",
+    "1V8",
+    "SUPPLY",
+    "POWER",
+    "PWR",
+    "B+",
+    "BATT",
+    "BAT+",
+    "IN+",
+    "DC_IN",
+)
 _GROUND_TOKENS = ("GND", "VSS", "PGND", "AGND", "DGND")
 # 顶/底 power rail 网名 token（与 control/switch 分离）
 _TOP_RAIL_TOKENS = _INPUT_TOKENS + ("W+", "LED+")
@@ -34,6 +59,7 @@ _LOW_R_VALUE_RE = re.compile(
     r"(^0\s*R|^0R|^0\.|MR|R050|0\.43|(^|[^0-9])1R([^0-9]|$))",
     re.IGNORECASE,
 )
+_SENSE_PART_TOKENS = ("SENSE", "CS", "CSN", "CSP", "RS", "ISEN")
 
 
 def _token_in_text(text, tokens):
@@ -47,8 +73,49 @@ def _token_in_text(text, tokens):
     return False
 
 
+def _matched_tokens(text, tokens):
+    """Return matched tokens in stable order for classification/debug logging."""
+    if not text:
+        return []
+    upper = str(text).upper()
+    matches = []
+    for token in tokens:
+        token_u = str(token).upper()
+        if token_u in upper and token_u not in matches:
+            matches.append(token_u)
+    matches.sort(key=len, reverse=True)
+    return matches
+
+
+def _token_in_text(text, tokens):
+    return bool(_matched_tokens(text, tokens))
+
+
 def _net_label(net):
     return str(getattr(net, "name", "") or "")
+
+
+def _attach_debug_enabled(options=None):
+    if options and options.get("schematic_attach_debug") is not None:
+        return bool(options.get("schematic_attach_debug"))
+    value = str(os.environ.get("SKIDL_SCH_DEBUG_ATTACH", "") or "").strip().lower()
+    return value not in ("", "0", "false", "no", "off")
+
+
+def _attach_debug_log(options, message):
+    if not _attach_debug_enabled(options):
+        return
+    from skidl.logger import active_logger
+
+    active_logger.info("[attach-debug] %s" % message)
+
+
+def _topology_debug_log(options, tag, message):
+    if not options.get("schematic_progress", False):
+        return
+    from skidl.logger import active_logger
+
+    active_logger.info("[%s] %s" % (tag, message))
 
 
 def _disabled_topology(fallback="trunk_aware"):
@@ -143,6 +210,8 @@ def _classify_net_semantic(net, main_part, node, part_set, adjacency):
     返回 set of: input, ground, output, control, switch, sense
     """
     net_name = _net_label(net).upper()
+    net_parts = node._net_connected_parts(net, allowed_parts=part_set)
+    net_refs = [str(getattr(part, "ref", "") or "").upper() for part in net_parts]
     categories = set()
 
     if _token_in_text(net_name, _INPUT_TOKENS):
@@ -175,6 +244,17 @@ def _classify_net_semantic(net, main_part, node, part_set, adjacency):
                 categories.add("switch")
             if _token_in_text(pname, _SENSE_TOKENS):
                 categories.add("sense")
+
+        if (
+            "input" not in categories
+            and pin_names
+            and any(_matched_tokens(pname, _INPUT_TOKENS) for pname in pin_names)
+        ):
+            categories.add("input")
+
+    if "input" not in categories and _matched_tokens(net_name, ("POWER", "PWR", "SUPPLY")):
+        if any(ref.startswith(("C", "D", "L", "J", "P", "CN")) for ref in net_refs):
+            categories.add("input")
 
     # SW 需绑主 IC pin 或邻接 L/D 才计 switch（避免单独 SW 网名误判）
     if "switch" in categories and main_part is not None:
@@ -355,6 +435,136 @@ def _build_net_lists(node, candidate, parts, nets, part_set, adjacency):
     return buckets
 
 
+def _score_driver_rail_candidate(net, node, main_part, part_set):
+    """Score top/bottom/control rail candidacy with reasons for debug logging."""
+    net_name = _net_label(net).upper()
+    net_parts = node._net_connected_parts(net, allowed_parts=part_set)
+    pin_names = (
+        _pins_on_part_for_net(node, main_part, net, part_set) if main_part is not None else []
+    )
+    categories = _classify_net_semantic(net, main_part, node, part_set, None)
+    refs = [str(getattr(part, "ref", "") or "").upper() for part in net_parts]
+
+    top_score = 0
+    bottom_score = 0
+    control_score = 0
+    reasons = []
+    token_hits = []
+
+    top_hits = _matched_tokens(net_name, _TOP_RAIL_TOKENS)
+    bottom_hits = _matched_tokens(net_name, _BOTTOM_RAIL_TOKENS)
+    control_hits = _matched_tokens(net_name, _CONTROL_TOKENS)
+    pin_input_hits = []
+    pin_ground_hits = []
+    pin_control_hits = []
+
+    for pname in pin_names:
+        pin_input_hits.extend(_matched_tokens(pname, _INPUT_TOKENS))
+        pin_ground_hits.extend(_matched_tokens(pname, _GROUND_TOKENS))
+        pin_control_hits.extend(_matched_tokens(pname, _CONTROL_TOKENS))
+
+    if top_hits:
+        top_score += 4 + len(top_hits)
+        token_hits.extend("token:%s" % token for token in top_hits)
+        reasons.extend("token:%s" % token for token in top_hits)
+    if bottom_hits:
+        bottom_score += 4 + len(bottom_hits)
+        token_hits.extend("token:%s" % token for token in bottom_hits)
+        reasons.extend("token:%s" % token for token in bottom_hits)
+    if control_hits:
+        control_score += 3 + len(control_hits)
+        reasons.extend("token:%s" % token for token in control_hits)
+
+    if pin_input_hits:
+        top_score += 4
+        reasons.append("main_pin:%s" % pin_input_hits[0])
+    if pin_ground_hits:
+        bottom_score += 4
+        reasons.append("main_pin:%s" % pin_ground_hits[0])
+    if pin_control_hits:
+        control_score += 2
+        reasons.append("main_pin:%s" % pin_control_hits[0])
+
+    if "input" in categories:
+        top_score += 2
+        reasons.append("semantic:input")
+    if "ground" in categories:
+        bottom_score += 2
+        reasons.append("semantic:ground")
+    if "control" in categories:
+        control_score += 2
+        reasons.append("semantic:control")
+    if "switch" in categories:
+        control_score += 1
+        reasons.append("semantic:switch")
+
+    fanout = len(net_parts)
+    fanout_bonus = 0
+    if fanout >= 4:
+        fanout_bonus = 3
+    elif fanout >= 3:
+        fanout_bonus = 2
+    elif fanout >= 2:
+        fanout_bonus = 1
+    if fanout_bonus:
+        if top_score > 0:
+            top_score += fanout_bonus
+        if bottom_score > 0:
+            bottom_score += fanout_bonus
+        if control_score > 0:
+            control_score += 1
+        reasons.append("fanout>=%d" % fanout)
+
+    if main_part in net_parts:
+        if top_score > 0:
+            top_score += 2
+        if bottom_score > 0:
+            bottom_score += 2
+        if control_score > 0:
+            control_score += 1
+        reasons.append("connected_to_ic")
+
+    if top_score > 0:
+        if any(ref.startswith("C") for ref in refs):
+            top_score += 2
+            reasons.append("input_cap")
+        if any(ref.startswith(("J", "P", "CN")) for ref in refs):
+            top_score += 1
+            reasons.append("input_connector")
+        if any(ref.startswith("D") for ref in refs):
+            top_score += 1
+            reasons.append("input_diode")
+        if any(ref.startswith("L") for ref in refs):
+            top_score += 1
+            reasons.append("inductor_near")
+
+    direction = None
+    final_score = 0
+    if bottom_score >= max(top_score, control_score) and bottom_score > 0:
+        direction = "bottom"
+        final_score = bottom_score
+    elif top_score >= max(bottom_score, control_score) and top_score > 0:
+        direction = "top"
+        final_score = top_score
+    elif control_score > 0:
+        direction = "control"
+        final_score = control_score
+
+    return {
+        "net": net,
+        "name": net_name,
+        "direction": direction,
+        "score": final_score,
+        "top_score": top_score,
+        "bottom_score": bottom_score,
+        "control_score": control_score,
+        "fanout": fanout,
+        "reasons": reasons,
+        "token_hits": token_hits,
+        "categories": sorted(categories),
+    }
+
+
 def _assign_topology_part_groups(node, parts, roles, topology, part_set):
     """按已分类 net 将器件归入各功能区。"""
     net_sets = {
@@ -378,6 +588,13 @@ def _assign_topology_part_groups(node, parts, roles, topology, part_set):
             continue
         ref = str(getattr(part, "ref", "") or "").upper()
         role = roles.get(part, "other")
+        control_like = touches(part, "control") or _part_is_control_branch_passive(
+            part, main
+        )
+        sense_like = touches(part, "sense") or _part_looks_like_low_ohm_sense_resistor(
+            part, node, main
+        )
+        inductor_like = _part_looks_like_inductor(part, roles)
 
         if touches(part, "input") and (
             ref[:1] in ("C", "D") or role == "connector"
@@ -391,12 +608,12 @@ def _assign_topology_part_groups(node, parts, roles, topology, part_set):
             ref.startswith(("L", "D", "Q")) and touches(part, "switch")
         ):
             topology["power_loop_parts"].add(part)
-        if touches(part, "control") or (
-            ref.startswith(("R", "C")) and touches(part, "control")
-        ):
+        if control_like:
             topology["control_parts"].add(part)
-        if touches(part, "sense") and ref.startswith(("R", "C")):
+        if sense_like and ref.startswith(("R", "C")):
             topology["sense_feedback_parts"].add(part)
+        if inductor_like and (touches(part, "switch") or touches(part, "output")):
+            topology["power_loop_parts"].add(part)
         if touches(part, "ground") and ref.startswith("C"):
             # 地相关去耦可偏下，由布局 Y 处理
             pass
@@ -406,7 +623,7 @@ def _assign_topology_part_groups(node, parts, roles, topology, part_set):
         if part is main:
             continue
         ref = str(getattr(part, "ref", "") or "").upper()
-        if ref.startswith(("L", "D")) and (
+        if (_part_looks_like_inductor(part, roles) or ref.startswith("D")) and (
             touches(part, "output") or touches(part, "switch")
         ):
             topology["power_loop_parts"].add(part)
@@ -417,6 +634,97 @@ def _assign_topology_part_groups(node, parts, roles, topology, part_set):
 def _part_ref_prefix(part):
     """取器件前缀，便于按 L/D/C/R/J 等做轻度分型。"""
     return str(getattr(part, "ref", "") or "").upper()[:1]
+
+
+def _part_connected_nets(part):
+    return {
+        getattr(pin, "net", None)
+        for pin in getattr(part, "pins", [])
+        if getattr(pin, "net", None) is not None
+    }
+
+
+def _connected_main_pin_names(part, main_part):
+    if main_part is None:
+        return set()
+    names = set()
+    for net in _part_connected_nets(part):
+        for pin in getattr(net, "pins", []):
+            if getattr(pin, "part", None) is main_part:
+                pname = str(getattr(pin, "name", "") or "").upper()
+                if pname:
+                    names.add(pname)
+    return names
+
+
+def _part_looks_like_inductor(part, roles):
+    ref = str(getattr(part, "ref", "") or "").upper()
+    role = str(roles.get(part, "") or "").lower()
+    text = "%s %s" % (
+        str(getattr(part, "value", "") or ""),
+        str(getattr(part, "name", "") or ""),
+    )
+    text = text.upper()
+    return (
+        ref.startswith("L")
+        or role == "inductor"
+        or "INDUCTOR" in text
+        or "CHOKE" in text
+    )
+
+
+def _parse_resistor_ohms(value):
+    text = str(value or "").upper().replace(" ", "")
+    if not text:
+        return None
+    text = text.replace("OHMS", "").replace("OHM", "")
+    if "MR" in text:
+        match = re.search(r"(\d+(?:\.\d+)?)MR", text)
+        if match:
+            return float(match.group(1)) / 1000.0
+    if text.startswith("R") and text[1:].isdigit():
+        return float("0." + text[1:])
+    match = re.match(r"(\d+)R(\d+)$", text)
+    if match:
+        return float("%s.%s" % (match.group(1), match.group(2)))
+    match = re.match(r"(\d+(?:\.\d+)?)R$", text)
+    if match:
+        return float(match.group(1))
+    match = re.match(r"(\d+(?:\.\d+)?)$", text)
+    if match:
+        return float(match.group(1))
+    return None
+
+
+def _part_looks_like_low_ohm_sense_resistor(part, node, main_part):
+    ref = str(getattr(part, "ref", "") or "").upper()
+    if not ref.startswith("R"):
+        return False
+    value = str(getattr(part, "value", "") or "")
+    ident = "%s %s %s" % (
+        ref,
+        value,
+        str(getattr(part, "name", "") or ""),
+    )
+    ident_u = ident.upper()
+    ohms = _parse_resistor_ohms(value)
+    main_pin_names = _connected_main_pin_names(part, main_part)
+    return (
+        _LOW_R_VALUE_RE.search(value.replace(" ", "")) is not None
+        or (ohms is not None and ohms < 1.0)
+        or _token_in_text(ident_u, _SENSE_PART_TOKENS)
+        or any(_token_in_text(name, _SENSE_TOKENS) for name in main_pin_names)
+    )
+
+
+def _part_is_control_branch_passive(part, main_part):
+    ref = str(getattr(part, "ref", "") or "").upper()
+    if not ref.startswith(("R", "C")):
+        return False
+    return any(
+        _token_in_text(name, _CONTROL_TOKENS)
+        for name in _connected_main_pin_names(part, main_part)
+    )
 
 
 def _part_width(part, grid):
@@ -452,12 +760,14 @@ def _build_driver_chain_order(node, roles, topology, main_part):
 
     right = []
     for part in topology.get("power_loop_parts", set()):
-        if _part_ref_prefix(part) == "L":
+        if _part_looks_like_inductor(part, roles):
             right.append(part)
     for part in topology.get("output_parts", set()):
         if roles.get(part) == "connector":
             right.append(part)
-    right = by_ref(right)
+    inductors = by_ref([p for p in right if _part_looks_like_inductor(p, roles)])
+    outputs = by_ref([p for p in right if p not in inductors])
+    right = inductors + outputs
 
     chain = left + [main_part] + right
     return chain, set(chain)
@@ -508,43 +818,180 @@ def _collect_driver_rail_nets(nets, topology, node, main_part, part_set):
     control = list(topology.get("control_nets", []))
     control_ids = {id(n) for n in control}
     switch_ids = {id(n) for n in topology.get("switch_or_drive_nets", [])}
+    rail_debug = {}
 
     for net in nets:
-        if not _is_rail_label_net(net):
-            continue
-        if id(net) in switch_ids:
-            continue
         name = _net_label(net).upper()
-        cats = _classify_net_semantic(net, main_part, node, part_set, None)
+        cats = sorted(_classify_net_semantic(net, main_part, node, part_set, None))
+        if id(net) in switch_ids:
+            rail_debug[name] = {
+                "net": net,
+                "name": name,
+                "direction": None,
+                "selected_direction": None,
+                "rejected_reason": "switch_or_drive_net",
+                "score": 0,
+                "top_score": 0,
+                "bottom_score": 0,
+                "control_score": 0,
+                "fanout": len(node._net_connected_parts(net, allowed_parts=part_set)),
+                "reasons": [],
+                "token_hits": [],
+                "categories": cats,
+            }
+            _topology_debug_log(
+                getattr(node, "_schematic_debug_options", {}),
+                "rail_candidate",
+                "net=%s fanout=%s semantic_types=%s score=%s matched_tokens=%s selected_direction=%s rejected_reason=%s"
+                % (
+                    name or "<anon>",
+                    rail_debug[name]["fanout"],
+                    cats,
+                    0,
+                    [],
+                    None,
+                    "switch_or_drive_net",
+                ),
+            )
+            continue
+        meta = _score_driver_rail_candidate(net, node, main_part, part_set)
+        meta["selected_direction"] = None
+        meta["rejected_reason"] = "unclassified"
+        rail_debug[name] = meta
+        _topology_debug_log(
+            getattr(node, "_schematic_debug_options", {}),
+            "rail_candidate",
+            "net=%s fanout=%s semantic_types=%s score=%s matched_tokens=%s selected_direction=%s rejected_reason=%s reasons=%s"
+            % (
+                name or "<anon>",
+                meta.get("fanout", 0),
+                meta.get("categories", []),
+                meta.get("score", 0),
+                meta.get("token_hits", []),
+                meta.get("selected_direction"),
+                meta.get("rejected_reason"),
+                meta.get("reasons", []),
+            ),
+        )
+        _topology_debug_log(
+            getattr(node, "_schematic_debug_options", {}),
+            "rail_score",
+            "net=%s top=%s bottom=%s control=%s fanout=%s token_matched=%s"
+            % (
+                name or "<anon>",
+                meta.get("top_score", 0),
+                meta.get("bottom_score", 0),
+                meta.get("control_score", 0),
+                meta.get("fanout", 0),
+                meta.get("token_hits", []),
+            ),
+        )
+
+        anonymous_promoted = False
+        if _is_anonymous_net(net):
+            anonymous_promoted = allow_anonymous_input_rail_promotion(
+                name,
+                meta.get("direction"),
+                meta.get("categories", []),
+                meta.get("reasons", []),
+                meta.get("fanout", 0),
+            )
+            if not anonymous_promoted:
+                meta["rejected_reason"] = "anonymous_or_blank"
+                continue
+            _topology_debug_log(
+                getattr(node, "_schematic_debug_options", {}),
+                "rail_promoted",
+                "net=%s semantic=input reasons=%s"
+                % (name or "<anon>", meta.get("reasons", [])),
+            )
 
         if id(net) in control_ids or "control" in cats or _token_in_text(
             name, _CONTROL_TOKENS
         ):
             if net not in control:
                 control.append(net)
+            meta["direction"] = "control"
+            meta["selected_direction"] = "control"
+            meta["rejected_reason"] = ""
             continue
         if "switch" in cats or _token_in_text(name, _SWITCH_TOKENS):
+            meta["rejected_reason"] = "switch_semantic"
             continue
 
-        if _token_in_text(name, _BOTTOM_RAIL_TOKENS) or "ground" in cats:
+        if meta.get("direction") == "bottom" and meta.get("score", 0) > 0:
             bottom.append(net)
+            meta["selected_direction"] = "bottom"
+            meta["rejected_reason"] = ""
             continue
-        if _token_in_text(name, _TOP_RAIL_TOKENS) or "input" in cats:
+        if meta.get("direction") == "top" and meta.get("score", 0) > 0:
             top.append(net)
+            meta["selected_direction"] = "top"
+            meta["rejected_reason"] = ""
             continue
         if net in topology.get("ground_nets", []):
             bottom.append(net)
+            meta["selected_direction"] = "bottom"
+            meta["rejected_reason"] = "fallback_ground_bucket"
         elif net in topology.get("input_nets", []) or net in topology.get(
             "power_nets", []
         ):
             top.append(net)
+            meta["selected_direction"] = "top"
+            meta["rejected_reason"] = "fallback_input_bucket"
         elif net in topology.get("output_nets", []):
             if _token_in_text(name, ("LED+", "W+", "LED", "OUT+")):
                 top.append(net)
+                meta["selected_direction"] = "top"
+                meta["rejected_reason"] = "fallback_output_positive_bucket"
             elif _token_in_text(name, ("LED-", "W-")):
                 bottom.append(net)
+                meta["selected_direction"] = "bottom"
+                meta["rejected_reason"] = "fallback_output_negative_bucket"
+            else:
+                meta["rejected_reason"] = "output_without_rail_token"
+        else:
+            meta["rejected_reason"] = meta.get("rejected_reason") or "score_zero_or_not_bucketed"
 
-    return _dedupe_nets(top), _dedupe_nets(bottom), _dedupe_nets(control)
+    top = _dedupe_nets(top)
+    bottom = _dedupe_nets(bottom)
+    control = _dedupe_nets(control)
+    topology["rail_debug"] = rail_debug
+    for meta in rail_debug.values():
+        if meta.get("selected_direction"):
+            continue
+        _topology_debug_log(
+            getattr(node, "_schematic_debug_options", {}),
+            "rail_rejected",
+            "net=%s fanout=%s semantic_types=%s score=%s matched_tokens=%s selected_direction=%s rejected_reason=%s"
+            % (
+                meta.get("name") or "<anon>",
+                meta.get("fanout", 0),
+                meta.get("categories", []),
+                meta.get("score", 0),
+                meta.get("token_hits", []),
+                meta.get("selected_direction"),
+                meta.get("rejected_reason") or "unknown",
+            ),
+        )
+    for side, selected in (("top", top), ("bottom", bottom), ("control", control)):
+        for net in selected:
+            meta = rail_debug.get(_net_label(net).upper(), {})
+            _topology_debug_log(
+                getattr(node, "_schematic_debug_options", {}),
+                "rail_selected",
+                "net=%s score=%s reasons=%s token_matched=%s fanout=%s final_direction=%s"
+                % (
+                    _net_label(net).upper() or "<anon>",
+                    meta.get("score", 0),
+                    meta.get("reasons", []),
+                    meta.get("token_hits", []),
+                    meta.get("fanout", 0),
+                    side,
+                ),
+            )
+
+    return top, bottom, control
 
 
 def _union_placed_bbox(parts):
@@ -637,6 +1084,39 @@ def _driver_chain_pin_y_span(node):
     return min(ys), max(ys)
 
 
+def _driver_rail_attachment_points(node, net, allowed_parts=None):
+    """Collect actual driver rail attachment points from connected, placed pins."""
+    from skidl.schematics.place import is_net_terminal
+
+    pts = []
+    allowed = set(allowed_parts) if allowed_parts is not None else None
+    for pin in getattr(net, "pins", []):
+        part = getattr(pin, "part", None)
+        if part is None or is_net_terminal(part):
+            continue
+        if allowed is not None and part not in allowed:
+            continue
+        tx = getattr(part, "tx", None)
+        pt = getattr(pin, "pt", None)
+        if tx is None or pt is None:
+            continue
+        pts.append((pt * tx).round())
+    return pts
+
+
+def _driver_rail_span_from_points(points, grid, fallback_min, fallback_max, margin_grids=1):
+    """Derive a conservative horizontal rail span from actual attachment points."""
+    if not points:
+        return fallback_min, fallback_max
+
+    margin = max(int(margin_grids), 0) * grid
+    x_min = Point(min(pt.x for pt in points), 0).snap(grid).x - margin
+    x_max = Point(max(pt.x for pt in points), 0).snap(grid).x + margin
+    if x_min > x_max:
+        return fallback_min, fallback_max
+    return x_min, x_max
+
+
 def _clamp_rail_y_to_driver_chain(node, top_y, bottom_y, grid, rail_margin):
     """
     把顶/底 rail 限制在主链引脚附近，避免 union/place 离群框把 rail 甩到页底。
@@ -692,6 +1172,7 @@ def build_driver_rail_plan(node, parts, nets, topology, main_part, **options):
         return disabled
     if not options.get("driver_rail_routing", True):
         return disabled
+    node._schematic_debug_options = options
 
     grid = int(options.get("grid", 100))
     rail_margin = 2 * grid
@@ -726,15 +1207,27 @@ def build_driver_rail_plan(node, parts, nets, topology, main_part, **options):
         node, top_y, bottom_y, grid, rail_margin
     )
 
+    real_part_set = set(real_parts)
+    rail_spans = {}
+    for net in top_nets + bottom_nets:
+        rail_spans[net] = _driver_rail_span_from_points(
+            _driver_rail_attachment_points(node, net, allowed_parts=real_part_set),
+            grid,
+            x_min,
+            x_max,
+        )
+
     return {
         "enabled": True,
         "top_nets": top_nets,
         "bottom_nets": bottom_nets,
         "control_nets": control_nets,
+        "topology": topology,
         "top_y": top_y,
         "bottom_y": bottom_y,
         "x_min": x_min,
         "x_max": x_max,
+        "rail_spans": rail_spans,
         "grid": grid,
     }
 
@@ -757,6 +1250,25 @@ def _log_driver_rails(plan, options):
             plan.get("x_max"),
         )
     )
+    rail_debug = (plan.get("topology") or {}).get("rail_debug", {})
+    for side in ("top", "bottom"):
+        for net in plan.get("%s_nets" % side, []):
+            meta = rail_debug.get(_net_label(net).upper(), {})
+            if not meta:
+                continue
+            _topology_debug_log(
+                options,
+                "rail_selected",
+                "net=%s score=%s reasons=%s token_matched=%s fanout=%s final_direction=%s"
+                % (
+                    meta.get("name") or "<anon>",
+                    meta.get("score", 0),
+                    meta.get("reasons", []),
+                    meta.get("token_hits", []),
+                    meta.get("fanout", 0),
+                    side,
+                ),
+            )
 
 
 def _log_rail_blockers(node, parts, plan, options):
@@ -787,20 +1299,24 @@ def _part_on_net_set(part, net_set):
     return False
 
 
-def _chain_row_satellite_parts(node, parts, chain_parts, nets):
+def _chain_row_satellite_parts(node, parts, chain_parts, nets, topology=None):
     """
     与主链器件共网、但不在 chain 内的 R/C（如 R1、输入侧小电容），
     应排在主链同一水平行，避免 switch 网被 switchbox 绕外围。
     """
     chain_set = set(chain_parts)
     part_set = set(parts)
+    reserved = set()
+    if topology:
+        reserved |= set(topology.get("sense_feedback_parts", set()) or [])
+        reserved |= set(topology.get("control_parts", set()) or [])
     satellites = []
     for net in nets:
         connected = node._net_connected_parts(net, allowed_parts=part_set)
         if not connected or not chain_set.intersection(connected):
             continue
         for part in connected:
-            if part in chain_set:
+            if part in chain_set or part in reserved:
                 continue
             if _part_ref_prefix(part) not in ("R", "C"):
                 continue
@@ -814,14 +1330,19 @@ def _insert_satellites_into_row(node, chain, satellites, nets):
     row = list(chain)
     known = set(row)
     for sat in satellites:
-        insert_at = len(row)
+        insert_at = None
         for idx, cp in enumerate(row):
             for net in nets:
                 con = set(
                     node._net_connected_parts(net, allowed_parts=known | {sat})
                 )
                 if sat in con and cp in con:
-                    insert_at = max(insert_at, idx + 1)
+                    if insert_at is None:
+                        insert_at = idx + 1
+                    else:
+                        insert_at = min(insert_at, idx + 1)
+        if insert_at is None:
+            insert_at = len(row)
         row.insert(insert_at, sat)
         known.add(sat)
     return row
@@ -873,7 +1394,7 @@ def apply_driver_rail_safe_placement(
     top_set = set(top_nets)
     bottom_set = set(bottom_nets)
 
-    satellites = _chain_row_satellite_parts(node, parts, chain_parts, nets)
+    satellites = _chain_row_satellite_parts(node, parts, chain_parts, nets, topology)
     row = _insert_satellites_into_row(node, chain, satellites, nets)
     row_parts = set(row)
 
@@ -894,13 +1415,31 @@ def apply_driver_rail_safe_placement(
     decoup_caps = _led_rail_decoupling_caps(parts, top_set, bottom_set, row_parts)
 
     for part in parts:
-        if part in row_parts or part is main_part or part in decoup_caps:
+        if (
+            part in row_parts
+            or part is main_part
+            or part in decoup_caps
+            or part in topology.get("sense_feedback_parts", set())
+            or part in topology.get("control_parts", set())
+        ):
             continue
         h = _part_layout_h(part, grid)
         if _part_on_net_set(part, top_set) and not _part_on_net_set(part, bottom_set):
             _nudge_y(part, top_y + grid + h / 2)
         elif _part_on_net_set(part, bottom_set) and not _part_on_net_set(part, top_set):
             _nudge_y(part, bottom_y - grid - h / 2)
+
+    sense_parts = sorted(
+        [p for p in topology.get("sense_feedback_parts", set()) if p not in chain_parts],
+        key=node._part_ref_key,
+    )
+    if sense_parts:
+        main_vis = _layout_bbox(main_part)
+        if main_vis is None:
+            main_vis = main_part.place_bbox * main_part.tx
+        sense_x = main_vis.max.x + gap
+        sense_y = mid_y + gap
+        _place_parts_in_row(node, sense_parts, sense_x, sense_y, gap, grid)
 
     # 控制支路：主控右侧中部，避免拉到顶/底 rail。
     control_parts = sorted(
@@ -911,8 +1450,9 @@ def apply_driver_rail_safe_placement(
         main_vis = _layout_bbox(main_part)
         if main_vis is None:
             main_vis = main_part.place_bbox * main_part.tx
-        ctrl_x = main_vis.max.x + gap * 2
-        ctrl_y = mid_y + gap
+        ctrl_width = _row_total_width(control_parts, gap, grid)
+        ctrl_x = main_vis.min.x - ctrl_width
+        ctrl_y = main_vis.max.y + gap * 2
         _place_parts_in_row(node, control_parts, ctrl_x, ctrl_y, gap, grid)
 
     # LED+/LED- 去耦：贴在主控右侧、两 rail 之间竖排，避免甩到图纸底部。
@@ -973,6 +1513,12 @@ def restore_driver_wire_nets(node, nets=None, **options):
     if nets is None:
         nets = node.get_internal_nets()
     preserve = driver_wire_preserve_net_set(node, nets, **options)
+    if preserve:
+        _attach_debug_log(
+            options,
+            "restore_driver_wire_nets sheet=%s preserve=%s"
+            % (getattr(node, "name", "?"), [_net_label(net) for net in preserve]),
+        )
     for net in preserve:
         net._stub = False
         for pin in net.pins:
@@ -1315,6 +1861,7 @@ def apply_topology_or_trunk_layout(
     互斥分支：generic_driver 仅 apply_generic_driver_layout，否则 trunk-aware。
     结果写入 node._last_topology_result。
     """
+    node._schematic_debug_options = options
     trunk_map = classify_trunk_nets(node, parts, nets, roles, main_part, **options)
     topology = detect_known_topology(
         node, parts, nets, roles, main_part, trunk_map=trunk_map, **options
