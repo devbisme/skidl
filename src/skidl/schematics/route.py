@@ -22,6 +22,8 @@ from skidl.geometry import BBox, Point, Segment, Tx, Vector, tx_rot_90
 from .topology import (
     build_driver_rail_plan,
     restore_driver_wire_nets,
+    mcu_stub_remaining_signal_nets,
+    route_mcu_local_nets,
     topology_route_rank_bias,
 )
 from .trunk_layout import is_trunk_net_name, trunk_route_rank_bias
@@ -4011,7 +4013,7 @@ class Router:
             name = str(getattr(net, "name", "") or "")
             if human_readable:
                 topo = getattr(node, "_last_topology_result", None)
-                if topo and topo.get("kind") == "generic_driver" and topo.get("matched"):
+                if topo and topo.get("matched"):
                     route_bias = topology_route_rank_bias(net, topo)
                 else:
                     route_bias = trunk_route_rank_bias(name)
@@ -5236,6 +5238,16 @@ class Router:
                 (pin.pt * pin.part.tx).round() for pin in net_internal_pins[net]
             ]
 
+        # MCU 专用布线不走 switchbox 时不会填充 pin_pts，trim_stubs 会误删全部线段。
+        global pin_pts
+        if not pin_pts:
+            pin_pts = [
+                (pin.pt * pin.part.tx).round()
+                for part in node.parts
+                for pin in part.pins
+                if pin.is_connected()
+            ]
+
         plog(
             f"[schematic] cleanup 开始 sheet={sheet}，"
             f"{len(node.wires)} 网 / {sum(len(s) for s in node.wires.values())} 段"
@@ -5243,6 +5255,14 @@ class Router:
 
         prerouted = set(getattr(node, "_driver_prerouted_nets", set()) or [])
         _attach_debug_log_wire_stage(node, route_opts, "cleanup_wires_before")
+
+        if getattr(node, "_mcu_manual_pnr", False):
+            for net, segments in list(node.wires.items()):
+                segs = [seg.round() for seg in segments if seg.p1 != seg.p2]
+                order_seg_points(segs)
+                node.wires[net] = segs
+            _attach_debug_log_wire_stage(node, route_opts, "cleanup_wires_after")
+            return
 
         # Do a generalized cleanup of the wire segments of each net.
         for net, segments in node.wires.items():
@@ -5388,7 +5408,7 @@ class Router:
         plog(f"[schematic] cleanup 结束 sheet={sheet}，共 {clean_round} 轮")
         _attach_debug_log_wire_stage(node, route_opts, "cleanup_wires_after")
 
-        if human_readable:
+        if human_readable and not getattr(node, "_mcu_manual_pnr", False):
             # 在通用清理后追加保守的人类化处理：只做不改变连通性的局部简化。
             plog(f"[schematic] humanize_wires sheet={sheet}")
             node.humanize_wires()
@@ -5616,15 +5636,28 @@ class Router:
             # Priority 1: directly route aligned point-to-point nets when unobstructed.
             direct_nets = set(node.route_straight_nets(internal_nets))
             rail_handled = route_driver_rails(node, internal_nets, **options)
+            mcu_handled = route_mcu_local_nets(node, internal_nets, **options)
+            mcu_stubbed = mcu_stub_remaining_signal_nets(
+                node, internal_nets, mcu_handled, **options
+            )
             routed_nets = [
                 net
                 for net in internal_nets
-                if net not in direct_nets and net not in rail_handled
+                if net not in direct_nets
+                and net not in rail_handled
+                and net not in mcu_handled
+                and net not in mcu_stubbed
             ]
+            # MCU 专用 PnR：不走 switchbox，避免通用绕线破坏人工图式短直线。
+            if getattr(node, "_mcu_manual_pnr", False):
+                routed_nets = []
 
             if not routed_nets:
                 node.cleanup_wires()
-                repair_unattached_same_net_pins(node, internal_nets, **options)
+                if not getattr(node, "_mcu_manual_pnr", False):
+                    repair_unattached_same_net_pins(
+                        node, internal_nets, **options
+                    )
                 node.add_junctions()
                 _attach_debug_log_wire_stage(node, options, "add_junctions_after")
                 _attach_debug_log_wire_stage(node, options, "route_complete")

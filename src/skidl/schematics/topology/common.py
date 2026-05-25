@@ -120,6 +120,25 @@ def _topology_debug_log(options, tag, message):
     active_logger.info("[%s] %s" % (tag, message))
 
 
+def _mcu_topology_buckets():
+    """MCU 专用拓扑桶（与 driver 桶并存，未识别时为空集）。"""
+    return {
+        "decouple_parts": set(),
+        "clock_parts": set(),
+        "reset_parts": set(),
+        "boot_parts": set(),
+        "io_series_parts": set(),
+        "connector_parts": set(),
+        "indicator_parts": set(),
+        "tk_parts": set(),
+    }
+
+
+def _topology_matched(kind):
+    """matched 表示启用专用布局/布线偏置（driver 或 mcu）。"""
+    return kind in ("generic_driver", "mcu")
+
+
 def _disabled_topology(fallback="trunk_aware"):
     return {
         "kind": "disabled",
@@ -140,13 +159,14 @@ def _disabled_topology(fallback="trunk_aware"):
         "sense_feedback_parts": set(),
         "fallback": fallback,
         "reasons": ["topology_detection disabled"],
+        **_mcu_topology_buckets(),
     }
 
 
 def _empty_topology(kind, confidence, main_part=None, reasons=None, fallback="trunk_aware"):
     return {
         "kind": kind,
-        "matched": kind == "generic_driver",
+        "matched": _topology_matched(kind),
         "confidence": confidence,
         "main_part": main_part,
         "input_nets": [],
@@ -163,6 +183,7 @@ def _empty_topology(kind, confidence, main_part=None, reasons=None, fallback="tr
         "sense_feedback_parts": set(),
         "fallback": fallback,
         "reasons": reasons or [],
+        **_mcu_topology_buckets(),
     }
 
 

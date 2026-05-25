@@ -1112,10 +1112,17 @@ def apply_generic_driver_layout(
 
 def topology_route_rank_bias(net, topology):
     """
-    generic_driver matched 时的布线顺序偏置（保守，不改变拓扑）。
+    generic_driver / mcu matched 时的布线顺序偏置（保守，不改变拓扑）。
     返回值越小越先布。
     """
-    if not topology or topology.get("kind") != "generic_driver":
+    if not topology:
+        return 0
+    kind = topology.get("kind")
+    if kind == "mcu":
+        from .mcu import mcu_route_rank_bias
+
+        return mcu_route_rank_bias(net, topology)
+    if kind != "generic_driver":
         return 0
 
     name = _net_label(net).upper()
@@ -1157,6 +1164,30 @@ def format_topology_log_line(topology):
 
     if kind == "disabled":
         return "[schematic] 拓扑识别：未启用拓扑识别，使用常规布局。"
+
+    if kind == "mcu" and fb is False:
+        if main_ref:
+            return (
+                f"[schematic] 拓扑识别：已识别为 MCU 模块（主控 {main_ref}），"
+                "已启用专用布局。"
+            )
+        return "[schematic] 拓扑识别：已识别为 MCU 模块，已启用专用布局。"
+
+    if kind == "mcu":
+        if main_ref:
+            return (
+                f"[schematic] 拓扑识别：已识别为 MCU 模块（主控 {main_ref}），"
+                "专用布局未生效，使用常规布局。"
+            )
+        return "[schematic] 拓扑识别：已识别为 MCU 模块，专用布局未生效，使用常规布局。"
+
+    if kind == "weak_mcu":
+        if main_ref:
+            return (
+                f"[schematic] 拓扑识别：疑似 MCU 模块（主控 {main_ref}，"
+                f"置信度 {conf}），使用常规布局。"
+            )
+        return f"[schematic] 拓扑识别：疑似 MCU 模块（置信度 {conf}），使用常规布局。"
 
     if kind == "generic_driver" and fb is False:
         if main_ref:

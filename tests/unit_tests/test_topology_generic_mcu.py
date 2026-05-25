@@ -1,0 +1,248 @@
+# -*- coding: utf-8 -*-
+
+"""generic MCU topology 检测、互斥与日志格式单元测试。"""
+
+from skidl.schematics.topology import (
+    _score_candidate_ic,
+    _score_mcu_candidate_ic,
+    detect_generic_mcu_topology,
+    detect_known_topology,
+    format_topology_log_line,
+)
+
+
+class _FakePin:
+    def __init__(self, name, part=None):
+        self.name = name
+        self.part = part
+        self.net = None
+        self.pt = None
+        self.stub = False
+
+    def is_connected(self):
+        return self.net is not None
+
+
+class _FakeNet:
+    def __init__(self, name):
+        self.name = name
+        self.pins = []
+
+
+class _FakePart:
+    def __init__(self, ref, value="", pins=None):
+        self.ref = ref
+        self.value = value
+        self.name = value or ref
+        self.lib = ""
+        self.pins = pins or []
+        self.place_bbox = None
+        self.tx = None
+
+
+class _FakeNode:
+    def _net_connected_parts(self, net, allowed_parts=None):
+        return [p for p in getattr(net, "_parts", []) if allowed_parts is None or p in allowed_parts]
+
+    def _is_power_net_name(self, name):
+        upper = str(name).upper()
+        return "GND" in upper or "VCC" in upper or "VDD" in upper or "VSS" in upper
+
+    def _net_names_of(self, part):
+        names = set()
+        for pin in part.pins:
+            if pin.net is not None and getattr(pin.net, "name", None):
+                names.add(str(pin.net.name))
+        return names
+
+    def _part_ref_key(self, part):
+        return str(getattr(part, "ref", "") or "")
+
+
+def _wire(part, pin_name, net):
+    pin = next(p for p in part.pins if p.name == pin_name)
+    pin.net = net
+    net.pins.append(pin)
+    if not hasattr(net, "_parts"):
+        net._parts = []
+    if part not in net._parts:
+        net._parts.append(part)
+
+
+def _build_tg032_like_graph():
+    """MJ6050A3 + 去耦 + IO 串阻 + UART 网（简化 TG032-MCU）。"""
+    node = _FakeNode()
+    u3 = _FakePart(
+        "U3",
+        "MJ6050A3",
+        pins=[
+            _FakePin("VDD"),
+            _FakePin("VSS"),
+            _FakePin("P30/TX0"),
+            _FakePin("P31/RX0"),
+            _FakePin("P06/TK3"),
+        ],
+    )
+    for p in u3.pins:
+        p.part = u3
+
+    c11 = _FakePart("C11", pins=[_FakePin("1"), _FakePin("2")])
+    c12 = _FakePart("C12", pins=[_FakePin("1"), _FakePin("2")])
+    r5 = _FakePart("R5", "1K", pins=[_FakePin("1"), _FakePin("2")])
+    r6 = _FakePart("R6", "1K", pins=[_FakePin("1"), _FakePin("2")])
+    r7 = _FakePart("R7", "1K", pins=[_FakePin("1"), _FakePin("2")])
+    j1 = _FakePart("J1", pins=[_FakePin("1"), _FakePin("2"), _FakePin("3"), _FakePin("4")])
+
+    for part in (c11, c12, r5, r6, r7, j1):
+        for pin in part.pins:
+            pin.part = part
+
+    vcc = _FakeNet("VCC_5V")
+    gnd = _FakeNet("GND")
+    tx = _FakeNet("TX")
+    rx = _FakeNet("RX")
+    tk1 = _FakeNet("TK1")
+    tk3 = _FakeNet("Net-(U3-TK3)")
+    tx_u = _FakeNet("Net-(U3-TX)")
+    rx_u = _FakeNet("Net-(U3-RX)")
+
+    _wire(u3, "VDD", vcc)
+    _wire(u3, "VSS", gnd)
+    _wire(u3, "P30/TX0", tx_u)
+    _wire(u3, "P31/RX0", rx_u)
+    _wire(u3, "P06/TK3", tk3)
+    _wire(c11, "1", vcc)
+    _wire(c11, "2", gnd)
+    _wire(c12, "1", vcc)
+    _wire(c12, "2", gnd)
+    _wire(r5, "1", tk1)
+    _wire(r5, "2", tk3)
+    _wire(r6, "1", tx)
+    _wire(r6, "2", tx_u)
+    _wire(r7, "1", rx)
+    _wire(r7, "2", rx_u)
+    _wire(j1, "1", vcc)
+    _wire(j1, "2", tx)
+
+    parts = [u3, c11, c12, r5, r6, r7, j1]
+    nets = [vcc, gnd, tx, rx, tk1, tk3, tx_u, rx_u]
+    roles = {
+        u3: "ic",
+        c11: "passive",
+        c12: "passive",
+        r5: "passive",
+        r6: "passive",
+        r7: "passive",
+        j1: "connector",
+    }
+    adjacency = {id(u3): {c11, c12, r5, r6, r7, j1}}
+    for p in (c11, c12, r5, r6, r7, j1):
+        adjacency.setdefault(id(p), set()).add(u3)
+    return node, u3, parts, nets, roles, adjacency
+
+
+def test_mcu_score_mj6050():
+    node, u3, parts, nets, roles, adj = _build_tg032_like_graph()
+    sc, conf, reasons, combo, flags = _score_mcu_candidate_ic(
+        node, u3, parts, nets, roles, set(parts), adj
+    )
+    assert flags["mcu_identity"]
+    assert combo
+    assert conf >= 60
+    assert sc >= 12
+
+
+def test_detect_generic_mcu_topology_strong():
+    node, u3, parts, nets, roles, adj = _build_tg032_like_graph()
+    topo = detect_generic_mcu_topology(
+        node, parts, nets, roles, u3, adjacency=adj, human_readable=True
+    )
+    assert topo["kind"] == "mcu"
+    assert topo["matched"]
+    assert topo["main_part"] is u3
+    assert len(topo.get("decouple_parts", set())) >= 1
+
+
+def test_detect_known_topology_picks_mcu_over_driver_on_mj6050():
+    node, u3, parts, nets, roles, adj = _build_tg032_like_graph()
+    topo = detect_known_topology(
+        node,
+        parts,
+        nets,
+        roles,
+        u3,
+        human_readable=True,
+        topology_detection=True,
+    )
+    assert topo["kind"] == "mcu"
+
+
+def test_buck_driver_not_mcu():
+    """LED driver + 电感应判 driver 而非 MCU。"""
+    node = _FakeNode()
+    u2 = _FakePart(
+        "U2",
+        "LED DRIVER",
+        pins=[
+            _FakePin("VIN"),
+            _FakePin("GND"),
+            _FakePin("SW"),
+            _FakePin("FB"),
+        ],
+    )
+    for p in u2.pins:
+        p.part = u2
+    l1 = _FakePart("L1", pins=[_FakePin("1")])
+    l1.pins[0].part = l1
+    nets = {
+        "vin": _FakeNet("VIN"),
+        "gnd": _FakeNet("GND"),
+        "sw": _FakeNet("SW"),
+        "fb": _FakeNet("FB"),
+    }
+    _wire(u2, "VIN", nets["vin"])
+    _wire(u2, "GND", nets["gnd"])
+    _wire(u2, "SW", nets["sw"])
+    _wire(u2, "FB", nets["fb"])
+    _wire(l1, "1", nets["sw"])
+    parts = [u2, l1]
+    all_nets = list(nets.values())
+    roles = {u2: "ic", l1: "passive"}
+    adj = {id(u2): {l1}, id(l1): {u2}}
+
+    mcu_sc, mcu_conf, _, mcu_combo, _ = _score_mcu_candidate_ic(
+        node, u2, parts, all_nets, roles, set(parts), adj
+    )
+    drv_sc, drv_conf, _, drv_combo, _ = _score_candidate_ic(
+        node, u2, parts, all_nets, roles, set(parts), adj
+    )
+    assert drv_combo
+    assert drv_conf >= 40
+    topo = detect_known_topology(
+        node, parts, all_nets, roles, u2, human_readable=True
+    )
+    assert topo["kind"] == "generic_driver"
+
+
+def test_format_topology_log_mcu():
+    line = format_topology_log_line(
+        {
+            "kind": "mcu",
+            "confidence": 80,
+            "fallback": False,
+            "main_part": _FakePart("U3"),
+        }
+    )
+    assert "MCU 模块" in line
+    assert "U3" in line
+    assert "专用布局" in line
+
+    weak = format_topology_log_line(
+        {
+            "kind": "weak_mcu",
+            "confidence": 45,
+            "fallback": "trunk_aware",
+            "main_part": _FakePart("U3"),
+        }
+    )
+    assert "疑似 MCU" in weak

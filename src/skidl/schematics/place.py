@@ -1510,7 +1510,7 @@ class Placer:
         if ref.startswith("U") or pin_count >= 8:
             return "ic"
 
-        if ref.startswith(("J", "P", "CN")):
+        if ref.startswith(("J", "P", "CN", "X")):
             return "connector"
 
         if ref.startswith(("R", "C", "L", "D", "Q")):
@@ -1847,18 +1847,21 @@ class Placer:
                     gap=GRID,
                 )
 
-            if left_connectors:
-                y = main_bbox.min.y
-                for part in left_connectors:
-                    bbox = part.place_bbox
-                    part.tx = Tx().move(Point(left_x - bbox.w, y))
-                    y += max(bbox.h, GRID) + _gap
-
-            if right_connectors:
-                y = main_bbox.min.y
-                for part in right_connectors:
-                    part.tx = Tx().move(Point(right_x, y))
-                    y += max(part.place_bbox.h, GRID) + _gap
+            # 连接器统一排到主 IC 下方，避免 Header 与 U* 同高叠在一起
+            all_connectors = left_connectors + right_connectors
+            if all_connectors:
+                max_ch = max(
+                    (getattr(p.place_bbox, "h", 0) or GRID for p in all_connectors),
+                    default=GRID,
+                )
+                conn_y = main_bbox.min.y - (3 * _gap) - max_ch
+                node._place_row(
+                    all_connectors,
+                    main_bbox.min.x,
+                    conn_y,
+                    direction=1,
+                    gap=_gap,
+                )
 
             passive_near = []
             passive_far = []
