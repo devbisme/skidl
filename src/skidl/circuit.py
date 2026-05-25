@@ -13,6 +13,7 @@ and output generation (netlists, PCBs, SVGs, etc.).
 
 import builtins
 import json
+import re
 import subprocess
 from collections import Counter, deque
 
@@ -72,6 +73,41 @@ class Circuit(SkidlBaseObject):
 
     # Set the default ERC functions for all Circuit instances.
     erc_list = [dflt_circuit_erc]
+    _ANNOTATION_PREFIX_RULES = (
+        ("connector", "J"),
+        ("transistor", "Q"),
+        ("mosfet", "Q"),
+        ("fet", "Q"),
+        ("bjt", "Q"),
+        ("igbt", "Q"),
+        ("diode", "D"),
+        ("led", "D"),
+        ("zener", "D"),
+        ("resistor", "R"),
+        ("r_array", "R"),
+        ("potentiometer", "R"),
+        ("trimmer", "R"),
+        ("capacitor", "C"),
+        ("cap", "C"),
+        ("inductor", "L"),
+        ("coil", "L"),
+        ("ic", "U"),
+        ("opamp", "U"),
+        ("amplifier", "U"),
+        ("comparator", "U"),
+        ("buffer", "U"),
+        ("logic", "U"),
+        ("driver", "U"),
+        ("interface", "U"),
+        ("memory", "U"),
+        ("sensor", "U"),
+        ("regulator", "U"),
+        ("power", "U"),
+        ("mcu", "U"),
+        ("cpu", "U"),
+        ("fpga", "U"),
+    )
+    _REF_NUM_RE = re.compile(r"^(.*?)(\d+)$")
 
     def __init__(self, **attrs):
         """
@@ -369,7 +405,16 @@ class Circuit(SkidlBaseObject):
 
                     # Add the part to this circuit.
                     part.circuit = self  # Record the Circuit object for this part.
-                    part.ref = part.ref  # Adjusts the part reference if necessary.
+                    clean_prefix = self._infer_ref_prefix(part)
+                    part.ref_prefix = clean_prefix
+                    if self._ref_is_placeholder(part.ref):
+                        # Replace library placeholders such as D? immediately so
+                        # later export stages always see a concrete reference.
+                        part.ref = None
+                    else:
+                        part.ref = part.ref  # Adjusts the part reference if necessary.
+                    if getattr(part, "ref", None):
+                        self._sync_reference_metadata(part, part.ref)
 
                     # Add the part to the currently active node.
                     self.active_node.parts.append(part)
@@ -384,6 +429,105 @@ class Circuit(SkidlBaseObject):
                         ValueError,
                         f"Can't add unmovable part {part.ref} to this circuit.",
                     )
+
+    @classmethod
+    def _ref_is_placeholder(cls, ref):
+        """Return True if a reference is empty or still using a library placeholder."""
+        ref = str(ref or "").strip()
+        return not ref or "?" in ref
+
+    @classmethod
+    def _split_annotated_ref(cls, ref):
+        """Return ``(prefix, number)`` for refs like ``R12`` or ``None`` if not numbered."""
+        ref = str(ref or "").strip()
+        match = cls._REF_NUM_RE.match(ref)
+        if not match:
+            return None
+        return match.group(1), int(match.group(2))
+
+    @classmethod
+    def _infer_ref_prefix(cls, part):
+        """Infer a human-readable reference prefix for a part."""
+        raw_prefix = str(getattr(part, "ref_prefix", "") or "").strip().upper().rstrip("?")
+        if raw_prefix and raw_prefix not in {"?", "#"}:
+            return raw_prefix
+
+        search_fields = (
+            getattr(part, "name", ""),
+            getattr(part, "description", ""),
+            getattr(getattr(part, "lib", None), "filename", ""),
+        )
+        search_text = " ".join(str(field or "").lower() for field in search_fields)
+
+        for needle, prefix in cls._ANNOTATION_PREFIX_RULES:
+            if needle in search_text:
+                return prefix
+
+        ref = str(getattr(part, "ref", "") or "").strip().upper()
+        if ref:
+            inferred = "".join(ch for ch in ref if ch.isalpha() or ch == "#").rstrip("?")
+            if inferred:
+                return inferred
+
+        return "U"
+
+    @staticmethod
+    def _sync_reference_metadata(part, full_ref):
+        """Propagate an assigned reference into common metadata containers."""
+        if hasattr(part, "fields") and isinstance(part.fields, dict):
+            part.fields["Reference"] = full_ref
+            part.fields["reference"] = full_ref
+        if hasattr(part, "properties") and isinstance(part.properties, dict):
+            part.properties["Reference"] = full_ref
+            part.properties["reference"] = full_ref
+
+    def annotate_parts(self, force=False):
+        """Assign human-readable sequential references to parts lacking annotation.
+
+        Args:
+            force (bool): When True, renumber all parts even if they already have
+                numbered references. By default, only empty / placeholder refs such
+                as ``R?`` and ``U?`` are replaced.
+        """
+        counters = Counter()
+        used_refs = set()
+
+        # First reserve any existing numbered references so explicit annotations stay stable.
+        for part in self.parts:
+            ref = str(getattr(part, "ref", "") or "").strip()
+            split_ref = self._split_annotated_ref(ref)
+            if force or self._ref_is_placeholder(ref) or not split_ref:
+                continue
+
+            prefix, number = split_ref
+            used_refs.add(ref)
+            counters[prefix] = max(counters[prefix], number + 1)
+
+        # Then fill in missing / placeholder references using inferred prefixes.
+        for part in self.parts:
+            ref = str(getattr(part, "ref", "") or "").strip()
+            split_ref = self._split_annotated_ref(ref)
+            if not force and split_ref and not self._ref_is_placeholder(ref):
+                continue
+
+            prefix = self._infer_ref_prefix(part)
+            part.ref_prefix = prefix
+            next_num = max(1, counters[prefix])
+            new_ref = f"{prefix}{next_num}"
+            while new_ref in used_refs:
+                next_num += 1
+                new_ref = f"{prefix}{next_num}"
+
+            part.ref = new_ref
+            self._sync_reference_metadata(part, new_ref)
+            used_refs.add(new_ref)
+            counters[prefix] = next_num + 1
+
+        # Keep metadata synchronized even for already-annotated parts.
+        for part in self.parts:
+            ref = str(getattr(part, "ref", "") or "").strip()
+            if ref:
+                self._sync_reference_metadata(part, ref)
 
     def rmv_parts(self, *parts):
         """
@@ -1281,6 +1425,9 @@ class Circuit(SkidlBaseObject):
         Args:
             **kwargs: Arguments for the schematic generator including:
                 empty_footprint_handler (function, optional): Custom handler for parts without footprints.
+                annotate_refs (bool, optional): Automatically replace placeholder
+                    references such as ``R?`` and ``U?`` with numbered references
+                    before schematic export. Defaults to True.
                 tool (str, optional): The EDA tool to generate the schematic for.
         """
 
@@ -1312,6 +1459,8 @@ class Circuit(SkidlBaseObject):
 
         self.merge_net_names()
         self.merge_nets() # Merge nets or schematic routing will fail.
+        if kwargs.pop("annotate_refs", True):
+            self.annotate_parts()
 
         tool = kwargs.pop("tool", skidl.config.tool)
 
@@ -1321,6 +1470,17 @@ class Circuit(SkidlBaseObject):
             skidl.empty_footprint_handler = save_empty_footprint_handler
 
         active_logger.report_summary("generating schematic")
+
+        # topology 摘要放在 schematic 阶段 warnings/errors 汇总之后，便于 grep 识别结果。
+        sch_root = getattr(self, "_schematic_sch_root", None)
+        if sch_root is not None:
+            from skidl.schematics.topology import log_topology_summaries_deep
+
+            # 收尾 topology 行紧跟 warnings/errors 汇总，不受 schematic_progress 关闭影响。
+            topo_log_opts = dict(kwargs)
+            topo_log_opts["schematic_progress"] = True
+            log_topology_summaries_deep(sch_root, topo_log_opts)
+            delattr(self, "_schematic_sch_root")
 
     def generate_dot(
         self,

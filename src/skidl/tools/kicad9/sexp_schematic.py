@@ -19,6 +19,7 @@ Sources:
 import copy
 import datetime
 import os
+import re
 import uuid
 from collections import OrderedDict
 
@@ -31,6 +32,7 @@ from skidl.utilities import export_to_all
 
 # UUID namespace — same as gen_netlist.py so UUIDs are cross-referenceable.
 _NAMESPACE_UUID = uuid.UUID("7026fcc6-e1a0-409e-aaf4-6a17ea82654f")
+KICAD9_SCHEMATIC_VERSION = 20250114
 
 # ---------------------------------------------------------------------------
 # Power symbol support
@@ -231,7 +233,32 @@ def _extract_power_lib_symbol(name):
     return Sexp(parsed)
 
 
-def _power_symbol_to_sexp(pin, net_name, tx):
+def _child_instance_path(parent_path, sheet_uuid):
+    """Return the KiCad instance path for a child sheet."""
+    parent = str(parent_path or "/").rstrip("/")
+    if not parent:
+        parent = "/"
+    if parent == "/":
+        return f"/{sheet_uuid}"
+    return f"{parent}/{sheet_uuid}"
+
+
+def _sheet_project_name(sheet_filename, fallback="SKiDL-Generated"):
+    """Return the KiCad project name that matches a schematic file name."""
+    basename = os.path.basename(str(sheet_filename or "")).strip()
+    if not basename:
+        return fallback
+    project_name, _ = os.path.splitext(basename)
+    return project_name or fallback
+
+
+def _power_symbol_to_sexp(
+    pin,
+    net_name,
+    tx,
+    instance_path="/",
+    project_name="SKiDL-Generated",
+):
     """Generate a power symbol instance S-expression.
 
     Args:
@@ -344,10 +371,10 @@ def _power_symbol_to_sexp(pin, net_name, tx):
                 "instances",
                 [
                     "project",
-                    "SKiDL-Generated",
+                    project_name,
                     [
                         "path",
-                        f"/{_gen_uuid('root_schematic')}",
+                        instance_path,
                         ["reference", pwr_ref],
                         ["unit", 1],
                     ],
@@ -381,6 +408,84 @@ def _round_mm(val, ndigits=2):
     for pin-to-wire alignment in KiCad 9.
     """
     return round(val, ndigits)
+
+
+def _resolved_part_ref(part):
+    """Return the fully resolved reference text that should be displayed."""
+    fields = getattr(part, "fields", {}) or {}
+    ref_candidates = (
+        fields.get("Reference", ""),
+        fields.get("reference", ""),
+        getattr(part, "ref", ""),
+    )
+
+    # Prefer an already annotated reference for placed symbol instances so
+    # KiCad shows the final designator instead of the library prefix or '?'.
+    for ref in ref_candidates:
+        ref = str(ref or "").strip()
+        if ref and ref[-1] != "?" and any(ch.isdigit() for ch in ref):
+            return ref
+
+    for ref in ref_candidates:
+        ref = str(ref or "").strip()
+        if ref:
+            return ref
+    return str(getattr(part, "ref_prefix", "") or "U").strip() or "U"
+
+
+def _part_lib_id(part):
+    """Return the KiCad library identifier for a part."""
+    lib_name = (
+        os.path.splitext(part.lib.filename)[0]
+        if hasattr(part.lib, "filename") and part.lib.filename
+        else "Device"
+    )
+    part_name = part.name or "Unknown"
+    return f"{lib_name}:{part_name}"
+
+
+def _is_symbol_instance(elem):
+    """Return True if *elem* is a placed symbol instance."""
+    if not elem or elem[0] != "symbol":
+        return False
+    return any(
+        isinstance(item, list) and item and item[0] == "lib_id" for item in elem[1:]
+    )
+
+
+def _append_missing_symbol_instances(
+    elements,
+    parts,
+    tx,
+    instance_path="/",
+    project_name="SKiDL-Generated",
+):
+    """Ensure each non-terminal part has a placed symbol instance."""
+    placed_refs = set()
+    for elem in elements:
+        if not _is_symbol_instance(elem):
+            continue
+        for item in elem[1:]:
+            if isinstance(item, list) and item and item[0] == "property" and len(item) > 2:
+                if item[1] == "Reference":
+                    placed_refs.add(str(item[2]))
+                    break
+
+    for part in parts:
+        if isinstance(part, NetTerminal):
+            continue
+        full_ref = _resolved_part_ref(part)
+        if full_ref in placed_refs:
+            continue
+        elements.append(
+            part_to_sexp(
+                part,
+                tx=tx,
+                instance_path=instance_path,
+                project_name=project_name,
+            )
+        )
+        placed_refs.add(full_ref)
 
 
 # ---------------------------------------------------------------------------
@@ -420,7 +525,7 @@ def _pick_paper_size(bbox):
 # ---------------------------------------------------------------------------
 
 
-def part_to_sexp(part, tx=Tx()):
+def part_to_sexp(part, tx=Tx(), instance_path="/", project_name="SKiDL-Generated"):
     """Create S-expression for a symbol instance.
 
     Applies part transform and sheet transform (Y-flip is in sheet_tx).
@@ -446,13 +551,8 @@ def part_to_sexp(part, tx=Tx()):
     origin = Point(_round_mm(tx.origin.x), _round_mm(tx.origin.y))
     unit_num = getattr(part, "num", 1)
 
-    lib_name = (
-        os.path.splitext(part.lib.filename)[0]
-        if hasattr(part.lib, "filename") and part.lib.filename
-        else "Device"
-    )
-    part_name = part.name or "Unknown"
-    lib_id = f"{lib_name}:{part_name}"
+    lib_id = _part_lib_id(part)
+    full_ref = _resolved_part_ref(part)
 
     symbol_list = [
         "symbol",
@@ -477,7 +577,7 @@ def part_to_sexp(part, tx=Tx()):
             [
                 "property",
                 "Reference",
-                part.ref,
+                full_ref,
                 ["at", origin.x, origin.y - 2.54, angle],
                 ["effects", ["font", ["size", 1.27, 1.27]], ["justify", "left"]],
             ]
@@ -579,11 +679,11 @@ def part_to_sexp(part, tx=Tx()):
                 "instances",
                 [
                     "project",
-                    "SKiDL-Generated",
+                    project_name,
                     [
                         "path",
-                        f"/{_gen_uuid('root_schematic')}",
-                        ["reference", part.ref],
+                        instance_path,
+                        ["reference", full_ref],
                         ["unit", unit_num],
                     ],
                 ],
@@ -608,13 +708,9 @@ def part_to_lib_symbol_definition(part):
     Returns:
         list: Nested list for the lib_symbols section.
     """
-    lib_name = (
-        os.path.splitext(part.lib.filename)[0]
-        if hasattr(part.lib, "filename") and part.lib.filename
-        else "Device"
-    )
     part_name = part.name or "Unknown"
-    lib_id = f"{lib_name}:{part_name}"
+    lib_id = _part_lib_id(part)
+    ref_prefix = str(getattr(part, "ref_prefix", "") or "").strip() or "U"
 
     symbol_def = [
         "symbol",
@@ -632,7 +728,7 @@ def part_to_lib_symbol_definition(part):
             [
                 "property",
                 "Reference",
-                part.ref_prefix or "U",
+                ref_prefix,
                 ["at", 2.032, 0, 90],
                 ["effects", ["font", ["size", 1.27, 1.27]]],
             ],
@@ -671,12 +767,25 @@ def part_to_lib_symbol_definition(part):
             ]
         )
 
+    ref_prefix = str(getattr(part, "ref_prefix", "") or "").strip()
+
+    def _keep_graphic_cmd(cmd):
+        """Drop reference placeholder text that would override placed refs."""
+        if cmd[0] != "text" or len(cmd) < 2:
+            return True
+        text = str(cmd[1]).strip()
+        if not ref_prefix:
+            return True
+        return text not in {ref_prefix, f"{ref_prefix}?"}
+
     # Process draw_cmds into sub-symbols.
     if hasattr(part, "draw_cmds") and part.draw_cmds:
         # Common graphics (unit 0).
         if 0 in part.draw_cmds:
             graphics = [
-                copy.deepcopy(cmd) for cmd in part.draw_cmds[0] if cmd[0] != "pin"
+                copy.deepcopy(cmd)
+                for cmd in part.draw_cmds[0]
+                if cmd[0] != "pin" and _keep_graphic_cmd(cmd)
             ]
             if graphics:
                 symbol_def.append(["symbol", f"{part_name}_0_1"] + graphics)
@@ -689,7 +798,7 @@ def part_to_lib_symbol_definition(part):
             graphics = [
                 copy.deepcopy(cmd)
                 for cmd in draw_cmds
-                if cmd[0] not in ("pin", "property")
+                if cmd[0] not in ("pin", "property") and _keep_graphic_cmd(cmd)
             ]
             if pin_cmds or graphics:
                 unit_sym = ["symbol", f"{part_name}_{unit_num}_{unit_num}"]
@@ -838,7 +947,13 @@ def calc_pin_dir(pin):
     }[pin_vector]
 
 
-def net_label_to_sexp(pin, tx=Tx(), force=False):
+def net_label_to_sexp(
+    pin,
+    tx=Tx(),
+    force=False,
+    instance_path="/",
+    project_name="SKiDL-Generated",
+):
     """Create S-expression for a net label at a pin stub.
 
     Generates a power symbol if the net name matches a known KiCad power
@@ -860,7 +975,13 @@ def net_label_to_sexp(pin, tx=Tx(), force=False):
     # If so, emit a power symbol instance instead of a global_label.
     # This eliminates power_pin_not_driven ERC errors.
     if pin.is_connected() and pin.net.name in _get_power_symbol_names():
-        pwr = _power_symbol_to_sexp(pin, pin.net.name, tx)
+        pwr = _power_symbol_to_sexp(
+            pin,
+            pin.net.name,
+            tx,
+            instance_path=instance_path,
+            project_name=project_name,
+        )
         if pwr:
             return pwr
 
@@ -921,7 +1042,12 @@ def create_title_block_sexp(title):
 # ---------------------------------------------------------------------------
 
 
-def create_hierarchical_sheet_sexp(node, sheet_tx):
+def create_hierarchical_sheet_sexp(
+    node,
+    sheet_tx,
+    project_name="SKiDL-Generated",
+    instance_path="/",
+):
     """Create a hierarchical sheet S-expression for insertion into a parent sheet.
 
     Includes sheet pins for boundary nets (nets connecting the child's
@@ -1008,6 +1134,19 @@ def create_hierarchical_sheet_sexp(node, sheet_tx):
             )
             pin_y += pin_spacing
 
+    sheet.append(
+        Sexp(
+            [
+                "instances",
+                [
+                    "project",
+                    project_name,
+                    ["path", instance_path, ["page", "1"]],
+                ],
+            ]
+        )
+    )
+
     return sheet
 
 
@@ -1089,8 +1228,144 @@ def _fix_sheet_filename(node):
         node.sheet_filename = node.sheet_filename[:-4] + ".kicad_sch"
 
 
+_FULL_REF_RE = re.compile(r"^([A-Za-z#]+)\d+[A-Za-z]?$")
+_REF_PREFIX_RE = re.compile(r"^([A-Za-z#]+)")
+_REFERENCE_PROP_RE = re.compile(r'(\(property\s+"Reference"\s+")([^"]*)(")')
+_INSTANCE_REF_RE = re.compile(r'(\(reference\s+")([^"]*)(")')
+
+
+def _reference_is_full(ref):
+    """Return True if a reference already has a numeric annotation."""
+    return bool(_FULL_REF_RE.match(str(ref or "").strip()))
+
+
+def _reference_prefix(ref):
+    """Return the alphabetic reference prefix from a ref or placeholder."""
+    match = _REF_PREFIX_RE.match(str(ref or "").strip())
+    return match.group(1).upper() if match else ""
+
+
+def _reference_queues(parts):
+    """Build ordered full-reference queues, grouped by reference prefix."""
+    refs_by_prefix = OrderedDict()
+    for part in parts:
+        if isinstance(part, NetTerminal):
+            continue
+        ref = str(getattr(part, "ref", "") or "").strip()
+        if not _reference_is_full(ref):
+            continue
+        prefix = _reference_prefix(ref)
+        refs_by_prefix.setdefault(prefix, []).append(ref)
+    return refs_by_prefix
+
+
+def _find_symbol_blocks(text):
+    """Yield ``(start, end)`` ranges for S-expression symbol blocks."""
+    for match in re.finditer(r"\(symbol(?=\s)", text):
+        start = match.start()
+        depth = 0
+        in_string = False
+        escaped = False
+        for i in range(start, len(text)):
+            ch = text[i]
+            if in_string:
+                if escaped:
+                    escaped = False
+                elif ch == "\\":
+                    escaped = True
+                elif ch == '"':
+                    in_string = False
+                continue
+            if ch == '"':
+                in_string = True
+            elif ch == "(":
+                depth += 1
+            elif ch == ")":
+                depth -= 1
+                if depth == 0:
+                    yield start, i + 1
+                    break
+
+
+def _fix_reference_block(block, refs_by_prefix, consumed):
+    """Fix a single symbol block's Reference property and instance reference."""
+    prop_match = _REFERENCE_PROP_RE.search(block)
+    if not prop_match:
+        return block
+
+    current_ref = prop_match.group(2)
+    is_instance_symbol = "(lib_id" in block
+    if not is_instance_symbol:
+        return block
+
+    full_ref = current_ref if _reference_is_full(current_ref) else None
+
+    if full_ref is None:
+        prefix = _reference_prefix(current_ref)
+        refs = refs_by_prefix.get(prefix, [])
+        if refs:
+            idx = consumed.get(prefix, 0)
+            if idx >= len(refs):
+                idx = len(refs) - 1
+            full_ref = refs[idx]
+            consumed[prefix] = idx + 1
+
+    if full_ref is None:
+        return block
+
+    if current_ref != full_ref:
+        block = _REFERENCE_PROP_RE.sub(
+            lambda m: f"{m.group(1)}{full_ref}{m.group(3)}",
+            block,
+            count=1,
+        )
+
+    def replace_instance_ref(match):
+        instance_ref = match.group(2)
+        if instance_ref == full_ref or _reference_is_full(instance_ref):
+            return match.group(0)
+        if _reference_prefix(instance_ref) == _reference_prefix(full_ref):
+            return f"{match.group(1)}{full_ref}{match.group(3)}"
+        return match.group(0)
+
+    return _INSTANCE_REF_RE.sub(replace_instance_ref, block)
+
+
+def _fix_exported_schematic_references(filepath, parts):
+    """Patch generated schematic Reference fields using assigned SKiDL refs."""
+    refs_by_prefix = _reference_queues(parts)
+    if not refs_by_prefix or not os.path.exists(filepath):
+        return
+
+    with open(filepath, "r", encoding="utf-8") as f:
+        text = f.read()
+
+    consumed = {}
+    replacements = []
+    for start, end in _find_symbol_blocks(text):
+        block = text[start:end]
+        fixed = _fix_reference_block(block, refs_by_prefix, consumed)
+        if fixed != block:
+            replacements.append((start, end, fixed))
+
+    if not replacements:
+        return
+
+    for start, end, fixed in reversed(replacements):
+        text = text[:start] + fixed + text[end:]
+
+    with open(filepath, "w", encoding="utf-8") as f:
+        f.write(text)
+
+
 @export_to_all
-def node_to_sexp_schematic(node, sheet_tx=Tx(), version=20230409):
+def node_to_sexp_schematic(
+    node,
+    sheet_tx=Tx(),
+    version=KICAD9_SCHEMATIC_VERSION,
+    instance_path="/",
+    project_name="SKiDL-Generated",
+):
     """Convert a SchNode tree to S-expression schematic(s).
 
     Follows the same recursive pattern as kicad5's node_to_eeschema():
@@ -1101,7 +1376,8 @@ def node_to_sexp_schematic(node, sheet_tx=Tx(), version=20230409):
     Args:
         node: SchNode to convert.
         sheet_tx: Parent sheet transformation matrix.
-        version: S-expression version number (20240108 for kicad6, 20230409 for kicad8/9).
+        version: S-expression version number. KiCad 9 native schematics
+            currently use 20250114.
 
     Returns:
         list[Sexp]: S-expression elements (parts, wires, labels, or a sheet ref).
@@ -1110,23 +1386,41 @@ def node_to_sexp_schematic(node, sheet_tx=Tx(), version=20230409):
     _fix_sheet_filename(node)
 
     elements = []
+    node_sheet_uuid = _gen_uuid(f"sheet:{node.sheet_filename}")
 
     if node.flattened:
         tx = node.tx * sheet_tx
+        current_instance_path = instance_path
+        current_project_name = project_name
     else:
         # Unflattened node gets its own sheet.
         flattened_bbox = node.internal_bbox()
         tx, paper = _calc_sheet_tx(flattened_bbox)
+        current_instance_path = f"/{node_sheet_uuid}"
+        current_project_name = _sheet_project_name(
+            node.sheet_filename, fallback=project_name
+        )
 
     # Recurse into children.
     for child in node.children.values():
-        elements.extend(node_to_sexp_schematic(child, tx, version=version))
+        child_instance_path = _child_instance_path(
+            current_instance_path, _gen_uuid(f"sheet:{child.sheet_filename}")
+        )
+        elements.extend(
+            node_to_sexp_schematic(
+                child,
+                tx,
+                version=version,
+                instance_path=child_instance_path,
+                project_name=current_project_name,
+            )
+        )
 
     # Collect lib_symbols needed for this node's parts.
     lib_symbols = {}
     for part in node.parts:
         if not isinstance(part, NetTerminal):
-            lib_id = f"{part.lib.filename}:{part.name}"
+            lib_id = _part_lib_id(part)
             if lib_id not in lib_symbols:
                 lib_symbols[lib_id] = part
 
@@ -1134,11 +1428,24 @@ def node_to_sexp_schematic(node, sheet_tx=Tx(), version=20230409):
     for part in node.parts:
         if isinstance(part, NetTerminal):
             # NetTerminals become net labels.
-            label = net_label_to_sexp(part.pins[0], tx=tx, force=True)
+            label = net_label_to_sexp(
+                part.pins[0],
+                tx=tx,
+                force=True,
+                instance_path=current_instance_path,
+                project_name=current_project_name,
+            )
             if label:
                 elements.append(label)
         else:
-            elements.append(part_to_sexp(part, tx=tx))
+            elements.append(
+                part_to_sexp(
+                    part,
+                    tx=tx,
+                    instance_path=current_instance_path,
+                    project_name=current_project_name,
+                )
+            )
 
     # Generate wire S-expressions (split at junction points).
     for net, wire in node.wires.items():
@@ -1154,9 +1461,22 @@ def node_to_sexp_schematic(node, sheet_tx=Tx(), version=20230409):
         if isinstance(part, NetTerminal):
             continue
         for pin in part:
-            label = net_label_to_sexp(pin, tx=tx)
+            label = net_label_to_sexp(
+                pin,
+                tx=tx,
+                instance_path=current_instance_path,
+                project_name=current_project_name,
+            )
             if label:
                 elements.append(label)
+
+    _append_missing_symbol_instances(
+        elements,
+        node.parts,
+        tx,
+        instance_path=current_instance_path,
+        project_name=current_project_name,
+    )
 
     if node.flattened:
         # Return elements for inclusion in the parent sheet.
@@ -1198,7 +1518,7 @@ def node_to_sexp_schematic(node, sheet_tx=Tx(), version=20230409):
             ["version", version],
             ["generator", "skidl"],
             ["generator_version", __version__],
-            ["uuid", _gen_uuid(f"sheet:{node.sheet_filename}")],
+            ["uuid", node_sheet_uuid],
             ["paper", paper if not node.flattened else "A3"],
         ]
     )
@@ -1211,9 +1531,16 @@ def node_to_sexp_schematic(node, sheet_tx=Tx(), version=20230409):
     # Write schematic file.
     filepath = os.path.join(node.filepath, node.sheet_filename)
     _write_sexp_schematic(schematic, filepath)
+    _fix_exported_schematic_references(filepath, node.parts)
 
-    # Return a hierarchical sheet reference for the parent.
-    return [create_hierarchical_sheet_sexp(node, sheet_tx)]
+    return [
+        create_hierarchical_sheet_sexp(
+            node,
+            sheet_tx,
+            project_name=project_name,
+            instance_path=instance_path,
+        )
+    ]
 
 
 # ---------------------------------------------------------------------------
@@ -1222,7 +1549,14 @@ def node_to_sexp_schematic(node, sheet_tx=Tx(), version=20230409):
 
 
 @export_to_all
-def write_top_schematic(circuit, node, filepath, top_name, title, version=20230409):
+def write_top_schematic(
+    circuit,
+    node,
+    filepath,
+    top_name,
+    title,
+    version=KICAD9_SCHEMATIC_VERSION,
+):
     """Generate and write the complete schematic from a placed+routed node tree.
 
     This is the main entry point called by each tool's gen_schematic().
@@ -1235,9 +1569,18 @@ def write_top_schematic(circuit, node, filepath, top_name, title, version=202304
         title: Schematic title.
         version: S-expression version number.
     """
+    if hasattr(circuit, "annotate_parts"):
+        # Ensure placeholder references such as D? are resolved before any
+        # symbol instances, properties, or sheet files are emitted.
+        circuit.annotate_parts()
+
     top_name = top_name or "schematic"
     _fix_sheet_filename(node)
     _reset_power_symbol_state()
+
+    project_name = top_name or "SKiDL-Generated"
+    root_uuid = _gen_uuid(f"root:{project_name}")
+    root_instance_path = f"/{root_uuid}"
 
     # Calculate root sheet transform.
     root_bbox = node.internal_bbox()
@@ -1247,24 +1590,48 @@ def write_top_schematic(circuit, node, filepath, top_name, title, version=202304
 
     # Recurse into children — they write their own files if unflattened.
     for child in node.children.values():
-        elements.extend(node_to_sexp_schematic(child, sheet_tx, version=version))
+        child_instance_path = _child_instance_path(
+            root_instance_path, _gen_uuid(f"sheet:{child.sheet_filename}")
+        )
+        elements.extend(
+            node_to_sexp_schematic(
+                child,
+                sheet_tx,
+                version=version,
+                instance_path=child_instance_path,
+                project_name=project_name,
+            )
+        )
 
     # Collect lib_symbols for ALL parts in the circuit.
     lib_symbols = {}
     for part in circuit.parts:
         if not isinstance(part, NetTerminal):
-            lib_id = f"{part.lib.filename}:{part.name}"
+            lib_id = _part_lib_id(part)
             if lib_id not in lib_symbols:
                 lib_symbols[lib_id] = part
 
     # Generate part S-expressions for root-level parts.
     for part in node.parts:
         if isinstance(part, NetTerminal):
-            label = net_label_to_sexp(part.pins[0], tx=sheet_tx, force=True)
+            label = net_label_to_sexp(
+                part.pins[0],
+                tx=sheet_tx,
+                force=True,
+                instance_path=root_instance_path,
+                project_name=project_name,
+            )
             if label:
                 elements.append(label)
         else:
-            elements.append(part_to_sexp(part, tx=sheet_tx))
+            elements.append(
+                part_to_sexp(
+                    part,
+                    tx=sheet_tx,
+                    instance_path=root_instance_path,
+                    project_name=project_name,
+                )
+            )
 
     # Generate wire S-expressions (split at junction points).
     for net, wire in node.wires.items():
@@ -1280,9 +1647,25 @@ def write_top_schematic(circuit, node, filepath, top_name, title, version=202304
         if isinstance(part, NetTerminal):
             continue
         for pin in part:
-            label = net_label_to_sexp(pin, tx=sheet_tx)
+            label = net_label_to_sexp(
+                pin,
+                tx=sheet_tx,
+                instance_path=root_instance_path,
+                project_name=project_name,
+            )
             if label:
                 elements.append(label)
+
+    root_parts = node.parts
+    if not root_parts and not node.children:
+        root_parts = circuit.parts
+    _append_missing_symbol_instances(
+        elements,
+        root_parts,
+        sheet_tx,
+        instance_path=root_instance_path,
+        project_name=project_name,
+    )
 
     # Build lib_symbols section.
     lib_symbols_sexp = Sexp(["lib_symbols"])
@@ -1296,8 +1679,6 @@ def write_top_schematic(circuit, node, filepath, top_name, title, version=202304
             pwr_sexp = _extract_power_lib_symbol(pwr_name)
             if pwr_sexp:
                 lib_symbols_sexp.append(pwr_sexp)
-
-    root_uuid = _gen_uuid("root_schematic")
 
     schematic = Sexp(
         [
@@ -1319,6 +1700,7 @@ def write_top_schematic(circuit, node, filepath, top_name, title, version=202304
     output_file = os.path.join(filepath, f"{top_name}.kicad_sch")
     os.makedirs(filepath, exist_ok=True)
     _write_sexp_schematic(schematic, output_file)
+    _fix_exported_schematic_references(output_file, circuit.parts)
 
     # Optional: validate with kicad-cli if available.
     _validate_with_kicad_cli(output_file)
@@ -1392,6 +1774,8 @@ def _write_sexp_schematic(schematic, filepath):
             "generator",
             "generator_version",
             "paper",
+            "uuid",
+            "page",
         )
 
     def need_quote_alternate(x):
@@ -1400,5 +1784,6 @@ def _write_sexp_schematic(schematic, filepath):
     schematic.add_quotes(need_quote)
     schematic.add_quotes(need_quote_alternate, stop_idx=2)
 
-    with open(filepath, "w") as f:
+    # KiCad .kicad_sch 为 UTF-8；Windows 默认 locale 为 GBK 时会因中文属性写入失败
+    with open(filepath, "w", encoding="utf-8") as f:
         f.write(schematic.to_str())

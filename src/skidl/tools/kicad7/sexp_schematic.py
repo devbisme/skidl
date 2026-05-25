@@ -19,6 +19,7 @@ Sources:
 import copy
 import datetime
 import os
+import re
 import uuid
 from collections import OrderedDict
 
@@ -632,7 +633,7 @@ def part_to_lib_symbol_definition(part):
             [
                 "property",
                 "Reference",
-                part.ref_prefix or "U",
+                getattr(part, "ref", None) or part.ref_prefix or "U",
                 ["at", 2.032, 0, 90],
                 ["effects", ["font", ["size", 1.27, 1.27]]],
             ],
@@ -1089,6 +1090,134 @@ def _fix_sheet_filename(node):
         node.sheet_filename = node.sheet_filename[:-4] + ".kicad_sch"
 
 
+_FULL_REF_RE = re.compile(r"^([A-Za-z#]+)\d+[A-Za-z]?$")
+_REF_PREFIX_RE = re.compile(r"^([A-Za-z#]+)")
+_REFERENCE_PROP_RE = re.compile(r'(\(property\s+"Reference"\s+")([^"]*)(")')
+_INSTANCE_REF_RE = re.compile(r'(\(reference\s+")([^"]*)(")')
+
+
+def _reference_is_full(ref):
+    """Return True if a reference already has a numeric annotation."""
+    return bool(_FULL_REF_RE.match(str(ref or "").strip()))
+
+
+def _reference_prefix(ref):
+    """Return the alphabetic reference prefix from a ref or placeholder."""
+    match = _REF_PREFIX_RE.match(str(ref or "").strip())
+    return match.group(1).upper() if match else ""
+
+
+def _reference_queues(parts):
+    """Build ordered full-reference queues, grouped by reference prefix."""
+    refs_by_prefix = OrderedDict()
+    for part in parts:
+        if isinstance(part, NetTerminal):
+            continue
+        ref = str(getattr(part, "ref", "") or "").strip()
+        if not _reference_is_full(ref):
+            continue
+        prefix = _reference_prefix(ref)
+        refs_by_prefix.setdefault(prefix, []).append(ref)
+    return refs_by_prefix
+
+
+def _find_symbol_blocks(text):
+    """Yield ``(start, end)`` ranges for S-expression symbol blocks."""
+    for match in re.finditer(r"\(symbol(?=\s)", text):
+        start = match.start()
+        depth = 0
+        in_string = False
+        escaped = False
+        for i in range(start, len(text)):
+            ch = text[i]
+            if in_string:
+                if escaped:
+                    escaped = False
+                elif ch == "\\":
+                    escaped = True
+                elif ch == '"':
+                    in_string = False
+                continue
+            if ch == '"':
+                in_string = True
+            elif ch == "(":
+                depth += 1
+            elif ch == ")":
+                depth -= 1
+                if depth == 0:
+                    yield start, i + 1
+                    break
+
+
+def _fix_reference_block(block, refs_by_prefix, consumed):
+    """Fix a single symbol block's Reference property and instance reference."""
+    prop_match = _REFERENCE_PROP_RE.search(block)
+    if not prop_match:
+        return block
+
+    current_ref = prop_match.group(2)
+    is_instance_symbol = "(lib_id" in block
+    full_ref = current_ref if _reference_is_full(current_ref) else None
+
+    if full_ref is None:
+        prefix = _reference_prefix(current_ref)
+        refs = refs_by_prefix.get(prefix, [])
+        if refs:
+            idx = consumed.get(prefix, 0) if is_instance_symbol else 0
+            if idx >= len(refs):
+                idx = len(refs) - 1
+            full_ref = refs[idx]
+            if is_instance_symbol:
+                consumed[prefix] = idx + 1
+
+    if full_ref is None:
+        return block
+
+    if current_ref != full_ref:
+        block = _REFERENCE_PROP_RE.sub(
+            lambda m: f"{m.group(1)}{full_ref}{m.group(3)}",
+            block,
+            count=1,
+        )
+
+    def replace_instance_ref(match):
+        instance_ref = match.group(2)
+        if instance_ref == full_ref or _reference_is_full(instance_ref):
+            return match.group(0)
+        if _reference_prefix(instance_ref) == _reference_prefix(full_ref):
+            return f"{match.group(1)}{full_ref}{match.group(3)}"
+        return match.group(0)
+
+    return _INSTANCE_REF_RE.sub(replace_instance_ref, block)
+
+
+def _fix_exported_schematic_references(filepath, parts):
+    """Patch generated schematic Reference fields using assigned SKiDL refs."""
+    refs_by_prefix = _reference_queues(parts)
+    if not refs_by_prefix or not os.path.exists(filepath):
+        return
+
+    with open(filepath, "r", encoding="utf-8") as f:
+        text = f.read()
+
+    consumed = {}
+    replacements = []
+    for start, end in _find_symbol_blocks(text):
+        block = text[start:end]
+        fixed = _fix_reference_block(block, refs_by_prefix, consumed)
+        if fixed != block:
+            replacements.append((start, end, fixed))
+
+    if not replacements:
+        return
+
+    for start, end, fixed in reversed(replacements):
+        text = text[:start] + fixed + text[end:]
+
+    with open(filepath, "w", encoding="utf-8") as f:
+        f.write(text)
+
+
 @export_to_all
 def node_to_sexp_schematic(node, sheet_tx=Tx(), version=20230409):
     """Convert a SchNode tree to S-expression schematic(s).
@@ -1211,6 +1340,7 @@ def node_to_sexp_schematic(node, sheet_tx=Tx(), version=20230409):
     # Write schematic file.
     filepath = os.path.join(node.filepath, node.sheet_filename)
     _write_sexp_schematic(schematic, filepath)
+    _fix_exported_schematic_references(filepath, node.parts)
 
     # Return a hierarchical sheet reference for the parent.
     return [create_hierarchical_sheet_sexp(node, sheet_tx)]
@@ -1319,6 +1449,7 @@ def write_top_schematic(circuit, node, filepath, top_name, title, version=202304
     output_file = os.path.join(filepath, f"{top_name}.kicad_sch")
     os.makedirs(filepath, exist_ok=True)
     _write_sexp_schematic(schematic, output_file)
+    _fix_exported_schematic_references(output_file, circuit.parts)
 
     # Optional: validate with kicad-cli if available.
     _validate_with_kicad_cli(output_file)
@@ -1400,5 +1531,5 @@ def _write_sexp_schematic(schematic, filepath):
     schematic.add_quotes(need_quote)
     schematic.add_quotes(need_quote_alternate, stop_idx=2)
 
-    with open(filepath, "w") as f:
+    with open(filepath, "w", encoding="utf-8") as f:
         f.write(schematic.to_str())
