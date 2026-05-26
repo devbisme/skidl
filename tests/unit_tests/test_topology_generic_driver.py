@@ -643,6 +643,79 @@ def test_route_driver_rails_trims_span_but_still_covers_all_connected_pins():
     assert {seg.p1.x for seg in vert} == {0, 600, 1200}
 
 
+def test_route_driver_rails_skips_local_two_pin_non_power_chain_net():
+    grid = 100
+    node = _FakeNode()
+    d1 = _FakePart("D1", pins=[_FakePin("A", pt=Point(0, 0))])
+    r1 = _FakePart("R1", pins=[_FakePin("1", pt=Point(0, 0))])
+    for part, dx in ((d1, 0), (r1, 600)):
+        part.tx = Tx(dx=dx, dy=0)
+        for pin in part.pins:
+            pin.part = part
+    node.parts = [d1, r1]
+    node._driver_chain_parts = {d1, r1}
+    node._last_topology_result = {"kind": "disabled"}
+    node._driver_rail_plan = {
+        "enabled": True,
+        "grid": grid,
+        "top_nets": [],
+        "bottom_nets": [],
+    }
+
+    local = _FakeNet("NET-(D1-A)")
+    _wire(d1, "A", local)
+    _wire(r1, "1", local)
+
+    handled = route_driver_rails(
+        node,
+        [local],
+        human_readable=True,
+        driver_rail_routing=True,
+        grid=grid,
+    )
+
+    assert local not in handled
+    assert local not in node.wires
+
+
+def test_route_driver_rails_keeps_power_like_two_pin_chain_net():
+    grid = 100
+    node = _FakeNode()
+    u1 = _FakePart("U1", pins=[_FakePin("VIN", pt=Point(0, 100))])
+    c1 = _FakePart("C1", pins=[_FakePin("1", pt=Point(0, 100))])
+    for part, dx in ((u1, 0), (c1, 700)):
+        part.tx = Tx(dx=dx, dy=0)
+        for pin in part.pins:
+            pin.part = part
+    node.parts = [u1, c1]
+    node._driver_chain_parts = {u1, c1}
+    node._last_topology_result = {"kind": "disabled"}
+    node._driver_rail_plan = {
+        "enabled": True,
+        "grid": grid,
+        "top_nets": [],
+        "bottom_nets": [],
+    }
+
+    vcc = _FakeNet("VCC")
+    _wire(u1, "VIN", vcc)
+    _wire(c1, "1", vcc)
+
+    handled = route_driver_rails(
+        node,
+        [vcc],
+        human_readable=True,
+        driver_rail_routing=True,
+        grid=grid,
+    )
+
+    assert vcc in handled
+    horiz = [seg for seg in node.wires[vcc] if seg.p1.y == seg.p2.y]
+    vert = [seg for seg in node.wires[vcc] if seg.p1.x == seg.p2.x]
+    assert len(horiz) == 1
+    assert len(vert) == 2
+
+
 def test_prune_driver_preroute_tails_keeps_connections_and_one_grid_margin():
     grid = 100
     node = _FakeNode()

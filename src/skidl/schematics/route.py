@@ -30,6 +30,108 @@ from .trunk_layout import is_trunk_net_name, trunk_route_rank_bias
 __all__ = ["RoutingFailure", "GlobalRoutingFailure", "SwitchboxRoutingFailure"]
 
 
+_RAIL_LIKE_EXACT_NET_NAMES = {
+    "GND",
+    "VCC",
+    "VDD",
+    "VSS",
+    "VBAT",
+    "VIN",
+    "3V3",
+    "5V",
+    "+3V3",
+    "+5V",
+    "PWR",
+    "POWER",
+    "RAIL",
+}
+
+_RAIL_LIKE_NAME_TOKENS = (
+    "GND",
+    "VCC",
+    "VDD",
+    "VSS",
+    "VBAT",
+    "VIN",
+    "3V3",
+    "5V",
+    "PWR",
+    "POWER",
+    "SUPPLY",
+    "RAIL",
+)
+
+
+def _net_bbox_from_pins(pins):
+    bbox = BBox()
+    for pin in pins:
+        part = getattr(pin, "part", None)
+        pt = getattr(pin, "pt", None)
+        tx = getattr(part, "tx", None)
+        if part is None or pt is None or tx is None:
+            continue
+        bbox.add((pt * tx).round())
+    return bbox
+
+
+def _is_power_like_net(node, net, pins=None):
+    """Return True for nets that are explicitly named like rails/power."""
+    name = str(getattr(net, "name", "") or "").strip().upper()
+    compact = name.replace(" ", "")
+
+    if compact in _RAIL_LIKE_EXACT_NET_NAMES:
+        return True
+    if compact and any(token in compact for token in _RAIL_LIKE_NAME_TOKENS):
+        return True
+
+    is_power_name = getattr(node, "_is_power_net_name", None)
+    if callable(is_power_name) and compact and is_power_name(compact):
+        return True
+
+    return False
+
+
+def _has_supply_symbol_participation(pins):
+    from skidl.schematics.place import is_net_terminal
+
+    return any(is_net_terminal(getattr(pin, "part", None)) for pin in pins)
+
+
+def _should_use_trunk_routing(node, net, pins, bbox=None, grid=None):
+    """Conservatively allow trunk routing only for clear rails/backbones."""
+    pin_count = len(pins)
+    if pin_count < 2:
+        return False
+
+    grid = int(grid or globals().get("GRID", 100))
+    bbox = bbox or _net_bbox_from_pins(pins)
+    named_power = _is_power_like_net(node, net, pins)
+    has_supply_symbol = _has_supply_symbol_participation(getattr(net, "pins", pins))
+
+    if pin_count == 2:
+        return named_power
+
+    if named_power:
+        return True
+
+    connected_parts = {
+        getattr(pin, "part", None)
+        for pin in pins
+        if getattr(pin, "part", None) in getattr(node, "parts", [])
+    }
+    fanout = len(connected_parts) or pin_count
+    dominant_span = max(getattr(bbox, "w", 0), getattr(bbox, "h", 0))
+    broad_span = getattr(bbox, "w", 0) >= grid * 8 or getattr(bbox, "h", 0) >= grid * 8
+
+    if pin_count <= 3:
+        return has_supply_symbol and dominant_span >= grid * 12
+
+    if has_supply_symbol and dominant_span >= grid * 8:
+        return True
+
+    return fanout >= 4 and broad_span and dominant_span >= grid * 10
+
+
 def _build_route_part_obstacles(node, human_readable=False):
     """构建布线障碍 bbox；human_readable 下主控 IC 外扩 keepout。"""
     grid = globals().get("GRID", 100)
@@ -146,6 +248,9 @@ def route_driver_chain_local_nets(node, nets, **options):
             continue
         if {pin.part for pin in pins} - row_parts:
             continue
+        bbox = _net_bbox_from_pins(pins)
+        if not _should_use_trunk_routing(node, net, pins, bbox=bbox, grid=grid):
+            continue
 
         pin_pts = [(pin.pt * pin.part.tx).round() for pin in pins]
         bus_y = _driver_chain_bus_y(pin_pts, grid)
@@ -205,6 +310,9 @@ def route_driver_rails(node, nets, **options):
 
         pins = _driver_route_pins(node, net)
         if not pins:
+            continue
+        bbox = _net_bbox_from_pins(pins)
+        if not _should_use_trunk_routing(node, net, pins, bbox=bbox, grid=grid):
             continue
 
         pin_pts = [(pin.pt * pin.part.tx).round() for pin in pins]

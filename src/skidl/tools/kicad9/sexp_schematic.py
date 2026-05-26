@@ -34,6 +34,84 @@ from skidl.utilities import export_to_all
 _NAMESPACE_UUID = uuid.UUID("7026fcc6-e1a0-409e-aaf4-6a17ea82654f")
 KICAD9_SCHEMATIC_VERSION = 20250114
 
+
+def _attach_debug_enabled():
+    value = str(os.environ.get("SKIDL_SCH_DEBUG_ATTACH", "") or "").strip().lower()
+    return value not in ("", "0", "false", "no", "off")
+
+
+def _attach_debug_log(message):
+    if not _attach_debug_enabled():
+        return
+    from skidl.logger import active_logger
+
+    active_logger.info("[attach-debug] %s" % message)
+
+
+def _wire_count_summary(wires):
+    return {
+        str(getattr(net, "name", "") or ""): len(segs)
+        for net, segs in sorted(
+            wires.items(), key=lambda item: str(getattr(item[0], "name", "") or "")
+        )
+    }
+
+
+def _subtree_wire_total(node):
+    total = sum(len(segs) for segs in getattr(node, "wires", {}).values())
+    for child in getattr(node, "children", {}).values():
+        total += _subtree_wire_total(child)
+    return total
+
+
+def _log_export_node_state(stage, node, tx=None, instance_path=None, project_name=None):
+    if not _attach_debug_enabled():
+        return
+    _attach_debug_log(
+        "%s node_id=%s sheet=%s flattened=%s node_wires_id=%s total_nets=%d total_wires=%d subtree_total_wires=%d child_count=%d sheet_file=%s tx_id=%s instance_path=%s project=%s per_net=%s"
+        % (
+            stage,
+            id(node),
+            getattr(node, "name", "?"),
+            getattr(node, "flattened", False),
+            id(getattr(node, "wires", {})),
+            len(getattr(node, "wires", {})),
+            sum(len(segs) for segs in getattr(node, "wires", {}).values()),
+            _subtree_wire_total(node),
+            len(getattr(node, "children", {})),
+            getattr(node, "sheet_filename", None),
+            id(tx) if tx is not None else "None",
+            instance_path,
+            project_name,
+            _wire_count_summary(getattr(node, "wires", {})),
+        )
+    )
+
+
+def _iter_node_subtree(node):
+    yield node
+    for child in getattr(node, "children", {}).values():
+        yield from _iter_node_subtree(child)
+
+
+def _is_flat_export_wrapper(node):
+    real_parts = [
+        part for part in getattr(node, "parts", []) if not isinstance(part, NetTerminal)
+    ]
+    return (
+        len(real_parts) == 0
+        and len(getattr(node, "wires", {})) == 0
+        and len(getattr(node, "junctions", {})) == 0
+        and len(getattr(node, "children", {})) == 1
+    )
+
+
+def _select_flat_export_root(node):
+    current = node
+    while _is_flat_export_wrapper(current):
+        current = next(iter(current.children.values()))
+    return current
+
 # ---------------------------------------------------------------------------
 # Power symbol support
 # ---------------------------------------------------------------------------
@@ -1384,8 +1462,15 @@ def node_to_sexp_schematic(
     """
     # Fix filename extension for KiCad 6+ S-expression format.
     _fix_sheet_filename(node)
+    _log_export_node_state(
+        "sexp node enter",
+        node,
+        tx=sheet_tx,
+        instance_path=instance_path,
+        project_name=project_name,
+    )
 
-    elements = []
+    elements = list()
     node_sheet_uuid = _gen_uuid(f"sheet:{node.sheet_filename}")
 
     if node.flattened:
@@ -1448,6 +1533,13 @@ def node_to_sexp_schematic(
             )
 
     # Generate wire S-expressions (split at junction points).
+    _log_export_node_state(
+        "sexp wire emit",
+        node,
+        tx=tx,
+        instance_path=current_instance_path,
+        project_name=current_project_name,
+    )
     for net, wire in node.wires.items():
         net_junctions = node.junctions.get(net, [])
         elements.extend(wire_to_sexp(net, wire, tx=tx, junctions=net_junctions))
@@ -1530,6 +1622,13 @@ def node_to_sexp_schematic(
 
     # Write schematic file.
     filepath = os.path.join(node.filepath, node.sheet_filename)
+    _log_export_node_state(
+        "sexp write before",
+        node,
+        tx=tx,
+        instance_path=current_instance_path,
+        project_name=current_project_name,
+    )
     _write_sexp_schematic(schematic, filepath)
     _fix_exported_schematic_references(filepath, node.parts)
 
@@ -1541,6 +1640,89 @@ def node_to_sexp_schematic(
             instance_path=instance_path,
         )
     ]
+
+
+def _collect_flat_schematic_elements(
+    node,
+    sheet_tx,
+    instance_path="/",
+    project_name="SKiDL-Generated",
+    include_node_tx=False,
+):
+    """Collect a node subtree directly into one sheet without sheet wrappers."""
+    _fix_sheet_filename(node)
+    tx = node.tx * sheet_tx if include_node_tx else sheet_tx
+    _log_export_node_state(
+        "sexp flat collect",
+        node,
+        tx=tx,
+        instance_path=instance_path,
+        project_name=project_name,
+    )
+
+    elements = list()
+
+    for child in node.children.values():
+        elements.extend(
+            _collect_flat_schematic_elements(
+                child,
+                tx,
+                instance_path=instance_path,
+                project_name=project_name,
+                include_node_tx=True,
+            )
+        )
+
+    for part in node.parts:
+        if isinstance(part, NetTerminal):
+            label = net_label_to_sexp(
+                part.pins[0],
+                tx=tx,
+                force=True,
+                instance_path=instance_path,
+                project_name=project_name,
+            )
+            if label:
+                elements.append(label)
+        else:
+            elements.append(
+                part_to_sexp(
+                    part,
+                    tx=tx,
+                    instance_path=instance_path,
+                    project_name=project_name,
+                )
+            )
+
+    for net, wire in node.wires.items():
+        net_junctions = node.junctions.get(net, [])
+        elements.extend(wire_to_sexp(net, wire, tx=tx, junctions=net_junctions))
+
+    for net, junctions in node.junctions.items():
+        elements.extend(junction_to_sexp(net, junctions, tx=tx))
+
+    for part in node.parts:
+        if isinstance(part, NetTerminal):
+            continue
+        for pin in part:
+            label = net_label_to_sexp(
+                pin,
+                tx=tx,
+                instance_path=instance_path,
+                project_name=project_name,
+            )
+            if label:
+                elements.append(label)
+
+    _append_missing_symbol_instances(
+        elements,
+        node.parts,
+        tx,
+        instance_path=instance_path,
+        project_name=project_name,
+    )
+
+    return elements
 
 
 # ---------------------------------------------------------------------------
@@ -1556,6 +1738,7 @@ def write_top_schematic(
     top_name,
     title,
     version=KICAD9_SCHEMATIC_VERSION,
+    flatten=False,
 ):
     """Generate and write the complete schematic from a placed+routed node tree.
 
@@ -1568,6 +1751,8 @@ def write_top_schematic(
         top_name: Base filename (without extension).
         title: Schematic title.
         version: S-expression version number.
+        flatten: If True, emit one standalone sheet instead of a hierarchy
+            wrapper plus child sheet files.
     """
     if hasattr(circuit, "annotate_parts"):
         # Ensure placeholder references such as D? are resolved before any
@@ -1581,12 +1766,87 @@ def write_top_schematic(
     project_name = top_name or "SKiDL-Generated"
     root_uuid = _gen_uuid(f"root:{project_name}")
     root_instance_path = f"/{root_uuid}"
+    export_root = _select_flat_export_root(node) if flatten else node
 
     # Calculate root sheet transform.
-    root_bbox = node.internal_bbox()
+    root_bbox = export_root.internal_bbox()
     sheet_tx, paper = _calc_sheet_tx(root_bbox)
+    _log_export_node_state(
+        "sexp top enter",
+        export_root,
+        tx=sheet_tx,
+        instance_path=root_instance_path,
+        project_name=project_name,
+    )
 
     elements = []
+    if flatten:
+        _attach_debug_log(
+            "sexp flat export root node_id=%s sheet=%s source_root_id=%s source_sheet=%s subtree_nodes=%d"
+            % (
+                id(export_root),
+                getattr(export_root, "name", "?"),
+                id(node),
+                getattr(node, "name", "?"),
+                sum(1 for _ in _iter_node_subtree(export_root)),
+            )
+        )
+        elements.extend(
+            _collect_flat_schematic_elements(
+                export_root,
+                sheet_tx,
+                instance_path=root_instance_path,
+                project_name=project_name,
+            )
+        )
+
+        lib_symbols = {}
+        for part in circuit.parts:
+            if not isinstance(part, NetTerminal):
+                lib_id = _part_lib_id(part)
+                if lib_id not in lib_symbols:
+                    lib_symbols[lib_id] = part
+
+        lib_symbols_sexp = Sexp(["lib_symbols"])
+        for lib_id, part in lib_symbols.items():
+            lib_symbols_sexp.append(Sexp(part_to_lib_symbol_definition(part)))
+
+        for pwr_name in sorted(_used_power_symbols):
+            pwr_lib_id = f"power:{pwr_name}"
+            if pwr_lib_id not in lib_symbols:
+                pwr_sexp = _extract_power_lib_symbol(pwr_name)
+                if pwr_sexp:
+                    lib_symbols_sexp.append(pwr_sexp)
+
+        schematic = Sexp(
+            [
+                "kicad_sch",
+                ["version", version],
+                ["generator", "skidl"],
+                ["generator_version", __version__],
+                ["uuid", root_uuid],
+                ["paper", paper],
+            ]
+        )
+        schematic.append(Sexp(create_title_block_sexp(title)))
+        schematic.append(lib_symbols_sexp)
+
+        for elem in elements:
+            schematic.append(elem)
+
+        output_file = os.path.join(filepath, f"{top_name}.kicad_sch")
+        os.makedirs(filepath, exist_ok=True)
+        _log_export_node_state(
+            "sexp top write before",
+            export_root,
+            tx=sheet_tx,
+            instance_path=root_instance_path,
+            project_name=project_name,
+        )
+        _write_sexp_schematic(schematic, output_file)
+        _fix_exported_schematic_references(output_file, circuit.parts)
+        _validate_with_kicad_cli(output_file)
+        return output_file
 
     # Recurse into children — they write their own files if unflattened.
     for child in node.children.values():
@@ -1634,6 +1894,13 @@ def write_top_schematic(
             )
 
     # Generate wire S-expressions (split at junction points).
+    _log_export_node_state(
+        "sexp top wire emit",
+        node,
+        tx=sheet_tx,
+        instance_path=root_instance_path,
+        project_name=project_name,
+    )
     for net, wire in node.wires.items():
         net_junctions = node.junctions.get(net, [])
         elements.extend(wire_to_sexp(net, wire, tx=sheet_tx, junctions=net_junctions))
@@ -1699,6 +1966,13 @@ def write_top_schematic(
     # Write root schematic.
     output_file = os.path.join(filepath, f"{top_name}.kicad_sch")
     os.makedirs(filepath, exist_ok=True)
+    _log_export_node_state(
+        "sexp top write before",
+        node,
+        tx=sheet_tx,
+        instance_path=root_instance_path,
+        project_name=project_name,
+    )
     _write_sexp_schematic(schematic, output_file)
     _fix_exported_schematic_references(output_file, circuit.parts)
 
