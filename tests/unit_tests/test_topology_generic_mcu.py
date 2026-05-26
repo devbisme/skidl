@@ -2,6 +2,7 @@
 
 """generic MCU topology 检测、互斥与日志格式单元测试。"""
 
+from skidl.geometry import Point
 from skidl.schematics.topology import (
     _score_candidate_ic,
     _score_mcu_candidate_ic,
@@ -303,6 +304,47 @@ def test_mcu_find_colinear_chains_marks_used():
         for p in chain[1:]:
             outward_refs.add(p.ref)
     assert "R5" in outward_refs or "R6" in outward_refs
+
+
+def test_walk_colinear_chain_first_step_follows_anchor_pin_only():
+    """首步只沿 anchor_pin 的网走，不扫 hub 全部引脚。
+
+    MCU 有 pin1→R6, pin2→R5 两根网；若首步扫全部引脚,
+    R5 字母序靠前会被 pin1 的链错误抢走。修复后 pin1 只走
+    pin1 那根网，找到 R6。
+    """
+    node = _FakeNode()
+    u3 = _FakePart("U3", pins=[_FakePin("1"), _FakePin("2")])
+    r5 = _FakePart("R5", pins=[_FakePin("1"), _FakePin("2")])
+    r6 = _FakePart("R6", pins=[_FakePin("1"), _FakePin("2")])
+    for p in (u3, r5, r6):
+        for pin in p.pins:
+            pin.part = p
+
+    net_p04 = _FakeNet("Net-(U3-P04)")
+    net_p05 = _FakeNet("Net-(U3-P05)")
+
+    _wire(u3, "1", net_p04)
+    _wire(r6, "2", net_p04)
+    _wire(u3, "2", net_p05)
+    _wire(r5, "2", net_p05)
+
+    part_set = {u3, r5, r6}
+    used = set()
+
+    chain_p04, _ = _walk_colinear_chain(
+        node, u3, u3.pins[0], part_set, used
+    )
+    for p in chain_p04[1:]:
+        used.add(id(p))
+    chain_p05, _ = _walk_colinear_chain(
+        node, u3, u3.pins[1], part_set, used
+    )
+
+    refs_p04 = [p.ref for p in chain_p04]
+    refs_p05 = [p.ref for p in chain_p05]
+    assert refs_p04 == ["U3", "R6"], f"pin1 链应走 R6，实际 {refs_p04}"
+    assert refs_p05 == ["U3", "R5"], f"pin2 链应走 R5，实际 {refs_p05}"
 
 
 def test_port_colinear_chain_from_header_stops_at_mcu():

@@ -817,9 +817,16 @@ def _walk_colinear_chain(
     prev = hub_part
     stop = set(stop_parts or ())
 
+    first_step = True
     while True:
         candidates = []
-        for pin in getattr(prev, "pins", []):
+        # 首步只沿 anchor_pin 那根网走，不扫 hub 全部引脚；
+        # 否则字母序靠前的器件会被错误抢给不相关的 MCU 引脚。
+        pins_to_scan = (
+            [anchor_pin] if first_step and prev is hub_part
+            else getattr(prev, "pins", [])
+        )
+        for pin in pins_to_scan:
             net = getattr(pin, "net", None)
             if net is None:
                 continue
@@ -846,6 +853,7 @@ def _walk_colinear_chain(
         nxt = candidates[0]
         chain.append(nxt)
         visited.add(id(nxt))
+        first_step = False
         nxt_pin = _chain_neighbor_pin(nxt, prev, node, part_set)
         if nxt_pin is None:
             break
@@ -1570,9 +1578,21 @@ def route_mcu_local_nets(node, nets, **options):
             net.stub = False
             for pin in pins:
                 pin.stub = False
-            node.wires[net] = _route_chain_net_wires(
-                node, net, pins, chain_anchor, grid
-            )
+            if len(pins) == 2:
+                p1 = _mcu_pin_route_pt(pins[0])
+                p2 = _mcu_pin_route_pt(pins[1])
+                if p1.y == p2.y:
+                    node.wires[net] = _mcu_wire_two_pins(p1, p2)
+                else:
+                    # 两引脚不同行（放置异常），不画线、改用 label 避短路
+                    net._stub = True
+                    net.stub = True
+                    for pin in pins:
+                        pin.stub = True
+            else:
+                node.wires[net] = _route_chain_net_wires(
+                    node, net, pins, chain_anchor, grid
+                )
             handled.add(net)
             continue
 
