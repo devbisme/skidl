@@ -3138,7 +3138,19 @@ class Router:
         # First, recursively route any children of this node.
         # TODO: Child nodes are independent so could they be processed in parallel?
         for child in node.children.values():
-            child.route(tool=tool, **options)
+            try:
+                child.route(tool=tool, **options)
+            except RoutingFailure:
+                # Child routing failed — stub its internal nets and retry
+                # so one complex subcircuit doesn't kill the whole schematic.
+                for part in child.parts:
+                    for pin in part:
+                        if pin.is_connected() and not pin.stub:
+                            pin.stub = True
+                            net = pin.net
+                            if not getattr(net, "_stub", False):
+                                net._stub = True
+                child.route(tool=tool, **options)
 
         # Exit if no parts to route in this node.
         if not node.parts:
