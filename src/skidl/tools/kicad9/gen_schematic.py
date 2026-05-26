@@ -320,16 +320,42 @@ def _handle_fallback(circuit, tool_module, filepath, top_name, title, flatness,
             "labels-only output instead of crashing."
         )
 
-    # Produce labels-only output.
+    from skidl.schematics.place import PlacementFailure
+
+    # Place with real connectivity so connected parts group together,
+    # then stub remaining nets for routing. This gives connectivity-aware
+    # placement with close 2-pin parts wired directly.
+    placed = False
+    for expansion in [1.5, 2.25, 3.0]:
+        try:
+            preprocess_circuit(circuit, **options)
+            node = SchNode(circuit, tool_module, filepath, top_name, title, flatness)
+            node.place(expansion_factor=expansion, **options)
+            placed = True
+            break
+        except PlacementFailure:
+            finalize_parts_and_nets(circuit, **options)
+            logger.info(
+                f"  [graceful_fallback] Connectivity-aware placement failed "
+                f"at {expansion}x, trying wider"
+            )
+
+    if not placed:
+        _stub_all_non_explicit(circuit)
+        preprocess_circuit(circuit, **options)
+        node = SchNode(circuit, tool_module, filepath, top_name, title, flatness)
+        node.place(expansion_factor=1.5, **options)
+
+    snap_two_pin_parts(node)
+
     stubbed_nets = []
     for net in circuit.nets:
         if not getattr(net, "_stub_explicit", False) and not net._stub:
             stubbed_nets.append(net.name)
-    _stub_all_non_explicit(circuit)
+            net._stub = True
+            for pin in net.get_pins():
+                pin.stub = True
 
-    preprocess_circuit(circuit, **options)
-    node = SchNode(circuit, tool_module, filepath, top_name, title, flatness)
-    node.place(expansion_factor=1.0, **options)
     node.route(**options)
     output_file = write_top_schematic(
         circuit, node, filepath, top_name, title, version=20230409
@@ -337,14 +363,11 @@ def _handle_fallback(circuit, tool_module, filepath, top_name, title, flatness,
     finalize_parts_and_nets(circuit, **options)
 
     msg = (
-        f"{reason}. Produced labels-only schematic at {output_file}. "
-        f"Nets converted to labels: {', '.join(stubbed_nets[:10])}"
-        f"{'...' if len(stubbed_nets) > 10 else ''}. "
-        "This may mask routing issues that could be fixed by improving "
-        "the circuit layout. Set auto_stub_fallback='raise' to get the "
-        "original error instead."
+        f"{reason}. Produced schematic at {output_file} with "
+        f"connectivity-aware placement. "
+        f"{len(stubbed_nets)} nets as labels, close 2-pin nets wired directly."
     )
-    logger.warning(msg)
+    logger.info(msg)
 
     if fallback == "warn":
         warnings.warn(msg, LabelsOnlyWarning, stacklevel=4)

@@ -1168,6 +1168,97 @@ def _gen_power_bus_wires(node, tx, max_gap_mm=10.0):
 
 
 # ---------------------------------------------------------------------------
+# Label deconfliction — nudge labels that overlap component bodies
+# ---------------------------------------------------------------------------
+
+
+def _deconflict_labels(elements, node, sheet_tx):
+    """Offset labels that overlap component bodies.
+
+    After labels are generated with correct rotation, some may still overlap
+    neighbouring components (not their own).  This pass detects label-to-
+    component bbox intersections and nudges the label along its direction
+    axis to clear the overlap.
+    """
+    from math import cos, radians, sin
+
+    from skidl.geometry import BBox
+    from skidl.tools.kicad9.constants import LABEL_DECONFLICT_MARGIN
+
+    MARGIN_MM = LABEL_DECONFLICT_MARGIN * MILS_TO_MM
+
+    comp_bboxes = []
+    for part in node.parts:
+        if isinstance(part, NetTerminal):
+            continue
+        bbox = getattr(part, "place_bbox", None) or getattr(part, "lbl_bbox", None)
+        if bbox is None:
+            continue
+        part_tx = getattr(part, "tx", Tx())
+        tx = part_tx * sheet_tx
+        tb = bbox * tx
+        comp_bboxes.append(
+            BBox(
+                Point(min(tb.min.x, tb.max.x), min(tb.min.y, tb.max.y)),
+                Point(max(tb.min.x, tb.max.x), max(tb.min.y, tb.max.y)),
+            )
+        )
+
+    if not comp_bboxes:
+        return
+
+    def _label_dir(angle_deg):
+        r = radians(angle_deg)
+        return (cos(r), sin(r))
+
+    LABEL_W = 10.0
+    LABEL_H = 2.0
+
+    for elem in elements:
+        if not hasattr(elem, "__getitem__") or len(elem) < 1:
+            continue
+        if elem[0] != "global_label":
+            continue
+
+        at_sexp = None
+        for sub in elem:
+            if hasattr(sub, "__getitem__") and len(sub) > 0 and sub[0] == "at":
+                at_sexp = sub
+                break
+        if at_sexp is None or len(at_sexp) < 4:
+            continue
+
+        lx, ly, langle = float(at_sexp[1]), float(at_sexp[2]), int(at_sexp[3])
+        dx, dy = _label_dir(langle)
+
+        x_end = lx + dx * LABEL_W
+        y_end = ly + dy * LABEL_W
+        lbl_min_x = min(lx, x_end) - LABEL_H / 2
+        lbl_max_x = max(lx, x_end) + LABEL_H / 2
+        lbl_min_y = min(ly, y_end) - LABEL_H / 2
+        lbl_max_y = max(ly, y_end) + LABEL_H / 2
+        lbl_bbox = BBox(Point(lbl_min_x, lbl_min_y), Point(lbl_max_x, lbl_max_y))
+
+        for cb in comp_bboxes:
+            if not lbl_bbox.intersects(cb):
+                continue
+
+            if abs(dx) > abs(dy):
+                if dx > 0:
+                    offset = cb.max.x - lx + MARGIN_MM
+                else:
+                    offset = cb.min.x - lx - MARGIN_MM
+                at_sexp[1] = _round_mm(lx + offset)
+            else:
+                if dy > 0:
+                    offset = cb.max.y - ly + MARGIN_MM
+                else:
+                    offset = cb.min.y - ly - MARGIN_MM
+                at_sexp[2] = _round_mm(ly + offset)
+            break
+
+
+# ---------------------------------------------------------------------------
 # Recursive hierarchy walker — node_to_sexp_schematic
 # ---------------------------------------------------------------------------
 
@@ -1334,6 +1425,8 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
 
     if snap_ran:
         elements.extend(_gen_no_connect_flags(node, tx))
+
+    _deconflict_labels(elements, node, tx)
 
     if node.flattened:
         # This node is flattened, so return elements for inclusion in the parent sheet.
