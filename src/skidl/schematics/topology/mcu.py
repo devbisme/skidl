@@ -576,8 +576,38 @@ def _mcu_layout_bbox(part):
         return _layout_bbox(part)
 
 
-def _place_part_row_y(part, x_min, row_y, grid):
-    """把器件放在 x_min，中心 Y 对齐 row_y（与 MCU pin 同行）；R/C 强制横放。"""
+def _mcu_pin_local_pt(pin, base_tx):
+    """引脚在 base_tx 旋转下的坐标（不含平移）。"""
+    base = getattr(pin, "place_pt", None) or pin.pt
+    return (base * base_tx).round()
+
+
+def _mcu_place_part_pin_to_y(part, x_left, row_y, grid, anchor_pin):
+    """
+    横放被动件，使 anchor_pin 与 MCU 引脚同一 row_y（水平短线的前提）。
+    x_left 为器件放置外框左缘目标 X。
+    """
+    if anchor_pin is None:
+        _place_part_row_y(part, x_left, row_y, grid)
+        return
+    base = _mcu_horizontal_tx(part) if _mcu_wants_horizontal(part) else Tx()
+    pb = getattr(part, "place_bbox", None) or getattr(part, "bbox", None)
+    if pb is None:
+        part.tx = base.move(Point(x_left, row_y).snap(grid))
+        return
+    bb = pb * base
+    pin_local = _mcu_pin_local_pt(anchor_pin, base)
+    # 仅 X 吸附网格，Y 保持与 MCU pin 严格共线。
+    ox = Point(x_left - bb.min.x, 0).snap(grid).x
+    oy = row_y - pin_local.y
+    part.tx = base.move(Point(ox, oy))
+
+
+def _place_part_row_y(part, x_min, row_y, grid, anchor_pin=None):
+    """把器件放在 x_min；若给 anchor_pin 则该脚 Y=row_y，否则外框竖直居中。"""
+    if anchor_pin is not None:
+        _mcu_place_part_pin_to_y(part, x_min, row_y, grid, anchor_pin)
+        return
     base = _mcu_horizontal_tx(part) if _mcu_wants_horizontal(part) else Tx()
     pb = getattr(part, "place_bbox", None) or getattr(part, "bbox", None)
     if pb is None:
@@ -624,11 +654,24 @@ def _mcu_place_left_pin_chains(
     tk_x = r_x - gap - max_tk_w
 
     for resistor, tk, main_pin in chains:
-        row_y = _pin_abs_pt(main_pin).y
+        row_y = _mcu_pin_route_pt(main_pin).y
         if resistor is not None:
-            _place_part_row_y(resistor, r_x, row_y, grid)
+            _, r_pin = _pair_pins_to_main(resistor, main_part)
+            _place_part_row_y(resistor, r_x, row_y, grid, anchor_pin=r_pin)
         if tk is not None:
-            _place_part_row_y(tk, tk_x, row_y, grid)
+            tk_pin = None
+            for pin in tk.pins:
+                net = getattr(pin, "net", None)
+                if net is None:
+                    continue
+                if resistor is not None and any(
+                    getattr(rp, "net", None) is net for rp in resistor.pins
+                ):
+                    tk_pin = pin
+                    break
+            if tk_pin is None:
+                _, tk_pin = _pair_pins_to_main(tk, main_part)
+            _place_part_row_y(tk, tk_x, row_y, grid, anchor_pin=tk_pin)
 
 
 def _mcu_collect_left_chains(node, main_part, parts, part_adj, io_series, tk_parts):
@@ -651,14 +694,36 @@ def _mcu_collect_left_chains(node, main_part, parts, part_adj, io_series, tk_par
         if mp is None:
             continue
         chains.append((None, tk, mp))
-    chains.sort(key=lambda item: _pin_abs_pt(item[2]).y)
+    chains.sort(key=lambda item: _mcu_pin_route_pt(item[2]).y)
     return chains
+
+
+def _mcu_place_io_on_main_pin(node, main_part, part, gap, grid, side=None):
+    """串阻/电容等：接 MCU 的脚与 MCU pin 同 Y，水平横放。"""
+    mp, pp = _pair_pins_to_main(part, main_part)
+    if mp is None or pp is None:
+        return False
+    row_y = _mcu_pin_route_pt(mp).y
+    mp_pt = _mcu_pin_route_pt(mp)
+    bb = _mcu_layout_bbox(part)
+    if bb is None:
+        return False
+    w = max(bb.w, grid)
+    side = side or _main_pin_side(main_part, mp)
+    if side == "right":
+        x_left = mp_pt.x + gap
+    elif side in ("top", "bottom"):
+        x_left = mp_pt.x - w / 2
+    else:
+        x_left = mp_pt.x - (2 * gap) - w
+    _mcu_place_part_pin_to_y(part, x_left, row_y, grid, pp)
+    return True
 
 
 def _mcu_place_comm_led_block(
     node, main_part, parts, main_bbox, gap, grid, part_adj
 ):
-    """UART/LED 等通信指示：贴在 MCU 左上侧。"""
+    """UART/LED：接 MCU 的 R 与 pin 水平对齐；LED 排在左上。"""
     comm_rs = []
     led_parts = []
     for part in parts:
@@ -670,15 +735,18 @@ def _mcu_place_comm_led_block(
     if not comm_rs and not led_parts:
         return
 
-    block_y = main_bbox.max.y + gap
-    x = main_bbox.min.x - (4 * gap)
-    ordered = sorted(comm_rs + led_parts, key=node._part_ref_key)
-    for part in ordered:
-        bb = _mcu_layout_bbox(part)
-        if bb is None:
-            continue
-        _place_part_row_y(part, x, block_y, grid)
-        x += max(bb.w, grid) + gap
+    for part in comm_rs:
+        _mcu_place_io_on_main_pin(node, main_part, part, gap, grid)
+
+    if led_parts:
+        block_y = main_bbox.max.y + gap
+        x = main_bbox.min.x - (4 * gap)
+        for part in sorted(led_parts, key=node._part_ref_key):
+            bb = _mcu_layout_bbox(part)
+            if bb is None:
+                continue
+            _place_part_row_y(part, x, block_y, grid)
+            x += max(bb.w, grid) + gap
 
 
 def _mcu_apply_label_stub_policy(node, nets, **options):
@@ -967,6 +1035,14 @@ def apply_generic_mcu_layout(
                 placed.add(tk)
                 anchor.add(tk)
 
+    chain_rs = {r for r, _, _ in left_chains if r is not None}
+    for part in io_series:
+        if part in chain_rs:
+            continue
+        if _mcu_place_io_on_main_pin(node, main_part, part, gap, grid):
+            placed.add(part)
+            anchor.add(part)
+
     _mcu_push_out_of_main_keepout(node, main_part, parts, gap, grid)
     if all_connectors:
         _mcu_place_connectors_below_main(
@@ -988,12 +1064,14 @@ def _mcu_route_pins(node, net):
 
 
 def _mcu_wire_two_pins(p1, p2, bus_y=None):
-    """两点间优先水平总线（与人工 MCU 图一致），否则 L 型。"""
+    """MCU 支路：给定 bus_y 时一根水平线；否则正交 L 型。"""
+    if bus_y is not None:
+        return [Segment(Point(p1.x, bus_y), Point(p2.x, bus_y))]
     if p1.y == p2.y:
         return [Segment(copy.copy(p1), copy.copy(p2))]
     if p1.x == p2.x:
         return [Segment(copy.copy(p1), copy.copy(p2))]
-    y = bus_y if bus_y is not None else p1.y
+    y = p1.y
     mid_a = Point(p1.x, y)
     mid_b = Point(p2.x, y)
     segs = []
@@ -1038,7 +1116,7 @@ def route_mcu_local_nets(node, nets, **options):
         p2 = _mcu_pin_route_pt(pins[1])
         bus_y = p1.y
         if main in net_parts:
-            mp = pins[0] if pins[0].part is main else pins[1]
+            mp = next(p for p in pins if p.part is main)
             bus_y = _mcu_pin_route_pt(mp).y
         node.wires[net] = _mcu_wire_two_pins(p1, p2, bus_y=bus_y)
         for pin in pins:

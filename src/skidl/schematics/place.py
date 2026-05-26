@@ -2042,8 +2042,12 @@ class Placer:
                 blk_int_pad=BLK_INT_PAD,
                 **options,
             )
-            for part in real_parts:
-                snap_to_grid(part)
+            # MCU 专用布局已按 pin Y 对齐，再 snap 会把电阻脚拉离水平线。
+            if not getattr(node, "_mcu_manual_pnr", False):
+                for part in real_parts:
+                    snap_to_grid(part)
+            elif main_part is not None:
+                snap_to_grid(main_part)
 
         # Place NetTerminals after all the other parts.
         place_net_terminals(
