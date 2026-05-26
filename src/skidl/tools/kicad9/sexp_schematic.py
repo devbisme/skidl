@@ -101,12 +101,16 @@ def _power_symbol_to_sexp(pin, net_name, tx):
     x = _round_mm(pt.x)
     y = _round_mm(pt.y)
 
-    # Power symbol angle: the symbol's pin orientation determines how
-    # it should be rotated.  For most power symbols, the connection pin
-    # is at (0, 0) and the graphical part extends in one direction.
-    # We don't rotate — KiCad power symbols are designed to display correctly
-    # at angle 0 (voltage symbols point up, GND symbols point down).
-    angle = 0
+    # Rotate the power symbol so its graphical part points AWAY from the
+    # component.  calc_pin_dir returns directions in SKiDL's internal coords
+    # (Y-up), but KiCad schematics use Y-down, so U and D are swapped.
+    # At angle=0: GND bars point down, supply arrows point up (KiCad convention).
+    pin_dir = calc_pin_dir(pin)
+    _is_gnd = any(g in net_name.upper() for g in ("GND", "VSS", "EARTH"))
+    if _is_gnd:
+        angle = {"U": 0, "D": 180, "R": 270, "L": 90}.get(pin_dir, 0)
+    else:
+        angle = {"D": 0, "U": 180, "R": 90, "L": 270}.get(pin_dir, 0)
 
     lib_id = f"power:{net_name}"
     inst_uuid = _gen_uuid(f"pwr:{net_name}:{x}:{y}:{_pwr_counter[0]}")
@@ -979,6 +983,7 @@ def _find_wireable_nets(node, tx, max_dist_mm=80.0):
     """Suppress labels for pins connected by snap (overlapping positions).
 
     Only active when snap placement has run (node has snap marker attributes).
+
     """
     node_part_ids = {id(p) for p in node.parts}
     wired_pin_ids = set()
@@ -1347,23 +1352,14 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
     for net, junctions in node.junctions.items():
         elements.extend(junction_to_sexp(net, junctions, tx=tx))
 
-    # Snap-placement post-processing: only active when _snap_two_pin_parts
-    # actually moved parts (non-empty marker attributes).
-    snap_ran = bool(
-        getattr(node, "_tjunction_wires", None)
-        or getattr(node, "_power_cap_wires", None)
-        or getattr(node, "_tjunction_suppressed_pins", None)
-        or getattr(node, "_power_cap_suppressed_pins", None)
-    )
-    wired_pin_ids = set()
+    # Replace close 2-pin stubbed nets with direct wires instead of labels.
+    wired_pin_ids, direct_wires = _find_wireable_nets(node, tx)
+    elements.extend(direct_wires)
 
-    if snap_ran:
-        wired_pin_ids, direct_wires = _find_wireable_nets(node, tx)
-        elements.extend(direct_wires)
-
-        power_wires, bus_pin_ids = _gen_power_bus_wires(node, tx)
-        elements.extend(power_wires)
-        wired_pin_ids.update(bus_pin_ids)
+    # Connect co-linear power net pins with bus wires.
+    power_wires, bus_pin_ids = _gen_power_bus_wires(node, tx)
+    elements.extend(power_wires)
+    wired_pin_ids.update(bus_pin_ids)
 
     for tjw in getattr(node, "_tjunction_wires", []):
         x1_mil, y1_mil, x2_mil, y2_mil = tjw
@@ -1413,8 +1409,7 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
             if label:
                 elements.append(label)
             elif (
-                snap_ran
-                and len(part.pins) == 2
+                len(part.pins) == 2
                 and not pin.stub
                 and pin.is_connected()
                 and pin.net.name in pwr_symbol_names
@@ -1423,8 +1418,7 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
                 if label:
                     elements.append(label)
 
-    if snap_ran:
-        elements.extend(_gen_no_connect_flags(node, tx))
+    elements.extend(_gen_no_connect_flags(node, tx))
 
     _deconflict_labels(elements, node, tx)
 
