@@ -246,6 +246,48 @@ def route_driver_rails(node, nets, **options):
     return handled
 
 
+def clear_stub_for_wired_nets(node):
+    """
+    已在 node.wires 中有线段的网：取消 net/pin 的 stub 标记。
+    避免 KiCad 导出时对同一电气连接同时写出 wire 与 global_label。
+    """
+    from skidl.schematics.place import is_net_terminal
+
+    wires = getattr(node, "wires", None) or {}
+    wired_ids = set()
+    wired_names = set()
+    for net, segs in wires.items():
+        if not segs:
+            continue
+        wired_ids.add(id(net))
+        name = str(getattr(net, "name", "") or "")
+        if name:
+            wired_names.add(name)
+        net._stub = False
+        for pin in getattr(net, "pins", []):
+            pin.stub = False
+
+    if not wired_ids and not wired_names:
+        return
+
+    # 按网名对齐：布线键与 pin.net 偶发不是同一 Net 对象（链式子网名）
+    for part in getattr(node, "parts", []):
+        if is_net_terminal(part):
+            continue
+        for pin in part:
+            net = getattr(pin, "net", None)
+            if net is None:
+                continue
+            if id(net) in wired_ids:
+                pin.stub = False
+                net._stub = False
+                continue
+            pname = str(getattr(net, "name", "") or "")
+            if pname and pname in wired_names:
+                pin.stub = False
+                net._stub = False
+
+
 def _net_name_for_log(net):
     return str(getattr(net, "name", "") or "")
 
@@ -5654,6 +5696,7 @@ class Router:
 
             if not routed_nets:
                 node.cleanup_wires()
+                clear_stub_for_wired_nets(node)
                 if not getattr(node, "_mcu_manual_pnr", False):
                     repair_unattached_same_net_pins(
                         node, internal_nets, **options
@@ -5741,6 +5784,7 @@ class Router:
             # Now clean-up the wires and add junctions.
             _sch_progress(options, f"[schematic] cleanup_wires sheet={sheet} ...")
             node.cleanup_wires()
+            clear_stub_for_wired_nets(node)
             _sch_progress(options, f"[schematic] pin_attach_repair sheet={sheet}")
             repair_unattached_same_net_pins(node, internal_nets, **options)
             _attach_debug_log_wire_stage(node, options, "repair_unattached_same_net_pins_after")

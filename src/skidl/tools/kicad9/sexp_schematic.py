@@ -816,6 +816,72 @@ def part_to_lib_symbol_definition(part):
 # ---------------------------------------------------------------------------
 
 
+def _wired_net_keys(node):
+    """已有导线段的网（id 与网名双索引，避免 pin.net 与 wires 键不是同一对象）。"""
+    wires = getattr(node, "wires", None) or {}
+    by_id = set()
+    by_name = set()
+    for net, segs in wires.items():
+        if not segs:
+            continue
+        by_id.add(id(net))
+        name = str(getattr(net, "name", "") or "")
+        if name:
+            by_name.add(name)
+    return by_id, by_name
+
+
+def _net_has_schematic_wires(net, wired_ids, wired_names):
+    if net is None:
+        return False
+    if id(net) in wired_ids:
+        return True
+    name = str(getattr(net, "name", "") or "")
+    return bool(name) and name in wired_names
+
+
+def _net_terminal_label_to_sexp(
+    pin, node, tx, instance_path="/", project_name="SKiDL-Generated"
+):
+    """NetTerminal 标签：已有导线的网不再 force 导出 global_label。"""
+    wired_ids, wired_names = _wired_net_keys(node)
+    net = getattr(pin, "net", None)
+    if _net_has_schematic_wires(net, wired_ids, wired_names):
+        return None
+    return net_label_to_sexp(
+        pin,
+        tx=tx,
+        force=True,
+        instance_path=instance_path,
+        project_name=project_name,
+    )
+
+
+def _append_stub_pin_labels(elements, node, parts, tx, instance_path, project_name):
+    """仅为 stub 且未布线导出的引脚生成标签/电源符号。"""
+    from skidl.schematics.route import clear_stub_for_wired_nets
+
+    clear_stub_for_wired_nets(node)
+    wired_ids, wired_names = _wired_net_keys(node)
+    for part in parts:
+        if isinstance(part, NetTerminal):
+            continue
+        for pin in part:
+            if not getattr(pin, "stub", False):
+                continue
+            net = getattr(pin, "net", None)
+            if _net_has_schematic_wires(net, wired_ids, wired_names):
+                continue
+            label = net_label_to_sexp(
+                pin,
+                tx=tx,
+                instance_path=instance_path,
+                project_name=project_name,
+            )
+            if label:
+                elements.append(label)
+
+
 def wire_to_sexp(net, wire, tx=Tx(), junctions=None):
     """Create S-expression for wire segments.
 
@@ -1427,11 +1493,11 @@ def node_to_sexp_schematic(
     # Generate part S-expressions.
     for part in node.parts:
         if isinstance(part, NetTerminal):
-            # NetTerminals become net labels.
-            label = net_label_to_sexp(
+            # NetTerminals become net labels（已有 wire 的网跳过，避免重复 global_label）。
+            label = _net_terminal_label_to_sexp(
                 part.pins[0],
+                node,
                 tx=tx,
-                force=True,
                 instance_path=current_instance_path,
                 project_name=current_project_name,
             )
@@ -1456,19 +1522,14 @@ def node_to_sexp_schematic(
     for net, junctions in node.junctions.items():
         elements.extend(junction_to_sexp(net, junctions, tx=tx))
 
-    # Generate net labels for stubbed pins.
-    for part in node.parts:
-        if isinstance(part, NetTerminal):
-            continue
-        for pin in part:
-            label = net_label_to_sexp(
-                pin,
-                tx=tx,
-                instance_path=current_instance_path,
-                project_name=current_project_name,
-            )
-            if label:
-                elements.append(label)
+    _append_stub_pin_labels(
+        elements,
+        node,
+        node.parts,
+        tx,
+        current_instance_path,
+        current_project_name,
+    )
 
     _append_missing_symbol_instances(
         elements,
@@ -1614,10 +1675,10 @@ def write_top_schematic(
     # Generate part S-expressions for root-level parts.
     for part in node.parts:
         if isinstance(part, NetTerminal):
-            label = net_label_to_sexp(
+            label = _net_terminal_label_to_sexp(
                 part.pins[0],
+                node,
                 tx=sheet_tx,
-                force=True,
                 instance_path=root_instance_path,
                 project_name=project_name,
             )
@@ -1642,23 +1703,17 @@ def write_top_schematic(
     for net, junctions in node.junctions.items():
         elements.extend(junction_to_sexp(net, junctions, tx=sheet_tx))
 
-    # Generate net labels for stubbed pins.
-    for part in node.parts:
-        if isinstance(part, NetTerminal):
-            continue
-        for pin in part:
-            label = net_label_to_sexp(
-                pin,
-                tx=sheet_tx,
-                instance_path=root_instance_path,
-                project_name=project_name,
-            )
-            if label:
-                elements.append(label)
-
     root_parts = node.parts
     if not root_parts and not node.children:
         root_parts = circuit.parts
+    _append_stub_pin_labels(
+        elements,
+        node,
+        root_parts,
+        sheet_tx,
+        root_instance_path,
+        project_name,
+    )
     _append_missing_symbol_instances(
         elements,
         root_parts,
