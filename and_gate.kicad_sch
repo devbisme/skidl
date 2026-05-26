@@ -1,0 +1,1253 @@
+(kicad_sch
+  (version 20230409)
+  (generator "skidl")
+  (generator_version "2.2.3")
+  (uuid 218b5f90-a139-55d3-a988-331ecbe7ee0c)
+  (paper "A4")
+  (title_block
+    (title "SKiDL-Generated Schematic")
+    (date "2026-05-20")
+    (company "")
+    (comment 1 "Generated with SKiDL")
+    (comment 2 "")
+    (comment 3 "")
+    (comment 4 ""))
+  (lib_symbols
+    (symbol "power:GND"
+      (pin_numbers
+        (hide yes))
+      (pin_names
+        (offset 0))
+      (exclude_from_sim no)
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "#PWR"
+        (at 2.032 0 90)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Value" "GND"
+        (at 0 0 90)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Footprint" ""
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (hide yes)))
+      (property "Datasheet" "~"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (hide yes)))
+      (symbol "GND_0_1"
+        (polyline
+          (pts
+            (xy 0 0)
+            (xy 0 -1.27)
+            (xy 1.27 -1.27)
+            (xy 0 -2.54)
+            (xy -1.27 -1.27)
+            (xy 0 -1.27))
+          (stroke
+            (width 0)
+            (type default)
+            (color 0 0 0 0))
+          (fill
+            (type none))))
+      (symbol "GND_1_1"
+        (polyline
+          (pts
+            (xy 0 0)
+            (xy 0 -1.27)
+            (xy 1.27 -1.27)
+            (xy 0 -2.54)
+            (xy -1.27 -1.27)
+            (xy 0 -1.27))
+          (stroke
+            (width 0)
+            (type default)
+            (color 0 0 0 0))
+          (fill
+            (type none)))
+        (pin power_in line
+          (at 0 0 270)
+          (length 0) hide
+          (name "GND"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27))))))
+      (embedded_fonts no))
+    (symbol "power:VCC"
+      (pin_numbers
+        (hide yes))
+      (pin_names
+        (offset 0))
+      (exclude_from_sim no)
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "#PWR"
+        (at 2.032 0 90)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Value" "VCC"
+        (at 0 0 90)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Footprint" ""
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (hide yes)))
+      (property "Datasheet" "~"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (hide yes)))
+      (symbol "VCC_0_1"
+        (polyline
+          (pts
+            (xy -0.762 1.27)
+            (xy 0 2.54))
+          (stroke
+            (width 0)
+            (type default)
+            (color 0 0 0 0))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0 0)
+            (xy 0 2.54))
+          (stroke
+            (width 0)
+            (type default)
+            (color 0 0 0 0))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0 2.54)
+            (xy 0.762 1.27))
+          (stroke
+            (width 0)
+            (type default)
+            (color 0 0 0 0))
+          (fill
+            (type none))))
+      (symbol "VCC_1_1"
+        (polyline
+          (pts
+            (xy -0.762 1.27)
+            (xy 0 2.54))
+          (stroke
+            (width 0)
+            (type default)
+            (color 0 0 0 0))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0 0)
+            (xy 0 2.54))
+          (stroke
+            (width 0)
+            (type default)
+            (color 0 0 0 0))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0 2.54)
+            (xy 0.762 1.27))
+          (stroke
+            (width 0)
+            (type default)
+            (color 0 0 0 0))
+          (fill
+            (type none)))
+        (pin power_in line
+          (at 0 0 90)
+          (length 0) hide
+          (name "VCC"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27))))))
+      (embedded_fonts no))
+    (symbol "Transistor_BJT:Q_PNP_CBE"
+      (pin_numbers
+        (hide yes))
+      (pin_names
+        (offset 0))
+      (exclude_from_sim no)
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "Q"
+        (at 2.032 0 90)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Value" "Q_PNP_CBE"
+        (at 0 0 90)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Footprint" ""
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (hide yes)))
+      (property "Datasheet" "~"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (hide yes)))
+      (property "Description" "PNP transistor, collector/base/emitter"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (hide yes)))
+      (symbol "Q_PNP_CBE_0_1"
+        (polyline
+          (pts
+            (xy -2.54 0)
+            (xy 0.635 0))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0.635 1.905)
+            (xy 0.635 -1.905))
+          (stroke
+            (width 0.508)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0.635 0.635)
+            (xy 2.54 2.54))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0.635 -0.635)
+            (xy 2.54 -2.54))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (circle
+          (center 1.27 0)
+          (radius 2.8194)
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 2.286 -1.778)
+            (xy 1.778 -2.286)
+            (xy 1.27 -1.27)
+            (xy 2.286 -1.778))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type outline))))
+      (symbol "Q_PNP_CBE_1_1"
+        (polyline
+          (pts
+            (xy -2.54 0)
+            (xy 0.635 0))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0.635 1.905)
+            (xy 0.635 -1.905))
+          (stroke
+            (width 0.508)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0.635 0.635)
+            (xy 2.54 2.54))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0.635 -0.635)
+            (xy 2.54 -2.54))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (circle
+          (center 1.27 0)
+          (radius 2.8194)
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 2.286 -1.778)
+            (xy 1.778 -2.286)
+            (xy 1.27 -1.27)
+            (xy 2.286 -1.778))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type outline)))
+        (pin input line
+          (at -5.08 0 0)
+          (length 2.54)
+          (name "B"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "2"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 2.54 5.08 270)
+          (length 2.54)
+          (name "C"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 2.54 -5.08 90)
+          (length 2.54)
+          (name "E"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "3"
+            (effects
+              (font
+                (size 1.27 1.27))))))
+      (embedded_fonts no))
+    (symbol "Device:R"
+      (pin_numbers
+        (hide yes))
+      (pin_names
+        (offset 0))
+      (exclude_from_sim no)
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "R"
+        (at 2.032 0 90)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Value" "R"
+        (at 0 0 90)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Footprint" ""
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (hide yes)))
+      (property "Datasheet" "~"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (hide yes)))
+      (symbol "R_0_1"
+        (rectangle
+          (start -1.016 -2.54)
+          (end 1.016 2.54)
+          (stroke
+            (width 0.254)
+            (type default)
+            (color 0 0 0 0))
+          (fill
+            (type none))))
+      (symbol "R_1_1"
+        (rectangle
+          (start -1.016 -2.54)
+          (end 1.016 2.54)
+          (stroke
+            (width 0.254)
+            (type default)
+            (color 0 0 0 0))
+          (fill
+            (type none)))
+        (pin passive line
+          (at 0 3.81 270)
+          (length 1.27)
+          (name "~"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 0 -3.81 90)
+          (length 1.27)
+          (name "~"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "2"
+            (effects
+              (font
+                (size 1.27 1.27))))))
+      (embedded_fonts no)))
+  (symbol
+    (lib_id "power:GND")
+    (at 151.13 123.19 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (fields_autoplaced yes)
+    (uuid d86bdffa-aa90-5adf-b7cd-91774c0ed0df)
+    (property "Reference" "#PWR1"
+      (at 151.13 120.64999999999999 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "GND"
+      (at 151.13 125.73 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" ""
+      (at 151.13 123.19 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (property "Datasheet" "~"
+      (at 151.13 123.19 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (property "Description" ""
+      (at 151.13 123.19 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (pin "1"
+      (uuid 880cedd3-f82b-55c2-8b04-12b5e701625c))
+    (instances
+      (project "SKiDL-Generated"
+        (path "/"
+          (reference "#PWR1")
+          (unit 1)))))
+  (symbol
+    (lib_id "power:VCC")
+    (at 153.67 80.01 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (fields_autoplaced yes)
+    (uuid fd58ff2a-b7cb-590c-be02-525b1b3ee5d5)
+    (property "Reference" "#PWR2"
+      (at 153.67 77.47 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "VCC"
+      (at 153.67 82.55000000000001 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" ""
+      (at 153.67 80.01 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (property "Datasheet" "~"
+      (at 153.67 80.01 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (property "Description" ""
+      (at 153.67 80.01 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (pin "1"
+      (uuid cdb03d6d-8dda-5aac-9953-349b124d7443))
+    (instances
+      (project "SKiDL-Generated"
+        (path "/"
+          (reference "#PWR2")
+          (unit 1)))))
+  (symbol
+    (lib_id "Transistor_BJT:Q_PNP_CBE")
+    (at 153.67 92.71 0)
+    (mirror x)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (fields_autoplaced yes)
+    (uuid 9699dfdd-a6d3-59e3-8793-7f24db869fba)
+    (property "Reference" "Q1"
+      (at 153.67 90.16999999999999 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "Q_PNP_CBE"
+      (at 153.67 95.25 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" ""
+      (at 153.67 92.71 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (property "Datasheet" "~"
+      (at 153.67 92.71 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (property "Description" "PNP transistor, collector/base/emitter"
+      (at 153.67 92.71 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (pin "2"
+      (uuid b5a4fd7a-94e6-53fa-bd15-916fa698801b))
+    (pin "1"
+      (uuid 646d3a9d-9b05-5057-9d6c-6f120cc8ecab))
+    (pin "3"
+      (uuid 73de6b6e-94c3-56ac-b6ac-c2b648626792))
+    (instances
+      (project "SKiDL-Generated"
+        (path "/"
+          (reference "Q1")
+          (unit 1)))))
+  (symbol
+    (lib_id "Transistor_BJT:Q_PNP_CBE")
+    (at 153.67 105.41 0)
+    (mirror x)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (fields_autoplaced yes)
+    (uuid 7852643a-7934-5503-82c8-62f05e9bd38e)
+    (property "Reference" "Q2"
+      (at 153.67 102.86999999999999 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "Q_PNP_CBE"
+      (at 153.67 107.95 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" ""
+      (at 153.67 105.41 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (property "Datasheet" "~"
+      (at 153.67 105.41 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (property "Description" "PNP transistor, collector/base/emitter"
+      (at 153.67 105.41 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (pin "2"
+      (uuid 606c5a53-0b2b-5950-9b1d-d40e07441676))
+    (pin "1"
+      (uuid c2a0e8af-ef2a-5367-98a9-a8daa197adef))
+    (pin "3"
+      (uuid 8bb45663-daf3-57e0-b14c-3be9f355f3ad))
+    (instances
+      (project "SKiDL-Generated"
+        (path "/"
+          (reference "Q2")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 137.16 100.33 90)
+    (mirror x)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (fields_autoplaced yes)
+    (uuid 91628e47-8f83-5ba1-abed-4cb134d83eea)
+    (property "Reference" "R1"
+      (at 137.16 97.78999999999999 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "10K"
+      (at 137.16 102.87 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" ""
+      (at 137.16 100.33 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (property "Datasheet" "~"
+      (at 137.16 100.33 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (property "Description" ""
+      (at 137.16 100.33 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (pin "1"
+      (uuid a6935952-da4d-541a-895a-668252bfbd0d))
+    (pin "2"
+      (uuid af1579b0-1060-540f-a855-b50b54978d21))
+    (instances
+      (project "SKiDL-Generated"
+        (path "/"
+          (reference "R1")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 137.16 95.25 90)
+    (mirror x)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (fields_autoplaced yes)
+    (uuid 91c587b0-c855-58aa-84a9-2ba4ce88549e)
+    (property "Reference" "R2"
+      (at 137.16 92.71 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "10K"
+      (at 137.16 97.79 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" ""
+      (at 137.16 95.25 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (property "Datasheet" "~"
+      (at 137.16 95.25 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (property "Description" ""
+      (at 137.16 95.25 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (pin "1"
+      (uuid d35ad559-b677-5643-a89c-af29d787f459))
+    (pin "2"
+      (uuid 195394c9-7ce9-58ed-99fb-76306ffc3957))
+    (instances
+      (project "SKiDL-Generated"
+        (path "/"
+          (reference "R2")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 151.13 116.84 180)
+    (mirror x)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (fields_autoplaced yes)
+    (uuid 9000ab58-0faa-55db-ba96-c3a9c048b920)
+    (property "Reference" "R3"
+      (at 151.13 114.3 180)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "10K"
+      (at 151.13 119.38000000000001 180)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" ""
+      (at 151.13 116.84 180)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (property "Datasheet" "~"
+      (at 151.13 116.84 180)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (property "Description" ""
+      (at 151.13 116.84 180)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (pin "1"
+      (uuid ddf5311a-2479-592c-a014-e4cda2c8fe72))
+    (pin "2"
+      (uuid 4673c68e-d6b4-5f38-937b-5f6c1a06ffd9))
+    (instances
+      (project "SKiDL-Generated"
+        (path "/"
+          (reference "R3")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 144.78 101.6 180)
+    (mirror x)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (fields_autoplaced yes)
+    (uuid a3a00a8b-c8d1-582e-9de2-300987de8d24)
+    (property "Reference" "R4"
+      (at 144.78 99.05999999999999 180)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "10K"
+      (at 144.78 104.14 180)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" ""
+      (at 144.78 101.6 180)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (property "Datasheet" "~"
+      (at 144.78 101.6 180)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (property "Description" ""
+      (at 144.78 101.6 180)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (pin "1"
+      (uuid c8f5c74e-7ed2-53be-ba16-a78b7ed162bb))
+    (pin "2"
+      (uuid 7528b6ca-cf7d-5abb-9c37-e751504e44cc))
+    (instances
+      (project "SKiDL-Generated"
+        (path "/"
+          (reference "R4")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 154.94 116.84 0)
+    (unit 1)
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (fields_autoplaced yes)
+    (uuid 29f79588-e279-5ce8-b215-982a9074cc1e)
+    (property "Reference" "R5"
+      (at 154.94 114.3 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "10K"
+      (at 154.94 119.38000000000001 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" ""
+      (at 154.94 116.84 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (property "Datasheet" "~"
+      (at 154.94 116.84 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (property "Description" ""
+      (at 154.94 116.84 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (pin "1"
+      (uuid 177b5537-3134-5432-b29d-81f51348a8b1))
+    (pin "2"
+      (uuid 2f4d1c3c-f1a9-5868-b235-5453e7f575c4))
+    (instances
+      (project "SKiDL-Generated"
+        (path "/"
+          (reference "R5")
+          (unit 1)))))
+  (global_label "A"
+    (shape bidirectional)
+    (at 127.0 100.33 0)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid 5282cf11-cbd7-5261-9881-4f4dff7b7bdf))
+  (symbol
+    (lib_id "power:VCC")
+    (at 160.02 83.82 0)
+    (unit 1)
+    (exclude_from_sim yes)
+    (in_bom no)
+    (on_board yes)
+    (dnp no)
+    (fields_autoplaced yes)
+    (uuid 21696f6a-dfc2-5f71-855f-54351ded0924)
+    (property "Reference" "#PWR001"
+      (at 160.02 82.55 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (property "Value" "VCC"
+      (at 160.02 80.00999999999999 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 160.02 83.82 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (property "Datasheet" ""
+      (at 160.02 83.82 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (pin "1"
+      (uuid 47b689cc-bfd3-5f1a-bee0-8101f26fe14a))
+    (instances
+      (project "SKiDL-Generated"
+        (path "/"
+          (reference "#PWR001")
+          (unit 1)))))
+  (global_label "B"
+    (shape bidirectional)
+    (at 127.0 95.25 0)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left))
+    (uuid b1eb0760-dbb3-59ee-9ecb-e494c363ca70))
+  (global_label "A_AND_B"
+    (shape bidirectional)
+    (at 162.56 114.3 180)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid b004e1a2-747d-59ac-9253-b713e3f1418a))
+  (symbol
+    (lib_id "power:GND")
+    (at 156.21 127.0 0)
+    (unit 1)
+    (exclude_from_sim yes)
+    (in_bom no)
+    (on_board yes)
+    (dnp no)
+    (fields_autoplaced yes)
+    (uuid 9923418d-f98b-5c5d-ba66-2c1733195cee)
+    (property "Reference" "#PWR002"
+      (at 156.21 125.73 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (property "Value" "GND"
+      (at 156.21 123.19 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 156.21 127.0 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (property "Datasheet" ""
+      (at 156.21 127.0 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (hide yes)))
+    (pin "1"
+      (uuid 2fc9f82a-80cc-53b3-adae-454cccef643a))
+    (instances
+      (project "SKiDL-Generated"
+        (path "/"
+          (reference "#PWR002")
+          (unit 1)))))
+  (wire
+    (pts
+      (xy 144.78 105.41)
+      (xy 148.59 105.41))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid f49e9d88-8596-5f13-8e16-cfe677479549))
+  (wire
+    (pts
+      (xy 127.0 100.33)
+      (xy 133.35 100.33))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid a8527027-4e48-5820-9c36-5a5bf8466275))
+  (wire
+    (pts
+      (xy 127.0 95.25)
+      (xy 133.35 95.25))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid 147e9bfb-a48c-5540-b951-3325983a6f1a))
+  (wire
+    (pts
+      (xy 151.13 123.19)
+      (xy 151.13 121.92))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid cdd93180-fedc-57e0-b6a0-8a7df11c1fed))
+  (wire
+    (pts
+      (xy 151.13 121.92)
+      (xy 151.13 120.65))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid 62cb3633-901d-59da-865c-6058aa6e7a1e))
+  (wire
+    (pts
+      (xy 151.13 121.92)
+      (xy 154.94 121.92))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid 4bc8cca9-0031-5a7b-8ed7-1c892e351612))
+  (wire
+    (pts
+      (xy 154.94 121.92)
+      (xy 154.94 120.65))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid 16174a74-1faf-5e3f-82aa-2765128df77b))
+  (wire
+    (pts
+      (xy 154.94 121.92)
+      (xy 156.21 121.92))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid f10c4020-8701-5d80-b1c7-4456e85bbb21))
+  (wire
+    (pts
+      (xy 156.21 127.0)
+      (xy 156.21 121.92))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid 4331e1db-3fa1-5d37-adbe-85330ceea7a4))
+  (wire
+    (pts
+      (xy 153.67 86.36)
+      (xy 153.67 80.01))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid 2f86773c-621d-55ff-8d68-f08f59e21052))
+  (wire
+    (pts
+      (xy 153.67 86.36)
+      (xy 156.21 86.36))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid 13f2f5dc-7d68-553c-8a58-cf3ab5b183ca))
+  (wire
+    (pts
+      (xy 156.21 100.33)
+      (xy 163.83 100.33))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid 60ea2fac-cf0d-5b6d-8879-374c73a5e7c5))
+  (wire
+    (pts
+      (xy 156.21 87.63)
+      (xy 156.21 86.36))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid d6bac2c2-bbaa-5352-a52b-b676d3dddc13))
+  (wire
+    (pts
+      (xy 156.21 86.36)
+      (xy 156.21 83.82))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid ba799e81-ecf5-5685-83bb-9c254e09e0d8))
+  (wire
+    (pts
+      (xy 156.21 86.36)
+      (xy 163.83 86.36))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid 2af9fa01-2159-56e3-94a9-ad2ea4cf5ecb))
+  (wire
+    (pts
+      (xy 156.21 83.82)
+      (xy 160.02 83.82))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid 326bc18d-d181-5a0b-b61e-b76c8aadda6d))
+  (wire
+    (pts
+      (xy 163.83 100.33)
+      (xy 163.83 86.36))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid 3d5f650d-3f27-5d1f-9e1c-92d57006ed01))
+  (wire
+    (pts
+      (xy 154.94 113.03)
+      (xy 154.94 111.76))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid cf584a99-af56-5954-8102-143df1d868e4))
+  (wire
+    (pts
+      (xy 154.94 111.76)
+      (xy 156.21 111.76))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid f116b1f1-4dd6-57c1-aee9-6c74b27511d6))
+  (wire
+    (pts
+      (xy 156.21 111.76)
+      (xy 156.21 110.49))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid ad26ee52-757d-51e5-8aaf-8b2d48c70a5c))
+  (wire
+    (pts
+      (xy 156.21 111.76)
+      (xy 158.75 111.76))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid e2600ce8-4dda-583c-94db-f8a4d192e6a2))
+  (wire
+    (pts
+      (xy 158.75 114.3)
+      (xy 158.75 111.76))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid 81b24a3f-16c0-5596-ae74-eaf09d25d2a5))
+  (wire
+    (pts
+      (xy 158.75 114.3)
+      (xy 162.56 114.3))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid 9a25f2af-4c77-502d-8955-6330f54593a1))
+  (wire
+    (pts
+      (xy 140.97 100.33)
+      (xy 142.24 100.33))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid aeb54750-ee34-55a9-a723-3df0dc8adeaf))
+  (wire
+    (pts
+      (xy 140.97 95.25)
+      (xy 142.24 95.25))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid b0fa0613-e4e4-56bf-8e91-bac6e372da6f))
+  (wire
+    (pts
+      (xy 142.24 100.33)
+      (xy 142.24 95.25))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid b000b492-5bb0-5746-9d4f-bf931f2f4f4a))
+  (wire
+    (pts
+      (xy 142.24 95.25)
+      (xy 142.24 92.71))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid b055034c-8902-5dad-b274-4c5535aade5c))
+  (wire
+    (pts
+      (xy 142.24 92.71)
+      (xy 148.59 92.71))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid d6aba6b6-655b-5c28-801d-49237bbb065e))
+  (wire
+    (pts
+      (xy 144.78 97.79)
+      (xy 147.32 97.79))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid f8525bca-7e90-500c-a9a5-831b15fa046c))
+  (wire
+    (pts
+      (xy 147.32 113.03)
+      (xy 147.32 97.79))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid bd0919f6-a2fa-5a2b-9be5-9a1e8574d55d))
+  (wire
+    (pts
+      (xy 147.32 113.03)
+      (xy 151.13 113.03))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid 7d9dd6fb-7be1-5d08-a6e4-4dc9f13a5d5e))
+  (wire
+    (pts
+      (xy 147.32 97.79)
+      (xy 156.21 97.79))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid 37285166-dca8-54d0-8d94-cf43e3df99c8)))

@@ -90,23 +90,30 @@ class TestAutoStubNets:
                 self.nets = nets
         return MockCircuit(nets)
 
-    def test_power_net_gnd_stubbed(self):
-        """GND net gets auto-stubbed."""
+    def test_small_power_net_gnd_deferred(self):
+        """Small local GND net is deferred for geometry-aware routing."""
         net = self._make_mock_net("GND", pin_count=3)
         circuit = self._make_mock_circuit([net])
         auto_stub_nets(circuit)
-        assert net._stub is True
+        assert net._stub is False
 
-    def test_power_net_vcc_stubbed(self):
-        """VCC net gets auto-stubbed."""
+    def test_small_power_net_vcc_deferred(self):
+        """Small local VCC net is deferred for geometry-aware routing."""
         net = self._make_mock_net("VCC", pin_count=2)
         circuit = self._make_mock_circuit([net])
         auto_stub_nets(circuit)
-        assert net._stub is True
+        assert net._stub is False
 
-    def test_power_net_plus3v3_stubbed(self):
-        """+3V3 net gets auto-stubbed."""
+    def test_small_power_net_plus3v3_deferred(self):
+        """Small local +3V3 net is deferred for geometry-aware routing."""
         net = self._make_mock_net("+3V3", pin_count=2)
+        circuit = self._make_mock_circuit([net])
+        auto_stub_nets(circuit)
+        assert net._stub is False
+
+    def test_power_net_high_fanout_stubbed(self):
+        """Large power nets still get auto-stubbed early."""
+        net = self._make_mock_net("GND", pin_count=8)
         circuit = self._make_mock_circuit([net])
         auto_stub_nets(circuit)
         assert net._stub is True
@@ -148,7 +155,7 @@ class TestAutoStubNets:
 
     def test_pins_stubbed_with_net(self):
         """When a net is auto-stubbed, its pins are also stubbed."""
-        net = self._make_mock_net("VCC", pin_count=3)
+        net = self._make_mock_net("VCC", pin_count=8)
         circuit = self._make_mock_circuit([net])
         auto_stub_nets(circuit)
         assert all(pin.stub for pin in net.pins)
@@ -390,6 +397,42 @@ def _generate_and_gate_auto_stub(output_dir):
     return filepath
 
 
+def _generate_regulator_auto_stub(output_dir):
+    """Generate a simple local regulator circuit with auto_stub enabled."""
+    from skidl import Circuit, Net, Part
+
+    circuit = Circuit(name="regulator_auto")
+
+    with circuit:
+        try:
+            ldo = Part("Regulator_Linear", "AP2112K-3.3")
+        except (FileNotFoundError, ValueError):
+            ldo = Part("Regulator_Linear", "AMS1117-3.3")
+
+        cin = Part("Device", "C", value="10uF")
+        cout = Part("Device", "C", value="10uF")
+        gnd_sym = Part("power", "GND")
+
+        vin = Net("VIN")
+        vout = Net("VOUT")
+        gnd = Net("GND")
+
+        vin += ldo[1], cin[1]
+        vout += ldo[3], cout[1]
+        gnd += ldo[2], cin[2], cout[2], gnd_sym[1]
+
+        circuit.generate_schematic(
+            filepath=output_dir,
+            top_name="regulator_auto",
+            auto_stub=True,
+            human_readable=True,
+        )
+
+    filepath = os.path.join(output_dir, "regulator_auto.kicad_sch")
+    assert os.path.exists(filepath), f"Schematic file not generated at {filepath}"
+    return filepath
+
+
 @requires_kicad_libs
 class TestBackwardCompat:
     """Ensure auto_stub=False (default) produces identical behavior."""
@@ -430,6 +473,20 @@ class TestAutoStubIntegration:
         """Divider with auto_stub generates successfully."""
         filepath = _generate_divider(output_dir, auto_stub=True)
         assert os.path.exists(filepath)
+
+    def test_local_regulator_keeps_visible_wires(self, output_dir):
+        """A compact regulator block keeps local VIN/VOUT/GND wiring visible."""
+        filepath = _generate_regulator_auto_stub(output_dir)
+        with open(filepath) as f:
+            content = f.read()
+
+        wire_count = content.count("(wire")
+        vin_labels = re.findall(r'\(global_label\s+"VIN"', content)
+        vout_labels = re.findall(r'\(global_label\s+"VOUT"', content)
+
+        assert wire_count >= 2, "Expected visible local wires in regulator block"
+        assert len(vin_labels) == 0, "Local VIN net should not collapse to labels"
+        assert len(vout_labels) == 0, "Local VOUT net should not collapse to labels"
 
 
 @requires_kicad_libs

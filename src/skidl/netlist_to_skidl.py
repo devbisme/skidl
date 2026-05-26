@@ -18,6 +18,49 @@ from typing import List, Set
 from .logger import active_logger  # Import the active_logger
 
 
+_REFERENCE_ID_RE = re.compile(r"^([A-Za-z#]+)(\d+)(.*)$")
+_REFERENCE_PREFIX_RE = re.compile(r"^([A-Za-z#]+)")
+
+
+def get_ref_prefix(ref: str) -> str:
+    """Return the alphabetic reference prefix from a component reference."""
+    match = _REFERENCE_PREFIX_RE.match(str(ref or "").strip())
+    return match.group(1) if match else "X"
+
+
+def get_ref_number(ref: str):
+    """Return the numeric suffix from a component reference if present."""
+    match = _REFERENCE_ID_RE.match(str(ref or "").strip())
+    return int(match.group(2)) if match else None
+
+
+def normalize_reference(ref: str) -> str:
+    """Normalize a parsed component reference into its canonical string form."""
+    ref = str(ref or "").strip()
+    return ref if ref else "X"
+
+
+def annotate_components(components):
+    """Assign stable full references to components that lack numeric refs."""
+    counters = defaultdict(int)
+
+    for comp in components:
+        prefix = comp.ref_prefix
+        if comp.ref_number is not None:
+            counters[prefix] = max(counters[prefix], comp.ref_number + 1)
+
+    for comp in components:
+        if comp.ref_number is not None:
+            continue
+        prefix = comp.ref_prefix or get_ref_prefix(comp.name) or "X"
+        next_num = max(counters[prefix], 1)
+        comp.ref = f"{prefix}{next_num}"
+        comp.ref_prefix = prefix
+        comp.ref_number = next_num
+        counters[prefix] = next_num + 1
+        comp.set_property("Reference", comp.ref)
+
+
 class Sheet:
     """
     Represents a hierarchical sheet from a KiCad schematic.
@@ -131,12 +174,24 @@ class PartSexp:
 
     def __init__(self, sexp):
         self.sheetpath = sexp.search("/comp/sheetpath/names").value
-        self.ref = sexp.search("/comp/ref").value
+        self.original_ref = sexp.search("/comp/ref").value
+        self.ref = normalize_reference(self.original_ref)
+        self.ref_prefix = get_ref_prefix(self.ref)
+        self.ref_number = get_ref_number(self.ref)
         self.value = sexp.search("/comp/value").value
         self.footprint = sexp.search("/comp/footprint").value
         self.name = sexp.search("/comp/libsource/part").value
         self.lib = sexp.search("/comp/libsource/lib").value
         self.properties = [PropertySexp(prop) for prop in sexp.search("/comp/property")]
+        self.set_property("Reference", self.ref)
+
+    def set_property(self, name, value):
+        """Set or create a parsed component property."""
+        for prop in self.properties:
+            if prop.name == name:
+                prop.value = value
+                return
+        self.properties.append(PropertySexp.from_value(name, value))
 
 
 class PropertySexp:
@@ -147,6 +202,13 @@ class PropertySexp:
     def __init__(self, sexp):
         self.name = sexp.search("/property/name").value
         self.value = sexp.search("/property/value").value
+
+    @classmethod
+    def from_value(cls, name, value):
+        prop = cls.__new__(cls)
+        prop.name = name
+        prop.value = value
+        return prop
 
 
 class PinSexp:
@@ -185,7 +247,12 @@ class NetlistSexp:
     def __init__(self, sexp):
         self.sheets = [SheetSexp(sht) for sht in sexp.search("design/sheet")]
         self.parts = [PartSexp(comp) for comp in sexp.search("components/comp")]
+        annotate_components(self.parts)
         self.nets = [NetSexp(net) for net in sexp.search("nets/net")]
+        ref_map = {part.original_ref: part.ref for part in self.parts}
+        for net in self.nets:
+            for pin in net.pins:
+                pin.ref = ref_map.get(pin.ref, pin.ref)
 
 
 class HierarchicalConverter:
@@ -458,6 +525,8 @@ class HierarchicalConverter:
         desc = next((p.value for p in comp.properties if p.name == "Description"), None)
         if desc:
             props.append(f"description='{desc}'")
+        if comp.ref_prefix:
+            props.append(f"ref_prefix='{comp.ref_prefix}'")
         props.append(f"ref='{ref}'")
         extra_fields = {}
         if hasattr(comp, "properties"):
