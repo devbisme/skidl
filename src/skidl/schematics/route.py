@@ -121,6 +121,109 @@ class SwitchboxRoutingFailure(RoutingFailure):
     pass
 
 
+class _RoutingTimeout(RoutingFailure):
+    """Raised when routing exceeds its time budget."""
+    pass
+
+
+def _route_with_timeout(child, timeout_sec=30, **kwargs):
+    """Route a child node with a SIGALRM timeout.
+
+    Falls back to no-timeout on non-Unix or when SIGALRM is unavailable.
+    """
+    import signal
+    handler = None
+    try:
+        def _alarm_handler(signum, frame):
+            raise _RoutingTimeout(f"routing timed out after {timeout_sec}s")
+        handler = signal.signal(signal.SIGALRM, _alarm_handler)
+        signal.alarm(timeout_sec)
+        child.route(**kwargs)
+    finally:
+        signal.alarm(0)
+        if handler is not None:
+            signal.signal(signal.SIGALRM, handler)
+
+
+def _rescue_close_nets(child, **options):
+    """Un-stub simple internal nets that are close enough to wire directly.
+
+    Two-phase approach:
+    1. Find all auto-stubbed nets with few internal pins (candidates)
+    2. Keep only those whose pins are close together after placement
+
+    NetTerminal parts are excluded from pin counts (schematic artifacts).
+    If routing still fails, the caller undoes rescue and falls back to
+    progressive stubbing.
+
+    Returns list of (net, [pins]) tuples for later undo if routing fails.
+    """
+    from skidl.schematics.net_terminal import NetTerminal
+
+    max_wire_pins = options.get("auto_stub_max_wire_pins", 3)
+    max_wire_dist = options.get("auto_stub_max_wire_dist", 2000)
+    child_parts = set(child.parts)
+    rescued = []
+    seen = set()
+
+    for part in child.parts:
+        for pin in part:
+            if not pin.is_connected():
+                continue
+            net = pin.net
+            if id(net) in seen:
+                continue
+            seen.add(id(net))
+
+            if not getattr(net, "_stub", False):
+                continue
+            if getattr(net, "_stub_explicit", False):
+                continue
+
+            internal_pins = [p for p in net.pins if p.part in child_parts]
+            real_pins = [p for p in internal_pins
+                         if not isinstance(p.part, NetTerminal)]
+            if len(real_pins) < 2 or len(real_pins) > max_wire_pins:
+                continue
+
+            pts = []
+            for p in real_pins:
+                pin_pt = getattr(p, "place_pt", getattr(p, "pt", Point(p.x, p.y)))
+                part_tx = getattr(p.part, "tx", None)
+                if part_tx:
+                    pts.append(pin_pt * part_tx)
+                else:
+                    pts.append(pin_pt)
+
+            max_dist = 0
+            for i, a in enumerate(pts):
+                for b in pts[i + 1:]:
+                    dist = abs(a.x - b.x) + abs(a.y - b.y)
+                    if dist > max_dist:
+                        max_dist = dist
+
+            if max_dist <= max_wire_dist:
+                for p in internal_pins:
+                    p.stub = False
+                rescued.append((net, internal_pins))
+
+    if rescued:
+        from skidl.logger import active_logger
+        active_logger.info(
+            f"  [rescue] {len(rescued)} nets un-stubbed in "
+            f"{getattr(child, 'name', '?')} for direct wiring"
+        )
+
+    return rescued
+
+
+def _undo_rescue(rescued):
+    """Re-stub pins that were rescued if routing fails."""
+    for net, pins in rescued:
+        for p in pins:
+            p.stub = True
+
+
 class Boundary:
     """Class for indicating a boundary.
 
@@ -3136,21 +3239,60 @@ class Router:
         node.rmv_routing_stuff()
 
         # First, recursively route any children of this node.
-        # TODO: Child nodes are independent so could they be processed in parallel?
+        route_timeout = options.get("route_timeout", 30)
         for child in node.children.values():
+            rescued = _rescue_close_nets(child, **options)
             try:
-                child.route(tool=tool, **options)
-            except RoutingFailure:
-                # Child routing failed — stub its internal nets and retry
-                # so one complex subcircuit doesn't kill the whole schematic.
-                for part in child.parts:
-                    for pin in part:
-                        if pin.is_connected() and not pin.stub:
-                            pin.stub = True
-                            net = pin.net
-                            if not getattr(net, "_stub", False):
-                                net._stub = True
-                child.route(tool=tool, **options)
+                _route_with_timeout(child, timeout_sec=route_timeout, tool=tool, **options)
+                continue
+            except (RoutingFailure, KeyError):
+                pass
+
+            # Undo rescue before falling back.
+            if rescued:
+                _undo_rescue(rescued)
+                child.rmv_routing_stuff()
+                try:
+                    _route_with_timeout(child, timeout_sec=route_timeout, tool=tool, **options)
+                    continue
+                except (RoutingFailure, KeyError):
+                    pass
+
+            # Progressive stubbing: stub largest nets first.
+            child_parts = set(child.parts)
+            unstubbed = []
+            seen = set()
+            for part in child.parts:
+                for pin in part:
+                    if pin.stub or not pin.is_connected():
+                        continue
+                    net = pin.net
+                    if id(net) in seen:
+                        continue
+                    seen.add(id(net))
+                    n_pins = sum(1 for p in net.pins if p.part in child_parts)
+                    unstubbed.append((n_pins, net))
+            unstubbed.sort(key=lambda x: x[0], reverse=True)
+            recovered = False
+            for threshold in [4, 3, 2]:
+                to_stub = [n for pins, n in unstubbed
+                           if pins >= threshold and not getattr(n, "_stub", False)]
+                if not to_stub:
+                    continue
+                for net in to_stub:
+                    net._stub = True
+                    for pin in net.get_pins():
+                        pin.stub = True
+                child.rmv_routing_stuff()
+                try:
+                    _route_with_timeout(child, timeout_sec=route_timeout, tool=tool, **options)
+                    recovered = True
+                    break
+                except (RoutingFailure, KeyError):
+                    pass
+            if not recovered:
+                child.rmv_routing_stuff()
+                _route_with_timeout(child, timeout_sec=route_timeout, tool=tool, **options)
 
         # Exit if no parts to route in this node.
         if not node.parts:

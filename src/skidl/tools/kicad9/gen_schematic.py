@@ -72,6 +72,11 @@ def auto_stub_nets(circuit, **options):
     Only modifies nets that haven't been explicitly set by the user.
     Called when auto_stub=True is passed to gen_schematic().
 
+    Power nets are always stubbed (they'd overwhelm the placer).
+    Fanout-based stubbing is deferred: nets are marked _deferred_stub so
+    the placer still uses them for connectivity-based grouping, but they
+    get stubbed after placement via _apply_deferred_stubs().
+
     Args:
         circuit: The Circuit object containing nets to analyze.
         options: Dict of options. Recognizes 'auto_stub_fanout' (default 5).
@@ -80,7 +85,7 @@ def auto_stub_nets(circuit, **options):
 
     fanout_threshold = options.get("auto_stub_fanout", 5)
     stubbed_power = []
-    stubbed_fanout = []
+    deferred_fanout = []
 
     for net in circuit.nets:
         if getattr(net, "_stub_explicit", False):
@@ -88,7 +93,6 @@ def auto_stub_nets(circuit, **options):
         if not net.valid or len(net.pins) == 0:
             continue
 
-        # Power nets: anything starting with "+" or matching common power names.
         if net.name.startswith("+") or _POWER_NET_RE.match(net.name):
             net._stub = True
             net._stub_explicit = False
@@ -97,21 +101,138 @@ def auto_stub_nets(circuit, **options):
             stubbed_power.append(f"{net.name}({len(net.pins)})")
             continue
 
-        # High fanout nets: many pins connected to the same net.
         if len(net.pins) >= fanout_threshold:
-            net._stub = True
-            net._stub_explicit = False
-            for pin in net.get_pins():
-                pin.stub = True
-            stubbed_fanout.append(f"{net.name}({len(net.pins)})")
+            net._deferred_stub = True
+            deferred_fanout.append(f"{net.name}({len(net.pins)})")
 
     from skidl.logger import active_logger
     active_logger.info(
         f"  [auto_stub] power: {', '.join(stubbed_power[:10])}{'...' if len(stubbed_power) > 10 else ''}"
     )
     active_logger.info(
-        f"  [auto_stub] fanout>={fanout_threshold}: {', '.join(stubbed_fanout[:10])}{'...' if len(stubbed_fanout) > 10 else ''}"
+        f"  [auto_stub] deferred fanout>={fanout_threshold}: {', '.join(deferred_fanout[:10])}{'...' if len(deferred_fanout) > 10 else ''}"
     )
+
+
+def _apply_deferred_stubs(node, circuit, **options):
+    """Apply deferred stubs per-subcircuit after placement.
+
+    Nets marked _deferred_stub are examined within each child node.
+    Simple internal connections (few pins, close together) remain as wires;
+    complex or distant ones get stubbed.
+
+    NetTerminal parts (schematic-only label placeholders) are excluded from
+    the pin count so they don't inflate it beyond the real circuit connectivity.
+    """
+    from skidl.geometry import Point
+    from skidl.logger import active_logger
+    from skidl.schematics.net_terminal import NetTerminal
+
+    max_wire_pins = options.get("auto_stub_max_wire_pins", 3)
+    max_wire_dist = options.get("auto_stub_max_wire_dist", 2000)
+
+    # Reset pin.stub for all deferred-stub nets (supports retries).
+    for net in circuit.nets:
+        if getattr(net, "_deferred_stub", False):
+            net._stub = False
+            for p in net.get_pins():
+                p.stub = False
+
+    for child in node.children.values():
+        child_name = getattr(child, 'name', '?')
+        child_parts = set(child.parts)
+        kept = 0
+        stubbed = 0
+        seen = set()
+
+        for part in child.parts:
+            for pin in part:
+                if not pin.is_connected():
+                    continue
+                net = pin.net
+                if id(net) in seen:
+                    continue
+                seen.add(id(net))
+
+                if not getattr(net, "_deferred_stub", False):
+                    continue
+
+                internal_pins = [p for p in net.pins if p.part in child_parts]
+                real_pins = [p for p in internal_pins
+                             if not isinstance(p.part, NetTerminal)]
+
+                if len(real_pins) < 2 or len(real_pins) > max_wire_pins:
+                    for p in internal_pins:
+                        p.stub = True
+                    stubbed += 1
+                    continue
+
+                pts = []
+                for p in real_pins:
+                    pin_pt = getattr(p, "place_pt", getattr(p, "pt", Point(p.x, p.y)))
+                    part_tx = getattr(p.part, "tx", None)
+                    if part_tx:
+                        pts.append(pin_pt * part_tx)
+                    else:
+                        pts.append(pin_pt)
+
+                max_dist = 0
+                for i, a in enumerate(pts):
+                    for b in pts[i + 1:]:
+                        dist = abs(a.x - b.x) + abs(a.y - b.y)
+                        if dist > max_dist:
+                            max_dist = dist
+
+                if max_dist <= max_wire_dist:
+                    kept += 1
+                else:
+                    for p in internal_pins:
+                        p.stub = True
+                    stubbed += 1
+
+        if kept or stubbed:
+            active_logger.info(
+                f"  [deferred_stub] {child_name}: {kept} wired, {stubbed} stubbed"
+            )
+        if stubbed > 5:
+            dists = []
+            seen3 = set()
+            for part in child.parts:
+                for pin in part:
+                    if not pin.is_connected():
+                        continue
+                    net = pin.net
+                    if id(net) in seen3:
+                        continue
+                    seen3.add(id(net))
+                    if not getattr(net, "_deferred_stub", False):
+                        continue
+                    ipins = [p for p in net.pins if p.part in child_parts
+                             and not isinstance(p.part, NetTerminal)]
+                    if len(ipins) < 2 or len(ipins) > max_wire_pins:
+                        continue
+                    pts2 = []
+                    for p in ipins:
+                        pp = getattr(p, "place_pt", getattr(p, "pt", Point(p.x, p.y)))
+                        ptx = getattr(p.part, "tx", None)
+                        pts2.append(pp * ptx if ptx else pp)
+                    md2 = max(abs(a.x-b.x)+abs(a.y-b.y) for i,a in enumerate(pts2) for b in pts2[i+1:])
+                    dists.append(md2)
+            if dists:
+                dists.sort()
+                active_logger.info(
+                    f"  [deferred_stub] {child_name} distances: "
+                    f"min={dists[0]:.0f} p25={dists[len(dists)//4]:.0f} "
+                    f"median={dists[len(dists)//2]:.0f} max={dists[-1]:.0f}"
+                )
+
+    # Set net._stub for nets where ALL pins ended up stubbed.
+    for net in circuit.nets:
+        if getattr(net, "_deferred_stub", False):
+            has_unstubbed = any(not p.stub for p in net.pins)
+            if not has_unstubbed:
+                net._stub = True
+                net._stub_explicit = False
 
 
 def _run_erc(schematic_path):
@@ -230,6 +351,7 @@ def _classify_and_stub_complex_nets(circuit, node, **options):
             auto_stub_max_wire_dist (int): Max manhattan distance (mils) for wires. Default 2000.
     """
     from skidl.geometry import Point
+    from skidl.schematics.net_terminal import NetTerminal
 
     max_wire_pins = options.get("auto_stub_max_wire_pins", 3)
     max_wire_dist = options.get("auto_stub_max_wire_dist", 2000)
@@ -243,7 +365,8 @@ def _classify_and_stub_complex_nets(circuit, node, **options):
         if getattr(net, "_stub", False):
             continue
 
-        pins = [p for p in net.pins if p.part in node_parts]
+        pins = [p for p in net.pins if p.part in node_parts
+                and not isinstance(p.part, NetTerminal)]
 
         # Too many pins → label.
         if len(pins) > max_wire_pins:
@@ -618,8 +741,20 @@ def gen_schematic(
         try:
             node.place(expansion_factor=expansion_factor, **options)
             if options.get("auto_stub", False):
+                _apply_deferred_stubs(node, circuit, **options)
                 _classify_and_stub_complex_nets(circuit, node, **options)
-            node.route(**options)
+            route_timeout = options.get("route_timeout", 30)
+            import signal
+            def _alarm_handler(signum, frame):
+                from skidl.schematics.route import RoutingFailure
+                raise RoutingFailure(f"top-level routing timed out after {route_timeout * 4}s")
+            old_handler = signal.signal(signal.SIGALRM, _alarm_handler)
+            signal.alarm(route_timeout * 4)
+            try:
+                node.route(**options)
+            finally:
+                signal.alarm(0)
+                signal.signal(signal.SIGALRM, old_handler)
 
         except PlacementFailure as e:
             finalize_parts_and_nets(circuit, **options)
@@ -629,7 +764,7 @@ def gen_schematic(
             )
             continue
 
-        except RoutingFailure as e:
+        except (RoutingFailure, KeyError) as e:
             finalize_parts_and_nets(circuit, **options)
             expansion_factor *= 1.5
             failure_type = e
@@ -688,8 +823,16 @@ def gen_schematic(
                         )
                         node.place(expansion_factor=erc_expansion, **options)
                         if options.get("auto_stub", False):
+                            _apply_deferred_stubs(node, circuit, **options)
                             _classify_and_stub_complex_nets(circuit, node, **options)
-                        node.route(**options)
+                        erc_route_timeout = route_timeout * 4
+                        old_handler2 = signal.signal(signal.SIGALRM, _alarm_handler)
+                        signal.alarm(erc_route_timeout)
+                        try:
+                            node.route(**options)
+                        finally:
+                            signal.alarm(0)
+                            signal.signal(signal.SIGALRM, old_handler2)
                         if options.get("auto_stub", False):
                             snap_two_pin_parts(node)
                         output_file = write_top_schematic(
@@ -698,7 +841,7 @@ def gen_schematic(
                         finalize_parts_and_nets(circuit, **options)
                         erc_regen_ok = True
                         break
-                    except (RoutingFailure, PlacementFailure) as inner_e:
+                    except (RoutingFailure, PlacementFailure, KeyError) as inner_e:
                         finalize_parts_and_nets(circuit, **options)
                         if erc_expansion < 2.25:
                             active_logger.info(

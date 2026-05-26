@@ -130,9 +130,15 @@ def add_placement_bboxes(parts, **options):
         part.place_bbox.add(part.lbl_bbox)
 
         # Compute the routing area for each side based on the number of pins on each side.
+        # Skip pins on deferred-stub nets — they haven't been classified yet and
+        # inflating bbox for them scatters placement, making post-placement distance
+        # checks fail.
         padding = {"U": 1, "D": 1, "L": 1, "R": 1}  # Min padding of 1 channel per side.
         for pin in part:
             if pin.stub is False and pin.is_connected():
+                net = pin.net
+                if getattr(net, "_deferred_stub", False):
+                    continue
                 padding[pin.orientation] += 1
 
         # expansion_factor > 1 is used to expand the area for routing around each part,
@@ -1643,11 +1649,11 @@ class Placer:
             if len(group) <= max_group:
                 continue
 
-            # Collect low-fanout internal nets in this group (chain links
-            # and small-fanout connections). Prioritize 2-pin nets (chains),
-            # then 3-pin, then 4-pin.
+            # Collect low-fanout internal nets in this group, split into
+            # non-deferred (safe to stub) and deferred (want to keep connected).
             group_ids = {id(p) for p in group}
-            chain_nets = []
+            safe_nets = []
+            deferred_nets = []
             for net in internal_nets:
                 if getattr(net, "_stub_explicit", False) or getattr(
                     net, "stub", False
@@ -1657,30 +1663,30 @@ class Placer:
                     id(p.part) for p in net.pins if id(p.part) in group_ids
                 }
                 if 2 <= len(net_parts) <= 4:
-                    chain_nets.append((len(net_parts), net))
+                    if getattr(net, "_deferred_stub", False):
+                        deferred_nets.append((len(net_parts), net))
+                    else:
+                        safe_nets.append((len(net_parts), net))
 
-            # Sort by fanout (prefer stubbing 2-pin nets first).
-            chain_nets.sort(key=lambda x: x[0])
-            chain_nets = [net for _, net in chain_nets]
+            safe_nets.sort(key=lambda x: x[0])
+            deferred_nets.sort(key=lambda x: x[0])
+            chain_nets = [net for _, net in safe_nets] + [net for _, net in deferred_nets]
 
             if not chain_nets:
                 continue
 
+            n_cuts = max(1, (len(group) + max_group - 1) // max_group)
+
             active_logger.info(
                 f"  [auto_stub_large_groups] Group of {len(group)} parts, "
-                f"{len(chain_nets)} chain nets, splitting..."
+                f"{len(chain_nets)} chain nets ({len(safe_nets)} safe), splitting..."
             )
 
-            # Stub evenly-spaced chain nets to split the group into chunks
-            # of ~max_group parts. We need ceil(len/max)-1 cuts minimum.
-            n_cuts = max(1, (len(group) + max_group - 1) // max_group)
-            step = max(1, len(chain_nets) // (n_cuts + 1))
-            if step < 1:
-                step = 1
+            # Stub non-deferred nets first, then deferred only if needed.
             stubbed = 0
-
-            for i in range(step, len(chain_nets), step):
-                net = chain_nets[i]
+            for net in chain_nets:
+                if stubbed >= n_cuts:
+                    break
                 net._stub = True
                 net._stub_explicit = False
                 for p in net.get_pins():
