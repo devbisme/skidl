@@ -1704,20 +1704,13 @@ def mcu_stub_remaining_signal_nets(node, nets, handled, **options):
             cset = None
         if cset is not None and len(net_parts) > 1:
             continue
-        # MCU 拓扑下：未被 route_mcu_local_nets 处理的网一律 stub，
-        # 不交给 switchbox 标准路由器（它不了解 MCU 引脚拓扑，容易穿越相邻引脚短路）。
+        # 多器件信号网保留：它们是真实器件间连接，不应被 stub 化产生漂浮 label。
+        # 但 power 网（含 GND/VCC 等）用电源符号更合理，仍需 stub。
         name = _net_label(net)
-        # power 网仍可对未布线 pin 设 stub，导出时走 power symbol（非 signal global_label）。
-        if node._is_power_net_name(name):
-            net._stub = True
-            net._stub_explicit = False
-            for pin in net.get_pins():
-                pin.stub = True
-            wires = getattr(node, "wires", {})
-            if net in wires:
-                del wires[net]
-            stubbed.add(net)
+        if len(net_parts) > 1 and not node._is_power_net_name(name):
             continue
+        # 剩余网 = 单器件悬空网（如 MCU 引脚 /PWM）+ 多器件 power 网一律 stub，
+        # 并删除 route_straight_nets 可能画出的穿越相邻引脚 L 形线。
         net._stub = True
         net._stub_explicit = False
         for pin in net.get_pins():
