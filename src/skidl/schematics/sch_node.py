@@ -150,9 +150,16 @@ class SchNode(Placer, Router):
             self.add_part(part)
 
         # Add terminals to nodes in the hierarchy for nets that span across nodes.
+        from skidl.schematics.power_net import is_power_net_name
+
         for net in circuit.nets:
             # Skip nets that are stubbed since there will be no wire to attach to the NetTerminal.
             if getattr(net, "stub", False):
+                continue
+
+            # power 网由引脚旁 power symbol 表示，勿在 bbox 顶边再挂 NetTerminal（会悬空）。
+            net_name = getattr(net, "name", None)
+            if is_power_net_name(net_name):
                 continue
 
             # Search for pins in different nodes.

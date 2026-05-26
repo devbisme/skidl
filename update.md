@@ -42,6 +42,12 @@ TG032-MCU 等 Altium 导入电路中，`GND_0`、`VCC_5V_0` 等分区电源网�
 
 `tests/unit_tests/test_power_net.py`；TG032-MCU 生成后 sch 中无 `(global_label "GND_0")` / `(global_label "VCC_5V_0")`，出现 `lib_id "power:GND"` + `Value "GND_0"` 等。
 
+### 2026-05-26 修订（悬空 power symbol）
+
+根因：用户命名 power 网仍创建 `NetTerminal`，摆在 bbox 顶边；power 导出改为 symbol 后，顶边 `#PWR001`/`#PWR002` 无导线悬空。
+
+修订：`sch_node.add_circuit` 对 `is_power_net_name` 不建 NetTerminal；`sexp _net_terminal_label_to_sexp` 对 power 网直接返回 None。TG032 器件数 39→35（去掉 4 个边缘 NetTerminal）。
+
 ---
 
 ## generic_driver 水平 power rail（布局 + 预布线）

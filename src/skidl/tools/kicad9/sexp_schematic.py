@@ -852,6 +852,9 @@ def _net_terminal_label_to_sexp(
     """NetTerminal 标签：已有导线的网不再 force 导出 global_label。"""
     wired_ids, wired_names = _wired_net_keys(node)
     net = getattr(pin, "net", None)
+    if net is not None and is_power_net_name(getattr(net, "name", None)):
+        # power 网只应在器件引脚处导出 power symbol，边缘 NetTerminal 会悬空。
+        return None
     if _net_has_schematic_wires(net, wired_ids, wired_names):
         return None
     return net_label_to_sexp(
