@@ -229,6 +229,10 @@ class SchNode(Placer, Router):
 
                 processed_nets.append(net)
 
+                # Skip stubbed nets — they use labels, not wires.
+                if getattr(net, "stub", False) is True:
+                    continue
+
                 # Add net to collection if at least one pin is on one of the parts of the node.
                 for net_pin in net.pins:
                     if net_pin.part in self.parts:
@@ -246,6 +250,10 @@ class SchNode(Placer, Router):
         Returns:
             list: List of pins on the net that are on parts in this node.
         """
+
+        # Skip pins on stubbed nets.
+        if getattr(net, "stub", False) is True:
+            return []
 
         return [pin for pin in net.pins if pin.stub is False and pin.part in self.parts]
 
