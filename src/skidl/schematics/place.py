@@ -1178,28 +1178,9 @@ class Placer:
 
     def _is_power_net_name(node, name):
         """Heuristic detection of power/ground net names."""
-        if not name:
-            return False
-        text = str(name).upper()
-        power_tokens = (
-            "VCC",
-            "VDD",
-            "VSS",
-            "GND",
-            "AGND",
-            "DGND",
-            "PGND",
-            "VBUS",
-            "VIN",
-            "VOUT",
-            "3V3",
-            "5V",
-            "12V",
-            "1V8",
-            "2V5",
-            "PWR",
-        )
-        return any(token in text for token in power_tokens)
+        from skidl.schematics.power_net import is_power_net_name
+
+        return is_power_net_name(name)
 
     def _is_bus_net_name(node, name):
         """Heuristic detection of bus-like or globally-named nets."""

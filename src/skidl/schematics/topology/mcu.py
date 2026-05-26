@@ -576,17 +576,21 @@ def _mcu_x_outward_of_pin(main_part, main_pin, part_w, gap):
     return pt.x - (2 * gap) - part_w
 
 
-def _main_pin_side(main_part, main_pin):
-    """按引脚在 MCU 外框上的坐标分侧（比 orientation 更稳，适配 CA51/SOP）。"""
-    bb = _layout_bbox(main_part)
+def _hub_pin_side(hub_part, hub_pin):
+    """按引脚在锚点外框上的坐标分侧（MCU/Header 通用）。"""
+    bb = _layout_bbox(hub_part)
     if bb is None:
         return "left"
-    pt = _pin_abs_pt(main_pin)
+    pt = _pin_abs_pt(hub_pin)
     dx = pt.x - bb.ctr.x
     dy = pt.y - bb.ctr.y
     if abs(dx) >= abs(dy):
         return "left" if dx < 0 else "right"
     return "top" if dy > 0 else "bottom"
+
+
+def _main_pin_side(main_part, main_pin):
+    return _hub_pin_side(main_part, main_pin)
 
 
 def _mcu_wants_horizontal(part):
@@ -756,9 +760,9 @@ def _mcu_collect_pin_chains(node, main_part, parts, part_adj, io_series, tk_part
     return chains
 
 
-def _is_colinear_chain_part(part, main_part):
-    """可排在 MCU 引脚共线上的串联器件（2 脚被动/指示/触摸焊盘）。"""
-    if part is main_part:
+def _is_colinear_chain_part(part, hub_part):
+    """可排在锚点引脚共线上的串联器件（2 脚被动/指示/触摸焊盘）。"""
+    if part is hub_part:
         return False
     ref = str(getattr(part, "ref", "") or "").upper()
     if ref.startswith(("R", "C", "D", "LED", "TK")):
@@ -793,19 +797,25 @@ def _chain_neighbor_pin(part, neighbor, node, part_set):
     return None
 
 
-def _mcu_walk_colinear_chain(
-    node, main_part, anchor_pin, nets, part_set, used_parts
+def _walk_colinear_chain(
+    node,
+    hub_part,
+    anchor_pin,
+    part_set,
+    used_parts,
+    stop_parts=None,
+    skip_power_nets=True,
 ):
     """
-    从 MCU 某一引脚沿信号网向外走，得到共线链 [main, p1, p2, ...]。
-    允许经过 2～3 器件的星型网（如 U3—R10—LED 同网）。
+    从锚点（MCU/Header 等）某一引脚沿网向外走，得到共线链 [hub, p1, p2, ...]。
+    stop_parts 内的器件不会入链（如 MCU 不应出现在 Header 链上）。
     """
     if anchor_pin is None:
-        return [main_part], anchor_pin
-    chain = [main_part]
-    visited = {id(main_part)}
-    prev = main_part
-    prev_pin = anchor_pin
+        return [hub_part], anchor_pin
+    chain = [hub_part]
+    visited = {id(hub_part)}
+    prev = hub_part
+    stop = set(stop_parts or ())
 
     while True:
         candidates = []
@@ -813,7 +823,7 @@ def _mcu_walk_colinear_chain(
             net = getattr(pin, "net", None)
             if net is None:
                 continue
-            if node._is_power_net_name(_net_label(net)):
+            if skip_power_nets and node._is_power_net_name(_net_label(net)):
                 continue
             net_parts = list(
                 node._net_connected_parts(net, allowed_parts=part_set)
@@ -823,7 +833,9 @@ def _mcu_walk_colinear_chain(
                     continue
                 if p is prev:
                     continue
-                if not _is_colinear_chain_part(p, main_part):
+                if p in stop:
+                    continue
+                if not _is_colinear_chain_part(p, hub_part):
                     continue
                 if id(p) in used_parts:
                     continue
@@ -837,9 +849,58 @@ def _mcu_walk_colinear_chain(
         nxt_pin = _chain_neighbor_pin(nxt, prev, node, part_set)
         if nxt_pin is None:
             break
-        prev, prev_pin = nxt, nxt_pin
+        prev = nxt
 
     return chain, anchor_pin
+
+
+def _mcu_walk_colinear_chain(
+    node, main_part, anchor_pin, nets, part_set, used_parts
+):
+    """MCU 引脚共线链：跳过电源网，链首为 MCU。"""
+    return _walk_colinear_chain(
+        node,
+        main_part,
+        anchor_pin,
+        part_set,
+        used_parts,
+        stop_parts=None,
+        skip_power_nets=True,
+    )
+
+
+def _find_port_colinear_chains(
+    node, hub_part, parts, nets, stop_parts, used_parts=None
+):
+    """枚举连接器/非 MCU 锚点各引脚上的串联链（可含 GND/VCC 串阻）。"""
+    part_set = set(parts)
+    used = set(used_parts or ())
+    specs = []
+    seen_keys = set()
+    stop = set(stop_parts or ())
+    stop.discard(hub_part)
+
+    for pin in getattr(hub_part, "pins", []):
+        chain, anchor = _walk_colinear_chain(
+            node,
+            hub_part,
+            pin,
+            part_set,
+            used,
+            stop_parts=stop,
+            skip_power_nets=False,
+        )
+        if len(chain) < 2:
+            continue
+        outward = tuple(chain[1:])
+        key = (id(anchor), outward)
+        if key in seen_keys:
+            continue
+        seen_keys.add(key)
+        specs.append((anchor, chain))
+        for p in outward:
+            used.add(id(p))
+    return specs, used
 
 
 def _mcu_find_colinear_chains(node, main_part, parts, nets, used_parts=None):
@@ -871,27 +932,26 @@ def _mcu_find_colinear_chains(node, main_part, parts, nets, used_parts=None):
     return specs
 
 
-def _mcu_place_colinear_chain(
-    node, main_part, anchor_pin, chain, gap, grid
-):
+def _place_colinear_chain(node, hub_part, anchor_pin, chain, gap, grid):
     """
-    将 chain=[main, p1, p2, ...] 排在 anchor_pin 同一水平线（左/右引脚）
+    将 chain=[hub, p1, p2, ...] 排在 anchor_pin 同一水平线（左/右引脚）
     或竖直线（上/下引脚）。返回已放置器件集合。
     """
     placed = set()
     if not chain or len(chain) < 2 or anchor_pin is None:
         return placed
 
-    side = _main_pin_side(main_part, anchor_pin)
+    side = _hub_pin_side(hub_part, anchor_pin)
     row_y = _mcu_pin_route_pt(anchor_pin).y
-    mp_pt = _mcu_pin_route_pt(anchor_pin)
-    outward = [p for p in chain if p is not main_part]
+    hp_pt = _mcu_pin_route_pt(anchor_pin)
+    outward = [p for p in chain if p is not hub_part]
+    part_set = set(getattr(node, "parts", chain))
 
     if side in ("left", "right"):
-        bb_m = _layout_bbox(main_part)
-        outward_sign = -1 if bb_m and mp_pt.x < bb_m.ctr.x else 1
+        bb_h = _layout_bbox(hub_part)
+        outward_sign = -1 if bb_h and hp_pt.x < bb_h.ctr.x else 1
         if outward_sign < 0:
-            x_edge = mp_pt.x - gap
+            x_edge = hp_pt.x - gap
             for idx, part in enumerate(outward, start=1):
                 bb = _mcu_layout_bbox(part) or _layout_bbox(part)
                 if bb is None:
@@ -899,58 +959,100 @@ def _mcu_place_colinear_chain(
                 w = max(bb.w, grid)
                 x_left = x_edge - w
                 prev = chain[idx - 1]
-                pin = _chain_neighbor_pin(part, prev, node, set(node.parts))
+                pin = _chain_neighbor_pin(part, prev, node, part_set)
                 if pin is None:
-                    _, pin = _pair_pins_to_main(part, main_part, node=node)
+                    _, pin = _pair_pins_to_main(part, hub_part, node=node)
                 _mcu_place_part_pin_to_y(part, x_left, row_y, grid, pin)
                 placed.add(part)
                 x_edge = x_left - gap
         else:
-            x_edge = mp_pt.x + gap
+            x_edge = hp_pt.x + gap
             for idx, part in enumerate(outward, start=1):
                 bb = _mcu_layout_bbox(part) or _layout_bbox(part)
                 if bb is None:
                     continue
                 prev = chain[idx - 1]
-                pin = _chain_neighbor_pin(part, prev, node, set(node.parts))
+                pin = _chain_neighbor_pin(part, prev, node, part_set)
                 if pin is None:
-                    _, pin = _pair_pins_to_main(part, main_part, node=node)
+                    _, pin = _pair_pins_to_main(part, hub_part, node=node)
                 _mcu_place_part_pin_to_y(part, x_edge, row_y, grid, pin)
                 placed.add(part)
                 x_edge += max(bb.w, grid) + gap
         return placed
 
     # 上/下引脚：沿竖直方向外扩（被动件仍横放，脚 Y 对齐）
-    col_x = mp_pt.x
+    col_x = hp_pt.x
     if side == "top":
-        y_edge = mp_pt.y + gap
+        y_edge = hp_pt.y + gap
         for idx, part in enumerate(outward, start=1):
             bb = _mcu_layout_bbox(part)
             if bb is None:
                 continue
             h = max(bb.h, grid)
             prev = chain[idx - 1]
-            pin = _chain_neighbor_pin(part, prev, node, set(node.parts))
+            pin = _chain_neighbor_pin(part, prev, node, part_set)
             if pin is None:
-                _, pin = _pair_pins_to_main(part, main_part, node=node)
+                _, pin = _pair_pins_to_main(part, hub_part, node=node)
             _mcu_place_part_pin_to_y(part, col_x, y_edge, grid, pin)
             placed.add(part)
             y_edge += h + gap
     else:
-        y_edge = mp_pt.y - gap
+        y_edge = hp_pt.y - gap
         for idx, part in enumerate(outward, start=1):
             bb = _mcu_layout_bbox(part)
             if bb is None:
                 continue
             h = max(bb.h, grid)
             prev = chain[idx - 1]
-            pin = _chain_neighbor_pin(part, prev, node, set(node.parts))
+            pin = _chain_neighbor_pin(part, prev, node, part_set)
             if pin is None:
-                _, pin = _pair_pins_to_main(part, main_part, node=node)
+                _, pin = _pair_pins_to_main(part, hub_part, node=node)
             _mcu_place_part_pin_to_y(part, col_x, y_edge - h, grid, pin)
             placed.add(part)
             y_edge -= h + gap
     return placed
+
+
+def _mcu_place_colinear_chain(
+    node, main_part, anchor_pin, chain, gap, grid
+):
+    return _place_colinear_chain(node, main_part, anchor_pin, chain, gap, grid)
+
+
+def _apply_connector_port_layout(
+    node, main_part, connectors, parts, nets, gap, grid
+):
+    """
+    Header 等连接器：每引脚向外共线排 R/C 串链，遇 MCU 即止。
+    返回 (已放置器件集合, 各链器件集合列表)。
+    """
+    placed = set()
+    part_sets = []
+    if not connectors or not nets:
+        return placed, part_sets
+
+    stop = {main_part} | set(connectors)
+    used = set()
+    for conn in sorted(connectors, key=node._part_ref_key):
+        stop_parts = stop - {conn}
+        specs, used = _find_port_colinear_chains(
+            node, conn, parts, nets, stop_parts, used_parts=used
+        )
+        for anchor_pin, chain in specs:
+            chain_placed = _place_colinear_chain(
+                node, conn, anchor_pin, chain, gap, grid
+            )
+            if chain_placed:
+                placed |= chain_placed
+                part_sets.append(frozenset(chain_placed | {conn}))
+    return placed, part_sets
+
+
+def _all_colinear_part_sets(node):
+    """MCU 与连接器端口共线链的网集合（布线/stub 白名单）。"""
+    sets = list(getattr(node, "_mcu_colinear_part_sets", None) or [])
+    sets += list(getattr(node, "_connector_port_part_sets", None) or [])
+    return sets
 
 
 def _mcu_place_io_on_main_pin(node, main_part, part, gap, grid, side=None):
@@ -977,14 +1079,14 @@ def _mcu_force_place_decouple_at_signal_pin(node, main_part, part, gap, grid):
     return _mcu_place_io_on_main_pin(node, main_part, part, gap, grid)
 
 
-def _mcu_route_chain_net_wires(node, net, pins, main, grid):
-    """共线链上的网：水平母线 + 引脚竖 stub（与 driver 主链一致）。"""
+def _route_chain_net_wires(node, net, pins, anchor_part, grid):
+    """共线链上的网：水平母线 + 引脚竖 stub（锚点可为 MCU 或 Header）。"""
     pin_pts = [_mcu_pin_route_pt(p) for p in pins]
     net_parts = {p.part for p in pins}
     bus_y = pin_pts[0].y
-    if main in net_parts:
+    if anchor_part in net_parts:
         for p in pins:
-            if p.part is main:
+            if p.part is anchor_part:
                 bus_y = _mcu_pin_route_pt(p).y
                 break
     x_min = min(pt.x for pt in pin_pts)
@@ -995,6 +1097,10 @@ def _mcu_route_chain_net_wires(node, net, pins, main, grid):
         if pt != stub_end:
             segs.append(Segment(copy.copy(pt), stub_end))
     return segs
+
+
+def _mcu_route_chain_net_wires(node, net, pins, main, grid):
+    return _route_chain_net_wires(node, net, pins, main, grid)
 
 
 def _mcu_apply_label_stub_policy(node, nets, **options):
@@ -1270,11 +1376,21 @@ def apply_generic_mcu_layout(
     all_connectors = sorted(
         left_connectors + right_connectors, key=node._part_ref_key
     )
+    node._connector_port_part_sets = []
+    connector_port_placed = set()
     if all_connectors:
         _mcu_place_connectors_below_main(
             node, main_part, all_connectors, gap, grid
         )
         placed.update(all_connectors)
+        connector_port_placed, node._connector_port_part_sets = (
+            _apply_connector_port_layout(
+                node, main_part, all_connectors, parts, nets, gap, grid
+            )
+        )
+        if connector_port_placed:
+            placed |= connector_port_placed
+            anchor |= connector_port_placed
 
     _mcu_push_out_of_main_keepout(
         node,
@@ -1290,10 +1406,11 @@ def apply_generic_mcu_layout(
 
     # 串联共线链：在去重叠之后放置，避免被挤离引脚行。
     node._mcu_colinear_part_sets = []
-    colinear_placed = set()
+    colinear_placed = set(connector_port_placed)
+    mcu_colinear_used = {id(p) for p in connector_port_placed}
     if nets:
         for anchor_pin, chain in _mcu_find_colinear_chains(
-            node, main_part, parts, nets
+            node, main_part, parts, nets, used_parts=mcu_colinear_used
         ):
             chain_placed = _mcu_place_colinear_chain(
                 node, main_part, anchor_pin, chain, gap, grid
@@ -1418,7 +1535,7 @@ def route_mcu_local_nets(node, nets, **options):
     )
     handled = set()
     grid = int(options.get("grid", 100))
-    colinear_sets = getattr(node, "_mcu_colinear_part_sets", None) or []
+    colinear_sets = _all_colinear_part_sets(node)
 
     for net in nets:
         pins = _mcu_route_pins(node, net)
@@ -1426,20 +1543,35 @@ def route_mcu_local_nets(node, nets, **options):
             continue
         net_parts = {pin.part for pin in pins}
         if main and not _mcu_net_keep_local_wire(list(net_parts), main):
-            continue
+            # 连接器端口链上的多脚网仍要本地母线
+            on_connector_only = False
+            for cset in colinear_sets:
+                if net_parts <= cset and main not in cset:
+                    on_connector_only = True
+                    break
+            if not on_connector_only:
+                continue
 
         on_colinear = False
+        chain_anchor = main
         for cset in colinear_sets:
             if net_parts <= cset:
                 on_colinear = True
+                if main in cset:
+                    chain_anchor = main
+                else:
+                    for p in net_parts:
+                        if _mcu_part_is_connector(p):
+                            chain_anchor = p
+                            break
                 break
         if on_colinear:
             net._stub = False
             net.stub = False
             for pin in pins:
                 pin.stub = False
-            node.wires[net] = _mcu_route_chain_net_wires(
-                node, net, pins, main, grid
+            node.wires[net] = _route_chain_net_wires(
+                node, net, pins, chain_anchor, grid
             )
             handled.add(net)
             continue
@@ -1484,7 +1616,7 @@ def mcu_stub_remaining_signal_nets(node, nets, handled, **options):
     main = topo.get("main_part") or getattr(node, "_human_readable_main_part", None)
     stubbed = set()
     wired = set(getattr(node, "wires", {}).keys())
-    colinear_sets = getattr(node, "_mcu_colinear_part_sets", None) or []
+    colinear_sets = _all_colinear_part_sets(node)
     for net in nets:
         if net in handled or net in wired:
             continue
@@ -1501,6 +1633,15 @@ def mcu_stub_remaining_signal_nets(node, nets, handled, **options):
             continue
         pins = _mcu_route_pins(node, net)
         if len(net_parts) == 2 and len(pins) == 2:
+            continue
+        name = _net_label(net)
+        # power 网仍可对未布线 pin 设 stub，导出时走 power symbol（非 signal global_label）。
+        if node._is_power_net_name(name):
+            net._stub = True
+            net._stub_explicit = False
+            for pin in net.get_pins():
+                pin.stub = True
+            stubbed.add(net)
             continue
         net._stub = True
         net._stub_explicit = False

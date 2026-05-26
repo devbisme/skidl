@@ -28,6 +28,11 @@ from simp_sexp import Sexp
 from skidl.geometry import Point, Tx
 from skidl.pckg_info import __version__
 from skidl.schematics.net_terminal import NetTerminal
+from skidl.schematics.power_net import (
+    is_power_net_name,
+    resolve_power_symbol_shape,
+    resolve_power_symbol_value,
+)
 from skidl.utilities import export_to_all
 
 # UUID namespace — same as gen_netlist.py so UUIDs are cross-referenceable.
@@ -254,22 +259,19 @@ def _sheet_project_name(sheet_filename, fallback="SKiDL-Generated"):
 
 def _power_symbol_to_sexp(
     pin,
-    net_name,
+    shape_name,
     tx,
     instance_path="/",
     project_name="SKiDL-Generated",
+    display_name=None,
 ):
     """Generate a power symbol instance S-expression.
 
-    Args:
-        pin: The pin where the power symbol should be placed.
-        net_name: The power net name (e.g., "GND", "+3V3").
-        tx: Sheet-level transformation matrix.
-
-    Returns:
-        Sexp: Power symbol instance, or None on failure.
+    shape_name: KiCad power 库 symbol 名（lib_id 外形，如 GND、+5V）。
+    display_name: 原理图 Value / 网名，保留 GND_0 等分区网名，避免电源域短接。
     """
-    _used_power_symbols.add(net_name)
+    display_name = display_name or shape_name
+    _used_power_symbols.add(shape_name)
 
     _pwr_counter[0] += 1
     pwr_ref = f"#PWR{_pwr_counter[0]:03d}"
@@ -290,8 +292,10 @@ def _power_symbol_to_sexp(
     # at angle 0 (voltage symbols point up, GND symbols point down).
     angle = 0
 
-    lib_id = f"power:{net_name}"
-    inst_uuid = _gen_uuid(f"pwr:{net_name}:{x}:{y}:{_pwr_counter[0]}")
+    lib_id = f"power:{shape_name}"
+    inst_uuid = _gen_uuid(
+        f"pwr:{shape_name}:{display_name}:{x}:{y}:{_pwr_counter[0]}"
+    )
 
     symbol = Sexp(
         [
@@ -327,7 +331,7 @@ def _power_symbol_to_sexp(
             [
                 "property",
                 "Value",
-                net_name,
+                display_name,
                 ["at", x, y - 3.81, 0],
                 ["effects", ["font", ["size", 1.27, 1.27]]],
             ]
@@ -361,7 +365,9 @@ def _power_symbol_to_sexp(
     )
 
     # Pin entry (power symbols have a single pin "1").
-    pin_uuid = _gen_uuid(f"pwr_pin:{net_name}:{x}:{y}:{_pwr_counter[0]}")
+    pin_uuid = _gen_uuid(
+        f"pwr_pin:{shape_name}:{display_name}:{x}:{y}:{_pwr_counter[0]}"
+    )
     symbol.append(Sexp(["pin", '"1"', ["uuid", pin_uuid]]))
 
     # Instances section.
@@ -1037,19 +1043,22 @@ def net_label_to_sexp(
     if not force and (not pin.stub or not pin.is_connected()):
         return None
     
-    # Check if this net matches a known KiCad power symbol.
-    # If so, emit a power symbol instance instead of a global_label.
-    # This eliminates power_pin_not_driven ERC errors.
-    if pin.is_connected() and pin.net.name in _get_power_symbol_names():
-        pwr = _power_symbol_to_sexp(
-            pin,
-            pin.net.name,
-            tx,
-            instance_path=instance_path,
-            project_name=project_name,
+    # 统一 power 外形映射：GND_0 等用 GND/+5V 外形，Value 保留原网名。
+    if pin.is_connected():
+        shape = resolve_power_symbol_shape(
+            pin.net.name, _get_power_symbol_names()
         )
-        if pwr:
-            return pwr
+        if shape:
+            pwr = _power_symbol_to_sexp(
+                pin,
+                shape,
+                tx,
+                instance_path=instance_path,
+                project_name=project_name,
+                display_name=resolve_power_symbol_value(pin.net.name),
+            )
+            if pwr:
+                return pwr
 
     # Use global_label for reliable connectivity.  KiCad 9's ERC treats
     # plain labels as dangling unless they sit in the interior of a wire
@@ -1174,7 +1183,7 @@ def create_hierarchical_sheet_sexp(
         pin_y = by + pin_spacing
         for net in boundary_nets:
             # Skip power nets that become power symbols (they don't need sheet pins).
-            if net.name in _get_power_symbol_names():
+            if is_power_net_name(net.name):
                 continue
             # Skip stubbed nets (they use global labels).
             if getattr(net, "stub", False) or getattr(net, "_stub", False):
@@ -1551,7 +1560,7 @@ def node_to_sexp_schematic(
         hlabel_y = 10.0  # Starting Y position in mm for labels along the left edge.
         for net in boundary_nets:
             # Skip power nets and stubbed nets.
-            if net.name in _get_power_symbol_names():
+            if is_power_net_name(net.name):
                 continue
             if getattr(net, "stub", False) or getattr(net, "_stub", False):
                 continue

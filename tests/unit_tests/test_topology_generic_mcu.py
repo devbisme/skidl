@@ -11,9 +11,11 @@ from skidl.schematics.topology import (
 )
 from skidl.schematics.topology.mcu import (
     _colinear_chain_sort_key,
+    _find_port_colinear_chains,
     _mcu_find_colinear_chains,
     _mcu_walk_colinear_chain,
     _pair_pins_to_main,
+    _walk_colinear_chain,
 )
 
 
@@ -301,6 +303,49 @@ def test_mcu_find_colinear_chains_marks_used():
         for p in chain[1:]:
             outward_refs.add(p.ref)
     assert "R5" in outward_refs or "R6" in outward_refs
+
+
+def test_port_colinear_chain_from_header_stops_at_mcu():
+    """Header 引脚 GND/VCC 串阻链在 MCU 前终止（R13/R14 类）。"""
+    node = _FakeNode()
+    u3 = _FakePart("U3", pins=[_FakePin("12"), _FakePin("8")])
+    x1 = _FakePart(
+        "X1",
+        pins=[_FakePin("1"), _FakePin("2"), _FakePin("3"), _FakePin("4")],
+    )
+    r13 = _FakePart("R13", pins=[_FakePin("1"), _FakePin("2")])
+    r14 = _FakePart("R14", pins=[_FakePin("1"), _FakePin("2")])
+    for p in (u3, x1, r13, r14):
+        for pin in p.pins:
+            pin.part = p
+
+    vcc0 = _FakeNet("VCC_5V_0")
+    vcc = _FakeNet("VCC_5V")
+    gnd = _FakeNet("GND")
+    gnd0 = _FakeNet("GND_0")
+
+    _wire(x1, "1", vcc0)
+    _wire(r13, "1", vcc0)
+    _wire(r13, "2", vcc)
+    _wire(u3, "12", vcc)
+    _wire(x1, "4", gnd)
+    _wire(r14, "1", gnd)
+    _wire(r14, "2", gnd0)
+    _wire(u3, "8", gnd0)
+
+    parts = [u3, x1, r13, r14]
+    nets = [vcc0, vcc, gnd, gnd0]
+    specs, used = _find_port_colinear_chains(
+        node, x1, parts, nets, stop_parts={u3, x1}
+    )
+    chains = {tuple(p.ref for p in chain) for _, chain in specs}
+    assert ("X1", "R13") in chains
+    assert ("X1", "R14") in chains
+    assert id(r13) in used
+    assert id(r14) in used
+    # MCU 不应出现在 Header 链中
+    for _, chain in specs:
+        assert u3 not in chain
 
 
 def test_format_topology_log_mcu():
