@@ -9,6 +9,11 @@ from skidl.schematics.topology import (
     detect_known_topology,
     format_topology_log_line,
 )
+from skidl.schematics.topology.mcu import (
+    _colinear_chain_sort_key,
+    _mcu_find_colinear_chains,
+    _mcu_walk_colinear_chain,
+)
 
 
 class _FakePin:
@@ -222,6 +227,56 @@ def test_buck_driver_not_mcu():
         node, parts, all_nets, roles, u2, human_readable=True
     )
     assert topo["kind"] == "generic_driver"
+
+
+def test_colinear_chain_sort_key_prefers_resistor_before_led():
+    led = _FakePart("LED1")
+    r10 = _FakePart("R10")
+    assert _colinear_chain_sort_key(r10) < _colinear_chain_sort_key(led)
+
+
+def test_mcu_walk_colinear_chain_star_then_series():
+    """U3—R10—LED 同网，LED—R12 再串（简化 LED 支路）。"""
+    node = _FakeNode()
+    u3 = _FakePart("U3", pins=[_FakePin("5"), _FakePin("VSS")])
+    r10 = _FakePart("R10", pins=[_FakePin("1"), _FakePin("2")])
+    led = _FakePart("LED1", pins=[_FakePin("A"), _FakePin("K")])
+    r12 = _FakePart("R12", pins=[_FakePin("1"), _FakePin("2")])
+    for p in (u3, r10, led, r12):
+        for pin in p.pins:
+            pin.part = p
+
+    n_led = _FakeNet("Net-(LED1-2)")
+    n_pad = _FakeNet("Net-(LED1-Pad1)")
+    _wire(u3, "5", n_led)
+    _wire(r10, "2", n_led)
+    _wire(led, "A", n_led)
+    _wire(led, "K", n_pad)
+    _wire(r12, "1", n_pad)
+
+    parts = [u3, r10, led, r12]
+    nets = [n_led, n_pad]
+    part_set = set(parts)
+    used = set()
+    chain, _ = _mcu_walk_colinear_chain(
+        node, u3, u3.pins[0], nets, part_set, used
+    )
+    refs = [getattr(p, "ref", "") for p in chain]
+    assert refs[0] == "U3"
+    assert refs[1] == "R10"
+    assert refs[2] == "LED1"
+    assert refs[3] == "R12"
+
+
+def test_mcu_find_colinear_chains_marks_used():
+    node, u3, parts, nets, roles, adj = _build_tg032_like_graph()
+    specs = _mcu_find_colinear_chains(node, u3, parts, nets)
+    assert specs
+    outward_refs = set()
+    for _, chain in specs:
+        for p in chain[1:]:
+            outward_refs.add(p.ref)
+    assert "R5" in outward_refs or "R6" in outward_refs
 
 
 def test_format_topology_log_mcu():
