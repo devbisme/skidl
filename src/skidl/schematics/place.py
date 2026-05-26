@@ -1827,6 +1827,32 @@ class Placer:
                 else:
                     decoup_power.append(part)
 
+            # MCU 专用布局会按引脚侧贴放去耦/串阻，跳过 rowbased 预排版以免被后续 snap 固化在错误位置。
+            use_mcu_layout = False
+            if options.get("topology_detection", True):
+                from skidl.schematics.topology import detect_known_topology
+
+                topo_preview = detect_known_topology(
+                    node,
+                    real_parts,
+                    nets,
+                    roles,
+                    main_part,
+                    human_readable=True,
+                    topology_detection=True,
+                    topology_confidence_threshold=options.get(
+                        "topology_confidence_threshold", 60
+                    ),
+                    topology_weak_threshold=options.get(
+                        "topology_weak_threshold", 40
+                    ),
+                )
+                use_mcu_layout = (
+                    topo_preview.get("kind") in ("mcu", "weak_mcu")
+                    and topo_preview.get("matched")
+                    and not topo_preview.get("fallback")
+                )
+
             # 主器件放中心，其它器件按角色分区，优先形成人读图习惯的左右/上下结构。
             # 分区间距受 spacing 缩放
             top_y = main_bbox.min.y - (_gap + 2 * GRID)
@@ -1838,7 +1864,7 @@ class Placer:
             if top_row:
                 node._place_row(top_row, left_x, top_y, direction=1, gap=_gap)
 
-            if decoup_near_main:
+            if decoup_near_main and not use_mcu_layout:
                 node._place_row(
                     decoup_near_main,
                     main_bbox.min.x,
@@ -1871,7 +1897,7 @@ class Placer:
                 else:
                     passive_far.append(part)
 
-            if passive_near:
+            if passive_near and not use_mcu_layout:
                 node._place_row(
                     passive_near,
                     main_bbox.max.x + _gap,
@@ -1891,10 +1917,11 @@ class Placer:
             if other_parts:
                 node._place_row(other_parts, right_x, bottom_y, direction=1, gap=_gap)
 
-            # 分区摆放后再做几何对齐（主干共线、支路分层、左右对称、去重叠）。
-            node._align_connected_geometry(
-                real_parts, adjacency, roles, main_part
-            )
+            # 分区摆放后再做几何对齐（MCU 专用布局自行处理共线，避免覆盖贴脚坐标）。
+            if not use_mcu_layout:
+                node._align_connected_geometry(
+                    real_parts, adjacency, roles, main_part
+                )
 
             apply_topology_or_trunk_layout(
                 node,
@@ -1907,8 +1934,12 @@ class Placer:
                 **options,
             )
 
-            for part in real_parts:
-                snap_to_grid(part)
+            if getattr(node, "_mcu_manual_pnr", False):
+                if main_part is not None:
+                    snap_to_grid(main_part)
+            else:
+                for part in real_parts:
+                    snap_to_grid(part)
         else:
             # Pick seed: part with most connections.
             seed = max(real_parts, key=lambda p: len(adjacency.get(id(p), set())))

@@ -13,6 +13,7 @@ from skidl.schematics.topology.mcu import (
     _colinear_chain_sort_key,
     _mcu_find_colinear_chains,
     _mcu_walk_colinear_chain,
+    _pair_pins_to_main,
 )
 
 
@@ -227,6 +228,29 @@ def test_buck_driver_not_mcu():
         node, parts, all_nets, roles, u2, human_readable=True
     )
     assert topo["kind"] == "generic_driver"
+
+
+def test_pair_pins_to_main_prefers_signal_pin_on_decouple():
+    """C11 类去耦：一脚 GND、一脚 P35，应对齐信号脚而非 VSS。"""
+    node = _FakeNode()
+    u3 = _FakePart(
+        "U3",
+        pins=[_FakePin("7"), _FakePin("8")],
+    )
+    c11 = _FakePart("C11", pins=[_FakePin("1"), _FakePin("2")])
+    for p in (u3, c11):
+        for pin in p.pins:
+            pin.part = p
+    gnd = _FakeNet("GND_0")
+    sig = _FakeNet("Net-(U3-P35-TKCAP)")
+    _wire(u3, "8", gnd)
+    _wire(u3, "7", sig)
+    _wire(c11, "1", gnd)
+    _wire(c11, "2", sig)
+    mp, pp = _pair_pins_to_main(c11, u3, node=node, prefer_signal=True)
+    assert mp is u3.pins[0]
+    assert mp.name == "7"
+    assert pp is c11.pins[1]
 
 
 def test_colinear_chain_sort_key_prefers_resistor_before_led():

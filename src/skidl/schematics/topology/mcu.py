@@ -517,16 +517,63 @@ def _pin_abs_pt(pin):
     return (base * tx).round()
 
 
-def _pair_pins_to_main(part, main_part):
-    """返回 (main_pin, part_pin) 若二者共网。"""
+def _mcu_pin_looks_like_power(pin):
+    """MCU 引脚名像电源/地时，不作为去耦对齐目标。"""
+    name = str(getattr(pin, "name", "") or "").upper()
+    return _token_in_text(
+        name, ("VSS", "VDD", "VCC", "GND", "AVDD", "AGND", "DVDD", "DVSS", "VBAT")
+    )
+
+
+def _pair_pins_to_main(part, main_part, node=None, prefer_signal=True):
+    """
+    返回 (main_pin, part_pin) 若二者共网。
+    去耦电容等同器件双网接 MCU 时，优先信号脚（如 P35/TKCAP），避免误选 VSS/VDD。
+    """
+    signal_pairs = []
+    power_pairs = []
     for pin in part.pins:
         net = getattr(pin, "net", None)
         if net is None:
             continue
         for mp in main_part.pins:
-            if getattr(mp, "net", None) is net:
+            if getattr(mp, "net", None) is not net:
+                continue
+            if prefer_signal and node is not None:
+                label = _net_label(net)
+                if node._is_power_net_name(label) or _token_in_text(
+                    label, _GROUND_TOKENS + ("VDD", "VCC", "VSS", "VDDA", "VCCA")
+                ):
+                    power_pairs.append((mp, pin))
+                else:
+                    signal_pairs.append((mp, pin))
+            else:
                 return mp, pin
+    if signal_pairs:
+        non_pwr = [
+            (mp, pp) for mp, pp in signal_pairs if not _mcu_pin_looks_like_power(mp)
+        ]
+        if non_pwr:
+            return non_pwr[0]
+        return signal_pairs[0]
+    if power_pairs:
+        return power_pairs[0]
     return None, None
+
+
+def _mcu_x_outward_of_pin(main_part, main_pin, part_w, gap):
+    """水平外扩：器件放在引脚远离 MCU 几何中心的一侧。"""
+    bb = _layout_bbox(main_part)
+    if bb is None:
+        pt = _pin_abs_pt(main_pin)
+        return pt.x - (2 * gap) - part_w
+    pt = _pin_abs_pt(main_pin)
+    dx = pt.x - bb.ctr.x
+    if dx < 0:
+        return pt.x - (2 * gap) - part_w
+    if dx > 0:
+        return pt.x + gap
+    return pt.x - (2 * gap) - part_w
 
 
 def _main_pin_side(main_part, main_pin):
@@ -653,7 +700,7 @@ def _mcu_place_pin_side_chains(
                     continue
                 pin = _chain_neighbor_pin(part, prev, node, set(node.parts))
                 if pin is None:
-                    _, pin = _pair_pins_to_main(part, main_part)
+                    _, pin = _pair_pins_to_main(part, main_part, node=node)
                 _mcu_place_part_pin_to_y(part, x_edge, row_y, grid, pin)
                 prev = part
                 x_edge += max(bb.w, grid) + gap
@@ -672,7 +719,7 @@ def _mcu_place_pin_side_chains(
                 w = max(bb.w, grid)
                 pin = _chain_neighbor_pin(part, prev, node, set(node.parts))
                 if pin is None:
-                    _, pin = _pair_pins_to_main(part, main_part)
+                    _, pin = _pair_pins_to_main(part, main_part, node=node)
                 _mcu_place_part_pin_to_y(part, x_edge, row_y, grid, pin)
                 prev = part
                 x_edge += w + gap
@@ -692,7 +739,7 @@ def _mcu_collect_pin_chains(node, main_part, parts, part_adj, io_series, tk_part
     for part in io_series:
         if part in seen_r:
             continue
-        mp, _ = _pair_pins_to_main(part, main_part)
+        mp, _ = _pair_pins_to_main(part, main_part, node=node)
         if mp is None:
             continue
         tk = _tk_partner_for_resistor(part, main_part, part_adj)
@@ -701,7 +748,7 @@ def _mcu_collect_pin_chains(node, main_part, parts, part_adj, io_series, tk_part
     for tk in tk_parts:
         if tk in {c[1] for c in chains if c[1]}:
             continue
-        mp, _ = _pair_pins_to_main(tk, main_part)
+        mp, _ = _pair_pins_to_main(tk, main_part, node=node)
         if mp is None:
             continue
         chains.append((None, tk, mp))
@@ -841,10 +888,12 @@ def _mcu_place_colinear_chain(
     outward = [p for p in chain if p is not main_part]
 
     if side in ("left", "right"):
-        if side == "left":
+        bb_m = _layout_bbox(main_part)
+        outward_sign = -1 if bb_m and mp_pt.x < bb_m.ctr.x else 1
+        if outward_sign < 0:
             x_edge = mp_pt.x - gap
             for idx, part in enumerate(outward, start=1):
-                bb = _mcu_layout_bbox(part)
+                bb = _mcu_layout_bbox(part) or _layout_bbox(part)
                 if bb is None:
                     continue
                 w = max(bb.w, grid)
@@ -852,20 +901,20 @@ def _mcu_place_colinear_chain(
                 prev = chain[idx - 1]
                 pin = _chain_neighbor_pin(part, prev, node, set(node.parts))
                 if pin is None:
-                    _, pin = _pair_pins_to_main(part, main_part)
+                    _, pin = _pair_pins_to_main(part, main_part, node=node)
                 _mcu_place_part_pin_to_y(part, x_left, row_y, grid, pin)
                 placed.add(part)
                 x_edge = x_left - gap
         else:
             x_edge = mp_pt.x + gap
             for idx, part in enumerate(outward, start=1):
-                bb = _mcu_layout_bbox(part)
+                bb = _mcu_layout_bbox(part) or _layout_bbox(part)
                 if bb is None:
                     continue
                 prev = chain[idx - 1]
                 pin = _chain_neighbor_pin(part, prev, node, set(node.parts))
                 if pin is None:
-                    _, pin = _pair_pins_to_main(part, main_part)
+                    _, pin = _pair_pins_to_main(part, main_part, node=node)
                 _mcu_place_part_pin_to_y(part, x_edge, row_y, grid, pin)
                 placed.add(part)
                 x_edge += max(bb.w, grid) + gap
@@ -883,7 +932,7 @@ def _mcu_place_colinear_chain(
             prev = chain[idx - 1]
             pin = _chain_neighbor_pin(part, prev, node, set(node.parts))
             if pin is None:
-                _, pin = _pair_pins_to_main(part, main_part)
+                _, pin = _pair_pins_to_main(part, main_part, node=node)
             _mcu_place_part_pin_to_y(part, col_x, y_edge, grid, pin)
             placed.add(part)
             y_edge += h + gap
@@ -897,7 +946,7 @@ def _mcu_place_colinear_chain(
             prev = chain[idx - 1]
             pin = _chain_neighbor_pin(part, prev, node, set(node.parts))
             if pin is None:
-                _, pin = _pair_pins_to_main(part, main_part)
+                _, pin = _pair_pins_to_main(part, main_part, node=node)
             _mcu_place_part_pin_to_y(part, col_x, y_edge - h, grid, pin)
             placed.add(part)
             y_edge -= h + gap
@@ -906,24 +955,26 @@ def _mcu_place_colinear_chain(
 
 def _mcu_place_io_on_main_pin(node, main_part, part, gap, grid, side=None):
     """串阻/电容等：接 MCU 的脚与 MCU pin 同 Y，水平横放。"""
-    mp, pp = _pair_pins_to_main(part, main_part)
+    mp, pp = _pair_pins_to_main(part, main_part, node=node, prefer_signal=True)
     if mp is None or pp is None:
         return False
     row_y = _mcu_pin_route_pt(mp).y
-    mp_pt = _mcu_pin_route_pt(mp)
-    bb = _mcu_layout_bbox(part)
+    bb = _mcu_layout_bbox(part) or _layout_bbox(part)
     if bb is None:
         return False
     w = max(bb.w, grid)
     side = side or _main_pin_side(main_part, mp)
-    if side == "right":
-        x_left = mp_pt.x + gap
-    elif side in ("top", "bottom"):
+    if side in ("top", "bottom"):
         x_left = mp_pt.x - w / 2
     else:
-        x_left = mp_pt.x - (2 * gap) - w
+        x_left = _mcu_x_outward_of_pin(main_part, mp, w, gap)
     _mcu_place_part_pin_to_y(part, x_left, row_y, grid, pp)
     return True
+
+
+def _mcu_force_place_decouple_at_signal_pin(node, main_part, part, gap, grid):
+    """去耦电容必须贴在 MCU 信号脚外侧（覆盖共线/力导向留下的错误坐标）。"""
+    return _mcu_place_io_on_main_pin(node, main_part, part, gap, grid)
 
 
 def _mcu_route_chain_net_wires(node, net, pins, main, grid):
@@ -1195,13 +1246,7 @@ def apply_generic_mcu_layout(
         else {id(p): set() for p in parts}
     )
 
-    # 上：去耦（SKiDL Y 向上 → 用 max.y + gap）
-    if decouple:
-        top_y = main_bbox.max.y + gap
-        _place_parts_in_row(
-            node, decouple, main_bbox.min.x, top_y, gap, grid
-        )
-        placed.update(decouple)
+    # 去耦电容改在共线/贴脚阶段按 MCU 信号引脚侧摆放，不再统一排到 MCU 上方。
 
     # 左：时钟/复位 + TK 链与 pin 对齐
     left_misc = clock + reset + boot
@@ -1296,6 +1341,14 @@ def apply_generic_mcu_layout(
         if _mcu_place_io_on_main_pin(node, main_part, part, gap, grid):
             placed.add(part)
             anchor.add(part)
+    # 去耦：始终以信号脚为准重摆（避免共线链/力导向把它留在错误一侧）
+    for part in decouple:
+        if _mcu_force_place_decouple_at_signal_pin(
+            node, main_part, part, gap, grid
+        ):
+            placed.add(part)
+            anchor.add(part)
+            colinear_placed.add(part)
 
     # 勿再对全表做 keepout：贴引脚的 R/C/LED/TK 与膨胀 MCU 框必然相交，会被误排到 MCU 底下一行。
     if all_connectors:
