@@ -654,6 +654,35 @@ def _mcu_place_part_pin_to_y(part, x_left, row_y, grid, anchor_pin):
     part.tx = base.move(Point(ox, oy))
 
 
+def _ensure_anchor_toward_hub(part, anchor_pin, outward_sign):
+    """
+    确保 2-pin 横放被动件的 anchor 引脚在 hub 方向侧。
+    outward_sign < 0 表示链向左展开（hub 在右），> 0 则反之。
+    若 anchor 在反侧，则围绕器件中心旋转 180° 交换引脚。
+    """
+    if not _mcu_wants_horizontal(part):
+        return
+    pins = getattr(part, "pins", [])
+    if len(pins) != 2 or anchor_pin is None:
+        return
+    other = [p for p in pins if p is not anchor_pin]
+    if not other:
+        return
+    ap = _mcu_pin_route_pt(anchor_pin)
+    op = _mcu_pin_route_pt(other[0])
+    wrong = (
+        (outward_sign < 0 and ap.x < op.x)
+        or (outward_sign > 0 and ap.x > op.x)
+    )
+    if not wrong:
+        return
+    bb = _placement_bbox(part)
+    if bb is None:
+        return
+    cx, cy = bb.ctr.x, bb.ctr.y
+    part.tx = part.tx.move(Point(-cx, -cy)).rot(180).move(Point(cx, cy))
+
+
 def _place_part_row_y(part, x_min, row_y, grid, anchor_pin=None):
     """把器件放在 x_min；若给 anchor_pin 则该脚 Y=row_y，否则外框竖直居中。"""
     if anchor_pin is not None:
@@ -971,6 +1000,7 @@ def _place_colinear_chain(node, hub_part, anchor_pin, chain, gap, grid):
                 if pin is None:
                     _, pin = _pair_pins_to_main(part, hub_part, node=node)
                 _mcu_place_part_pin_to_y(part, x_left, row_y, grid, pin)
+                _ensure_anchor_toward_hub(part, pin, outward_sign)
                 placed.add(part)
                 x_edge = x_left - gap
         else:
@@ -984,6 +1014,7 @@ def _place_colinear_chain(node, hub_part, anchor_pin, chain, gap, grid):
                 if pin is None:
                     _, pin = _pair_pins_to_main(part, hub_part, node=node)
                 _mcu_place_part_pin_to_y(part, x_edge, row_y, grid, pin)
+                _ensure_anchor_toward_hub(part, pin, outward_sign)
                 placed.add(part)
                 x_edge += max(bb.w, grid) + gap
         return placed
@@ -1505,6 +1536,22 @@ def _mcu_route_pins(node, net):
     ]
 
 
+def _wire_crosses_sibling_pin(pins, p1, p2):
+    """检查水平 wire 是否穿过同器件的另一引脚（不同网），会产生短路。"""
+    x_lo, x_hi = (min(p1.x, p2.x), max(p1.x, p2.x))
+    y = p1.y
+    for pin in pins:
+        for sib in getattr(pin.part, "pins", []):
+            if sib is pin:
+                continue
+            if getattr(sib, "net", None) is getattr(pin, "net", None):
+                continue
+            sp = _mcu_pin_route_pt(sib)
+            if sp.y == y and x_lo < sp.x < x_hi:
+                return True
+    return False
+
+
 def _mcu_wire_two_pins(p1, p2, bus_y=None):
     """MCU 支路：给定 bus_y 时一根水平线；否则正交 L 型。"""
     if bus_y is not None:
@@ -1582,7 +1629,13 @@ def route_mcu_local_nets(node, nets, **options):
                 p1 = _mcu_pin_route_pt(pins[0])
                 p2 = _mcu_pin_route_pt(pins[1])
                 if p1.y == p2.y:
-                    node.wires[net] = _mcu_wire_two_pins(p1, p2)
+                    if _wire_crosses_sibling_pin(pins, p1, p2):
+                        net._stub = True
+                        net.stub = True
+                        for pin in pins:
+                            pin.stub = True
+                    else:
+                        node.wires[net] = _mcu_wire_two_pins(p1, p2)
                 else:
                     # 两引脚不同行（放置异常），不画线、改用 label 避短路
                     net._stub = True
@@ -1638,7 +1691,7 @@ def mcu_stub_remaining_signal_nets(node, nets, handled, **options):
     wired = set(getattr(node, "wires", {}).keys())
     colinear_sets = _all_colinear_part_sets(node)
     for net in nets:
-        if net in handled or net in wired:
+        if net in handled:
             continue
         if getattr(net, "_stub_explicit", False):
             continue
@@ -1649,11 +1702,10 @@ def mcu_stub_remaining_signal_nets(node, nets, handled, **options):
                 break
         else:
             cset = None
-        if cset is not None:
+        if cset is not None and len(net_parts) > 1:
             continue
-        pins = _mcu_route_pins(node, net)
-        if len(net_parts) == 2 and len(pins) == 2:
-            continue
+        # MCU 拓扑下：未被 route_mcu_local_nets 处理的网一律 stub，
+        # 不交给 switchbox 标准路由器（它不了解 MCU 引脚拓扑，容易穿越相邻引脚短路）。
         name = _net_label(net)
         # power 网仍可对未布线 pin 设 stub，导出时走 power symbol（非 signal global_label）。
         if node._is_power_net_name(name):
@@ -1661,12 +1713,18 @@ def mcu_stub_remaining_signal_nets(node, nets, handled, **options):
             net._stub_explicit = False
             for pin in net.get_pins():
                 pin.stub = True
+            wires = getattr(node, "wires", {})
+            if net in wires:
+                del wires[net]
             stubbed.add(net)
             continue
         net._stub = True
         net._stub_explicit = False
         for pin in net.get_pins():
             pin.stub = True
+        wires = getattr(node, "wires", {})
+        if net in wires:
+            del wires[net]
         stubbed.add(net)
     if stubbed and options.get("schematic_progress", False):
         from skidl.logger import active_logger
