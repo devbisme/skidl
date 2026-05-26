@@ -90,8 +90,10 @@ def auto_stub_nets(circuit, **options):
         if not net.valid or len(net.pins) == 0:
             continue
 
-        # Power nets: anything starting with "+" or matching common power names.
-        if net.name.startswith("+") or _POWER_NET_RE.match(net.name):
+        # Power nets: unified helper（含 GND_0 / VCC_5V_0 等 Altium 分区网名）。
+        from skidl.schematics.power_net import is_power_net_name
+
+        if is_power_net_name(net.name):
             if len(net.pins) >= power_fanout_threshold:
                 net._stub = True
                 net._stub_explicit = False

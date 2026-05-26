@@ -195,8 +195,10 @@ def auto_stub_nets(circuit, **options):
         if not net.valid or len(net.pins) == 0:
             continue
 
-        # Power nets: anything starting with "+" or matching common power names.
-        if net.name.startswith("+") or _POWER_NET_RE.match(net.name):
+        # Power nets: unified helper（含 GND_0 / VCC_5V_0 等 Altium 分区网名）。
+        from skidl.schematics.power_net import is_power_net_name
+
+        if is_power_net_name(net.name):
             if len(net.pins) >= power_fanout_threshold:
                 net._stub = True
                 net._stub_explicit = False
@@ -341,6 +343,10 @@ def _classify_and_stub_complex_nets(circuit, node, **options):
     max_wire_pins = options.get("auto_stub_max_wire_pins", 3)
     max_wire_dist = options.get("auto_stub_max_wire_dist", 2000)
 
+    # MCU 专用布局：2-pin 短直线在 route 阶段处理，此处勿提前 stub。
+    if getattr(node, "_mcu_manual_pnr", False):
+        return
+
     node_parts = set(node.parts)
     stubbed_count = 0
     partial_stubbed_count = 0
@@ -467,6 +473,26 @@ def _handle_fallback(circuit, tool_module, filepath, top_name, title, flatness,
     preprocess_circuit(circuit, **options)
     node = SchNode(circuit, tool_module, filepath, top_name, title, flatness)
     node.place(expansion_factor=1.0, **options)
+    if options.get("human_readable", False):
+        from skidl.schematics.place import is_net_terminal
+        from skidl.schematics.topology import apply_mcu_connector_keepout_fixup
+
+        def _connector_fixup_deep(sch_node):
+            if sch_node.parts:
+                real = [
+                    p for p in sch_node.parts if not is_net_terminal(p)
+                ]
+                if real:
+                    roles = {
+                        p: sch_node._classify_part_role(p) for p in real
+                    }
+                    apply_mcu_connector_keepout_fixup(
+                        sch_node, real, roles, **options
+                    )
+            for child in getattr(sch_node, "children", {}).values():
+                _connector_fixup_deep(child)
+
+        _connector_fixup_deep(node)
     node.route(**options)
     _log_attach_export_state(node, options)
     output_file = write_top_schematic(

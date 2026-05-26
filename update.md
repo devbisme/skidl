@@ -1,5 +1,55 @@
 # skidl-pnr-opt 更新记录
 
+## Power net 导出：GND_0 / VCC_5V_0 不再变成 global_label
+
+**日期**：2026-05-26  
+**范围**：`schematics/power_net.py`（新）、`place.py`、`topology/mcu.py`、`tools/kicad9/sexp_schematic.py`、`tools/kicad6–9/gen_schematic.py`
+
+### 问题现象
+
+TG032-MCU 等 Altium 导入电路中，`GND_0`、`VCC_5V_0` 等分区电源网在原理图上显示为普通 `global_label`，而同图的 `GND` 却正确显示为 `power:GND` 符号。
+
+### 根因
+
+布局、auto_stub、sexp 导出三套 power 识别规则不一致：
+
+| 阶段 | 旧行为 |
+|------|--------|
+| `place._is_power_net_name` | 子串匹配，`GND_0` 可识别 |
+| `gen_schematic._POWER_NET_RE` | 整名精确匹配，`GND_0` 不识别 |
+| `sexp net_label_to_sexp` | 仅当网名 **等于** KiCad power 库 symbol 名时才导出 power symbol |
+
+此外 `mcu_stub_remaining_signal_nets` 会把未本地布线的 power 网 stub 成 label，加剧上述导出问题。
+
+### 修改点
+
+1. 新增 [`schematics/power_net.py`](src/skidl/schematics/power_net.py)：
+   - `is_power_net_name(name)` — 统一 power-like 识别
+   - `resolve_power_symbol_shape(name)` — 映射 KiCad power 库 **外形**（如 `GND_0` → `GND`，`VCC_5V_0` → `+5V`）
+   - `resolve_power_symbol_value(name)` — 始终返回原始网名（Value 字段）
+2. `place._is_power_net_name` 委托上述 helper。
+3. `auto_stub_nets`（kicad6–9）改用 `is_power_net_name`，不再维护窄 `_POWER_NET_RE` 匹配路径。
+4. `kicad9/sexp_schematic.py`：`lib_id` 用 shape，`Value` 用原网名；边界 sheet pin 跳过逻辑同步。
+5. `mcu_stub_remaining_signal_nets`：power 网 stub 时注明导出走 power symbol，而非 signal global_label。
+
+### 风险
+
+- **不修改 SKiDL `Net.name`**，不改网表电气连接。
+- 外形映射失败时仍 fallback `global_label`。
+- `GND` 与 `GND_0` 的 power symbol **Value 不同**，KiCad 中仍为独立网名，不会把不同电源域短接。
+
+### 验收
+
+`tests/unit_tests/test_power_net.py`；TG032-MCU 生成后 sch 中无 `(global_label "GND_0")` / `(global_label "VCC_5V_0")`，出现 `lib_id "power:GND"` + `Value "GND_0"` 等。
+
+### 2026-05-26 修订（悬空 power symbol）
+
+根因：用户命名 power 网仍创建 `NetTerminal`，摆在 bbox 顶边；power 导出改为 symbol 后，顶边 `#PWR001`/`#PWR002` 无导线悬空。
+
+修订：`sch_node.add_circuit` 对 `is_power_net_name` 不建 NetTerminal；`sexp _net_terminal_label_to_sexp` 对 power 网直接返回 None。TG032 器件数 39→35（去掉 4 个边缘 NetTerminal）。
+
+---
+
 ## generic_driver 水平 power rail（布局 + 预布线）
 
 **日期**：2026-05-21  

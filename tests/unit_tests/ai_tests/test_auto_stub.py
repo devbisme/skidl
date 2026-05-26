@@ -17,10 +17,12 @@ import tempfile
 import pytest
 from skidl import get_default_tool
 
+from skidl.schematics.power_net import is_power_net_name
+
 tool = get_default_tool()
 gen_schematic = importlib.import_module(f"skidl.tools.{tool}.gen_schematic")
 FIXABLE_ERROR_TYPES = gen_schematic.FIXABLE_ERROR_TYPES
-_POWER_NET_RE = gen_schematic._POWER_NET_RE
+_POWER_NET_RE = getattr(gen_schematic, "_POWER_NET_RE", None)
 _classify_and_stub_complex_nets = gen_schematic._classify_and_stub_complex_nets
 _parse_erc_report = gen_schematic._parse_erc_report
 _setup_kicad_env = gen_schematic._setup_kicad_env
@@ -39,19 +41,40 @@ if os.getenv("SKIDL_TOOL") in ('KICAD5',):
 
 
 class TestPowerNetRegex:
-    """Tests for the power net name pattern."""
+    """Tests for unified power net name detection."""
 
     @pytest.mark.parametrize(
         "name",
-        ["GND", "gnd", "AGND", "DGND", "PGND", "VCC", "VDD", "VSS", "VEE",
-         "VBUS", "VBAT", "AVCC", "AVDD", "DVCC", "DVDD", "+3V3", "+5V", "+12V"],
+        [
+            "GND",
+            "gnd",
+            "GND_0",
+            "VCC_5V_0",
+            "AGND",
+            "DGND",
+            "PGND",
+            "VCC",
+            "VDD",
+            "VSS",
+            "VEE",
+            "VBUS",
+            "VBAT",
+            "AVCC",
+            "AVDD",
+            "DVCC",
+            "DVDD",
+            "+3V3",
+            "+5V",
+            "+12V",
+            "3V3",
+        ],
     )
     def test_power_nets_match(self, name):
-        assert _POWER_NET_RE.match(name), f"{name} should match power net pattern"
+        assert is_power_net_name(name), f"{name} should be a power net"
 
     @pytest.mark.parametrize("name", ["DATA", "CLK", "SDA", "SCL", "RESET", "N$1"])
     def test_signal_nets_no_match(self, name):
-        assert not _POWER_NET_RE.match(name), f"{name} should NOT match power net pattern"
+        assert not is_power_net_name(name), f"{name} should NOT be a power net"
 
 
 class TestAutoStubNets:
