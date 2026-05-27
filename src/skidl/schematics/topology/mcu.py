@@ -1105,6 +1105,7 @@ def _mcu_place_io_on_main_pin(node, main_part, part, gap, grid, side=None):
         return False
     w = max(bb.w, grid)
     side = side or _main_pin_side(main_part, mp)
+    mp_pt = _mcu_pin_route_pt(mp)
     if side in ("top", "bottom"):
         x_left = mp_pt.x - w / 2
     else:
