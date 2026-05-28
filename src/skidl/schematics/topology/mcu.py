@@ -489,6 +489,36 @@ def _tk_partner_for_resistor(part, main_part, adjacency):
     return None
 
 
+def _mcu_touch_key_text(part):
+    tokens = (
+        getattr(part, "ref", ""),
+        getattr(part, "name", ""),
+        getattr(part, "value", ""),
+        getattr(part, "description", ""),
+    )
+    return " ".join(str(tok or "") for tok in tokens).upper()
+
+
+def _mcu_is_left_touch_key_candidate(part):
+    if len(getattr(part, "pins", []) or []) != 1:
+        return False
+    text = _mcu_touch_key_text(part)
+    ref = str(getattr(part, "ref", "") or "").upper()
+    if "SPRING" in text or "TK_SPRING" in text:
+        return True
+    return ref.startswith("TK") and "TOUCH" in text
+
+
+def _mcu_mark_left_touch_key_render(part):
+    if not _mcu_is_left_touch_key_candidate(part):
+        return
+    text = _mcu_touch_key_text(part)
+    part._kicad_render_kind = "mcu_touch_key_original_pin_right"
+    part._mcu_touch_key_side = "left"
+    if "TK_SPRING" in text:
+        part._kicad_force_lib_part = "TK_Spring_Center"
+        part._kicad_force_pin_offset_mm = 5.08
+
 def _io_side_score(node, part):
     """连接器/串阻侧：正=偏右，负=偏左。"""
     names = [n.upper() for n in node._net_names_of(part)]
@@ -754,6 +784,7 @@ def _mcu_place_pin_side_chains(
                 if pin is None:
                     _, pin = _pair_pins_to_main(part, main_part, node=node)
                 _mcu_place_part_pin_to_y(part, x_edge, row_y, grid, pin)
+                _mcu_mark_left_touch_key_render(part)
                 prev = part
                 x_edge += w + gap
         else:
@@ -1000,6 +1031,7 @@ def _place_colinear_chain(node, hub_part, anchor_pin, chain, gap, grid):
                 if pin is None:
                     _, pin = _pair_pins_to_main(part, hub_part, node=node)
                 _mcu_place_part_pin_to_y(part, x_left, row_y, grid, pin)
+                _mcu_mark_left_touch_key_render(part)
                 _ensure_anchor_toward_hub(part, pin, outward_sign)
                 placed.add(part)
                 x_edge = x_left - gap
@@ -1171,12 +1203,97 @@ def _mcu_place_io_on_main_pin(node, main_part, part, gap, grid, side=None):
     else:
         x_left = _mcu_x_outward_of_pin(main_part, mp, w, gap)
     _mcu_place_part_pin_to_y(part, x_left, row_y, grid, pp)
+    if side == "left":
+        _mcu_mark_left_touch_key_render(part)
     return True
 
 
 def _mcu_force_place_decouple_at_signal_pin(node, main_part, part, gap, grid):
     """去耦电容必须贴在 MCU 信号脚外侧（覆盖共线/力导向留下的错误坐标）。"""
-    return _mcu_place_io_on_main_pin(node, main_part, part, gap, grid)
+    if not _mcu_place_io_on_main_pin(node, main_part, part, gap, grid):
+        return False
+    ctx = _mcu_decouple_ground_context(node, main_part, part)
+    if ctx is None:
+        return True
+
+    signal_pin = ctx["cap_signal_pin"]
+    old_signal_pt = _mcu_pin_route_pt(signal_pin)
+    mcu_signal_pt = _mcu_pin_route_pt(ctx["mcu_signal_pin"])
+    signal_pt = Point(old_signal_pt.x, mcu_signal_pt.y)
+    base = Tx().rot(90)
+    signal_local = (signal_pin.pt * base).round()
+    part.tx = base.move(Point(signal_pt.x - signal_local.x, signal_pt.y - signal_local.y))
+    part._mcu_decouple_ground_context = ctx
+    return True
+
+
+def _mcu_is_ground_net(node, net):
+    name = _net_label(net)
+    if not name:
+        return False
+    text = str(name).upper()
+    return node._is_power_net_name(name) and (
+        _token_in_text(text, _GROUND_TOKENS) or "VSS" in text
+    )
+
+
+def _mcu_pin_text(pin):
+    return " ".join(
+        str(getattr(pin, attr, "") or "").upper()
+        for attr in ("name", "num", "func", "function")
+    )
+
+
+def _mcu_decouple_ground_context(node, main_part, cap_part):
+    pins = list(getattr(cap_part, "pins", []) or [])
+    if len(pins) != 2:
+        return None
+
+    ground_pin = None
+    signal_pin = None
+    mcu_ground_pin = None
+    mcu_signal_pin = None
+    for pin in pins:
+        net = getattr(pin, "net", None)
+        if net is None:
+            continue
+        matching_main = [
+            mp for mp in getattr(main_part, "pins", []) if getattr(mp, "net", None) is net
+        ]
+        if _mcu_is_ground_net(node, net):
+            ground_pin = pin
+            if matching_main:
+                mcu_ground_pin = next(
+                    (
+                        mp
+                        for mp in matching_main
+                        if _token_in_text(_mcu_pin_text(mp), _GROUND_TOKENS + ("VSS",))
+                    ),
+                    matching_main[0],
+                )
+        elif matching_main:
+            signal_pin = pin
+            mcu_signal_pin = next(
+                (mp for mp in matching_main if not _mcu_pin_looks_like_power(mp)),
+                matching_main[0],
+            )
+
+    if not (ground_pin and signal_pin and mcu_ground_pin and mcu_signal_pin):
+        return None
+
+    signal_text = _mcu_pin_text(mcu_signal_pin)
+    if not _token_in_text(signal_text, ("TKCAP", "P35", "CAP")):
+        return None
+
+    return {
+        "cap": cap_part,
+        "cap_ground_pin": ground_pin,
+        "cap_signal_pin": signal_pin,
+        "mcu_ground_pin": mcu_ground_pin,
+        "mcu_signal_pin": mcu_signal_pin,
+        "ground_net": ground_pin.net,
+        "signal_net": signal_pin.net,
+    }
 
 
 def _route_chain_net_wires(node, net, pins, anchor_part, grid):
@@ -1719,6 +1836,74 @@ def _mcu_wire_two_pins(p1, p2, bus_y=None):
     return segs
 
 
+def _mcu_route_decouple_ground_net(node, net, pins, main, grid):
+    """Route the local MCU decoupling ground as a lower trunk, not pin stubs."""
+    if main is None or not _mcu_is_ground_net(node, net):
+        return None
+
+    context = None
+    for pin in pins:
+        part = getattr(pin, "part", None)
+        ctx = getattr(part, "_mcu_decouple_ground_context", None)
+        if ctx and ctx.get("ground_net") is net:
+            context = ctx
+            break
+    if context is None:
+        return None
+
+    cap_pin = context["cap_ground_pin"]
+    mcu_pin = context["mcu_ground_pin"]
+    cap_pt = _mcu_pin_route_pt(cap_pin)
+    mcu_pt = _mcu_pin_route_pt(mcu_pin)
+
+    trunk_y = mcu_pt.y
+
+    x_min = min(cap_pt.x, mcu_pt.x)
+    x_max = max(cap_pt.x, mcu_pt.x)
+
+    segs = [
+        Segment(Point(x_min, trunk_y), Point(x_max, trunk_y))
+    ]
+
+    cap_drop = Point(cap_pt.x, trunk_y)
+    if cap_pt != cap_drop:
+        segs.append(
+            Segment(Point(cap_pt.x, cap_pt.y), cap_drop)
+        )
+
+    mcu_drop = Point(mcu_pt.x, trunk_y)
+    if mcu_pt != mcu_drop:
+        segs.append(
+            Segment(Point(mcu_pt.x, mcu_pt.y), mcu_drop)
+        )
+    junctions = getattr(node, "junctions", None)
+    if junctions is not None:
+        junctions.setdefault(net, [])
+        for pt in (copy.copy(cap_pt), copy.copy(mcu_drop)):
+            if pt not in junctions[net]:
+                junctions[net].append(pt)
+
+    symbol_x = int(round(((cap_pt.x + mcu_pt.x) / 2) / grid)) * grid
+    symbol_x = max(x_min + (2 * grid), min(x_max - (2 * grid), symbol_x))
+    marker = {"net": net, "point": Point(symbol_x, trunk_y)}
+    markers = list(getattr(node, "_mcu_power_symbol_points", []) or [])
+    if not any(m.get("net") is net and m.get("point") == marker["point"] for m in markers):
+        markers.append(marker)
+    node._mcu_power_symbol_points = markers
+
+    local_pins = {cap_pin, mcu_pin}
+    for pin in pins:
+        if pin in local_pins:
+            pin.stub = False
+            pin._mcu_force_power_symbol_even_if_wired = False
+        else:
+            pin.stub = True
+            pin._mcu_force_power_symbol_even_if_wired = True
+    net._stub = False
+    net.stub = False
+    return segs
+
+
 def route_mcu_local_nets(node, nets, **options):
     """
     MCU 专用：2-pin 星型支路用短直线/水平总线，不走 switchbox。
@@ -1764,6 +1949,13 @@ def route_mcu_local_nets(node, nets, **options):
                     continue
         pins = _mcu_route_pins(node, net)
         if len(pins) < 2:
+            continue
+        decouple_ground_segs = _mcu_route_decouple_ground_net(
+            node, net, pins, main, grid
+        )
+        if decouple_ground_segs:
+            node.wires[net] = decouple_ground_segs
+            handled.add(net)
             continue
         net_parts = {pin.part for pin in pins}
         if main and _mcu_net_bridges_mcu_and_header(node, main, net_parts):

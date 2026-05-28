@@ -470,6 +470,34 @@ def _power_symbol_to_sexp(
     return symbol
 
 
+def _power_symbol_at_point_to_sexp(
+    net,
+    point,
+    tx,
+    instance_path="/",
+    project_name="SKiDL-Generated",
+):
+    """Generate a power symbol at an explicit schematic point."""
+    shape = resolve_power_symbol_shape(net.name, _get_power_symbol_names())
+    if not shape:
+        return None
+
+    part = type("_PowerPointPart", (), {"tx": Tx()})()
+    pin = type("_PowerPointPin", (), {})()
+    pin.part = part
+    pin.pt = point
+    pin.x = point.x
+    pin.y = point.y
+    return _power_symbol_to_sexp(
+        pin,
+        shape,
+        tx,
+        instance_path=instance_path,
+        project_name=project_name,
+        display_name=resolve_power_symbol_value(net.name),
+    )
+
+
 def _reset_power_symbol_state():
     """Reset power symbol state between schematic generations."""
     global _used_power_symbols
@@ -517,6 +545,37 @@ def _resolved_part_ref(part):
     return str(getattr(part, "ref_prefix", "") or "U").strip() or "U"
 
 
+_TOUCH_KEY_ORIGINAL_PIN_RIGHT_KIND = "mcu_touch_key_original_pin_right"
+
+
+def _part_render_kind(part):
+    return str(getattr(part, "_kicad_render_kind", "") or "")
+
+
+def _force_original_touch_key_pin_right(part):
+    return _part_render_kind(part) == _TOUCH_KEY_ORIGINAL_PIN_RIGHT_KIND
+
+
+def _forced_lib_part_name(part):
+    return str(getattr(part, "_kicad_force_lib_part", "") or "").strip()
+
+
+def _forced_pin_offset_mm(part, pin):
+    offset = getattr(part, "_kicad_force_pin_offset_mm", None)
+    if offset is not None:
+        return Point(float(offset), 0)
+    pin_pt = getattr(pin, "pt", Point(pin.x, pin.y))
+    return Point(pin_pt.x * 0.0254, pin_pt.y * 0.0254)
+
+
+def _remember_lib_symbol_source(lib_symbols, lib_id, part):
+    existing = lib_symbols.get(lib_id)
+    if existing is None or (
+        _forced_lib_part_name(existing) and not _forced_lib_part_name(part)
+    ):
+        lib_symbols[lib_id] = part
+
+
 def _part_lib_id(part):
     """Return the KiCad library identifier for a part."""
     lib_name = (
@@ -524,7 +583,7 @@ def _part_lib_id(part):
         if hasattr(part.lib, "filename") and part.lib.filename
         else "Device"
     )
-    part_name = part.name or "Unknown"
+    part_name = _forced_lib_part_name(part) or part.name or "Unknown"
     return f"{lib_name}:{part_name}"
 
 
@@ -624,15 +683,32 @@ def part_to_sexp(part, tx=Tx(), instance_path="/", project_name="SKiDL-Generated
         Sexp: Symbol S-expression.
     """
     part_tx = getattr(part, "tx", Tx())
-    angle, mx, my = part_tx.analyze_transform()
-    if mx:
-        mirror = ["mirror", "x"]
-    elif my:
-        mirror = ["mirror", "y"]
+    force_original_pin_right = _force_original_touch_key_pin_right(part)
+    if force_original_pin_right:
+        angle, mirror = 0, []
     else:
-        mirror = []
+        angle, mx, my = part_tx.analyze_transform()
+        if mx:
+            mirror = ["mirror", "x"]
+        elif my:
+            mirror = ["mirror", "y"]
+        else:
+            mirror = []
     tx = part_tx * tx
-    origin = Point(_round_mm(tx.origin.x), _round_mm(tx.origin.y))
+    if force_original_pin_right:
+        pin = next(iter(getattr(part, "pins", []) or []), None)
+        if pin is not None:
+            pin_pt = getattr(pin, "pt", Point(pin.x, pin.y))
+            pin_abs = pin_pt * tx
+            pin_offset = _forced_pin_offset_mm(part, pin)
+            origin = Point(
+                _round_mm(pin_abs.x - pin_offset.x),
+                _round_mm(pin_abs.y - pin_offset.y),
+            )
+        else:
+            origin = Point(_round_mm(tx.origin.x), _round_mm(tx.origin.y))
+    else:
+        origin = Point(_round_mm(tx.origin.x), _round_mm(tx.origin.y))
     unit_num = getattr(part, "num", 1)
 
     lib_id = _part_lib_id(part)
@@ -669,6 +745,9 @@ def part_to_sexp(part, tx=Tx(), instance_path="/", project_name="SKiDL-Generated
     )
 
     # Value
+    value_effects = [["font", ["size", 1.27, 1.27]], ["justify", "left"]]
+    if force_original_pin_right:
+        value_effects.append(["hide", "yes"])
     symbol.append(
         Sexp(
             [
@@ -676,7 +755,7 @@ def part_to_sexp(part, tx=Tx(), instance_path="/", project_name="SKiDL-Generated
                 "Value",
                 str(part.value),
                 ["at", origin.x, origin.y + 2.54, angle],
-                ["effects", ["font", ["size", 1.27, 1.27]], ["justify", "left"]],
+                ["effects"] + value_effects,
             ]
         )
     )
@@ -949,18 +1028,39 @@ def _append_stub_pin_labels(elements, node, parts, tx, instance_path, project_na
     from skidl.schematics.route import clear_stub_for_wired_nets
 
     clear_stub_for_wired_nets(node)
+    for marker in getattr(node, "_mcu_power_symbol_points", []) or []:
+        net = marker.get("net")
+        point = marker.get("point")
+        if net is None or point is None:
+            continue
+        label = _power_symbol_at_point_to_sexp(
+            net,
+            point,
+            tx,
+            instance_path=instance_path,
+            project_name=project_name,
+        )
+        if label:
+            elements.append(label)
     wired_ids, wired_names = _wired_net_keys(node)
     for part in parts:
         if isinstance(part, NetTerminal):
             continue
         for pin in part:
-            if not getattr(pin, "stub", False):
+            force_power_symbol = getattr(
+                pin, "_mcu_force_power_symbol_even_if_wired", False
+            )
+            if not force_power_symbol and not getattr(pin, "stub", False):
                 continue
             net = getattr(pin, "net", None)
-            if _net_has_schematic_wires(net, wired_ids, wired_names):
+            if (
+                _net_has_schematic_wires(net, wired_ids, wired_names)
+                and not force_power_symbol
+            ):
                 continue
             label = net_label_to_sexp(
                 pin,
+                force=force_power_symbol,
                 tx=tx,
                 instance_path=instance_path,
                 project_name=project_name,
@@ -1584,8 +1684,7 @@ def node_to_sexp_schematic(
     for part in node.parts:
         if not isinstance(part, NetTerminal):
             lib_id = _part_lib_id(part)
-            if lib_id not in lib_symbols:
-                lib_symbols[lib_id] = part
+            _remember_lib_symbol_source(lib_symbols, lib_id, part)
 
     # Generate part S-expressions.
     for part in node.parts:
@@ -1877,8 +1976,7 @@ def write_top_schematic(
         for part in circuit.parts:
             if not isinstance(part, NetTerminal):
                 lib_id = _part_lib_id(part)
-                if lib_id not in lib_symbols:
-                    lib_symbols[lib_id] = part
+                _remember_lib_symbol_source(lib_symbols, lib_id, part)
 
         lib_symbols_sexp = Sexp(["lib_symbols"])
         for lib_id, part in lib_symbols.items():
@@ -1941,8 +2039,7 @@ def write_top_schematic(
     for part in circuit.parts:
         if not isinstance(part, NetTerminal):
             lib_id = _part_lib_id(part)
-            if lib_id not in lib_symbols:
-                lib_symbols[lib_id] = part
+            _remember_lib_symbol_source(lib_symbols, lib_id, part)
 
     # Generate part S-expressions for root-level parts.
     for part in node.parts:

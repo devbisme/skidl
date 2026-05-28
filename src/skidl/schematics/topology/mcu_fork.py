@@ -24,6 +24,7 @@ from .mcu import (
     _is_colinear_chain_part,
     _layout_bbox,
     _mcu_layout_bbox,
+    _mcu_mark_left_touch_key_render,
     _mcu_part_is_connector,
     _mcu_pin_route_pt,
     _mcu_place_part_pin_to_y,
@@ -594,6 +595,7 @@ def _place_branch_chain(
                 if pin is None and prev is hub_part:
                     pin = _chain_neighbor_pin(part, branch.anchor_neighbor, node, part_set)
                 _mcu_place_part_pin_to_y(part, x_left, row_y, grid, pin)
+                _mcu_mark_left_touch_key_render(part)
                 _ensure_anchor_toward_hub(part, pin, outward_sign)
                 placed.add(part)
                 x_edge = x_left - gap
