@@ -16,6 +16,9 @@ from .route import Router
 Node subclass used for generating schematics.
 """
 
+# 原理图是否创建 NetTerminal（边缘 global_label）。False = 仅 stub/导线/电源符号连通。
+ENABLE_SCHEMATIC_NET_TERMINALS = False
+
 
 @export_to_all
 # class SchNode(Node, Placer, Router):
@@ -149,47 +152,56 @@ class SchNode(Placer, Router):
         for part in circuit.parts:
             self.add_part(part)
 
-        # Add terminals to nodes in the hierarchy for nets that span across nodes.
-        for net in circuit.nets:
-            # Skip nets that are stubbed since there will be no wire to attach to the NetTerminal.
-            if getattr(net, "stub", False):
-                continue
+        # 原理图不创建 NetTerminal：连通由导线、stub 引脚标签、电源符号表示。
+        # 避免用户命名网（如 /TX）在边缘再挂一层与 stub 重复的全局标签。
+        from skidl.schematics.power_net import is_power_net_name
 
-            # Search for pins in different nodes.
-            for pin1, pin2 in zip(net.pins[:-1], net.pins[1:]):
-                if pin1.part.hiertuple != pin2.part.hiertuple:
-                    # Found pins in different nodes, so break and add terminals to nodes below.
-                    break
-            else:
-                if len(net.pins) == 1:
-                    # Single pin on net and not stubbed, so add a terminal to it below.
-                    pass
-                elif not net.is_implicit():
-                    # The net has a user-assigned name, so add a terminal to it below.
-                    pass
+        if ENABLE_SCHEMATIC_NET_TERMINALS:
+            for net in circuit.nets:
+                # Skip nets that are stubbed since there will be no wire to attach to the NetTerminal.
+                if getattr(net, "stub", False):
+                    continue
+
+                # power 网由引脚旁 power symbol 表示，勿在 bbox 顶边再挂 NetTerminal（会悬空）。
+                net_name = getattr(net, "name", None)
+                if is_power_net_name(net_name):
+                    continue
+
+                # Search for pins in different nodes.
+                for pin1, pin2 in zip(net.pins[:-1], net.pins[1:]):
+                    if pin1.part.hiertuple != pin2.part.hiertuple:
+                        # Found pins in different nodes, so break and add terminals to nodes below.
+                        break
                 else:
-                    # No need for net terminal because there are multiple pins
-                    # and they are all in the same node.
-                    continue
+                    if len(net.pins) == 1:
+                        # Single pin on net and not stubbed, so add a terminal to it below.
+                        pass
+                    elif not net.is_implicit():
+                        # The net has a user-assigned name, so add a terminal to it below.
+                        pass
+                    else:
+                        # No need for net terminal because there are multiple pins
+                        # and they are all in the same node.
+                        continue
 
-            # Add a single terminal to each node that contains one or more pins of the net.
-            visited = []
-            for pin in net.pins:
-                # A stubbed pin can't be used to add NetTerminal since there is no explicit wire.
-                if pin.stub:
-                    continue
+                # Add a single terminal to each node that contains one or more pins of the net.
+                visited = []
+                for pin in net.pins:
+                    # A stubbed pin can't be used to add NetTerminal since there is no explicit wire.
+                    if pin.stub:
+                        continue
 
-                part = pin.part
+                    part = pin.part
 
-                if part.hiertuple in visited:
-                    # Already added a terminal to this node, so don't add another.
-                    continue
+                    if part.hiertuple in visited:
+                        # Already added a terminal to this node, so don't add another.
+                        continue
 
-                # Add NetTerminal to the node with this part/pin.
-                self.find_node_with_part(part).add_terminal(net)
+                    # Add NetTerminal to the node with this part/pin.
+                    self.find_node_with_part(part).add_terminal(net)
 
-                # Record that this hierarchical node was visited.
-                visited.append(part.hiertuple)
+                    # Record that this hierarchical node was visited.
+                    visited.append(part.hiertuple)
 
         # Flatten the hierarchy as specified by the flatness parameter.
         self.flatten(self.flatness)
