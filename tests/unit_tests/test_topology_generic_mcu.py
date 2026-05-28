@@ -48,6 +48,9 @@ class _FakePart:
         self.place_bbox = None
         self.tx = None
 
+    def __iter__(self):
+        return iter(self.pins)
+
 
 class _FakeNode:
     def _net_connected_parts(self, net, allowed_parts=None):

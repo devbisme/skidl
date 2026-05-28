@@ -6,11 +6,11 @@ human_readable 模式下的功能拓扑识别（generic driver + generic MCU）�
 对外保持 ``from skidl.schematics.topology import ...`` 路径不变（含下划线内部 API）。
 """
 
-from . import common, driver, mcu
+from . import common, driver, mcu, mcu_fork
 from .orchestrate import apply_topology_or_trunk_layout, detect_known_topology
 
 # 与单文件 topology.py 一致：公开与私有符号均可 from skidl.schematics.topology import
-for _mod in (common, driver, mcu):
+for _mod in (common, driver, mcu, mcu_fork):
     for _name, _obj in _mod.__dict__.items():
         if _name.startswith("__"):
             continue

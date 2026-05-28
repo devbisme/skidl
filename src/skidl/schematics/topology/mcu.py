@@ -1059,7 +1059,7 @@ def _mcu_place_colinear_chain(
 
 
 def _apply_connector_port_layout(
-    node, main_part, connectors, parts, nets, gap, grid
+    node, main_part, connectors, parts, nets, gap, grid, used_parts=None
 ):
     """
     Header 等连接器：每引脚向外共线排 R/C 串链，遇 MCU 即止。
@@ -1071,7 +1071,7 @@ def _apply_connector_port_layout(
         return placed, part_sets
 
     stop = {main_part} | set(connectors)
-    used = set()
+    used = set(used_parts or ())
     for conn in sorted(connectors, key=node._part_ref_key):
         stop_parts = stop - {conn}
         specs, used = _find_port_colinear_chains(
@@ -1094,6 +1094,66 @@ def _all_colinear_part_sets(node):
     return sets
 
 
+def _header_port_chain_parts(node):
+    """Header 端口共线链上的器件（含连接器与串阻/电容链）。"""
+    parts = set()
+    for cset in getattr(node, "_connector_port_part_sets", None) or []:
+        parts |= set(cset)
+    return parts
+
+
+def _mcu_net_bridges_mcu_and_header(node, main_part, net_parts):
+    """
+    网是否同时触及 MCU 与 Header 端口链。
+    此类桥接网不画贯通导线，两端用 stub/同名 label 连通。
+    """
+    if main_part is None or main_part not in net_parts:
+        return False
+    header_parts = _header_port_chain_parts(node)
+    if not header_parts:
+        return False
+    return bool((net_parts - {main_part}) & header_parts)
+
+
+def _mcu_net_connector_named_signal(node, net, net_parts, roles=None):
+    """
+    Header 上的具名通信网（/TX、/RX 等）。
+    原理图仅用 global_label 连通，不画 R10–Header 本地导线。
+    """
+    name = _net_label(net)
+    if node._is_power_net_name(name):
+        return False
+    label_u = name.upper()
+    if not (
+        str(name).startswith("/")
+        or _token_in_text(label_u, _MCU_COMM_NET_TOKENS)
+    ):
+        return False
+    for part in net_parts:
+        if _mcu_part_is_connector(part, roles):
+            return True
+    return False
+
+
+def _mcu_preserve_label_only_stub(net):
+    """纯标签网（无本地线）：route 不得清 stub 后再拉线。"""
+    return bool(
+        getattr(net, "_fork_overflow_stub", False)
+        or getattr(net, "_mcu_header_bridge_stub", False)
+        or getattr(net, "_mcu_connector_signal_stub", False)
+    )
+
+
+def _mcu_apply_label_only_stub(node, net, pins):
+    """标记整网 stub 并删除已有导线（电源桥接等纯标签网）。"""
+    net._stub = True
+    net.stub = True
+    _mcu_mark_net_stub(net, pins)
+    wires = getattr(node, "wires", {})
+    if net in wires:
+        del wires[net]
+
+
 def _mcu_place_io_on_main_pin(node, main_part, part, gap, grid, side=None):
     """串阻/电容等：接 MCU 的脚与 MCU pin 同 Y，水平横放。"""
     mp, pp = _pair_pins_to_main(part, main_part, node=node, prefer_signal=True)
@@ -1105,6 +1165,7 @@ def _mcu_place_io_on_main_pin(node, main_part, part, gap, grid, side=None):
         return False
     w = max(bb.w, grid)
     side = side or _main_pin_side(main_part, mp)
+    mp_pt = _mcu_pin_route_pt(mp)
     if side in ("top", "bottom"):
         x_left = mp_pt.x - w / 2
     else:
@@ -1422,14 +1483,6 @@ def apply_generic_mcu_layout(
             node, main_part, all_connectors, gap, grid
         )
         placed.update(all_connectors)
-        connector_port_placed, node._connector_port_part_sets = (
-            _apply_connector_port_layout(
-                node, main_part, all_connectors, parts, nets, gap, grid
-            )
-        )
-        if connector_port_placed:
-            placed |= connector_port_placed
-            anchor |= connector_port_placed
 
     _mcu_push_out_of_main_keepout(
         node,
@@ -1443,14 +1496,42 @@ def apply_generic_mcu_layout(
     )
     _resolve_overlaps(node, parts, grid, max(gap, blk_pad), exclude=anchor)
 
-    # 串联共线链：在去重叠之后放置，避免被挤离引脚行。
+    # 引脚分叉布局 + 串联共线链（去重叠之后，避免被挤离引脚行）。
     node._mcu_colinear_part_sets = []
+    node._mcu_fork_specs = []
+    node._mcu_fork_part_sets = []
     colinear_placed = set(connector_port_placed)
     mcu_colinear_used = {id(p) for p in connector_port_placed}
+    if nets and options.get("mcu_fork_layout", True):
+        from .mcu_fork import pin_handled_by_fork, place_all_pin_forks
+
+        _fork_opts = dict(options)
+        _fork_opts.setdefault("grid", grid)
+        _fork_opts.setdefault("topology_gap", gap)
+        _fork_specs, placed_fork, mcu_colinear_used, fork_sets = place_all_pin_forks(
+            node,
+            main_part,
+            parts,
+            nets,
+            roles,
+            mcu_colinear_used,
+            **_fork_opts,
+        )
+        if placed_fork:
+            colinear_placed |= placed_fork
+            placed |= placed_fork
+            anchor |= placed_fork
+        for fset in fork_sets:
+            node._mcu_colinear_part_sets.append(fset)
+
     if nets:
+        from .mcu_fork import pin_handled_by_fork
+
         for anchor_pin, chain in _mcu_find_colinear_chains(
             node, main_part, parts, nets, used_parts=mcu_colinear_used
         ):
+            if pin_handled_by_fork(node, anchor_pin):
+                continue
             chain_placed = _mcu_place_colinear_chain(
                 node, main_part, anchor_pin, chain, gap, grid
             )
@@ -1461,6 +1542,27 @@ def apply_generic_mcu_layout(
                 )
                 placed |= chain_placed
                 anchor |= chain_placed
+                for p in chain_placed:
+                    mcu_colinear_used.add(id(p))
+
+    # Header 引脚链在 fork 之后，跳过已被 fork 占用的器件（如 R10）。
+    if all_connectors and nets:
+        connector_port_placed, node._connector_port_part_sets = (
+            _apply_connector_port_layout(
+                node,
+                main_part,
+                all_connectors,
+                parts,
+                nets,
+                gap,
+                grid,
+                used_parts=mcu_colinear_used,
+            )
+        )
+        if connector_port_placed:
+            placed |= connector_port_placed
+            anchor |= connector_port_placed
+            colinear_placed |= connector_port_placed
 
     # 仅 TK 短链（共线未覆盖的 R+TK 对）
     pin_chains = _mcu_collect_pin_chains(
@@ -1484,15 +1586,20 @@ def apply_generic_mcu_layout(
                 anchor.add(tk)
                 colinear_placed.add(tk)
 
-    # 其余 IO/指示器件：单颗贴对应 MCU 引脚侧
+    # 其余 IO/指示器件：单颗贴对应 MCU 引脚侧（分叉已管器件不再贴回引脚行）
+    fork_reserved = set(getattr(node, "_mcu_fork_reserved_parts", None) or [])
+
+    def _skip_post_fork_place(part):
+        return part in colinear_placed or part in fork_reserved
+
     for part in io_series:
-        if part in colinear_placed:
+        if _skip_post_fork_place(part):
             continue
         if _mcu_place_io_on_main_pin(node, main_part, part, gap, grid):
             placed.add(part)
             anchor.add(part)
     for part in indicators:
-        if part in colinear_placed:
+        if _skip_post_fork_place(part):
             continue
         if _mcu_place_io_on_main_pin(node, main_part, part, gap, grid):
             placed.add(part)
@@ -1552,6 +1659,45 @@ def _wire_crosses_sibling_pin(pins, p1, p2):
     return False
 
 
+def _mcu_point_side_of_body(main_part, pt):
+    """路由点相对 MCU 摆放外框中心所在的侧。"""
+    bb = _placement_bbox(main_part) or _layout_bbox(main_part)
+    if bb is None:
+        return None
+    dx = pt.x - bb.ctr.x
+    dy = pt.y - bb.ctr.y
+    if abs(dx) >= abs(dy):
+        return "left" if dx < 0 else "right"
+    return "top" if dy > 0 else "bottom"
+
+
+def _mcu_two_pin_endpoints_straddle_body(main_part, pt_a, pt_b):
+    """
+    两引脚路由点是否在 MCU body 对侧（左-右或上-下）。
+    对侧时不应画水平 local wire，否则会横穿器件本体。
+    """
+    sa = _mcu_point_side_of_body(main_part, pt_a)
+    sb = _mcu_point_side_of_body(main_part, pt_b)
+    if sa is None or sb is None or sa == sb:
+        return False
+    return {sa, sb} in ({"left", "right"}, {"top", "bottom"})
+
+
+def _mcu_reject_two_pin_local_wire(main_part, pt_a, pt_b):
+    """MCU 本地 2-pin 线：端点跨 body 对侧则改 stub，不走短直线。"""
+    if main_part is None:
+        return False
+    return _mcu_two_pin_endpoints_straddle_body(main_part, pt_a, pt_b)
+
+
+def _mcu_mark_net_stub(net, pins):
+    """本地线不适用时，整网改 label/stub。"""
+    net._stub = True
+    net.stub = True
+    for pin in pins:
+        pin.stub = True
+
+
 def _mcu_wire_two_pins(p1, p2, bus_y=None):
     """MCU 支路：给定 bus_y 时一根水平线；否则正交 L 型。"""
     if bus_y is not None:
@@ -1576,7 +1722,7 @@ def _mcu_wire_two_pins(p1, p2, bus_y=None):
 def route_mcu_local_nets(node, nets, **options):
     """
     MCU 专用：2-pin 星型支路用短直线/水平总线，不走 switchbox。
-    共线链上的多脚网用水平母线 + 竖 stub。
+    共线链上的多脚网用水平母线 + 竖 stub；分叉 anchor 网用 T 型线段。
     返回已处理的 net 集合。
     """
     topo = getattr(node, "_last_topology_result", None) or {}
@@ -1588,15 +1734,52 @@ def route_mcu_local_nets(node, nets, **options):
     main = topo.get("main_part") or getattr(
         node, "_human_readable_main_part", None
     )
+    roles = topo.get("roles") or getattr(node, "_part_roles", None)
     handled = set()
     grid = int(options.get("grid", 100))
     colinear_sets = _all_colinear_part_sets(node)
 
+    if options.get("mcu_fork_layout", True):
+        from .mcu_fork import (
+            find_fork_spec_for_net,
+            mark_fork_overflow_stubs,
+            route_fork_anchor_net,
+        )
+
+        mark_fork_overflow_stubs(node, nets, **options)
+
     for net in nets:
+        if options.get("mcu_fork_layout", True):
+            fork_spec = find_fork_spec_for_net(node, net)
+            if fork_spec is not None:
+                segs = route_fork_anchor_net(node, net, fork_spec, grid)
+                if segs:
+                    net._stub = False
+                    net.stub = False
+                    for pin in net.pins:
+                        if getattr(pin, "part", None) in getattr(node, "parts", []):
+                            pin.stub = False
+                    node.wires[net] = segs
+                    handled.add(net)
+                    continue
         pins = _mcu_route_pins(node, net)
         if len(pins) < 2:
             continue
         net_parts = {pin.part for pin in pins}
+        if main and _mcu_net_bridges_mcu_and_header(node, main, net_parts):
+            net._mcu_header_bridge_stub = True
+            _mcu_apply_label_only_stub(node, net, pins)
+            handled.add(net)
+            continue
+        if _mcu_net_connector_named_signal(node, net, net_parts, roles):
+            net._mcu_connector_signal_stub = True
+            _mcu_apply_label_only_stub(node, net, pins)
+            handled.add(net)
+            continue
+        if _mcu_preserve_label_only_stub(net):
+            _mcu_apply_label_only_stub(node, net, pins)
+            handled.add(net)
+            continue
         if main and not _mcu_net_keep_local_wire(list(net_parts), main):
             # 连接器端口链上的多脚网仍要本地母线
             on_connector_only = False
@@ -1628,12 +1811,11 @@ def route_mcu_local_nets(node, nets, **options):
             if len(pins) == 2:
                 p1 = _mcu_pin_route_pt(pins[0])
                 p2 = _mcu_pin_route_pt(pins[1])
-                if p1.y == p2.y:
+                if main and _mcu_reject_two_pin_local_wire(main, p1, p2):
+                    _mcu_mark_net_stub(net, pins)
+                elif p1.y == p2.y:
                     if _wire_crosses_sibling_pin(pins, p1, p2):
-                        net._stub = True
-                        net.stub = True
-                        for pin in pins:
-                            pin.stub = True
+                        _mcu_mark_net_stub(net, pins)
                     else:
                         node.wires[net] = _mcu_wire_two_pins(p1, p2)
                 else:
@@ -1652,12 +1834,21 @@ def route_mcu_local_nets(node, nets, **options):
         if len(pins) != 2:
             continue
         # 布局前 auto_stub 可能已标记，本地线需清除以便导出 wire 而非 label。
+        # 已决策为 label-only 的网不得清 stub 后再拉线。
+        if _mcu_preserve_label_only_stub(net):
+            _mcu_apply_label_only_stub(node, net, pins)
+            handled.add(net)
+            continue
         net._stub = False
         net.stub = False
         for pin in pins:
             pin.stub = False
         p1 = _mcu_pin_route_pt(pins[0])
         p2 = _mcu_pin_route_pt(pins[1])
+        if main and _mcu_reject_two_pin_local_wire(main, p1, p2):
+            _mcu_mark_net_stub(net, pins)
+            handled.add(net)
+            continue
         bus_y = p1.y
         if main in net_parts:
             mp = next(p for p in pins if p.part is main)

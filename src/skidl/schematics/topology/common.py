@@ -197,6 +197,10 @@ def _topology_options(options):
         "strong_threshold": int(options.get("topology_confidence_threshold", 60)),
         "weak_threshold": int(options.get("topology_weak_threshold", 40)),
         "gap": options.get("topology_gap"),
+        "mcu_fork_layout": bool(options.get("mcu_fork_layout", True)),
+        "mcu_fork_margin": options.get("mcu_fork_margin"),
+        "mcu_fork_max_branches": int(options.get("mcu_fork_max_branches", 4)),
+        "mcu_fork_stub_overflow_dist": options.get("mcu_fork_stub_overflow_dist"),
     }
 
 
