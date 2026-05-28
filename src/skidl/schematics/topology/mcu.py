@@ -1115,6 +1115,45 @@ def _mcu_net_bridges_mcu_and_header(node, main_part, net_parts):
     return bool((net_parts - {main_part}) & header_parts)
 
 
+def _mcu_net_connector_named_signal(node, net, net_parts, roles=None):
+    """
+    Header 上的具名通信网（/TX、/RX 等）。
+    原理图仅用 global_label 连通，不画 R10–Header 本地导线。
+    """
+    name = _net_label(net)
+    if node._is_power_net_name(name):
+        return False
+    label_u = name.upper()
+    if not (
+        str(name).startswith("/")
+        or _token_in_text(label_u, _MCU_COMM_NET_TOKENS)
+    ):
+        return False
+    for part in net_parts:
+        if _mcu_part_is_connector(part, roles):
+            return True
+    return False
+
+
+def _mcu_preserve_label_only_stub(net):
+    """纯标签网（无本地线）：route 不得清 stub 后再拉线。"""
+    return bool(
+        getattr(net, "_fork_overflow_stub", False)
+        or getattr(net, "_mcu_header_bridge_stub", False)
+        or getattr(net, "_mcu_connector_signal_stub", False)
+    )
+
+
+def _mcu_apply_label_only_stub(node, net, pins):
+    """标记整网 stub 并删除已有导线（电源桥接等纯标签网）。"""
+    net._stub = True
+    net.stub = True
+    _mcu_mark_net_stub(net, pins)
+    wires = getattr(node, "wires", {})
+    if net in wires:
+        del wires[net]
+
+
 def _mcu_place_io_on_main_pin(node, main_part, part, gap, grid, side=None):
     """串阻/电容等：接 MCU 的脚与 MCU pin 同 Y，水平横放。"""
     mp, pp = _pair_pins_to_main(part, main_part, node=node, prefer_signal=True)
@@ -1695,6 +1734,7 @@ def route_mcu_local_nets(node, nets, **options):
     main = topo.get("main_part") or getattr(
         node, "_human_readable_main_part", None
     )
+    roles = topo.get("roles") or getattr(node, "_part_roles", None)
     handled = set()
     grid = int(options.get("grid", 100))
     colinear_sets = _all_colinear_part_sets(node)
@@ -1727,10 +1767,17 @@ def route_mcu_local_nets(node, nets, **options):
             continue
         net_parts = {pin.part for pin in pins}
         if main and _mcu_net_bridges_mcu_and_header(node, main, net_parts):
-            _mcu_mark_net_stub(net, pins)
-            wires = getattr(node, "wires", {})
-            if net in wires:
-                del wires[net]
+            net._mcu_header_bridge_stub = True
+            _mcu_apply_label_only_stub(node, net, pins)
+            handled.add(net)
+            continue
+        if _mcu_net_connector_named_signal(node, net, net_parts, roles):
+            net._mcu_connector_signal_stub = True
+            _mcu_apply_label_only_stub(node, net, pins)
+            handled.add(net)
+            continue
+        if _mcu_preserve_label_only_stub(net):
+            _mcu_apply_label_only_stub(node, net, pins)
             handled.add(net)
             continue
         if main and not _mcu_net_keep_local_wire(list(net_parts), main):
@@ -1787,6 +1834,11 @@ def route_mcu_local_nets(node, nets, **options):
         if len(pins) != 2:
             continue
         # 布局前 auto_stub 可能已标记，本地线需清除以便导出 wire 而非 label。
+        # 已决策为 label-only 的网不得清 stub 后再拉线。
+        if _mcu_preserve_label_only_stub(net):
+            _mcu_apply_label_only_stub(node, net, pins)
+            handled.add(net)
+            continue
         net._stub = False
         net.stub = False
         for pin in pins:

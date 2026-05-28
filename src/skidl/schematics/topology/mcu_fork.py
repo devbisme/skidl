@@ -875,5 +875,6 @@ def mark_fork_overflow_stubs(node, nets, **options):
                         continue
                     net._stub = True
                     net.stub = True
+                    net._fork_overflow_stub = True
                     for p in net.get_pins():
                         p.stub = True

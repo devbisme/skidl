@@ -259,6 +259,10 @@ def clear_stub_for_wired_nets(node):
     for net, segs in wires.items():
         if not segs:
             continue
+        if getattr(net, "_fork_overflow_stub", False) or getattr(
+            net, "_mcu_header_bridge_stub", False
+        ) or getattr(net, "_mcu_connector_signal_stub", False):
+            continue
         wired_ids.add(id(net))
         name = str(getattr(net, "name", "") or "")
         if name:
@@ -277,6 +281,10 @@ def clear_stub_for_wired_nets(node):
         for pin in part:
             net = getattr(pin, "net", None)
             if net is None:
+                continue
+            if getattr(net, "_fork_overflow_stub", False) or getattr(
+                net, "_mcu_header_bridge_stub", False
+            ) or getattr(net, "_mcu_connector_signal_stub", False):
                 continue
             if id(net) in wired_ids:
                 pin.stub = False

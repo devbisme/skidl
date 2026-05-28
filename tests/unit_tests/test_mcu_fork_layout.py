@@ -5,6 +5,7 @@
 from skidl.geometry import BBox, Point, Tx
 from skidl.schematics.topology.mcu import (
     _mcu_net_bridges_mcu_and_header,
+    _mcu_net_connector_named_signal,
     _mcu_pin_route_pt,
     _mcu_reject_two_pin_local_wire,
     _mcu_two_pin_endpoints_straddle_body,
@@ -331,6 +332,78 @@ def test_mcu_header_bridge_net_is_stub_not_wired():
     assert vcc_bridge not in node.wires
     assert vcc_header in handled
     assert vcc_header in node.wires
+
+
+def test_connector_named_signal_net_stub_not_wired():
+    """/TX、/RX 等接 Header：仅 global_label，不画本地导线。"""
+    node = _FakeNode()
+    u3 = _FakePart("U3", pins=[_FakePin("1")])
+    r10 = _part_with_bbox("R10")
+    x1 = _FakePart("X1", pins=[_FakePin("1"), _FakePin("2")])
+    for p in (u3, x1):
+        for pin in p.pins:
+            pin.part = p
+            pin.pt = Point(0, 0)
+            pin.place_pt = pin.pt
+    x1.tx = Tx()
+    x1.place_bbox = BBox(Point(0, -500), Point(400, -400))
+    x1.bbox = x1.place_bbox
+    r10.pins[0].pt = Point(200, -400)
+    r10.pins[0].place_pt = r10.pins[0].pt
+    r10.pins[1].pt = Point(200, 0)
+    r10.pins[1].place_pt = r10.pins[1].pt
+    x1.pins[1].pt = Point(350, -400)
+    x1.pins[1].place_pt = x1.pins[1].pt
+
+    tx_net = _FakeNet("/TX")
+    _wire(r10, "1", tx_net)
+    _wire(x1, "2", tx_net)
+
+    node._connector_port_part_sets = [frozenset({x1, r10})]
+    node.parts = [u3, r10, x1]
+    node.wires = {}
+    node._mcu_manual_pnr = True
+    node._last_topology_result = {"kind": "mcu", "main_part": u3}
+
+    assert _mcu_net_connector_named_signal(node, tx_net, {r10, x1})
+    handled = route_mcu_local_nets(node, [tx_net], mcu_fork_layout=False)
+    assert tx_net in handled
+    assert getattr(tx_net, "_mcu_connector_signal_stub", False)
+    assert tx_net.stub is True
+    assert tx_net not in node.wires
+
+
+def test_fork_overflow_net_stays_stub_for_labels():
+    """分叉支路 overflow 的 /TX 等网须保持 stub，勿被 route 清掉后无网名导出。"""
+    node = _FakeNode()
+    u3 = _FakePart("U3", pins=[_FakePin("1")])
+    r10 = _part_with_bbox("R10")
+    x1 = _FakePart("X1", pins=[_FakePin("2")])
+    for p in (u3, x1):
+        for pin in p.pins:
+            pin.part = p
+    u3.tx = Tx()
+    x1.tx = Tx()
+
+    tx_net = _FakeNet("/TX")
+    _wire(r10, "1", tx_net)
+    _wire(x1, "2", tx_net)
+    tx_net._fork_overflow_stub = True
+    tx_net._stub = True
+    tx_net.stub = True
+    for pin in tx_net.pins:
+        pin.stub = True
+
+    node.parts = [u3, r10, x1]
+    node.wires = {}
+    node._mcu_manual_pnr = True
+    node._last_topology_result = {"kind": "mcu", "main_part": u3}
+
+    handled = route_mcu_local_nets(node, [tx_net], mcu_fork_layout=False)
+    assert tx_net in handled
+    assert tx_net.stub is True
+    assert all(getattr(p, "stub", False) for p in tx_net.pins)
+    assert tx_net not in node.wires
 
 
 def test_three_branch_neighbors():
