@@ -1094,6 +1094,27 @@ def _all_colinear_part_sets(node):
     return sets
 
 
+def _header_port_chain_parts(node):
+    """Header 端口共线链上的器件（含连接器与串阻/电容链）。"""
+    parts = set()
+    for cset in getattr(node, "_connector_port_part_sets", None) or []:
+        parts |= set(cset)
+    return parts
+
+
+def _mcu_net_bridges_mcu_and_header(node, main_part, net_parts):
+    """
+    网是否同时触及 MCU 与 Header 端口链。
+    此类桥接网不画贯通导线，两端用 stub/同名 label 连通。
+    """
+    if main_part is None or main_part not in net_parts:
+        return False
+    header_parts = _header_port_chain_parts(node)
+    if not header_parts:
+        return False
+    return bool((net_parts - {main_part}) & header_parts)
+
+
 def _mcu_place_io_on_main_pin(node, main_part, part, gap, grid, side=None):
     """串阻/电容等：接 MCU 的脚与 MCU pin 同 Y，水平横放。"""
     mp, pp = _pair_pins_to_main(part, main_part, node=node, prefer_signal=True)
@@ -1705,6 +1726,13 @@ def route_mcu_local_nets(node, nets, **options):
         if len(pins) < 2:
             continue
         net_parts = {pin.part for pin in pins}
+        if main and _mcu_net_bridges_mcu_and_header(node, main, net_parts):
+            _mcu_mark_net_stub(net, pins)
+            wires = getattr(node, "wires", {})
+            if net in wires:
+                del wires[net]
+            handled.add(net)
+            continue
         if main and not _mcu_net_keep_local_wire(list(net_parts), main):
             # 连接器端口链上的多脚网仍要本地母线
             on_connector_only = False

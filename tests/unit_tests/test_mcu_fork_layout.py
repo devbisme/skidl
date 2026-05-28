@@ -4,6 +4,7 @@
 
 from skidl.geometry import BBox, Point, Tx
 from skidl.schematics.topology.mcu import (
+    _mcu_net_bridges_mcu_and_header,
     _mcu_pin_route_pt,
     _mcu_reject_two_pin_local_wire,
     _mcu_two_pin_endpoints_straddle_body,
@@ -272,6 +273,64 @@ def test_two_pin_same_side_allows_local_wire():
     handled = route_mcu_local_nets(node, [sig], mcu_fork_layout=False)
     assert sig in handled
     assert sig in node.wires
+
+
+def test_mcu_header_bridge_net_is_stub_not_wired():
+    """MCU 与 Header 端口链之间的桥接网（如 VCC_5V）不画贯通线，改 stub。"""
+    node = _FakeNode()
+    u3 = _FakePart("U3", pins=[_FakePin("12"), _FakePin("8")])
+    x1 = _FakePart("X1", pins=[_FakePin("1"), _FakePin("4")])
+    r13 = _part_with_bbox("R13")
+    for p in (u3, x1):
+        for pin in p.pins:
+            pin.part = p
+    u3.place_bbox = BBox(Point(0, 0), Point(400, 600))
+    u3.bbox = u3.place_bbox
+    u3.tx = Tx()
+    x1.place_bbox = BBox(Point(0, -500), Point(400, -400))
+    x1.bbox = x1.place_bbox
+    x1.tx = Tx()
+    x1.pins[0].pt = Point(50, -450)
+    x1.pins[0].place_pt = x1.pins[0].pt
+    x1.pins[1].pt = Point(350, -450)
+    x1.pins[1].place_pt = x1.pins[1].pt
+    u3.pins[0].pt = Point(380, 100)
+    u3.pins[0].place_pt = u3.pins[0].pt
+    u3.pins[1].pt = Point(380, 50)
+    u3.pins[1].place_pt = u3.pins[1].pt
+    r13.pins[0].pt = Point(200, -450)
+    r13.pins[0].place_pt = r13.pins[0].pt
+    r13.pins[1].pt = Point(300, -450)
+    r13.pins[1].place_pt = r13.pins[1].pt
+
+    vcc_bridge = _FakeNet("VCC_5V")
+    vcc_header = _FakeNet("VCC_5V_0")
+    _wire(u3, "12", vcc_bridge)
+    _wire(r13, "2", vcc_bridge)
+    _wire(x1, "1", vcc_header)
+    _wire(r13, "1", vcc_header)
+
+    node._connector_port_part_sets = [frozenset({x1, r13})]
+    node.parts = [u3, x1, r13]
+    node.wires = {}
+    node._mcu_manual_pnr = True
+    node._last_topology_result = {"kind": "mcu", "main_part": u3}
+
+    assert _mcu_net_bridges_mcu_and_header(
+        node, u3, {u3, r13}
+    )
+    assert not _mcu_net_bridges_mcu_and_header(
+        node, u3, {x1, r13}
+    )
+
+    handled = route_mcu_local_nets(
+        node, [vcc_bridge, vcc_header], mcu_fork_layout=False
+    )
+    assert vcc_bridge in handled
+    assert vcc_bridge.stub is True
+    assert vcc_bridge not in node.wires
+    assert vcc_header in handled
+    assert vcc_header in node.wires
 
 
 def test_three_branch_neighbors():
