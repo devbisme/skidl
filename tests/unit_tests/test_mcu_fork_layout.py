@@ -3,7 +3,13 @@
 """MCU 引脚分叉布局：检测、主干/支路分类与摆放。"""
 
 from skidl.geometry import BBox, Point, Tx
-from skidl.schematics.topology.mcu import _mcu_walk_colinear_chain
+from skidl.schematics.topology.mcu import (
+    _mcu_pin_route_pt,
+    _mcu_reject_two_pin_local_wire,
+    _mcu_two_pin_endpoints_straddle_body,
+    _mcu_walk_colinear_chain,
+    route_mcu_local_nets,
+)
 from skidl.schematics.topology.mcu_fork import (
     build_pin_fork_spec,
     discover_pin_forks,
@@ -195,6 +201,77 @@ def test_discover_marks_used_parts():
     assert len(specs) >= 1
     used = {id(p) for s in specs for p in s.all_parts()}
     assert id(next(p for p in parts if p.ref == "R10")) in used
+
+
+def test_two_pin_straddle_mcu_body_rejects_local_wire():
+    """MCU 两侧端点的 2-pin 网不应画横穿本体的水平 local wire。"""
+    node = _FakeNode()
+    u3 = _FakePart("U3", pins=[_FakePin("VDD"), _FakePin("P1")])
+    for pin in u3.pins:
+        pin.part = u3
+    u3.place_bbox = BBox(Point(0, 0), Point(400, 600))
+    u3.bbox = u3.place_bbox
+    u3.tx = Tx()
+    u3.pins[0].pt = Point(380, 300)
+    u3.pins[0].place_pt = u3.pins[0].pt
+
+    r13 = _part_with_bbox("R13")
+    r13.pins[0].pt = Point(50, 300)
+    r13.pins[0].place_pt = r13.pins[0].pt
+    r13.pins[1].pt = Point(250, 300)
+    r13.pins[1].place_pt = r13.pins[1].pt
+
+    vcc = _FakeNet("VCC_5V")
+    _wire(u3, "VDD", vcc)
+    _wire(r13, "1", vcc)
+
+    p_mcu = _mcu_pin_route_pt(u3.pins[0])
+    p_r = _mcu_pin_route_pt(r13.pins[0])
+    assert _mcu_two_pin_endpoints_straddle_body(u3, p_mcu, p_r)
+    assert _mcu_reject_two_pin_local_wire(u3, p_mcu, p_r)
+
+    node.parts = [u3, r13]
+    node.wires = {}
+    node._mcu_manual_pnr = True
+    node._last_topology_result = {"kind": "mcu", "main_part": u3}
+    handled = route_mcu_local_nets(node, [vcc], mcu_fork_layout=False)
+    assert vcc in handled
+    assert vcc not in node.wires
+    assert vcc.stub is True
+
+
+def test_two_pin_same_side_allows_local_wire():
+    """同侧端点的 2-pin 网仍可画 local wire。"""
+    node = _FakeNode()
+    u3 = _FakePart("U3", pins=[_FakePin("P1")])
+    u3.pins[0].part = u3
+    u3.place_bbox = BBox(Point(0, 0), Point(400, 600))
+    u3.bbox = u3.place_bbox
+    u3.tx = Tx()
+    u3.pins[0].pt = Point(50, 300)
+    u3.pins[0].place_pt = u3.pins[0].pt
+
+    r5 = _part_with_bbox("R5", w=100)
+    r5.pins[0].pt = Point(-150, 300)
+    r5.pins[0].place_pt = r5.pins[0].pt
+    r5.pins[1].pt = Point(-50, 300)
+    r5.pins[1].place_pt = r5.pins[1].pt
+
+    sig = _FakeNet("/TK1")
+    _wire(u3, "P1", sig)
+    _wire(r5, "2", sig)
+
+    p_mcu = _mcu_pin_route_pt(u3.pins[0])
+    p_r = _mcu_pin_route_pt(r5.pins[1])
+    assert not _mcu_two_pin_endpoints_straddle_body(u3, p_mcu, p_r)
+
+    node.parts = [u3, r5]
+    node.wires = {}
+    node._mcu_manual_pnr = True
+    node._last_topology_result = {"kind": "mcu", "main_part": u3}
+    handled = route_mcu_local_nets(node, [sig], mcu_fork_layout=False)
+    assert sig in handled
+    assert sig in node.wires
 
 
 def test_three_branch_neighbors():

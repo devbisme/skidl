@@ -1599,6 +1599,45 @@ def _wire_crosses_sibling_pin(pins, p1, p2):
     return False
 
 
+def _mcu_point_side_of_body(main_part, pt):
+    """路由点相对 MCU 摆放外框中心所在的侧。"""
+    bb = _placement_bbox(main_part) or _layout_bbox(main_part)
+    if bb is None:
+        return None
+    dx = pt.x - bb.ctr.x
+    dy = pt.y - bb.ctr.y
+    if abs(dx) >= abs(dy):
+        return "left" if dx < 0 else "right"
+    return "top" if dy > 0 else "bottom"
+
+
+def _mcu_two_pin_endpoints_straddle_body(main_part, pt_a, pt_b):
+    """
+    两引脚路由点是否在 MCU body 对侧（左-右或上-下）。
+    对侧时不应画水平 local wire，否则会横穿器件本体。
+    """
+    sa = _mcu_point_side_of_body(main_part, pt_a)
+    sb = _mcu_point_side_of_body(main_part, pt_b)
+    if sa is None or sb is None or sa == sb:
+        return False
+    return {sa, sb} in ({"left", "right"}, {"top", "bottom"})
+
+
+def _mcu_reject_two_pin_local_wire(main_part, pt_a, pt_b):
+    """MCU 本地 2-pin 线：端点跨 body 对侧则改 stub，不走短直线。"""
+    if main_part is None:
+        return False
+    return _mcu_two_pin_endpoints_straddle_body(main_part, pt_a, pt_b)
+
+
+def _mcu_mark_net_stub(net, pins):
+    """本地线不适用时，整网改 label/stub。"""
+    net._stub = True
+    net.stub = True
+    for pin in pins:
+        pin.stub = True
+
+
 def _mcu_wire_two_pins(p1, p2, bus_y=None):
     """MCU 支路：给定 bus_y 时一根水平线；否则正交 L 型。"""
     if bus_y is not None:
@@ -1697,12 +1736,11 @@ def route_mcu_local_nets(node, nets, **options):
             if len(pins) == 2:
                 p1 = _mcu_pin_route_pt(pins[0])
                 p2 = _mcu_pin_route_pt(pins[1])
-                if p1.y == p2.y:
+                if main and _mcu_reject_two_pin_local_wire(main, p1, p2):
+                    _mcu_mark_net_stub(net, pins)
+                elif p1.y == p2.y:
                     if _wire_crosses_sibling_pin(pins, p1, p2):
-                        net._stub = True
-                        net.stub = True
-                        for pin in pins:
-                            pin.stub = True
+                        _mcu_mark_net_stub(net, pins)
                     else:
                         node.wires[net] = _mcu_wire_two_pins(p1, p2)
                 else:
@@ -1727,6 +1765,10 @@ def route_mcu_local_nets(node, nets, **options):
             pin.stub = False
         p1 = _mcu_pin_route_pt(pins[0])
         p2 = _mcu_pin_route_pt(pins[1])
+        if main and _mcu_reject_two_pin_local_wire(main, p1, p2):
+            _mcu_mark_net_stub(net, pins)
+            handled.add(net)
+            continue
         bus_y = p1.y
         if main in net_parts:
             mp = next(p for p in pins if p.part is main)
