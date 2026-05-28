@@ -1828,9 +1828,15 @@ class Placer:
                         "topology_weak_threshold", 40
                     ),
                 )
+                _kind = topo_preview.get("kind")
+                _conf = topo_preview.get("confidence", 0)
+                _strong = int(
+                    options.get("topology_confidence_threshold", 60)
+                )
+                # 与 orchestrate 一致：强 MCU 才跳过 row 预排版（weak 仍走 trunk）
                 use_mcu_layout = (
-                    topo_preview.get("kind") in ("mcu", "weak_mcu")
-                    and topo_preview.get("matched")
+                    _kind == "mcu"
+                    and _conf >= _strong
                     and not topo_preview.get("fallback")
                 )
 
@@ -1877,6 +1883,30 @@ class Placer:
                     passive_near.append(part)
                 else:
                     passive_far.append(part)
+
+            fork_reserved = set()
+            if use_mcu_layout and options.get("mcu_fork_layout", True):
+                from skidl.schematics.topology.mcu_fork import (
+                    preview_fork_reserved_parts,
+                )
+
+                fork_reserved = preview_fork_reserved_parts(
+                    node,
+                    main_part,
+                    real_parts,
+                    nets,
+                    roles,
+                    grid=GRID,
+                    blk_int_pad=BLK_INT_PAD,
+                    **options,
+                )
+
+            def _skip_fork_reserved(part):
+                return part in fork_reserved
+
+            passive_near = [p for p in passive_near if not _skip_fork_reserved(p)]
+            passive_far = [p for p in passive_far if not _skip_fork_reserved(p)]
+            other_parts = [p for p in other_parts if not _skip_fork_reserved(p)]
 
             if passive_near and not use_mcu_layout:
                 node._place_row(

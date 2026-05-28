@@ -32,10 +32,21 @@ def net_in_mcu_colinear_set(node, net):
         return False
     sets = list(getattr(node, "_mcu_colinear_part_sets", None) or [])
     sets += list(getattr(node, "_connector_port_part_sets", None) or [])
+    sets += list(getattr(node, "_mcu_fork_part_sets", None) or [])
     if not sets:
         return False
     net_parts = _net_real_parts(node, net)
-    return any(net_parts <= cset for cset in sets)
+    # 分叉 anchor 星型网跨 trunk/branch 集合时不视为「整链已共线」
+    if any(net_parts <= cset for cset in sets):
+        return True
+    return False
+
+
+def net_is_fork_anchor_star(node, net):
+    """是否为 pin 分叉布局的 anchor 星型网（需本地 T 型线而非 label）。"""
+    from skidl.schematics.topology.mcu_fork import find_fork_spec_for_net
+
+    return find_fork_spec_for_net(node, net) is not None
 
 
 def net_skip_add_net_terminal(net):

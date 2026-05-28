@@ -1059,7 +1059,7 @@ def _mcu_place_colinear_chain(
 
 
 def _apply_connector_port_layout(
-    node, main_part, connectors, parts, nets, gap, grid
+    node, main_part, connectors, parts, nets, gap, grid, used_parts=None
 ):
     """
     Header 等连接器：每引脚向外共线排 R/C 串链，遇 MCU 即止。
@@ -1071,7 +1071,7 @@ def _apply_connector_port_layout(
         return placed, part_sets
 
     stop = {main_part} | set(connectors)
-    used = set()
+    used = set(used_parts or ())
     for conn in sorted(connectors, key=node._part_ref_key):
         stop_parts = stop - {conn}
         specs, used = _find_port_colinear_chains(
@@ -1423,14 +1423,6 @@ def apply_generic_mcu_layout(
             node, main_part, all_connectors, gap, grid
         )
         placed.update(all_connectors)
-        connector_port_placed, node._connector_port_part_sets = (
-            _apply_connector_port_layout(
-                node, main_part, all_connectors, parts, nets, gap, grid
-            )
-        )
-        if connector_port_placed:
-            placed |= connector_port_placed
-            anchor |= connector_port_placed
 
     _mcu_push_out_of_main_keepout(
         node,
@@ -1444,14 +1436,42 @@ def apply_generic_mcu_layout(
     )
     _resolve_overlaps(node, parts, grid, max(gap, blk_pad), exclude=anchor)
 
-    # 串联共线链：在去重叠之后放置，避免被挤离引脚行。
+    # 引脚分叉布局 + 串联共线链（去重叠之后，避免被挤离引脚行）。
     node._mcu_colinear_part_sets = []
+    node._mcu_fork_specs = []
+    node._mcu_fork_part_sets = []
     colinear_placed = set(connector_port_placed)
     mcu_colinear_used = {id(p) for p in connector_port_placed}
+    if nets and options.get("mcu_fork_layout", True):
+        from .mcu_fork import pin_handled_by_fork, place_all_pin_forks
+
+        _fork_opts = dict(options)
+        _fork_opts.setdefault("grid", grid)
+        _fork_opts.setdefault("topology_gap", gap)
+        _fork_specs, placed_fork, mcu_colinear_used, fork_sets = place_all_pin_forks(
+            node,
+            main_part,
+            parts,
+            nets,
+            roles,
+            mcu_colinear_used,
+            **_fork_opts,
+        )
+        if placed_fork:
+            colinear_placed |= placed_fork
+            placed |= placed_fork
+            anchor |= placed_fork
+        for fset in fork_sets:
+            node._mcu_colinear_part_sets.append(fset)
+
     if nets:
+        from .mcu_fork import pin_handled_by_fork
+
         for anchor_pin, chain in _mcu_find_colinear_chains(
             node, main_part, parts, nets, used_parts=mcu_colinear_used
         ):
+            if pin_handled_by_fork(node, anchor_pin):
+                continue
             chain_placed = _mcu_place_colinear_chain(
                 node, main_part, anchor_pin, chain, gap, grid
             )
@@ -1462,6 +1482,27 @@ def apply_generic_mcu_layout(
                 )
                 placed |= chain_placed
                 anchor |= chain_placed
+                for p in chain_placed:
+                    mcu_colinear_used.add(id(p))
+
+    # Header 引脚链在 fork 之后，跳过已被 fork 占用的器件（如 R10）。
+    if all_connectors and nets:
+        connector_port_placed, node._connector_port_part_sets = (
+            _apply_connector_port_layout(
+                node,
+                main_part,
+                all_connectors,
+                parts,
+                nets,
+                gap,
+                grid,
+                used_parts=mcu_colinear_used,
+            )
+        )
+        if connector_port_placed:
+            placed |= connector_port_placed
+            anchor |= connector_port_placed
+            colinear_placed |= connector_port_placed
 
     # 仅 TK 短链（共线未覆盖的 R+TK 对）
     pin_chains = _mcu_collect_pin_chains(
@@ -1485,15 +1526,20 @@ def apply_generic_mcu_layout(
                 anchor.add(tk)
                 colinear_placed.add(tk)
 
-    # 其余 IO/指示器件：单颗贴对应 MCU 引脚侧
+    # 其余 IO/指示器件：单颗贴对应 MCU 引脚侧（分叉已管器件不再贴回引脚行）
+    fork_reserved = set(getattr(node, "_mcu_fork_reserved_parts", None) or [])
+
+    def _skip_post_fork_place(part):
+        return part in colinear_placed or part in fork_reserved
+
     for part in io_series:
-        if part in colinear_placed:
+        if _skip_post_fork_place(part):
             continue
         if _mcu_place_io_on_main_pin(node, main_part, part, gap, grid):
             placed.add(part)
             anchor.add(part)
     for part in indicators:
-        if part in colinear_placed:
+        if _skip_post_fork_place(part):
             continue
         if _mcu_place_io_on_main_pin(node, main_part, part, gap, grid):
             placed.add(part)
@@ -1577,7 +1623,7 @@ def _mcu_wire_two_pins(p1, p2, bus_y=None):
 def route_mcu_local_nets(node, nets, **options):
     """
     MCU 专用：2-pin 星型支路用短直线/水平总线，不走 switchbox。
-    共线链上的多脚网用水平母线 + 竖 stub。
+    共线链上的多脚网用水平母线 + 竖 stub；分叉 anchor 网用 T 型线段。
     返回已处理的 net 集合。
     """
     topo = getattr(node, "_last_topology_result", None) or {}
@@ -1593,7 +1639,29 @@ def route_mcu_local_nets(node, nets, **options):
     grid = int(options.get("grid", 100))
     colinear_sets = _all_colinear_part_sets(node)
 
+    if options.get("mcu_fork_layout", True):
+        from .mcu_fork import (
+            find_fork_spec_for_net,
+            mark_fork_overflow_stubs,
+            route_fork_anchor_net,
+        )
+
+        mark_fork_overflow_stubs(node, nets, **options)
+
     for net in nets:
+        if options.get("mcu_fork_layout", True):
+            fork_spec = find_fork_spec_for_net(node, net)
+            if fork_spec is not None:
+                segs = route_fork_anchor_net(node, net, fork_spec, grid)
+                if segs:
+                    net._stub = False
+                    net.stub = False
+                    for pin in net.pins:
+                        if getattr(pin, "part", None) in getattr(node, "parts", []):
+                            pin.stub = False
+                    node.wires[net] = segs
+                    handled.add(net)
+                    continue
         pins = _mcu_route_pins(node, net)
         if len(pins) < 2:
             continue
