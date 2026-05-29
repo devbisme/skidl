@@ -28,7 +28,7 @@ def test_interface_12():
         s2.my_gnd += my_gnd
 
     # Create nets
-    vin1, vin2, gnd, vdd = Net("VIN1"), Net("VIN2"), Net("GND"), Net("VDD")
+    vin1, vin2, gnd, vdd = Net("VIN1"), Net("VIN2", stub=True), Net("GND"), Net("VDD")
     # Instantiate the subcircuit
     sub = sub2(vin1, vin2, gnd, tag="sub")
     # Create resistor and connect between input and ground

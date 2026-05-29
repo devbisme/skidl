@@ -714,12 +714,9 @@ def net_label_to_sexp(pin, tx=Tx(), force=False):
     part_tx = getattr(pin.part, "tx", Tx())
     pt = pin_pt * part_tx * tx
 
-    # Map pin orientation to angle (degrees).
-    orient_map = {"R": 180, "D": 270, "L": 0, "U": 90}
-    angle = orient_map[calc_pin_dir(pin)]
-
-    # Justify depends on label direction.
-    justify = "left" if angle in (0, 90) else "right"
+    # Map pin orientation to pin angle (degrees) and label justification.
+    orient_map = {"R": (180,"right"), "D": (90,"left"), "L": (0,"left"), "U": (270,"right")}
+    angle, justify = orient_map[calc_pin_dir(pin)]
 
     label = Sexp(
         [
