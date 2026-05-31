@@ -770,112 +770,6 @@ def _kicad_pin_pos(pin, part_tx, sheet_tx):
     return _round_mm(ox + rx), _round_mm(oy + ry)
 
 
-def _find_wireable_nets(node, tx, max_dist_mm=80.0):
-    """Suppress labels for pins connected by snap (overlapping positions).
-
-    Builds connected clusters of overlapping pins per net. Within each
-    cluster, all pins are physically connected so only one label is needed
-    (for cross-sheet connectivity). All other pins in the cluster are
-    suppressed.
-
-    Returns:
-        tuple: (wired_pin_ids, wire_sexps) where wired_pin_ids is a set of
-            id(pin) for pins that should NOT get labels, and wire_sexps is
-            an empty list (no wire elements needed for overlapping pins).
-    """
-    node_part_ids = {id(p) for p in node.parts}
-    wired_pin_ids = set()
-
-    seen_nets = set()
-    for part in node.parts:
-        if isinstance(part, NetTerminal):
-            continue
-        for pin in part:
-            if not pin.stub or not pin.is_connected():
-                continue
-            net = pin.net
-            if id(net) in seen_nets:
-                continue
-            seen_nets.add(id(net))
-
-            is_power = net.name in pwr_symbol_names
-
-            # For non-power nets, only consider stubbed pins (these get labels).
-            # For power nets, consider ALL pins on this sheet — power symbols
-            # are emitted regardless of stub state, so we still want to suppress
-            # redundant ones when pins overlap (cap snap-stacked on IC VCC pin).
-            if is_power:
-                pins_in_node = [
-                    p for p in net.pins
-                    if id(p.part) in node_part_ids
-                    and not isinstance(p.part, NetTerminal)
-                ]
-            else:
-                pins_in_node = [
-                    p for p in net.pins
-                    if id(p.part) in node_part_ids
-                    and not isinstance(p.part, NetTerminal)
-                    and p.stub
-                ]
-            if len(pins_in_node) < 2:
-                continue
-
-            positions = []
-            for p in pins_in_node:
-                x, y = _kicad_pin_pos(p, getattr(p.part, "tx", Tx()), tx)
-                positions.append((x, y, p))
-
-            # Union-find to cluster overlapping pins (dist < 0.01mm).
-            parent = list(range(len(positions)))
-
-            def find(i):
-                while parent[i] != i:
-                    parent[i] = parent[parent[i]]
-                    i = parent[i]
-                return i
-
-            for i in range(len(positions)):
-                for j in range(i + 1, len(positions)):
-                    dist = ((positions[i][0] - positions[j][0]) ** 2 +
-                            (positions[i][1] - positions[j][1]) ** 2) ** 0.5
-                    if dist < 0.01:
-                        ri, rj = find(i), find(j)
-                        if ri != rj:
-                            parent[ri] = rj
-
-            # Group pins by cluster.
-            clusters = {}
-            for i in range(len(positions)):
-                r = find(i)
-                clusters.setdefault(r, []).append(i)
-
-            # Check if the net has pins outside this sheet.
-            all_real_pins = [
-                p for p in net.pins
-                if not isinstance(p.part, NetTerminal)
-            ]
-            has_pins_outside = len(all_real_pins) > len(pins_in_node)
-
-            for members in clusters.values():
-                if len(members) < 2:
-                    continue
-
-                pins_outside_cluster = len(pins_in_node) - len(members)
-
-                if not has_pins_outside and pins_outside_cluster == 0:
-                    # All net pins are in this cluster — fully connected by
-                    # overlap, no labels needed at all.
-                    for idx in members:
-                        wired_pin_ids.add(id(positions[idx][2]))
-                else:
-                    # Net has pins elsewhere — keep one label for cross-sheet
-                    # connectivity, suppress the rest.
-                    for idx in members[1:]:
-                        wired_pin_ids.add(id(positions[idx][2]))
-
-    return wired_pin_ids, []
-
-
 def _render_xy(lx, ly, part_tx, sheet_tx):
     """Transform a part-local point to KiCad render-mm (same convention as
     _kicad_pin_pos, but for arbitrary points like bbox corners)."""
@@ -893,223 +787,6 @@ def _render_xy(lx, ly, part_tx, sheet_tx):
     if my:
         rx = -rx
     return _round_mm(ox + rx), _round_mm(oy + ry)
-
-
-def _part_render_bbox(part, sheet_tx):
-    """Axis-aligned (min, max) of a part's body in render-mm, or None."""
-    bbox = getattr(part, "place_bbox", None) or getattr(part, "lbl_bbox", None)
-    if bbox is None:
-        return None
-    pt = getattr(part, "tx", Tx())
-    corners = [
-        _render_xy(bbox.min.x, bbox.min.y, pt, sheet_tx),
-        _render_xy(bbox.max.x, bbox.min.y, pt, sheet_tx),
-        _render_xy(bbox.min.x, bbox.max.y, pt, sheet_tx),
-        _render_xy(bbox.max.x, bbox.max.y, pt, sheet_tx),
-    ]
-    xs = [c[0] for c in corners]
-    ys = [c[1] for c in corners]
-    return (min(xs), min(ys)), (max(xs), max(ys))
-
-
-def _seg_crosses_box(a, b, bmin, bmax, inset=0.5):
-    """True if segment a->b passes through the interior of box [bmin,bmax]
-    shrunk by `inset` mm (so a wire merely reaching a pin on the body edge
-    doesn't count — only a wire routed *through* the body). Liang-Barsky."""
-    xmin, ymin = bmin[0] + inset, bmin[1] + inset
-    xmax, ymax = bmax[0] - inset, bmax[1] - inset
-    if xmin >= xmax or ymin >= ymax:
-        return False
-    x1, y1 = a
-    dx, dy = b[0] - a[0], b[1] - a[1]
-    t0, t1 = 0.0, 1.0
-    for p, q in ((-dx, x1 - xmin), (dx, xmax - x1), (-dy, y1 - ymin), (dy, ymax - y1)):
-        if p == 0:
-            if q < 0:
-                return False
-        else:
-            r = q / p
-            if p < 0:
-                if r > t1:
-                    return False
-                t0 = max(t0, r)
-            else:
-                if r < t0:
-                    return False
-                t1 = min(t1, r)
-    return t0 <= t1
-
-
-def _gen_power_bus_wires(node, tx, max_gap_mm=10.0):
-    """Generate wire segments connecting co-linear power net pins.
-
-    Finds subgroups of 3+ pins on the same power net that share an X or Y
-    coordinate (within 0.1mm) AND are spaced within max_gap_mm of each
-    neighbour. Returns (wire_sexps, bus_pin_ids) where bus_pin_ids are
-    pins that should NOT get individual power symbols.
-    """
-    from collections import defaultdict
-
-    node_part_ids = {id(p) for p in node.parts}
-    power_names = pwr_symbol_names
-    bus_pin_ids = set()
-    wires = []
-
-    # Part body bboxes in render-mm, so we can drop bus segments that would be
-    # routed straight through a component (the "wire crossing parts" clutter).
-    part_bodies = []
-    for _p in node.parts:
-        if isinstance(_p, NetTerminal):
-            continue
-        rb = _part_render_bbox(_p, tx)
-        if rb:
-            part_bodies.append((rb[0], rb[1], _p))
-
-    seen_nets = set()
-    for part in node.parts:
-        if isinstance(part, NetTerminal):
-            continue
-        for pin in part:
-            if not pin.is_connected():
-                continue
-            net = pin.net
-            if id(net) in seen_nets:
-                continue
-            seen_nets.add(id(net))
-
-            if net.name not in power_names:
-                continue
-
-            pins_in_node = [
-                p for p in net.pins
-                if id(p.part) in node_part_ids
-                and not isinstance(p.part, NetTerminal)
-                and len(p.part.pins) == 2
-                and not all(
-                    pp.is_connected() and pp.net.name in power_names
-                    for pp in p.part.pins
-                )
-            ]
-            if len(pins_in_node) < 3:
-                continue
-
-            positions = []
-            for p in pins_in_node:
-                x, y = _kicad_pin_pos(p, getattr(p.part, "tx", Tx()), tx)
-                positions.append((_round_mm(x), _round_mm(y), p))
-
-            # Group pins by shared X coordinate (vertical columns).
-            x_groups = defaultdict(list)
-            for pos in positions:
-                x_key = round(pos[0], 1)
-                x_groups[x_key].append(pos)
-
-            # Group pins by shared Y coordinate (horizontal rows).
-            y_groups = defaultdict(list)
-            for pos in positions:
-                y_key = round(pos[1], 1)
-                y_groups[y_key].append(pos)
-
-            def _split_runs(sorted_group, axis):
-                """Split sorted positions into contiguous runs by max_gap_mm."""
-                runs = [[sorted_group[0]]]
-                for j in range(1, len(sorted_group)):
-                    gap = abs(sorted_group[j][axis] - sorted_group[j - 1][axis])
-                    if gap <= max_gap_mm:
-                        runs[-1].append(sorted_group[j])
-                    else:
-                        runs.append([sorted_group[j]])
-                return [r for r in runs if len(r) >= 3]
-
-            def _seg_clear(x1, y1, x2, y2, p1, p2):
-                """A bus segment is allowed only if it doesn't pass through a
-                part body other than the two pins it connects."""
-                for bmin, bmax, bp in part_bodies:
-                    if bp is p1.part or bp is p2.part:
-                        continue
-                    if _seg_crosses_box((x1, y1), (x2, y2), bmin, bmax):
-                        return False
-                return True
-
-            def _emit_run(run, net_name):
-                # Split the run at any segment that would cross a part body, so
-                # those pins fall back to clean power symbols instead of a wire
-                # routed through a component. Each clean sub-run keeps wires +
-                # one power symbol (its last pin) for net identity.
-                subruns = [[run[0]]]
-                for j in range(len(run) - 1):
-                    x1, y1, p1 = run[j]
-                    x2, y2, p2 = run[j + 1]
-                    if _seg_clear(x1, y1, x2, y2, p1, p2):
-                        subruns[-1].append(run[j + 1])
-                    else:
-                        subruns.append([run[j + 1]])
-                for sub in subruns:
-                    if len(sub) < 2:
-                        continue  # isolated pin -> gets its own power symbol
-                    for j in range(len(sub) - 1):
-                        x1, y1, _ = sub[j]
-                        x2, y2, _ = sub[j + 1]
-                        wires.append(
-                            Sexp(
-                                [
-                                    "wire",
-                                    ["pts", ["xy", x1, y1], ["xy", x2, y2]],
-                                    ["stroke", ["width", 0], ["type", "default"]],
-                                    [
-                                        "uuid",
-                                        _gen_uuid(f"pbus:{net_name}:{x1}:{y1}:{x2}:{y2}"),
-                                    ],
-                                ]
-                            )
-                        )
-                    for _, _, p in sub[:-1]:
-                        bus_pin_ids.add(id(p))
-
-            # Process vertical groups (same X, split by Y gap).
-            for x_key, group in x_groups.items():
-                if len(group) < 3:
-                    continue
-                group.sort(key=lambda p: p[1])
-                for run in _split_runs(group, axis=1):
-                    _emit_run(run, net.name)
-
-            # Process horizontal groups (same Y, split by X gap).
-            for y_key, group in y_groups.items():
-                if len(group) < 3:
-                    continue
-                group.sort(key=lambda p: p[0])
-                for run in _split_runs(group, axis=0):
-                    _emit_run(run, net.name)
-
-    return wires, bus_pin_ids
-
-
-def _gen_no_connect_flags(node, tx):
-    """Generate no_connect flag S-expressions for pins on NCNet.
-
-    Returns a list of Sexp objects, one per NC pin.
-    """
-    flags = []
-    for part in node.parts:
-        if isinstance(part, NetTerminal):
-            continue
-        for pin in part:
-            if not isinstance(getattr(pin, "net", None), NCNet):
-                continue
-            pin_pt = getattr(pin, "pt", Point(pin.x, pin.y))
-            part_tx = getattr(pin.part, "tx", Tx())
-            pt = pin_pt * part_tx * tx
-            flags.append(
-                Sexp(
-                    [
-                        "no_connect",
-                        ["at", _round_mm(pt.x), _round_mm(pt.y)],
-                        ["uuid", _gen_uuid(f"nc:{part.ref}:{pin.num}:{pt.x}:{pt.y}")],
-                    ]
-                )
-            )
-    return flags
 
 
 # ---------------------------------------------------------------------------
@@ -1420,13 +1097,25 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
             continue
         elements.extend(junction_to_sexp(net, junctions, tx=tx))
 
+    # Tool-agnostic decision layer reaches kicad geometry/emission through the
+    # backend adapter (see schematics/decisions.py + tools/kicad9/backend.py).
+    from skidl.schematics import decisions as _decisions
+    from .backend import Kicad9Backend
+    _backend = Kicad9Backend()
+
     # Suppress labels for snap-overlapping pins (one label per connected cluster).
-    wired_pin_ids, direct_wires = _find_wireable_nets(node, tx)
-    elements.extend(direct_wires)
+    wired_pin_ids = _decisions.find_overlapping_pins(node, _backend, tx)
 
     # Connect co-linear power net pins with bus wires.
-    power_wires, bus_pin_ids = _gen_power_bus_wires(node, tx)
-    elements.extend(power_wires)
+    bus_segments, bus_pin_ids = _decisions.find_power_bus_runs(node, _backend, tx)
+    for x1, y1, x2, y2, net_name in bus_segments:
+        elements.append(
+            _backend.emit_wire(
+                x1, y1, x2, y2,
+                net_name=net_name,
+                uuid_seed=f"pbus:{net_name}:{x1}:{y1}:{x2}:{y2}",
+            )
+        )
     wired_pin_ids.update(bus_pin_ids)
 
     # Generate T-junction wires from staggered snap placement.
@@ -1506,7 +1195,13 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
                     elements.append(label)
 
     # No-connect flags for NCNet pins.
-    elements.extend(_gen_no_connect_flags(node, tx))
+    for nc_x, nc_y, part_ref, pin_num in _decisions.find_no_connect_pins(node, _backend, tx):
+        elements.append(
+            _backend.emit_no_connect(
+                nc_x, nc_y,
+                uuid_seed=f"nc:{part_ref}:{pin_num}:{nc_x}:{nc_y}",
+            )
+        )
 
     # Purge dangling wire remnants. Snap moves parts by reassigning part.tx,
     # but a router wire to the old position can survive as a short stub whose

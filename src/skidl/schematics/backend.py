@@ -79,6 +79,17 @@ class SchematicBackend(Protocol):
         """True if ``name`` matches a tool power-symbol."""
         ...
 
+    def render_xy(self, lx, ly, part, sheet_tx) -> Tuple[float, float]:
+        """Render-mm position of an arbitrary part-local point (e.g. a body
+        bbox corner) under the tool's transform convention. Same convention as
+        ``pin_render_pos`` but for non-pin points; needed by power-bus
+        body-crossing checks."""
+        ...
+
+    def round_mm(self, val) -> float:
+        """Round a coordinate to the tool's grid precision (KiCad: 2 dp)."""
+        ...
+
     def solve_snap_tx(self, part, my_pin, target_render_xy, extend_dir, sheet_tx):
         """Return a new ``part.tx`` so ``my_pin`` renders at the target."""
         ...
