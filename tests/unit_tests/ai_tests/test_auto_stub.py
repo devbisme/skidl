@@ -118,12 +118,16 @@ class TestAutoStubNets:
         auto_stub_nets(circuit)
         assert net._stub is False
 
-    def test_high_fanout_stubbed(self):
-        """Net with 6 pins (above default threshold 5) gets stubbed."""
+    def test_high_fanout_deferred(self):
+        """Net with 6 pins (above default threshold 5) is marked for DEFERRED
+        stubbing: kept connected during placement (for grouping), stubbed after
+        placement via _apply_deferred_stubs. So _stub stays False here and
+        _deferred_stub is set."""
         net = self._make_mock_net("BUS_DATA", pin_count=6)
         circuit = self._make_mock_circuit([net])
         auto_stub_nets(circuit)
-        assert net._stub is True
+        assert getattr(net, "_deferred_stub", False) is True
+        assert net._stub is False  # not stubbed until after placement
 
     def test_low_fanout_not_stubbed(self):
         """Net with 3 pins (below threshold) stays wired."""
@@ -133,11 +137,12 @@ class TestAutoStubNets:
         assert net._stub is False
 
     def test_custom_fanout_threshold(self):
-        """Custom fanout threshold is respected."""
+        """Custom fanout threshold is respected (deferred marking)."""
         net = self._make_mock_net("SIG", pin_count=3)
         circuit = self._make_mock_circuit([net])
         auto_stub_nets(circuit, auto_stub_fanout=3)
-        assert net._stub is True
+        assert getattr(net, "_deferred_stub", False) is True
+        assert net._stub is False  # deferred until after placement
 
     def test_explicit_override_respected(self):
         """User-explicit stub=False on GND stays wired."""

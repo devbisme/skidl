@@ -71,6 +71,13 @@ def auto_stub_nets(circuit, **options):
     Only modifies nets that haven't been explicitly set by the user.
     Called when auto_stub=True is passed to gen_schematic().
 
+    Power nets are always stubbed immediately (they'd overwhelm the placer).
+    Fanout-based stubbing is DEFERRED: nets are marked ``_deferred_stub`` so
+    the placer still uses them for connectivity-based grouping, then they get
+    stubbed after placement via ``_apply_deferred_stubs()``. Stubbing them up
+    front instead scatters connected parts and makes dense boards (e.g. the
+    327-part Concentric board) fail to route, which suppresses snap placement.
+
     Args:
         circuit: The Circuit object containing nets to analyze.
         options: Dict of options. Recognizes 'auto_stub_fanout' (default 5).
@@ -79,7 +86,7 @@ def auto_stub_nets(circuit, **options):
 
     fanout_threshold = options.get("auto_stub_fanout", 5)
     stubbed_power = []
-    stubbed_fanout = []
+    deferred_fanout = []
 
     for net in circuit.nets:
         if getattr(net, "_stub_explicit", False):
@@ -96,20 +103,18 @@ def auto_stub_nets(circuit, **options):
             stubbed_power.append(f"{net.name}({len(net.pins)})")
             continue
 
-        # High fanout nets: many pins connected to the same net.
+        # High fanout nets: defer — keep connectivity for grouping during
+        # placement, stub after placement (see _apply_deferred_stubs).
         if len(net.pins) >= fanout_threshold:
-            net._stub = True
-            net._stub_explicit = False
-            for pin in net.get_pins():
-                pin.stub = True
-            stubbed_fanout.append(f"{net.name}({len(net.pins)})")
+            net._deferred_stub = True
+            deferred_fanout.append(f"{net.name}({len(net.pins)})")
 
     from skidl.logger import active_logger
     active_logger.info(
         f"  [auto_stub] power: {', '.join(stubbed_power[:10])}{'...' if len(stubbed_power) > 10 else ''}"
     )
     active_logger.info(
-        f"  [auto_stub] fanout>={fanout_threshold}: {', '.join(stubbed_fanout[:10])}{'...' if len(stubbed_fanout) > 10 else ''}"
+        f"  [auto_stub] deferred fanout>={fanout_threshold}: {', '.join(deferred_fanout[:10])}{'...' if len(deferred_fanout) > 10 else ''}"
     )
 
 
