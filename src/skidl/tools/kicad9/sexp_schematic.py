@@ -1643,6 +1643,9 @@ def _deconflict_labels(elements, node, sheet_tx):
     def _cell(x, y):
         return (round(x / GRID), round(y / GRID))
 
+    def _on_grid(v):
+        return abs(v / GRID - round(v / GRID)) < 0.02
+
     # Component body bboxes in sheet (mm) coordinates.
     comp_bboxes = []
     for part in node.parts:
@@ -1696,6 +1699,11 @@ def _deconflict_labels(elements, node, sheet_tx):
         if at_sexp is None or len(at_sexp) < 4:
             continue
         lx, ly, langle = float(at_sexp[1]), float(at_sexp[2]), int(at_sexp[3])
+        # Only spread labels whose anchor (pin) is already on-grid, so the
+        # connecting wire has both ends on-grid (no added endpoint_off_grid
+        # warnings). Off-grid-pin labels are left in place.
+        if not (_on_grid(lx) and _on_grid(ly)):
+            continue
         dx, dy = _label_dir(langle)
         x_end, y_end = lx + dx * LABEL_W, ly + dy * LABEL_W
         lbl_bbox = BBox(
