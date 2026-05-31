@@ -109,6 +109,81 @@ class Kicad9Backend:
     def emit_part(self, part, sheet_tx, uuid_path):
         return _ksch.part_to_sexp(part, uuid_path, tx=sheet_tx)
 
+    def apply_label_deconfliction(self, elements, node, sheet_tx):
+        """Read global_label/wire Sexps, run the agnostic deconfliction
+        decision, then mutate label ``at`` coords + append connecting wires.
+
+        The Sexp reading and mutation (tool-specific) stay here; the overlap
+        detection + nudge-target decision lives in
+        ``schematics.decisions.deconflict_labels``.
+        """
+        from skidl.schematics import decisions as _decisions
+
+        GRID = 1.27
+
+        def _cell(x, y):
+            return (round(x / GRID), round(y / GRID))
+
+        # Build the occupancy seed in element order (label anchors keyed by
+        # net, wire endpoints keyed None) — one pass, matching the original.
+        occupied_seed = []
+        for elem in elements:
+            if not hasattr(elem, "__getitem__") or len(elem) < 1:
+                continue
+            if elem[0] == "global_label":
+                at = next(
+                    (s for s in elem if hasattr(s, "__getitem__") and len(s) and s[0] == "at"),
+                    None,
+                )
+                if at and len(at) >= 3:
+                    occupied_seed.append((_cell(float(at[1]), float(at[2])), elem[1]))
+            elif elem[0] == "wire":
+                pts = next(
+                    (s for s in elem if hasattr(s, "__getitem__") and len(s) and s[0] == "pts"),
+                    None,
+                )
+                if pts:
+                    for xy in pts[1:]:
+                        if hasattr(xy, "__getitem__") and len(xy) >= 3 and xy[0] == "xy":
+                            occupied_seed.append((_cell(float(xy[1]), float(xy[2])), None))
+
+        # Extract label records to move (in element order), with their `at` sexp.
+        labels = []
+        at_by_idx = {}
+        for i, elem in enumerate(elements):
+            if not (hasattr(elem, "__getitem__") and len(elem) >= 1 and elem[0] == "global_label"):
+                continue
+            at = next(
+                (s for s in elem if hasattr(s, "__getitem__") and len(s) > 0 and s[0] == "at"),
+                None,
+            )
+            if at is None or len(at) < 4:
+                continue
+            labels.append((i, elem[1], float(at[1]), float(at[2]), int(at[3])))
+            at_by_idx[i] = at
+
+        moves, new_wires = _decisions.deconflict_labels(
+            labels, occupied_seed, node, self, sheet_tx
+        )
+        # Apply moves.
+        for idx, nx, ny in moves:
+            at = at_by_idx[idx]
+            at[1], at[2] = nx, ny
+        # Append connecting wires.
+        from simp_sexp import Sexp
+
+        for ax, ay, nx, ny in new_wires:
+            elements.append(
+                Sexp(
+                    [
+                        "wire",
+                        ["pts", ["xy", _ksch._round_mm(ax), _ksch._round_mm(ay)], ["xy", nx, ny]],
+                        ["stroke", ["width", 0], ["type", "default"]],
+                        ["uuid", _ksch._gen_uuid(f"dcwire:{ax}:{ay}:{nx}:{ny}")],
+                    ]
+                )
+            )
+
     def emit_junction(self, x, y):
         # Junctions are emitted per-net via junction_to_sexp today; this
         # primitive is provided for interface completeness.

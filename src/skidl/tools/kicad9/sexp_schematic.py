@@ -1311,7 +1311,9 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
             hlabel_y += 2.54
 
     # Spread net labels off component bodies (connectivity-preserving).
-    _deconflict_labels(elements, node, tx)
+    # Decision (overlap + nudge target) lives in schematics/decisions.py; the
+    # backend reads/mutates the label Sexps and appends connecting wires.
+    _backend.apply_label_deconfliction(elements, node, tx)
 
     # Add all the collected elements of the schematic.
     for elem in elements:
@@ -1404,134 +1406,6 @@ def _validate_with_kicad_cli(filepath):
 # File writer
 # ---------------------------------------------------------------------------
 
-
-def _deconflict_labels(elements, node, sheet_tx):
-    """Spread net labels that overlap component bodies, preserving connectivity.
-
-    Net labels initially sit on the pin endpoint. Where a label's text box
-    overlaps a component body, nudge the label outward along its direction axis
-    to clear the body (readability, like the v3 output), AND emit a short wire
-    from the original pin anchor to the moved label so the electrical
-    connection is preserved (in KiCad the label anchor IS the net connection
-    point, so moving it without a wire would disconnect the pin).
-
-    Safety at scale (dense auto-stub sheets): the nudged position is snapped to
-    the 50-mil grid, and a move is SKIPPED if its destination cell is already
-    occupied by a different net's label or by a wire endpoint — otherwise the
-    moved label / its wire endpoint could land on an unrelated element and
-    create a net short (ERC multiple_net_names / pin_to_pin). Power symbols are
-    never moved.
-    """
-    from math import cos, radians, sin
-
-    from skidl.geometry import BBox
-
-    MARGIN_MM = 1.27  # ~50 mils clearance from the body
-    GRID = 1.27       # KiCad 50-mil grid
-
-    def _snap(v):
-        return round(round(v / GRID) * GRID, 2)
-
-    def _cell(x, y):
-        return (round(x / GRID), round(y / GRID))
-
-    def _on_grid(v):
-        return abs(v / GRID - round(v / GRID)) < 0.02
-
-    # Component body bboxes in sheet (mm) coordinates.
-    comp_bboxes = []
-    for part in node.parts:
-        if isinstance(part, NetTerminal):
-            continue
-        bbox = getattr(part, "place_bbox", None) or getattr(part, "lbl_bbox", None)
-        if bbox is None:
-            continue
-        tb = bbox * (getattr(part, "tx", Tx()) * sheet_tx)
-        comp_bboxes.append(
-            BBox(
-                Point(min(tb.min.x, tb.max.x), min(tb.min.y, tb.max.y)),
-                Point(max(tb.min.x, tb.max.x), max(tb.min.y, tb.max.y)),
-            )
-        )
-    if not comp_bboxes:
-        return
-
-    # Occupied grid cells: existing label anchors (keyed by net) and wire
-    # endpoints (net unknown -> never reuse). A move onto a cell owned by a
-    # different net is rejected.
-    occupied = {}
-    for elem in elements:
-        if not hasattr(elem, "__getitem__") or len(elem) < 1:
-            continue
-        if elem[0] == "global_label":
-            at = next((s for s in elem if hasattr(s, "__getitem__") and len(s) and s[0] == "at"), None)
-            if at and len(at) >= 3:
-                occupied[_cell(float(at[1]), float(at[2]))] = elem[1]
-        elif elem[0] == "wire":
-            pts = next((s for s in elem if hasattr(s, "__getitem__") and len(s) and s[0] == "pts"), None)
-            if pts:
-                for xy in pts[1:]:
-                    if hasattr(xy, "__getitem__") and len(xy) >= 3 and xy[0] == "xy":
-                        occupied[_cell(float(xy[1]), float(xy[2]))] = None
-
-    def _label_dir(a):
-        r = radians(a)
-        return (cos(r), sin(r))
-
-    LABEL_W, LABEL_H = 10.0, 2.0
-    new_wires = []
-    for elem in elements:
-        if not hasattr(elem, "__getitem__") or len(elem) < 1 or elem[0] != "global_label":
-            continue
-        net = elem[1]
-        at_sexp = next(
-            (s for s in elem if hasattr(s, "__getitem__") and len(s) > 0 and s[0] == "at"),
-            None,
-        )
-        if at_sexp is None or len(at_sexp) < 4:
-            continue
-        lx, ly, langle = float(at_sexp[1]), float(at_sexp[2]), int(at_sexp[3])
-        # Only spread labels whose anchor (pin) is already on-grid, so the
-        # connecting wire has both ends on-grid (no added endpoint_off_grid
-        # warnings). Off-grid-pin labels are left in place.
-        if not (_on_grid(lx) and _on_grid(ly)):
-            continue
-        dx, dy = _label_dir(langle)
-        x_end, y_end = lx + dx * LABEL_W, ly + dy * LABEL_W
-        lbl_bbox = BBox(
-            Point(min(lx, x_end) - LABEL_H / 2, min(ly, y_end) - LABEL_H / 2),
-            Point(max(lx, x_end) + LABEL_H / 2, max(ly, y_end) + LABEL_H / 2),
-        )
-        for cb in comp_bboxes:
-            if not lbl_bbox.intersects(cb):
-                continue
-            ax, ay = lx, ly  # original anchor (on the pin)
-            if abs(dx) > abs(dy):
-                offset = (cb.max.x - lx + MARGIN_MM) if dx > 0 else (cb.min.x - lx - MARGIN_MM)
-                nx, ny = _snap(lx + offset), _snap(ly)
-            else:
-                offset = (cb.max.y - ly + MARGIN_MM) if dy > 0 else (cb.min.y - ly - MARGIN_MM)
-                nx, ny = _snap(lx), _snap(ly + offset)
-            if (nx, ny) == (ax, ay):
-                break
-            # Reject moves that would collide with a different net or a wire end.
-            owner = occupied.get(_cell(nx, ny), "__free__")
-            if owner not in ("__free__", net):
-                break  # leave the label on its pin rather than risk a short
-            at_sexp[1], at_sexp[2] = nx, ny
-            occupied[_cell(nx, ny)] = net
-            new_wires.append(
-                Sexp(
-                    [
-                        "wire",
-                        ["pts", ["xy", _round_mm(ax), _round_mm(ay)], ["xy", nx, ny]],
-                        ["stroke", ["width", 0], ["type", "default"]],
-                        ["uuid", _gen_uuid(f"dcwire:{ax}:{ay}:{nx}:{ny}")],
-                    ]
-                )
-            )
-            break  # resolve first overlap per label
-    elements.extend(new_wires)
 
 
 def _write_sexp_schematic(schematic, filepath):

@@ -305,6 +305,112 @@ def find_power_bus_runs(node, backend, sheet_tx, max_gap_mm=10.0):
     return segments, bus_pin_ids
 
 
+def deconflict_labels(labels, occupied_seed, node, backend, sheet_tx):
+    """Decide which net labels to nudge off component bodies.
+
+    Relocated DECISION half of ``_deconflict_labels`` (the Sexp reading +
+    mutation stays in the backend). Inputs are abstract:
+
+      * ``labels``  — list of ``(idx, net_name, lx, ly, langle)`` for every
+        ``global_label`` element, in element order. ``idx`` is opaque to this
+        function (returned back so the caller can locate the element).
+        ``langle is None`` marks a record that only seeds occupancy.
+      * ``occupied_seed`` — list of ``(cell, owner)`` in element order; applied
+        in order so later entries overwrite earlier ones at a shared cell,
+        exactly as the original single-pass element scan did. ``owner`` is the
+        net name for a label anchor, or ``None`` for a wire endpoint.
+
+    Returns ``(moves, new_wires)`` where ``moves`` is a list of
+    ``(idx, nx, ny)`` label repositions (render-mm) and ``new_wires`` is a list
+    of ``(ax, ay, nx, ny)`` short connecting wires (render-mm) to preserve
+    connectivity. The label/box geometry comes from ``backend.label_bbox`` so
+    box sizing is tool-specific; the math is identical to the original.
+    """
+    from math import cos, radians, sin
+
+    from skidl.geometry import BBox
+
+    MARGIN_MM = 1.27  # ~50 mils clearance from the body
+    GRID = 1.27       # KiCad 50-mil grid
+
+    def _snap(v):
+        return round(round(v / GRID) * GRID, 2)
+
+    def _cell(x, y):
+        return (round(x / GRID), round(y / GRID))
+
+    def _on_grid(v):
+        return abs(v / GRID - round(v / GRID)) < 0.02
+
+    # Component body bboxes in sheet (mm) coordinates.
+    comp_bboxes = []
+    for part in node.parts:
+        if isinstance(part, NetTerminal):
+            continue
+        bbox = getattr(part, "place_bbox", None) or getattr(part, "lbl_bbox", None)
+        if bbox is None:
+            continue
+        tb = bbox * (getattr(part, "tx", Tx()) * sheet_tx)
+        comp_bboxes.append(
+            BBox(
+                Point(min(tb.min.x, tb.max.x), min(tb.min.y, tb.max.y)),
+                Point(max(tb.min.x, tb.max.x), max(tb.min.y, tb.max.y)),
+            )
+        )
+    if not comp_bboxes:
+        return [], []
+
+    # Occupied grid cells, applied in original element order: existing label
+    # anchors (keyed by net) and wire endpoints (net unknown -> never reuse).
+    occupied = {}
+    for cell, owner in occupied_seed:
+        occupied[cell] = owner
+
+    def _label_dir(a):
+        r = radians(a)
+        return (cos(r), sin(r))
+
+    LABEL_W, LABEL_H = backend.label_bbox(None)
+    moves = []
+    new_wires = []
+    for idx, net, lx, ly, langle in labels:
+        # Records without a resolved angle only seeded `occupied` above
+        # (they matched the original's len(at)<4 case) and are not moved.
+        if langle is None:
+            continue
+        # Only spread labels whose anchor (pin) is already on-grid.
+        if not (_on_grid(lx) and _on_grid(ly)):
+            continue
+        dx, dy = _label_dir(langle)
+        x_end, y_end = lx + dx * LABEL_W, ly + dy * LABEL_W
+        lbl_bbox = BBox(
+            Point(min(lx, x_end) - LABEL_H / 2, min(ly, y_end) - LABEL_H / 2),
+            Point(max(lx, x_end) + LABEL_H / 2, max(ly, y_end) + LABEL_H / 2),
+        )
+        for cb in comp_bboxes:
+            if not lbl_bbox.intersects(cb):
+                continue
+            ax, ay = lx, ly  # original anchor (on the pin)
+            if abs(dx) > abs(dy):
+                offset = (cb.max.x - lx + MARGIN_MM) if dx > 0 else (cb.min.x - lx - MARGIN_MM)
+                nx, ny = _snap(lx + offset), _snap(ly)
+            else:
+                offset = (cb.max.y - ly + MARGIN_MM) if dy > 0 else (cb.min.y - ly - MARGIN_MM)
+                nx, ny = _snap(lx), _snap(ly + offset)
+            if (nx, ny) == (ax, ay):
+                break
+            # Reject moves that would collide with a different net or a wire end.
+            owner = occupied.get(_cell(nx, ny), "__free__")
+            if owner not in ("__free__", net):
+                break  # leave the label on its pin rather than risk a short
+            moves.append((idx, nx, ny))
+            occupied[_cell(nx, ny)] = net
+            new_wires.append((ax, ay, nx, ny))
+            break  # resolve first overlap per label
+
+    return moves, new_wires
+
+
 def find_no_connect_pins(node, backend, sheet_tx):
     """No-connect flag positions (render-mm) for pins on an NCNet.
 
