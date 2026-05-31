@@ -1099,9 +1099,13 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
 
     # Tool-agnostic decision layer reaches kicad geometry/emission through the
     # backend adapter (see schematics/decisions.py + tools/kicad9/backend.py).
+    # Wrap in a RenderContext so repeated pin_render_pos/dir queries within this
+    # sheet are memoized. Created here, AFTER snap has finalized all part.tx in
+    # gen_schematic, so no pre-snap stale positions can be cached (doc S7.6).
     from skidl.schematics import decisions as _decisions
+    from skidl.schematics.backend import RenderContext
     from .backend import Kicad9Backend
-    _backend = Kicad9Backend()
+    _backend = RenderContext(Kicad9Backend())
 
     # Suppress labels for snap-overlapping pins (one label per connected cluster).
     wired_pin_ids = _decisions.find_overlapping_pins(node, _backend, tx)

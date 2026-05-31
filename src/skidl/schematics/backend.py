@@ -168,6 +168,13 @@ class RenderContext:
         self._pos_cache.clear()
         self._dir_cache.clear()
 
+    def __getattr__(self, name):
+        # Transparent pass-through for every non-cached backend member
+        # (is_power_net_name, render_xy, round_mm, label_bbox, emit_*, ...),
+        # so a RenderContext can stand in for the backend wherever the
+        # decision layer expects one.
+        return getattr(self._backend, name)
+
 
 __all__ = [
     "PinDir",
