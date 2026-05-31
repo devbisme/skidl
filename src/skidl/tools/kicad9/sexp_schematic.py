@@ -25,6 +25,7 @@ from collections import OrderedDict
 from simp_sexp import Sexp
 
 from skidl.geometry import Point, Tx
+from skidl.net import NCNet
 from skidl.pckg_info import __version__
 from skidl.schematics.net_terminal import NetTerminal
 from skidl.schlib import SchLib
@@ -693,7 +694,10 @@ def net_label_to_sexp(pin, tx=Tx(), force=False):
     """
     if not force and (not pin.stub or not pin.is_connected()):
         return None
-    
+
+    if isinstance(getattr(pin, "net", None), NCNet):
+        return None
+
     # Check if this net matches a known KiCad power symbol.
     # If so, emit a power symbol instance instead of a global_label.
     # This eliminates power_pin_not_driven ERC errors.
@@ -730,6 +734,285 @@ def net_label_to_sexp(pin, tx=Tx(), force=False):
     )
 
     return label
+
+
+# ---------------------------------------------------------------------------
+# Snap-aware emitters: label suppression, power buses, no-connect flags
+# ---------------------------------------------------------------------------
+
+
+def _kicad_pin_pos(pin, part_tx, sheet_tx):
+    """Compute pin position as KiCad renders it from symbol placement.
+
+    KiCad's pin transform order: Y-flip, rotate(-angle), then mirror.
+    The angle from analyze_transform() is the visual angle in SKiDL's Y-up
+    space; KiCad uses its negative because the sheet Y-flip reverses rotation.
+    """
+    import math
+
+    angle_deg, mx, my = part_tx.analyze_transform()
+    composed = part_tx * sheet_tx
+    ox = _round_mm(composed.origin.x)
+    oy = _round_mm(composed.origin.y)
+
+    px, py = pin.x, -pin.y
+
+    theta = math.radians(-angle_deg)
+    cos_t, sin_t = math.cos(theta), math.sin(theta)
+    rx = px * cos_t - py * sin_t
+    ry = px * sin_t + py * cos_t
+
+    if mx:
+        ry = -ry
+    if my:
+        rx = -rx
+
+    return _round_mm(ox + rx), _round_mm(oy + ry)
+
+
+def _find_wireable_nets(node, tx, max_dist_mm=80.0):
+    """Suppress labels for pins connected by snap (overlapping positions).
+
+    Builds connected clusters of overlapping pins per net. Within each
+    cluster, all pins are physically connected so only one label is needed
+    (for cross-sheet connectivity). All other pins in the cluster are
+    suppressed.
+
+    Returns:
+        tuple: (wired_pin_ids, wire_sexps) where wired_pin_ids is a set of
+            id(pin) for pins that should NOT get labels, and wire_sexps is
+            an empty list (no wire elements needed for overlapping pins).
+    """
+    node_part_ids = {id(p) for p in node.parts}
+    wired_pin_ids = set()
+
+    seen_nets = set()
+    for part in node.parts:
+        if isinstance(part, NetTerminal):
+            continue
+        for pin in part:
+            if not pin.stub or not pin.is_connected():
+                continue
+            net = pin.net
+            if id(net) in seen_nets:
+                continue
+            seen_nets.add(id(net))
+
+            is_power = net.name in pwr_symbol_names
+
+            # For non-power nets, only consider stubbed pins (these get labels).
+            # For power nets, consider ALL pins on this sheet — power symbols
+            # are emitted regardless of stub state, so we still want to suppress
+            # redundant ones when pins overlap (cap snap-stacked on IC VCC pin).
+            if is_power:
+                pins_in_node = [
+                    p for p in net.pins
+                    if id(p.part) in node_part_ids
+                    and not isinstance(p.part, NetTerminal)
+                ]
+            else:
+                pins_in_node = [
+                    p for p in net.pins
+                    if id(p.part) in node_part_ids
+                    and not isinstance(p.part, NetTerminal)
+                    and p.stub
+                ]
+            if len(pins_in_node) < 2:
+                continue
+
+            positions = []
+            for p in pins_in_node:
+                x, y = _kicad_pin_pos(p, getattr(p.part, "tx", Tx()), tx)
+                positions.append((x, y, p))
+
+            # Union-find to cluster overlapping pins (dist < 0.01mm).
+            parent = list(range(len(positions)))
+
+            def find(i):
+                while parent[i] != i:
+                    parent[i] = parent[parent[i]]
+                    i = parent[i]
+                return i
+
+            for i in range(len(positions)):
+                for j in range(i + 1, len(positions)):
+                    dist = ((positions[i][0] - positions[j][0]) ** 2 +
+                            (positions[i][1] - positions[j][1]) ** 2) ** 0.5
+                    if dist < 0.01:
+                        ri, rj = find(i), find(j)
+                        if ri != rj:
+                            parent[ri] = rj
+
+            # Group pins by cluster.
+            clusters = {}
+            for i in range(len(positions)):
+                r = find(i)
+                clusters.setdefault(r, []).append(i)
+
+            # Check if the net has pins outside this sheet.
+            all_real_pins = [
+                p for p in net.pins
+                if not isinstance(p.part, NetTerminal)
+            ]
+            has_pins_outside = len(all_real_pins) > len(pins_in_node)
+
+            for members in clusters.values():
+                if len(members) < 2:
+                    continue
+
+                pins_outside_cluster = len(pins_in_node) - len(members)
+
+                if not has_pins_outside and pins_outside_cluster == 0:
+                    # All net pins are in this cluster — fully connected by
+                    # overlap, no labels needed at all.
+                    for idx in members:
+                        wired_pin_ids.add(id(positions[idx][2]))
+                else:
+                    # Net has pins elsewhere — keep one label for cross-sheet
+                    # connectivity, suppress the rest.
+                    for idx in members[1:]:
+                        wired_pin_ids.add(id(positions[idx][2]))
+
+    return wired_pin_ids, []
+
+
+def _gen_power_bus_wires(node, tx, max_gap_mm=10.0):
+    """Generate wire segments connecting co-linear power net pins.
+
+    Finds subgroups of 3+ pins on the same power net that share an X or Y
+    coordinate (within 0.1mm) AND are spaced within max_gap_mm of each
+    neighbour. Returns (wire_sexps, bus_pin_ids) where bus_pin_ids are
+    pins that should NOT get individual power symbols.
+    """
+    from collections import defaultdict
+
+    node_part_ids = {id(p) for p in node.parts}
+    power_names = pwr_symbol_names
+    bus_pin_ids = set()
+    wires = []
+
+    seen_nets = set()
+    for part in node.parts:
+        if isinstance(part, NetTerminal):
+            continue
+        for pin in part:
+            if not pin.is_connected():
+                continue
+            net = pin.net
+            if id(net) in seen_nets:
+                continue
+            seen_nets.add(id(net))
+
+            if net.name not in power_names:
+                continue
+
+            pins_in_node = [
+                p for p in net.pins
+                if id(p.part) in node_part_ids
+                and not isinstance(p.part, NetTerminal)
+                and len(p.part.pins) == 2
+                and not all(
+                    pp.is_connected() and pp.net.name in power_names
+                    for pp in p.part.pins
+                )
+            ]
+            if len(pins_in_node) < 3:
+                continue
+
+            positions = []
+            for p in pins_in_node:
+                x, y = _kicad_pin_pos(p, getattr(p.part, "tx", Tx()), tx)
+                positions.append((_round_mm(x), _round_mm(y), p))
+
+            # Group pins by shared X coordinate (vertical columns).
+            x_groups = defaultdict(list)
+            for pos in positions:
+                x_key = round(pos[0], 1)
+                x_groups[x_key].append(pos)
+
+            # Group pins by shared Y coordinate (horizontal rows).
+            y_groups = defaultdict(list)
+            for pos in positions:
+                y_key = round(pos[1], 1)
+                y_groups[y_key].append(pos)
+
+            def _split_runs(sorted_group, axis):
+                """Split sorted positions into contiguous runs by max_gap_mm."""
+                runs = [[sorted_group[0]]]
+                for j in range(1, len(sorted_group)):
+                    gap = abs(sorted_group[j][axis] - sorted_group[j - 1][axis])
+                    if gap <= max_gap_mm:
+                        runs[-1].append(sorted_group[j])
+                    else:
+                        runs.append([sorted_group[j]])
+                return [r for r in runs if len(r) >= 3]
+
+            def _emit_run(run, net_name):
+                for j in range(len(run) - 1):
+                    x1, y1, _ = run[j]
+                    x2, y2, _ = run[j + 1]
+                    wires.append(
+                        Sexp(
+                            [
+                                "wire",
+                                ["pts", ["xy", x1, y1], ["xy", x2, y2]],
+                                ["stroke", ["width", 0], ["type", "default"]],
+                                [
+                                    "uuid",
+                                    _gen_uuid(
+                                        f"pbus:{net_name}:{x1}:{y1}:{x2}:{y2}"
+                                    ),
+                                ],
+                            ]
+                        )
+                    )
+                for _, _, p in run[:-1]:
+                    bus_pin_ids.add(id(p))
+
+            # Process vertical groups (same X, split by Y gap).
+            for x_key, group in x_groups.items():
+                if len(group) < 3:
+                    continue
+                group.sort(key=lambda p: p[1])
+                for run in _split_runs(group, axis=1):
+                    _emit_run(run, net.name)
+
+            # Process horizontal groups (same Y, split by X gap).
+            for y_key, group in y_groups.items():
+                if len(group) < 3:
+                    continue
+                group.sort(key=lambda p: p[0])
+                for run in _split_runs(group, axis=0):
+                    _emit_run(run, net.name)
+
+    return wires, bus_pin_ids
+
+
+def _gen_no_connect_flags(node, tx):
+    """Generate no_connect flag S-expressions for pins on NCNet.
+
+    Returns a list of Sexp objects, one per NC pin.
+    """
+    flags = []
+    for part in node.parts:
+        if isinstance(part, NetTerminal):
+            continue
+        for pin in part:
+            if not isinstance(getattr(pin, "net", None), NCNet):
+                continue
+            pin_pt = getattr(pin, "pt", Point(pin.x, pin.y))
+            part_tx = getattr(pin.part, "tx", Tx())
+            pt = pin_pt * part_tx * tx
+            flags.append(
+                Sexp(
+                    [
+                        "no_connect",
+                        ["at", _round_mm(pt.x), _round_mm(pt.y)],
+                        ["uuid", _gen_uuid(f"nc:{part.ref}:{pin.num}:{pt.x}:{pt.y}")],
+                    ]
+                )
+            )
+    return flags
 
 
 # ---------------------------------------------------------------------------
@@ -1001,33 +1284,116 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
         lib_symbols.update(part_dict)
         pwr_symbols.update(pwr_dict)
 
+    # Collect net names that have real (non-NetTerminal) stubbed pins on this
+    # sheet.  NetTerminal labels are redundant for these nets since the pins
+    # will generate their own labels.
+    nets_with_real_pins = set()
+    for part in node.parts:
+        if isinstance(part, NetTerminal):
+            continue
+        for pin in part:
+            if pin.stub and pin.is_connected():
+                nets_with_real_pins.add(pin.net.name)
+
     # Generate part S-expressions.
     for part in node.parts:
         if isinstance(part, NetTerminal):
-            # NetTerminals become net labels.
-            label = net_label_to_sexp(part.pins[0], tx=tx, force=True)
+            # NetTerminals become net labels (unless a real pin already labels the net).
+            pin = part.pins[0]
+            if pin.is_connected() and pin.net.name in nets_with_real_pins:
+                continue
+            label = net_label_to_sexp(pin, tx=tx, force=True)
             if label:
                 elements.append(label)
         else:
             elements.append(part_to_sexp(part, uuid_path, tx=tx))
 
     # Generate wire S-expressions (split at junction points).
+    # Skip nets that snap converted to stubs after routing — their routed
+    # geometry is stale now that the parts moved, so they use labels instead.
     for net, wire in node.wires.items():
+        if getattr(net, "_stub", False):
+            continue
         net_junctions = node.junctions.get(net, [])
         elements.extend(wire_to_sexp(net, wire, tx=tx, junctions=net_junctions))
 
     # Generate junction S-expressions.
     for net, junctions in node.junctions.items():
+        if getattr(net, "_stub", False):
+            continue
         elements.extend(junction_to_sexp(net, junctions, tx=tx))
 
-    # Generate net labels for stubbed pins.
+    # Suppress labels for snap-overlapping pins (one label per connected cluster).
+    wired_pin_ids, direct_wires = _find_wireable_nets(node, tx)
+    elements.extend(direct_wires)
+
+    # Connect co-linear power net pins with bus wires.
+    power_wires, bus_pin_ids = _gen_power_bus_wires(node, tx)
+    elements.extend(power_wires)
+    wired_pin_ids.update(bus_pin_ids)
+
+    # Generate T-junction wires from staggered snap placement.
+    for tjw in getattr(node, "_tjunction_wires", []):
+        x1_mil, y1_mil, x2_mil, y2_mil = tjw
+        p1 = Point(x1_mil, y1_mil) * tx
+        p2 = Point(x2_mil, y2_mil) * tx
+        x1, y1 = _round_mm(p1.x), _round_mm(p1.y)
+        x2, y2 = _round_mm(p2.x), _round_mm(p2.y)
+        elements.append(
+            Sexp(
+                [
+                    "wire",
+                    ["pts", ["xy", x1, y1], ["xy", x2, y2]],
+                    ["stroke", ["width", 0], ["type", "default"]],
+                    ["uuid", _gen_uuid(f"tjwire:{x1}:{y1}:{x2}:{y2}")],
+                ]
+            )
+        )
+    # Suppress labels for staggered T-junction signal pins (connected by wire).
+    wired_pin_ids.update(getattr(node, "_tjunction_suppressed_pins", set()))
+
+    # Emit wires for decoupling caps offset-snapped to IC power pins, and
+    # suppress their pin labels (the wire makes the redundant label noise).
+    for pcw in getattr(node, "_power_cap_wires", []):
+        x1_mil, y1_mil, x2_mil, y2_mil = pcw
+        p1 = Point(x1_mil, y1_mil) * tx
+        p2 = Point(x2_mil, y2_mil) * tx
+        x1, y1 = _round_mm(p1.x), _round_mm(p1.y)
+        x2, y2 = _round_mm(p2.x), _round_mm(p2.y)
+        elements.append(
+            Sexp(
+                [
+                    "wire",
+                    ["pts", ["xy", x1, y1], ["xy", x2, y2]],
+                    ["stroke", ["width", 0], ["type", "default"]],
+                    ["uuid", _gen_uuid(f"pcwire:{x1}:{y1}:{x2}:{y2}")],
+                ]
+            )
+        )
+    wired_pin_ids.update(getattr(node, "_power_cap_suppressed_pins", set()))
+
+    # Generate net labels for stubbed pins (skip pins that got direct wires).
     for part in node.parts:
         if isinstance(part, NetTerminal):
             continue
         for pin in part:
+            if id(pin) in wired_pin_ids:
+                continue
             label = net_label_to_sexp(pin, tx=tx)
             if label:
                 elements.append(label)
+            elif (
+                len(part.pins) == 2
+                and not pin.stub
+                and pin.is_connected()
+                and pin.net.name in pwr_symbol_names
+            ):
+                label = net_label_to_sexp(pin, tx=tx, force=True)
+                if label:
+                    elements.append(label)
+
+    # No-connect flags for NCNet pins.
+    elements.extend(_gen_no_connect_flags(node, tx))
 
     if node.flattened:
         # This node is flattened, so return elements for inclusion in the parent sheet.
