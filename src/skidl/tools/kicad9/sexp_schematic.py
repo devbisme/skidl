@@ -1623,13 +1623,25 @@ def _deconflict_labels(elements, node, sheet_tx):
     connection is preserved (in KiCad the label anchor IS the net connection
     point, so moving it without a wire would disconnect the pin).
 
-    Power symbols (``symbol`` elements) are never moved.
+    Safety at scale (dense auto-stub sheets): the nudged position is snapped to
+    the 50-mil grid, and a move is SKIPPED if its destination cell is already
+    occupied by a different net's label or by a wire endpoint — otherwise the
+    moved label / its wire endpoint could land on an unrelated element and
+    create a net short (ERC multiple_net_names / pin_to_pin). Power symbols are
+    never moved.
     """
     from math import cos, radians, sin
 
     from skidl.geometry import BBox
 
     MARGIN_MM = 1.27  # ~50 mils clearance from the body
+    GRID = 1.27       # KiCad 50-mil grid
+
+    def _snap(v):
+        return round(round(v / GRID) * GRID, 2)
+
+    def _cell(x, y):
+        return (round(x / GRID), round(y / GRID))
 
     # Component body bboxes in sheet (mm) coordinates.
     comp_bboxes = []
@@ -1649,6 +1661,24 @@ def _deconflict_labels(elements, node, sheet_tx):
     if not comp_bboxes:
         return
 
+    # Occupied grid cells: existing label anchors (keyed by net) and wire
+    # endpoints (net unknown -> never reuse). A move onto a cell owned by a
+    # different net is rejected.
+    occupied = {}
+    for elem in elements:
+        if not hasattr(elem, "__getitem__") or len(elem) < 1:
+            continue
+        if elem[0] == "global_label":
+            at = next((s for s in elem if hasattr(s, "__getitem__") and len(s) and s[0] == "at"), None)
+            if at and len(at) >= 3:
+                occupied[_cell(float(at[1]), float(at[2]))] = elem[1]
+        elif elem[0] == "wire":
+            pts = next((s for s in elem if hasattr(s, "__getitem__") and len(s) and s[0] == "pts"), None)
+            if pts:
+                for xy in pts[1:]:
+                    if hasattr(xy, "__getitem__") and len(xy) >= 3 and xy[0] == "xy":
+                        occupied[_cell(float(xy[1]), float(xy[2]))] = None
+
     def _label_dir(a):
         r = radians(a)
         return (cos(r), sin(r))
@@ -1658,6 +1688,7 @@ def _deconflict_labels(elements, node, sheet_tx):
     for elem in elements:
         if not hasattr(elem, "__getitem__") or len(elem) < 1 or elem[0] != "global_label":
             continue
+        net = elem[1]
         at_sexp = next(
             (s for s in elem if hasattr(s, "__getitem__") and len(s) > 0 and s[0] == "at"),
             None,
@@ -1677,22 +1708,28 @@ def _deconflict_labels(elements, node, sheet_tx):
             ax, ay = lx, ly  # original anchor (on the pin)
             if abs(dx) > abs(dy):
                 offset = (cb.max.x - lx + MARGIN_MM) if dx > 0 else (cb.min.x - lx - MARGIN_MM)
-                at_sexp[1] = _round_mm(lx + offset)
+                nx, ny = _snap(lx + offset), _snap(ly)
             else:
                 offset = (cb.max.y - ly + MARGIN_MM) if dy > 0 else (cb.min.y - ly - MARGIN_MM)
-                at_sexp[2] = _round_mm(ly + offset)
-            nx, ny = float(at_sexp[1]), float(at_sexp[2])
-            if (nx, ny) != (ax, ay):
-                new_wires.append(
-                    Sexp(
-                        [
-                            "wire",
-                            ["pts", ["xy", _round_mm(ax), _round_mm(ay)], ["xy", _round_mm(nx), _round_mm(ny)]],
-                            ["stroke", ["width", 0], ["type", "default"]],
-                            ["uuid", _gen_uuid(f"dcwire:{ax}:{ay}:{nx}:{ny}")],
-                        ]
-                    )
+                nx, ny = _snap(lx), _snap(ly + offset)
+            if (nx, ny) == (ax, ay):
+                break
+            # Reject moves that would collide with a different net or a wire end.
+            owner = occupied.get(_cell(nx, ny), "__free__")
+            if owner not in ("__free__", net):
+                break  # leave the label on its pin rather than risk a short
+            at_sexp[1], at_sexp[2] = nx, ny
+            occupied[_cell(nx, ny)] = net
+            new_wires.append(
+                Sexp(
+                    [
+                        "wire",
+                        ["pts", ["xy", _round_mm(ax), _round_mm(ay)], ["xy", nx, ny]],
+                        ["stroke", ["width", 0], ["type", "default"]],
+                        ["uuid", _gen_uuid(f"dcwire:{ax}:{ay}:{nx}:{ny}")],
+                    ]
                 )
+            )
             break  # resolve first overlap per label
     elements.extend(new_wires)
 
