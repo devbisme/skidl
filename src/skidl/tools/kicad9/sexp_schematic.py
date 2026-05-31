@@ -918,6 +918,26 @@ def _calc_sheet_tx(bbox):
 # ---------------------------------------------------------------------------
 
 
+def _power_lib_ids_in_elements(elements):
+    """Return the set of ``power:*`` lib_ids referenced by symbol instances in
+    ``elements``. Used to emit exactly the power-symbol definitions a sheet needs,
+    so every emitted power instance has a matching lib_symbols definition."""
+    found = set()
+    for el in elements:
+        if not (hasattr(el, "__getitem__") and len(el) and el[0] == "symbol"):
+            continue
+        for sub in el:
+            if (
+                hasattr(sub, "__getitem__")
+                and len(sub) >= 2
+                and sub[0] == "lib_id"
+                and isinstance(sub[1], str)
+                and sub[1].startswith("power:")
+            ):
+                found.add(sub[1])
+    return found
+
+
 @export_to_all
 def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
     """Convert a SchNode tree to S-expression schematic(s).
@@ -964,15 +984,11 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
             lib_id = f"{part.lib.filename}:{part.name}"
             lib_symbols[lib_id] = part
 
-    # Add power lib_symbols for any power symbols used in this sheet.
+    # Power-symbol definitions are emitted later from the instances actually
+    # placed on this sheet (see `_power_lib_ids_in_elements`), so no wire-based
+    # pre-scan is needed here. `pwr_symbols` is kept only to satisfy the
+    # flattened-node return contract.
     pwr_symbols = {}
-    for net in node.wires:
-        if net.name in pwr_symbol_names:
-            _used_power_symbols.add(net.name)
-    for pwr_name in _used_power_symbols:
-    # for pwr_name in sorted(_used_power_symbols):
-        pwr_lib_id = f"power:{pwr_name}"
-        pwr_symbols[pwr_lib_id] = pwr_name
 
     # Recurse into children.
     for i, child in enumerate(node.children.values()):
@@ -1038,10 +1054,16 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
     for part in lib_symbols.values():
         lib_symbols_sexp.append(Sexp(part_to_lib_symbol_definition(part)))
 
-    # Add S-expressions for any power symbols used in this sheet.
-    for id, pwr_name in pwr_symbols.items():
-        if id not in lib_symbols:
-            pwr_sexp = _extract_power_lib_symbol(pwr_name)
+    # Add power-symbol definitions. Derive these from the power-symbol INSTANCES
+    # actually emitted on this sheet (`elements`), NOT from `node.wires`: with
+    # auto_stub, power nets are stubbed (labels, not wires), so a wire-based scan
+    # misses them and the emitted instance has no definition -> KiCad reports an
+    # "unknown component". Scanning emitted instances guarantees every instance
+    # has a matching definition, and also covers power symbols contributed by
+    # flattened children (whose instances are already in `elements`).
+    for pwr_lib_id in sorted(_power_lib_ids_in_elements(elements)):
+        if pwr_lib_id not in lib_symbols:
+            pwr_sexp = _extract_power_lib_symbol(pwr_lib_id.split(":", 1)[1])
             if pwr_sexp:
                 lib_symbols_sexp.append(pwr_sexp)
 
