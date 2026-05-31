@@ -1,0 +1,35 @@
+ERC report (2026-05-31T14:43:59+1000, Encoding UTF8)
+
+***** Sheet /
+[pin_not_driven]: Input pin not driven by any Output pins
+    ; error
+    @(123.19 mm, 152.40 mm): Symbol Q_ Pin 2 [B, Input, Line]
+[lib_symbol_issues]: The current configuration does not include the symbol library '/usr/share/kicad/symbols/Transistor_BJT'
+    ; warning
+    @(135.89 mm, 58.42 mm): Symbol Q_V [Q_PNP_CBE]
+[lib_symbol_issues]: The current configuration does not include the symbol library '/usr/share/kicad/symbols/Transistor_BJT'
+    ; warning
+    @(129.54 mm, 83.82 mm): Symbol Q_R [Q_PNP_CBE]
+[lib_symbol_issues]: The current configuration does not include the symbol library '/usr/share/kicad/symbols/Transistor_BJT'
+    ; warning
+    @(124.46 mm, 104.14 mm): Symbol Q_HR [Q_PNP_CBE]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(167.64 mm, 111.76 mm): Horizontal Wire, length 32.05 mm
+[lib_symbol_issues]: The current configuration does not include the symbol library '/usr/share/kicad/symbols/Transistor_BJT'
+    ; warning
+    @(124.46 mm, 127.00 mm): Symbol Q_VL [Q_PNP_CBE]
+[lib_symbol_issues]: The current configuration does not include the symbol library '/usr/share/kicad/symbols/Transistor_BJT'
+    ; warning
+    @(158.75 mm, 93.98 mm): Symbol Q_LV [Q_PNP_CBE]
+[lib_symbol_issues]: The current configuration does not include the symbol library '/usr/share/kicad/symbols/Transistor_BJT'
+    ; warning
+    @(147.32 mm, 118.11 mm): Symbol Q_H [Q_PNP_CBE]
+[lib_symbol_issues]: The current configuration does not include the symbol library '/usr/share/kicad/symbols/Transistor_BJT'
+    ; warning
+    @(128.27 mm, 152.40 mm): Symbol Q_ [Q_PNP_CBE]
+[lib_symbol_issues]: The current configuration does not include the symbol library '/usr/share/kicad/symbols/Transistor_BJT'
+    ; warning
+    @(172.72 mm, 114.30 mm): Symbol Q_L [Q_PNP_CBE]
+
+ ** ERC messages: 10  Errors 1  Warnings 9

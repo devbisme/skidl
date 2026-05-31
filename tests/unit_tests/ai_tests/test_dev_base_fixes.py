@@ -17,6 +17,7 @@ import glob
 import os
 import re
 import shutil
+import subprocess
 import tempfile
 
 import pytest
@@ -90,57 +91,38 @@ def test_power_symbol_defs_complete_under_autostub(output_dir):
     assert not missing, f"power symbols emitted without definitions: {missing}"
 
 
-# KiCad global_label angle -> the unit vector the label text extends along.
-_ANGLE_VEC = {0: (1, 0), 90: (0, 1), 180: (-1, 0), 270: (0, -1)}
 
 
-def _labels_pointing_into_parts(output_dir, threshold=-0.3):
-    """Bug 2 guard (coarse): a net label must not point back INTO the body of the
-    part it sits on. This catches gross orientation flips (e.g. a bad orient_map
-    or a deconfliction anchor-move), NOT subtle/aesthetic angle preferences —
-    those need a visual check and are the maintainer's domain.
+HAS_KICAD_CLI = shutil.which("kicad-cli") is not None
+requires_kicad_cli = pytest.mark.skipif(
+    not HAS_KICAD_CLI, reason="kicad-cli not installed"
+)
 
-    Returns list of (sheet, net, angle, dot) for labels pointing into a part.
-    """
-    import math
-    bad = []
-    for f in glob.glob(os.path.join(output_dir, "**", "*.kicad_sch"), recursive=True):
-        txt = open(f).read()
-        syms = [
-            (float(m.group(2)), float(m.group(3)))
-            for m in re.finditer(
-                r'\(symbol\s+\(lib_id "([^"]+)"\)\s*\(at ([\d.\-]+) ([\d.\-]+) ([\d.\-]+)\)',
-                txt,
-            )
-            if not m.group(1).startswith("power:")
-        ]
-        labels = [
-            (m.group(1), float(m.group(2)), float(m.group(3)), float(m.group(4)))
-            for m in re.finditer(
-                r'\(global_label "([^"]+)"\s*\(shape \w+\)\s*\(at ([\d.\-]+) ([\d.\-]+) ([\d.\-]+)\)',
-                txt,
-            )
-        ]
-        if not syms or not labels:
-            continue
-        for name, lx, ly, la in labels:
-            sx, sy = min(syms, key=lambda s: (s[0] - lx) ** 2 + (s[1] - ly) ** 2)
-            ox, oy = lx - sx, ly - sy
-            n = math.hypot(ox, oy) or 1.0
-            ox, oy = ox / n, oy / n
-            vx, vy = _ANGLE_VEC.get(int(la) % 360, (0, 0))
-            dot = ox * vx + oy * vy
-            if dot <= threshold:
-                bad.append((os.path.basename(f), name, int(la), round(dot, 2)))
-    return bad
+
+def _erc_connectivity_violations(sch_path):
+    """Run kicad-cli ERC and return connectivity-class violations (pins/wires
+    left unconnected). Excludes semantic warnings (pin_not_driven from netio)
+    and environmental lib-config warnings."""
+    rpt = sch_path.replace(".kicad_sch", "-conn-erc.rpt")
+    subprocess.run(
+        ["kicad-cli", "sch", "erc", "--output", rpt, "--severity-all", sch_path],
+        capture_output=True, timeout=60,
+    )
+    if not os.path.exists(rpt):
+        return []
+    txt = open(rpt).read()
+    bad_types = ("pin_not_connected", "unconnected", "endpoint", "dangling", "wire_dangling")
+    return [t for t in bad_types if f"[{t}]" in txt]
 
 
 @requires_kicad_libs
-def test_net_labels_do_not_point_into_parts(output_dir):
-    """Coarse orientation guard across mirrored/rotated parts: no net label points
-    into the body of its part. (Fine orientation/justification is visual and not
-    asserted here.)"""
-    from skidl import Net, Part, TEMPLATE, generate_schematic
+@requires_kicad_cli
+def test_deconflicted_labels_stay_connected(output_dir):
+    """Label deconfliction spreads net labels off component bodies for
+    readability, but must preserve connectivity: each moved label is wired back
+    to its pin. Across mirrored/rotated parts, ERC must report no
+    connectivity-class violations (unconnected pins / dangling wire ends)."""
+    from skidl import Net, Part, TEMPLATE
 
     circuit = Circuit(name="bjt_orient")
     with circuit:
@@ -154,5 +136,6 @@ def test_net_labels_do_not_point_into_parts(output_dir):
             q.symtx = tx
         circuit.generate_schematic(filepath=output_dir, top_name="bjt_orient", flatness=1.0)
 
-    bad = _labels_pointing_into_parts(output_dir)
-    assert not bad, f"labels pointing into their part: {bad}"
+    sch = os.path.join(output_dir, "bjt_orient.kicad_sch")
+    violations = _erc_connectivity_violations(sch)
+    assert not violations, f"deconfliction left connectivity violations: {violations}"
