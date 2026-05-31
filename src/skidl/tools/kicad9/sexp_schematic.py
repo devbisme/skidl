@@ -876,6 +876,70 @@ def _find_wireable_nets(node, tx, max_dist_mm=80.0):
     return wired_pin_ids, []
 
 
+def _render_xy(lx, ly, part_tx, sheet_tx):
+    """Transform a part-local point to KiCad render-mm (same convention as
+    _kicad_pin_pos, but for arbitrary points like bbox corners)."""
+    import math
+
+    angle_deg, mx, my = part_tx.analyze_transform()
+    composed = part_tx * sheet_tx
+    ox, oy = _round_mm(composed.origin.x), _round_mm(composed.origin.y)
+    px, py = lx, -ly
+    theta = math.radians(-angle_deg)
+    c, s = math.cos(theta), math.sin(theta)
+    rx, ry = px * c - py * s, px * s + py * c
+    if mx:
+        ry = -ry
+    if my:
+        rx = -rx
+    return _round_mm(ox + rx), _round_mm(oy + ry)
+
+
+def _part_render_bbox(part, sheet_tx):
+    """Axis-aligned (min, max) of a part's body in render-mm, or None."""
+    bbox = getattr(part, "place_bbox", None) or getattr(part, "lbl_bbox", None)
+    if bbox is None:
+        return None
+    pt = getattr(part, "tx", Tx())
+    corners = [
+        _render_xy(bbox.min.x, bbox.min.y, pt, sheet_tx),
+        _render_xy(bbox.max.x, bbox.min.y, pt, sheet_tx),
+        _render_xy(bbox.min.x, bbox.max.y, pt, sheet_tx),
+        _render_xy(bbox.max.x, bbox.max.y, pt, sheet_tx),
+    ]
+    xs = [c[0] for c in corners]
+    ys = [c[1] for c in corners]
+    return (min(xs), min(ys)), (max(xs), max(ys))
+
+
+def _seg_crosses_box(a, b, bmin, bmax, inset=0.5):
+    """True if segment a->b passes through the interior of box [bmin,bmax]
+    shrunk by `inset` mm (so a wire merely reaching a pin on the body edge
+    doesn't count — only a wire routed *through* the body). Liang-Barsky."""
+    xmin, ymin = bmin[0] + inset, bmin[1] + inset
+    xmax, ymax = bmax[0] - inset, bmax[1] - inset
+    if xmin >= xmax or ymin >= ymax:
+        return False
+    x1, y1 = a
+    dx, dy = b[0] - a[0], b[1] - a[1]
+    t0, t1 = 0.0, 1.0
+    for p, q in ((-dx, x1 - xmin), (dx, xmax - x1), (-dy, y1 - ymin), (dy, ymax - y1)):
+        if p == 0:
+            if q < 0:
+                return False
+        else:
+            r = q / p
+            if p < 0:
+                if r > t1:
+                    return False
+                t0 = max(t0, r)
+            else:
+                if r < t0:
+                    return False
+                t1 = min(t1, r)
+    return t0 <= t1
+
+
 def _gen_power_bus_wires(node, tx, max_gap_mm=10.0):
     """Generate wire segments connecting co-linear power net pins.
 
@@ -890,6 +954,16 @@ def _gen_power_bus_wires(node, tx, max_gap_mm=10.0):
     power_names = pwr_symbol_names
     bus_pin_ids = set()
     wires = []
+
+    # Part body bboxes in render-mm, so we can drop bus segments that would be
+    # routed straight through a component (the "wire crossing parts" clutter).
+    part_bodies = []
+    for _p in node.parts:
+        if isinstance(_p, NetTerminal):
+            continue
+        rb = _part_render_bbox(_p, tx)
+        if rb:
+            part_bodies.append((rb[0], rb[1], _p))
 
     seen_nets = set()
     for part in node.parts:
@@ -947,27 +1021,50 @@ def _gen_power_bus_wires(node, tx, max_gap_mm=10.0):
                         runs.append([sorted_group[j]])
                 return [r for r in runs if len(r) >= 3]
 
+            def _seg_clear(x1, y1, x2, y2, p1, p2):
+                """A bus segment is allowed only if it doesn't pass through a
+                part body other than the two pins it connects."""
+                for bmin, bmax, bp in part_bodies:
+                    if bp is p1.part or bp is p2.part:
+                        continue
+                    if _seg_crosses_box((x1, y1), (x2, y2), bmin, bmax):
+                        return False
+                return True
+
             def _emit_run(run, net_name):
+                # Split the run at any segment that would cross a part body, so
+                # those pins fall back to clean power symbols instead of a wire
+                # routed through a component. Each clean sub-run keeps wires +
+                # one power symbol (its last pin) for net identity.
+                subruns = [[run[0]]]
                 for j in range(len(run) - 1):
-                    x1, y1, _ = run[j]
-                    x2, y2, _ = run[j + 1]
-                    wires.append(
-                        Sexp(
-                            [
-                                "wire",
-                                ["pts", ["xy", x1, y1], ["xy", x2, y2]],
-                                ["stroke", ["width", 0], ["type", "default"]],
+                    x1, y1, p1 = run[j]
+                    x2, y2, p2 = run[j + 1]
+                    if _seg_clear(x1, y1, x2, y2, p1, p2):
+                        subruns[-1].append(run[j + 1])
+                    else:
+                        subruns.append([run[j + 1]])
+                for sub in subruns:
+                    if len(sub) < 2:
+                        continue  # isolated pin -> gets its own power symbol
+                    for j in range(len(sub) - 1):
+                        x1, y1, _ = sub[j]
+                        x2, y2, _ = sub[j + 1]
+                        wires.append(
+                            Sexp(
                                 [
-                                    "uuid",
-                                    _gen_uuid(
-                                        f"pbus:{net_name}:{x1}:{y1}:{x2}:{y2}"
-                                    ),
-                                ],
-                            ]
+                                    "wire",
+                                    ["pts", ["xy", x1, y1], ["xy", x2, y2]],
+                                    ["stroke", ["width", 0], ["type", "default"]],
+                                    [
+                                        "uuid",
+                                        _gen_uuid(f"pbus:{net_name}:{x1}:{y1}:{x2}:{y2}"),
+                                    ],
+                                ]
+                            )
                         )
-                    )
-                for _, _, p in run[:-1]:
-                    bus_pin_ids.add(id(p))
+                    for _, _, p in sub[:-1]:
+                        bus_pin_ids.add(id(p))
 
             # Process vertical groups (same X, split by Y gap).
             for x_key, group in x_groups.items():
