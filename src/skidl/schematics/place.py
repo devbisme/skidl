@@ -273,6 +273,31 @@ def adjust_orientations(parts, **options):
         bool: True if one or more part orientations were changed. Otherwise, False.
     """
 
+    # Label-overlap-aware orientation: combine the existing net_tension with a
+    # term that penalizes orientations whose net labels would pile onto symbol
+    # bodies / other labels.  Opt-in (default on) and purely additive so it can
+    # be offered upstream without changing net_tension itself.
+    #
+    # Scope: by default this is applied to FLOATING parts (all pins on labeled
+    # stub nets), where label piling is worst and net_tension is ~0 so it does
+    # no electrical harm.  For wire-connected groups the label term is left OFF
+    # by default (`label_aware_connected`) because nudging a connected part's
+    # orientation purely for label readability can push a stub label onto an
+    # adjacent power node and merge nets.  Callers can flip either gate.
+    label_aware = options.get("label_aware_orientation", True) and options.get(
+        "_label_aware_scope", True
+    )
+    # Weight so a single label overlap (cost 1.0) outweighs small net_tension
+    # differences (net_tension is a distance sum in mils).
+    label_weight = options.get("label_overlap_weight", 75.0)
+
+    def orientation_cost(part):
+        """Combined orientation cost: net tension plus optional label overlap."""
+        cost = net_tension(part, **options)
+        if label_aware:
+            cost += label_weight * label_overlap_cost(part, **options)
+        return cost
+
     def find_best_orientation(part):
         """Each part has 8 possible orientations. Find the best of the 7 alternatives from the starting one."""
 
@@ -291,12 +316,12 @@ def adjust_orientations(parts, **options):
 
                 if calc_starting_cost:
                     # Calculate the cost of the starting orientation before any changes in orientation.
-                    starting_cost = net_tension(part, **options)
+                    starting_cost = orientation_cost(part)
                     # Skip the starting orientation but set flag to process the others.
                     calc_starting_cost = False
                 else:
                     # Calculate the cost of the current orientation.
-                    delta_cost = net_tension(part, **options) - starting_cost
+                    delta_cost = orientation_cost(part) - starting_cost
                     if delta_cost < best_delta_cost:
                         # Save the largest decrease in cost and the associated orientation.
                         best_delta_cost = delta_cost
@@ -321,6 +346,12 @@ def adjust_orientations(parts, **options):
     if not movable_parts:
         # No movable parts, so exit without doing anything.
         return
+
+    # Provide neighbor parts to the label-overlap cost so it can penalize a
+    # part's labels piling onto other parts' bodies.  Use all parts in scope.
+    if label_aware:
+        options = dict(options)
+        options["_label_neighbors"] = list(parts)
 
     # Kernighan-Lin algorithm for finding near-optimal part orientations.
     # Because of the way the tension for part alignment is computed based on
@@ -409,6 +440,168 @@ def net_tension_dist(part, **options):
             tension += min(dists)
 
     return tension
+
+
+# Geometry constants for estimating where a stubbed pin's net label will render.
+# Units are the same as pin.pt / part.tx (KiCad mils at place time; GRID == 50).
+# A net label is drawn as a flag starting at the pin and extending OUTWARD
+# (in the pin's transformed direction) by roughly the text length.  These
+# constants describe that flag box used purely for overlap scoring; they do
+# not have to match the renderer exactly, only correlate with visible piling.
+LABEL_REACH = 250.0  # outward length of a net-label flag box (~text length).
+LABEL_HALF_H = 30.0  # perpendicular half-height of a net-label flag box.
+# Body margin added around the bare pin-span so the body box also covers the
+# pin-name letters that crowd a rotated symbol.
+LABEL_BODY_MARGIN = 40.0
+# The reference/value text renders HORIZONTALLY in sheet space, centered on the
+# part body, regardless of part rotation.  A net label pointing up/down crosses
+# this horizontal text band (vertical, hard-to-read labels piling onto the
+# value text); a label pointing left/right clears it.  Penalizing overlap with
+# this axis-aligned band is what makes the cost prefer readable, splayed-out
+# horizontal labels over vertical ones.  These are the band's half-extents.
+LABEL_TEXT_BAND_HALF_W = 300.0  # horizontal half-width of the value/ref text band.
+LABEL_TEXT_BAND_HALF_H = 70.0   # vertical half-height of the value/ref text band.
+
+
+def _pin_out_dir(pin):
+    """Return the outward unit Point for a pin under its part's current tx.
+
+    Mirrors the direction logic in calc_pin_dir / add_place_pt: take the pin's
+    base orientation unit vector and rotate it by the part's rotation/flip
+    (translation stripped from part.tx).
+    """
+    tx = pin.part.tx
+    rot = Tx(a=tx.a, b=tx.b, c=tx.c, d=tx.d)  # strip translation, keep rot/flip.
+    base = {
+        "U": Point(0, 1),
+        "D": Point(0, -1),
+        "L": Point(-1, 0),
+        "R": Point(1, 0),
+    }[pin.orientation]
+    v = base * rot
+    # Snap to a clean axis-aligned unit vector.
+    return Point(
+        1 if v.x > 0.5 else (-1 if v.x < -0.5 else 0),
+        1 if v.y > 0.5 else (-1 if v.y < -0.5 else 0),
+    )
+
+
+def _label_box(anchor, out_dir):
+    """Build the flag bbox for a net label anchored at `anchor` extending
+    `LABEL_REACH` outward along `out_dir`, with `LABEL_HALF_H` to each side."""
+    far = anchor + out_dir * LABEL_REACH
+    box = BBox(anchor, far)
+    # Widen perpendicular to the reach direction.
+    if out_dir.y == 0:
+        # Horizontal label: pad in y.
+        return box.resize(Vector(0, LABEL_HALF_H))
+    elif out_dir.x == 0:
+        # Vertical label: pad in x.
+        return box.resize(Vector(LABEL_HALF_H, 0))
+    return box.resize(Vector(LABEL_HALF_H, LABEL_HALF_H))
+
+
+def _body_box(part):
+    """Estimate the part's own body box (graphics + pin-name letters) under its
+    current tx, derived from the span of its pin points so it stays
+    backend-agnostic.  A margin covers the pin-name letters."""
+    pts = [pin.pt for pin in part if getattr(pin, "pt", None) is not None]
+    if not pts:
+        return None
+    body = BBox(*pts)
+    body = body.resize(Vector(LABEL_BODY_MARGIN, LABEL_BODY_MARGIN))
+    return body * part.tx
+
+
+def _text_band_box(part):
+    """Axis-aligned box approximating the part's reference/value text, which
+    renders HORIZONTALLY in sheet space centered on the body regardless of part
+    rotation.  Net labels pointing up/down cross this band (and pile onto the
+    value text); labels pointing left/right clear it.  Returns the band in
+    sheet coordinates (only its CENTER is transformed, not its orientation)."""
+    pts = [pin.pt for pin in part if getattr(pin, "pt", None) is not None]
+    if not pts:
+        return None
+    ctr = (BBox(*pts) * part.tx).ctr
+    return BBox(
+        Point(ctr.x - LABEL_TEXT_BAND_HALF_W, ctr.y - LABEL_TEXT_BAND_HALF_H),
+        Point(ctr.x + LABEL_TEXT_BAND_HALF_W, ctr.y + LABEL_TEXT_BAND_HALF_H),
+    )
+
+
+def label_overlap_cost(part, **options):
+    """Estimate how badly this part's net labels will pile onto things.
+
+    For the part's CURRENT orientation (part.tx), each stubbed, connected pin
+    gets a net label that renders as a flag extending outward from the pin.
+    This returns a weighted count of overlaps where those flag boxes collide
+    with: (a) any OTHER part's place_bbox, (b) this part's own body box, or
+    (c) another of this part's own net-label flags.  Higher == worse/messier.
+
+    Backend-agnostic: uses only geometry already on parts/pins (pin.pt,
+    pin.orientation, pin.stub, pin.is_connected(), part.tx, part.place_bbox).
+    """
+    # Collect the stubbed, connected, label-bearing pins.
+    lbl_pins = [
+        pin
+        for pin in part
+        if getattr(pin, "stub", False)
+        and getattr(pin, "pt", None) is not None
+        and pin.is_connected()
+    ]
+    if not lbl_pins:
+        return 0.0
+
+    # Build a flag box for each labeled pin under the current orientation.
+    boxes = []
+    for pin in lbl_pins:
+        anchor = pin.pt * part.tx
+        out_dir = _pin_out_dir(pin)
+        boxes.append(_label_box(anchor, out_dir))
+
+    cost = 0.0
+
+    # (b) Label flag over this part's OWN body.
+    own_body = _body_box(part)
+    if own_body is not None:
+        for box in boxes:
+            if box.intersects(own_body):
+                cost += 1.0
+
+    # (b2) Label flag crossing the part's horizontal reference/value text band.
+    # This is what discriminates between rotations: a label pointing up/down
+    # cuts across the always-horizontal value text; a left/right label clears
+    # it.  Without this term the own-body/own-label geometry is rotation
+    # invariant (labels rotate with the part) and gives no preference.
+    text_band = _text_band_box(part)
+    if text_band is not None:
+        for pin, box in zip(lbl_pins, boxes):
+            out_dir = _pin_out_dir(pin)
+            # Only vertical labels (no horizontal component) cross the band.
+            if out_dir.x == 0 and box.intersects(text_band):
+                cost += 1.0
+
+    # (a) Label flag over a NEIGHBOR part's placement bbox.
+    neighbors = options.get("_label_neighbors", None)
+    if neighbors:
+        for other in neighbors:
+            if other is part:
+                continue
+            try:
+                other_bbox = other.place_bbox * other.tx
+            except AttributeError:
+                continue
+            for box in boxes:
+                if box.intersects(other_bbox):
+                    cost += 1.0
+
+    # (c) Two of this part's own labels overlapping each other.
+    for i in range(len(boxes)):
+        for j in range(i + 1, len(boxes)):
+            if boxes[i].intersects(boxes[j]):
+                cost += 1.0
+
+    return cost
 
 
 def net_torque_dist(part, **options):
@@ -1283,7 +1476,14 @@ class Placer:
 
         if options.get("rotate_parts"):
             # Adjust part orientations after first trial placement is done.
-            if adjust_orientations(real_parts, **options):
+            # Label-aware term is OFF here by default (connected parts) to avoid
+            # pushing a stub label onto an adjacent power node; opt in via
+            # label_aware_connected.
+            conn_opts = dict(options)
+            conn_opts["_label_aware_scope"] = options.get(
+                "label_aware_connected", False
+            )
+            if adjust_orientations(real_parts, **conn_opts):
                 # Some part orientations were changed, so re-do placement.
                 evolve_placement([], real_parts, nets, total_part_force, **options)
 
@@ -1368,6 +1568,20 @@ class Placer:
 
         # Do force-directed placement of the parts in the group.
         evolve_placement([], parts, [], force_func, **options)
+
+        # Floating parts have all their pins on labeled stub nets, so they get
+        # no orientation adjustment from the connected-parts path.  When the
+        # label-aware orientation term is enabled, run an orientation pass here
+        # so their net labels don't pile onto their own bodies / each other.
+        # net_tension is ~0 for floating parts (no real nets), so the label
+        # overlap cost is the dominant signal -- which is exactly what we want.
+        if options.get("rotate_parts") and options.get(
+            "label_aware_orientation", True
+        ):
+            float_opts = dict(options)
+            float_opts["_label_aware_scope"] = True  # always on for floating parts.
+            if adjust_orientations(parts, **float_opts):
+                evolve_placement([], parts, [], force_func, **options)
 
         if options.get("draw_placement"):
             # Pause to look at placement for debugging purposes.
