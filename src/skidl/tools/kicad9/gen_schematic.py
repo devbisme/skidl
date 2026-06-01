@@ -594,6 +594,22 @@ def finalize_parts_and_nets(circuit, **options):
     rmv_attr(circuit.parts, ("force", "bbox", "lbl_bbox", "tx"))
 
 
+def _place_and_classify(node, circuit, expansion_factor, classify=True, **options):
+    """Place a node and, when auto_stub is on, run the stub classifiers.
+
+    Extracted so the main pass and the ERC-regeneration pass share one code
+    path. ``classify=False`` places without running ``_apply_deferred_stubs`` /
+    ``_classify_and_stub_complex_nets`` — used by the label-clearance re-place
+    pass, which must place against an already-frozen stub set (re-running the
+    classifiers would reset deferred pins and mutate the stub set after the
+    label-aware bboxes were computed).
+    """
+    node.place(expansion_factor=expansion_factor, **options)
+    if classify and options.get("auto_stub", False):
+        _apply_deferred_stubs(node, circuit, **options)
+        _classify_and_stub_complex_nets(circuit, node, **options)
+
+
 @export_to_all
 def gen_schematic(
     circuit,
@@ -697,10 +713,7 @@ def gen_schematic(
         )
 
         try:
-            node.place(expansion_factor=expansion_factor, **options)
-            if options.get("auto_stub", False):
-                _apply_deferred_stubs(node, circuit, **options)
-                _classify_and_stub_complex_nets(circuit, node, **options)
+            _place_and_classify(node, circuit, expansion_factor, **options)
             node.route(**options)
 
         except PlacementFailure as e:
@@ -770,10 +783,7 @@ def gen_schematic(
                             title,
                             flatness,
                         )
-                        node.place(expansion_factor=erc_expansion, **options)
-                        if options.get("auto_stub", False):
-                            _apply_deferred_stubs(node, circuit, **options)
-                            _classify_and_stub_complex_nets(circuit, node, **options)
+                        _place_and_classify(node, circuit, erc_expansion, **options)
                         node.route(**options)
                         if options.get("auto_stub", False):
                             _snap_two_pin_parts(node)
