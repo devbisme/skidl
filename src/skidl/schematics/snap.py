@@ -433,6 +433,21 @@ def _stagger_tjunctions(node, node_part_ids, snapped, occupied_pins, min_group=2
         step_size = plan["step_size"]
         perp_dir = perp_map.get(ic_dir, ic_dir)
 
+        # Net labels sit on the IC's stubbed pins and extend outward along the
+        # same direction the fan staggers. Shift the whole fan out past the
+        # widest label so the first staggered part clears it instead of landing
+        # on top of it. Label width ~= (len(name)+1) * label-font (~50 mils).
+        # Capped so a long net name can't push the fan absurdly far.
+        _LABEL_CHAR_W = 50  # mils, ~KiCad PIN_LABEL_FONT_SIZE
+        label_clearance = 0
+        for _ic_pin, _ in matching:
+            _net = getattr(_ic_pin, "net", None)
+            if _net is not None and getattr(_ic_pin, "stub", False):
+                label_clearance = max(
+                    label_clearance, (len(_net.name) + 1) * _LABEL_CHAR_W
+                )
+        label_clearance = min(label_clearance, 800)
+
         def _pin_sort_key(entry, _ic_part=ic_part, _ic_dir=ic_dir):
             ic_pin = entry[0]
             w = ic_pin.pt * _ic_part.tx
@@ -452,8 +467,8 @@ def _stagger_tjunctions(node, node_part_ids, snapped, occupied_pins, min_group=2
             parts_list.sort(key=lambda t: getattr(t[0], "ref", ""))
 
             offset_n = pin_idx + 1
-            ox = ic_pin_world.x + step_dx * step_size * offset_n
-            oy = ic_pin_world.y + step_dy * step_size * offset_n
+            ox = ic_pin_world.x + step_dx * (label_clearance + step_size * offset_n)
+            oy = ic_pin_world.y + step_dy * (label_clearance + step_size * offset_n)
             junction_pt = Point(ox, oy)
 
             for part_idx, (part, my_pin, other_pin, _, _) in enumerate(parts_list):
