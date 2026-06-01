@@ -18,7 +18,16 @@ from . import sexp_schematic as _ksch
 
 
 class Kicad9Backend:
-    """Adapter exposing kicad9 geometry + emission as a SchematicBackend."""
+    """Adapter exposing kicad9 geometry + emission as a SchematicBackend.
+
+    Interface status (honest): geometry queries (pin_render_pos, pin_render_dir,
+    is_power_net_name, render_xy, label_bbox) are LIVE — consumed by
+    schematics.decisions. Among emission primitives, emit_wire and
+    emit_no_connect ARE on the live path; emit_label/emit_part/
+    emit_power_symbol/emit_junction are defined for completeness but the renderer
+    still uses the module-level functions for those. solve_snap_tx is DEFERRED
+    (raises; see doc P1b).
+    """
 
     supports_snap = True
 
@@ -48,15 +57,16 @@ class Kicad9Backend:
         return _ksch._round_mm(val)
 
     def solve_snap_tx(self, part, my_pin, target_render_xy, extend_dir, sheet_tx):
-        """Delegates to snap's placement-space transform solver.
-
-        The current snap pipeline solves ``part.tx`` in SKiDL placement space
-        (``schematics.snap._compute_snap_tx``); exposing it here keeps the
-        interface complete without altering the (placement-space) behavior.
-        """
-        from skidl.schematics.snap import _compute_snap_tx
-
-        return _compute_snap_tx(my_pin, part, target_render_xy, extend_dir)
+        # DEFERRED (doc P1b) and NOT wired into the snap pipeline, which solves
+        # part.tx in PLACEMENT space via schematics.snap._compute_snap_tx called
+        # directly from snap.py. This interface method can't delegate correctly
+        # anyway (it lacks `other_pin`, which _compute_snap_tx requires), and a
+        # render-space solver here would change output. Raise rather than
+        # silently mis-solve.
+        raise NotImplementedError(
+            "solve_snap_tx is deferred (doc P1b); snap solves in placement space "
+            "via schematics.snap._compute_snap_tx, not through this interface."
+        )
 
     def label_bbox(self, text):
         """Rendered net-label box size in mm.
@@ -88,6 +98,14 @@ class Kicad9Backend:
         )
 
     def emit_label(self, pin, sheet_tx, *, at=None, angle=None, force=False):
+        # `at`/`angle` override placement is part of the interface contract but
+        # not implemented here (the renderer positions labels at the pin via
+        # net_label_to_sexp). Reject explicitly so callers can't assume override
+        # support that isn't present.
+        if at is not None or angle is not None:
+            raise NotImplementedError(
+                "emit_label override placement (at/angle) is not yet supported."
+            )
         return _ksch.net_label_to_sexp(pin, tx=sheet_tx, force=force)
 
     def emit_no_connect(self, x, y, *, uuid_seed=None):
