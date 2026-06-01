@@ -714,6 +714,26 @@ def gen_schematic(
 
         try:
             _place_and_classify(node, circuit, expansion_factor, **options)
+            if options.get("auto_stub", False) and options.get("label_clearance", False):
+                # Label-clearance Pass 2: Pass 1's classifiers just froze the
+                # final stub set, but the placement they ran on reserved no room
+                # for the resulting net labels. Re-run preprocessing (recomputes
+                # each part's lbl_bbox to include the now-stubbed pins' label
+                # boxes) and rebuild the node (NetTerminals are derived from stub
+                # state, so the rebuild also clears stale terminals), then place
+                # WITHOUT reclassifying — classify=False keeps the stubs frozen.
+                # finalize first (as the ERC-regen path does before its rebuild):
+                # removes Pass-1 NetTerminals and clears force/bbox/lbl_bbox/tx so
+                # the rebuild starts clean. It does NOT touch pin.stub/net._stub,
+                # so the frozen stub set survives.
+                finalize_parts_and_nets(circuit, **options)
+                preprocess_circuit(circuit, **options)
+                node = SchNode(
+                    circuit, tool_module, filepath, top_name, title, flatness
+                )
+                _place_and_classify(
+                    node, circuit, expansion_factor, classify=False, **options
+                )
             node.route(**options)
 
         except PlacementFailure as e:
