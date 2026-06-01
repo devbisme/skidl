@@ -1395,6 +1395,57 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
     # No-connect flags for NCNet pins.
     elements.extend(_gen_no_connect_flags(node, tx))
 
+    # Purge dangling wire remnants. Snap moves parts by reassigning part.tx,
+    # but a router wire to the old position can survive as a short stub whose
+    # far end touches nothing (KiCad flags these as wire_dangling). Drop any
+    # wire segment with an endpoint anchored to nothing — not a pin, label,
+    # junction, no-connect, or another wire endpoint. Iterate, since removing
+    # one stub can expose the next.
+    from collections import Counter as _Counter
+
+    _anchor_pts = set()
+    for _part in node.parts:
+        for _pin in _part:
+            _pp = getattr(_pin, "pt", Point(_pin.x, _pin.y))
+            _ptx = getattr(_pin.part, "tx", Tx())
+            _w = _pp * _ptx * tx
+            _anchor_pts.add((_round_mm(_w.x), _round_mm(_w.y)))
+    for _el in elements:
+        if isinstance(_el, (list, Sexp)) and len(_el) and _el[0] in (
+            "global_label", "label", "junction", "no_connect"
+        ):
+            for _s in _el:
+                if isinstance(_s, (list, Sexp)) and len(_s) >= 3 and _s[0] == "at":
+                    _anchor_pts.add((_s[1], _s[2]))
+                    break
+
+    def _wire_endpoints_of(_el):
+        for _s in _el:
+            if isinstance(_s, (list, Sexp)) and len(_s) and _s[0] == "pts":
+                return [
+                    (_xy[1], _xy[2])
+                    for _xy in _s[1:]
+                    if isinstance(_xy, (list, Sexp)) and len(_xy) >= 3 and _xy[0] == "xy"
+                ]
+        return []
+
+    for _ in range(8):  # iterate; cap as a safety backstop
+        _counts = _Counter()
+        _wires = []
+        for _i, _el in enumerate(elements):
+            if isinstance(_el, (list, Sexp)) and len(_el) and _el[0] == "wire":
+                _pts = _wire_endpoints_of(_el)
+                _wires.append((_i, _pts))
+                for _p in _pts:
+                    _counts[_p] += 1
+        _drop = set()
+        for _i, _pts in _wires:
+            if any(_p not in _anchor_pts and _counts.get(_p, 0) < 2 for _p in _pts):
+                _drop.add(_i)
+        if not _drop:
+            break
+        elements = [_el for _i, _el in enumerate(elements) if _i not in _drop]
+
     if node.flattened:
         # This node is flattened, so return elements for inclusion in the parent sheet.
         return elements, lib_symbols, pwr_symbols, ""
