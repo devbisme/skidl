@@ -34,6 +34,16 @@ from skidl.utilities import export_to_all
 # UUID namespace — same as gen_netlist.py so UUIDs are cross-referenceable.
 _NAMESPACE_UUID = uuid.UUID("7026fcc6-e1a0-409e-aaf4-6a17ea82654f")
 
+# Shared label/symbol orientation table, keyed on calc_pin_dir(). The angle is
+# chosen so a net label's text — and a power symbol's body — always extends
+# AWAY from the pin (clear of the part body) for every pin direction, including
+# mirrored parts. Both net_label_to_sexp and _power_symbol_to_sexp derive their
+# angle from this single table so they can never drift apart again. The vertical
+# values (U:270, D:90) are the corrected ones; an earlier table had them swapped,
+# which overprinted vertical net labels and mis-oriented vertical GND/rail
+# symbols. Do not change these without re-rendering the vertical + mirrored cases.
+_PIN_LABEL_ANGLE = {"R": 180, "L": 0, "U": 270, "D": 90}
+
 # ---------------------------------------------------------------------------
 # Power symbol support
 # ---------------------------------------------------------------------------
@@ -128,14 +138,13 @@ def _power_symbol_to_sexp(pin, net_name, tx):
 
     # Power symbol angle: align the symbol body with the schematic pin's
     # outward stub direction.  ``calc_pin_dir`` gives the world-space
-    # direction the pin's stub extends (where the symbol sits); orient_map
+    # direction the pin's stub extends (where the symbol sits); _PIN_LABEL_ANGLE
     # is the same label-orientation table used by net_label_to_sexp.  The
     # symbol's intrinsic pin angle (270 for GND, 90 for voltage rails) is
     # subtracted so e.g. a GND on a pin that exits to the right gets rotated
     # to face left into the pin instead of always hanging straight down.
-    orient_map = {"R": 180, "D": 270, "L": 0, "U": 90}
     intrinsic = _power_symbol_pin_angle(net_name)
-    angle = (orient_map[calc_pin_dir(pin)] - intrinsic) % 360
+    angle = (_PIN_LABEL_ANGLE[calc_pin_dir(pin)] - intrinsic) % 360
 
     lib_id = f"power:{net_name}"
     inst_uuid = _gen_uuid(f"pwr:{net_name}:{x}:{y}:{_pwr_counter[0]}")
@@ -754,18 +763,12 @@ def net_label_to_sexp(pin, tx=Tx(), force=False):
     #
     # Verified by rendering a resistor rotated/mirrored into all four
     # orientations: horizontal labels reach out to the side, vertical labels
-    # run clear above/below the body. This restores the vertical angles that
-    # 4bd527dc swapped -- with that swap, vertical labels overprint their own
-    # body now that deconflict_labels no longer nudges a label off its own
-    # component. Do not "simplify" justify back to `angle in (0, 90)` and the
-    # bare orient_map without re-rendering the vertical + mirrored cases.
-    label_geom = {
-        "R": (180, "right"),
-        "L": (0, "left"),
-        "U": (270, "right"),
-        "D": (90, "left"),
-    }
-    angle, justify = label_geom[calc_pin_dir(pin)]
+    # run clear above/below the body. The angle comes from the shared
+    # _PIN_LABEL_ANGLE table (so it can't drift from the power-symbol emitter);
+    # justify is "left" for the 0/90 angles and "right" otherwise, which exactly
+    # reproduces R:(180,right) L:(0,left) U:(270,right) D:(90,left).
+    angle = _PIN_LABEL_ANGLE[calc_pin_dir(pin)]
+    justify = "left" if angle in (0, 90) else "right"
 
     label = Sexp(
         [
