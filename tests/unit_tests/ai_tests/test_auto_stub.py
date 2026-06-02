@@ -703,3 +703,124 @@ class TestHierarchicalLabels:
         assert "hierarchical_label" in label_str
         assert "TEST_NET" in label_str
         assert "bidirectional" in label_str
+
+
+@requires_kicad_libs
+class TestSharedIcPinFan:
+    """Two 2-pin parts sharing ONE IC pin must fan out as a T-junction.
+
+    Regression for the ESP32 EN-pin bug: a pull-up R (to VCC) plus a filter
+    cap (to GND) both land on the MCU's EN/reset pin. The first part tees off
+    the pin fine, but the second used to chain colinearly back across the IC
+    body instead of staggering out, overlapping the symbol. A single shared IC
+    pin with >= 2 two-pin parts must trigger the same staggered fan that a row
+    of repeated IC-pin fans (e.g. 74HC165 switch + pull-down inputs) does.
+    """
+
+    def _snap_geometry_for_ic_pin(self, output_dir):
+        """Build IC + pull-up + cap on one pin; capture post-snap geometry.
+
+        Returns (tjunction_wire_count, parts_by_ref) for the node holding the
+        IC, captured at the final snap call (after placement/routing).
+        """
+        import importlib as _il
+        from skidl import Circuit, Net, Part
+        from skidl.geometry import Point
+        from skidl.schematics import snap as snap_mod
+
+        captured = {}
+        orig = snap_mod.snap_two_pin_parts
+
+        def _traced(node):
+            refs = [getattr(p, "ref", "") for p in node.parts]
+            orig(node)
+            # The node that owns the multi-pin IC (an op-amp here) is the one
+            # we care about; keep overwriting so we end up with the final
+            # (fully-placed) snap pass.
+            if any(len(getattr(p, "pins", [])) > 2 for p in node.parts):
+                geo = {
+                    "tj_wires": list(getattr(node, "_tjunction_wires", [])),
+                    "parts": {},
+                }
+                for p in node.parts:
+                    pins = []
+                    for pin in p.pins:
+                        w = pin.pt * p.tx
+                        net = getattr(pin, "net", None)
+                        pins.append(
+                            (getattr(pin, "num", "?"),
+                             net.name if net else None,
+                             round(w.x), round(w.y))
+                        )
+                    geo["parts"][getattr(p, "ref", "?")] = pins
+                captured["geo"] = geo
+
+        snap_mod.snap_two_pin_parts = _traced
+        # gen_schematic imported the symbol by value — patch its reference too.
+        gs = _il.import_module(f"skidl.tools.{get_default_tool()}.gen_schematic")
+        gs_orig = gs._snap_two_pin_parts
+        gs._snap_two_pin_parts = _traced
+        try:
+            circuit = Circuit(name="shared_pin_fan")
+            with circuit:
+                # Op-amp: a small multi-pin IC available in every KiCad install.
+                opamp = Part("Amplifier_Operational", "LM358", value="LM358")
+                vcc = Net("VCC")
+                gnd = Net("GND")
+                en = Net("EN")
+                # Drive the op-amp's other pins so it places sensibly.
+                opamp[8] += vcc
+                opamp[4] += gnd
+                # Share ONE IC pin (pin 3, +IN) between a pull-up and a cap.
+                opamp[3] += en
+                r_en = Part("Device", "R", value="10K")
+                r_en[1] += vcc
+                r_en[2] += en
+                c_en = Part("Device", "C", value="100nF")
+                c_en[1] += en
+                c_en[2] += gnd
+                circuit.generate_schematic(
+                    filepath=output_dir, top_name="shared_pin_fan",
+                    auto_stub=True,
+                )
+        finally:
+            snap_mod.snap_two_pin_parts = orig
+            gs._snap_two_pin_parts = gs_orig
+
+        assert "geo" in captured, "snap never ran on a node containing the IC"
+        return captured["geo"]
+
+    def test_shared_ic_pin_emits_tjunction_wire(self, output_dir):
+        """The shared IC pin gets a drawn T-junction wire (not a label-only stub)."""
+        geo = self._snap_geometry_for_ic_pin(output_dir)
+        assert geo["tj_wires"], (
+            "expected a T-junction wire off the shared IC pin; got none "
+            "(the fan fell back to a colinear chain)"
+        )
+
+    def test_shared_ic_pin_parts_stagger_apart(self, output_dir):
+        """R and C don't stack on the same line: their free pins differ in the
+        axis perpendicular to the IC pin, i.e. one fans up and one fans down."""
+        geo = self._snap_geometry_for_ic_pin(output_dir)
+        parts = geo["parts"]
+        assert "R1" in parts and "C1" in parts, parts.keys()
+
+        def free_pin(pin_list):
+            # the pin NOT on the shared EN net is the part's free (VCC/GND) pin
+            for num, net, x, y in pin_list:
+                if net != "EN":
+                    return x, y
+            return None
+
+        rx, ry = free_pin(parts["R1"])
+        cx, cy = free_pin(parts["C1"])
+        # Staggered fan => the two free pins separate along one axis; they must
+        # not coincide (which is what the colinear-overlap bug produced).
+        assert (rx, ry) != (cx, cy), (
+            f"R and C free pins coincide ({rx},{ry}) — not staggered"
+        )
+        # And they fan to opposite sides: separated on exactly one axis by a
+        # meaningful amount (perp_dir vs anti_perp).
+        assert (abs(rx - cx) > 100) or (abs(ry - cy) > 100), (
+            f"R free pin ({rx},{ry}) and C free pin ({cx},{cy}) too close"
+        )

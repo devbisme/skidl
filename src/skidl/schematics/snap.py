@@ -451,7 +451,14 @@ def _stagger_tjunctions(node, node_part_ids, snapped, occupied_pins, min_group=2
             continue
         matching = [(ip, pl) for ip, pl in pin_entries if len(pl) == dominant]
 
-        if len(matching) < min_group:
+        # Stagger a fan when EITHER the pattern repeats across >= min_group IC
+        # pins (e.g. a row of 74HC165 inputs, each switch + pull-down), OR a
+        # single IC pin carries >= 2 two-pin parts (e.g. an MCU EN pin with a
+        # pull-up to VCC + a filter cap to GND). The single-pin case is the
+        # body-overlap bug: without staggering, the first part tees off the pin
+        # but the second chains colinearly back across the IC body.
+        single_pin_fan = dominant >= 2 and len(matching) >= 1
+        if len(matching) < min_group and not single_pin_fan:
             continue
 
         ic_part = matching[0][1][0][4]
