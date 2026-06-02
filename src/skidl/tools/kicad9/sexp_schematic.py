@@ -1370,6 +1370,22 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
                 ]
             )
         )
+    # Junction dots where the power-cap trunk taps each cap +ve pin / the IC
+    # connector, so the right-angle bus resolves as one connected net.
+    for jpt in getattr(node, "_power_cap_junctions", []):
+        jp = jpt * tx
+        jx, jy = _round_mm(jp.x), _round_mm(jp.y)
+        elements.append(
+            Sexp(
+                [
+                    "junction",
+                    ["at", jx, jy],
+                    ["diameter", 0],
+                    ["color", 0, 0, 0, 0],
+                    ["uuid", _gen_uuid(f"pcjunction:{jx}:{jy}")],
+                ]
+            )
+        )
     wired_pin_ids.update(getattr(node, "_power_cap_suppressed_pins", set()))
 
     # Generate net labels for stubbed pins (skip pins that got direct wires).

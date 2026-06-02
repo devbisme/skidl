@@ -18,6 +18,7 @@ recording wire/suppression hints on the node:
     node._tjunction_wires            list[(x1,y1,x2,y2)]  (mils, pre-sheet-tx)
     node._tjunction_suppressed_pins  set[id(pin)]
     node._power_cap_wires            list[(x1,y1,x2,y2)]  (mils, pre-sheet-tx)
+    node._power_cap_junctions        list[Point]          (mils, pre-sheet-tx)
     node._power_cap_suppressed_pins  set[id(pin)]
 
 The tool-specific emitter (e.g. kicad9/sexp_schematic.py) reads these
@@ -178,6 +179,9 @@ def snap_two_pin_parts(node):
     # How many decoupling caps have already snapped onto each +supply pin, so
     # additional caps on the same pin fan out instead of stacking.
     power_pin_cap_idx = {}
+    # Per +supply pin: the snapped cap +ve pin positions, so the fan can be
+    # routed as a single right-angle bus instead of a star of diagonals.
+    power_cap_groups = {}
 
     for part in list(node.parts):
         if not _is_two_pin_part(part):
@@ -247,11 +251,10 @@ def snap_two_pin_parts(node):
             # labels. Suppress the cap +ve pin's label since the wire makes it
             # redundant.
             cap_pin_world = my_pin.pt * part.tx
-            power_cap_wires = getattr(node, "_power_cap_wires", [])
-            power_cap_wires.append(
-                (target_world.x, target_world.y, cap_pin_world.x, cap_pin_world.y)
+            grp = power_cap_groups.setdefault(
+                id(target_pin), {"target": target_world, "caps": []}
             )
-            node._power_cap_wires = power_cap_wires
+            grp["caps"].append(cap_pin_world)
             power_cap_suppressed = getattr(node, "_power_cap_suppressed_pins", set())
             power_cap_suppressed.add(id(my_pin))
             node._power_cap_suppressed_pins = power_cap_suppressed
@@ -262,6 +265,30 @@ def snap_two_pin_parts(node):
         # still claim their pin so the next part finds a fresh one.
         if not both_power:
             occupied_pins.add(id(target_pin))
+
+    # Route each +supply pin's decoupling caps as a right-angle bus rather than
+    # a star of diagonals: a single trunk along the (collinear) cap +ve pins,
+    # plus a short orthogonal connector from the IC pin onto the trunk, with a
+    # junction dot at every tap. The caps were placed at
+    # target + base*along + n*FAN_STEP*perp, so trunk and connector are
+    # axis-aligned by construction.
+    if power_cap_groups:
+        power_cap_wires = getattr(node, "_power_cap_wires", [])
+        power_cap_junctions = getattr(node, "_power_cap_junctions", [])
+        for grp in power_cap_groups.values():
+            t = grp["target"]
+            caps = grp["caps"]
+            # connector: IC pin -> first cap pin, along the pin's outward axis
+            power_cap_wires.append((t.x, t.y, caps[0].x, caps[0].y))
+            # trunk: consecutive cap +ve pins (the perpendicular fan row)
+            for a, b in zip(caps, caps[1:]):
+                power_cap_wires.append((a.x, a.y, b.x, b.y))
+            # junction at every tap where 3 segments/pins meet (all taps except
+            # the trunk's far endpoint, which is a plain wire-end-on-pin)
+            for cap in caps[:-1]:
+                power_cap_junctions.append(cap)
+        node._power_cap_wires = power_cap_wires
+        node._power_cap_junctions = power_cap_junctions
 
     for _iteration in range(5):
         newly_snapped = set()
