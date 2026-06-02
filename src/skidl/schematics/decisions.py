@@ -390,6 +390,17 @@ def deconflict_labels(labels, occupied_seed, node, backend, sheet_tx):
         for cb in comp_bboxes:
             if not lbl_bbox.intersects(cb):
                 continue
+            # Skip the label's OWN component: a net label is anchored at its pin,
+            # which sits on that part's body-edge by construction, so an
+            # outward-pointing on-pin label always grazes its own bbox. That is
+            # correct placement, not a conflict — nudging it here is what stepped
+            # every label off its pin (one dcwire per label). Only relocate when
+            # the label projects into a DIFFERENT body it isn't anchored to.
+            if (
+                cb.min.x - 0.05 <= lx <= cb.max.x + 0.05
+                and cb.min.y - 0.05 <= ly <= cb.max.y + 0.05
+            ):
+                continue
             ax, ay = lx, ly  # original anchor (on the pin)
             if abs(dx) > abs(dy):
                 offset = (cb.max.x - lx + MARGIN_MM) if dx > 0 else (cb.min.x - lx - MARGIN_MM)
