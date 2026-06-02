@@ -76,6 +76,31 @@ def _extract_power_lib_symbol(name):
     return pwr_sym_sexp
 
 
+def _power_symbol_pin_angle(net_name):
+    """Return the intrinsic pin angle (deg) of a power symbol's connection pin.
+
+    KiCad power symbols carry a single pin whose ``(at x y ANGLE)`` describes
+    the direction the symbol's body extends at instance-angle 0 (ground
+    symbols point down -> 270, voltage rails point up -> 90).  We need this so
+    we can rotate the *instance* to align the symbol body with the schematic
+    pin's outward stub direction.  Returns 270 (ground-style) if the symbol or
+    its pin can't be found, which leaves the historical angle=0 behaviour for
+    the common ground case.
+    """
+    try:
+        sym = pwr_symbol_sexp_dict.get(net_name)
+        if sym is None:
+            return 270
+        pins = sym.search("/symbol/symbol/pin") or sym.search("/symbol/pin")
+        for p in pins:
+            at = p.search("/pin/at")
+            if at:
+                return float(at[0][3]) % 360
+    except Exception:
+        pass
+    return 270
+
+
 def _power_symbol_to_sexp(pin, net_name, tx):
     """Generate a power symbol instance S-expression.
 
@@ -101,12 +126,16 @@ def _power_symbol_to_sexp(pin, net_name, tx):
     x = _round_mm(pt.x)
     y = _round_mm(pt.y)
 
-    # Power symbol angle: the symbol's pin orientation determines how
-    # it should be rotated.  For most power symbols, the connection pin
-    # is at (0, 0) and the graphical part extends in one direction.
-    # We don't rotate — KiCad power symbols are designed to display correctly
-    # at angle 0 (voltage symbols point up, GND symbols point down).
-    angle = 0
+    # Power symbol angle: align the symbol body with the schematic pin's
+    # outward stub direction.  ``calc_pin_dir`` gives the world-space
+    # direction the pin's stub extends (where the symbol sits); orient_map
+    # is the same label-orientation table used by net_label_to_sexp.  The
+    # symbol's intrinsic pin angle (270 for GND, 90 for voltage rails) is
+    # subtracted so e.g. a GND on a pin that exits to the right gets rotated
+    # to face left into the pin instead of always hanging straight down.
+    orient_map = {"R": 180, "D": 270, "L": 0, "U": 90}
+    intrinsic = _power_symbol_pin_angle(net_name)
+    angle = (orient_map[calc_pin_dir(pin)] - intrinsic) % 360
 
     lib_id = f"power:{net_name}"
     inst_uuid = _gen_uuid(f"pwr:{net_name}:{x}:{y}:{_pwr_counter[0]}")
@@ -1069,12 +1098,67 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
             if pin.stub and pin.is_connected():
                 nets_with_real_pins.add(pin.net.name)
 
+    # ON-PIN LABELS (single-real-pin routed nets, incl. cross-sheet):
+    # A routed net with exactly ONE real component pin ON THIS SHEET gets its
+    # net label emitted AT that pin instead of at the NetTerminal pin (which
+    # sits at the routing-channel edge, off the component body — the off-pin
+    # step-out the user is chasing). Cross-sheet connectivity is preserved
+    # because the relocated label keeps the same global_label NAME, which KiCad
+    # resolves across all sheets regardless of position; the NetTerminal was
+    # only ever the carrier for that name. Done purely at emit time: the net is
+    # NOT marked stubbed and no place/route state is mutated.
+    # The route wire (pin -> channel-edge NetTerminal pin) is suppressed for
+    # this net: it can't be left in, because the dangling-wire purge below
+    # treats the NetTerminal pin as an anchor (it iterates node.parts, which
+    # includes NetTerminals), so the wire would survive with its far end on the
+    # now-unlabelled terminal -> wire_dangling. With exactly one real pin there
+    # is nothing else on-sheet for that wire to connect, so the on-pin label is
+    # the net's sole connectivity marker — the stubbed-single-pin shape KiCad
+    # accepts. Nets with >=2 real pins on-sheet keep the NetTerminal + their
+    # wires (the wire carries real intra-sheet connectivity).
+    node_part_ids = {id(p) for p in node.parts}
+    _onpin_enabled = os.environ.get("SKIDL_ONPIN_LABELS", "1") != "0"
+
+    def _onpin_real_pin(nt_net):
+        """Return the lone on-sheet real pin for an on-pin-eligible net, else None.
+
+        Eligible iff exactly one of the net's pins is a non-NetTerminal part on
+        THIS node (off-sheet pins are ignored — they reconnect by label name),
+        and that pin is routed (not already self-labelling via a stub).
+        """
+        if not _onpin_enabled:
+            return None
+        real_pins = [
+            np
+            for np in nt_net.pins
+            if id(np.part) in node_part_ids and not isinstance(np.part, NetTerminal)
+        ]
+        if len(real_pins) != 1:
+            return None
+        rp = real_pins[0]
+        if not rp.is_connected() or getattr(rp, "stub", False):
+            return None  # stubbed pins already self-label; only handle routed pins
+        return rp
+
+    onpin_net_ids = set()  # id(net) of nets relocated on-pin (wire/junction suppressed)
+
     # Generate part S-expressions.
     for part in node.parts:
         if isinstance(part, NetTerminal):
             # NetTerminals become net labels (unless a real pin already labels the net).
             pin = part.pins[0]
-            if pin.is_connected() and pin.net.name in nets_with_real_pins:
+            if not pin.is_connected():
+                continue
+            if pin.net.name in nets_with_real_pins:
+                continue
+            real_pin = _onpin_real_pin(pin.net)
+            if real_pin is not None:
+                # Emit the label at the real component pin, suppress the
+                # NetTerminal (channel-edge) label + route wire for this net.
+                label = net_label_to_sexp(real_pin, tx=tx, force=True)
+                if label:
+                    elements.append(label)
+                    onpin_net_ids.add(id(pin.net))
                 continue
             label = net_label_to_sexp(pin, tx=tx, force=True)
             if label:
@@ -1085,8 +1169,15 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
     # Generate wire S-expressions (split at junction points).
     # Skip nets that snap converted to stubs after routing — their routed
     # geometry is stale now that the parts moved, so they use labels instead.
+    # Also skip nets relocated to an on-pin label above: their only route wire
+    # ran to the now-unlabelled NetTerminal (channel-edge) pin, which the
+    # dangling-wire purge cannot remove (that pin is itself an anchor). The
+    # on-pin label is the net's sole connectivity marker. Keyed by id(net) so a
+    # name-collision can't suppress a different net's wires.
     for net, wire in node.wires.items():
         if getattr(net, "_stub", False):
+            continue
+        if id(net) in onpin_net_ids:
             continue
         net_junctions = node.junctions.get(net, [])
         elements.extend(wire_to_sexp(net, wire, tx=tx, junctions=net_junctions))
@@ -1094,6 +1185,8 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
     # Generate junction S-expressions.
     for net, junctions in node.junctions.items():
         if getattr(net, "_stub", False):
+            continue
+        if id(net) in onpin_net_ids:
             continue
         elements.extend(junction_to_sexp(net, junctions, tx=tx))
 
@@ -1136,6 +1229,24 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
                     ["pts", ["xy", x1, y1], ["xy", x2, y2]],
                     ["stroke", ["width", 0], ["type", "default"]],
                     ["uuid", _gen_uuid(f"tjwire:{x1}:{y1}:{x2}:{y2}")],
+                ]
+            )
+        )
+    # PROPOSAL (off unless snap._ENABLE_IC_FAN_PIN_REWIRE): drop a junction dot
+    # at each fan's shared point so the IC pin, its wire, and the >=2 coincident
+    # fan pins resolve as one net by connectivity, letting the redundant IC-pin
+    # SW_n label be suppressed without dangling the wire.
+    for jpt in getattr(node, "_tjunction_junctions", []):
+        jp = jpt * tx
+        jx, jy = _round_mm(jp.x), _round_mm(jp.y)
+        elements.append(
+            Sexp(
+                [
+                    "junction",
+                    ["at", jx, jy],
+                    ["diameter", 0],
+                    ["color", 0, 0, 0, 0],
+                    ["uuid", _gen_uuid(f"tjjunction:{jx}:{jy}")],
                 ]
             )
         )
