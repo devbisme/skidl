@@ -31,6 +31,15 @@ from skidl.geometry import Point, Tx
 from skidl.schematics.net_terminal import NetTerminal
 
 
+# PROPOSAL FLAG (default OFF): when True, _stagger_tjunctions drops a junction
+# dot at each fan's shared point and suppresses the IC-pin net label, relying on
+# pure pin-to-pin/wire connectivity for the fan net.  This removes the redundant
+# SW_n label but MUST be validated with real IC-fan ERC (kicad-cli sch erc) on a
+# board that actually triggers staggered T-junction fans before being enabled,
+# because the IC-pin label is currently load-bearing (see finding #7).
+_ENABLE_IC_FAN_PIN_REWIRE = False
+
+
 # Pattern matching common power net names (kept in sync with the gen wrapper).
 _POWER_NET_RE = re.compile(
     r"^(\+\d[\d.]*V[\d]*|GND|AGND|DGND|PGND|VCC|VDD|VSS|VEE|VBUS|VBAT|AVCC|AVDD|DVCC|DVDD)$",
@@ -453,6 +462,7 @@ def _stagger_tjunctions(node, node_part_ids, snapped, occupied_pins, min_group=2
 
     # Phase 2: place staggered parts at final IC positions.
     junction_wires = getattr(node, "_tjunction_wires", [])
+    junction_dots = getattr(node, "_tjunction_junctions", [])
     suppressed_pins = set()
 
     for plan in stagger_plans:
@@ -514,7 +524,20 @@ def _stagger_tjunctions(node, node_part_ids, snapped, occupied_pins, min_group=2
                 (ic_pin_world.x, ic_pin_world.y, ox, oy)
             )
 
+            # PROPOSAL (needs real IC-fan ERC before enabling — see note below):
+            # The fan's pin-to-pin geometry is already a fully-connected chain:
+            # a wire IC-pin -> junction_pt and >= 2 fan `my_pin`s coincident at
+            # junction_pt.  With a junction dot dropped at the shared point the
+            # net is resolvable by connectivity alone, so the SW_n label that
+            # currently sits on the IC pin (load-bearing today, finding #7) can
+            # be suppressed without dangling the wire.  Three or more pins meet
+            # at junction_pt (>=2 fan pins + 1 wire end) so a dot is required.
+            if _ENABLE_IC_FAN_PIN_REWIRE and len(parts_list) >= 2:
+                junction_dots.append(Point(ox, oy))
+                suppressed_pins.add(id(ic_pin))
+
     node._tjunction_wires = junction_wires
+    node._tjunction_junctions = junction_dots
     node._tjunction_suppressed_pins = suppressed_pins
 
 
