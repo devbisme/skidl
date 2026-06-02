@@ -71,6 +71,15 @@ def _is_power_net(net):
     return name.startswith("+") or bool(_POWER_NET_RE.match(name))
 
 
+_GND_NET_RE = re.compile(r"^(A|D|P)?GND$|^(VSS|VEE|GROUND)$", re.I)
+
+
+def _is_gnd_net(net):
+    """Return True if net is a ground rail (GND, AGND, VSS, etc.)."""
+    name = getattr(net, "name", "")
+    return bool(_GND_NET_RE.match(name))
+
+
 def _pin_world_orient(pin, part):
     """Get the world-space outward direction from a pin after part rotation.
 
@@ -157,6 +166,9 @@ def snap_two_pin_parts(node):
     node_part_ids = {id(p) for p in node.parts}
     snapped = set()
     occupied_pins = set()
+    # How many decoupling caps have already snapped onto each +supply pin, so
+    # additional caps on the same pin fan out instead of stacking.
+    power_pin_cap_idx = {}
 
     for part in list(node.parts):
         if not _is_two_pin_part(part):
@@ -177,6 +189,10 @@ def snap_two_pin_parts(node):
 
         for my_p, other_net in [(p1, net1), (p2, net2)]:
             if _is_power_net(other_net) and not both_power:
+                continue
+            # Decoupling caps (both pins on power) anchor only to the +supply
+            # pin, never GND — this clusters them at the IC's VIN/VDD pin.
+            if both_power and _is_gnd_net(other_net):
                 continue
             for net_pin in other_net.pins:
                 other_part = net_pin.part
@@ -203,8 +219,19 @@ def snap_two_pin_parts(node):
 
         part.tx = _compute_snap_tx(my_pin, other_pin, target_world, extend_dir)
         if both_power:
+            # Multiple decoupling caps share one +supply pin: push each out by a
+            # base offset along the pin, then fan successive caps perpendicular
+            # so they sit in a readable row instead of stacking on top of
+            # each other.
+            n = power_pin_cap_idx.get(id(target_pin), 0)
+            power_pin_cap_idx[id(target_pin)] = n + 1
             _offset_dir = {"R": (200, 0), "L": (-200, 0), "U": (0, 200), "D": (0, -200)}
-            dx, dy = _offset_dir.get(extend_dir, (200, 0))
+            ax, ay = _offset_dir.get(extend_dir, (200, 0))
+            # Unit perpendicular to the outward pin direction (rotate 90°).
+            perp_x, perp_y = (-ay // 200, ax // 200)
+            FAN_STEP = 300
+            dx = ax + perp_x * FAN_STEP * n
+            dy = ay + perp_y * FAN_STEP * n
             part.tx = part.tx.move(Point(dx, dy))
             # Emit a wire from the IC's power pin back to the now-offset cap +ve pin
             # so the connection is visually drawn rather than relying on two power
@@ -221,7 +248,11 @@ def snap_two_pin_parts(node):
             node._power_cap_suppressed_pins = power_cap_suppressed
         _stub_snapped_part(part)
         snapped.add(id(part))
-        occupied_pins.add(id(target_pin))
+        # Decoupling caps fan out off a shared +supply pin, so don't mark it
+        # occupied — let later caps cluster on the same pin. Single-target snaps
+        # still claim their pin so the next part finds a fresh one.
+        if not both_power:
+            occupied_pins.add(id(target_pin))
 
     for _iteration in range(5):
         newly_snapped = set()
