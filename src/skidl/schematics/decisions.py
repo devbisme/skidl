@@ -342,6 +342,24 @@ def deconflict_labels(labels, occupied_seed, node, backend, sheet_tx):
     def _on_grid(v):
         return abs(v / GRID - round(v / GRID)) < 0.02
 
+    # Names of stubbed nets on this node. A stubbed net's label sits ON its pin
+    # and connectivity is carried by the net NAME, not by a wire. Nudging such a
+    # label off its pin (and adding a connecting wire) defeats the stub design:
+    # the wire it would draw runs the full width of whatever neighbouring body
+    # the label happens to graze, producing the long cross-sheet wires the user
+    # sees. So these labels must stay put — they are excluded from relocation
+    # below (overlap is harmless: the name still resolves connectivity).
+    stub_net_names = set()
+    for part in node.parts:
+        if isinstance(part, NetTerminal):
+            continue
+        for pin in part:
+            net = getattr(pin, "net", None)
+            if net is None:
+                continue
+            if getattr(pin, "stub", False) or getattr(net, "stub", False) or getattr(net, "_stub", False):
+                stub_net_names.add(net.name)
+
     # Component body bboxes in sheet (mm) coordinates.
     comp_bboxes = []
     for part in node.parts:
@@ -377,6 +395,10 @@ def deconflict_labels(labels, occupied_seed, node, backend, sheet_tx):
         # Records without a resolved angle only seeded `occupied` above
         # (they matched the original's len(at)<4 case) and are not moved.
         if langle is None:
+            continue
+        # Stubbed-net labels are connected by NAME and must stay on their pin;
+        # relocating them would draw a long connecting wire across a neighbour.
+        if net in stub_net_names:
             continue
         # Only spread labels whose anchor (pin) is already on-grid.
         if not (_on_grid(lx) and _on_grid(ly)):
