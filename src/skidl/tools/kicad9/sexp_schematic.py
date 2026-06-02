@@ -747,9 +747,25 @@ def net_label_to_sexp(pin, tx=Tx(), force=False):
     part_tx = getattr(pin.part, "tx", Tx())
     pt = pin_pt * part_tx * tx
 
-    # Map pin orientation to pin angle (degrees) and label justification.
-    orient_map = {"R": (180,"right"), "D": (90,"left"), "L": (0,"left"), "U": (270,"right")}
-    angle, justify = orient_map[calc_pin_dir(pin)]
+    # Angle + justification chosen so the label text always extends AWAY from
+    # the pin (and therefore clear of the part body), for every pin direction
+    # including mirrored parts -- calc_pin_dir() already folds the part's full
+    # transform (rotation + mirror) into the reported direction.
+    #
+    # Verified by rendering a resistor rotated/mirrored into all four
+    # orientations: horizontal labels reach out to the side, vertical labels
+    # run clear above/below the body. This restores the vertical angles that
+    # 4bd527dc swapped -- with that swap, vertical labels overprint their own
+    # body now that deconflict_labels no longer nudges a label off its own
+    # component. Do not "simplify" justify back to `angle in (0, 90)` and the
+    # bare orient_map without re-rendering the vertical + mirrored cases.
+    label_geom = {
+        "R": (180, "right"),
+        "L": (0, "left"),
+        "U": (270, "right"),
+        "D": (90, "left"),
+    }
+    angle, justify = label_geom[calc_pin_dir(pin)]
 
     label = Sexp(
         [
