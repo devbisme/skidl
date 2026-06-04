@@ -1416,9 +1416,23 @@ class Placer:
                 self.ref = "REF"  # Name for block in debug drawing.
                 self.tag = tag  # FIXME: what is this for?
 
-        # Create a list of blocks from the groups of interconnected parts and the group of floating parts.
+        # Create a list of blocks from the groups of interconnected parts and the
+        # group of floating parts. Each connected group is one block; the floating
+        # (unconnected) parts are normally lumped into a single block.
+        #
+        # EXCEPTION: when grid_blocks is requested, the whole point is to arrange
+        # the individual units (a bank of pots, LEDs, jacks) in a grid — so each
+        # floating part becomes its OWN block. Lumping them into one block would
+        # leave their internal layout to the force-directed floating-parts placer,
+        # and the grid would only ever shuffle that one blob around.
+        if options.get("grid_blocks", False):
+            block_lists = [(g, 1) for g in connected_parts] + \
+                          [([p], 2) for p in floating_parts]
+        else:
+            block_lists = [(g, 1) for g in connected_parts] + [(floating_parts, 2)]
+
         part_blocks = []
-        for part_list in connected_parts + [floating_parts]:
+        for part_list, tag in block_lists:
             if not part_list:
                 # No parts in this list for some reason...
                 continue
@@ -1431,9 +1445,6 @@ class Placer:
                 if not snap_pt:
                     # Use the first snapping point of a part you can find.
                     snap_pt = get_snap_pt(part)
-
-            # Tag indicates the type of part block.
-            tag = 2 if (part_list is floating_parts) else 1
 
             # pad the bounding box so part blocks don't butt-up against each other.
             pad = BLK_EXT_PAD
@@ -1498,6 +1509,87 @@ class Placer:
 
         if not part_blocks:
             # Abort if nothing to place.
+            return
+
+        # Opt-in floorplan: pack the wire-connected units into an orderly,
+        # size-aware grid (shelf packing) instead of force-directed block
+        # placement, so groups don't land scattered / overlapping ("dropped
+        # on"). Board-agnostic — it just packs whatever groups exist by their
+        # bounding-box sizes. Each `part_block` already carries its padded
+        # group bbox; we translate the block so its bbox lands on a shelf slot.
+        if options.get("grid_blocks", False):
+            pad = BLK_EXT_PAD
+            # Uniform-cell grid floorplan: lay the blocks out in an orderly array
+            # with aligned rows AND columns, so related groups stay together
+            # instead of being flung to opposite corners by force-directed
+            # placement.
+            #
+            # The cell size is taken from the MEDIAN block, not the max: a board
+            # is usually a bank of same-size units (pots, LEDs, jacks) plus a few
+            # big outliers (ICs, a floating lump). Sizing on the max would make
+            # every cell as wide as the biggest block — the uniform units would
+            # then float in 6x-too-wide cells and read as scatter, not a grid.
+            # Outliers (> 1.8x the median in either axis) are parked in their own
+            # row above the grid rather than inflating every cell.
+            def _median(vals):
+                s = sorted(vals)
+                return s[len(s) // 2] if s else 0.0
+
+            med_w = _median([b.place_bbox.w for b in part_blocks])
+            med_h = _median([b.place_bbox.h for b in part_blocks])
+
+            def _is_outlier(b):
+                return (b.place_bbox.w > 1.8 * med_w or
+                        b.place_bbox.h > 1.8 * med_h)
+
+            grid_set = [b for b in part_blocks if not _is_outlier(b)]
+            outliers = [b for b in part_blocks if _is_outlier(b)]
+            if not grid_set:  # everything is "outlier" (all same-ish) -> grid all
+                grid_set, outliers = part_blocks, []
+
+            n = len(grid_set)
+            # Column count from the ITEM COUNT (landscape-biased), not the cell
+            # aspect: tall units (a pot+cap+label stack is ~3:1) would otherwise
+            # blow the column count up to fill a 1.6:1 sheet, leaving a near-empty
+            # last row. round((n*1.6)**0.5) gives a tidy, near-full grid: 24->6
+            # (a full 6x4), 12->4 (4x3).
+            cols = max(1, round((n * 1.6) ** 0.5)) if n else 1
+            # Fixed column pitch (= widest unit) so columns line up; per-row
+            # height (below) so rows pack tight instead of one uniform tall cell.
+            col_pitch = max((b.place_bbox.w for b in grid_set), default=med_w) + pad
+
+            # Park outliers in a row just above the grid (negative y), L-to-R.
+            ox = 0.0
+            for b in outliers:
+                cy = -(b.place_bbox.h + pad)
+                b.tx = Tx().move(Point(ox, cy) - b.place_bbox.min)
+                snap_to_grid(b)
+                ox += b.place_bbox.w + pad
+
+            # Largest-first so big units fill the top rows and it visually steps
+            # down to smaller ones; each row gets its own height.
+            order = sorted(
+                grid_set,
+                key=lambda b: b.place_bbox.w * b.place_bbox.h,
+                reverse=True,
+            )
+            y = 0.0
+            for r0 in range(0, n, cols):
+                row_blocks = order[r0:r0 + cols]
+                row_h = max(b.place_bbox.h for b in row_blocks) + pad
+                for col, b in enumerate(row_blocks):
+                    cx = col * col_pitch + (col_pitch - b.place_bbox.w) / 2.0
+                    cy = y + (row_h - b.place_bbox.h) / 2.0
+                    b.tx = Tx().move(Point(cx, cy) - b.place_bbox.min)
+                    snap_to_grid(b)
+                y += row_h
+
+            for blk in part_blocks:
+                try:
+                    blk.src.tx = blk.tx
+                except AttributeError:
+                    for part in blk.src:
+                        part.tx *= blk.tx
             return
 
         # For large block counts, use a simple grid layout instead of
