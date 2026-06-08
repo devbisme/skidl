@@ -129,7 +129,11 @@ def test_deconflicted_labels_stay_connected(output_dir):
         e, b, c = Net("ENET"), Net("BNET"), Net("CNET")
         b.netio = "i"
         e.stub, b.stub, c.stub = True, True, True
-        qt = Part(lib="Transistor_BJT", name="Q_PNP_CBE", dest=TEMPLATE)
+        try:
+            qt = Part(lib="Device", name="Q_PNP_CBE", dest=TEMPLATE)
+        except ValueError:
+            qt = Part(lib="Transistor_BJT", name="Q_PNP_CBE", dest=TEMPLATE)
+        # qt = Part(lib="Transistor_BJT", name="Q_PNP_CBE", dest=TEMPLATE)
         for q, tx in zip(qt(8), ["", "H", "V", "R", "L", "VL", "HR", "LV"]):
             q["E B C"] += e, b, c
             q.ref = "Q_" + tx
