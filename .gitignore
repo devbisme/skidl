@@ -62,6 +62,7 @@ tests/test_data/schematic_output/
 tests/examples/arduino_uno_r3_from_scratch/
 tests/examples/*/*.sch
 tests/examples/*/*.sch-bak
+tests/examples/*/*.kicad_sch
 tests/examples/*/*.pro
 **/\.ipynb_checkpoints/
 
@@ -186,4 +187,5 @@ bin
 uno_r3
 *.bak
 *.pkl
+db.pickle
 

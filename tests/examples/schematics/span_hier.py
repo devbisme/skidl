@@ -1,8 +1,8 @@
 from skidl import *
 
-r = Part("Device.lib", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE)
+r = Part("Device", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE)
 q = Part(
-    lib="Device.lib",
+    lib="Transistor_BJT",
     name="Q_PNP_CBE",
     footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2",
     dest=TEMPLATE,

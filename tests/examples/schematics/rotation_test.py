@@ -1,6 +1,6 @@
 from skidl import PartTmplt, generate_schematic
 
-r = PartTmplt("Device.lib", "R")
+r = PartTmplt("Device", "R")
 
 r(symtx="RL") & r() & r(symtx="RL")
 

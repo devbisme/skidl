@@ -3,7 +3,7 @@ from skidl import *
 gnd = Part("power", "GND")
 vcc = Part("power", "VCC")
 
-opamp = Part(lib="Amplifier_Operational.lib", name="AD8676xR", symtx="V")
+opamp = Part(lib="Amplifier_Operational", name="AD8676xR", symtx="V")
 
 for part in default_circuit.parts:
     part.validate()

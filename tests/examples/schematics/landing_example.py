@@ -1,7 +1,5 @@
 from skidl import *
 
-set_default_tool(KICAD5)
-
 def my_empty_footprint_handler(part):
     part.fields["footprint"] = ":"
     part.footprint = ":"

@@ -29,8 +29,8 @@ from skidl.schematics.route import RoutingFailure
 
 
 # Skip entire module unless default tool is KICAD5.
-if os.getenv("SKIDL_TOOL") not in ('KICAD5','KICAD9'):
-    pytest.skip("Tests require KICAD5 or KICAD9 as default tool", allow_module_level=True)
+# if os.getenv("SKIDL_TOOL") not in ('KICAD5','KICAD9'):
+#     pytest.skip("Tests require KICAD5 or KICAD9 as default tool", allow_module_level=True)
 
 
 sch_options = {}
