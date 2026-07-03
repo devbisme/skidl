@@ -5,6 +5,7 @@
 import pytest
 
 from skidl import Part, netlist_to_skidl, generate_netlist, TEMPLATE, Net, subcircuit
+from skidl.netlist_to_skidl import HierarchicalConverter
 
 
 def test_parser_1():
@@ -59,3 +60,65 @@ def test_parser_1():
 
     # Check that the original and new circuits are the same.
     assert original_tuple == new_tuple
+
+
+def test_parser_boolean_property_without_value():
+    """Test parsing a netlist with a property that has no value.
+
+    KiCad 10 exports boolean component properties (e.g. exclude_from_bom,
+    exclude_from_sim) as `(property (name "..."))` without a `(value ...)`
+    child. The parser must treat the missing value as an empty string
+    instead of crashing.
+    """
+
+    # Minimal KiCad 10 style netlist with a valueless boolean property.
+    netlist = """
+(export
+    (version "E")
+    (design
+        (source "test.kicad_sch")
+        (date "2026-07-02T16:56:33")
+        (tool "Eeschema 10.0.3")
+        (sheet
+            (number "1")
+            (name "/")
+            (tstamps "/")))
+    (components
+        (comp
+            (ref "P5")
+            (value "MOUNTING_HOLE")
+            (footprint "Footprints:MountingHole_3.2mm_M3_DIN965_Pad")
+            (libsource
+                (lib "ecc83-pp")
+                (part "CONN_1")
+                (description ""))
+            (property
+                (name "Sheetname")
+                (value ""))
+            (property
+                (name "exclude_from_bom"))
+            (sheetpath
+                (names "/")
+                (tstamps "/"))
+            (tstamps "00000000-0000-0000-0000-000054a5890a")))
+    (nets
+        (net
+            (code "1")
+            (name "GND")
+            (class "Default")
+            (node
+                (ref "P5")
+                (pin "1")
+                (pintype "passive")))))
+"""
+
+    # Parsing must not raise and the boolean property value must be "".
+    converter = HierarchicalConverter(netlist)
+    part = converter.netlist.parts[0]
+    prop_values = {prop.name: prop.value for prop in part.properties}
+    assert prop_values["exclude_from_bom"] == ""
+    assert prop_values["Sheetname"] == ""
+
+    # The full netlist-to-SKiDL conversion must also succeed.
+    code = netlist_to_skidl(netlist)
+    assert "P5" in code

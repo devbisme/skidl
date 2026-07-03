@@ -146,7 +146,10 @@ class PropertySexp:
 
     def __init__(self, sexp):
         self.name = sexp.search("/property/name").value
-        self.value = sexp.search("/property/value").value
+        # KiCad can export boolean properties (e.g. exclude_from_bom) without
+        # a value, so treat a missing value as an empty string.
+        found = sexp.search("/property/value")
+        self.value = found.value if len(found) else ""
 
 
 class PinSexp:
