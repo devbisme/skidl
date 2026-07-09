@@ -59,3 +59,48 @@ def test_parser_1():
 
     # Check that the original and new circuits are the same.
     assert original_tuple == new_tuple
+
+
+def test_parser_missing_root_sheet():
+    """Hierarchy whose root sheet is not enumerated must still convert.
+
+    Some exporters (cs-native netlists) list only the leaf sheets, so a net
+    spanning two subsheets has a lowest-common-ancestor sheet ('/') that is
+    absent from the design/sheet block. The converter must synthesize the
+    missing ancestor instead of raising ``KeyError: '/'`` in analyze_nets.
+    """
+    netlist = """
+(export (version "E")
+  (design
+    (sheet (number "1") (name "/sub_a/") (tstamps "/a/"))
+    (sheet (number "2") (name "/sub_b/") (tstamps "/b/")))
+  (components
+    (comp (ref "R1") (value "1k")
+      (libsource (lib "Device") (part "R"))
+      (sheetpath (names "/sub_a/") (tstamps "/a/")))
+    (comp (ref "R2") (value "2k")
+      (libsource (lib "Device") (part "R"))
+      (sheetpath (names "/sub_b/") (tstamps "/b/"))))
+  (nets
+    (net (code "1") (name "/SHARED")
+      (node (ref "R1") (pin "2"))
+      (node (ref "R2") (pin "1")))
+    (net (code "2") (name "/sub_a/A")
+      (node (ref "R1") (pin "1")))
+    (net (code "3") (name "/sub_b/B")
+      (node (ref "R2") (pin "2")))))
+"""
+    import tempfile
+    import os
+
+    out_dir = tempfile.mkdtemp()
+    # Must not raise KeyError: '/'.
+    netlist_to_skidl(netlist, output_dir=out_dir)
+
+    files = set(os.listdir(out_dir))
+    # One @subcircuit file per leaf sheet, plus a synthesized top and a main.
+    assert {"main.py", "top.py", "sub_a.py", "sub_b.py"} <= files
+    top = open(os.path.join(out_dir, "top.py")).read()
+    # The shared net is passed from the synthesized root into both subsheets.
+    assert "sub_a(" in top and "sub_b(" in top
+    assert "SHARED" in top
