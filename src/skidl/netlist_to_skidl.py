@@ -154,10 +154,7 @@ class PartSexp:
             self.lib = sexp.search("/comp/libsource/lib").value
         except ValueError:
             self.lib = ""
-        try:
-            self.properties = [PropertySexp(prop) for prop in sexp.search("/comp/property")]
-        except ValueError:
-            self.properties = []
+        self.properties = [PropertySexp(prop) for prop in sexp.search("/comp/property")]
 
 
 class PropertySexp:
@@ -167,7 +164,10 @@ class PropertySexp:
 
     def __init__(self, sexp):
         self.name = sexp.search("/property/name").value
-        self.value = sexp.search("/property/value").value
+        # KiCad can export boolean properties (e.g. exclude_from_bom) without
+        # a value, so treat a missing value as an empty string.
+        found = sexp.search("/property/value")
+        self.value = found.value if len(found) else ""
 
 
 class PinSexp:
@@ -234,7 +234,6 @@ class HierarchicalConverter:
         self.netlist = NetlistSexp(Sexp(text))
         self.sheets = {}
         self.tab = " " * 4
-
 
     def find_lowest_common_ancestor(self, sheet1, sheet2):
         """
