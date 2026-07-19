@@ -298,6 +298,46 @@ class HierarchicalConverter:
                 f"  Found sheet: original_name='{sheet.path}', final='{sheet.name}', parent='{sheet.parent}'"
             )
 
+        # Register any ancestor sheet that was referenced as a parent but never
+        # enumerated in the netlist (typically the root '/'). Some exporters --
+        # notably cs-native netlists -- list only the leaf sheets, so a net whose
+        # lowest-common-ancestor is an unlisted sheet would otherwise raise
+        # KeyError in analyze_nets (self.sheets[origin_sheet]). Walk parent chains
+        # up to the root and synthesize the missing intermediate sheets.
+        auto_index = 0
+        pending = [s.parent for s in list(self.sheets.values()) if s.parent]
+        while pending:
+            path = pending.pop()
+            if not path or path in self.sheets:
+                continue
+            stripped = path.rstrip("/")
+            gp = os.path.dirname(stripped)
+            if gp:
+                if not gp.endswith("/"):
+                    gp += "/"
+                name = os.path.basename(stripped)
+            else:
+                name = ""
+            auto_index += 1
+            anc = Sheet(
+                number=f"auto{auto_index}",
+                path=path,
+                name=name,
+                parent=gp,
+                components=[],
+                local_nets=set(),
+                imported_nets=set(),
+                children=[],
+            )
+            if not gp:
+                self.top_sheet = anc
+            self.sheets[path] = anc
+            active_logger.info(
+                f"  Synthesized missing ancestor sheet: path='{path}', parent='{gp}'"
+            )
+            if gp:
+                pending.append(gp)
+
         # Set up parent-child relationships
         for sheet in self.sheets.values():
             parent_sheet = self.sheets.get(sheet.parent)
