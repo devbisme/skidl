@@ -49,14 +49,15 @@ def test_parser_1():
     # Import and execute the generated SKiDL code.
     import sys
     import os
+
     sys.path.insert(0, os.path.abspath("./test_parser_1"))
     import test_parser_1
 
     # Get the default circuit created by the generated SKiDL code.
-    new_circuit = test_parser_1.__builtins__['default_circuit']
+    new_circuit = test_parser_1.__builtins__["default_circuit"]
 
     # Get comparison tuple for the reconstructed circuit.
-    new_tuple =  new_circuit.to_tuple()
+    new_tuple = new_circuit.to_tuple()
 
     # Check that the original and new circuits are the same.
     assert original_tuple == new_tuple
@@ -68,7 +69,7 @@ def test_parser_boolean_property_without_value():
     KiCad 10 exports boolean component properties (e.g. exclude_from_bom,
     exclude_from_sim) as `(property (name "..."))` without a `(value ...)`
     child. The parser must treat the missing value as an empty string
-    instead of crashing.
+    instead of crashing. (Upstream issue: devbisme/skidl PR #317.)
     """
 
     # Minimal KiCad 10 style netlist with a valueless boolean property.

@@ -154,10 +154,7 @@ class PartSexp:
             self.lib = sexp.search("/comp/libsource/lib").value
         except ValueError:
             self.lib = ""
-        try:
-            self.properties = [PropertySexp(prop) for prop in sexp.search("/comp/property")]
-        except ValueError:
-            self.properties = []
+        self.properties = [PropertySexp(prop) for prop in sexp.search("/comp/property")]
 
 
 class PropertySexp:
@@ -237,7 +234,6 @@ class HierarchicalConverter:
         self.netlist = NetlistSexp(Sexp(text))
         self.sheets = {}
         self.tab = " " * 4
-
 
     def find_lowest_common_ancestor(self, sheet1, sheet2):
         """
