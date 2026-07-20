@@ -97,10 +97,20 @@ def part_to_eeschema(part, tx):
     time_hex = hex(int(time.time()))[2:]
     unit_num = getattr(part, "num", 1)
 
+    # KiCad reference for the symbol instance. All units of a multi-unit part share
+    # ONE reference ("U1") and are distinguished only by the unit number in the "U"
+    # line below; skidl's PartUnit ref is the compound "U1.uA", which KiCad reads as
+    # a DISTINCT component -- so each amp unit lost its shared power unit's pins, the
+    # netlist-from-schematic diverged from the logical netlist, and the compound ref
+    # tripped downstream reference validators (devbisme/skidl #318). Emit the
+    # parent's base ref instead; single-unit parts (node entry is the Part itself)
+    # are unaffected.
+    base_ref = getattr(getattr(part, "parent", None), "ref", None) or part.ref
+
     eeschema = []
     eeschema.append("$Comp")
     lib = os.path.splitext(part.lib.filename)[0]
-    eeschema.append("L {}:{} {}".format(lib, part.name, part.ref))
+    eeschema.append("L {}:{} {}".format(lib, part.name, base_ref))
     eeschema.append("U {} 1 {}".format(unit_num, time_hex))
     eeschema.append("P {} {}".format(str(origin.x), str(origin.y)))
 
@@ -112,7 +122,7 @@ def part_to_eeschema(part, tx):
             break
     eeschema.append(
         'F 0 "{}" {} {} {} {} {} {} {}'.format(
-            part.ref,
+            base_ref,
             part.draw[n_F0].orientation,
             str(origin.x + part.draw[n_F0].x),
             str(origin.y + part.draw[n_F0].y),

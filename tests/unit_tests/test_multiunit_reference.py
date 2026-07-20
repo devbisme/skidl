@@ -55,12 +55,24 @@ def test_multiunit_shares_base_reference(tmp_path):
     out.mkdir()
     generate_schematic(filepath=str(out), top_name="mu")
 
-    text = sorted(out.glob("*.kicad_sch"))[0].read_text(encoding="utf-8")
+    # KiCad 6-9 emit S-expression ".kicad_sch"; KiCad 5 emits the legacy ".sch".
+    sch_files = sorted(out.glob("*.kicad_sch")) or sorted(out.glob("*.sch"))
+    assert sch_files, "no schematic file was generated"
+    text = sch_files[0].read_text(encoding="utf-8")
+    legacy = sch_files[0].suffix == ".sch"
 
-    # The compound PartUnit reference must never leak into the schematic.
+    # The compound PartUnit reference must never leak into the schematic (all tools).
     assert "U1.u" not in text, "compound PartUnit reference leaked into the schematic"
-    # Every unit instance references the shared base "U1".
-    assert '(reference "U1")' in text or '(reference U1)' in text
-    # More than one distinct (unit N) present -> the part really rendered multi-unit.
-    units = set(re.findall(r"\(unit (\d+)\)", text))
+
+    if legacy:
+        # Legacy format: every unit is a "$Comp" sharing the "L <lib>:<name> U1"
+        # reference, distinguished only by the unit number in its "U <n> 1 ..." line.
+        assert re.search(r"^L \S+ U1$", text, re.MULTILINE), "shared base ref missing"
+        units = set(re.findall(r"^U (\d+) ", text, re.MULTILINE))
+    else:
+        # S-expression format: every instance references the shared base "U1",
+        # distinguished only by "(unit N)".
+        assert '(reference "U1")' in text or '(reference U1)' in text
+        units = set(re.findall(r"\(unit (\d+)\)", text))
+    # More than one distinct unit present -> the part really rendered multi-unit.
     assert len(units) >= 2, f"expected >=2 units placed, got {units}"
