@@ -6,6 +6,7 @@ vertical labels run clear above/below), in all four KiCad backends.
     python transistor_rotations.py           # default tool (KiCad 9)
     SKIDL_TOOL=KICAD8 python transistor_rotations.py
 """
+
 from skidl import *
 
 e, b, c = Net("ENET"), Net("BNET"), Net("CNET")

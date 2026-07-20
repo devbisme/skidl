@@ -1,10 +1,13 @@
 from skidl import *
 
+
 def my_empty_footprint_handler(part):
     part.fields["footprint"] = ":"
     part.footprint = ":"
 
+
 import skidl
+
 skidl.empty_footprint_handler = my_empty_footprint_handler
 
 # Create part templates.

@@ -22,6 +22,7 @@ from skidl.pin import pin_types
 
 def test_subcircuit_1():
     """Test subcircuit creation and connection."""
+
     @subcircuit
     def resdiv():
         """Create a resistor divider subcircuit."""
@@ -103,8 +104,10 @@ def test_subcircuit_1():
 
 def test_subcircuit_2():
     """Test nested subcircuit creation and connection."""
+
     class Resistor(Part):
         """Create a resistor part."""
+
         def __init__(self, value, ref=None, footprint="Resistors_SMD:R_0805"):
             super().__init__("Device", "R", value=value, ref=ref, footprint=footprint)
 

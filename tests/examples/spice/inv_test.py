@@ -141,8 +141,8 @@ def test_inverters():
         vdd = Net("Vdd")
         vdd & vdd_ps["p, n"] & gnd
 
-    get_sim = (
-        lambda: Simulator.factory().simulation(generate_netlist())
+    get_sim = lambda: Simulator.factory().simulation(
+        generate_netlist()
     )  # Compile netlist & create simulator.
     do_dc = lambda **kwargs: get_sim().dc(**kwargs)  # Run a DC-level analysis.
     do_trans = lambda **kwargs: get_sim().transient(

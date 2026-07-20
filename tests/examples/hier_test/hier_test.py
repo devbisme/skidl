@@ -1,5 +1,6 @@
 from skidl import *
 
+
 def test_interface_12():
     """Test nested subcircuits with fixed nets."""
     r = Part("Device", "R", dest=TEMPLATE)
@@ -46,5 +47,6 @@ def test_interface_12():
     assert str(hierarchy) == str(hierarchy2)
     print(str(default_circuit.active_node))
     generate_schematic(title="My Title", flatness=1)
+
 
 test_interface_12()

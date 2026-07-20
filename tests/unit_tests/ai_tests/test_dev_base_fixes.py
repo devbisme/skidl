@@ -84,13 +84,13 @@ def test_power_symbol_defs_complete_under_autostub(output_dir):
     circuit = Circuit(name="two_stage_power")
     _build_two_stage_power_design(circuit)
     circuit.generate_schematic(
-        filepath=output_dir, top_name="two_stage_power",
-        auto_stub=True, auto_stub_fanout=2,
+        filepath=output_dir,
+        top_name="two_stage_power",
+        auto_stub=True,
+        auto_stub_fanout=2,
     )
     missing = _power_symbol_integrity(output_dir)
     assert not missing, f"power symbols emitted without definitions: {missing}"
-
-
 
 
 HAS_KICAD_CLI = shutil.which("kicad-cli") is not None
@@ -106,12 +106,19 @@ def _erc_connectivity_violations(sch_path):
     rpt = sch_path.replace(".kicad_sch", "-conn-erc.rpt")
     subprocess.run(
         ["kicad-cli", "sch", "erc", "--output", rpt, "--severity-all", sch_path],
-        capture_output=True, timeout=60,
+        capture_output=True,
+        timeout=60,
     )
     if not os.path.exists(rpt):
         return []
     txt = open(rpt).read()
-    bad_types = ("pin_not_connected", "unconnected", "endpoint", "dangling", "wire_dangling")
+    bad_types = (
+        "pin_not_connected",
+        "unconnected",
+        "endpoint",
+        "dangling",
+        "wire_dangling",
+    )
     return [t for t in bad_types if f"[{t}]" in txt]
 
 
@@ -138,7 +145,9 @@ def test_deconflicted_labels_stay_connected(output_dir):
             q["E B C"] += e, b, c
             q.ref = "Q_" + tx
             q.symtx = tx
-        circuit.generate_schematic(filepath=output_dir, top_name="bjt_orient", flatness=1.0)
+        circuit.generate_schematic(
+            filepath=output_dir, top_name="bjt_orient", flatness=1.0
+        )
 
     sch = os.path.join(output_dir, "bjt_orient.kicad_sch")
     violations = _erc_connectivity_violations(sch)

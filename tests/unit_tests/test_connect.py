@@ -28,6 +28,7 @@ def test_connect_1():
     assert len(vin) == 1
     assert len(vout) == 1
 
+
 def test_connect_2():
     """
     Test connecting two LEDs to nets using copy
@@ -53,6 +54,7 @@ def test_connect_2():
     assert len(vin) == 2
     assert len(vout) == 4
 
+
 def test_connect_3():
     """
     Test connecting two LEDs to nets directly
@@ -76,6 +78,7 @@ def test_connect_3():
     assert len(vin) == 2
     assert len(vout) == 2
 
+
 def test_connect_4():
     """
     Test connecting two LEDs to nets using Bus
@@ -97,6 +100,7 @@ def test_connect_4():
     assert len(gnd) == 1
     assert len(vin) == 2
     assert len(vout) == 2
+
 
 def test_connect_5():
     """
@@ -121,6 +125,7 @@ def test_connect_5():
     assert len(LED["BK"].net) == 2
     assert len(LED["GK"].net) == 2
 
+
 def test_connect_6():
     """
     Test connecting multiple LEDs to nets using connections parameter
@@ -129,8 +134,12 @@ def test_connect_6():
     gnd = Net("GND")
     vin = Net("Vin")
     # Create LED parts with connections
-    LED1 = Part("Device", "LED_ARBG", footprint="null", connections={"A": gnd, "RK": vin})
-    LED2 = Part("Device", "LED_ARBG", footprint="null", connections={"A": gnd, "RK": vin})
+    LED1 = Part(
+        "Device", "LED_ARBG", footprint="null", connections={"A": gnd, "RK": vin}
+    )
+    LED2 = Part(
+        "Device", "LED_ARBG", footprint="null", connections={"A": gnd, "RK": vin}
+    )
     # Interconnect LED pins
     LED1["GK"] += LED1["BK"]
     # Copy LED1
@@ -144,6 +153,7 @@ def test_connect_6():
     assert len(LED1["RK"].net) == 6
     assert len(LED1["BK"].net) == 10
     assert len(LED1["GK"].net) == 10
+
 
 def test_connect_7():
     """
@@ -164,6 +174,7 @@ def test_connect_7():
     assert len(n2) == 3
     assert n2.is_attached(n1)
 
+
 def test_connect_8():
     """
     Test connecting multiple pins to a net using indexing
@@ -176,6 +187,7 @@ def test_connect_8():
     n1[0] += p1, p2, p3
     # Check net length
     assert len(n1) == 3
+
 
 def test_connect_9():
     """
@@ -190,6 +202,7 @@ def test_connect_9():
     # Check net length
     assert len(n1) == 3
 
+
 def test_connect_10():
     """
     Test raising ValueError when using invalid index for net connection
@@ -201,6 +214,7 @@ def test_connect_10():
     # Check for ValueError when using invalid index
     with pytest.raises(ValueError):
         n1[1] += p1, p2, p3
+
 
 def test_connect_11():
     """
@@ -215,14 +229,15 @@ def test_connect_11():
     # Check net length
     assert len(n1) == 3
 
+
 def test_connect_12():
     """
     Test connecting multiple pins to nets and selecting one pin from multiple matching alternate names.
     """
     try:
-        mcu = Part('MCU_ST_STM32F1','STM32F100C_4-6_Tx')
+        mcu = Part("MCU_ST_STM32F1", "STM32F100C_4-6_Tx")
     except (FileNotFoundError, ValueError):
-        pytest.skip("Part library not found.")    
+        pytest.skip("Part library not found.")
     # Create nets
     vss = Net("VSS")
     vdd = Net("VDD")
@@ -242,13 +257,13 @@ def test_connect_12():
     # Connecting the same pin in multiple ways should still result in just one connection.
     assert len(sck) == 1
 
+
 def test_connect_13():
     """
     Test connecting to pins with alternate names containing spaces.
     """
     try:
-        mcu = Part('MCU_ST_STM32G0','STM32G030F6Px')
+        mcu = Part("MCU_ST_STM32G0", "STM32G030F6Px")
     except (FileNotFoundError, ValueError):
         pytest.skip("Part library not found.")
     assert len(mcu["'SYS_SWCLK (PA14)', pa14 pa15"]) == 3
-

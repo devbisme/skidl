@@ -20,7 +20,6 @@ from skidl import (
 )
 from skidl.pin import pin_types
 
-
 # A default handler was added that logs errors when a part has an empty footprint.
 # These ERC tests were made before that and now fail because of the footprint errors.
 # Rather than re-do the tests, I just replaced the default handler with a function

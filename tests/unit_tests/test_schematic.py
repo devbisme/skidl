@@ -27,7 +27,6 @@ from skidl import (
 from skidl.schematics.place import PlacementFailure
 from skidl.schematics.route import RoutingFailure
 
-
 # Skip entire module unless default tool is KICAD5.
 # if os.getenv("SKIDL_TOOL") not in ('KICAD5','KICAD9'):
 #     pytest.skip("Tests require KICAD5 or KICAD9 as default tool", allow_module_level=True)
@@ -70,7 +69,9 @@ if os.getenv("DEBUG_DRAW"):
     pass
 
 
-def create_schematic(num_trials=1, flatness=1.0, script_stack_level=1, report_failures=True):
+def create_schematic(
+    num_trials=1, flatness=1.0, script_stack_level=1, report_failures=True
+):
     output_file_root = "./test_data/schematic_output"
     python_version = ".".join([str(n) for n in sys.version_info[0:3]])
     output_dir = os.path.join(output_file_root, python_version)
@@ -97,13 +98,13 @@ def create_schematic(num_trials=1, flatness=1.0, script_stack_level=1, report_fa
         pass
     with open(stats_file, "w") as fp:
         # First line shows configuration of P&R options.
-        config = ";".join([f"{k}={v}" for k,v in sch_options.items()])
+        config = ";".join([f"{k}={v}" for k, v in sch_options.items()])
         fp.write(config)
         fp.write("\n")
         # Add headers for columns of statistics.
         fp.write("wire length")
         fp.write("\n")
-    
+
     num_fails = 0
     for trial in range(num_trials):
         try:
@@ -111,39 +112,47 @@ def create_schematic(num_trials=1, flatness=1.0, script_stack_level=1, report_fa
                 filepath=output_dir,
                 top_name=top_name + "_" + str(trial),
                 flatness=flatness,
-                **sch_options
+                **sch_options,
             )
         except (PlacementFailure, RoutingFailure):
             num_fails += 1
 
     if num_fails and report_failures:
         raise RoutingFailure
-    
+
     # Return name of P&R stats file.
     return stats_file
+
 
 def plot_stats(stats_file):
     """Plot histogram of wire lengths for a set of place&routes."""
     import pandas as pd
     import matplotlib.pyplot as plt
-    df = pd.read_csv(stats_file,skiprows=1)
-    routed = df[df > 0].dropna()                                                                                                    
+
+    df = pd.read_csv(stats_file, skiprows=1)
+    routed = df[df > 0].dropna()
     routed.hist(column="wire length", bins=10)
-    route_success = (df>0).mean()[0]  # Fraction of successfully routed results.
+    route_success = (df > 0).mean()[0]  # Fraction of successfully routed results.
     route_len_mean = routed.mean()[0]
     route_len_median = routed.median()[0]
     route_len_stddev = routed.std()[0]
     plt.xlabel("Total Routed Wire Length")
     plt.ylabel("Frequency")
     plt.title("Distribution of Total Routed Wiring Length")
-    plt.annotate(f"success={route_success:.2f}\nmean={route_len_mean:.0f}\nmedian={route_len_median:.0f}\nstddev={route_len_stddev:.0f}", xy=(0.75, 0.5), xycoords='axes fraction')
+    plt.annotate(
+        f"success={route_success:.2f}\nmean={route_len_mean:.0f}\nmedian={route_len_median:.0f}\nstddev={route_len_stddev:.0f}",
+        xy=(0.75, 0.5),
+        xycoords="axes fraction",
+    )
     plt.show()
+
 
 def summarize_stats(stats_file, stat_headers):
     """Summarize stats of wire lengths for a set of place&routes."""
     stat_dict = {}
     import pandas as pd
-    df = pd.read_csv(stats_file,skiprows=1)
+
+    df = pd.read_csv(stats_file, skiprows=1)
     routed = df[df > 0].dropna()
     for hdr in stat_headers:
         func = getattr(routed, hdr, None)
@@ -151,29 +160,35 @@ def summarize_stats(stats_file, stat_headers):
             stat = func()[0]
             stat_dict[hdr] = stat
         elif hdr == "success":
-            stat = (df>0).mean()[0]
+            stat = (df > 0).mean()[0]
             stat_dict[hdr] = stat
     return stat_dict
+
 
 def search_bool_options(num_trials=1, flatness=1.0, bool_option_keys=[]):
     """Try combinations of place&route settings and record statistics on wire lengths of place&route results."""
     option_keys = sorted(set(list(sch_options.keys()) + bool_option_keys))
     option_keys = [k for k in option_keys if not k.startswith("draw")]
     num_bool_options = len(bool_option_keys)
-    bool_option_settings = [[False,True]] * num_bool_options
+    bool_option_settings = [[False, True]] * num_bool_options
     bool_option_settings = itertools.product(*bool_option_settings)
     stat_headers = ["success", "mean", "median", "std"]
     with open("./test_data/option_test.csv", "w") as fp:
-        fp.write(",".join(option_keys+stat_headers) + "\n")
+        fp.write(",".join(option_keys + stat_headers) + "\n")
         for settings in bool_option_settings:
             bool_settings_dict = dict(zip(bool_option_keys, settings))
             sch_options.update(bool_settings_dict)
-            stats_file = create_schematic(num_trials=num_trials, flatness=flatness, script_stack_level=2, report_failures=False)
+            stats_file = create_schematic(
+                num_trials=num_trials,
+                flatness=flatness,
+                script_stack_level=2,
+                report_failures=False,
+            )
             summary = summarize_stats(stats_file, stat_headers)
             stat_dict = dict()
             stat_dict.update(sch_options)
             stat_dict.update(summary)
-            stat_row =  ",".join([str(stat_dict[k]) for k in option_keys + stat_headers])
+            stat_row = ",".join([str(stat_dict[k]) for k in option_keys + stat_headers])
             fp.write(stat_row + "\n")
             fp.flush()
 
@@ -198,9 +213,7 @@ def test_gen_sch_1():
             symtx="V",
             value="Q_PNP_CBE",
         )
-    r = Part(
-        "Device", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE
-    )
+    r = Part("Device", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE)
     gndt = Part("power", "GND", footprint="TestPoint:TestPoint_Pad_D4.0mm")
     vcct = Part("power", "VCC", footprint="TestPoint:TestPoint_Pad_D4.0mm")
 
@@ -226,7 +239,7 @@ def test_gen_sch_1():
     vcc & q1["E"]
     vcc & q2["E"]
 
-    create_schematic(num_trials=1,flatness=1.0)
+    create_schematic(num_trials=1, flatness=1.0)
 
 
 @pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
@@ -303,7 +316,11 @@ def test_gen_sch_place_2():
                 symtx="VV",
             )
         r = Part(
-            "Device", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE, symtx="VV"
+            "Device",
+            "R",
+            footprint="Resistor_SMD:R_0805_2012Metric",
+            dest=TEMPLATE,
+            symtx="VV",
         )
         c = Part("Device", "C", value="10pF")
         vcc = Net("VCC", netio="i")
@@ -314,7 +331,7 @@ def test_gen_sch_place_2():
         for _ in range(5):
             c_ = c()
             vcca & c_ & gnda
-        
+
         n = 5
         qs = []
         rs = []
@@ -351,13 +368,19 @@ def test_gen_sch_very_simple():
             value="",
         )
     r = Part(
-        "Device", "R", value="", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE
+        "Device",
+        "R",
+        value="",
+        footprint="Resistor_SMD:R_0805_2012Metric",
+        dest=TEMPLATE,
     )
-    gndt = Part("power", "GND", footprint="TestPoint:TestPoint_Pad_D4.0mm", dest=TEMPLATE)
+    gndt = Part(
+        "power", "GND", footprint="TestPoint:TestPoint_Pad_D4.0mm", dest=TEMPLATE
+    )
     # vcct = Part("power", "VCC", footprint="TestPoint:TestPoint_Pad_D4.0mm", dest=TEMPLATE)
 
     q1 = q()
-    (r() | r()) & q1["B,E"] & r()  & gndt()
+    (r() | r()) & q1["B,E"] & r() & gndt()
     create_schematic(flatness=1.0)
 
 
@@ -389,12 +412,8 @@ def test_gen_sch_simple():
 
 @pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
 def test_gen_sch_floating():
-    r = Part(
-        "Device", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE
-    )
-    c = Part(
-        "Device", "C", footprint="Capacitor_SMD:R_0805_2012Metric", dest=TEMPLATE
-    )
+    r = Part("Device", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE)
+    c = Part("Device", "C", footprint="Capacitor_SMD:R_0805_2012Metric", dest=TEMPLATE)
     try:
         q = Part(
             lib="Device",
@@ -557,9 +576,7 @@ def test_gen_sch_hier():
 @pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure))
 def test_gen_sch_hier_conn():
 
-    r = Part(
-        "Device", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE
-    )
+    r = Part("Device", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE)
     try:
         q = Part(
             lib="Device",

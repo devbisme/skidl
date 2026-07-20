@@ -72,7 +72,7 @@ def test_multiunit_shares_base_reference(tmp_path):
     else:
         # S-expression format: every instance references the shared base "U1",
         # distinguished only by "(unit N)".
-        assert '(reference "U1")' in text or '(reference U1)' in text
+        assert '(reference "U1")' in text or "(reference U1)" in text
         units = set(re.findall(r"\(unit (\d+)\)", text))
     # More than one distinct unit present -> the part really rendered multi-unit.
     assert len(units) >= 2, f"expected >=2 units placed, got {units}"

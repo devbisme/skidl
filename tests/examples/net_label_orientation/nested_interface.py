@@ -5,6 +5,7 @@ hier_test.test_interface_12.)
 
     python nested_interface.py
 """
+
 from skidl import *
 
 r = Part("Device", "R", dest=TEMPLATE)

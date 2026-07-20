@@ -360,6 +360,7 @@ def test_interface_8():
     assert len(gnd) == 3
     assert len(vout) == 3
 
+
 # def test_interface_9():
 #     """Test multiple packages for independence."""
 
@@ -547,6 +548,7 @@ def test_interface_12():
 
 def test_interface_13():
     """Test analog averaging circuit."""
+
     @subcircuit
     def analog_average():
         # Create nets
@@ -590,6 +592,7 @@ def test_interface_13():
 
 def test_interface_14():
     """Test analog averaging circuit with default circuit."""
+
     @subcircuit
     def analog_average(circuit=None):
         # Use default circuit if none provided
@@ -636,6 +639,7 @@ def test_interface_14():
 
 def test_interface_15():
     """Test analog averaging circuit with explicit circuit."""
+
     @subcircuit
     def analog_average(cct=None):
         # Create nets
@@ -680,6 +684,7 @@ def test_interface_15():
 
 def test_interface_16():
     """Test analog averaging circuit with gates."""
+
     @subcircuit
     def analog_average(cct=None):
         # Create nets
@@ -721,14 +726,16 @@ def test_interface_16():
     assert len(out1) == 2
     assert len(out2) == 2
 
+
 def test_interface_17():
     """Test interconnection of two interfaces."""
     intfc1 = Interface(a=Net(), b=Net(), c=Bus(8), d=Bus(4))
     intfc2 = Interface(a=Net(), b=Net(), c=Bus(8), e=Bus(4))
     intfc1 += intfc2
     intfc1.a += Pin()
-    assert len(intfc2.a.pins)==1
-    assert len(intfc2.b.pins)==0
+    assert len(intfc2.a.pins) == 1
+    assert len(intfc2.b.pins) == 0
+
 
 def test_interface_18():
     """Test interconnection of two interfaces."""
@@ -737,7 +744,8 @@ def test_interface_18():
     intfc2 = Interface(a=Bus(10), d=Bus(16))
     intfc1 += intfc2
     for n in intfc2.a:
-        assert len(n)==1
+        assert len(n) == 1
+
 
 def test_interface_19():
     """Test interconnection of two mismatching interfaces."""
@@ -746,4 +754,3 @@ def test_interface_19():
     intfc2 = Interface(a=Bus(9), d=Bus(16))
     with pytest.raises(ValueError):
         intfc1 += intfc2
-

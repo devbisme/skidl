@@ -21,8 +21,8 @@ q1["C"] & r3 & gnd
 vcc += q1["E"], q2["E"], vcct
 gnd += gndt
 
-a.netio = "i"        # Input terminal.
-b.netio = "i"        # Input terminal.
+a.netio = "i"  # Input terminal.
+b.netio = "i"  # Input terminal.
 a_and_b.netio = "o"  # Output terminal.
 
 q1.E.symio = "i"  # Signal enters Q1 on E and B terminals.
@@ -33,5 +33,4 @@ q2.B.symio = "i"
 q2.C.symio = "o"  # Signal exits Q2 on C terminal.
 
 generate_svg()
-generate_dot(file_='and_gate.dot')
-
+generate_dot(file_="and_gate.dot")

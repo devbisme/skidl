@@ -6,6 +6,7 @@ import pytest
 
 from skidl import Part
 
+
 def test_alias_1():
     """Test adding and accessing pin aliases for a Part object."""
     # Create a Part object for an LED.

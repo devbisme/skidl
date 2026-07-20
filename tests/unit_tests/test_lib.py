@@ -312,9 +312,7 @@ def test_lib_kicad_2():
     if not part_cnt:
         nested_list = Sexp("\n".join(lines))
         parts = {
-            item[1]: item[2:]
-            for item in nested_list[1:]
-            if item[0].lower() == "symbol"
+            item[1]: item[2:] for item in nested_list[1:] if item[0].lower() == "symbol"
         }
         part_cnt = len(parts.keys())
     # Assert that the number of parts in the library file matches the number of parts in the library.
@@ -348,9 +346,7 @@ def test_lib_kicad_top_level_pins():
     )
     nested_list = Sexp(sexp)
     parts = {
-        item[1]: item[2:]
-        for item in nested_list[1:]
-        if item[0].lower() == "symbol"
+        item[1]: item[2:] for item in nested_list[1:] if item[0].lower() == "symbol"
     }
     # Assert that the number of parts in the library file matches the number of parts in the library.
     assert len(parts.keys()) == len(part_names)
@@ -359,6 +355,7 @@ def test_lib_kicad_top_level_pins():
         part = lib[name]
     for part in lib.parts:
         check_lib_part(part)
+
 
 # This test tries to load a library from the KiCad symbol repository.
 # If the repository is not available, it will fail with a FileNotFoundError,
@@ -392,8 +389,12 @@ def test_lib_kicad_repository():
     for part in lib_4xxx.parts:
         check_lib_part(part)
 
+
 # Skip this test for KiCad 5 since the custom library doesn't exist in the KiCad 5 format.
-@pytest.mark.skipif(os.environ.get('SKIDL_TOOL', '')=='KICAD5', reason="Custom library not available in KiCad 5")
+@pytest.mark.skipif(
+    os.environ.get("SKIDL_TOOL", "") == "KICAD5",
+    reason="Custom library not available in KiCad 5",
+)
 def test_lib_custom():
     """Test custom library."""
     # Reset the library.

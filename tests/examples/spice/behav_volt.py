@@ -12,7 +12,7 @@ from skidl.pyspice import *
 reset()
 
 # Make two test nets
-n1, n2 = Net('N1'), Net('N2')
+n1, n2 = Net("N1"), Net("N2")
 
 # Add a behavioral source B1 between N1 and N2, trying to set its voltage to a sine wave
 b = B(v="sin(2*pi*1k*time)", footprint=None)

@@ -9,9 +9,7 @@ from skidl.pyspice import *
 # Omit the following line if you're not using a Jupyter notebook.
 # %matplotlib inline
 
-lib_search_paths[SPICE].append(
-    "../../test_data/SpiceLib"
-)
+lib_search_paths[SPICE].append("../../test_data/SpiceLib")
 print(lib_search_paths[SPICE])
 
 reset()  # Clear out the existing circuitry from the previous example.

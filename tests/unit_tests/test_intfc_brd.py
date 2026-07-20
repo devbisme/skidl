@@ -11,7 +11,7 @@ def test_intfc_brd():
     # Create a simple interface board for a microcontroller.
     # It's intended to show how to create a schematic using SKiDL.
 
-    return # TODO: Create a similar example using KiCad default libraries.
+    return  # TODO: Create a similar example using KiCad default libraries.
 
     # Libraries.
     xess_lib = r"xess.lib"

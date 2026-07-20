@@ -10,7 +10,7 @@ from skidl.pin import pin_types
 
 def test_NC_1():
     """Test the NC (No Connect) functionality."""
-    
+
     @subcircuit
     def circ_nc():
         """Create a subcircuit with a resistor."""

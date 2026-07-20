@@ -4,7 +4,9 @@ import matplotlib.pyplot as plt
 # Load the SKiDL + PySpice packages and initialize them for doing circuit simulations.
 from skidl.pyspice import *
 
-lib_search_paths[SPICE] = ["../../test_data/SpiceLib"]  # Add the path to the SPICE library.
+lib_search_paths[SPICE] = [
+    "../../test_data/SpiceLib"
+]  # Add the path to the SPICE library.
 
 # Omit the following line if you're not using a Jupyter notebook.
 # %matplotlib inline
@@ -18,6 +20,7 @@ vcc = pwr[
 ]  # Create the VCC net from the net on the positive terminal of the power supply.
 pwr["n"] += gnd  # Connect the negative terminal of the power supply to ground.
 
+
 # Create a logic inverter using a transistor and a few resistors.
 @subcircuit
 def inverter(inp, outp):
@@ -29,6 +32,7 @@ def inverter(inp, outp):
     inp & rb & q.b
     q.e += gnd  # Transistor emitter connected to ground.
     outp += q.c  # Output is taken from the transistor collector.
+
 
 # Create a pulsed voltage source to drive the input of the inverters.
 # I set the rise and fall times to make# it easier to distinguish the

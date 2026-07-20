@@ -18,13 +18,14 @@ from skidl import (
     Interface,
     subcircuit,
     SubCircuit,
-    Group
+    Group,
 )
 from skidl.node import HIER_SEP
 
 
 def test_subcircuit_1():
     """Test a simple resistor divider subcircuit."""
+
     class Resistor(Part):
         def __init__(self, value, ref=None, footprint="Resistors_SMD:R_0805"):
             super().__init__("Device", "R", value=value, ref=ref, footprint=footprint)
@@ -63,17 +64,18 @@ def test_subcircuit_1():
     # Test to make sure generating netlists and xml do not change the circuit.
     ntlst1 = generate_netlist()
     ntlst2 = generate_netlist()
-    assert ntlst1==ntlst2
+    assert ntlst1 == ntlst2
     xml1 = generate_xml()
     xml2 = generate_xml()
-    assert xml1==xml2
+    assert xml1 == xml2
     svg1 = generate_svg()
     svg2 = generate_svg()
-    assert svg1==svg2
+    assert svg1 == svg2
 
 
 def test_subcircuit_2():
     """Test a nested resistor divider subcircuit."""
+
     class Resistor(Part):
         def __init__(self, value, ref=None, footprint="Resistors_SMD:R_0805"):
             super().__init__("Device", "R", value=value, ref=ref, footprint=footprint)
@@ -134,13 +136,13 @@ def test_subcircuit_2():
     # Test to make sure generating netlists and xml do not change the circuit.
     ntlst1 = generate_netlist()
     ntlst2 = generate_netlist()
-    assert ntlst1==ntlst2
+    assert ntlst1 == ntlst2
     xml1 = generate_xml()
     xml2 = generate_xml()
-    assert xml1==xml2
+    assert xml1 == xml2
     svg1 = generate_svg()
     svg2 = generate_svg()
-    assert svg1==svg2
+    assert svg1 == svg2
 
 
 class Resistor(Part):
@@ -177,7 +179,9 @@ def test_hierarchical_names_1():
 
     resdiv()  # Instantiate the resistor divider subcircuit.
     resdiv(tag="divider1")  # Instantiate another resistor divider with a tag.
-    r_top = Resistor("1k", tag="resistor_top")  # Instantiate a resistor on the top level.
+    r_top = Resistor(
+        "1k", tag="resistor_top"
+    )  # Instantiate a resistor on the top level.
 
     assert len(default_circuit.parts) == 5  # Check the number of parts.
     assert len(default_circuit.get_nets()) == 6  # Check the number of nets.
@@ -195,17 +199,18 @@ def test_hierarchical_names_1():
     # Test to make sure generating netlists and xml do not change the circuit.
     ntlst1 = generate_netlist()
     ntlst2 = generate_netlist()
-    assert ntlst1==ntlst2
+    assert ntlst1 == ntlst2
     xml1 = generate_xml()
     xml2 = generate_xml()
-    assert xml1==xml2
+    assert xml1 == xml2
     svg1 = generate_svg()
     svg2 = generate_svg()
-    assert svg1==svg2
+    assert svg1 == svg2
 
 
 def test_hierarchical_names_2():
     """Test for duplicate hierarchical names in subcircuits."""
+
     @subcircuit
     def circuit_for_test():
         """Define an empty subcircuit for testing."""
@@ -233,9 +238,10 @@ def test_hierarchical_names_3():
 
 def test_group_1():
     """Test the grouping of parts in a circuit."""
-    
+
     class Resistor(Part):
         """Define a resistor part."""
+
         def __init__(self, value, ref=None, footprint="Resistors_SMD:R_0805"):
             # Initialize the resistor with given value, reference, and footprint.
             super().__init__("Device", "R", value=value, ref=ref, footprint=footprint)
@@ -259,7 +265,9 @@ def test_group_1():
                 # Create a subgroup for resistors.
                 r3 = Resistor("5k")  # Third resistor.
                 r4 = Resistor("10k")  # Fourth resistor.
-                vin & (r3 | c1) & (r4 | c2) & gnd  # Connect components in series and parallel.
+                (
+                    vin & (r3 | c1) & (r4 | c2) & gnd
+                )  # Connect components in series and parallel.
 
         bus1 = Bus("BB", 10)  # Create a bus with 10 lines.
 
@@ -355,7 +363,7 @@ def test_hierarchy_2():
             r1 = r()
             c1 = c()
             # Connect resistor and capacitor between input and ground
-            my_vin & r1 & vout &c1 & my_gnd
+            my_vin & r1 & vout & c1 & my_gnd
             self.create_pins("VIN", connections=my_vin)
             self.create_pins("GND", connections=my_gnd)
             self.create_pins("VOUT", connections=vout)

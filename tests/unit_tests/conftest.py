@@ -13,12 +13,13 @@ from skidl.config_ import SkidlConfig
 
 files_at_start = set([])
 
+
 def setup_function():
     # Record files originally in directory so we know which ones not to delete.
     global files_at_start
     files_at_start = set(os.listdir(os.getcwd()))
 
-    config = SkidlConfig(KICAD) # Sets default tool.
+    config = SkidlConfig(KICAD)  # Sets default tool.
 
     # Set library search paths from config file.
     for tool in lib_search_paths:
@@ -58,12 +59,14 @@ def teardown_function():
         except Exception:
             pass
 
+
 @pytest.fixture(autouse=True)
 def setup_teardown():
     """Automatically run setup and teardown for all tests."""
     setup_function()
     yield
     teardown_function()
+
 
 @pytest.fixture(scope="session", autouse=True)
 def cleanup_pkl_files():
@@ -75,11 +78,11 @@ def cleanup_pkl_files():
     """
     # This will run before any tests
     yield
-    
+
     # This will run after all tests complete
-    current_dir = Path('.')
-    pkl_files = current_dir.glob('**/*.pkl')
-    
+    current_dir = Path(".")
+    pkl_files = current_dir.glob("**/*.pkl")
+
     for pkl_file in pkl_files:
         try:
             pkl_file.unlink()

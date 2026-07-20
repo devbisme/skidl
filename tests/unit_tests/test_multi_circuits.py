@@ -23,6 +23,7 @@ from skidl import (
 
 def test_subcircuit_1():
     """Test subcircuit creation and connection."""
+
     class Resistor(Part):
         def __init__(self, value, ref=None, footprint="Resistors_SMD:R_0805"):
             super().__init__("Device", "R", value=value, ref=ref, footprint=footprint)
@@ -86,6 +87,7 @@ def test_subcircuit_1():
 
 def test_subcircuit_2():
     """Test nested subcircuit creation and connection."""
+
     class Resistor(Part):
         def __init__(self, value, ref=None, footprint="Resistors_SMD:R_0805"):
             super().__init__("Device", "R", value=value, ref=ref, footprint=footprint)

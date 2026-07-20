@@ -23,8 +23,8 @@ q1["C"] & r3 & gnd
 vcc += q1["E"], q2["E"], vcct
 gnd += gndt
 
-a.netio = "i"        # Input terminal.
-b.netio = "i"        # Input terminal.
+a.netio = "i"  # Input terminal.
+b.netio = "i"  # Input terminal.
 a_and_b.netio = "o"  # Output terminal.
 
 q1.E.symio = "i"  # Signal enters Q1 on E and B terminals.
@@ -35,6 +35,6 @@ q2.B.symio = "i"
 q2.C.symio = "o"  # Signal exits Q2 on C terminal.
 
 generate_schematic(
-                # allow_routing_failure=True, draw=True, draw_all_terminals=True, show_capacities=False,
-                # draw_switchbox=True, draw_routing=True, draw_channels=True, draw_placement=True
+    # allow_routing_failure=True, draw=True, draw_all_terminals=True, show_capacities=False,
+    # draw_switchbox=True, draw_routing=True, draw_channels=True, draw_placement=True
 )

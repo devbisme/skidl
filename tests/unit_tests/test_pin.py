@@ -34,8 +34,12 @@ def test_numerical_pin_order():
     mem = Part("Memory_RAM", "AS4C4M16SA")
     p = mem.pins.pop(13)  # Remove pin from list.
     mem.pins.append(p)  # Append pin to list.
-    assert [int(x.num) for x in mem.pins] != list(range(1, len(mem.pins) + 1))  # Check pin order.
-    assert [int(x.num) for x in mem.ordered_pins] == list(range(1, len(mem.pins) + 1))  # Check ordered pins.
+    assert [int(x.num) for x in mem.pins] != list(
+        range(1, len(mem.pins) + 1)
+    )  # Check pin order.
+    assert [int(x.num) for x in mem.ordered_pins] == list(
+        range(1, len(mem.pins) + 1)
+    )  # Check ordered pins.
 
 
 def test_alphanumeric_pin_order():
@@ -43,7 +47,14 @@ def test_alphanumeric_pin_order():
     mem = Part("Memory_RAM", "AS4C4M16SA")
     mem[3].num = "A1"  # Modify pin number.
     mem[5].num = "B1"  # Modify another pin number.
-    assert [p.num for p in mem.ordered_pins[-6:]] == ["51", "52", "53", "54", "A1", "B1"]  # Check ordered pins.
+    assert [p.num for p in mem.ordered_pins[-6:]] == [
+        "51",
+        "52",
+        "53",
+        "54",
+        "A1",
+        "B1",
+    ]  # Check ordered pins.
 
 
 def test_eq():
@@ -87,4 +98,6 @@ def test_pin_search_1():
     pwrin = mem.get_pins(func=pin_types.PWRIN)  # Get power input pins.
     assert len(bidir) == 16  # Check bidirectional pin count.
     assert len(pwrin) == 4  # Check power input pin count.
-    assert len(bidir) + len(pwrin) + len(input) + len(passive) + len(nc) == len(mem)  # Check total pin count.
+    assert len(bidir) + len(pwrin) + len(input) + len(passive) + len(nc) == len(
+        mem
+    )  # Check total pin count.

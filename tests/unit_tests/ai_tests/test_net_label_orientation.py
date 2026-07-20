@@ -20,6 +20,7 @@ with justify derived from the angle, which flipped vertical labels so they
 overprinted the part body.  These tests pin the mapping and, crucially, assert
 that *all four* KiCad backends agree -- the drift that caused the bug.
 """
+
 from types import SimpleNamespace
 
 import pytest
@@ -49,6 +50,7 @@ def _empty_power_symbols():
             delattr(mod, "pwr_symbol_names")
         else:
             mod.pwr_symbol_names = val
+
 
 # pin direction -> (label angle, justify) that makes the label extend away.
 EXPECTED = {

@@ -15,6 +15,7 @@ pfet_wl = Parameters(W=1.26, L=0.15)
 pfet = Part(sky_lib, "sky130_fd_pr__pfet_01v8", params=pfet_wl, dest=TEMPLATE)
 nfet = Part(sky_lib, "sky130_fd_pr__nfet_01v8", params=nfet_wl, dest=TEMPLATE)
 
+
 def oscope(waveforms, *nets, ymin=-0.4, ymax=2.4):
 
     fig, axes = plt.subplots(
@@ -39,6 +40,7 @@ def oscope(waveforms, *nets, ymin=-0.4, ymax=2.4):
 
     plt.show()
 
+
 def counter(*bits, time_step=1.0 @ u_ns, vmin=0.0 @ u_V, vmax=1.8 @ u_V):
     for bit in bits:
         pulse = PULSEV(
@@ -50,10 +52,12 @@ def counter(*bits, time_step=1.0 @ u_ns, vmin=0.0 @ u_V, vmax=1.8 @ u_V):
         pulse["p, n"] += bit, gnd
         time_step = 2 * time_step
 
+
 def pwr(dc_value=1.8 @ u_V):
     vdd_ps = V(ref="Vdd_ps", dc_value=dc_value)
     vdd_ps["p, n"] += Net("Vdd"), gnd
     return vdd_ps["p"]
+
 
 @subcircuit
 def inverter(a=None, out=None):
@@ -67,6 +71,7 @@ def inverter(a=None, out=None):
     vdd & qp["s,d"] & out & qn["d,s"] & gnd
     a & qn.g & qp.g
     return Interface(a=a, out=out)
+
 
 @subcircuit
 def nand(a=None, b=None, out=None):
@@ -82,6 +87,7 @@ def nand(a=None, b=None, out=None):
     a & q1.g & q3.g
     b & q2.g & q4.g
     return Interface(a=a, b=b, out=out)
+
 
 @subcircuit
 def xor(a=None, b=None, out=None):
@@ -108,6 +114,7 @@ def xor(a=None, b=None, out=None):
 
     return Interface(a=a, b=b, out=out)
 
+
 @subcircuit
 def full_adder(a=None, b=None, cin=None, s=None, cout=None):
     a = a or Net()
@@ -125,6 +132,7 @@ def full_adder(a=None, b=None, cin=None, s=None, cout=None):
     nand3["a,b,out"] += nand1.out, nand2.out, cout
     return Interface(a=a, b=b, cin=cin, s=s, cout=cout)
 
+
 @subcircuit
 def adder(a, b, cin, s, cout):
     width = len(s)
@@ -137,6 +145,7 @@ def adder(a, b, cin, s, cout):
             fadds[i].cin += fadds[i - 1].cout
     cout += fadds[-1].cout
 
+
 def integerize(waveforms, *nets, threshold=0.9 @ u_V):
     def binarize():
         binary_vals = []
@@ -148,6 +157,7 @@ def integerize(waveforms, *nets, threshold=0.9 @ u_V):
     for bin_vector in zip(*reversed(binarize())):
         int_vals.append(int(bytes([ord("0") + b for b in bin_vector]), base=2))
     return int_vals
+
 
 def sample(sample_times, times, *int_vals):
     sample_vals = [[] for _ in int_vals]
@@ -163,6 +173,7 @@ def sample(sample_times, times, *int_vals):
                 break
     return sample_vals
 
+
 @subcircuit
 def weak_inverter(a=None, out=None):
     a = a or Net()
@@ -176,8 +187,9 @@ def weak_inverter(a=None, out=None):
     vdd & qp.b
     vdd & qp["s,d"] & out & qn["d,s"] & gnd
     a & qn.g & qp.g
-    
+
     return Interface(a=a, out=out)
+
 
 @subcircuit
 def sram_bit(wr=None, in_=None, out=None):
@@ -198,6 +210,7 @@ def sram_bit(wr=None, in_=None, out=None):
 
     return Interface(wr=wr, in_=in_, out=out)
 
+
 @subcircuit
 def latch_bit(wr=None, in_=None, out=None):
     wr = wr or Net()
@@ -215,6 +228,7 @@ def latch_bit(wr=None, in_=None, out=None):
 
     return Interface(wr=wr, in_=in_, out=out)
 
+
 @subcircuit
 def reg_bit(wr=None, in_=None, out=None):
     wr = wr or Net()
@@ -229,12 +243,14 @@ def reg_bit(wr=None, in_=None, out=None):
 
     return Interface(wr=wr, in_=in_, out=out)
 
+
 @subcircuit
 def register(wr, in_, out):
     width = len(out)
     reg_bits = [reg_bit() for _ in range(width)]
     for i, rb in enumerate(reg_bits):
         rb["wr, in_, out"] += wr, in_[i], out[i]
+
 
 @subcircuit
 def cntr(clk, out):
@@ -245,6 +261,7 @@ def cntr(clk, out):
     nxt = Bus(width)
     adder(out, zero, vdd, nxt, Net())
     register(clk, nxt, out)
+
 
 reset()
 

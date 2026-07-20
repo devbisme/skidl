@@ -6,7 +6,7 @@ import os
 import pytest
 
 # Skip entire module unless default tool is KICAD5.
-if os.getenv("TEST_SPICE") != '1':
+if os.getenv("TEST_SPICE") != "1":
     pytest.skip("Skip SPICE tests", allow_module_level=True)
 
 try:
@@ -18,7 +18,6 @@ except ModuleNotFoundError:
 
 from skidl import *
 from skidl.pyspice import *
-
 
 show_plots = False
 
@@ -158,7 +157,7 @@ def test_subcircuit_1():
     set_default_tool(SPICE)
 
     vin = V(ref="VIN", dc_value=8 @ u_V)  # Input power supply.
-    
+
     vreg = Part("NCP1117", "ncp1117_33-x")  # Voltage regulator from ON Semi part lib.
     vreg[1].aliases += "IN"  # Set pin 1 to be the IN pin.
     vreg[2].aliases += "OUT"  # Set pin 2 to be the OUT pin.
@@ -166,7 +165,7 @@ def test_subcircuit_1():
     print(vreg)  # Print vreg pin names.
 
     r = R(value=470 @ u_Ohm)  # Load resistor on regulator output.
-    
+
     # Connect vreg input to vin and output to load resistor.
     vreg["IN", "OUT"] += vin["p"], r[1]
     gnd += vin["n"], r[2], vreg["GND"]  # Ground connections for everybody.
@@ -919,7 +918,7 @@ def test_skywater_1():
         vdd & qp.b
         vdd & qp["s,d"] & out & qn["d,s"] & gnd
         a & qn.g & qp.g
-        
+
         return Interface(a=a, out=out)
 
     @subcircuit
@@ -1003,6 +1002,7 @@ def test_skywater_1():
 
     oscope(waveforms, clk, *cnt)
 
+
 @pytest.mark.spice
 # @pytest.mark.xfail(raises=(FileNotFoundError))
 def test_skywater_2():
@@ -1057,39 +1057,40 @@ def test_templates_1():
 
     part_templates = {}
     r_template = Part(
-        'Device', 'R', TEMPLATE, tool=KICAD,
-        footprint='Resistor_SMD:R_0402_1005Metric',
+        "Device",
+        "R",
+        TEMPLATE,
+        tool=KICAD,
+        footprint="Resistor_SMD:R_0402_1005Metric",
     )
-    r_spice = next(filter(lambda x: x.name == 'R', pyspice_lib.parts))
+    r_spice = next(filter(lambda x: x.name == "R", pyspice_lib.parts))
     r_template.convert_for_spice(r_spice, {1: "p", 2: "n"})
-    part_templates['R'] = r_template
+    part_templates["R"] = r_template
 
     @subcircuit
     def ckt():
-        vin, vout, gnd = Net('VI'), Net('VO'), Net('GND')
+        vin, vout, gnd = Net("VI"), Net("VO"), Net("GND")
 
-        r1, r2 = 2 * part_templates['R']
-        r1.value = '1K'   # Set upper resistor value.
-        r2.value = '500'  # Set lower resistor value.
+        r1, r2 = 2 * part_templates["R"]
+        r1.value = "1K"  # Set upper resistor value.
+        r2.value = "500"  # Set lower resistor value.
 
-        vin += r1[1]      # Connect the input to the upper resistor.
-        gnd += r2[2]      # Connect the lower resistor to ground.
-        vout += r1[2], r2[1] # Output comes from the connection of the two resistors.
+        vin += r1[1]  # Connect the input to the upper resistor.
+        gnd += r2[2]  # Connect the lower resistor to ground.
+        vout += r1[2], r2[1]  # Output comes from the connection of the two resistors.
 
-        return Interface(
-            vin=vin,
-            vout=vout,
-            gnd=gnd
-        )
+        return Interface(vin=vin, vout=vout, gnd=gnd)
 
     def test_sample():
         sub_circuit = ckt()
 
-        vs = Part('pyspice', 'V', tool=SKIDL, ref='VS', dc_value = 1 @ u_V)
-        vs['p'] += sub_circuit['VI']
-        vs['n'] += sub_circuit['GND']
+        vs = Part("pyspice", "V", tool=SKIDL, ref="VS", dc_value=1 @ u_V)
+        vs["p"] += sub_circuit["VI"]
+        vs["n"] += sub_circuit["GND"]
 
         ERC()
-        circ = generate_netlist(file="/dev/null") # Generate the netlist, but don't write it to a file.
+        circ = generate_netlist(
+            file="/dev/null"
+        )  # Generate the netlist, but don't write it to a file.
 
     test_sample()

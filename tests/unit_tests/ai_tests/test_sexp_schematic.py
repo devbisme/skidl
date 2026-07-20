@@ -33,8 +33,10 @@ create_title_block_sexp = sexp_schematic.create_title_block_sexp
 
 
 # Skip entire module for early versions of KiCad.
-if os.getenv("SKIDL_TOOL") in ('KICAD5',):
-    pytest.skip("Tests require KiCad version > 5 as the default tool", allow_module_level=True)
+if os.getenv("SKIDL_TOOL") in ("KICAD5",):
+    pytest.skip(
+        "Tests require KiCad version > 5 as the default tool", allow_module_level=True
+    )
 
 
 # ===========================================================================

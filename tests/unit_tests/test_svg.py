@@ -29,14 +29,16 @@ def test_svg_1():
     Part(lib="MCU_STC", name="STC15W204S-35x-SOP16")
     generate_svg(file_="test1")
 
+
 def test_svg_2():
     # TODO: Figure out why loading a part fully parses every part in the library.
     opamp = Part(lib="Amplifier_Operational", name="AD8676xR", symtx="H")
     opamp.uA.p2 += Net("IN1")
     opamp.uA.p3 += Net("IN2")
     opamp.uA.p1 += Net("OUT")
-    opamp.uB.symtx = 'L'
+    opamp.uB.symtx = "L"
     generate_svg(file_="test2")
+
 
 def test_svg_3():
     gnd = Part("power", "GND")
@@ -67,6 +69,7 @@ def test_svg_3():
         part.validate()
 
     generate_svg()
+
 
 def test_svg_4():
     try:
@@ -113,6 +116,7 @@ def test_svg_4():
 
     generate_svg()
 
+
 def test_svg_5():
     uc = Part(lib="MCU_STC", name="STC15W204S-35x-SOP16")
     uc.split_pin_names("/")
@@ -132,6 +136,7 @@ def test_svg_5():
         s.stub = True
 
     generate_svg()
+
 
 def test_svg_6():
     # q = Part(lib='Device.lib', name='Q_PNP_CBE', dest=TEMPLATE, symtx='V')
@@ -160,6 +165,7 @@ def test_svg_6():
 
     generate_svg()
 
+
 def test_svg_7():
     u1 = Part("4xxx", "4001")
     gnd = Net("GND")
@@ -167,6 +173,7 @@ def test_svg_7():
     u1.uE.VDD += gnd
     gnd.stub = True
     generate_svg(file_="test7")
+
 
 def test_svg_8():
     # Create nets.
@@ -186,6 +193,7 @@ def test_svg_8():
         q.symtx = tx
 
     generate_svg()
+
 
 def test_svg_9():
     # Create part templates.
@@ -230,6 +238,7 @@ def test_svg_9():
 
     generate_svg()
 
+
 def test_svg_10():
     try:
         mosfet = Part("Device", "Q_PMOS_GSD")
@@ -248,8 +257,9 @@ def test_svg_10():
 
     generate_svg()
 
+
 def test_svg_11():
-    return # This test is not working properly.
+    return  # This test is not working properly.
 
     # vcc = Part("Device", "Battery", value=5 @ u_V)
     # r1 = Part("Device", "R", value=1 @ u_kOhm)
@@ -268,8 +278,9 @@ def test_svg_11():
 
     generate_svg()
 
+
 def test_svg_12():
-    return # This test is not working properly.
+    return  # This test is not working properly.
 
     @SubCircuit
     def vga_port(red, grn, blu, hsync, vsync, gnd, logic_lvl=3.3):
@@ -372,7 +383,6 @@ def test_svg_12():
         vga_conn[13].symio = "input"
         vga_conn[14].symio = "input"
 
-
     # Define some nets and buses.
     gnd = Net("GND")  # Ground reference.
     gnd.drive = POWER
@@ -394,7 +404,10 @@ def test_svg_12():
     # are used when the VGA interface connects to a StickIt! motherboard, and the
     # breadboard header is for attaching it to a breadboard.
     pm = 2 * Part(
-        xess_lib, "PMOD-12", footprint="xesscorp/xess.pretty:PMOD-12-MALE", dest=TEMPLATE
+        xess_lib,
+        "PMOD-12",
+        footprint="xesscorp/xess.pretty:PMOD-12-MALE",
+        dest=TEMPLATE,
     )
     pm[0].symtx = "H"
     pm[1].symtx = "H"

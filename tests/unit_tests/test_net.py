@@ -64,7 +64,9 @@ def test_netclass_2():
     n1 += led[1, 2, 3, 4]  # Add pins to net.
     n1.netclasses = NetClass("my_net", a=1, b=2, c=3, priority=2)  # Assign netclass.
     with pytest.raises(ValueError):
-        n1.netclasses = NetClass("my_net", a=5, b=6, c=7, priority=1)  # Reassign netclass should raise error.
+        n1.netclasses = NetClass(
+            "my_net", a=5, b=6, c=7, priority=1
+        )  # Reassign netclass should raise error.
 
 
 def test_netclass_3():
@@ -125,11 +127,16 @@ def test_netclass_7():
     """Test netclass duplication."""
     n1 = Net("a")
     ntcls1 = NetClass("class1", priority=1)
-    NetClass("class1", priority=1)  # Netclass with same name and same attributes doesn't raise error.
+    NetClass(
+        "class1", priority=1
+    )  # Netclass with same name and same attributes doesn't raise error.
     n1.netclasses = ntcls1
     n1.netclasses = ntcls1  # Reassigning should be ignored and not raise error.
     with pytest.raises(ValueError):
-        NetClass("class1", priority=2)  # Netclass with same name but different attributes should raise error.
+        NetClass(
+            "class1", priority=2
+        )  # Netclass with same name but different attributes should raise error.
+
 
 def test_netclass_8():
     """Test netclass multiple assignment."""
@@ -138,14 +145,15 @@ def test_netclass_8():
     assert "class1" in n1.netclasses
     assert "class2" in n1.netclasses
 
+
 def test_netclass_9():
     """Test netclass for net surrounded by hierarchical net classes."""
     # Create a hierarchical net class.
     glbl_netclass = NetClass("class0", priority=0)
-    with SubCircuit("lvl0", netclasses=NetClass("class1",priority=1)):
+    with SubCircuit("lvl0", netclasses=NetClass("class1", priority=1)):
         outer_net = Net("outer")
         with SubCircuit("lvl1"):
-            with SubCircuit("lvl2", netclasses=NetClass("class3",priority=3)):
+            with SubCircuit("lvl2", netclasses=NetClass("class3", priority=3)):
                 inner_net = Net("inner")
                 inner_net.netclasses = NetClass("class2", priority=2)
                 netclasses = inner_net.netclasses.by_priority()
@@ -157,6 +165,7 @@ def test_netclass_9():
         assert netclasses[0] == "class1"
     assert set(default_circuit.netclasses) == {"class0", "class1", "class2", "class3"}
 
+
 def test_netclass_10():
     """Test netclass for net surrounded by hierarchical net classes."""
     # Create a hierarchical net class.
@@ -165,13 +174,14 @@ def test_netclass_10():
         outer.netclasses = NetClass("class1", priority=1)
         outer_net = Net("outer")
         with SubCircuit("lvl1"):
-            with SubCircuit("lvl2", netclasses=NetClass("class3",priority=3)):
+            with SubCircuit("lvl2", netclasses=NetClass("class3", priority=3)):
                 inner_net = Net("inner")
                 inner_net.netclasses = NetClass("class2", priority=2)
                 netclasses = inner_net.netclasses.by_priority()
                 assert netclasses == ["class0", "class1", "class2", "class3"]
         netclasses = outer_net.netclasses.by_priority()
         assert netclasses == ["class0", "class1"]
+
 
 def test_drive_1():
     """Test drive strength propagation after merging nets."""

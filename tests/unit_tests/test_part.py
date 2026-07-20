@@ -6,7 +6,16 @@ from builtins import super
 
 import pytest
 
-from skidl import ERC, Net, Part, PartTmplt, erc_logger, generate_netlist, PartClass, SubCircuit
+from skidl import (
+    ERC,
+    Net,
+    Part,
+    PartTmplt,
+    erc_logger,
+    generate_netlist,
+    PartClass,
+    SubCircuit,
+)
 from skidl.logger import active_logger
 from skidl.utilities import to_list, Rgx
 
@@ -175,6 +184,7 @@ def test_part_ref_prefix():
 
 def test_subclass_1():
     """Test creating a subclass of Part."""
+
     class Resistor(Part):
         def __init__(self, value, ref=None, footprint="Resistors_SMD:R_0805"):
             super().__init__("Device", "R", value=value, ref=ref, footprint=footprint)
@@ -199,6 +209,7 @@ def test_subclass_1():
 
 def test_subclass_2():
     """Test creating a custom subclass of Part."""
+
     class CustomPart(Part):
         pass
 
@@ -226,7 +237,9 @@ def test_alias_rename():
 def test_partclass_1():
     """Test assigning partclass to a part."""
     led = Part("Device", "LED_ARBG")
-    led.partclasses = PartClass("my_part", a=1, b=2, c=3, priority=1)  # Assign part class.
+    led.partclasses = PartClass(
+        "my_part", a=1, b=2, c=3, priority=1
+    )  # Assign part class.
     assert "my_part" in led.partclasses  # Check part class name.
     assert led.partclasses["my_part"].a == 1  # Check part class attribute 'a'.
 
@@ -234,9 +247,13 @@ def test_partclass_1():
 def test_partclass_2():
     """Test reassigning partclass to a part."""
     led = Part("Device", "LED_ARBG")
-    led.partclasses = PartClass("my_part", a=1, b=2, c=3, priority=2)  # Assign part class.
+    led.partclasses = PartClass(
+        "my_part", a=1, b=2, c=3, priority=2
+    )  # Assign part class.
     with pytest.raises(ValueError):
-        led.partclasses = PartClass("my_part", a=5, b=6, c=7, priority=1)  # Reassign part class should raise error.
+        led.partclasses = PartClass(
+            "my_part", a=5, b=6, c=7, priority=1
+        )  # Reassign part class should raise error.
 
 
 def test_netclass_3():
@@ -268,11 +285,15 @@ def test_partclass_5():
     """Test partclass duplication."""
     led = Part("Device", "LED_ARBG")
     prtcls1 = PartClass("class1", priority=1)
-    PartClass("class1", priority=1)  # Part class with same name and same attributes doesn't raise error.
+    PartClass(
+        "class1", priority=1
+    )  # Part class with same name and same attributes doesn't raise error.
     led.partclasses = prtcls1
     led.partclasses = prtcls1  # Reassigning should be ignored and not raise error.
     with pytest.raises(ValueError):
-        PartClass("class1", priority=2)  # Part class with same name but different attributes should raise error.
+        PartClass(
+            "class1", priority=2
+        )  # Part class with same name but different attributes should raise error.
 
 
 def test_partclass_6():
@@ -282,12 +303,13 @@ def test_partclass_6():
     assert "class1" in led.partclasses
     assert "class2" in led.partclasses
 
+
 def test_partclass_7():
     """Test partclass for part surrounded by hierarchical part classes."""
     # Create a hierarchical part class.
-    with SubCircuit("lvl0", partclasses=PartClass("class1",priority=1)):
+    with SubCircuit("lvl0", partclasses=PartClass("class1", priority=1)):
         with SubCircuit("lvl1"):
-            with SubCircuit("lvl2", partclasses=PartClass("class3",priority=3)):
+            with SubCircuit("lvl2", partclasses=PartClass("class3", priority=3)):
                 led = Part("Device", "LED_ARBG")
                 led.partclasses = PartClass("class2", priority=2)
                 partclasses = led.partclasses.by_priority()
@@ -300,22 +322,22 @@ def test_create_pins_basic():
     """Test basic create_pins functionality with integer pin_count."""
     part = Part("Device", "R")
     initial_pin_count = len(part.pins)
-    
+
     # Create 4 pins with base name "DATA"
     result = part.create_pins("DATA", 4)
-    
+
     # Should return the part for method chaining
     assert result is part
-    
+
     # Should have created 4 new pins
     assert len(part.pins) == initial_pin_count + 4
-    
+
     # Check pin names and numbers
     new_pins = part.pins[-4:]  # Get the last 4 pins
     expected_names = ["DATA1", "DATA2", "DATA3", "DATA4"]
     actual_names = [pin.name for pin in new_pins]
     assert actual_names == expected_names
-    
+
     # Check that pins have sequential numbers
     pin_numbers = [int(pin.num) for pin in new_pins]
     assert pin_numbers == list(range(initial_pin_count + 1, initial_pin_count + 5))
@@ -325,13 +347,13 @@ def test_create_pins_single_pin():
     """Test create_pins with None pin_count for single pin."""
     part = Part("Device", "R")
     initial_pin_count = len(part.pins)
-    
+
     # Create single pin without index
     part.create_pins("CLK", None)
-    
+
     # Should have created 1 new pin
     assert len(part.pins) == initial_pin_count + 1
-    
+
     # Check pin name (no index appended)
     new_pin = part.pins[-1]
     assert new_pin.name == "CLK"
@@ -341,13 +363,13 @@ def test_create_pins_range():
     """Test create_pins with range pin_count."""
     part = Part("Device", "R")
     initial_pin_count = len(part.pins)
-    
+
     # Create pins using range(0, 4)
     part.create_pins("ADDR", range(0, 4))
-    
+
     # Should have created 4 new pins
     assert len(part.pins) == initial_pin_count + 4
-    
+
     # Check pin names use range indices
     new_pins = part.pins[-4:]
     expected_names = ["ADDR0", "ADDR1", "ADDR2", "ADDR3"]
@@ -359,13 +381,13 @@ def test_create_pins_slice():
     """Test create_pins with slice pin_count."""
     part = Part("Device", "R")
     initial_pin_count = len(part.pins)
-    
+
     # Create pins using slice(2, 6)
     part.create_pins("IO", slice(2, 6))
-    
+
     # Should have created 4 new pins
     assert len(part.pins) == initial_pin_count + 4
-    
+
     # Check pin names use slice indices
     new_pins = part.pins[-4:]
     expected_names = ["IO2", "IO3", "IO4", "IO5"]
@@ -377,14 +399,14 @@ def test_create_pins_list():
     """Test create_pins with list pin_count."""
     part = Part("Device", "R")
     initial_pin_count = len(part.pins)
-    
+
     # Create pins using custom list of indices
     indices = [10, 20, 30]
     part.create_pins("CUSTOM", indices)
-    
+
     # Should have created 3 new pins
     assert len(part.pins) == initial_pin_count + 3
-    
+
     # Check pin names use list indices
     new_pins = part.pins[-3:]
     expected_names = ["CUSTOM10", "CUSTOM20", "CUSTOM30"]
@@ -396,14 +418,14 @@ def test_create_pins_tuple():
     """Test create_pins with tuple pin_count."""
     part = Part("Device", "R")
     initial_pin_count = len(part.pins)
-    
+
     # Create pins using tuple of indices
     indices = (5, 7, 9)
     part.create_pins("ODD", indices)
-    
+
     # Should have created 3 new pins
     assert len(part.pins) == initial_pin_count + 3
-    
+
     # Check pin names use tuple indices
     new_pins = part.pins[-3:]
     expected_names = ["ODD5", "ODD7", "ODD9"]
@@ -414,25 +436,25 @@ def test_create_pins_tuple():
 def test_create_pins_with_connections():
     """Test create_pins with connections parameter."""
     part = Part("Device", "R")
-    
+
     # Create some nets to connect to
     net1 = Net("NET1")
     net2 = Net("NET2")
     net3 = Net("NET3")
     connections = [net1, net2, net3]
-    
+
     # Create pins with connections
     part.create_pins("CONN", 3, connections)
-    
+
     # Check that pins were created
     new_pins = part.pins[-3:]
     assert len(new_pins) == 3
-    
+
     # Check that pins are connected to the nets
     assert new_pins[0].net is net1
     assert new_pins[1].net is net2
     assert new_pins[2].net is net3
-    
+
     # Check that nets have the pins connected
     assert new_pins[0] in net1.pins
     assert new_pins[1] in net2.pins
@@ -442,12 +464,12 @@ def test_create_pins_with_connections():
 def test_create_pins_connections_mismatch():
     """Test create_pins logs error when connections count doesn't match pin count."""
     part = Part("Device", "R")
-    
+
     # Create mismatched connections
     net1 = Net("NET1")
     net2 = Net("NET2")
     connections = [net1, net2]  # 2 connections
-    
+
     # Should log error for mismatched count
     initial_error_count = active_logger.error.count
     part.create_pins("MISMATCH", 3, connections)  # 3 pins
@@ -457,7 +479,7 @@ def test_create_pins_connections_mismatch():
 def test_create_pins_invalid_pin_count():
     """Test create_pins logs error for invalid pin_count type."""
     part = Part("Device", "R")
-    
+
     # Should log error for invalid pin_count type
     initial_error_count = active_logger.error.count
     part.create_pins("INVALID", "invalid")
@@ -468,16 +490,16 @@ def test_create_pins_method_chaining():
     """Test create_pins supports method chaining."""
     part = Part("Device", "R")
     initial_pin_count = len(part.pins)
-    
+
     # Chain multiple create_pins calls
     result = part.create_pins("A", 2).create_pins("B", 3)
-    
+
     # Should return the part
     assert result is part
-    
+
     # Should have created 5 total pins
     assert len(part.pins) == initial_pin_count + 5
-    
+
     # Check all pin names were created correctly
     new_pins = part.pins[-5:]
     expected_names = ["A1", "A2", "B1", "B2", "B3"]
@@ -488,18 +510,18 @@ def test_create_pins_method_chaining():
 def test_create_pins_pin_aliases():
     """Test that created pins get proper aliases."""
     part = Part("Device", "R")
-    
+
     # Create pins
     part.create_pins("TEST", 2)
-    
+
     # Check that pins can be accessed by name and pin number alias
     new_pins = part.pins[-2:]
-    
+
     # Check pin aliases include name and "p" + pin number
     pin1, pin2 = new_pins
     assert "TEST1" in pin1.aliases
     assert f"p{pin1.num}" in pin1.aliases
-    assert "TEST2" in pin2.aliases  
+    assert "TEST2" in pin2.aliases
     assert f"p{pin2.num}" in pin2.aliases
 
 
@@ -507,13 +529,13 @@ def test_create_pins_slice_with_step():
     """Test create_pins with slice that has a step."""
     part = Part("Device", "R")
     initial_pin_count = len(part.pins)
-    
+
     # Create pins using slice with step
     part.create_pins("STEP", slice(0, 10, 2))  # 0, 2, 4, 6, 8
-    
+
     # Should have created 5 new pins
     assert len(part.pins) == initial_pin_count + 5
-    
+
     # Check pin names use slice indices with step
     new_pins = part.pins[-5:]
     expected_names = ["STEP0", "STEP2", "STEP4", "STEP6", "STEP8"]
@@ -524,7 +546,7 @@ def test_create_pins_slice_with_step():
 def test_create_pins_empty_connections():
     """Test create_pins logs error with empty connections list."""
     part = Part("Device", "R")
-    
+
     # Empty connections list should log error for non-zero pin count
     initial_error_count = active_logger.error.count
     part.create_pins("EMPTY", 2, [])

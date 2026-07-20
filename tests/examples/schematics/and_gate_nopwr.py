@@ -20,8 +20,8 @@ b & r2 & q1["B"]
 q1["C"] & r3 & gnd
 vcc += q1["E"], q2["E"]
 
-a.netio = "i"        # Input terminal.
-b.netio = "i"        # Input terminal.
+a.netio = "i"  # Input terminal.
+b.netio = "i"  # Input terminal.
 a_and_b.netio = "o"  # Output terminal.
 
 q1.E.symio = "i"  # Signal enters Q1 on E and B terminals.

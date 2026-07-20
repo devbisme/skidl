@@ -19,7 +19,7 @@ def test_ntwk_1():
     # Connect the components to form the amplifier circuit.
     Net("5V") & r1 & Net("OUTPUT") & q1["C,E"] & Net("GND")
     Net.fetch("5V") & r2 & q1.B & Net("INPUT")
-    
+
     # Perform assertions to verify the circuit.
     assert len(default_circuit.get_nets()) == 4
     assert len(q1.C.nets[0]) == 2
@@ -34,10 +34,10 @@ def test_ntwk_2():
     # Create two resistors and a diode.
     r1, r2 = Part("Device", "R", dest=TEMPLATE) * 2
     d1 = Part("Device", "D")
-    
+
     # Connect the components to form the parallel circuit.
     Net("5V") & ((r1 & d1["A,K"]) | r2) & Net("GND")
-    
+
     # Perform assertions to verify the circuit.
     assert len(default_circuit.get_nets()) == 3
     assert len(d1.A.nets[0]) == 2
@@ -49,6 +49,7 @@ def test_ntwk_2():
 
 def test_ntwk_3():
     """Test cascaded resistor dividers."""
+
     def r_div():
         """Create a resistor divider."""
         r1, r2 = Part("Device", "R", dest=TEMPLATE) * 2
@@ -56,7 +57,7 @@ def test_ntwk_3():
 
     # Connect multiple resistor dividers in cascade.
     Net("inp") & r_div() & r_div() & r_div() & Net("outp")
-    
+
     # Perform assertions to verify the circuit.
     assert len(default_circuit.get_nets()) == 5
     assert len(Net.fetch("inp")) == 1
@@ -107,13 +108,13 @@ def test_ntwk_7():
     """Test the tee() function."""
     # Create five resistors.
     r1, r2, r3, r4, r5 = Part("Device", "R", dest=TEMPLATE) * 5
-    
+
     # Create two nets.
     vi, gnd = Net("VI"), Net("GND")
-    
+
     # Connect the components using the tee() function.
     ntwk = vi & r1 & r2 & tee(r3 & r4 & gnd) & r5 & gnd
-    
+
     # Perform assertions to verify the circuit.
     assert len(r3[1].nets[0]) == 3
     assert len(r2[2].nets[0]) == 3

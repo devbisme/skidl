@@ -224,6 +224,7 @@ def test_bus_get_pull_1():
     # Ensure no additional buses are added to the default circuit.
     assert len(default_circuit.buses) == 1
 
+
 def test_bus_net_aliases():
     """Test bus net aliases."""
     b1 = Bus("a", 4)
@@ -231,7 +232,7 @@ def test_bus_net_aliases():
     b1[1].aliases += "net3", "net4"
     b1[2].aliases += "net5", "net6"
     b1[3].aliases += "net7", "net8"
-    assert set(b1[0,1]) == {b1[0], b1[1]}
+    assert set(b1[0, 1]) == {b1[0], b1[1]}
     assert set(b1["net1"]) == {b1[0]}
     assert set(b1["net2"]) == {b1[0]}
     assert set(b1["net3"]) == {b1[1]}
@@ -253,6 +254,7 @@ def test_bus_netclass_1():
     for n in b1:
         assert "my_net" in n.netclasses
 
+
 def test_bus_netclass_2():
     """Test reassigning netclass to a bus."""
     led = Part("Device", "LED_ARBG")
@@ -260,7 +262,10 @@ def test_bus_netclass_2():
     b1 += led[1, 2, 3, 4]  # Attach LED pins to the bus.
     b1.netclasses = NetClass("my_net", a=1, b=2, c=3, priority=1)  # Assign netclass.
     with pytest.raises(ValueError):
-        b1.netclasses = NetClass("my_net", a=5, b=6, c=7, priority=1)  # Reassign netclass should raise error.
+        b1.netclasses = NetClass(
+            "my_net", a=5, b=6, c=7, priority=1
+        )  # Reassign netclass should raise error.
+
 
 def test_bus_netclass_3():
     """Test merging buses with different netclasses."""
@@ -276,20 +281,22 @@ def test_bus_netclass_3():
     assert {"class1", "class2"} == set(b1.netclasses)
     assert {"class1", "class2"} == set(b2.netclasses)
 
+
 def test_bus_netclass_4():
     """Test netclass multiple assignment."""
     b1 = Bus("b", 4)
     b1.netclasses = NetClass("class1", priority=1), NetClass("class2", priority=2)
     assert set(b1.netclasses) == {"class1", "class2"}
 
+
 def test_bus_netclass_5():
     """Test netclass for bus surrounded by hierarchical net classes."""
     # Create a hierarchical net class.
     default_circuit.root.netclasses = NetClass("class0", priority=0)
-    with SubCircuit("lvl0", netclasses=NetClass("class1",priority=1)):
+    with SubCircuit("lvl0", netclasses=NetClass("class1", priority=1)):
         outer_bus = Bus("outer", 4)
         with SubCircuit("lvl1"):
-            with SubCircuit("lvl2", netclasses=NetClass("class3",priority=3)):
+            with SubCircuit("lvl2", netclasses=NetClass("class3", priority=3)):
                 inner_bus = Bus("inner", 4)
                 inner_bus.netclasses = NetClass("class2", priority=2)
                 netclasses = inner_bus.netclasses.by_priority()

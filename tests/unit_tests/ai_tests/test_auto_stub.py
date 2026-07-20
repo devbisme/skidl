@@ -29,8 +29,10 @@ auto_stub_nets = gen_schematic.auto_stub_nets
 
 
 # Skip entire module for early versions of KiCad.
-if os.getenv("SKIDL_TOOL") in ('KICAD5',):
-    pytest.skip("Tests require KiCad version > 5 as the default tool", allow_module_level=True)
+if os.getenv("SKIDL_TOOL") in ("KICAD5",):
+    pytest.skip(
+        "Tests require KiCad version > 5 as the default tool", allow_module_level=True
+    )
 
 
 # ===========================================================================
@@ -43,15 +45,35 @@ class TestPowerNetRegex:
 
     @pytest.mark.parametrize(
         "name",
-        ["GND", "gnd", "AGND", "DGND", "PGND", "VCC", "VDD", "VSS", "VEE",
-         "VBUS", "VBAT", "AVCC", "AVDD", "DVCC", "DVDD", "+3V3", "+5V", "+12V"],
+        [
+            "GND",
+            "gnd",
+            "AGND",
+            "DGND",
+            "PGND",
+            "VCC",
+            "VDD",
+            "VSS",
+            "VEE",
+            "VBUS",
+            "VBAT",
+            "AVCC",
+            "AVDD",
+            "DVCC",
+            "DVDD",
+            "+3V3",
+            "+5V",
+            "+12V",
+        ],
     )
     def test_power_nets_match(self, name):
         assert _POWER_NET_RE.match(name), f"{name} should match power net pattern"
 
     @pytest.mark.parametrize("name", ["DATA", "CLK", "SDA", "SCL", "RESET", "N$1"])
     def test_signal_nets_no_match(self, name):
-        assert not _POWER_NET_RE.match(name), f"{name} should NOT match power net pattern"
+        assert not _POWER_NET_RE.match(
+            name
+        ), f"{name} should NOT match power net pattern"
 
 
 class TestAutoStubNets:
@@ -88,6 +110,7 @@ class TestAutoStubNets:
         class MockCircuit:
             def __init__(self, nets):
                 self.nets = nets
+
         return MockCircuit(nets)
 
     def test_power_net_gnd_stubbed(self):
@@ -491,7 +514,15 @@ class TestKicadErcClean:
         report_path = filepath.replace(".kicad_sch", "-erc.rpt")
 
         result = subprocess.run(
-            ["kicad-cli", "sch", "erc", "--output", report_path, "--severity-all", filepath],
+            [
+                "kicad-cli",
+                "sch",
+                "erc",
+                "--output",
+                report_path,
+                "--severity-all",
+                filepath,
+            ],
             capture_output=True,
             timeout=60,
         )
@@ -501,7 +532,8 @@ class TestKicadErcClean:
                 report = f.read()
             # Count fixable errors — should be zero or near-zero after correction loop.
             fixable_count = sum(
-                1 for line in report.split("\n")
+                1
+                for line in report.split("\n")
                 if any(f"[{t}]" in line for t in FIXABLE_ERROR_TYPES)
             )
             assert fixable_count <= 2, (
@@ -522,12 +554,14 @@ class TestRowBasedPlacer:
     def test_threshold_constant_exists(self):
         """_ROW_PLACE_THRESHOLD is defined on the Placer class."""
         from skidl.schematics.place import Placer
+
         assert hasattr(Placer, "_ROW_PLACE_THRESHOLD")
         assert Placer._ROW_PLACE_THRESHOLD == 20
 
     def test_row_placer_function_exists(self):
         """place_connected_parts_rowbased is callable."""
         from skidl.schematics.place import Placer
+
         assert callable(getattr(Placer, "place_connected_parts_rowbased", None))
 
     @requires_kicad_libs
@@ -559,7 +593,7 @@ class TestRowBasedPlacer:
         # Verify parts are placed (file should contain symbol instances).
         with open(filepath) as f:
             content = f.read()
-        symbol_count = len(re.findall(r'\(symbol\s*\n\s*\(lib_id', content))
+        symbol_count = len(re.findall(r"\(symbol\s*\n\s*\(lib_id", content))
         assert symbol_count >= 20, f"Expected >=20 symbols, got {symbol_count}"
 
 
@@ -634,7 +668,7 @@ class TestLayoutReadiness:
         """_setup_kicad_env sets KiCad footprint directory when not already set."""
         from skidl import get_default_tool
 
-        kicad_version = get_default_tool()[len("kicad"):]
+        kicad_version = get_default_tool()[len("kicad") :]
 
         old = os.environ.pop(f"KICAD{kicad_version}_FOOTPRINT_DIR", None)
         try:
@@ -652,7 +686,7 @@ class TestLayoutReadiness:
         """_setup_kicad_env does not override an existing KiCad footprint directory."""
         from skidl import get_default_tool
 
-        kicad_version = get_default_tool()[len("kicad"):]
+        kicad_version = get_default_tool()[len("kicad") :]
 
         os.environ[f"KICAD{kicad_version}_FOOTPRINT_DIR"] = "/custom/path"
         try:
@@ -678,11 +712,13 @@ class TestBoundaryNets:
     def test_boundary_nets_method_exists(self):
         """SchNode has a get_boundary_nets method."""
         from skidl.schematics.sch_node import SchNode
+
         assert callable(getattr(SchNode, "get_boundary_nets", None))
 
     def test_boundary_nets_empty_node(self):
         """Empty node returns no boundary nets."""
         from skidl.schematics.sch_node import SchNode
+
         node = SchNode()
         assert node.get_boundary_nets() == []
 
@@ -693,11 +729,13 @@ class TestHierarchicalLabels:
     def test_hierarchical_label_function_exists(self):
         """hierarchical_label_to_sexp is importable."""
         from skidl.tools.kicad9.sexp_schematic import hierarchical_label_to_sexp
+
         assert callable(hierarchical_label_to_sexp)
 
     def test_hierarchical_label_sexp_format(self):
         """Hierarchical label S-expression has correct structure."""
         from skidl.tools.kicad9.sexp_schematic import hierarchical_label_to_sexp
+
         label = hierarchical_label_to_sexp("TEST_NET", 10.0, 20.0, angle=180)
         label_str = label.to_str()
         assert "hierarchical_label" in label_str
@@ -748,9 +786,12 @@ class TestSharedIcPinFan:
                         w = pin.pt * p.tx
                         net = getattr(pin, "net", None)
                         pins.append(
-                            (getattr(pin, "num", "?"),
-                             net.name if net else None,
-                             round(w.x), round(w.y))
+                            (
+                                getattr(pin, "num", "?"),
+                                net.name if net else None,
+                                round(w.x),
+                                round(w.y),
+                            )
                         )
                     geo["parts"][getattr(p, "ref", "?")] = pins
                 captured["geo"] = geo
@@ -780,7 +821,8 @@ class TestSharedIcPinFan:
                 c_en[1] += en
                 c_en[2] += gnd
                 circuit.generate_schematic(
-                    filepath=output_dir, top_name="shared_pin_fan",
+                    filepath=output_dir,
+                    top_name="shared_pin_fan",
                     auto_stub=True,
                 )
         finally:
@@ -816,11 +858,12 @@ class TestSharedIcPinFan:
         cx, cy = free_pin(parts["C1"])
         # Staggered fan => the two free pins separate along one axis; they must
         # not coincide (which is what the colinear-overlap bug produced).
-        assert (rx, ry) != (cx, cy), (
-            f"R and C free pins coincide ({rx},{ry}) — not staggered"
-        )
+        assert (rx, ry) != (
+            cx,
+            cy,
+        ), f"R and C free pins coincide ({rx},{ry}) — not staggered"
         # And they fan to opposite sides: separated on exactly one axis by a
         # meaningful amount (perp_dir vs anti_perp).
-        assert (abs(rx - cx) > 100) or (abs(ry - cy) > 100), (
-            f"R free pin ({rx},{ry}) and C free pin ({cx},{cy}) too close"
-        )
+        assert (abs(rx - cx) > 100) or (
+            abs(ry - cy) > 100
+        ), f"R free pin ({rx},{ry}) and C free pin ({cx},{cy}) too close"
