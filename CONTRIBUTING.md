@@ -20,19 +20,24 @@ If you are reporting a bug, please include:
 
 ### Fix Bugs
 
-Look through the GitHub issues for bugs. Anything tagged with \"bug\" is
+Look through the GitHub issues for bugs. Anything tagged with "bug" is
 open to whoever wants to implement it.
 
 ### Implement Features
 
 Look through the GitHub issues for features. Anything tagged with
-\"feature\" is open to whoever wants to implement it.
+"feature" is open to whoever wants to implement it.
 
 ### Write Documentation
 
 skidl could always use more documentation, whether as part of the
 official skidl docs, in docstrings, or even on the web in blog posts,
 articles, and such.
+
+The official documentation lives in the `docsrc` directory, which is
+compiled into the `docs` directory. **Edit the sources in `docsrc` — do
+not edit the generated HTML in `docs` directly, as those changes will be
+overwritten the next time the docs are built.**
 
 ### Submit Feedback
 
@@ -48,38 +53,45 @@ If you are proposing a feature:
 
 ## Get Started!
 
-Ready to contribute? Here\'s how to set up [skidl]{.title-ref} for local
-development.
+Ready to contribute? Here's how to set up `skidl` for local development.
 
-1.  Fork the [skidl]{.title-ref} repo on GitHub.
+1.  Fork the `skidl` repo on GitHub.
 
 2.  Clone your fork locally:
 
         $ git clone git@github.com:your_name_here/skidl.git
 
-3.  Install your local copy into a virtualenv. Assuming you have
-    virtualenvwrapper installed, this is how you set up your fork for
-    local development:
+3.  Install your local copy. Using a virtualenv is optional but
+    recommended to keep skidl's dependencies isolated from the rest of
+    your system:
+
+        $ cd skidl/
+        $ pip install -e .
+
+    If you prefer a virtualenv (for example, with virtualenvwrapper):
 
         $ mkvirtualenv skidl
         $ cd skidl/
-        $ python setup.py develop
+        $ pip install -e .
 
-4.  Create a branch for local development:
+4.  Create a branch for local development, based on the `development`
+    branch (all pull requests target `development`, not `master`):
 
+        $ git checkout development
+        $ git pull
         $ git checkout -b name-of-your-bugfix-or-feature
 
     Now you can make your changes locally.
 
-5.  When you\'re done making changes, auto-format your code and check
-    that your changes pass the tests, including testing other Python
-    versions with tox:
+5.  When you're done making changes, auto-format your code and check
+    that your changes pass the tests. Tests are run with `pytest`, and
+    `tox` runs them across the supported Python/KiCad environments:
 
         $ black skidl tests setup.py
-        $ python setup.py test
+        $ pytest tests
         $ tox
 
-    To get black, and tox, just pip install them into your virtualenv.
+    To get black, pytest, and tox, just `pip install` them.
 
 6.  Commit your changes and push your branch to GitHub:
 
@@ -87,10 +99,11 @@ development.
         $ git commit -m "Your detailed description of your changes."
         $ git push origin name-of-your-bugfix-or-feature
 
-7.  Submit a pull request through the GitHub website.
+7.  Submit a pull request through the GitHub website, targeting the
+    `development` branch.
 
 ## Tips
 
-To run a subset of tests:
+To run a single test file:
 
-    $ python -m unittest tests.test_skidl
+    $ pytest tests/unit_tests/test_something.py
