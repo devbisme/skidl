@@ -1,0 +1,471 @@
+# -*- coding: utf-8 -*-
+
+# The MIT License (MIT) - Copyright (c) Dave Vandenbout.
+
+"""
+Parsing of Kicad libraries.
+"""
+
+import os
+from collections import defaultdict, OrderedDict
+from simp_sexp import Sexp
+
+from skidl import Alias
+from skidl.logger import active_logger
+from skidl.part import LIBRARY
+from skidl.pin import pin_types
+from skidl.geometry import mils_per_mm, BBox
+from skidl.utilities import (
+    export_to_all,
+    find_and_open_file,
+    get_abs_filename,
+    num_to_chars,
+    to_list,
+    add_unique_attr,
+)
+
+
+__all__ = ["lib_suffix"]
+
+
+lib_suffix = [".kicad_sym"]
+
+
+@export_to_all
+def default_lib_paths():
+    """Return default list of directories to search for part libraries."""
+    kicad_version = __name__.split(".")[-2][len("kicad"):]
+
+    # Start search for part libraries in the current directory.
+    paths = ["."]
+
+    # Add the location of the default KiCad part libraries.
+    try:
+        paths.append(os.environ[f"KICAD{kicad_version}_SYMBOL_DIR"])
+    except KeyError:
+        active_logger.warning(
+            f"KICAD{kicad_version}_SYMBOL_DIR environment variable is missing, so the default KiCad symbol libraries won't be searched."
+        )
+
+    return paths
+
+
+@export_to_all
+def get_fp_lib_tbl_dir():
+    """Get the path where the global fp-lib-table file is found."""
+    kicad_version = __name__.split(".")[-2][len("kicad"):]
+
+    paths = (
+        f"$HOME/.config/kicad/{kicad_version}.0",
+        "~/.config/kicad/{kicad_version}.0",
+        "%APPDATA%/kicad/{kicad_version}.0",
+        "$HOME/Library/Preferences/kicad/{kicad_version}.0",
+        "~/Library/Preferences/kicad/{kicad_version}.0",
+        "$HOME/.config/kicad",
+        "~/.config/kicad",
+        "%APPDATA%/kicad",
+        "$HOME/Library/Preferences/kicad",
+        "~/Library/Preferences/kicad",
+    )
+    path = get_abs_filename("fp-lib-table", paths=paths, ext=None, allow_failure=True, descend=0)
+    if not path:
+        active_logger.bare_warning("fp-lib-table file was not found. Component footprints are not available.")
+        return ""
+    return os.path.dirname(path)
+
+
+@export_to_all
+def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
+    """
+    Load the parts from a KiCad schematic library file.
+
+    Args:
+        lib (SchLib): SKiDL library object.
+        filename (str): The name of the KiCad schematic library file.
+        lib_search_paths_ (list): List of paths with KiCad symbol libraries.
+        lib_section: Only used for SPICE simulations.
+    """
+
+    from skidl import Part, get_default_tool
+    from skidl.tools import lib_suffixes
+
+    # Try to open the file using allowable suffixes for the versions of KiCAD.
+    dflt_tool = get_default_tool()
+    suffixes = lib_suffixes[dflt_tool]
+    base, suffix = os.path.splitext(filename)
+    if suffix:
+        # If an explicit file extension was given, use it instead of tool lib default extensions.
+        suffixes = [suffix]
+    for suffix in suffixes:
+        # Allow file open failure so multiple suffixes can be tried without error messages.
+        f, _ = find_and_open_file(
+            filename, lib_search_paths_, suffix, allow_failure=True
+        )
+        if f:
+            # Break from the loop once a library file is successfully opened.
+            break
+    if not f:
+        raise FileNotFoundError(
+            f"Unable to open KiCad Schematic Library File {filename}"
+        )
+
+    # Parse the library and return a nested list of library parts.
+    lib_txt = f.read()
+    try:
+        lib_txt = lib_txt.decode("latin_1")
+    except AttributeError:
+        # File contents were already decoded.
+        pass
+
+    # Convert library text into an S-expression object.
+    try:
+        lib_sexp = Sexp(lib_txt)
+    except:
+        active_logger.raise_(
+            RuntimeError,
+            f"The file {filename} is not a KiCad Schematic Library File.\n",
+        )
+
+    # Extract symbols into a dictionary with symbol names as keys. 
+    # Use an ordered dictionary to keep parts in the same order as
+    # they appeared in the library file because in KiCad V6+ library symbols can "extend"
+    # previous symbols which should be processed before those that extend them.
+    symbols = OrderedDict(
+        [
+            (symbol[1], symbol)
+            for symbol in lib_sexp.search("/kicad_symbol_lib/symbol", ignore_case=True)
+        ]
+    )
+
+    # Create Part objects for each symbol in the library.
+    for symbol_name, symbol in symbols.items():
+
+        # Get symbol properties
+        properties = {}
+        extends = symbol.search("/symbol/extends", ignore_case=True)
+        if extends:
+            # If the current symbol extends a previous parent symbol,
+            # use the properties from the parent symbol as properties for this one.
+            parent_name = extends[0][1]
+            parent = symbols[parent_name]
+            parent_properties = parent.search("/symbol/property", ignore_case=True)
+            properties = {p[1].lower(): p[2] for p in parent_properties}
+        # Update properties with those from the current symbol.
+        current_properties = symbol.search("/symbol/property", ignore_case=True)
+        properties.update({p[1].lower(): p[2] for p in current_properties})
+
+        # Get part properties.
+        keywords = properties.get("ki_keywords", "")
+        datasheet = properties.get("datasheet", "")
+        description = properties.get("description", "")
+
+        # Join the various text pieces by newlines so the ^ and $ special characters
+        # can be used to detect the start and end of a piece of text during RE searches.
+        search_text = "\n".join([filename, symbol_name, description, keywords])
+
+        # Create a Part object and add it to the library object.
+        lib.add_parts(
+            Part(
+                part_defn=symbol,  # A list of lists that define the part.
+                tool=dflt_tool,
+                dest=LIBRARY,
+                filename=filename,
+                name=symbol_name,
+                aliases=list(),  # No aliases in KiCad V6?
+                keywords=keywords,
+                datasheet=datasheet,
+                description=description,
+                search_text=search_text,
+            )
+        )
+
+
+@export_to_all
+def parse_lib_part(part, partial_parse):
+    """
+    Create a Part using a part definition from a KiCad V6 schematic library.
+
+    Args:
+        partial_parse: If true, scan the part definition until the
+            name and aliases are found. The rest of the definition
+            will be parsed if the part is actually used.
+    """
+
+    # For info on part library format, look at:
+    # https://dev-docs.kicad.org/en/file-formats/sexpr-schematic/
+    # https://docs.google.com/document/d/1lyL_8FWZRouMkwqLiIt84rd2Htg4v1vz8_2MzRKHRkc/edit
+    # https://gitlab.com/kicad/code/kicad/-/blob/master/eeschema/sch_plugins/kicad/sch_sexpr_parser.cpp
+
+    from skidl import TEMPLATE, Pin
+
+    # Return if there's nothing to do (i.e., part has already been parsed).
+    if not part.part_defn:
+        return
+
+    # If a part def already exists, the name has already been set, so exit.
+    if partial_parse:
+        return
+    
+    part_defn = part.part_defn
+
+    part.aliases = Alias()  # Part aliases.
+    part.fplist = []  # Footprint list.
+    part.draw_cmds = defaultdict(
+        list
+    )  # Drawing commands for the part and any units, including pins.
+
+    # Search for a parent that this part inherits from.
+    extends = part_defn.search("/symbol/extends", ignore_case=True)
+    if extends:
+
+        # Make a copy of the parent part from the library.
+        parent_name = extends[0][1]
+        parent_part = part.lib[parent_name].copy(dest=TEMPLATE)
+
+        # Remove parent attributes that we don't want to overwrite in the child.
+        parent_part_dict = vars(parent_part)
+        for property_key in (
+            "part_defn",
+            "_name",
+            "_aliases",
+            "description",
+            "datasheet",
+            "keywords",
+            "search_text",
+        ):
+            try:
+                del parent_part_dict[property_key]
+            except KeyError:
+                pass
+
+        # Overwrite child with the parent part.
+        vars(part).update(parent_part_dict)
+
+        # Make sure all the pins have a valid reference to the child.
+        part.associate_pins()
+
+        # Copy part units so all the pin and part references stay valid.
+        part.copy_units(parent_part)
+
+        # Perform some operations on the child part.
+        for item in part_defn:
+            cmd = item[0].lower()
+            if cmd == "del":
+                part.rmv_pins(item[1])
+            elif cmd == "swap":
+                part.swap_pins(item[1], item[2])
+            elif cmd == "renum":
+                part.renumber_pin(item[1], item[2])
+            elif cmd == "rename":
+                part.rename_pin(item[1], item[2])
+            elif cmd == "property_del":
+                del part.fields[item[1]]
+            elif cmd == "alternate":
+                pass
+
+    def parse_pins(symbol, unit):
+        """Parse the pins within a symbol and add them to the Part object."""
+
+        # Association between KiCad : SKiDL pin types.
+        pin_io_type_translation = {
+            "input": pin_types.INPUT,
+            "output": pin_types.OUTPUT,
+            "bidirectional": pin_types.BIDIR,
+            "tri_state": pin_types.TRISTATE,
+            "passive": pin_types.PASSIVE,
+            "free": pin_types.FREE,
+            "unspecified": pin_types.UNSPEC,
+            "power_in": pin_types.PWRIN,
+            "power_out": pin_types.PWROUT,
+            "open_collector": pin_types.OPENCOLL,
+            "open_emitter": pin_types.OPENEMIT,
+            "no_connect": pin_types.NOCONNECT,
+        }
+
+        # Get the pins for this symbol.
+        symbol_pins = symbol.search("/symbol/pin", ignore_case=True)
+
+        # Process the pins for the symbol.
+        for pin in symbol_pins:
+            # Pin electrical type immediately follows the "pin" tag.
+            pin_func = pin_io_type_translation[pin[1].lower()]
+
+            # Find the pin attributes like name, number, etc.
+            pin_name = pin.search("/pin/name", ignore_case=True)
+            pin_name = pin_name[0][1] if pin_name else ""
+            pin_number = pin.search("/pin/number", ignore_case=True)
+            pin_number = pin_number[0][1] if pin_number else None
+            pin_length = pin.search("/pin/length", ignore_case=True)
+            pin_length = pin_length[0][1] if pin_length else 1000  # Default length is 1mm.
+            at = pin.search("/pin/at", ignore_case=True)
+            if at:
+                pin_x, pin_y = at[0][1:3]
+                pin_angle = at[0][3] if len(at[0]) > 3 else 0
+                pin_orientation = {0: "R", 90: "U", 180: "L", 270: "D"}.get(pin_angle, "R")
+            else:
+                pin_x, pin_y, pin_angle, pin_orientation = 0, 0, 0, "R"
+            alternate_names = pin.search("/pin/alternate", ignore_case=True)
+            aliases = [a[1] for a in alternate_names] if alternate_names else []
+
+            # Add the pins that were found to the total part. Include the unit identifier
+            # in the pin so we can find it later when the part unit is created.
+            p = Pin(
+                name=pin_name,
+                num=pin_number,
+                func=pin_func,
+                unit=unit,
+                x=pin_x,
+                y=pin_y,
+                length=pin_length,
+                rotation=pin_angle,
+                orientation=pin_orientation,
+                # orientation=pin_angle,
+            )
+            p.aliases += aliases
+            part.add_pins(p)
+
+        # Return true if the symbol had pins.
+        return bool(symbol_pins)
+
+    def parse_draw_cmds(symbol):
+        """Return a list of graphic drawing commands contained in the symbol."""
+        return [
+            item
+            for item in symbol
+            if item[0].lower()
+            in ("arc", "bezier", "circle", "pin", "polyline", "rectangle", "text")
+        ]
+
+    # Parse top-level pins. (Any units with pins are parsed later.)
+    top_has_pins = parse_pins(part_defn, unit=1)
+
+    # Make dict of all the units within a symbol, keyed by unit id.
+    units = {
+        unit[1]: unit
+        for unit in part_defn.search("/symbol/symbol", ignore_case=True)
+    }
+
+    # I'm assuming a part will not have both pins at the top level and units with pins.
+    # The bool(units) will test for units within this part, while bool(part.unit)
+    # will test for units in the part this part is extending.
+    # This assertion will check that assumption.
+    assert top_has_pins ^ (
+        bool(units) or bool(part.unit)
+    ), "Top-level pins must be present if and only if there are no units."
+
+    # If there are pins in the top-level part, then the part shouldn't have any units.
+    # Therefore, make the part a unit of itself.
+    if top_has_pins:
+        part.make_unit("uA", unit=1)
+
+    # Parse any graphics commands in the top-level part definition.
+    part.draw_cmds[1].extend(parse_draw_cmds(part.part_defn))
+
+    # Get pins and assign them to each unit as well as the entire part.
+    # Also assign any graphic objects to each unit.
+    unit_nums = []  # Stores unit numbers for units with pins.
+    for unit_name, unit_data in units.items():
+        # Extract the major and minor unit numbers from the last two numbers in the name.
+        # A major number of 0 means the unit contains global stuff for all the other units,
+        # but it isn't an actual usable unit itself. A non-global unit with a minor number
+        # greater than 1 indicates a DeMorgan-equivalent unit.
+        major, minor = [int(n) for n in unit_name.split("_")[-2:]]
+
+        # Skip DeMorgan equivalent units.
+        if major != 0 and minor > 1:
+            continue
+
+        # Get any graphic drawing commands for this unit.
+        part.draw_cmds[major].extend(parse_draw_cmds(unit_data))
+
+        # Save unit number if the unit has pins. Use this to create units
+        # after the entire part is created.
+        unit_has_pins = parse_pins(unit_data, unit=major)
+        if major == 0 and unit_has_pins:
+            # If the global unit has pins, then save it so it can give
+            # pins to non-global units or because it may be an actual
+            # unit itself.
+            unit_nums.append(major)
+        elif major != 0:
+            # Always save non-global units even if they don't have pins
+            # because they may get pins from the global unit.
+            unit_nums.append(major)
+
+    # Copy drawing objects from the global unit with major id 0 to all the other units.
+    if unit_nums:
+        for unit_major, unit_draw_cmds in part.draw_cmds.items():
+            if unit_major != 0:
+                # Update non-global units with the global unit drawing commands.
+                unit_draw_cmds.extend(part.draw_cmds.get(0, []))
+
+    # Clear the part reference field directly. Don't use the setter function
+    # since it will try to generate and assign a unique part reference if
+    # passed a value of None.
+    part._ref = None
+
+    # Make sure all the pins have a valid reference to this part.
+    part.associate_pins()
+
+    # Do some extra processing on the global unit if it exists.
+    if 0 in unit_nums:
+        if len(unit_nums) == 1:
+            # If there is only one unit and it is the global unit,
+            # then re-assign the unit identifier to 1 so it looks
+            # like a normal, non-global unit.
+            unit_nums = [1]
+        else:
+            # Otherwise there are non-global units so don't bother
+            # creating the global unit. Any pins in the global unit
+            # will be assigned to non-global units when make_unit()
+            # is called below.
+            unit_nums.remove(0)
+
+    # Create any units now that all the part pins have been added.
+    for unit_num in unit_nums:
+        unit_label = "u" + num_to_chars(unit_num)
+        # Create a unit using pins with the same unit number.
+        # This will also add pins from the global unit to this unit.
+        u = part.make_unit(unit_label, unit=unit_num)
+
+    if len(part.unit) == 1:
+        # If there's only one unit, that unit is the part itself.
+        # Replace the PartUnit object with the parent Part object.
+        unit_label = list(part.unit.keys())[0]
+        part.rmv_unit(unit_label)
+        part.unit[unit_label] = part
+        part.num = 1
+        add_unique_attr(part, unit_label, part)
+
+    # Populate part fields from symbol properties. Properties will also be included below in drawing commands.
+    # Some default properties in case they're missing from the part.
+    props = {
+        "reference": ("", "", ""),
+        "value": ("", "", ""),
+        "footprint": ("", "", ""),
+        "datasheet": ("", "", ""),
+    }
+    # Overwrite defaults with any existing properties from the part definition.
+    props.update(
+        {
+            prop[1].lower(): prop
+            for prop in part_defn.search("/symbol/property", ignore_case=True)
+        }
+    )
+    part.ref_prefix = props["reference"][2]
+    part.value = props["value"][2]
+    part.fplist.append(props["footprint"][2])
+    part.datasheet = props["datasheet"][2]
+    part.draw_cmds[1].extend([props["reference"], props["value"]])
+
+    # Construct the rest of the part attribute space, avoid part attributes that are already defined.
+    already_defined = vars(part).keys()
+    part_dict = {
+        k.replace(" ", "_").replace("/", "_"): v[2]
+        for k, v in props.items()
+        if k not in already_defined
+    }
+    for k, v in part_dict.items():
+        setattr(part, k, v)
+
+    # Part definition has been parsed, so clear it out to prevent parsing it again.
+    part.part_defn = None

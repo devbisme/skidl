@@ -24,7 +24,7 @@ export KICAD9_SYMBOL_DIR=/usr/share/kicad/symbols      # or wherever KiCad 9 ins
 export KICAD9_FOOTPRINT_DIR=/usr/share/kicad/footprints  # footprint libraries
 ```
 
-Replace `9` with your KiCad version (6, 7, 8, 9). Without these, SKiDL will warn that default libraries are unavailable.
+Replace `9` with your KiCad version (6, 7, 8, 9, 10). Without these, SKiDL will warn that default libraries are unavailable.
 
 ## Circuit Design API
 

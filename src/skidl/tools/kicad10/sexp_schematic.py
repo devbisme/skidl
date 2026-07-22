@@ -1,0 +1,1595 @@
+# -*- coding: utf-8 -*-
+
+# The MIT License (MIT) - Copyright (c) Dave Vandenbout.
+
+"""
+Shared S-expression schematic generation for KiCad 6/8/9.
+
+Converts placed+routed SchNode trees into .kicad_sch files.
+Used by kicad6, kicad8, kicad9, and kicad10 gen_schematic thin wrappers.
+
+Sources:
+  - part_to_sexp / wire_to_sexp: upstream sexp_schematics branch (devbisme)
+  - Hierarchy / custom fields / lib_symbols: feature/kicad8-gen-schematic (PR #281)
+  - Net label logic: feature/inject-net-labels (PR #280)
+  - Original kicad5 hierarchy walker: node_to_eeschema (kicad5/gen_schematic.py)
+  - Credit: cyberhuman (PR #270) for initial KiCad 8 schematic work
+"""
+
+import copy
+import datetime
+import os
+import uuid
+from collections import OrderedDict
+
+from simp_sexp import Sexp
+
+from skidl.geometry import Point, Tx
+from skidl.net import NCNet
+from skidl.pckg_info import __version__
+from skidl.schematics.net_terminal import NetTerminal
+from skidl.schlib import SchLib
+from skidl.utilities import export_to_all
+
+# UUID namespace — same as gen_netlist.py so UUIDs are cross-referenceable.
+_NAMESPACE_UUID = uuid.UUID("7026fcc6-e1a0-409e-aaf4-6a17ea82654f")
+
+# Shared label/symbol orientation table, keyed on calc_pin_dir(). The angle is
+# chosen so a net label's text — and a power symbol's body — always extends
+# AWAY from the pin (clear of the part body) for every pin direction, including
+# mirrored parts. Both net_label_to_sexp and _power_symbol_to_sexp derive their
+# angle from this single table so they can never drift apart again. The vertical
+# values (U:270, D:90) are the corrected ones; an earlier table had them swapped,
+# which overprinted vertical net labels and mis-oriented vertical GND/rail
+# symbols. Do not change these without re-rendering the vertical + mirrored cases.
+_PIN_LABEL_ANGLE = {"R": 180, "L": 0, "U": 270, "D": 90}
+
+# ---------------------------------------------------------------------------
+# Power symbol support
+# ---------------------------------------------------------------------------
+
+
+def init_power_symbol_data():
+    """Initialize power symbol state at the start of schematic generation."""
+
+    global pwr_symbol_sexp_dict, pwr_symbol_names, _used_power_symbols, _pwr_counter
+
+    _used_power_symbols = set()
+    _pwr_counter = [0]
+
+    # Just read in the power symbols at the start.
+    pwr_lib = SchLib("power")
+    with open(pwr_lib.filepath, "r") as f:
+        pwr_lib_text = f.read()
+    pwr_lib_sexp = Sexp(pwr_lib_text)
+    pwr_symbol_sexps = pwr_lib_sexp.search("/kicad_symbol_lib/symbol")
+    pwr_symbol_sexp_dict = {sym[1]:sym for sym in pwr_symbol_sexps}
+    pwr_symbol_names = set([p.name for p in pwr_lib])
+
+
+def _extract_power_lib_symbol(name):
+    """Extract and parse the lib_symbol definition for a power symbol.
+
+    The returned Sexp has its top-level symbol name changed to "power:NAME"
+    so it matches the lib_id used in symbol instances.
+
+    Args:
+        name: Power symbol name (e.g., "GND", "+3V3").
+
+    Returns:
+        Sexp: Parsed symbol definition, or None if not found.
+    """
+    from copy import deepcopy
+    pwr_sym_sexp = deepcopy(pwr_symbol_sexp_dict.get(name, None))
+    # Change the symbol name from "NAME" to "power:NAME" for lib_id matching.
+    pwr_sym_sexp[1] = f"power:{name}"
+    return pwr_sym_sexp
+
+
+def _power_symbol_pin_angle(net_name):
+    """Return the intrinsic pin angle (deg) of a power symbol's connection pin.
+
+    KiCad power symbols carry a single pin whose ``(at x y ANGLE)`` describes
+    the direction the symbol's body extends at instance-angle 0 (ground
+    symbols point down -> 270, voltage rails point up -> 90).  We need this so
+    we can rotate the *instance* to align the symbol body with the schematic
+    pin's outward stub direction.  Returns 270 (ground-style) if the symbol or
+    its pin can't be found, which leaves the historical angle=0 behaviour for
+    the common ground case.
+    """
+    try:
+        sym = pwr_symbol_sexp_dict.get(net_name)
+        if sym is None:
+            return 270
+        pins = sym.search("/symbol/symbol/pin") or sym.search("/symbol/pin")
+        for p in pins:
+            at = p.search("/pin/at")
+            if at:
+                return float(at[0][3]) % 360
+    except Exception:
+        pass
+    return 270
+
+
+def _power_symbol_to_sexp(pin, net_name, tx):
+    """Generate a power symbol instance S-expression.
+
+    Args:
+        pin: The pin where the power symbol should be placed.
+        net_name: The power net name (e.g., "GND", "+3V3").
+        tx: Sheet-level transformation matrix.
+
+    Returns:
+        Sexp: Power symbol instance, or None on failure.
+    """
+    _used_power_symbols.add(net_name)
+
+    _pwr_counter[0] += 1
+    pwr_ref = f"#PWR{_pwr_counter[0]:03d}"
+
+    # Position at pin location.
+    part_tx = getattr(pin.part, "tx", Tx())
+    combined_tx = part_tx * tx
+    pin_pt = getattr(pin, "pt", Point(pin.x, pin.y))
+    pt = pin_pt * combined_tx
+
+    x = _round_mm(pt.x)
+    y = _round_mm(pt.y)
+
+    # Power symbol angle: align the symbol body with the schematic pin's
+    # outward stub direction.  ``calc_pin_dir`` gives the world-space
+    # direction the pin's stub extends (where the symbol sits); _PIN_LABEL_ANGLE
+    # is the same label-orientation table used by net_label_to_sexp.  The
+    # symbol's intrinsic pin angle (270 for GND, 90 for voltage rails) is
+    # subtracted so e.g. a GND on a pin that exits to the right gets rotated
+    # to face left into the pin instead of always hanging straight down.
+    intrinsic = _power_symbol_pin_angle(net_name)
+    angle = (_PIN_LABEL_ANGLE[calc_pin_dir(pin)] - intrinsic) % 360
+
+    lib_id = f"power:{net_name}"
+    inst_uuid = _gen_uuid(f"pwr:{net_name}:{x}:{y}:{_pwr_counter[0]}")
+
+    symbol = Sexp(
+        [
+            "symbol",
+            ["lib_id", lib_id],
+            ["at", x, y, angle],
+            ["unit", 1],
+            ["exclude_from_sim", "yes"],
+            ["in_bom", "no"],
+            ["on_board", "yes"],
+            ["dnp", "no"],
+            ["fields_autoplaced", "yes"],
+            ["uuid", inst_uuid],
+        ]
+    )
+
+    # Reference property.
+    symbol.append(
+        Sexp(
+            [
+                "property",
+                "Reference",
+                pwr_ref,
+                ["at", x, y - 1.27, 0],
+                ["effects", ["font", ["size", 1.27, 1.27]], ["hide", "yes"]],
+            ]
+        )
+    )
+
+    # Value property.
+    symbol.append(
+        Sexp(
+            [
+                "property",
+                "Value",
+                net_name,
+                ["at", x, y - 3.81, 0],
+                ["effects", ["font", ["size", 1.27, 1.27]]],
+            ]
+        )
+    )
+
+    # Footprint property.
+    symbol.append(
+        Sexp(
+            [
+                "property",
+                "Footprint",
+                "",
+                ["at", x, y, 0],
+                ["effects", ["font", ["size", 1.27, 1.27]], ["hide", "yes"]],
+            ]
+        )
+    )
+
+    # Datasheet property.
+    symbol.append(
+        Sexp(
+            [
+                "property",
+                "Datasheet",
+                "",
+                ["at", x, y, 0],
+                ["effects", ["font", ["size", 1.27, 1.27]], ["hide", "yes"]],
+            ]
+        )
+    )
+
+    # Pin entry (power symbols have a single pin "1").
+    pin_uuid = _gen_uuid(f"pwr_pin:{net_name}:{x}:{y}:{_pwr_counter[0]}")
+    symbol.append(Sexp(["pin", '"1"', ["uuid", pin_uuid]]))
+
+    # Instances section.
+    symbol.append(
+        Sexp(
+            [
+                "instances",
+                [
+                    "project",
+                    "SKiDL-Generated",
+                    [
+                        "path",
+                        f"/{_gen_uuid('root_schematic')}",
+                        ["reference", pwr_ref],
+                        ["unit", 1],
+                    ],
+                ],
+            ]
+        )
+    )
+
+    return symbol
+
+
+def _gen_uuid(name=""):
+    """Generate a deterministic UUID from *name*, or a random one if empty."""
+    if not name:
+        return str(uuid.uuid4())
+    return str(uuid.uuid5(_NAMESPACE_UUID, name))
+
+
+def _round_mm(val, ndigits=2):
+    """Round a value to *ndigits* decimal places for mm output.
+
+    KiCad 9 uses mm with decimal precision.  The old integer .round()
+    was fine for kicad5 (mils) but destroys sub-mm precision needed
+    for pin-to-wire alignment in KiCad 9.
+    """
+    return round(val, ndigits)
+
+
+# ---------------------------------------------------------------------------
+# Paper sizes
+# ---------------------------------------------------------------------------
+
+A_SIZES = OrderedDict(
+    [
+        ("A4", (297, 210)),
+        ("A3", (420, 297)),
+        ("A2", (594, 420)),
+        ("A1", (841, 594)),
+        ("A0", (1189, 841)),
+    ]
+)
+
+
+def _pick_paper_size(bbox):
+    """Choose the smallest A-size paper that fits *bbox* (in mils)."""
+    import math
+
+    w = abs(bbox.w) if bbox.w and not math.isinf(bbox.w) else 0
+    h = abs(bbox.h) if bbox.h and not math.isinf(bbox.h) else 0
+
+    # Convert bbox dimensions from mils to mm.
+    w_mm = w * 0.0254 if w else 0
+    h_mm = h * 0.0254 if h else 0
+
+    for name, (pw, ph) in A_SIZES.items():
+        if w_mm <= pw and h_mm <= ph:
+            return name
+    return "A0"
+
+
+# ---------------------------------------------------------------------------
+# Part → S-expression
+# ---------------------------------------------------------------------------
+
+
+def part_to_sexp(part, uuid_path, tx=Tx()):
+    """Create S-expression for a symbol instance.
+
+    Applies part transform and sheet transform (Y-flip is in sheet_tx).
+    Adds ``(mirror y)`` because the sheet transform's Y-flip negates pin
+    Y-offsets, and KiCad must be told to mirror pin positions to match.
+
+    Args:
+        part: SKiDL Part object (placed).
+        uuid_path: Hierarchical UUID path to node containing this part.
+        tx: Sheet-level transformation matrix.
+
+    Returns:
+        Sexp: Symbol S-expression.
+    """
+    part_tx = getattr(part, "tx", Tx())
+    angle, mx, my = part_tx.analyze_transform()
+    if mx:
+        mirror = ["mirror", "x"]
+    elif my:
+        mirror = ["mirror", "y"]
+    else:
+        mirror = []
+    tx = part_tx * tx
+    origin = Point(_round_mm(tx.origin.x), _round_mm(tx.origin.y))
+    unit_num = getattr(part, "num", 1)
+
+    lib_name = (
+        os.path.splitext(part.lib.filename)[0]
+        if hasattr(part.lib, "filename") and part.lib.filename
+        else "Device"
+    )
+    part_name = part.name or "Unknown"
+    lib_id = f"{lib_name}:{part_name}"
+
+    # KiCad reference for the symbol instance. All units of a multi-unit part share
+    # ONE reference ("U1") and are distinguished only by (unit N); skidl's PartUnit
+    # ref is the compound "U1.uA", which KiCad reads as a DISTINCT component -- so
+    # each amp unit lost its shared power unit's pins (missing_power_pin), the
+    # netlist-from-schematic diverged from the logical netlist, and the compound ref
+    # tripped downstream reference validators (devbisme/skidl #318). Emit the
+    # parent's base ref instead; single-unit parts (node entry is the Part itself)
+    # are unaffected.
+    base_ref = getattr(getattr(part, "parent", None), "ref", None) or part.ref
+
+    symbol_list = [
+        "symbol",
+        ["lib_id", lib_id],
+        ["at", origin.x, origin.y, angle],
+        mirror,
+        ["unit", unit_num],
+        ["exclude_from_sim", "no"],
+        ["in_bom", "yes"],
+        ["on_board", "yes"],
+        ["dnp", "no"],
+        ["fields_autoplaced", "yes"],
+        ["uuid", _gen_uuid(part.hiername)],
+    ]
+    if not mirror:
+        symbol_list.remove([])
+    symbol = Sexp(symbol_list)
+
+    # Reference
+    symbol.append(
+        Sexp(
+            [
+                "property",
+                "Reference",
+                base_ref,
+                ["at", origin.x, origin.y - 2.54, angle],
+                ["effects", ["font", ["size", 1.27, 1.27]], ["justify", "left"]],
+            ]
+        )
+    )
+
+    # Value
+    symbol.append(
+        Sexp(
+            [
+                "property",
+                "Value",
+                str(part.value),
+                ["at", origin.x, origin.y + 2.54, angle],
+                ["effects", ["font", ["size", 1.27, 1.27]], ["justify", "left"]],
+            ]
+        )
+    )
+
+    # Footprint
+    symbol.append(
+        Sexp(
+            [
+                "property",
+                "Footprint",
+                getattr(part, "footprint", ""),
+                ["at", origin.x, origin.y, angle],
+                ["effects", ["font", ["size", 1.27, 1.27]], ["hide", "yes"]],
+            ]
+        )
+    )
+
+    # Datasheet
+    symbol.append(
+        Sexp(
+            [
+                "property",
+                "Datasheet",
+                getattr(part, "datasheet", "~") or "~",
+                ["at", origin.x, origin.y, angle],
+                ["effects", ["font", ["size", 1.27, 1.27]], ["hide", "yes"]],
+            ]
+        )
+    )
+
+    # Description
+    symbol.append(
+        Sexp(
+            [
+                "property",
+                "Description",
+                getattr(part, "description", "") or "",
+                ["at", origin.x, origin.y, angle],
+                ["effects", ["font", ["size", 1.27, 1.27]], ["hide", "yes"]],
+            ]
+        )
+    )
+
+    # Custom fields from part.fields dict.
+    y_offset = 5.08
+    if hasattr(part, "fields") and part.fields:
+        for field_name, field_value in part.fields.items():
+            if field_name.lower() in (
+                "reference",
+                "value",
+                "footprint",
+                "datasheet",
+                "description",
+            ):
+                continue
+            if field_value and str(field_value).strip():
+                symbol.append(
+                    Sexp(
+                        [
+                            "property",
+                            field_name,
+                            str(field_value),
+                            ["at", origin.x, origin.y + y_offset, angle],
+                            [
+                                "effects",
+                                ["font", ["size", 1.27, 1.27]],
+                                ["hide", "yes"],
+                            ],
+                        ]
+                    )
+                )
+                y_offset += 1.27
+
+    # Pin entries (required by KiCad 8/9 for connectivity tracking).
+    for pin in part.pins:
+        pin_num = str(pin.num)
+        pin_uuid = _gen_uuid(f"{part.hiername}_pin_{pin_num}")
+        symbol.append(Sexp(["pin", f'"{pin_num}"', ["uuid", pin_uuid]]))
+
+    # Instances section (required by KiCad 8/9 for correct reference display).
+    symbol.append(
+        Sexp(
+            [
+                "instances",
+                [
+                    "project",
+                    "SKiDL-Generated",
+                    [
+                        "path",
+                        f'{uuid_path}',
+                        ["reference", base_ref],
+                        ["unit", unit_num],
+                    ],
+                ],
+            ]
+        )
+    )
+
+    return symbol
+
+
+# ---------------------------------------------------------------------------
+# Library symbol definition
+# ---------------------------------------------------------------------------
+
+
+def part_to_lib_symbol_definition(part):
+    """Extract library symbol definition from a part's draw_cmds.
+
+    Args:
+        part: SKiDL Part object.
+
+    Returns:
+        list: Nested list for the lib_symbols section.
+    """
+    lib_name = (
+        os.path.splitext(part.lib.filename)[0]
+        if hasattr(part.lib, "filename") and part.lib.filename
+        else "Device"
+    )
+    part_name = part.name or "Unknown"
+    lib_id = f"{lib_name}:{part_name}"
+
+    symbol_def = [
+        "symbol",
+        lib_id,
+        ["pin_numbers", ["hide", "yes"]],
+        ["pin_names", ["offset", 0]],
+        ["exclude_from_sim", "no"],
+        ["in_bom", "yes"],
+        ["on_board", "yes"],
+    ]
+
+    # Standard properties.
+    symbol_def.extend(
+        [
+            [
+                "property",
+                "Reference",
+                part.ref_prefix or "U",
+                ["at", 2.032, 0, 90],
+                ["effects", ["font", ["size", 1.27, 1.27]]],
+            ],
+            [
+                "property",
+                "Value",
+                part_name,
+                ["at", 0, 0, 90],
+                ["effects", ["font", ["size", 1.27, 1.27]]],
+            ],
+            [
+                "property",
+                "Footprint",
+                "",
+                ["at", 0, 0, 0],
+                ["effects", ["font", ["size", 1.27, 1.27]], ["hide", "yes"]],
+            ],
+            [
+                "property",
+                "Datasheet",
+                getattr(part, "datasheet", "~") or "~",
+                ["at", 0, 0, 0],
+                ["effects", ["font", ["size", 1.27, 1.27]], ["hide", "yes"]],
+            ],
+        ]
+    )
+
+    if hasattr(part, "description") and part.description:
+        symbol_def.append(
+            [
+                "property",
+                "Description",
+                part.description,
+                ["at", 0, 0, 0],
+                ["effects", ["font", ["size", 1.27, 1.27]], ["hide", "yes"]],
+            ]
+        )
+
+    # Process draw_cmds into sub-symbols.
+    if hasattr(part, "draw_cmds") and part.draw_cmds:
+        # Common graphics (unit 0).
+        if 0 in part.draw_cmds:
+            graphics = [
+                copy.deepcopy(cmd) for cmd in part.draw_cmds[0] if cmd[0] != "pin"
+            ]
+            if graphics:
+                symbol_def.append(["symbol", f"{part_name}_0_1"] + graphics)
+
+        # Per-unit graphics and pins.
+        for unit_num, draw_cmds in part.draw_cmds.items():
+            if unit_num == 0:
+                continue
+            pin_cmds = [copy.deepcopy(cmd) for cmd in draw_cmds if cmd[0] == "pin"]
+            graphics = [
+                copy.deepcopy(cmd)
+                for cmd in draw_cmds
+                if cmd[0] not in ("pin", "property")
+            ]
+            if pin_cmds or graphics:
+                unit_sym = ["symbol", f"{part_name}_{unit_num}_{unit_num}"]
+                unit_sym.extend(graphics)
+                unit_sym.extend(pin_cmds)
+                symbol_def.append(unit_sym)
+
+    symbol_def.append(["embedded_fonts", "no"])
+
+    return symbol_def
+
+
+# ---------------------------------------------------------------------------
+# Wires, junctions, net labels
+# ---------------------------------------------------------------------------
+
+
+def wire_to_sexp(net, wire, tx=Tx(), junctions=None):
+    """Create S-expression for wire segments.
+
+    Splits segments at junction points so KiCad properly connects
+    pins at wire endpoints.  Without this, a junction in the middle
+    of a wire does **not** create separate connectivity segments.
+
+    Args:
+        net: Net associated with the wire.
+        wire: List of Segments.
+        tx: Transformation matrix.
+        junctions: Optional list of junction Points (pre-transform).
+
+    Returns:
+        list[Sexp]: Wire S-expression objects.
+    """
+
+    # Build set of junction coordinates in mm (post-transform).
+    junc_pts = set()
+    if junctions:
+        for j in junctions:
+            jt = j * tx
+            junc_pts.add((_round_mm(jt.x), _round_mm(jt.y)))
+
+    def _make_wire(x1, y1, x2, y2):
+        return Sexp(
+            [
+                "wire",
+                ["pts", ["xy", x1, y1], ["xy", x2, y2]],
+                ["stroke", ["width", 0], ["type", "default"]],
+                ["uuid", _gen_uuid(f"wire:{net.name}:{x1}:{y1}:{x2}:{y2}")],
+            ]
+        )
+
+    wires = []
+    for segment in wire:
+        w = segment * tx
+        x1, y1 = _round_mm(w.p1.x), _round_mm(w.p1.y)
+        x2, y2 = _round_mm(w.p2.x), _round_mm(w.p2.y)
+
+        # Collect junction points that lie strictly between endpoints.
+        splits = []
+        for jx, jy in junc_pts:
+            if x1 == x2 == jx:  # Vertical wire.
+                lo, hi = min(y1, y2), max(y1, y2)
+                if lo < jy < hi:
+                    splits.append(jy)
+            elif y1 == y2 == jy:  # Horizontal wire.
+                lo, hi = min(x1, x2), max(x1, x2)
+                if lo < jx < hi:
+                    splits.append(jx)
+
+        if not splits:
+            wires.append(_make_wire(x1, y1, x2, y2))
+        else:
+            # Split into ordered sub-segments.
+            if x1 == x2:  # Vertical – split by Y.
+                pts = sorted({y1, y2, *splits})
+                if y1 > y2:
+                    pts.reverse()
+                for a, b in zip(pts, pts[1:]):
+                    wires.append(_make_wire(x1, a, x2, b))
+            else:  # Horizontal – split by X.
+                pts = sorted({x1, x2, *splits})
+                if x1 > x2:
+                    pts.reverse()
+                for a, b in zip(pts, pts[1:]):
+                    wires.append(_make_wire(a, y1, b, y2))
+
+    return wires
+
+
+def junction_to_sexp(net, junctions, tx=Tx()):
+    """Create S-expression for junction points.
+
+    Args:
+        net: Net associated with the junctions.
+        junctions: List of junction Points.
+        tx: Transformation matrix.
+
+    Returns:
+        list[Sexp]: Junction S-expression objects.
+    """
+    result = []
+    for junction in junctions:
+        pt = junction * tx
+        x, y = _round_mm(pt.x), _round_mm(pt.y)
+        result.append(
+            Sexp(
+                [
+                    "junction",
+                    ["at", x, y],
+                    ["diameter", 0],
+                    ["color", 0, 0, 0, 0],
+                    ["uuid", _gen_uuid(f"junction:{x}:{y}")],
+                ]
+            )
+        )
+    return result
+
+
+def calc_pin_dir(pin):
+    """Calculate pin direction accounting for part transformation matrix."""
+
+    # Copy the part trans. matrix, but remove the translation vector, leaving only scaling/rotation stuff.
+    tx = pin.part.tx
+    tx = Tx(a=tx.a, b=tx.b, c=tx.c, d=tx.d)
+
+    # Use the pin orientation to compute the pin direction vector.
+    pin_vector = {
+        "U": Point(0, 1),
+        "D": Point(0, -1),
+        "L": Point(-1, 0),
+        "R": Point(1, 0),
+    }[pin.orientation]
+
+    # Rotate the direction vector using the part rotation matrix.
+    pin_vector = pin_vector * tx
+
+    # Create an integer tuple from the rotated direction vector.
+    pin_vector = (int(round(pin_vector.x)), int(round(pin_vector.y)))
+
+    # Return the pin orientation based on its rotated direction vector.
+    return {
+        (0, 1): "U",
+        (0, -1): "D",
+        (-1, 0): "L",
+        (1, 0): "R",
+    }[pin_vector]
+
+
+def net_label_to_sexp(pin, tx=Tx(), force=False):
+    """Create S-expression for a net label at a pin stub.
+
+    Generates a power symbol if the net name matches a known KiCad power
+    symbol, otherwise generates a global_label.
+
+    Args:
+        pin: Pin with net connection.
+        tx: Transformation matrix.
+        force: If True, skip the stub check (used for NetTerminal pins
+            which always need a label regardless of stub state).
+
+    Returns:
+        Sexp or None: Label/power symbol S-expression, or None if no label needed.
+    """
+    if not force and (not pin.stub or not pin.is_connected()):
+        return None
+
+    if isinstance(getattr(pin, "net", None), NCNet):
+        return None
+
+    # Check if this net matches a known KiCad power symbol.
+    # If so, emit a power symbol instance instead of a global_label.
+    # This eliminates power_pin_not_driven ERC errors.
+    if pin.is_connected() and pin.net.name in pwr_symbol_names:
+        pwr = _power_symbol_to_sexp(pin, pin.net.name, tx)
+        if pwr:
+            return pwr
+
+    # Use global_label for reliable connectivity.  KiCad 9's ERC treats
+    # plain labels as dangling unless they sit in the interior of a wire
+    # segment between two connection points.  global_label connects at
+    # any pin or wire endpoint, producing only an informational "not
+    # connected elsewhere" warning on single-sheet designs.
+    label_type = "global_label"
+
+    # Position at pin location (Y-flip is already in sheet_tx).
+    pin_pt = getattr(pin, "pt", Point(pin.x, pin.y))
+    part_tx = getattr(pin.part, "tx", Tx())
+    pt = pin_pt * part_tx * tx
+
+    # Angle + justification chosen so the label text always extends AWAY from
+    # the pin (and therefore clear of the part body), for every pin direction
+    # including mirrored parts -- calc_pin_dir() already folds the part's full
+    # transform (rotation + mirror) into the reported direction.
+    #
+    # Verified by rendering a resistor rotated/mirrored into all four
+    # orientations: horizontal labels reach out to the side, vertical labels
+    # run clear above/below the body. The angle comes from the shared
+    # _PIN_LABEL_ANGLE table (so it can't drift from the power-symbol emitter);
+    # justify is "left" for the 0/90 angles and "right" otherwise, which exactly
+    # reproduces R:(180,right) L:(0,left) U:(270,right) D:(90,left).
+    angle = _PIN_LABEL_ANGLE[calc_pin_dir(pin)]
+    justify = "left" if angle in (0, 90) else "right"
+
+    label = Sexp(
+        [
+            label_type,
+            pin.net.name,
+            ["shape", "bidirectional"],
+            ["at", _round_mm(pt.x), _round_mm(pt.y), angle],
+            ["effects", ["font", ["size", 1.27, 1.27]], ["justify", justify]],
+            ["uuid", _gen_uuid(f"label:{pin.net.name}:{pt.x}:{pt.y}")],
+        ]
+    )
+
+    return label
+
+
+# ---------------------------------------------------------------------------
+# Snap-aware emitters: label suppression, power buses, no-connect flags
+# ---------------------------------------------------------------------------
+
+
+def _kicad_pin_pos(pin, part_tx, sheet_tx):
+    """Compute pin position as KiCad renders it from symbol placement.
+
+    KiCad's pin transform order: Y-flip, rotate(-angle), then mirror.
+    The angle from analyze_transform() is the visual angle in SKiDL's Y-up
+    space; KiCad uses its negative because the sheet Y-flip reverses rotation.
+    """
+    import math
+
+    angle_deg, mx, my = part_tx.analyze_transform()
+    composed = part_tx * sheet_tx
+    ox = _round_mm(composed.origin.x)
+    oy = _round_mm(composed.origin.y)
+
+    px, py = pin.x, -pin.y
+
+    theta = math.radians(-angle_deg)
+    cos_t, sin_t = math.cos(theta), math.sin(theta)
+    rx = px * cos_t - py * sin_t
+    ry = px * sin_t + py * cos_t
+
+    if mx:
+        ry = -ry
+    if my:
+        rx = -rx
+
+    return _round_mm(ox + rx), _round_mm(oy + ry)
+
+
+def _render_xy(lx, ly, part_tx, sheet_tx):
+    """Transform a part-local point to KiCad render-mm (same convention as
+    _kicad_pin_pos, but for arbitrary points like bbox corners)."""
+    import math
+
+    angle_deg, mx, my = part_tx.analyze_transform()
+    composed = part_tx * sheet_tx
+    ox, oy = _round_mm(composed.origin.x), _round_mm(composed.origin.y)
+    px, py = lx, -ly
+    theta = math.radians(-angle_deg)
+    c, s = math.cos(theta), math.sin(theta)
+    rx, ry = px * c - py * s, px * s + py * c
+    if mx:
+        ry = -ry
+    if my:
+        rx = -rx
+    return _round_mm(ox + rx), _round_mm(oy + ry)
+
+
+# ---------------------------------------------------------------------------
+# Title block
+# ---------------------------------------------------------------------------
+
+
+def create_title_block_sexp(title):
+    """Create a title block S-expression."""
+    return [
+        "title_block",
+        ["title", title],
+        ["date", datetime.date.today().isoformat()],
+        ["company", ""],
+        ["comment", 1, "Generated with SKiDL"],
+        ["comment", 2, ""],
+        ["comment", 3, ""],
+        ["comment", 4, ""],
+    ]
+
+
+# ---------------------------------------------------------------------------
+# Hierarchical sheet reference
+# ---------------------------------------------------------------------------
+
+
+def create_hierarchical_sheet_sexp(node, sheet_uuid, sheet_tx):
+    """Create a hierarchical sheet S-expression for insertion into a parent sheet.
+
+    Includes sheet pins for boundary nets (nets connecting the child's
+    circuitry to the parent).
+
+    Args:
+        node: SchNode for the child sheet.
+        sheet_uuid: UUID of this sheet (for the "uuid" property).
+        sheet_tx: Transformation matrix of the parent sheet.
+
+    Returns:
+        Sexp: Sheet S-expression.
+    """
+    bbox = node.bbox * node.tx * sheet_tx
+    bx = _round_mm(bbox.ll.x)
+    by = _round_mm(bbox.ll.y)
+    bw = _round_mm(bbox.w)
+    bh = _round_mm(bbox.h)
+
+    sheet = Sexp(
+        [
+            "sheet",
+            ["at", bx, by],
+            ["size", bw, bh],
+            ["exclude_from_sim", "no"],
+            ["in_bom", "yes"],
+            ["on_board", "yes"],
+            ["dnp", "no"],
+            ["fields_autoplaced", "yes"],
+            ["stroke", ["width", 0.1524], ["type", "solid"]],
+            ["fill", ["color", 0, 0, 0, 0.0]],
+            ["uuid", sheet_uuid],
+            [
+                "property",
+                "Sheetname",
+                node.name,
+                ["at", bx, _round_mm(by - 0.7116), 0],
+                [
+                    "effects",
+                    ["font", ["size", 1.27, 1.27]],
+                    ["justify", "left", "bottom"],
+                ],
+            ],
+            [
+                "property",
+                "Sheetfile",
+                node.sheet_filename,
+                ["at", bx, _round_mm(by + bh + 0.5846), 0],
+                ["effects", ["font", ["size", 1.27, 1.27]], ["justify", "left", "top"]],
+            ],
+        ]
+    )
+
+    # Add sheet pins for boundary nets.
+    if hasattr(node, "get_boundary_nets"):
+        boundary_nets = node.get_boundary_nets()
+        pin_spacing = 2.54  # mm between pins
+        pin_y = by + pin_spacing
+        for net in boundary_nets:
+            # Skip power nets that become power symbols (they don't need sheet pins).
+            if net.name in pwr_symbol_names:
+                continue
+            # Skip stubbed nets (they use global labels).
+            if getattr(net, "stub", False) or getattr(net, "_stub", False):
+                continue
+
+            pin_uuid = _gen_uuid(f"sheet_pin:{node.sheet_filename}:{net.name}")
+            # Place pins along the left edge of the sheet.
+            sheet.append(
+                Sexp(
+                    [
+                        "pin",
+                        net.name,
+                        "bidirectional",
+                        ["at", bx, _round_mm(pin_y), 180],
+                        [
+                            "effects",
+                            ["font", ["size", 1.27, 1.27]],
+                            ["justify", "left"],
+                        ],
+                        ["uuid", pin_uuid],
+                    ]
+                )
+            )
+            pin_y += pin_spacing
+
+    return sheet
+
+
+def hierarchical_label_to_sexp(net_name, pt_x, pt_y, angle=180):
+    """Create a hierarchical_label S-expression for a boundary net in a child sheet.
+
+    Args:
+        net_name: Name of the boundary net.
+        pt_x: X coordinate in mm.
+        pt_y: Y coordinate in mm.
+        angle: Label angle (degrees).
+
+    Returns:
+        Sexp: Hierarchical label S-expression.
+    """
+    return Sexp(
+        [
+            "hierarchical_label",
+            net_name,
+            ["shape", "bidirectional"],
+            ["at", _round_mm(pt_x), _round_mm(pt_y), angle],
+            ["effects", ["font", ["size", 1.27, 1.27]], ["justify", "left"]],
+            ["uuid", _gen_uuid(f"hlabel:{net_name}:{pt_x}:{pt_y}")],
+        ]
+    )
+
+
+# ---------------------------------------------------------------------------
+# Sheet-level transform calculation (mirrors kicad5 calc_sheet_tx)
+# ---------------------------------------------------------------------------
+
+MILS_TO_MM = 0.0254
+
+
+def _calc_sheet_tx(bbox):
+    """Calculate transformation matrix for placing circuitry in a sheet.
+
+    Mirrors the kicad5 calc_sheet_tx pattern:
+      1. Y-flip via d=-1 (placement engine is Y-up, KiCad is Y-down)
+      2. Mils-to-mm conversion via a/d scaling (KiCad 9 uses mm)
+      3. Center content on the chosen paper size
+
+    The Y-flip is built into this transform so callers must NOT apply
+    tx_flip_y separately (that would double-flip and cancel it out).
+    """
+    paper = _pick_paper_size(bbox)
+    pw, ph = A_SIZES[paper]  # mm
+
+    # Apply Y-flip + mils→mm in one transform, then center on page.
+    page_bbox = bbox * Tx(a=MILS_TO_MM, d=-MILS_TO_MM)
+    page_ctr = Point(pw / 2, ph / 2)
+    content_ctr = Point(
+        (page_bbox.ll.x + page_bbox.ur.x) / 2,
+        (page_bbox.ll.y + page_bbox.ur.y) / 2,
+    )
+    move = page_ctr - content_ctr
+
+    # Snap centering offset to KiCad's 1.27mm grid (50 mils) so that
+    # grid-aligned placement coordinates stay on-grid after the move.
+    GRID_MM = 1.27
+    move = Point(
+        round(move.x / GRID_MM) * GRID_MM,
+        round(move.y / GRID_MM) * GRID_MM,
+    )
+
+    tx = Tx(a=MILS_TO_MM, d=-MILS_TO_MM).move(move)
+
+    return tx, paper
+
+
+# ---------------------------------------------------------------------------
+# Recursive hierarchy walker — node_to_sexp_schematic
+# ---------------------------------------------------------------------------
+
+
+def _power_lib_ids_in_elements(elements):
+    """Return the set of ``power:*`` lib_ids referenced by symbol instances in
+    ``elements``. Used to emit exactly the power-symbol definitions a sheet needs,
+    so every emitted power instance has a matching lib_symbols definition."""
+    found = set()
+    for el in elements:
+        if not (hasattr(el, "__getitem__") and len(el) and el[0] == "symbol"):
+            continue
+        for sub in el:
+            if (
+                hasattr(sub, "__getitem__")
+                and len(sub) >= 2
+                and sub[0] == "lib_id"
+                and isinstance(sub[1], str)
+                and sub[1].startswith("power:")
+            ):
+                found.add(sub[1])
+    return found
+
+
+@export_to_all
+def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
+    """Convert a SchNode tree to S-expression schematic(s).
+
+    Follows the same recursive pattern as kicad5's node_to_eeschema():
+    - Flattened nodes: return elements for inclusion in the parent sheet.
+    - Unflattened nodes: write a separate .kicad_sch file and return a
+      sheet reference for the parent.
+
+    Args:
+        node: SchNode to convert.
+        uuid_path: Hierarchical UUID path to this node.
+        sheet_tx: Parent sheet transformation matrix.
+        version: S-expression version number (20240108 for kicad6, 20230409 for kicad8/9).
+
+    Returns:
+        list[Sexp]: S-expression for elements in this node (parts, wires, labels, sheet refs).
+        dict: Dict of symbols in this node including in any flattened children.
+        dict: Dict of power symbols used in this node including in any flattened children.
+        str: For unflattened nodes, the filename of the .kicad_sch file written for this sheet.
+    """
+    # Fix filename extension for KiCad 6+ S-expression format.
+
+    """Ensure node.sheet_filename uses .kicad_sch extension (SchNode defaults to .sch)."""
+    node.sheet_filename = node.sheet_filename or "no_sheet_filename"
+    node.sheet_filename = os.path.splitext(node.sheet_filename)[0] + ".kicad_sch"
+
+    if node.flattened:
+        # Flattened node doesn't get its own sheet, so remove its UUID.
+        uuid_path = "/".join(uuid_path.split("/")[:-1])
+        # Flattened node shares the parent sheet, so apply the parent's sheet_tx.
+        tx = node.tx * sheet_tx
+    else:
+        # Compute the transform and sheet paper size for this node's sheet.
+        tx, paper = _calc_sheet_tx(node.internal_bbox())
+
+    # Storage for S-expression elements of schematic.
+    elements = []
+
+    # Collect lib_symbols needed for this node's parts.
+    lib_symbols = {}
+    for part in node.parts:
+        if not isinstance(part, NetTerminal):
+            lib_id = f"{part.lib.filename}:{part.name}"
+            lib_symbols[lib_id] = part
+
+    # Power-symbol definitions are emitted later from the instances actually
+    # placed on this sheet (see `_power_lib_ids_in_elements`), so no wire-based
+    # pre-scan is needed here. `pwr_symbols` is kept only to satisfy the
+    # flattened-node return contract.
+    pwr_symbols = {}
+
+    # Recurse into children.
+    for i, child in enumerate(node.children.values()):
+        # Give each child a unique UUID path based on its name and index.
+        child.uuid = _gen_uuid(f"{child.name}_{i}")
+        child_uuid_path = f"{uuid_path}/{child.uuid}"
+        # Get elements for child sheet (or for inclusion in this sheet if child is flattened).
+        sexp_list, part_dict, pwr_dict, _ = node_to_sexp_schematic(child, child_uuid_path, sheet_tx=tx, version=version)
+        elements.extend(sexp_list)
+        lib_symbols.update(part_dict)
+        pwr_symbols.update(pwr_dict)
+
+    # Collect net names that have real (non-NetTerminal) stubbed pins on this
+    # sheet.  NetTerminal labels are redundant for these nets since the pins
+    # will generate their own labels.
+    nets_with_real_pins = set()
+    for part in node.parts:
+        if isinstance(part, NetTerminal):
+            continue
+        for pin in part:
+            if pin.stub and pin.is_connected():
+                nets_with_real_pins.add(pin.net.name)
+
+    # ON-PIN LABELS (single-real-pin routed nets, incl. cross-sheet):
+    # A routed net with exactly ONE real component pin ON THIS SHEET gets its
+    # net label emitted AT that pin instead of at the NetTerminal pin (which
+    # sits at the routing-channel edge, off the component body — the off-pin
+    # step-out the user is chasing). Cross-sheet connectivity is preserved
+    # because the relocated label keeps the same global_label NAME, which KiCad
+    # resolves across all sheets regardless of position; the NetTerminal was
+    # only ever the carrier for that name. Done purely at emit time: the net is
+    # NOT marked stubbed and no place/route state is mutated.
+    # The route wire (pin -> channel-edge NetTerminal pin) is suppressed for
+    # this net: it can't be left in, because the dangling-wire purge below
+    # treats the NetTerminal pin as an anchor (it iterates node.parts, which
+    # includes NetTerminals), so the wire would survive with its far end on the
+    # now-unlabelled terminal -> wire_dangling. With exactly one real pin there
+    # is nothing else on-sheet for that wire to connect, so the on-pin label is
+    # the net's sole connectivity marker — the stubbed-single-pin shape KiCad
+    # accepts. Nets with >=2 real pins on-sheet keep the NetTerminal + their
+    # wires (the wire carries real intra-sheet connectivity).
+    node_part_ids = {id(p) for p in node.parts}
+    _onpin_enabled = os.environ.get("SKIDL_ONPIN_LABELS", "1") != "0"
+
+    def _onpin_real_pin(nt_net):
+        """Return the lone on-sheet real pin for an on-pin-eligible net, else None.
+
+        Eligible iff exactly one of the net's pins is a non-NetTerminal part on
+        THIS node (off-sheet pins are ignored — they reconnect by label name),
+        and that pin is routed (not already self-labelling via a stub).
+        """
+        if not _onpin_enabled:
+            return None
+        real_pins = [
+            np
+            for np in nt_net.pins
+            if id(np.part) in node_part_ids and not isinstance(np.part, NetTerminal)
+        ]
+        if len(real_pins) != 1:
+            return None
+        rp = real_pins[0]
+        if not rp.is_connected() or getattr(rp, "stub", False):
+            return None  # stubbed pins already self-label; only handle routed pins
+        return rp
+
+    onpin_net_ids = set()  # id(net) of nets relocated on-pin (wire/junction suppressed)
+
+    # Generate part S-expressions.
+    for part in node.parts:
+        if isinstance(part, NetTerminal):
+            # NetTerminals become net labels (unless a real pin already labels the net).
+            pin = part.pins[0]
+            if not pin.is_connected():
+                continue
+            if pin.net.name in nets_with_real_pins:
+                continue
+            real_pin = _onpin_real_pin(pin.net)
+            if real_pin is not None:
+                # Emit the label at the real component pin, suppress the
+                # NetTerminal (channel-edge) label + route wire for this net.
+                label = net_label_to_sexp(real_pin, tx=tx, force=True)
+                if label:
+                    elements.append(label)
+                    onpin_net_ids.add(id(pin.net))
+                continue
+            label = net_label_to_sexp(pin, tx=tx, force=True)
+            if label:
+                elements.append(label)
+        else:
+            elements.append(part_to_sexp(part, uuid_path, tx=tx))
+
+    # Generate wire S-expressions (split at junction points).
+    # Skip nets that snap converted to stubs after routing — their routed
+    # geometry is stale now that the parts moved, so they use labels instead.
+    # Also skip nets relocated to an on-pin label above: their only route wire
+    # ran to the now-unlabelled NetTerminal (channel-edge) pin, which the
+    # dangling-wire purge cannot remove (that pin is itself an anchor). The
+    # on-pin label is the net's sole connectivity marker. Keyed by id(net) so a
+    # name-collision can't suppress a different net's wires.
+    for net, wire in node.wires.items():
+        if getattr(net, "_stub", False):
+            continue
+        if id(net) in onpin_net_ids:
+            continue
+        net_junctions = node.junctions.get(net, [])
+        elements.extend(wire_to_sexp(net, wire, tx=tx, junctions=net_junctions))
+
+    # Generate junction S-expressions.
+    for net, junctions in node.junctions.items():
+        if getattr(net, "_stub", False):
+            continue
+        if id(net) in onpin_net_ids:
+            continue
+        elements.extend(junction_to_sexp(net, junctions, tx=tx))
+
+    # Tool-agnostic decision layer reaches kicad geometry/emission through the
+    # backend adapter (see schematics/decisions.py + tools/kicad9/backend.py).
+    # Wrap in a RenderContext so repeated pin_render_pos/dir queries within this
+    # sheet are memoized. Created here, AFTER snap has finalized all part.tx in
+    # gen_schematic, so no pre-snap stale positions can be cached (doc S7.6).
+    from skidl.schematics import decisions as _decisions
+    from skidl.schematics.backend import RenderContext
+    from .backend import Kicad9Backend
+    _backend = RenderContext(Kicad9Backend())
+
+    # Suppress labels for snap-overlapping pins (one label per connected cluster).
+    wired_pin_ids = _decisions.find_overlapping_pins(node, _backend, tx)
+
+    # Connect co-linear power net pins with bus wires.
+    bus_segments, bus_pin_ids = _decisions.find_power_bus_runs(node, _backend, tx)
+    for x1, y1, x2, y2, net_name in bus_segments:
+        elements.append(
+            _backend.emit_wire(
+                x1, y1, x2, y2,
+                net_name=net_name,
+                uuid_seed=f"pbus:{net_name}:{x1}:{y1}:{x2}:{y2}",
+            )
+        )
+    wired_pin_ids.update(bus_pin_ids)
+
+    # Generate T-junction wires from staggered snap placement.
+    for tjw in getattr(node, "_tjunction_wires", []):
+        x1_mil, y1_mil, x2_mil, y2_mil = tjw
+        p1 = Point(x1_mil, y1_mil) * tx
+        p2 = Point(x2_mil, y2_mil) * tx
+        x1, y1 = _round_mm(p1.x), _round_mm(p1.y)
+        x2, y2 = _round_mm(p2.x), _round_mm(p2.y)
+        elements.append(
+            Sexp(
+                [
+                    "wire",
+                    ["pts", ["xy", x1, y1], ["xy", x2, y2]],
+                    ["stroke", ["width", 0], ["type", "default"]],
+                    ["uuid", _gen_uuid(f"tjwire:{x1}:{y1}:{x2}:{y2}")],
+                ]
+            )
+        )
+    # PROPOSAL (off unless snap._ENABLE_IC_FAN_PIN_REWIRE): drop a junction dot
+    # at each fan's shared point so the IC pin, its wire, and the >=2 coincident
+    # fan pins resolve as one net by connectivity, letting the redundant IC-pin
+    # SW_n label be suppressed without dangling the wire.
+    for jpt in getattr(node, "_tjunction_junctions", []):
+        jp = jpt * tx
+        jx, jy = _round_mm(jp.x), _round_mm(jp.y)
+        elements.append(
+            Sexp(
+                [
+                    "junction",
+                    ["at", jx, jy],
+                    ["diameter", 0],
+                    ["color", 0, 0, 0, 0],
+                    ["uuid", _gen_uuid(f"tjjunction:{jx}:{jy}")],
+                ]
+            )
+        )
+    # Suppress labels for staggered T-junction signal pins (connected by wire).
+    wired_pin_ids.update(getattr(node, "_tjunction_suppressed_pins", set()))
+
+    # Emit wires for decoupling caps offset-snapped to IC power pins, and
+    # suppress their pin labels (the wire makes the redundant label noise).
+    for pcw in getattr(node, "_power_cap_wires", []):
+        x1_mil, y1_mil, x2_mil, y2_mil = pcw
+        p1 = Point(x1_mil, y1_mil) * tx
+        p2 = Point(x2_mil, y2_mil) * tx
+        x1, y1 = _round_mm(p1.x), _round_mm(p1.y)
+        x2, y2 = _round_mm(p2.x), _round_mm(p2.y)
+        elements.append(
+            Sexp(
+                [
+                    "wire",
+                    ["pts", ["xy", x1, y1], ["xy", x2, y2]],
+                    ["stroke", ["width", 0], ["type", "default"]],
+                    ["uuid", _gen_uuid(f"pcwire:{x1}:{y1}:{x2}:{y2}")],
+                ]
+            )
+        )
+    # Junction dots where the power-cap trunk taps each cap +ve pin / the IC
+    # connector, so the right-angle bus resolves as one connected net.
+    for jpt in getattr(node, "_power_cap_junctions", []):
+        jp = jpt * tx
+        jx, jy = _round_mm(jp.x), _round_mm(jp.y)
+        elements.append(
+            Sexp(
+                [
+                    "junction",
+                    ["at", jx, jy],
+                    ["diameter", 0],
+                    ["color", 0, 0, 0, 0],
+                    ["uuid", _gen_uuid(f"pcjunction:{jx}:{jy}")],
+                ]
+            )
+        )
+    wired_pin_ids.update(getattr(node, "_power_cap_suppressed_pins", set()))
+
+    # Generate net labels for stubbed pins (skip pins that got direct wires).
+    for part in node.parts:
+        if isinstance(part, NetTerminal):
+            continue
+        for pin in part:
+            if id(pin) in wired_pin_ids:
+                continue
+            label = net_label_to_sexp(pin, tx=tx)
+            if label:
+                elements.append(label)
+            elif (
+                len(part.pins) == 2
+                and not pin.stub
+                and pin.is_connected()
+                and pin.net.name in pwr_symbol_names
+            ):
+                label = net_label_to_sexp(pin, tx=tx, force=True)
+                if label:
+                    elements.append(label)
+
+    # No-connect flags for NCNet pins.
+    for nc_x, nc_y, part_ref, pin_num in _decisions.find_no_connect_pins(node, _backend, tx):
+        elements.append(
+            _backend.emit_no_connect(
+                nc_x, nc_y,
+                uuid_seed=f"nc:{part_ref}:{pin_num}:{nc_x}:{nc_y}",
+            )
+        )
+
+    # Purge dangling wire remnants. Snap moves parts by reassigning part.tx,
+    # but a router wire to the old position can survive as a short stub whose
+    # far end touches nothing (KiCad flags these as wire_dangling). Drop any
+    # wire segment with an endpoint anchored to nothing — not a pin, label,
+    # junction, no-connect, or another wire endpoint. Iterate, since removing
+    # one stub can expose the next.
+    from collections import Counter as _Counter
+
+    _anchor_pts = set()
+    for _part in node.parts:
+        for _pin in _part:
+            _pp = getattr(_pin, "pt", Point(_pin.x, _pin.y))
+            _ptx = getattr(_pin.part, "tx", Tx())
+            _w = _pp * _ptx * tx
+            _anchor_pts.add((_round_mm(_w.x), _round_mm(_w.y)))
+    for _el in elements:
+        if isinstance(_el, (list, Sexp)) and len(_el) and _el[0] in (
+            "global_label", "label", "junction", "no_connect"
+        ):
+            for _s in _el:
+                if isinstance(_s, (list, Sexp)) and len(_s) >= 3 and _s[0] == "at":
+                    _anchor_pts.add((_s[1], _s[2]))
+                    break
+
+    def _wire_endpoints_of(_el):
+        for _s in _el:
+            if isinstance(_s, (list, Sexp)) and len(_s) and _s[0] == "pts":
+                return [
+                    (_xy[1], _xy[2])
+                    for _xy in _s[1:]
+                    if isinstance(_xy, (list, Sexp)) and len(_xy) >= 3 and _xy[0] == "xy"
+                ]
+        return []
+
+    for _ in range(8):  # iterate; cap as a safety backstop
+        _counts = _Counter()
+        _wires = []
+        for _i, _el in enumerate(elements):
+            if isinstance(_el, (list, Sexp)) and len(_el) and _el[0] == "wire":
+                _pts = _wire_endpoints_of(_el)
+                _wires.append((_i, _pts))
+                for _p in _pts:
+                    _counts[_p] += 1
+        _drop = set()
+        for _i, _pts in _wires:
+            if any(_p not in _anchor_pts and _counts.get(_p, 0) < 2 for _p in _pts):
+                _drop.add(_i)
+        if not _drop:
+            break
+        elements = [_el for _i, _el in enumerate(elements) if _i not in _drop]
+
+    if node.flattened:
+        # This node is flattened, so return elements for inclusion in the parent sheet.
+        return elements, lib_symbols, pwr_symbols, ""
+
+    # --- Unflattened node: write a separate .kicad_sch file for this sheet. ---
+
+    schematic = Sexp(
+        [
+            "kicad_sch",
+            ["version", version],
+            ["generator", "skidl"],
+            ["generator_version", __version__],
+            ["uuid", node.uuid],
+            ["paper", paper],
+        ]
+    )
+
+    # Add title block to schematic sheet.
+    schematic.append(Sexp(create_title_block_sexp(node.title)))
+    
+    # Build lib_symbols section for this sheet.
+    lib_symbols_sexp = Sexp(["lib_symbols"])
+    for part in lib_symbols.values():
+        lib_symbols_sexp.append(Sexp(part_to_lib_symbol_definition(part)))
+
+    # Add power-symbol definitions. Derive these from the power-symbol INSTANCES
+    # actually emitted on this sheet (`elements`), NOT from `node.wires`: with
+    # auto_stub, power nets are stubbed (labels, not wires), so a wire-based scan
+    # misses them and the emitted instance has no definition -> KiCad reports an
+    # "unknown component". Scanning emitted instances guarantees every instance
+    # has a matching definition, and also covers power symbols contributed by
+    # flattened children (whose instances are already in `elements`).
+    for pwr_lib_id in sorted(_power_lib_ids_in_elements(elements)):
+        if pwr_lib_id not in lib_symbols:
+            pwr_sexp = _extract_power_lib_symbol(pwr_lib_id.split(":", 1)[1])
+            if pwr_sexp:
+                lib_symbols_sexp.append(pwr_sexp)
+
+    # Add lib_symbols section to schematic.
+    schematic.append(lib_symbols_sexp)
+
+    # Collect hierarchical labels for boundary nets (nets that cross the sheet boundary).
+    if hasattr(node, "get_boundary_nets"):
+        boundary_nets = node.get_boundary_nets()
+        hlabel_y = 10.0  # Starting Y position in mm for labels along the left edge.
+        for net in boundary_nets:
+            # Skip power nets and stubbed nets.
+            if net.name in pwr_symbol_names:
+                continue
+            if getattr(net, "stub", False) or getattr(net, "_stub", False):
+                continue
+            elements.append(
+                hierarchical_label_to_sexp(net.name, 5.0, hlabel_y, angle=180)
+            )
+            hlabel_y += 2.54
+
+    # Spread net labels off component bodies (connectivity-preserving).
+    # Decision (overlap + nudge target) lives in schematics/decisions.py; the
+    # backend reads/mutates the label Sexps and appends connecting wires.
+    _backend.apply_label_deconfliction(elements, node, tx)
+
+    # Add all the collected elements of the schematic.
+    for elem in elements:
+        schematic.append(elem)
+
+    # Write schematic file.
+    filepath = os.path.join(node.filepath, node.sheet_filename)
+    _write_sexp_schematic(schematic, filepath)
+
+    # Return a hierarchical sheet reference for this node to be included in the parent sheet.
+    sheet_uuid = uuid_path.split("/")[-1] # Use the last UUID in the path for the sheet UUID.
+    return [create_hierarchical_sheet_sexp(node, sheet_uuid, sheet_tx)], {}, {}, filepath
+
+
+# ---------------------------------------------------------------------------
+# Top-level schematic assembly + write
+# ---------------------------------------------------------------------------
+
+
+@export_to_all
+def write_top_schematic(circuit, node, filepath, top_name, title, version=20230409):
+    """Generate and write the complete schematic from a placed+routed node tree.
+
+    This is the main entry point called by each tool's gen_schematic().
+
+    Args:
+        circuit: The Circuit object.
+        node: Root SchNode (placed and routed).
+        filepath: Output directory.
+        top_name: Base filename (without extension).
+        title: Schematic title.
+        version: S-expression version number.
+    """
+
+    init_power_symbol_data()
+
+    node.title = title
+    node.sheet_filename = top_name or "schematic"
+    node.filepath = filepath
+
+    # Top node is never flattened because it has no parent to accept its contents, so it must always generate a sheet.
+    node.flattened = False
+
+    # Generate a deterministic UUID for the top node based on its name.
+    node.uuid = _gen_uuid(node.name)
+
+    # UUID paths start from this root node. Used for hierarchical sheet references.
+    uuid_path = f"/{node.uuid}"
+
+    # Write root schematic. Ignore returned items except name of top-level sheet file.
+    _, _, _, output_file = node_to_sexp_schematic(node, uuid_path=uuid_path, version=version)
+
+    # Optional: validate with kicad-cli if available.
+    _validate_with_kicad_cli(output_file)
+
+    return output_file
+
+
+# ---------------------------------------------------------------------------
+# Optional KiCad CLI validation
+# ---------------------------------------------------------------------------
+
+
+def _validate_with_kicad_cli(filepath):
+    """Run kicad-cli ERC on generated schematic if available."""
+    import shutil
+    import subprocess
+
+    kicad_cli = shutil.which("kicad-cli")
+    if not kicad_cli:
+        return  # Silent skip if not installed.
+    try:
+        result = subprocess.run(
+            [kicad_cli, "sch", "erc", "--exit-code-violations", filepath],
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+        if result.returncode != 0:
+            from skidl.logger import active_logger
+
+            active_logger.warning(
+                f"KiCad ERC found issues in {filepath}:\n{result.stderr}"
+            )
+    except (subprocess.TimeoutExpired, OSError):
+        pass  # Don't fail generation if CLI has issues.
+
+
+# ---------------------------------------------------------------------------
+# File writer
+# ---------------------------------------------------------------------------
+
+
+
+def _write_sexp_schematic(schematic, filepath):
+    """Write an Sexp schematic object to a file with proper quoting.
+
+    Args:
+        schematic: Sexp object.
+        filepath: Output file path.
+    """
+
+    def need_quote(x):
+        tag = x[0]
+        if tag == "symbol" and len(x) > 1 and isinstance(x[1], str):
+            # Quote lib_symbol names like "Device:R", "power:GND", "R_0_1"
+            return True
+        return tag in (
+            "title",
+            "date",
+            "company",
+            "comment",
+            "path",
+            "project",
+            "property",
+            "name",
+            "number",
+            "lib_id",
+            "reference",
+            "label",
+            "global_label",
+            "hierarchical_label",
+            "generator",
+            "generator_version",
+            "paper",
+        )
+
+    def need_quote_alternate(x):
+        return x[0] == "alternate"
+
+    schematic.add_quotes(need_quote)
+    schematic.add_quotes(need_quote_alternate, stop_idx=2)
+
+    with open(filepath, "w") as f:
+        f.write(schematic.to_str())

@@ -385,7 +385,7 @@ Interactive mode:
     parser.add_argument(
         "--tool",
         help=(
-            "ECAD tool name (e.g. kicad6, kicad7, kicad8, kicad9)."
+            "ECAD tool name (e.g. kicad6, kicad7, kicad8, kicad9, kicad10)."
         ),
         default=skidl.get_default_tool(),
     )

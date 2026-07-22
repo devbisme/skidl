@@ -466,8 +466,7 @@ class TestEndToEndMultiPart:
 # Layer 4: KiCad CLI validation (skip if not installed)
 # ===========================================================================
 
-HAS_KICAD_CLI = shutil.which("kicad-cli") is not None
-
+HAS_KICAD_CLI = shutil.which("kicad-9.AppImage") is not None
 
 @pytest.mark.skipif(not HAS_KICAD_CLI, reason="kicad-cli not installed")
 class TestKicadCliValidation:
@@ -478,10 +477,17 @@ class TestKicadCliValidation:
     those are pre-existing routing/connectivity issues, not scaling bugs.
     """
 
-    def _run_erc(self, filepath):
+    def _run_erc(self, filepath, *options):
         """Run kicad-cli ERC and return the result."""
+        kicad_exec = {
+            "KICAD6": "kicad-9.AppImage",
+            "KICAD7": "kicad-9.AppImage",
+            "KICAD8": "kicad-9.AppImage",
+            "KICAD9": "kicad-9.AppImage",
+            "KICAD10": "kicad-10.AppImage",
+        }.get(os.getenv("SKIDL_TOOL"), None)
         result = subprocess.run(
-            ["kicad-cli", "sch", "erc", "--exit-code-violations", filepath],
+            [kicad_exec, "kicad-cli", "sch", "erc", *options, filepath],
             capture_output=True,
             text=True,
             timeout=60,
@@ -489,30 +495,30 @@ class TestKicadCliValidation:
         return result
 
     def test_kicad_parses_divider(self, output_dir):
-        """KiCad 9 can parse the voltage divider (ERC runs without crash)."""
+        """KiCad can parse the voltage divider (ERC runs without crash)."""
         filepath = _generate_simple_divider(output_dir)
-        result = self._run_erc(filepath)
+        result = self._run_erc(filepath, "--exit-code-violations")
         # returncode > 0 means ERC violations, but the file parsed OK.
         # returncode < 0 or very high would mean a crash/signal.
         assert result.returncode >= 0, f"KiCad crashed:\n{result.stderr}"
         assert "violations" in result.stdout.lower() or result.returncode == 0
 
     def test_kicad_parses_and_gate(self, output_dir):
-        """KiCad 9 can parse the and_gate circuit."""
+        """KiCad can parse the and_gate circuit."""
         try:
             filepath = _generate_and_gate(output_dir)
         except Exception as e:
             pytest.skip(f"Schematic generation failed (routing issue): {e}")
-        result = self._run_erc(filepath)
+        result = self._run_erc(filepath, "--exit-code-violations")
         assert (
             "failed to load" not in result.stderr.lower()
         ), f"KiCad could not parse schematic:\n{result.stderr}"
         assert result.returncode >= 0, f"KiCad crashed:\n{result.stderr}"
 
     def test_kicad_parses_multi_part(self, output_dir):
-        """KiCad 9 can parse the multi-part circuit."""
+        """KiCad can parse the multi-part circuit."""
         filepath = _generate_multi_part(output_dir)
-        result = self._run_erc(filepath)
+        result = self._run_erc(filepath, "--exit-code-violations")
         assert result.returncode >= 0, f"KiCad crashed:\n{result.stderr}"
         assert "violations" in result.stdout.lower() or result.returncode == 0
 
@@ -522,17 +528,5 @@ class TestKicadCliValidation:
         # Use --severity-error to check only errors, not warnings.
         # Expected warnings: global_label_dangling (single-sheet),
         # lib_symbol_issues (no library config in test env).
-        result = subprocess.run(
-            [
-                "kicad-cli",
-                "sch",
-                "erc",
-                "--severity-error",
-                "--exit-code-violations",
-                filepath,
-            ],
-            capture_output=True,
-            text=True,
-            timeout=60,
-        )
+        result = self._run_erc(filepath, "--severity-error", "--exit-code-violations")
         assert result.returncode == 0, f"KiCad ERC found errors:\n{result.stdout}"

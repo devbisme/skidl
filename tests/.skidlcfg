@@ -22,6 +22,9 @@
         "kicad9": [
             "test_data/kicad9"
         ],
+        "kicad10": [
+            "test_data/kicad10"
+        ],
         "skidl": [
             "../src/skidl/tools/skidl/libs"
         ],
@@ -37,6 +40,7 @@
         "kicad7": "/home/devb/.config/kicad/7.0",
         "kicad6": "/home/devb/.config/kicad/6.0",
         "kicad9": "/home/devb/.config/kicad/9.0",
+        "kicad10": "/home/devb/.config/kicad/10.0",
         "skidl": "",
         "kicad5": "/home/devb/.config/kicad"
     }
