@@ -162,10 +162,10 @@ class SkidlConfig(Config):
     behaviors, such as managing tool selection, library paths, and footprint paths.
     
     Args:
-        tool (str): Default tool/backend to use if not specified in config files.
+        tool (str): Tool/backend to override the one specified in config files.
     """
 
-    def __init__(self, tool):
+    def __init__(self, tool=None):
         from skidl import SKIDL
 
         self.skidl_storage_dir = _get_default_skidl_storage_dir()
@@ -176,8 +176,8 @@ class SkidlConfig(Config):
         # Make the directory for storing persistent SKiDL data if it doesn't exist.
         os.makedirs(self.skidl_storage_dir, exist_ok=True)
 
-        # If no configuration files were found, set default backend/tool.
-        if "tool" not in self:
+        # If tool is provided, override the tool from the config file.
+        if tool is not None:
             self.tool = tool
 
         # If no configuration files were found, set default directory for part library pickle files.
