@@ -59,11 +59,9 @@ def test_power_symbol_tracks_shared_angle_table(symtx):
     """For every part transform, the emitted power-symbol instance angle must
     equal (shared_table_angle - intrinsic_pin_angle) % 360, i.e. it derives
     from _PIN_LABEL_ANGLE and never the old swapped vertical values."""
-    from skidl.tools.kicad9.sexp_schematic import (
-        _power_symbol_to_sexp,
-        _power_symbol_pin_angle,
-        calc_pin_dir,
-    )
+    _power_symbol_to_sexp = sexp_schematic._power_symbol_to_sexp
+    _power_symbol_pin_angle = sexp_schematic._power_symbol_pin_angle
+    calc_pin_dir = sexp_schematic.calc_pin_dir
 
     sexp_schematic.init_power_symbol_data()
 
