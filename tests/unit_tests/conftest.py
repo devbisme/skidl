@@ -19,7 +19,20 @@ def setup_function():
     global files_at_start
     files_at_start = set(os.listdir(os.getcwd()))
 
-    config = SkidlConfig(KICAD)  # Sets default tool.
+    # Set the default tool for the test suite from the env variable SKIDL_TOOL.
+    tool = {
+        "SKIDL": SKIDL,
+        "SPICE": SPICE,
+        "KICAD5": KICAD5,
+        "KICAD6": KICAD6,
+        "KICAD7": KICAD7,
+        "KICAD8": KICAD8,
+        "KICAD9": KICAD9,
+        "KICAD10": KICAD10,
+    }.get(os.getenv("SKIDL_TOOL"), KICAD10)
+    set_default_tool(tool)
+
+    config = SkidlConfig(get_default_tool())
 
     # Set library search paths from config file.
     for tool in lib_search_paths:
@@ -36,19 +49,6 @@ def setup_function():
     rt_logger.warning.reset()
     erc_logger.error.reset()
     erc_logger.warning.reset()
-
-    # Set the default tool for the test suite from the env variable SKIDL_TOOL.
-    tool = {
-        "SKIDL": SKIDL,
-        "SPICE": SPICE,
-        "KICAD5": KICAD5,
-        "KICAD6": KICAD6,
-        "KICAD7": KICAD7,
-        "KICAD8": KICAD8,
-        "KICAD9": KICAD9,
-        "KICAD10": KICAD10,
-    }.get(os.getenv("SKIDL_TOOL"), KICAD9)
-    set_default_tool(tool)
 
 
 def teardown_function():
