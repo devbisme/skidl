@@ -1053,14 +1053,12 @@ def test_skywater_2():
 @pytest.mark.spice
 def test_templates_1():
     reset()
-    set_default_tool(SPICE)
 
     part_templates = {}
     r_template = Part(
         "Device",
         "R",
         TEMPLATE,
-        tool=KICAD,
         footprint="Resistor_SMD:R_0402_1005Metric",
     )
     r_spice = next(filter(lambda x: x.name == "R", pyspice_lib.parts))
@@ -1088,9 +1086,10 @@ def test_templates_1():
         vs["p"] += sub_circuit["VI"]
         vs["n"] += sub_circuit["GND"]
 
-        ERC()
+        ERC()  # Check for electrical rule violations.
         circ = generate_netlist(
-            file="/dev/null"
+            file="/dev/null",
         )  # Generate the netlist, but don't write it to a file.
 
+    set_default_tool(SPICE)
     test_sample()
