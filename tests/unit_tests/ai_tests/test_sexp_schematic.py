@@ -468,6 +468,7 @@ class TestEndToEndMultiPart:
 
 HAS_KICAD_CLI = shutil.which("kicad-9.AppImage") is not None
 
+
 @pytest.mark.skipif(not HAS_KICAD_CLI, reason="kicad-cli not installed")
 class TestKicadCliValidation:
     """Validate generated schematics with KiCad's own tools.
