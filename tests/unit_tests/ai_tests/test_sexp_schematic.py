@@ -16,11 +16,15 @@ import shutil
 import subprocess
 import tempfile
 import uuid
+from types import SimpleNamespace
 
 import pytest
 
 from skidl import get_default_tool
 from skidl.geometry import BBox, Point, Tx
+from skidl.tools.kicad8.sexp_schematic import (
+    part_to_lib_symbol_definition as part_to_kicad8_lib_symbol_definition,
+)
 
 tool = get_default_tool()
 sexp_schematic = importlib.import_module(f"skidl.tools.{tool}.sexp_schematic")
@@ -159,6 +163,30 @@ class TestTitleBlock:
         # Should have a date entry.
         dates = [item for item in tb if isinstance(item, list) and item[0] == "date"]
         assert len(dates) == 1
+
+
+class TestLibrarySymbolDefinition:
+    """Tests for backend-specific library symbol grammar."""
+
+    def test_kicad8_uses_legacy_pin_number_syntax(self):
+        """KiCad 8 symbols omit grammar tokens introduced in KiCad 9."""
+        part = SimpleNamespace(
+            lib=SimpleNamespace(filename="Device.kicad_sym"),
+            name="R",
+            ref_prefix="R",
+            datasheet="~",
+            description="Resistor",
+            draw_cmds={},
+        )
+
+        symbol_def = part_to_kicad8_lib_symbol_definition(part)
+
+        assert ["pin_numbers", "hide"] in symbol_def
+        assert ["pin_numbers", ["hide", "yes"]] not in symbol_def
+        assert not any(
+            isinstance(entry, list) and entry and entry[0] == "embedded_fonts"
+            for entry in symbol_def
+        )
 
 
 class TestFixSheetFilename:
