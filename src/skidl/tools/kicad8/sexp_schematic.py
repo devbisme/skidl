@@ -506,7 +506,7 @@ def part_to_lib_symbol_definition(part):
     symbol_def = [
         "symbol",
         lib_id,
-        ["pin_numbers", ["hide", "yes"]],
+        ["pin_numbers", "hide"],
         ["pin_names", ["offset", 0]],
         ["exclude_from_sim", "no"],
         ["in_bom", "yes"],
@@ -583,8 +583,6 @@ def part_to_lib_symbol_definition(part):
                 unit_sym.extend(graphics)
                 unit_sym.extend(pin_cmds)
                 symbol_def.append(unit_sym)
-
-    symbol_def.append(["embedded_fonts", "no"])
 
     return symbol_def
 
