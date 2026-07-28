@@ -40,3 +40,63 @@ An open-source, agent-driven PCB design accelerator that transforms natural lang
 **Discussion:** [#267](https://github.com/devbisme/skidl/discussions/267)
 
 An AI-powered schematic review service that analyzes electronic circuit schematics and netlists before PCB manufacturing. Upload KiCad schematics or SPICE netlists along with relevant datasheets, and Galvano checks each node for common design errors, assigns risk scores, and provides an interactive chat interface for design recommendations.
+
+---
+
+## pcbflow
+
+**Repository:** [michaelgale/pcbflow](https://github.com/michaelgale/pcbflow)
+
+A Python package for PCB layout and design that lets you script circuits with SKiDL definitions and render them onto physical boards. It integrates CuFlow functionality to go from a scripted description to a manufacturable layout.
+
+---
+
+## WireStudio
+
+**Repository:** [moellere/WireStudio](https://github.com/moellere/WireStudio)
+
+An agent-driven design studio for ESPHome and LoRaWAN devices. It generates YAML configuration, KiCad schematics and PCBs, and enclosures, using SKiDL to describe the underlying circuitry.
+
+---
+
+## Solder
+
+**Repository:** [solderable/solder](https://github.com/solderable/solder)
+
+A command-line application with an AI agent that helps create, modify, and compile electronic projects described as SKiDL files.
+
+---
+
+## Skimibowi
+
+**Repository:** [jvestman/skimibowi](https://github.com/jvestman/skimibowi)
+
+A wizard that uses SKiDL to define components and generate KiCad netlists for microcontroller boards, guiding you through part selection and wiring.
+
+---
+
+## kle2netlist
+
+**Repository:** [adamws/kle2netlist](https://github.com/adamws/kle2netlist)
+
+Converts mechanical keyboard layout JSON (KLE) into KiCad netlists, using SKiDL to describe the resulting circuit for PCB design.
+
+---
+
+## skidl-codegen, skidl-layout, and skidl-eda
+
+**Repositories:** [freudenthal/skidl-codegen](https://github.com/freudenthal/skidl-codegen) · [freudenthal/skidl-layout](https://github.com/freudenthal/skidl-layout) · [freudenthal/skidl-eda](https://github.com/freudenthal/skidl-eda)
+
+A set of peer packages that extend SKiDL across the design flow:
+
+- **skidl-codegen** regenerates runnable SKiDL source from KiCad schematics, with cleanup and round-trip verification.
+- **skidl-layout** is a standalone PCB placement and layout engine that classifies parts, plans board placement from congestion metrics, and generates `.kicad_pcb` files.
+- **skidl-eda** is an AI circuit-design loop harness that turns a SKiDL description into KiCad projects with verification gates, simulation entry points, and human-in-the-loop regeneration.
+
+---
+
+## skidl-tools
+
+**Repository:** [sylefeb/skidl-tools](https://github.com/sylefeb/skidl-tools)
+
+A set of tools for interacting with SKiDL code and KiCad to support iterative electronic system design and PCB generation.

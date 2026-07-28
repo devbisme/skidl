@@ -112,6 +112,8 @@ Here are some of the features SKiDL brings to electronic design:
   `diff` and [git](https://en.wikipedia.org/wiki/Git) for circuits).
 * Performs electrical rules checking (ERC) for common mistakes (e.g., unconnected device I/O pins).
 * Supports linear / hierarchical / mixed descriptions of electronic designs.
+* Can generate an editable, hierarchical KiCad schematic (KiCad 6–10) from your circuit description,
+  with automatic part placement and wire routing.
 * Fosters design reuse (think about using [PyPi](pypi.org) and [Github](github.com)
   to distribute electronic designs).
 * Makes possible the creation of *smart circuit modules* whose behavior / structure are changed parametrically
@@ -146,7 +148,7 @@ vout += r1[2], r2[1] # Output comes from the connection of the two resistors.
 # vin && r1 && vout && r2 && gnd
 
 # Output the netlist to a file.
-generate_netlist(tool=KICAD9)
+generate_netlist(tool=KICAD10)
 ```
 
 And this is the netlist output that is passed to `PCBNEW` to
@@ -1816,7 +1818,8 @@ Currently, SKiDL supports the library formats for the following ECAD tools:
 * `KICAD7`: Schematic part libraries for KiCad version 7.
 * `KICAD8`: Schematic part libraries for KiCad version 8.
 * `KICAD9`: Schematic part libraries for KiCad version 9.
-* `KICAD`: Generic KiCad schematic part libraries that currently mirrors `KICAD9`.
+* `KICAD10`: Schematic part libraries for KiCad version 10.
+* `KICAD`: Generic KiCad schematic part libraries that currently mirrors `KICAD10`.
 * `SKIDL`: Schematic parts stored as SKiDL/Python modules.
 
 You may set the default library format you want to use in your SKiDL script like so:
@@ -2714,16 +2717,48 @@ This will drop an Eeschema file called `and_gate.kicad_sch` into the same direct
 
 ![KiCad Eeschema AND_GATE schematic.](images/and_gate_4.png)
 
+SKiDL doesn't just dump the parts in a grid: it runs a force-directed *placement*
+step to spread the parts out and a *routing* step to draw the wires, junctions, and
+net labels between them. A hierarchical circuit (one built from `@subcircuit` blocks)
+is emitted as a set of linked sheets — a root schematic plus one sub-sheet per level —
+so the drawing mirrors the structure of your code. Schematic generation is supported
+for KiCad 6 through 10; the version is chosen by the current default tool (see
+[Libraries](#libraries)) or with the `tool` argument, e.g. `generate_schematic(tool=KICAD9)`.
+
 The `generate_schematic()` function accepts these parameters:
 
 * `filepath` (`str`, optional): The directory where the schematic files are placed. Defaults to ".".
 * `top_name` (`str`, optional): The name for the top of the circuit hierarchy. Defaults to the script name.
 * `title` (`str`, optional): The title in the title box of the schematic. Defaults to "SKiDL-Generated Schematic".
-* `flatness` (`float`, optional): Determines how much the hierarchy is flattened in the schematic. Defaults to 0.0 (completely hierarchical).
+* `flatness` (`float`, optional): How much the hierarchy is flattened, from `0.0` (fully hierarchical, one sheet per subcircuit) to `1.0` (everything collapsed onto a single sheet). Defaults to `0.0`.
 * `retries` (`int`, optional): Number of times to re-try if placement and routing fails. Defaults to 2.
+* `tool` (optional): The KiCad version to target (e.g. `KICAD9`). Defaults to the current default tool.
 
 In addition, the `generate_schematic()` function supports the `symtx` and `netio` attributes discussed 
 in the [section on generating SVG schematics](#svg-schematics).
+
+### Auto-Stubbing Large Circuits
+
+Point-to-point routing can fail or produce a rat's-nest on large or densely-connected
+circuits. Passing `auto_stub=True` converts the nets that would be hardest to route into
+labels instead of wires, emits power nets (`GND`, `VCC`, etc.) as proper KiCad power
+symbols, and runs an ERC-correction loop to clean up what's left:
+
+```py
+generate_schematic(auto_stub=True)
+```
+
+Auto-stubbing is tuned with these keyword options:
+
+* `auto_stub_fanout` (`int`, default `3`): Nets with more pins than this are turned into labels before routing.
+* `auto_stub_max_wire_pins` (`int`, default `3`): Max pins on a net before selective routing stubs it after placement.
+* `auto_stub_max_wire_dist` (`int`, default `2000`): Max Manhattan distance (mils) between pins before the net is stubbed.
+* `erc_max_iterations` (`int`, default `8`): Max passes of the ERC-correction loop.
+* `auto_stub_fallback` (`str`, default `"labels"`): What to do if routing still fails — `"labels"` falls back to a labels-only schematic, `"raise"` re-raises the failure, and `"warn"` produces the labels-only schematic but also warns.
+
+You'll get the best results by grouping related parts (power supply, MCU, amplifier, etc.)
+into `@subcircuit` blocks of roughly 5–15 parts each. Each block is placed and routed on its
+own sheet, which yields more wired connections and cleaner hierarchy than one flat circuit.
 
 ## DOT Graphs
 
