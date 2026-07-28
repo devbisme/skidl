@@ -21,9 +21,11 @@ SKiDL is a Python package that lets you describe electronic circuits using code 
 
 ## Why SKiDL?
 
-**Textual Circuit Design**: Use any text editor and enjoy version control with `git`, code reviews, and `diff` for circuit changes.
+**Text-Based Circuit Design** `git`, `diff`, branching, and code review work on it like any other source.
 
 **Compact & Powerful**: Describe complex circuits in a fraction of the space. No more tracing signals across multi-page schematics.
+
+**Hierarchical Design**: Mix linear, hierarchical, and modular design approaches as needed.
 
 **Reusable Design**: Share circuit modules on PyPI and GitHub. Create parametric "smart" circuits that adapt based on requirements.
 
@@ -31,9 +33,7 @@ SKiDL is a Python package that lets you describe electronic circuits using code 
 
 **Electrical Rules Checking**: Catch common mistakes like unconnected pins, drive conflicts, and power connection errors.
 
-**Hierarchical Design**: Mix linear, hierarchical, and modular design approaches as needed.
-
-**Tool Independence**: Works with any PCB tool. Currently supports KiCad, but can be extended to other tools.
+**One Description, Many Outputs** Generate netlists, XML BOMs, SVG or DOT diagrams, or editable KiCad schematics (KiCad 6–10) from the same source. KiCad today; other backends can be added.
 
 **Python Ecosystem**: Leverage Python's vast ecosystem for simulation, analysis, documentation, and automation.
 
@@ -97,9 +97,9 @@ generate_netlist(tool=KICAD9)
 
 ## Advanced Features
 
-**Hierarchical Design**: Create reusable subcircuits and build complex systems from modular blocks.
+**Hierarchical design.** Nest subcircuits to build large systems from blocks; the hierarchy carries through to the generated net lists and schematics.
 
-**Part & Net Classes**: Apply design constraints, manufacturing requirements, and electrical specifications systematically.
+**Part and net classes.** Attach design rules, manufacturing requirements, and electrical specs to sets of parts or nets.
 
 **Smart Part Libraries**: Search parts by function, automatically assign footprints, and access any KiCad library.
 
