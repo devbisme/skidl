@@ -105,7 +105,7 @@ generate_netlist(tool=KICAD9)
 
 **Multiple Output Formats**: Generate netlists for KiCad, XML for BOMs, or go directly to PCB layout.
 
-**Visual Output**: Create SVG schematics, KiCad schematic files (currently V5 only), or DOT graphs for documentation.
+**Visual Output**: Create SVG schematics, editable KiCad schematic files (KiCad 6–10), or DOT graphs for documentation.
 
 **SPICE Integration**: Run simulations directly on your SKiDL circuits.
 
@@ -173,7 +173,7 @@ python -c "from skidl import Part; r = Part('Device', 'R'); print(f'Found: {r.na
 
 ### KiCad version compatibility
 
-SKiDL supports KiCad 5 through 9. If you see parsing errors with newer KiCad library
+SKiDL supports KiCad 5 through 10. If you see parsing errors with newer KiCad library
 files, make sure you're running the latest version of SKiDL:
 
 ```bash
