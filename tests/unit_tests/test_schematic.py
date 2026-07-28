@@ -23,6 +23,7 @@ from skidl import (
     SubCircuit,
     generate_schematic,
     subcircuit,
+    config,
 )
 from skidl.schematics.place import PlacementFailure
 from skidl.schematics.route import RoutingFailure
@@ -827,6 +828,11 @@ def test_gen_sch_5():
 
 @pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure, FileNotFoundError))
 def test_gen_sch_6():
+
+    # Turn off querying of backup libraries since the CH551G part is not in the
+    # test libraries and this test is expected to fail with a FileNotFoundError.
+    config.query_backup_lib = False
+
     uc = Part(lib="wch", name="CH551G", dest=TEMPLATE)
     uc.split_pin_names("/")
     usb = Part(lib="Connector", name="USB_B_Micro", symtx="H")
@@ -874,6 +880,10 @@ def test_gen_sch_7():
 
 @pytest.mark.xfail(raises=(PlacementFailure, RoutingFailure, FileNotFoundError))
 def test_gen_sch_8():
+
+    # Turn off querying of backup libraries since the ICE40 part is not in the
+    # test libraries and this test is expected to fail with a FileNotFoundError.
+    config.query_backup_lib = False
 
     fpga = Part(lib="FPGA_Lattice", name="ICE40HX8K-BG121")
     fpga.uA.symtx = "R"

@@ -373,11 +373,16 @@ def _generate_divider(output_dir, auto_stub=False):
 
 def _generate_and_gate_auto_stub(output_dir):
     """Generate the and_gate circuit with auto_stub=True."""
-    from skidl import Circuit, Net, Part, set_default_tool
+    from skidl import Circuit, Net, Part, set_default_tool, config
 
     circuit = Circuit(name="and_gate_auto")
 
     with circuit:
+
+        # Don't query backup libraries or else the FileNotFound exception will not be raised
+        # and the fallback to the Device library won't fire.
+        config.query_backup_lib = False
+
         try:
             q = Part(lib="Transistor_BJT", name="Q_PNP_CBE", dest="TEMPLATE", symtx="V")
         except FileNotFoundError:
