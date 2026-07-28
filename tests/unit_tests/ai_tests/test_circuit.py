@@ -7,9 +7,10 @@ and various output generation methods.
 """
 
 import builtins
-import json
-import os
-import tempfile
+# import json
+# import os
+# import tempfile
+import sys
 from collections import Counter
 from unittest.mock import Mock, patch, mock_open
 
@@ -467,6 +468,10 @@ class TestOutputGeneration:
             circuit += part, net
             result = circuit.generate_dot()
 
+    @pytest.mark.skipif(
+        sys.version_info[:2] > (3, 13),
+        reason="kinet2pcb core dumps for Python > 3.13, so skip this test.",
+    )
     def test_generate_pcb(self):
         """Test PCB generation."""
         with Circuit(name="TestCircuit") as circuit:

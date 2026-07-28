@@ -208,6 +208,10 @@ def test_gen_hier_graph():
     assert grph1.source == grph2.source
 
 
+@pytest.mark.skipif(
+    sys.version_info[:2] > (3, 13),
+    reason="kinet2pcb core dumps for Python > 3.13, so skip this test.",
+)
 def test_gen_pcb():
     """Test generating PCB."""
     esp32 = Part("RF_Module", "ESP32-WROOM-32", footprint="RF_Module:ESP32-WROOM-32")
