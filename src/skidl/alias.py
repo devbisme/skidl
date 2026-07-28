@@ -24,14 +24,14 @@ from .utilities import export_to_all, flatten
 class Alias(set):
     """
     A collection of alternative names for SKiDL objects.
-    
+
     The Alias class extends the Python set to store multiple name strings
     that can be used interchangeably to identify Circuit, Part, Pin, Net, and Bus objects.
     When comparing two Alias objects, they are considered equal if they share at least one alias.
-    
+
     Args:
         *aliases: A string or multiple strings, or lists/tuples of strings to use as aliases.
-    
+
     Examples:
         >>> part_aliases = Alias('resistor', 'res', 'R')
         >>> 'R' in part_aliases
@@ -46,7 +46,7 @@ class Alias(set):
     def __str__(self):
         """
         Return the aliases as a forward-slash delimited string.
-        
+
         Returns:
             str: All aliases joined with '/' character.
         """
@@ -55,10 +55,10 @@ class Alias(set):
     def __eq__(self, other):
         """
         Check if self and other have at least one alias in common.
-        
+
         Args:
             other: Another Alias object or something that can be converted to one.
-            
+
         Returns:
             bool: True if there's at least one common alias, False otherwise.
         """
@@ -67,10 +67,10 @@ class Alias(set):
     def __iadd__(self, *aliases):
         """
         Add new aliases to the existing set.
-        
+
         Args:
             *aliases: One or more aliases to add.
-            
+
         Returns:
             Alias: The updated Alias object.
         """
@@ -81,10 +81,10 @@ class Alias(set):
     def __isub__(self, *aliases):
         """
         Remove aliases from the existing set.
-        
+
         Args:
             *aliases: One or more aliases to remove.
-            
+
         Returns:
             Alias: The updated Alias object.
         """
@@ -94,7 +94,7 @@ class Alias(set):
     def clean(self):
         """
         Remove any empty aliases from the set.
-        
+
         This removes None values and empty strings from the alias set.
         """
         self.discard(None)

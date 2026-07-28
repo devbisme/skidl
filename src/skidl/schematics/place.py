@@ -27,7 +27,6 @@ from .debug_draw import (
 )
 from skidl.geometry import BBox, Point, Segment, Tx, Vector
 
-
 __all__ = [
     "PlacementFailure",
 ]
@@ -379,7 +378,9 @@ def adjust_orientations(parts, **options):
         # Find the point at which the cost reaches its lowest point.
         # delta_cost at location i is the change in cost *before* part i is moved.
         # Start with cost change of zero before any parts are moved.
-        delta_costs = [0,]
+        delta_costs = [
+            0,
+        ]
         delta_costs.extend((part.delta_cost for part in moved_parts))
         try:
             cost_seq = list(itertools.accumulate(delta_costs))
@@ -460,7 +461,7 @@ LABEL_BODY_MARGIN = 40.0
 # this axis-aligned band is what makes the cost prefer readable, splayed-out
 # horizontal labels over vertical ones.  These are the band's half-extents.
 LABEL_TEXT_BAND_HALF_W = 300.0  # horizontal half-width of the value/ref text band.
-LABEL_TEXT_BAND_HALF_H = 70.0   # vertical half-height of the value/ref text band.
+LABEL_TEXT_BAND_HALF_H = 70.0  # vertical half-height of the value/ref text band.
 
 
 def _pin_out_dir(pin):
@@ -764,12 +765,23 @@ def overlap_force(part, parts, **options):
             # Add some small random offset to break symmetry when parts exactly overlay each other.
             # Move right edge of part to the left of other part's left edge, etc...
             moves = []
-            rnd = Vector(random.random()-0.5, random.random()-0.5)
-            for edges, dir in ((("ll", "lr"), Vector(1,0)), (("ul", "ll"), Vector(0,1))):
-                move = (getattr(other_part_bbox, edges[0]) - getattr(part_bbox, edges[1]) - rnd) * dir
+            rnd = Vector(random.random() - 0.5, random.random() - 0.5)
+            for edges, dir in (
+                (("ll", "lr"), Vector(1, 0)),
+                (("ul", "ll"), Vector(0, 1)),
+            ):
+                move = (
+                    getattr(other_part_bbox, edges[0])
+                    - getattr(part_bbox, edges[1])
+                    - rnd
+                ) * dir
                 moves.append([move.magnitude, move])
                 # Flip edges...
-                move = (getattr(other_part_bbox, edges[1]) - getattr(part_bbox, edges[0]) - rnd) * dir
+                move = (
+                    getattr(other_part_bbox, edges[1])
+                    - getattr(part_bbox, edges[0])
+                    - rnd
+                ) * dir
                 moves.append([move.magnitude, move])
 
             # Select the smallest move that separates the parts.
@@ -777,7 +789,7 @@ def overlap_force(part, parts, **options):
 
             # Add the move to the total force on the part.
             total_force += move[1]
-                
+
     return total_force
 
 
@@ -808,10 +820,18 @@ def overlap_force_rand(part, parts, **options):
             # Add some small random offset to break symmetry when parts exactly overlay each other.
             # Move right edge of part to the left of other part's left edge.
             moves = []
-            rnd = Vector(random.random()-0.5, random.random()-0.5)
-            for edges, dir in ((("ll", "lr"), Vector(1,0)), (("lr", "ll"), Vector(1,0)),
-                          (("ul", "ll"), Vector(0,1)), (("ll", "ul"), Vector(0,1))):
-                move = (getattr(other_part_bbox, edges[0]) - getattr(part_bbox, edges[1]) - rnd) * dir
+            rnd = Vector(random.random() - 0.5, random.random() - 0.5)
+            for edges, dir in (
+                (("ll", "lr"), Vector(1, 0)),
+                (("lr", "ll"), Vector(1, 0)),
+                (("ul", "ll"), Vector(0, 1)),
+                (("ll", "ul"), Vector(0, 1)),
+            ):
+                move = (
+                    getattr(other_part_bbox, edges[0])
+                    - getattr(part_bbox, edges[1])
+                    - rnd
+                ) * dir
                 moves.append([move.magnitude, move])
             accum = 0
             for move in moves:
@@ -827,7 +847,7 @@ def overlap_force_rand(part, parts, **options):
                 if move[0] >= select:
                     total_force += move[1]
                     break
-                
+
     return total_force
 
 
@@ -1198,7 +1218,9 @@ def place_net_terminals(net_terminals, placed_parts, nets, force_func, **options
             # Right side, so terminal label flipped to jut out to the right.
             insets.append((abs(pull_pt.x - bbox.lr.x), Tx().flip_x()))
             # Top side, so terminal label rotated by 270 to jut out to the top.
-            insets.append((abs(pull_pt.y - bbox.ul.y), Tx().rot_90cw().rot_90cw().rot_90cw()))
+            insets.append(
+                (abs(pull_pt.y - bbox.ul.y), Tx().rot_90cw().rot_90cw().rot_90cw())
+            )
             # Bottom side. so terminal label rotated 90 to jut out to the bottom.
             insets.append((abs(pull_pt.y - bbox.ll.y), Tx().rot_90cw()))
 
@@ -1231,11 +1253,13 @@ def place_net_terminals(net_terminals, placed_parts, nets, force_func, **options
             # Sort terminals from outermost to innermost w.r.t. the center.
             def dist_to_bbox_edge(term):
                 pt = term.pins[0].place_pt * term.tx
-                return min((
-                    abs(pt.x - bbox.ll.x),
-                    abs(pt.x - bbox.lr.x),
-                    abs(pt.y - bbox.ll.y),
-                    abs(pt.y - bbox.ul.y))
+                return min(
+                    (
+                        abs(pt.x - bbox.ll.x),
+                        abs(pt.x - bbox.lr.x),
+                        abs(pt.y - bbox.ll.y),
+                        abs(pt.y - bbox.ul.y),
+                    )
                 )
 
             terminals = sorted(
@@ -1260,7 +1284,7 @@ def place_net_terminals(net_terminals, placed_parts, nets, force_func, **options
                             mobile_terminals[:-1],
                             nets,
                             force_func,
-                            **options
+                            **options,
                         )
                         # Anchor the mobile terminals after their placement is done.
                         anchored_parts.extend(mobile_terminals[:-1])
@@ -1365,7 +1389,7 @@ class Placer:
         for net in nets:
             net_parts = [p for p in (pin.part for pin in net.pins) if p in part_set]
             for i, p1 in enumerate(net_parts):
-                for p2 in net_parts[i + 1:]:
+                for p2 in net_parts[i + 1 :]:
                     adjacency[id(p1)].add(p2)
                     adjacency[id(p2)].add(p1)
 
@@ -1391,9 +1415,7 @@ class Placer:
                 order.append(part)
 
         # Compute total area to determine max row width.
-        total_area = sum(
-            max(p.place_bbox.w, 1) * max(p.place_bbox.h, 1) for p in order
-        )
+        total_area = sum(max(p.place_bbox.w, 1) * max(p.place_bbox.h, 1) for p in order)
         max_row_width = math.sqrt(total_area) * 2
 
         # Place parts in rows.
@@ -1575,9 +1597,7 @@ class Placer:
         # so their net labels don't pile onto their own bodies / each other.
         # net_tension is ~0 for floating parts (no real nets), so the label
         # overlap cost is the dominant signal -- which is exactly what we want.
-        if options.get("rotate_parts") and options.get(
-            "label_aware_orientation", True
-        ):
+        if options.get("rotate_parts") and options.get("label_aware_orientation", True):
             float_opts = dict(options)
             float_opts["_label_aware_scope"] = True  # always on for floating parts.
             if adjust_orientations(parts, **float_opts):
@@ -1640,8 +1660,9 @@ class Placer:
         # leave their internal layout to the force-directed floating-parts placer,
         # and the grid would only ever shuffle that one blob around.
         if options.get("grid_blocks", False):
-            block_lists = [(g, 1) for g in connected_parts] + \
-                          [([p], 2) for p in floating_parts]
+            block_lists = [(g, 1) for g in connected_parts] + [
+                ([p], 2) for p in floating_parts
+            ]
         else:
             block_lists = [(g, 1) for g in connected_parts] + [(floating_parts, 2)]
 
@@ -1733,6 +1754,7 @@ class Placer:
         # group bbox; we translate the block so its bbox lands on a shelf slot.
         if options.get("grid_blocks", False):
             pad = BLK_EXT_PAD
+
             # Uniform-cell grid floorplan: lay the blocks out in an orderly array
             # with aligned rows AND columns, so related groups stay together
             # instead of being flung to opposite corners by force-directed
@@ -1753,8 +1775,7 @@ class Placer:
             med_h = _median([b.place_bbox.h for b in part_blocks])
 
             def _is_outlier(b):
-                return (b.place_bbox.w > 1.8 * med_w or
-                        b.place_bbox.h > 1.8 * med_h)
+                return b.place_bbox.w > 1.8 * med_w or b.place_bbox.h > 1.8 * med_h
 
             grid_set = [b for b in part_blocks if not _is_outlier(b)]
             outliers = [b for b in part_blocks if _is_outlier(b)]
@@ -1789,7 +1810,7 @@ class Placer:
             )
             y = 0.0
             for r0 in range(0, n, cols):
-                row_blocks = order[r0:r0 + cols]
+                row_blocks = order[r0 : r0 + cols]
                 row_h = max(b.place_bbox.h for b in row_blocks) + pad
                 for col, b in enumerate(row_blocks):
                     cx = col * col_pitch + (col_pitch - b.place_bbox.w) / 2.0
@@ -1814,7 +1835,9 @@ class Placer:
                 row, col = divmod(i, cols)
                 w = blk.place_bbox.w if blk.place_bbox.w > 0 else 500
                 h = blk.place_bbox.h if blk.place_bbox.h > 0 else 500
-                blk.tx = Tx().move(Point(col * (w + BLK_EXT_PAD), row * (h + BLK_EXT_PAD)))
+                blk.tx = Tx().move(
+                    Point(col * (w + BLK_EXT_PAD), row * (h + BLK_EXT_PAD))
+                )
                 snap_to_grid(blk)
 
             # Apply the placement moves of the part blocks to their underlying sources.
@@ -1871,9 +1894,7 @@ class Placer:
         """Show attributes that were added to parts, pins, and nets in a node."""
         current_attrs = node.get_attrs()
         for key in current_attrs.keys():
-            print(
-                f"added {key} attrs: {current_attrs[key] - node.attrs[key]}"
-            )
+            print(f"added {key} attrs: {current_attrs[key] - node.attrs[key]}")
 
     def rmv_placement_stuff(node):
         """Remove attributes added to parts, pins, and nets of a node during the placement phase."""
@@ -1911,9 +1932,7 @@ class Placer:
                 if not pin.is_connected():
                     continue
                 net = pin.net
-                if getattr(net, "_stub_explicit", False) or getattr(
-                    net, "stub", False
-                ):
+                if getattr(net, "_stub_explicit", False) or getattr(net, "stub", False):
                     continue
                 pin_groups = {
                     part_to_group[id(p.part)]
@@ -1955,13 +1974,9 @@ class Placer:
             group_ids = {id(p) for p in group}
             chain_nets = []
             for net in internal_nets:
-                if getattr(net, "_stub_explicit", False) or getattr(
-                    net, "stub", False
-                ):
+                if getattr(net, "_stub_explicit", False) or getattr(net, "stub", False):
                     continue
-                net_parts = {
-                    id(p.part) for p in net.pins if id(p.part) in group_ids
-                }
+                net_parts = {id(p.part) for p in net.pins if id(p.part) in group_ids}
                 if 2 <= len(net_parts) <= 4:
                     chain_nets.append((len(net_parts), net))
 
@@ -1993,9 +2008,7 @@ class Placer:
                     p.stub = True
                 stubbed += 1
 
-            active_logger.info(
-                f"  [auto_stub_large_groups] Stubbed {stubbed} nets"
-            )
+            active_logger.info(f"  [auto_stub_large_groups] Stubbed {stubbed} nets")
 
     def place(node, tool=None, **options):
         """Place the parts and children in this node.
@@ -2033,9 +2046,7 @@ class Placer:
             node._auto_stub_cross_group(connected_parts, **options)
 
             # Split oversized groups by stubbing chain nets.
-            node._auto_stub_large_groups(
-                connected_parts, internal_nets, **options
-            )
+            node._auto_stub_large_groups(connected_parts, internal_nets, **options)
 
             if options.get("auto_stub", False):
                 # Re-group after stubbing may have changed connectivity.

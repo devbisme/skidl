@@ -272,21 +272,21 @@ def draw_cmd_to_svg(draw_cmd, tx, part, net_stubs, max_stub_len):
                 class_ = "part_name_text"
                 attr = 's:attribute="value"'
             else:
-                raise RuntimeError(
-                    f"Unknown property {symbol[1]} is not hidden."
-                )
+                raise RuntimeError(f"Unknown property {symbol[1]} is not hidden.")
             start = Point(*shape["at"][0:2])
             rotation = shape["at"][2]
-            justify = shape["effects"].get("justify", "center") # Center is default if missing.
+            justify = shape["effects"].get(
+                "justify", "center"
+            )  # Center is default if missing.
             if isinstance(justify, list):
-                justify = justify[0] # Use only horizontal justification.
+                justify = justify[0]  # Use only horizontal justification.
             justify = justify.lower()
             # Direction vector for text orientation and justification.
             # (e.g. "right" means text extends to the right of the start point.)
             # This is wrong for center justification, but "oh, well"...
-            dir = {"right": Point(-1, 0), "left": Point(1, 0), "center": Point(1, 0)}[justify] * Tx().rot(
-                rotation
-            )
+            dir = {"right": Point(-1, 0), "left": Point(1, 0), "center": Point(1, 0)}[
+                justify
+            ] * Tx().rot(rotation)
             end = start + dir
             start *= tx
             end *= tx

@@ -8,7 +8,7 @@ Configuration management for SKiDL.
 This module provides classes for loading, storing, and accessing SKiDL configuration
 parameters. Configuration data is stored in JSON files and includes settings for
 default tools, library search paths, footprint search paths, and backup library options.
-The module supports configuration hierarchies with system, user, and project-specific 
+The module supports configuration hierarchies with system, user, and project-specific
 settings that are merged according to priority.
 """
 
@@ -23,6 +23,7 @@ from .part_query import footprint_cache
 from .scriptinfo import get_script_name
 from .tools import ALL_TOOLS, lib_suffixes, tool_modules
 from .utilities import TriggerDict, export_to_all, merge_dicts, expand_path
+
 
 def _get_default_skidl_storage_dir():
     """
@@ -44,19 +45,22 @@ def _get_default_skidl_storage_dir():
         if xdg:
             return os.path.join(xdg, "skidl")
         if sys.platform == "darwin":
-            return os.path.join(os.path.expanduser("~"), "Library", "Application Support", "skidl")
+            return os.path.join(
+                os.path.expanduser("~"), "Library", "Application Support", "skidl"
+            )
         return os.path.join(os.path.expanduser("~"), ".local", "share", "skidl")
+
 
 @export_to_all
 class Config(dict):
     """
     Base class for managing configuration parameters.
-    
+
     This class extends the dictionary to store configuration parameters and provides
     methods to load configuration from JSON files and save it back to disk.
     Configuration from multiple sources can be merged with intelligent handling
     of nested dictionaries.
-    
+
     Args:
         cfg_file_name (str): Name of the configuration file.
         *dirs: Directories to search for configuration files.
@@ -70,16 +74,16 @@ class Config(dict):
     def __getattr__(self, key):
         """
         Access configuration values as attributes.
-        
+
         This enables dot notation access to configuration parameters in addition
         to dictionary-style access.
-        
+
         Args:
             key (str): The configuration parameter name.
-            
+
         Returns:
             The value of the configuration parameter.
-            
+
         Raises:
             AttributeError: If the key doesn't exist in the configuration.
         """
@@ -91,10 +95,10 @@ class Config(dict):
     def __setattr__(self, key, value):
         """
         Set configuration values as attributes and dictionary entries.
-        
+
         This ensures that attribute-style and dictionary-style access and
         modification are synchronized.
-        
+
         Args:
             key (str): The configuration parameter name.
             value: The value to assign to the parameter.
@@ -105,10 +109,10 @@ class Config(dict):
     def merge(self, merge_dct):
         """
         Merge another dictionary into this configuration.
-        
+
         This method recursively merges dictionaries, preserving nested structures
         where possible.
-        
+
         Args:
             merge_dct (dict): Dictionary to merge into this configuration.
         """
@@ -125,10 +129,10 @@ class Config(dict):
     def load(self, *dirs):
         """
         Load configuration from JSON files in the specified directories.
-        
+
         This method looks for the configuration file in each directory and merges
         the settings found in each file, with later directories taking precedence.
-        
+
         Args:
             *dirs: Directories to search for configuration files.
         """
@@ -143,7 +147,7 @@ class Config(dict):
     def store(self, dir="."):
         """
         Store the current configuration as a JSON file.
-        
+
         Args:
             dir (str, optional): Directory to store the configuration file in.
                 Defaults to the current directory.
@@ -157,10 +161,10 @@ class Config(dict):
 class SkidlConfig(Config):
     """
     Configuration class specialized for SKiDL.
-    
+
     This class extends the base Config class with SKiDL-specific defaults and
     behaviors, such as managing tool selection, library paths, and footprint paths.
-    
+
     Args:
         tool (str): Tool/backend to override the one specified in config files.
     """
@@ -203,7 +207,9 @@ class SkidlConfig(Config):
             # file was written) so their libraries can still be located.
             for tool in ALL_TOOLS:
                 if tool not in self["lib_search_paths"]:
-                    self["lib_search_paths"][tool] = tool_modules[tool].default_lib_paths()
+                    self["lib_search_paths"][tool] = tool_modules[
+                        tool
+                    ].default_lib_paths()
 
         # If no configuration files were found, set base name of default backup part library.
         if "backup_lib_name" not in self:
@@ -235,12 +241,14 @@ class SkidlConfig(Config):
             footprint_cache.reset()
 
         self["footprint_search_paths"] = TriggerDict(self["footprint_search_paths"])
-        self["footprint_search_paths"].trigger_funcs[self.tool] = invalidate_footprint_cache
+        self["footprint_search_paths"].trigger_funcs[
+            self.tool
+        ] = invalidate_footprint_cache
 
     def store(self, dir=None):
         """
         Store the current SKiDL configuration as a JSON file.
-        
+
         Args:
             dir (str, optional): Directory to store the configuration file in.
                 Defaults to the SKiDL storage directory.

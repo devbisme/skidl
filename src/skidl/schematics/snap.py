@@ -31,7 +31,6 @@ from collections import defaultdict
 from skidl.geometry import Point, Tx
 from skidl.schematics.net_terminal import NetTerminal
 
-
 # PROPOSAL FLAG (default OFF): when True, _stagger_tjunctions drops a junction
 # dot at each fan's shared point and suppresses the IC-pin net label, relying on
 # pure pin-to-pin/wire connectivity for the fan net.  This removes the redundant
@@ -467,8 +466,11 @@ def _stagger_tjunctions(node, node_part_ids, snapped, occupied_pins, min_group=2
 
         max_span = 0
         for _, parts_list_scan in matching:
-            for (scan_part, _, _, _, _) in parts_list_scan:
-                pts = [getattr(p, "pt", Point(p.x * MM_TO_MILS, p.y * MM_TO_MILS)) for p in scan_part.pins]
+            for scan_part, _, _, _, _ in parts_list_scan:
+                pts = [
+                    getattr(p, "pt", Point(p.x * MM_TO_MILS, p.y * MM_TO_MILS))
+                    for p in scan_part.pins
+                ]
                 if pts:
                     span = max(
                         max(p.x for p in pts) - min(p.x for p in pts),
@@ -480,16 +482,18 @@ def _stagger_tjunctions(node, node_part_ids, snapped, occupied_pins, min_group=2
         n_pins = len(matching)
         stagger_extent = step_size * n_pins + max_span
 
-        stagger_plans.append({
-            "ic_part": ic_part,
-            "matching": matching,
-            "ic_dir": ic_dir,
-            "step_dx": step_dx,
-            "step_dy": step_dy,
-            "step_size": step_size,
-            "stagger_extent": stagger_extent,
-            "dominant": dominant,
-        })
+        stagger_plans.append(
+            {
+                "ic_part": ic_part,
+                "matching": matching,
+                "ic_dir": ic_dir,
+                "step_dx": step_dx,
+                "step_dy": step_dy,
+                "step_size": step_size,
+                "stagger_extent": stagger_extent,
+                "dominant": dominant,
+            }
+        )
 
     if len(stagger_plans) > 1:
         _pre_shift_ics(stagger_plans, node, snapped)
@@ -548,15 +552,11 @@ def _stagger_tjunctions(node, node_part_ids, snapped, occupied_pins, min_group=2
 
             for part_idx, (part, my_pin, other_pin, _, _) in enumerate(parts_list):
                 ext_dir = extend_dirs[part_idx % len(extend_dirs)]
-                part.tx = _compute_snap_tx(
-                    my_pin, other_pin, junction_pt, ext_dir
-                )
+                part.tx = _compute_snap_tx(my_pin, other_pin, junction_pt, ext_dir)
                 _stub_snapped_part(part)
                 snapped.add(id(part))
                 suppressed_pins.add(id(my_pin))
-            junction_wires.append(
-                (ic_pin_world.x, ic_pin_world.y, ox, oy)
-            )
+            junction_wires.append((ic_pin_world.x, ic_pin_world.y, ox, oy))
 
             # PROPOSAL (needs real IC-fan ERC before enabling — see note below):
             # The fan's pin-to-pin geometry is already a fully-connected chain:

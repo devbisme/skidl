@@ -11,7 +11,6 @@ from skidl.geometry import BBox, Point, Tx, Vector
 from .place import Placer
 from .route import Router
 
-
 """
 Node subclass used for generating schematics.
 """
@@ -41,9 +40,7 @@ class SchNode(Placer, Router):
         self.top_name = top_name
         self.parent = None
         self.children = defaultdict(
-            lambda: type(self)(
-                None, tool_module, filepath, top_name, title, flatness
-            )
+            lambda: type(self)(None, tool_module, filepath, top_name, title, flatness)
         )
         self.sheet_name = None
         self.sheet_filename = None
@@ -76,7 +73,7 @@ class SchNode(Placer, Router):
         # Attach the child node to this node.
         child.parent = self
 
-        return child 
+        return child
 
     def find_node_with_part(self, part):
         """Find the node that contains the part based on its hierarchy.
@@ -257,8 +254,6 @@ class SchNode(Placer, Router):
 
         return [pin for pin in net.pins if pin.stub is False and pin.part in self.parts]
 
-
-
     def get_boundary_nets(self):
         """Return nets that connect parts inside this node to parts outside.
 
@@ -366,7 +361,7 @@ class SchNode(Placer, Router):
         )
 
         # Flatten each instance in a group until the slack is used up.
-        # Start from the smallest group so that small, simple children are more likely to be flattened 
+        # Start from the smallest group so that small, simple children are more likely to be flattened
         # while large, complicated children are included using hierarchical sheets.
         for child_type, child_type_size in sorted_child_type_sizes:
             if slack > 0 and child_type_size <= slack:

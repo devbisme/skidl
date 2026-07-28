@@ -36,10 +36,10 @@ import sys
 import uuid
 from typing import Any
 
-
 # ---------------------------------------------------------------------------
 # S-expression parser  (recursive descent, no external deps)
 # ---------------------------------------------------------------------------
+
 
 def parse_sexp(text: str) -> list:
     """Parse a KiCad S-expression string into nested Python lists.
@@ -84,7 +84,7 @@ def _tokenize(text: str) -> list[str]:
         else:
             # Bare atom (number, keyword, etc.)
             j = i
-            while j < n and text[j] not in " \t\n\r()\"":
+            while j < n and text[j] not in ' \t\n\r()"':
                 j += 1
             tokens.append(text[i:j])
             i = j
@@ -110,6 +110,7 @@ def _parse_tokens(tokens: list[str], pos: int) -> tuple[Any, int]:
 # ---------------------------------------------------------------------------
 # Netlist (.net) parser
 # ---------------------------------------------------------------------------
+
 
 def parse_netlist(path: str) -> dict[tuple[str, str], str]:
     """Return a mapping of ``(component_ref, pin_number) -> net_name``
@@ -142,6 +143,7 @@ def parse_netlist(path: str) -> dict[tuple[str, str], str]:
 # Schematic parser helpers
 # ---------------------------------------------------------------------------
 
+
 def _find(sexp: list, tag: str) -> list | None:
     """Find the first child list whose first element equals *tag*."""
     for item in sexp:
@@ -152,8 +154,7 @@ def _find(sexp: list, tag: str) -> list | None:
 
 def _find_all(sexp: list, tag: str) -> list:
     """Return all child lists whose first element equals *tag*."""
-    return [item for item in sexp
-            if isinstance(item, list) and item and item[0] == tag]
+    return [item for item in sexp if isinstance(item, list) and item and item[0] == tag]
 
 
 def _get_value(sexp: list, tag: str) -> str | None:
@@ -167,6 +168,7 @@ def _get_value(sexp: list, tag: str) -> str | None:
 # ---------------------------------------------------------------------------
 # Extract lib_symbol pin definitions
 # ---------------------------------------------------------------------------
+
 
 def extract_lib_pins(tree: list) -> dict[str, list[dict]]:
     """Parse the ``lib_symbols`` section of the schematic.
@@ -226,6 +228,7 @@ def _parse_pin(pin_sexp: list) -> dict | None:
 # Extract symbol instances from the schematic
 # ---------------------------------------------------------------------------
 
+
 def extract_instances(tree: list) -> list[dict]:
     """Extract all ``(symbol (lib_id ...) (at SX SY SROT) ...)`` instances.
 
@@ -265,13 +268,17 @@ def extract_instances(tree: list) -> list[dict]:
         if ref is None:
             continue
 
-        instances.append({
-            "lib_id": lib_id,
-            "ref": ref,
-            "sx": sx, "sy": sy,
-            "rotation": rotation,
-            "mirror_x": mirror_x, "mirror_y": mirror_y,
-        })
+        instances.append(
+            {
+                "lib_id": lib_id,
+                "ref": ref,
+                "sx": sx,
+                "sy": sy,
+                "rotation": rotation,
+                "mirror_x": mirror_x,
+                "mirror_y": mirror_y,
+            }
+        )
 
     return instances
 
@@ -280,10 +287,15 @@ def extract_instances(tree: list) -> list[dict]:
 # Coordinate transform: pin local -> world
 # ---------------------------------------------------------------------------
 
+
 def pin_world_pos(
-    sx: float, sy: float, rotation: float,
-    mirror_x: bool, mirror_y: bool,
-    px: float, py: float,
+    sx: float,
+    sy: float,
+    rotation: float,
+    mirror_x: bool,
+    mirror_y: bool,
+    px: float,
+    py: float,
 ) -> tuple[float, float]:
     """Transform a pin's local offset to world coordinates.
 
@@ -306,7 +318,10 @@ def pin_world_pos(
 
 
 def label_angle_from_position(
-    sx: float, sy: float, wx: float, wy: float,
+    sx: float,
+    sy: float,
+    wx: float,
+    wy: float,
 ) -> float:
     """Compute label angle so it extends AWAY from the symbol body.
 
@@ -326,6 +341,7 @@ def label_angle_from_position(
 # ---------------------------------------------------------------------------
 # Net name utilities
 # ---------------------------------------------------------------------------
+
 
 def is_unnamed_net(name: str) -> bool:
     """Return True if the net name looks auto-generated / unnamed."""
@@ -349,6 +365,7 @@ def readable_net_name(name: str) -> str:
 # Label S-expression generation
 # ---------------------------------------------------------------------------
 
+
 def _fmt(val: float) -> str:
     """Format a float, dropping unnecessary trailing zeros."""
     if val == int(val):
@@ -357,7 +374,10 @@ def _fmt(val: float) -> str:
 
 
 def make_global_label_sexp(
-    net_name: str, x: float, y: float, angle: float,
+    net_name: str,
+    x: float,
+    y: float,
+    angle: float,
 ) -> str:
     """Return a KiCad 8/9 ``(global_label ...)`` S-expression string."""
     uid = str(uuid.uuid4())
@@ -375,6 +395,7 @@ def make_global_label_sexp(
 # ---------------------------------------------------------------------------
 # Main pipeline
 # ---------------------------------------------------------------------------
+
 
 def inject_labels(sch_path: str, net_path: str, out_path: str) -> int:
     """Read schematic + netlist, inject global labels at pin positions.
@@ -408,9 +429,13 @@ def inject_labels(sch_path: str, net_path: str, out_path: str) -> int:
                 net_name = readable_net_name(net_name)
 
             wx, wy = pin_world_pos(
-                inst["sx"], inst["sy"], inst["rotation"],
-                inst["mirror_x"], inst["mirror_y"],
-                pin["x"], pin["y"],
+                inst["sx"],
+                inst["sy"],
+                inst["rotation"],
+                inst["mirror_x"],
+                inst["mirror_y"],
+                pin["x"],
+                pin["y"],
             )
             la = label_angle_from_position(inst["sx"], inst["sy"], wx, wy)
 
@@ -438,6 +463,7 @@ def inject_labels(sch_path: str, net_path: str, out_path: str) -> int:
 # ---------------------------------------------------------------------------
 # CLI entry point
 # ---------------------------------------------------------------------------
+
 
 def main() -> None:
     if len(sys.argv) != 4:

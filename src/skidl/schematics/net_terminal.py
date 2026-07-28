@@ -6,7 +6,6 @@ from skidl import Part, Pin
 from skidl.utilities import export_to_all
 from skidl.geometry import Point, Tx, Vector
 
-
 """
 Net_Terminal class for handling net labels.
 """

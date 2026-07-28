@@ -15,9 +15,15 @@ from itertools import chain, zip_longest
 
 from skidl import Part
 from skidl.utilities import export_to_all, rmv_attr
-from .debug_draw import draw_end, draw_endpoint, draw_routing, draw_seg, draw_start, draw_text
+from .debug_draw import (
+    draw_end,
+    draw_endpoint,
+    draw_routing,
+    draw_seg,
+    draw_start,
+    draw_text,
+)
 from skidl.geometry import BBox, Point, Segment, Tx, Vector, tx_rot_90
-
 
 __all__ = ["RoutingFailure", "GlobalRoutingFailure", "SwitchboxRoutingFailure"]
 
@@ -3189,7 +3195,7 @@ class Router:
                     h_tracks,
                     v_tracks,
                     global_routes,
-                    **options
+                    **options,
                 )
 
             # Create detailed wiring using switchbox routing for the global routes.
@@ -3203,7 +3209,7 @@ class Router:
                     node.parts,
                     switchboxes,
                     global_routes,
-                    **options
+                    **options,
                 )
 
             node.switchbox_router(switchboxes, **options)
@@ -3216,7 +3222,7 @@ class Router:
                     node.parts,
                     global_routes,
                     switchboxes,
-                    **options
+                    **options,
                 )
 
             # Now clean-up the wires and add junctions.

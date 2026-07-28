@@ -38,10 +38,10 @@ mms_per_mil = 0.0254
 def to_mils(mm):
     """
     Convert millimeters to thousandths-of-inch (mils).
-    
+
     Args:
         mm (float): Value in millimeters.
-        
+
     Returns:
         float: Equivalent value in mils.
     """
@@ -52,10 +52,10 @@ def to_mils(mm):
 def to_mms(mils):
     """
     Convert thousandths-of-inch (mils) to millimeters.
-    
+
     Args:
         mils (float): Value in mils.
-        
+
     Returns:
         float: Equivalent value in millimeters.
     """
@@ -66,19 +66,19 @@ def to_mms(mils):
 class Tx:
     """
     A 2D transformation matrix for geometric operations.
-    
+
     This class implements a 3x3 transformation matrix for 2D operations
     like rotation, scaling, flipping, and translation. The matrix has
     the following structure:
-    
+
     [ a  b  0 ]
     [ c  d  0 ]
     [ dx dy 1 ]
-    
+
     Where the transformed coordinates are calculated as:
     x' = a*x + c*y + dx
     y' = b*x + d*y + dy
-    
+
     Args:
         a (float, optional): Scaling/rotation factor for x coordinate. Defaults to 1.
         b (float, optional): Rotation factor for y contribution to x. Defaults to 0.
@@ -87,7 +87,7 @@ class Tx:
         dx (float, optional): Translation in x direction. Defaults to 0.
         dy (float, optional): Translation in y direction. Defaults to 0.
     """
-    
+
     def __init__(self, a=1, b=0, c=0, d=1, dx=0, dy=0):
         """
         Create a transformation matrix.
@@ -110,15 +110,15 @@ class Tx:
     def from_symtx(cls, symtx):
         """
         Create a transformation matrix from a string of symbolic operations.
-        
+
         Args:
             symtx (str): A string of H, V, L, R operations that are applied in sequence left-to-right.
-                        H = horizontal flip, V = vertical flip, 
+                        H = horizontal flip, V = vertical flip,
                         L = rotate 90° left (CCW), R = rotate 90° right (CW)
-                        
+
         Returns:
             Tx: A transformation matrix that implements the sequence of operations.
-            
+
         Examples:
             >>> tx = Tx.from_symtx("RH")  # Rotate right, then flip horizontally
         """
@@ -137,7 +137,7 @@ class Tx:
     def __repr__(self):
         """
         Return a string representation of the transformation matrix.
-        
+
         Returns:
             str: String showing the class name and transformation parameters.
         """
@@ -146,7 +146,7 @@ class Tx:
     def __str__(self):
         """
         Return a simplified string representation of the transformation matrix.
-        
+
         Returns:
             str: String showing the transformation parameters in a list format.
         """
@@ -155,13 +155,13 @@ class Tx:
     def __mul__(self, m):
         """
         Multiply this transformation matrix by another matrix or scalar.
-        
+
         If m is another transformation matrix, the matrices are multiplied.
         If m is a scalar, it scales the matrix uniformly.
-        
+
         Args:
             m: Another Tx object or a scalar.
-            
+
         Returns:
             Tx: The resulting transformation matrix.
         """
@@ -183,7 +183,7 @@ class Tx:
     def origin(self):
         """
         Get the translation component of the transformation.
-        
+
         Returns:
             Point: A Point object representing the (dx, dy) translation.
         """
@@ -199,9 +199,9 @@ class Tx:
     def scale(self):
         """
         Get the scaling factor of the transformation.
-        
+
         This calculates the length of a unit vector after transformation.
-        
+
         Returns:
             float: The scaling factor.
         """
@@ -210,10 +210,10 @@ class Tx:
     def move(self, vec):
         """
         Return a new Tx with an additional translation applied.
-        
+
         Args:
             vec (Point): The vector to translate by.
-            
+
         Returns:
             Tx: A new transformation matrix with the translation applied.
         """
@@ -222,7 +222,7 @@ class Tx:
     def rot_90cw(self):
         """
         Return a new Tx with a 90-degree clockwise rotation applied.
-        
+
         Returns:
             Tx: A new transformation matrix with the rotation applied.
         """
@@ -231,10 +231,10 @@ class Tx:
     def rot(self, degs):
         """
         Return a new Tx with a rotation by the given angle in degrees.
-        
+
         Args:
             degs (float): The rotation angle in degrees.
-            
+
         Returns:
             Tx: A new transformation matrix with the rotation applied.
         """
@@ -244,7 +244,7 @@ class Tx:
     def flip_x(self):
         """
         Return a new Tx with a horizontal flip (mirror across y-axis).
-        
+
         Returns:
             Tx: A new transformation matrix with the flip applied.
         """
@@ -253,7 +253,7 @@ class Tx:
     def flip_y(self):
         """
         Return a new Tx with a vertical flip (mirror across x-axis).
-        
+
         Returns:
             Tx: A new transformation matrix with the flip applied.
         """
@@ -262,7 +262,7 @@ class Tx:
     def no_translate(self):
         """
         Return a new Tx with the same rotation/scaling but no translation.
-        
+
         Returns:
             Tx: A new transformation matrix with translation set to (0,0).
         """
@@ -271,25 +271,25 @@ class Tx:
     def analyze_transform(self):
         """
         Analyze a transformation matrix to extract rotation angle and mirroring components.
-        
+
         This function removes any translation from the transformation matrix and then
         computes the equivalent rotation angle and identifies any mirroring in the X or Y axis.
-        
+
         Args:
             tx (Tx): A transformation matrix to analyze.
-            
+
         Returns:
             tuple: (rotation_degrees, mirror_x, mirror_y) where:
                 - rotation_degrees (float): The rotation angle in degrees (0-360)
                 - mirror_x (bool): True if there's mirroring in the X axis
                 - mirror_y (bool): True if there's mirroring in the Y axis
-                
+
         Examples:
             >>> tx = Tx.rot_90cw()  # 90° clockwise rotation
             >>> angle, mx, my = analyze_transform(tx)
             >>> angle
             -90.0
-            
+
             >>> tx = Tx(a=-1)  # Mirror in X
             >>> angle, mx, my = analyze_transform(tx)
             >>> mx
@@ -297,30 +297,31 @@ class Tx:
         """
         # Remove translation by creating a new Tx with same linear components but zero translation
         linear_tx = Tx(a=self.a, b=self.b, c=self.c, d=self.d, dx=0, dy=0)
-        
+
         # Calculate rotation angle from the linear transformation components
         # For a rotation matrix [cosθ -sinθ; sinθ cosθ]:
         #   a = cosθ, b = -sinθ, c = sinθ, d = cosθ
         # So θ = atan2(c, a) or θ = atan2(-b, a)
         import math
+
         rotation_radians = math.atan2(linear_tx.c, linear_tx.a)
         rotation_degrees = math.degrees(rotation_radians)
-        
+
         # Account for flipped Y axis and ensure angle is one of 0, 90, 180, or 270.
-        rotation_degrees = round((360-rotation_degrees) % 360 / 90) * 90 % 360
-        
+        rotation_degrees = round((360 - rotation_degrees) % 360 / 90) * 90 % 360
+
         # Determine mirroring by checking determinants and axis signs
         # The determinant of the linear part tells us about orientation:
         #   det > 0: preserves orientation (pure rotation)
         #   det < 0: reverses orientation (includes reflection)
         det = linear_tx.a * linear_tx.d - linear_tx.b * linear_tx.c
-        
+
         # For mirroring detection, we look at how the basis vectors are transformed
         # Original basis: i=(1,0), j=(0,1)
         # Transformed: i'=(a,c), j'=(b,d)
         mirror_x = False
         mirror_y = False
-        
+
         # Check for X mirroring: i' should point in negative X direction if mirrored
         # After accounting for rotation, we check if the X component is flipped
         if det < 0:
@@ -330,38 +331,44 @@ class Tx:
             i_prime_y = linear_tx.c
             j_prime_x = linear_tx.b  # (0,1) transformed
             j_prime_y = linear_tx.d
-            
+
             # For X mirroring, we expect the X basis vector to point left-ish
             # For Y mirroring, we expect the Y basis vector to point down-ish
             # This is simplified - in practice we'd need to disentangle rotation from mirroring
-            
+
             # Simpler approach: check if we can decompose into rotation + mirror
             # A matrix with negative determinant can be written as: rotation * mirror_x or rotation * mirror_y
-            
+
             # Let's check by seeing if making the determinant positive gives us a pure rotation
             # If we flip the sign of a (mirror in X), what happens to determinant?
-            det_after_x_mirror = (-linear_tx.a) * linear_tx.d - linear_tx.b * linear_tx.c
+            det_after_x_mirror = (
+                -linear_tx.a
+            ) * linear_tx.d - linear_tx.b * linear_tx.c
             # If we flip the sign of d (mirror in Y), what happens to determinant?
-            det_after_y_mirror = linear_tx.a * (-linear_tx.d) - linear_tx.b * linear_tx.c
-            
+            det_after_y_mirror = (
+                linear_tx.a * (-linear_tx.d) - linear_tx.b * linear_tx.c
+            )
+
             # Actually, let's use a cleaner approach:
             # The mirroring can be detected by seeing if we need to flip basis vectors
             # to get a proper rotation matrix
-            
+
             # Create a candidate rotation matrix by taking absolute values where needed
             # This is a heuristic - for exact decomposition we'd need more math
-            
+
             # For now, let's use the fact that mirroring flips the sign of one axis
             # We'll check which flip, when applied, gives us a matrix closer to a rotation
-            
+
             # Test X mirror: flip sign of a and c
-            tx_test_x = Tx(a=-linear_tx.a, b=-linear_tx.b, c=-linear_tx.c, d=linear_tx.d)
+            tx_test_x = Tx(
+                a=-linear_tx.a, b=-linear_tx.b, c=-linear_tx.c, d=linear_tx.d
+            )
             det_x = tx_test_x.a * tx_test_x.d - tx_test_x.b * tx_test_x.c
-            
-            # Test Y mirror: flip sign of b and d  
+
+            # Test Y mirror: flip sign of b and d
             tx_test_y = Tx(a=linear_tx.a, b=linear_tx.b, c=linear_tx.c, d=-linear_tx.d)
             det_y = tx_test_y.a * tx_test_y.d - tx_test_y.b * tx_test_y.c
-            
+
             # Whichever gives us a positive determinant (rotation) indicates the mirror axis
             if det_x > 0:
                 mirror_x = True
@@ -372,7 +379,7 @@ class Tx:
                 # Default to X mirror if uncertain
                 mirror_x = True
         # If det > 0, it's a pure rotation (no mirroring)
-        
+
         return rotation_degrees, mirror_x, mirror_y
 
 
@@ -391,16 +398,16 @@ tx_flip_y = Tx(a=1, b=0, c=0, d=-1)
 class Point:
     """
     A 2D point or vector with x and y coordinates.
-    
+
     The Point class represents both points in space and vectors for
     geometric operations. It supports various arithmetic operations
     and can be transformed using the Tx transformation matrix.
-    
+
     Args:
         x (float): The x-coordinate.
         y (float): The y-coordinate.
     """
-    
+
     def __init__(self, x, y):
         """Create a Point with coords x,y."""
         self.x = x
@@ -409,7 +416,7 @@ class Point:
     def __hash__(self):
         """
         Generate a hash value for the point.
-        
+
         Returns:
             int: Hash value based on the x and y coordinates.
         """
@@ -418,10 +425,10 @@ class Point:
     def __eq__(self, other):
         """
         Check if two points have the same coordinates.
-        
+
         Args:
             other (Point): Another point to compare with.
-            
+
         Returns:
             bool: True if both points have the same coordinates.
         """
@@ -430,10 +437,10 @@ class Point:
     def __lt__(self, other):
         """
         Compare points lexicographically (first by x, then by y).
-        
+
         Args:
             other (Point): Another point to compare with.
-            
+
         Returns:
             bool: True if self is less than other.
         """
@@ -442,10 +449,10 @@ class Point:
     def __ne__(self, other):
         """
         Check if two points have different coordinates.
-        
+
         Args:
             other (Point): Another point to compare with.
-            
+
         Returns:
             bool: True if points have different coordinates.
         """
@@ -454,10 +461,10 @@ class Point:
     def __add__(self, pt):
         """
         Add another point or scalar to this point.
-        
+
         Args:
             pt (Point or number): Point or scalar to add.
-            
+
         Returns:
             Point: A new point with the sum of coordinates.
         """
@@ -468,10 +475,10 @@ class Point:
     def __sub__(self, pt):
         """
         Subtract another point or scalar from this point.
-        
+
         Args:
             pt (Point or number): Point or scalar to subtract.
-            
+
         Returns:
             Point: A new point with the difference of coordinates.
         """
@@ -482,11 +489,11 @@ class Point:
     def __mul__(self, m):
         """
         Multiply this point by a transformation, another point, or a scalar.
-        
+
         Args:
             m: A Tx transformation, another Point (for component-wise multiplication),
                or a scalar.
-               
+
         Returns:
             Point: The transformed/scaled point.
         """
@@ -502,13 +509,13 @@ class Point:
     def __rmul__(self, m):
         """
         Right multiplication with a scalar.
-        
+
         Args:
             m: A scalar value.
-            
+
         Returns:
             Point: Scaled point.
-            
+
         Raises:
             ValueError: If m is a Tx transformation matrix.
         """
@@ -520,13 +527,13 @@ class Point:
     def xprod(self, pt):
         """
         Calculate the cross product of this vector and another.
-        
+
         For 2D vectors, the cross product returns a scalar representing
         the z-component of the 3D cross product.
-        
+
         Args:
             pt (Point): Another point/vector.
-            
+
         Returns:
             float: The cross product value.
         """
@@ -535,10 +542,10 @@ class Point:
     def mask(self, msk):
         """
         Apply a binary mask to the coordinates.
-        
+
         Args:
             msk (list or tuple): A pair of values to multiply with x and y.
-            
+
         Returns:
             Point: New point with masked coordinates.
         """
@@ -547,7 +554,7 @@ class Point:
     def __neg__(self):
         """
         Negate both coordinates.
-        
+
         Returns:
             Point: A new point with negated coordinates.
         """
@@ -556,10 +563,10 @@ class Point:
     def __truediv__(self, d):
         """
         Divide coordinates by a scalar.
-        
+
         Args:
             d (number): Divisor.
-            
+
         Returns:
             Point: New point with divided coordinates.
         """
@@ -568,10 +575,10 @@ class Point:
     def __div__(self, d):
         """
         Divide coordinates by a scalar (Python 2 compatibility).
-        
+
         Args:
             d (number): Divisor.
-            
+
         Returns:
             Point: New point with divided coordinates.
         """
@@ -580,7 +587,7 @@ class Point:
     def round(self):
         """
         Round coordinates to nearest integers.
-        
+
         Returns:
             Point: New point with rounded coordinates.
         """
@@ -589,7 +596,7 @@ class Point:
     def __str__(self):
         """
         Convert point to a space-separated string representation.
-        
+
         Returns:
             str: String with x and y coordinates.
         """
@@ -598,10 +605,10 @@ class Point:
     def snap(self, grid_spacing):
         """
         Snap point coordinates to a grid.
-        
+
         Args:
             grid_spacing (float): Grid interval to snap to.
-            
+
         Returns:
             Point: New point with coordinates snapped to the grid.
         """
@@ -611,10 +618,10 @@ class Point:
     def min(self, pt):
         """
         Create a new point using the minimum x and y from two points.
-        
+
         Args:
             pt (Point): Another point to compare with.
-            
+
         Returns:
             Point: New point with minimum x and y values.
         """
@@ -623,10 +630,10 @@ class Point:
     def max(self, pt):
         """
         Create a new point using the maximum x and y from two points.
-        
+
         Args:
             pt (Point): Another point to compare with.
-            
+
         Returns:
             Point: New point with maximum x and y values.
         """
@@ -636,7 +643,7 @@ class Point:
     def magnitude(self):
         """
         Calculate the distance of the point from origin (vector length).
-        
+
         Returns:
             float: The Euclidean distance from origin.
         """
@@ -646,7 +653,7 @@ class Point:
     def norm(self):
         """
         Calculate a unit vector in the same direction.
-        
+
         Returns:
             Point: Normalized vector with length 1, or (0,0) if zero length.
         """
@@ -664,7 +671,7 @@ class Point:
     def __repr__(self):
         """
         Return a string representation for debugging.
-        
+
         Returns:
             str: String with class name and x,y coordinates.
         """
@@ -678,15 +685,15 @@ Vector = Point
 class BBox:
     """
     A bounding box defined by minimum and maximum points.
-    
+
     BBox represents a rectangular area that can contain points or other bounding boxes.
     It provides methods for combining bounding boxes, testing if points are inside,
     and calculating intersections.
-    
+
     Args:
         *pts: One or more Point objects defining the initial bounding box.
     """
-    
+
     def __init__(self, *pts):
         """Create a bounding box surrounding the given points."""
         inf = float("inf")
@@ -697,13 +704,13 @@ class BBox:
     def __add__(self, obj):
         """
         Merge this bounding box with a point or another bounding box.
-        
+
         Args:
             obj (Point or BBox): Object to merge with.
-            
+
         Returns:
             BBox: A new bounding box that contains both this bbox and the object.
-            
+
         Raises:
             NotImplementedError: If obj is not a Point or BBox.
         """
@@ -721,10 +728,10 @@ class BBox:
     def __iadd__(self, obj):
         """
         Expand this bounding box to include a point or another bounding box.
-        
+
         Args:
             obj (Point or BBox): Object to include in this bbox.
-            
+
         Returns:
             BBox: The updated bounding box (self).
         """
@@ -736,10 +743,10 @@ class BBox:
     def add(self, *objs):
         """
         Update the bounding box to include multiple points and/or bounding boxes.
-        
+
         Args:
             *objs: Points or BBoxes to include in this bounding box.
-            
+
         Returns:
             BBox: The updated bounding box (self).
         """
@@ -750,10 +757,10 @@ class BBox:
     def __mul__(self, m):
         """
         Apply a transformation to this bounding box.
-        
+
         Args:
             m (Tx): Transformation matrix to apply.
-            
+
         Returns:
             BBox: A new transformed bounding box.
         """
@@ -762,7 +769,7 @@ class BBox:
     def round(self):
         """
         Round the bounding box limits to integers.
-        
+
         Returns:
             BBox: A new bounding box with rounded coordinates.
         """
@@ -771,10 +778,10 @@ class BBox:
     def is_inside(self, pt):
         """
         Check if a point is inside or on the boundary of this bounding box.
-        
+
         Args:
             pt (Point): The point to check.
-            
+
         Returns:
             bool: True if the point is inside or on the boundary.
         """
@@ -783,10 +790,10 @@ class BBox:
     def intersects(self, bbox):
         """
         Check if this bounding box intersects with another.
-        
+
         Args:
             bbox (BBox): Another bounding box to check for intersection.
-            
+
         Returns:
             bool: True if the bounding boxes intersect.
         """
@@ -800,10 +807,10 @@ class BBox:
     def intersection(self, bbox):
         """
         Calculate the intersection of this bounding box with another.
-        
+
         Args:
             bbox (BBox): Another bounding box.
-            
+
         Returns:
             BBox or None: A new bounding box representing the intersection,
                          or None if there is no intersection.
@@ -817,11 +824,11 @@ class BBox:
     def resize(self, vector):
         """
         Expand or contract the bounding box by a given amount in all directions.
-        
+
         Args:
-            vector (Point): Amount to expand by (positive values) or contract by 
+            vector (Point): Amount to expand by (positive values) or contract by
                           (negative values) in x and y directions.
-                          
+
         Returns:
             BBox: A new resized bounding box.
         """
@@ -830,13 +837,13 @@ class BBox:
     def snap_resize(self, grid_spacing):
         """
         Resize the bounding box to align min and max points to a grid.
-        
+
         This expands the bounding box outward so that its corners align with
         the given grid spacing.
-        
+
         Args:
             grid_spacing (float): Grid spacing to align to.
-            
+
         Returns:
             BBox: A new bounding box with grid-aligned corners.
         """
@@ -849,7 +856,7 @@ class BBox:
     def area(self):
         """
         Calculate the area of the bounding box.
-        
+
         Returns:
             float: Area (width × height).
         """
@@ -864,7 +871,7 @@ class BBox:
     def h(self):
         """
         Get the height of the bounding box.
-        
+
         Returns:
             float: Height of the bounding box.
         """
@@ -874,7 +881,7 @@ class BBox:
     def ctr(self):
         """
         Get the center point of the bounding box.
-        
+
         Returns:
             Point: Center point.
         """
@@ -884,7 +891,7 @@ class BBox:
     def ll(self):
         """
         Get the lower-left corner of the bounding box.
-        
+
         Returns:
             Point: Lower-left corner point.
         """
@@ -894,7 +901,7 @@ class BBox:
     def lr(self):
         """
         Get the lower-right corner of the bounding box.
-        
+
         Returns:
             Point: Lower-right corner point.
         """
@@ -904,7 +911,7 @@ class BBox:
     def ul(self):
         """
         Get the upper-left corner of the bounding box.
-        
+
         Returns:
             Point: Upper-left corner point.
         """
@@ -914,7 +921,7 @@ class BBox:
     def ur(self):
         """
         Get the upper-right corner of the bounding box.
-        
+
         Returns:
             Point: Upper-right corner point.
         """
@@ -923,7 +930,7 @@ class BBox:
     def __repr__(self):
         """
         Return a string representation for debugging.
-        
+
         Returns:
             str: String showing the class name and min/max points.
         """
@@ -932,7 +939,7 @@ class BBox:
     def __str__(self):
         """
         Return a simplified string representation.
-        
+
         Returns:
             str: String representation of the min/max points.
         """
@@ -943,14 +950,14 @@ class BBox:
 class Segment:
     """
     A line segment between two points.
-    
+
     Represents a straight line segment with endpoints p1 and p2.
-    
+
     Args:
         p1 (Point): First endpoint.
         p2 (Point): Second endpoint.
     """
-    
+
     def __init__(self, p1, p2):
         """Create a line segment between two points."""
         self.p1 = copy(p1)
@@ -959,10 +966,10 @@ class Segment:
     def __mul__(self, m):
         """
         Apply a transformation to the segment.
-        
+
         Args:
             m (Tx): Transformation matrix to apply.
-            
+
         Returns:
             Segment: A new transformed segment.
         """
@@ -971,7 +978,7 @@ class Segment:
     def round(self):
         """
         Round the segment endpoints to integers.
-        
+
         Returns:
             Segment: A new segment with rounded endpoint coordinates.
         """
@@ -980,7 +987,7 @@ class Segment:
     def __str__(self):
         """
         Return a string representation of the segment.
-        
+
         Returns:
             str: String with the segment endpoints.
         """
@@ -996,12 +1003,12 @@ class Segment:
     def intersects(self, other):
         """
         Check if this segment intersects with another segment.
-        
+
         Note: This method is not fully implemented and will raise an error.
-        
+
         Args:
             other (Segment): Another segment to check for intersection.
-            
+
         Raises:
             NotImplementedError: This method is not fully implemented.
         """
@@ -1037,13 +1044,13 @@ class Segment:
     def shadows(self, other):
         """
         Check if two segments overlap when projected onto axes.
-        
+
         This tests if the segments would overlap when viewed from above or the side,
         even if they don't physically intersect.
-        
+
         Args:
             other (Segment): Another segment to check.
-            
+
         Returns:
             bool: True if segments shadow (overlap) each other on x or y axis.
         """

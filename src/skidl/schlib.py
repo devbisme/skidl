@@ -5,7 +5,7 @@
 """
 Handles schematic libraries for various ECAD tools.
 
-This module provides classes and functions for loading, managing, and 
+This module provides classes and functions for loading, managing, and
 accessing schematic component libraries from different ECAD tools.
 """
 
@@ -63,18 +63,18 @@ class SchLib(object):
         lib_section=None,
         use_cache=True,
         use_pickle=True,
-        **attribs
+        **attribs,
     ):
         """
         Load the parts from a library file.
-        
+
         Args:
             filename (str, optional): Path to the library file.
             tool (str, optional): Tool format (KICAD, SPICE, etc). Defaults to skidl.config.tool.
             lib_section (str, optional): Section of library for SPICE libs.
             use_cache (bool, optional): Use cached libraries for speed. Defaults to True.
             use_pickle (bool, optional): Pickle library for future access. Defaults to True.
-            
+
         Keyword Args:
             attribs: Additional attributes to assign to the library.
         """
@@ -125,9 +125,12 @@ class SchLib(object):
         # The pickle file name is based on the library name, the tool name, and the hash.
         # It is stored in a directory specified in the SKIDL configuration file.
         lib_name, lib_ext = os.path.splitext(os.path.split(abs_filename)[1])
-        lib_pickle_abs_fn = os.path.abspath(os.path.join(
-            skidl.config.pickle_dir, "_".join((lib_name, tool, str(abs_fn_hash)))
-        ) + ".pkl")
+        lib_pickle_abs_fn = os.path.abspath(
+            os.path.join(
+                skidl.config.pickle_dir, "_".join((lib_name, tool, str(abs_fn_hash)))
+            )
+            + ".pkl"
+        )
 
         # Load this SchLib with an existing SchLib object if the file name hash
         # matches one in the cache.
@@ -179,7 +182,7 @@ class SchLib(object):
     def __str__(self):
         """
         Return a list of the part names in this library as a string.
-        
+
         Returns:
             str: A string listing all parts in the library with their descriptions.
         """
@@ -190,7 +193,7 @@ class SchLib(object):
     def __len__(self):
         """
         Return number of parts in library.
-        
+
         Returns:
             int: The count of parts in the library.
         """
@@ -199,10 +202,10 @@ class SchLib(object):
     def __getitem__(self, id):
         """
         Get part by name or alias.
-        
+
         Args:
             id: Part name or alias to search for.
-            
+
         Returns:
             Part or list: The matching part(s) or None if not found.
         """
@@ -211,19 +214,19 @@ class SchLib(object):
     def __iadd__(self, *parts):
         """
         Add one or more parts to a library using the += operator.
-        
+
         Args:
             *parts: One or more Part objects to add to the library.
-            
+
         Returns:
             SchLib: The library with parts added.
         """
         return self.add_parts(*parts)
-    
+
     def __iter__(self):
         """
         Make the library iterable over its parts.
-        
+
         Returns:
             iterator: An iterator over the parts in the library.
         """
@@ -233,7 +236,7 @@ class SchLib(object):
     def reset(cls):
         """
         Clear the cache of processed library files.
-        
+
         This clears the class's internal cache of loaded libraries,
         which may be useful when reloading libraries or freeing memory.
         """
@@ -242,13 +245,13 @@ class SchLib(object):
     def add_parts(self, *parts):
         """
         Add one or more parts to a library.
-        
+
         Args:
             *parts: One or more Part objects to add to the library.
-            
+
         Returns:
             SchLib: The library with parts added.
-            
+
         Notes:
             Parts with the same name are not allowed in the library.
             A pointer to the library is placed in each added part.
@@ -271,7 +274,7 @@ class SchLib(object):
         Return parts from a library that match *all* the given criteria.
 
         Args:
-            use_backup_lib (bool, optional): If True and no matches found in this library, 
+            use_backup_lib (bool, optional): If True and no matches found in this library,
                 search the backup library. Defaults to True.
 
         Keyword Args:
@@ -297,10 +300,10 @@ class SchLib(object):
     def get_parts_quick(self, name):
         """
         Do a quick search for a part name or alias.
-        
+
         Args:
             name (str): Part name or alias to search for.
-            
+
         Returns:
             list: List of parts matching the name or alias.
         """
@@ -329,7 +332,7 @@ class SchLib(object):
         Returns:
             Part or list: A list of Parts that match the name, or a single Part if only one match,
                 or None if no matches and allow_failure is True.
-                
+
         Raises:
             ValueError: If no parts are found and allow_failure is False.
         """
@@ -348,7 +351,9 @@ class SchLib(object):
             active_logger.raise_(ValueError, message)
 
         if len(parts) > 1 and not allow_multiples:
-            message = f"Found multiple parts matching {name}. Selecting {parts[0].name}."
+            message = (
+                f"Found multiple parts matching {name}. Selecting {parts[0].name}."
+            )
             active_logger.warning(message)
             parts = parts[0:1]  # Just keep the first part.
 
@@ -364,7 +369,7 @@ class SchLib(object):
 
         Args:
             libname (str): A string containing the name of the library.
-            file_ (str or file object, optional): The file the library will be exported to. 
+            file_ (str or file object, optional): The file the library will be exported to.
                 It can either be a file object or a string or None. If None, the file
                 will be the same as the library name with the library suffix appended.
             tool (str, optional): The CAD tool library format to be used. Currently, this can
@@ -404,10 +409,10 @@ class SchLib(object):
 def load_backup_lib():
     """
     Load a backup library that stores the parts used in the circuit.
-    
+
     Returns:
         SchLib: The backup library containing previously used parts, or None if not available.
-        
+
     Notes:
         This function attempts to load a backup library stored as a Python module.
         The backup library is only loaded once; subsequent calls return the cached library.

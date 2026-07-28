@@ -20,7 +20,6 @@ from .pin import pin_drives
 from .utilities import export_to_all
 from skidl import KICAD10
 
-
 __all__ = [
     "config",
     "lib_search_paths",
@@ -47,8 +46,8 @@ __all__ = [
 ###############################################################################
 
 # Get SKiDL configuration and set global search paths.
-KICAD = KICAD10 # Reference to the latest version of KiCad.
-config = SkidlConfig(KICAD) # Sets default tool.
+KICAD = KICAD10  # Reference to the latest version of KiCad.
+config = SkidlConfig(KICAD)  # Sets default tool.
 lib_search_paths = config.lib_search_paths
 footprint_search_paths = config.footprint_search_paths
 
@@ -82,7 +81,7 @@ POWER = pin_drives.POWER
 def get_default_tool():
     """
     Get the ECAD tool that will be used by default.
-    
+
     Returns:
         The currently configured default ECAD tool.
     """
@@ -93,7 +92,7 @@ def get_default_tool():
 def set_default_tool(tool):
     """
     Set the ECAD tool that will be used by default.
-    
+
     Args:
         tool: The ECAD tool to use as the default.
     """

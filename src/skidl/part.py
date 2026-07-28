@@ -33,7 +33,6 @@ from .utilities import (
     Rgx,
 )
 
-
 __all__ = ["NETLIST", "LIBRARY", "TEMPLATE", "PartTmplt", "SkidlPart"]
 
 
@@ -47,10 +46,10 @@ NETLIST, LIBRARY, TEMPLATE = ["NETLIST", "LIBRARY", "TEMPLATE"]
 class PinNumberSearch(object):
     """
     A class for restricting part pin indexing to only pin numbers while ignoring pin names.
-    
+
     This class enables accessing pins by their number only, even when pins
     might have both numbers and names.
-    
+
     Attributes:
         part (Part): The part whose pins this object searches through.
     """
@@ -58,7 +57,7 @@ class PinNumberSearch(object):
     def __init__(self, part):
         """
         Initialize the pin number search object.
-        
+
         Args:
             part (Part): The part whose pins will be searched by number.
         """
@@ -68,11 +67,11 @@ class PinNumberSearch(object):
     def get_pins(self, *pin_ids, **criteria):
         """
         Get pins from a part using only pin numbers.
-        
+
         Args:
             pin_ids: ID numbers of the pins to get from the part.
             criteria: Additional criteria for selecting pins.
-            
+
         Returns:
             Pin or list: The selected pins.
         """
@@ -92,10 +91,10 @@ class PinNumberSearch(object):
 class PinNameSearch(object):
     """
     A class for restricting part pin indexing to only pin names while ignoring pin numbers.
-    
+
     This class enables accessing pins by their name only, even when pins
     might have both numbers and names.
-    
+
     Attributes:
         part (Part): The part whose pins this object searches through.
     """
@@ -103,7 +102,7 @@ class PinNameSearch(object):
     def __init__(self, part):
         """
         Initialize the pin name search object.
-        
+
         Args:
             part (Part): The part whose pins will be searched by name.
         """
@@ -112,11 +111,11 @@ class PinNameSearch(object):
     def get_pins(self, *pin_ids, **criteria):
         """
         Get pins from a part using only pin names.
-        
+
         Args:
             pin_ids: Names of the pins to get from the part.
             criteria: Additional criteria for selecting pins.
-            
+
         Returns:
             Pin or list: The selected pins.
         """
@@ -135,10 +134,10 @@ class PinNameSearch(object):
 
 @export_to_all
 class Part(PinMixin, SkidlBaseObject):
-# class Part(SkidlBaseObject, PinMixin):
+    # class Part(SkidlBaseObject, PinMixin):
     """
     A class for storing a definition of a schematic part.
-    
+
     This class represents electronic components in a schematic. Parts can be
     instantiated from libraries, customized with attributes, and connected
     together to form circuits.
@@ -168,7 +167,7 @@ class Part(PinMixin, SkidlBaseObject):
     Raises:
         ValueError: If the part library and definition are both missing.
         ValueError: If an unknown file format is requested.
-        
+
     Attributes:
         name (str): The part name.
         description (str): Description of the part.
@@ -195,11 +194,11 @@ class Part(PinMixin, SkidlBaseObject):
         ref=None,
         tag=None,
         pin_splitters=None,
-        **kwargs
+        **kwargs,
     ):
         """
         Initialize a part with the given parameters.
-        
+
         Args:
             lib (str or SchLib, optional): Library containing the part.
             name (str, optional): Part name to search for in the library.
@@ -212,7 +211,7 @@ class Part(PinMixin, SkidlBaseObject):
             ref (str, optional): Specific reference designator.
             tag (str, optional): Tag for associating with PCB footprint.
             pin_splitters (str, optional): Characters for splitting pin names into aliases.
-            
+
         Keyword Args:
             kwargs: Additional attributes for the part.
         """
@@ -347,10 +346,10 @@ class Part(PinMixin, SkidlBaseObject):
         # found using a regex and we don't want that entered as an alias.)
         if self.name != name and name in self.aliases:
             part_name = self.name
-            for k,v in vars(self).items():
+            for k, v in vars(self).items():
                 if v == part_name:
                     setattr(self, k, name)
-            for k,v in self.fields.items():
+            for k, v in self.fields.items():
                 if v == part_name:
                     self.fields[k] = name
 
@@ -361,7 +360,7 @@ class Part(PinMixin, SkidlBaseObject):
     def __str__(self):
         """
         Return a description of the pins on this part as a string.
-        
+
         Returns:
             str: A formatted string showing the part name, aliases, description and pins.
         """
@@ -377,7 +376,7 @@ class Part(PinMixin, SkidlBaseObject):
     def __bool__(self):
         """
         Any valid Part is True.
-        
+
         Returns:
             bool: Always returns True for valid Part objects.
         """
@@ -388,7 +387,7 @@ class Part(PinMixin, SkidlBaseObject):
     def __len__(self):
         """
         Return the number of pins in this part.
-        
+
         Returns:
             int: The number of pins in this part.
         """
@@ -432,10 +431,10 @@ class Part(PinMixin, SkidlBaseObject):
     def __mul__(self, num_copies):
         """
         Create multiple copies of a part using the * operator.
-        
+
         Args:
             num_copies (int): Number of copies to make.
-            
+
         Returns:
             list: List of part copies.
         """
@@ -448,10 +447,10 @@ class Part(PinMixin, SkidlBaseObject):
     def __and__(self, obj):
         """
         Attach a part and another part/pin/net in serial.
-        
+
         Args:
             obj: The object to connect in series with this part.
-            
+
         Returns:
             Network: A network representing the series connection.
         """
@@ -462,10 +461,10 @@ class Part(PinMixin, SkidlBaseObject):
     def __rand__(self, obj):
         """
         Attach a part and another part/pin/net in serial (right-side operation).
-        
+
         Args:
             obj: The object to connect in series with this part.
-            
+
         Returns:
             Network: A network representing the series connection.
         """
@@ -476,10 +475,10 @@ class Part(PinMixin, SkidlBaseObject):
     def __or__(self, obj):
         """
         Attach a part and another part/pin/net in parallel.
-        
+
         Args:
             obj: The object to connect in parallel with this part.
-            
+
         Returns:
             Network: A network representing the parallel connection.
         """
@@ -490,10 +489,10 @@ class Part(PinMixin, SkidlBaseObject):
     def __ror__(self, obj):
         """
         Attach a part and another part/pin/net in parallel (right-side operation).
-        
+
         Args:
             obj: The object to connect in parallel with this part.
-            
+
         Returns:
             Network: A network representing the parallel connection.
         """
@@ -539,7 +538,7 @@ class Part(PinMixin, SkidlBaseObject):
     def value_to_str(self):
         """
         Return value of part as a string.
-        
+
         Returns:
             str: String representation of the part's value.
         """
@@ -647,12 +646,12 @@ class Part(PinMixin, SkidlBaseObject):
         if not isinstance(num_copies, int):
             active_logger.raise_(
                 ValueError,
-                f"Can't make a non-integer number ({num_copies}) of copies of a part!"
+                f"Can't make a non-integer number ({num_copies}) of copies of a part!",
             )
         if num_copies < 0:
             active_logger.raise_(
                 ValueError,
-                "Can't make a negative number ({num_copies}) of copies of a part!"
+                "Can't make a negative number ({num_copies}) of copies of a part!",
             )
 
         # Now make copies of the part one-by-one.
@@ -661,7 +660,7 @@ class Part(PinMixin, SkidlBaseObject):
 
             # Make a copy of the part.
             cpy = copy(self)  # Start with shallow copy.
-            for k,v in self.__dict__.items():
+            for k, v in self.__dict__.items():
                 if isinstance(v, (Pin, PartUnit)):
                     # These require special handling later.
                     continue
@@ -737,7 +736,7 @@ class Part(PinMixin, SkidlBaseObject):
                     except IndexError:
                         active_logger.raise_(
                             ValueError,
-                            f"{num_copies} copies of part {self.name} were requested, but too few elements in attribute {k}!"
+                            f"{num_copies} copies of part {self.name} were requested, but too few elements in attribute {k}!",
                         )
                 setattr(cpy, k, v)
 
@@ -752,7 +751,7 @@ class Part(PinMixin, SkidlBaseObject):
     def validate(self):
         """
         Check that pins and units reference the correct part that owns them.
-        
+
         Raises:
             AssertionError: If pins or units don't properly reference this part.
         """
@@ -766,10 +765,10 @@ class Part(PinMixin, SkidlBaseObject):
     def copy_units(self, src):
         """
         Make copies of the units from the source part.
-        
+
         Args:
             src (Part): The source part containing units to copy.
-            
+
         Raises:
             Exception: If an illegal unit type is encountered.
         """
@@ -797,7 +796,7 @@ class Part(PinMixin, SkidlBaseObject):
         this method will return False. Otherwise, it will return True even if
         the part has no pins (which can be the case for mechanical parts,
         silkscreen logos, or other non-electrical schematic elements).
-        
+
         Returns:
             bool: True if the part is connected or has no pins, False otherwise.
         """
@@ -817,10 +816,10 @@ class Part(PinMixin, SkidlBaseObject):
     def attached_to(self, nets=None):
         """
         Return True if any part pin is connected to a net in the list.
-        
+
         Args:
             nets (list, optional): List of nets to check for connection.
-            
+
         Returns:
             bool: True if part is connected to any of the nets, False otherwise.
         """
@@ -842,7 +841,7 @@ class Part(PinMixin, SkidlBaseObject):
             2) the part has pins but none of them are connected to nets, or
             3) the part has no pins (which can be the case for mechanical parts,
                silkscreen logos, or other non-electrical schematic elements).
-               
+
         Returns:
             bool: True if the part can be moved to another circuit, False otherwise.
         """
@@ -872,7 +871,7 @@ class Part(PinMixin, SkidlBaseObject):
 
         Returns:
             PartUnit: The newly created part unit.
-            
+
         Warning:
             Will issue a warning if the unit label collides with any part pin names.
         """
@@ -895,7 +894,7 @@ class Part(PinMixin, SkidlBaseObject):
     def rmv_unit(self, label):
         """
         Remove a PartUnit from a Part.
-        
+
         Args:
             label (str): Label of unit to remove.
         """
@@ -905,7 +904,7 @@ class Part(PinMixin, SkidlBaseObject):
     def grab_pins(self):
         """
         Grab pins back from PartUnits.
-        
+
         Makes each unit release its pins back to the part that contains it.
         """
 
@@ -923,10 +922,10 @@ class Part(PinMixin, SkidlBaseObject):
     def create_network(self):
         """
         Create a network from the pins of a part.
-        
+
         Returns:
             Network: A network containing the part's pins.
-            
+
         Raises:
             Exception: If the part has more than 2 pins.
         """
@@ -938,12 +937,12 @@ class Part(PinMixin, SkidlBaseObject):
     def generate_svg_component(self, symtx="", tool=None, net_stubs=None):
         """
         Generate the SVG for displaying a part in an SVG schematic.
-        
+
         Args:
             symtx (str, optional): Transform for the SVG symbol. Defaults to "".
             tool (str, optional): Tool format to use for SVG generation. Defaults to config.tool.
             net_stubs (list, optional): List of net stubs to include in the SVG.
-            
+
         Returns:
             str: SVG representation of the component.
         """
@@ -959,7 +958,7 @@ class Part(PinMixin, SkidlBaseObject):
     def erc_desc(self):
         """
         Create description of part for ERC and other error reporting.
-        
+
         Returns:
             str: A string description in the form "name/ref"
         """
@@ -1041,7 +1040,7 @@ class Part(PinMixin, SkidlBaseObject):
         When setting the part reference, if another part with the same
         reference is found, the reference for this part is adjusted to make
         it unique.
-        
+
         Returns:
             str: The part's reference designator.
         """
@@ -1051,10 +1050,10 @@ class Part(PinMixin, SkidlBaseObject):
     def ref(self, r):
         """
         Set the part's reference.
-        
+
         Args:
             r (str): The reference to assign to the part.
-            
+
         Notes:
             If the reference would conflict with another part, a unique
             variation will be generated.
@@ -1080,7 +1079,7 @@ class Part(PinMixin, SkidlBaseObject):
     def value(self):
         """
         Get the part value.
-        
+
         Returns:
             str: The part's value, or part name if no value is set.
         """
@@ -1096,7 +1095,7 @@ class Part(PinMixin, SkidlBaseObject):
     def value(self, value):
         """
         Set the part value.
-        
+
         Args:
             value: The value to assign to the part.
         """
@@ -1113,7 +1112,7 @@ class Part(PinMixin, SkidlBaseObject):
     def foot(self):
         """
         Get the part footprint.
-        
+
         Returns:
             str: The part's footprint.
         """
@@ -1123,7 +1122,7 @@ class Part(PinMixin, SkidlBaseObject):
     def foot(self, footprint):
         """
         Set the part footprint.
-        
+
         Args:
             footprint (str): The footprint to assign to the part.
         """
@@ -1140,10 +1139,10 @@ class Part(PinMixin, SkidlBaseObject):
     def hiertuple(self):
         """
         Return a tuple of the node's hierarchy path names from top-most node to this one (self).
-        
+
         This provides a string representation of the hierarchical path by extracting
         the names from each node in the hierarchy chain.
-        
+
         Returns:
             tuple: A tuple of strings representing the names of nodes in the
                   hierarchical path from root to this node.
@@ -1162,8 +1161,12 @@ class Part(PinMixin, SkidlBaseObject):
         Returns:
             str: The tag, reference, or name of the object.
         """
-        return getattr(self, "tag", None) or getattr(self, "ref", None) or getattr(self, "name")
-    
+        return (
+            getattr(self, "tag", None)
+            or getattr(self, "ref", None)
+            or getattr(self, "name")
+        )
+
     @property
     def hiertuple(self):
         return self.node.hiertuple
@@ -1172,7 +1175,7 @@ class Part(PinMixin, SkidlBaseObject):
     def hiername(self):
         """
         Return the hierarchical name of the part.
-        
+
         Returns:
             str: The hierarchical name including hierarchy prefix and tag.
         """
@@ -1188,7 +1191,7 @@ class Part(PinMixin, SkidlBaseObject):
         surrounding this part and the part classes directly assigned to this part.
 
         Returns:
-            set: A set containing all part classes from the node hierarchy and 
+            set: A set containing all part classes from the node hierarchy and
                 the part's directly assigned classes.
         """
         # Add all the part classes for all the hierarchical nodes surrounding this part.
@@ -1196,7 +1199,7 @@ class Part(PinMixin, SkidlBaseObject):
 
         # Add the part classes directly assigned to this part.
         total_partclasses.add(self._partclasses)
-        
+
         return total_partclasses
 
     @partclasses.setter
@@ -1262,12 +1265,12 @@ class PartUnit(Part):
     def __init__(self, parent, label, *pin_ids, **criteria):
         """
         Initialize a PartUnit with pins selected from a parent part.
-        
+
         Args:
             parent (Part): Parent part to get pins from.
             label (str): Label for this unit.
             pin_ids: Pin names/numbers to include in this unit.
-            
+
         Keyword Args:
             criteria: Key/value pairs for selecting pins.
             unit (int): Unit number. Defaults to 1.
@@ -1327,10 +1330,10 @@ class PartUnit(Part):
     def add_pins_from_parent(self, *pin_ids, **criteria):
         """
         Add selected pins from the parent to the part unit.
-        
+
         Args:
             pin_ids: Pin names/numbers to add from parent.
-            
+
         Keyword Args:
             criteria: Key/value pairs for selecting pins.
         """
@@ -1354,7 +1357,7 @@ class PartUnit(Part):
     def validate(self):
         """
         Check that unit pins point to the parent part.
-        
+
         Raises:
             AssertionError: If pins don't refer to the parent part.
         """
@@ -1364,7 +1367,7 @@ class PartUnit(Part):
     def grab_pins(self):
         """
         Grab pin from Part and assign to PartUnit.
-        
+
         This changes each pin's part reference to point to this unit.
         """
         for pin in self.pins:
@@ -1373,7 +1376,7 @@ class PartUnit(Part):
     def release_pins(self):
         """
         Return PartUnit pins to parent Part.
-        
+
         This changes each pin's part reference to point back to the parent part.
         """
         for pin in self.pins:
@@ -1382,7 +1385,7 @@ class PartUnit(Part):
     def export(self):
         """
         Return a string describing the PartUnit for exporting purposes.
-        
+
         Returns:
             str: Dictionary representation of the unit as a string.
         """
@@ -1396,12 +1399,12 @@ class PartUnit(Part):
     def ref(self):
         """
         Get the unit's hierarchical reference.
-        
+
         Returns:
             str: Reference in the form "parent_ref.label"
         """
         return HIER_SEP.join((self.parent.ref, self.label))
-    
+
     @property
     def hiertuple(self):
         return self.parent.hiertuple

@@ -57,13 +57,15 @@ def find_overlapping_pins(node, backend, sheet_tx, max_dist_mm=80.0):
             # For power nets, consider ALL pins on this sheet.
             if is_power:
                 pins_in_node = [
-                    p for p in net.pins
+                    p
+                    for p in net.pins
                     if id(p.part) in node_part_ids
                     and not isinstance(p.part, NetTerminal)
                 ]
             else:
                 pins_in_node = [
-                    p for p in net.pins
+                    p
+                    for p in net.pins
                     if id(p.part) in node_part_ids
                     and not isinstance(p.part, NetTerminal)
                     and p.stub
@@ -87,8 +89,10 @@ def find_overlapping_pins(node, backend, sheet_tx, max_dist_mm=80.0):
 
             for i in range(len(positions)):
                 for j in range(i + 1, len(positions)):
-                    dist = ((positions[i][0] - positions[j][0]) ** 2 +
-                            (positions[i][1] - positions[j][1]) ** 2) ** 0.5
+                    dist = (
+                        (positions[i][0] - positions[j][0]) ** 2
+                        + (positions[i][1] - positions[j][1]) ** 2
+                    ) ** 0.5
                     if dist < 0.01:
                         ri, rj = find(i), find(j)
                         if ri != rj:
@@ -101,10 +105,7 @@ def find_overlapping_pins(node, backend, sheet_tx, max_dist_mm=80.0):
                 clusters.setdefault(r, []).append(i)
 
             # Check if the net has pins outside this sheet.
-            all_real_pins = [
-                p for p in net.pins
-                if not isinstance(p.part, NetTerminal)
-            ]
+            all_real_pins = [p for p in net.pins if not isinstance(p.part, NetTerminal)]
             has_pins_outside = len(all_real_pins) > len(pins_in_node)
 
             for members in clusters.values():
@@ -216,7 +217,8 @@ def find_power_bus_runs(node, backend, sheet_tx, max_gap_mm=10.0):
                 continue
 
             pins_in_node = [
-                p for p in net.pins
+                p
+                for p in net.pins
                 if id(p.part) in node_part_ids
                 and not isinstance(p.part, NetTerminal)
                 and len(p.part.pins) == 2
@@ -331,7 +333,7 @@ def deconflict_labels(labels, occupied_seed, node, backend, sheet_tx):
     from skidl.geometry import BBox
 
     MARGIN_MM = 1.27  # ~50 mils clearance from the body
-    GRID = 1.27       # KiCad 50-mil grid
+    GRID = 1.27  # KiCad 50-mil grid
 
     def _snap(v):
         return round(round(v / GRID) * GRID, 2)
@@ -357,7 +359,11 @@ def deconflict_labels(labels, occupied_seed, node, backend, sheet_tx):
             net = getattr(pin, "net", None)
             if net is None:
                 continue
-            if getattr(pin, "stub", False) or getattr(net, "stub", False) or getattr(net, "_stub", False):
+            if (
+                getattr(pin, "stub", False)
+                or getattr(net, "stub", False)
+                or getattr(net, "_stub", False)
+            ):
                 stub_net_names.add(net.name)
 
     # Component body bboxes in sheet (mm) coordinates.
@@ -425,10 +431,18 @@ def deconflict_labels(labels, occupied_seed, node, backend, sheet_tx):
                 continue
             ax, ay = lx, ly  # original anchor (on the pin)
             if abs(dx) > abs(dy):
-                offset = (cb.max.x - lx + MARGIN_MM) if dx > 0 else (cb.min.x - lx - MARGIN_MM)
+                offset = (
+                    (cb.max.x - lx + MARGIN_MM)
+                    if dx > 0
+                    else (cb.min.x - lx - MARGIN_MM)
+                )
                 nx, ny = _snap(lx + offset), _snap(ly)
             else:
-                offset = (cb.max.y - ly + MARGIN_MM) if dy > 0 else (cb.min.y - ly - MARGIN_MM)
+                offset = (
+                    (cb.max.y - ly + MARGIN_MM)
+                    if dy > 0
+                    else (cb.min.y - ly - MARGIN_MM)
+                )
                 nx, ny = _snap(lx), _snap(ly + offset)
             if (nx, ny) == (ax, ay):
                 break

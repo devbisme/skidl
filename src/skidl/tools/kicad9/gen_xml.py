@@ -32,9 +32,7 @@ def gen_xml_comp(part):
     try:
         footprint = part.footprint
     except AttributeError:
-        active_logger.error(
-            f"No footprint for {part}/{ref}."
-        )
+        active_logger.error(f"No footprint for {part}/{ref}.")
         footprint = "No Footprint"
 
     lib_filename = getattr(getattr(part, "lib", ""), "filename", "NO_LIB")

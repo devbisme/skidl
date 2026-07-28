@@ -17,7 +17,6 @@ from .constants import BLK_INT_PAD, BOX_LABEL_FONT_SIZE, GRID, PIN_LABEL_FONT_SI
 from .bboxes import calc_symbol_bbox, calc_hier_label_bbox
 from skidl.utilities import rmv_attr
 
-
 __all__ = []
 
 """
@@ -366,10 +365,10 @@ def pin_label_to_eeschema(pin, tx):
     pin_hiertuple = pin.part.hiertuple
     for pn in pin.net.pins:
         pn_hiertuple = pn.part.hiertuple
-        if pin_hiertuple[:len(pn_hiertuple)] == pn_hiertuple:
+        if pin_hiertuple[: len(pn_hiertuple)] == pn_hiertuple:
             # If the pin is in the same hierarchy as the net pin, then don't label it.
             continue
-        if pn_hiertuple[:len(pin_hiertuple)] == pin_hiertuple:
+        if pn_hiertuple[: len(pin_hiertuple)] == pin_hiertuple:
             # If the net pin is in the same hierarchy as the pin, then don't label it.
             continue
         label_type = "GLabel"
@@ -732,7 +731,9 @@ def gen_schematic(
     for _ in range(retries):
         preprocess_circuit(circuit, **options)
 
-        node = SchNode(circuit, tool_modules[KICAD5], filepath, top_name, title, flatness)
+        node = SchNode(
+            circuit, tool_modules[KICAD5], filepath, top_name, title, flatness
+        )
 
         try:
             # Place parts.

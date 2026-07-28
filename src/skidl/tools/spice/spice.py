@@ -28,7 +28,6 @@ from skidl.utilities import (
     find_and_read_file,
 )
 
-
 __all__ = ["lib_suffix", "DeviceModel", "XspiceModel", "Parameters"]
 
 # These aren't used here, but they are used in modules
@@ -116,9 +115,9 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
     for subcirc in spice_lib.subcircuits:
         path = getattr(spice_lib[subcirc], "path", None)
         if not path:
-            path = spice_lib[subcirc] # this is pyspice 1.5 behavior
+            path = spice_lib[subcirc]  # this is pyspice 1.5 behavior
         lib_files = set([str(path)])
-        
+
         subcir_nodes = getattr(spice_lib[subcirc], "_nodes", None)
         if subcir_nodes:
             # this is PySpice 1.6 behavior
@@ -146,7 +145,7 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
                 part.pins.append(Pin(num=node.internal_node, name=node.name))
             part.associate_pins()
             self.add_parts(part)
-                                              
+
         # # Go through the files and create a SKiDL Part for each subcircuit.
         else:
             for lib_file in lib_files:
@@ -160,7 +159,9 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
                         if statement[0] == ".subckt":
 
                             # Create an un-filled part template.
-                            part = Part(part_defn="don't care", tool=SPICE, dest=LIBRARY)
+                            part = Part(
+                                part_defn="don't care", tool=SPICE, dest=LIBRARY
+                            )
                             part.fplist = []
                             part.aliases = []
                             part.num_units = 1
@@ -181,7 +182,7 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
                             # Parse the part definition.
                             pieces = statement
                             try:
-                                # part defn: .subckt part_name pin1, pin2, ... pinN.                           
+                                # part defn: .subckt part_name pin1, pin2, ... pinN.
                                 part.name = pieces[1]
                                 part.pins = [Pin(num=p, name=p) for p in pieces[2:]]
                                 part.associate_pins()
@@ -194,7 +195,10 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
 
                                 # Start looking from the directory above where the SPICE library file was found.
                                 # FIXME: This is a hack because it might be somewhere else, but it's a start.
-                                lib_search_paths_ = [os.sep + os.path.join(*(spice_lib_path.split(os.sep)[:-2]))]
+                                lib_search_paths_ = [
+                                    os.sep
+                                    + os.path.join(*(spice_lib_path.split(os.sep)[:-2]))
+                                ]
 
                                 # First, check for LTSpice symbol file.
                                 sym_file, _ = find_and_read_file(
@@ -211,12 +215,20 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
                                     for sym_line in sym_file.split("\n"):
                                         if not sym_line:
                                             continue
-                                        if sym_line.lower().startswith("pinattr pinname"):
+                                        if sym_line.lower().startswith(
+                                            "pinattr pinname"
+                                        ):
                                             pin_names.append(sym_line.split()[2])
-                                        elif sym_line.lower().startswith("pinattr spiceorder"):
+                                        elif sym_line.lower().startswith(
+                                            "pinattr spiceorder"
+                                        ):
                                             pin_indices.append(sym_line.split()[2])
-                                        elif sym_line.lower().startswith("symattr description"):
-                                            part.description = " ".join(sym_line.split()[2:])
+                                        elif sym_line.lower().startswith(
+                                            "symattr description"
+                                        ):
+                                            part.description = " ".join(
+                                                sym_line.split()[2:]
+                                            )
 
                                     # Pin names and indices should be matched by the order they
                                     # appeared in the symbol file. Each index should match the
@@ -225,7 +237,9 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
                                         part.pins[int(index) - 1].name = name
                                 else:
                                     # No LTSpice symbol file, so check for PSPICE symbol file.
-                                    base_name = os.path.splitext(os.path.basename(lib_file))[0]
+                                    base_name = os.path.splitext(
+                                        os.path.basename(lib_file)
+                                    )[0]
                                     sym_file, _ = find_and_read_file(
                                         base_name,
                                         lib_search_paths_,
@@ -243,12 +257,16 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
                                                 continue
                                             line_parts = sym_line.lower().split()
                                             if line_parts[0] == "*symbol":
-                                                active = line_parts[1] == part.name.lower()
+                                                active = (
+                                                    line_parts[1] == part.name.lower()
+                                                )
                                             if active:
                                                 if line_parts[0] == "p":
                                                     pin_names.append(line_parts[6])
                                                 elif line_parts[0] == "d":
-                                                    part.description = " ".join(line_parts[1:])
+                                                    part.description = " ".join(
+                                                        line_parts[1:]
+                                                    )
 
                                         pin_indices = list(range(len(pin_names)))
                                         for pin, name in zip(part.pins, pin_names):
@@ -388,9 +406,11 @@ def gen_netlist(self, **kwargs):
 
     return circuit
 
+
 def _legalize_net_name(name):
     """Replace any special chars in a name because Spice doesn't like them."""
     return re.sub(r"\W", "_", name)
+
 
 @export_to_all
 def node(net_pin_part):
@@ -402,6 +422,7 @@ def node(net_pin_part):
         return _legalize_net_name(net_pin_part.net.name)
     if isinstance(net_pin_part, Part):
         return net_pin_part.ref
+
 
 def _xspice_node(net_or_pin):
     if isinstance(net_or_pin, Net):
@@ -465,14 +486,14 @@ def _get_kwargs(part, kw):
     # So use the pin name to fetch the active part pin and get the net from that.
     reordered_part_pin_nums = [pin.num for pin in reordered_part_pins]
     for spice_pin, part_pin_num in list(zip(spice_pins, reordered_part_pin_nums)):
-        part_pin = part[part_pin_num] # Actual part pin with attached net.
+        part_pin = part[part_pin_num]  # Actual part pin with attached net.
         if part_pin.is_connected():
             try:
                 param_name = kw[spice_pin.name]
             except KeyError:
                 active_logger.error(
                     f"Part {part.ref}-{part.name} has no {spice_pin_name} pin: {part}"
-                    )
+                )
             else:
                 kwargs.update({param_name: node(part_pin)})
 
@@ -482,9 +503,7 @@ def _get_kwargs(part, kw):
 @export_to_all
 def not_implemented(part, circuit):
     """Unable to add a particular SPICE part to a circuit."""
-    active_logger.error(
-        f"Function not implemented for {part.name} - {part.ref}."
-    )
+    active_logger.error(f"Function not implemented for {part.name} - {part.ref}.")
 
 
 @export_to_all
@@ -546,9 +565,15 @@ def add_subcircuit_to_circuit(part, circuit):
     # If the part was converted for use by SPICE, then use the reordered pins that match the order of the
     # SPICE part pins. Otherwise, the part is an actual SPICE part so its pins in their original order.
     args.append(part.name)
-    args.extend([node(pin) for pin in getattr(part, "reordered_part_pins", part.pins) if pin.is_connected()])
+    args.extend(
+        [
+            node(pin)
+            for pin in getattr(part, "reordered_part_pins", part.pins)
+            if pin.is_connected()
+        ]
+    )
 
-    # Create the list of keyword arguments for the subcircuit. These are the parameters that are 
+    # Create the list of keyword arguments for the subcircuit. These are the parameters that are
     # defined in the part and that match the parameter names in the SPICE subcircuit definition.
     params = {}
     for v in vars(part).values():

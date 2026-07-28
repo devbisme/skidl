@@ -21,7 +21,6 @@ from skidl.utilities import (
 )
 from .draw_objs import *
 
-
 __all__ = ["lib_suffix"]
 
 
@@ -113,7 +112,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
     if not header.startswith("EESchema-LIBRARY"):
         active_logger.raise_(
             RuntimeError,
-            f"The file {filename} is not a KiCad Schematic Library File.\n"
+            f"The file {filename} is not a KiCad Schematic Library File.\n",
         )
 
     # Process each part.
@@ -531,7 +530,9 @@ def parse_lib_part(part, partial_parse):
 
             # Found something unknown outside the footprint list or drawing section.
             else:
-                msg = f"Found something strange in {part.name} symbol definition: {line}."
+                msg = (
+                    f"Found something strange in {part.name} symbol definition: {line}."
+                )
                 active_logger.warning(msg)
 
     # Define some shortcuts to part information.

@@ -52,21 +52,21 @@ __all__ = ["BUS_PREFIX"]
 class Bus(SkidlBaseObject):
     """
     A collection of related nets that can be indexed and connected as a group.
-    
+
     Bus objects group nets to represent multi-bit signals like data buses, address buses,
     or other related collections of signals. Buses can be created from integer widths,
     existing nets, pins, or other buses. Individual nets in a bus can be accessed using
     integer indices, slices, or net names.
-    
+
     Args:
         name (str, optional): The name of the bus. If None, an implicit name will be generated.
-        *args: Various objects to create bus from - can include integers (for width), 
+        *args: Various objects to create bus from - can include integers (for width),
               pins, nets, or other buses.
-    
+
     Keyword Args:
         circuit (Circuit, optional): The Circuit object this bus belongs to.
         attribs: Various attributes to attach to the bus.
-        
+
     Examples:
         >>> data_bus = Bus('DATA', 8)  # Create 8-bit DATA bus
         >>> addr_bus = Bus('ADDR', 16)  # Create 16-bit ADDR bus
@@ -123,7 +123,7 @@ class Bus(SkidlBaseObject):
     def __str__(self):
         """
         Return a string representation of the bus.
-        
+
         Returns:
             str: Bus name followed by a list of nets in the bus.
         """
@@ -134,7 +134,7 @@ class Bus(SkidlBaseObject):
     def __iter__(self):
         """
         Return an iterator for stepping through individual nets in the bus.
-        
+
         Returns:
             iterator: An iterator yielding each net in the bus.
         """
@@ -143,17 +143,17 @@ class Bus(SkidlBaseObject):
     def __getitem__(self, *ids):
         """
         Return a net or NetPinList of nets at the specified indices.
-        
-        Bus indexing supports integers, net names, and slices. When multiple 
+
+        Bus indexing supports integers, net names, and slices. When multiple
         indices are selected, returns a NetPinList containing the nets.
-        
+
         Args:
             *ids: Indices of nets to get. Can be integers, strings (net names),
                  slices, or nested lists of these.
-                 
+
         Returns:
             Net or NetPinList: The requested net(s) from the bus.
-            
+
         Raises:
             TypeError: If an unsupported index type is used.
         """
@@ -187,7 +187,7 @@ class Bus(SkidlBaseObject):
     def __setitem__(self, ids, pins_nets_buses):
         """
         You can't assign to bus lines. You must use the += operator.
-        
+
         You can't allow use of the +. You must use the += operator.= for making
         connections to bus lines while prohibiting direct assignment. Python
         processes something like my_bus[7:0] += 8 * Pin() as follows::
@@ -218,10 +218,10 @@ class Bus(SkidlBaseObject):
     def __iadd__(self, *pins_nets_buses):
         """
         Connect nets, pins, or buses to this bus.
-        
+
         Args:
             *pins_nets_buses: Objects to connect to the bus.
-            
+
         Returns:
             Bus: The updated bus with new connections.
         """
@@ -230,11 +230,11 @@ class Bus(SkidlBaseObject):
     def __call__(self, num_copies=None, **attribs):
         """
         Create multiple copies of this bus.
-        
+
         Args:
             num_copies (int, optional): Number of copies to create.
             **attribs: Attributes to apply to the copies.
-            
+
         Returns:
             Bus or list[Bus]: Copy or copies of the bus.
         """
@@ -243,10 +243,10 @@ class Bus(SkidlBaseObject):
     def __mul__(self, num_copies):
         """
         Multiply operator to create multiple copies of the bus.
-        
+
         Args:
             num_copies (int): Number of copies to create.
-            
+
         Returns:
             list[Bus]: List of bus copies.
         """
@@ -259,7 +259,7 @@ class Bus(SkidlBaseObject):
     def __len__(self):
         """
         Return the number of nets in the bus.
-        
+
         Returns:
             int: Number of nets in the bus.
         """
@@ -268,7 +268,7 @@ class Bus(SkidlBaseObject):
     def __bool__(self):
         """
         Return True if the bus is valid (always True).
-        
+
         Returns:
             bool: Always True for any bus instance.
         """
@@ -280,11 +280,11 @@ class Bus(SkidlBaseObject):
     def get(cls, name, circuit=None):
         """
         Get a bus by name from a circuit.
-        
+
         Args:
             name (str): Name or alias of the bus to find.
             circuit (Circuit, optional): Circuit to search in. Defaults to default_circuit.
-            
+
         Returns:
             Bus or None: The found bus object or None if not found.
         """
@@ -311,15 +311,15 @@ class Bus(SkidlBaseObject):
     def fetch(cls, name, *args, **attribs):
         """
         Get a bus by name from a circuit, or create it if it doesn't exist.
-        
+
         This method is similar to get(), but will create a new bus if one
         with the given name is not found.
-        
+
         Args:
             name (str): Name of the bus to fetch or create.
             *args: Arguments to pass to the Bus constructor if creation is needed.
             **attribs: Keyword arguments to pass to the Bus constructor if creation is needed.
-            
+
         Returns:
             Bus: An existing or newly created bus.
         """
@@ -330,14 +330,14 @@ class Bus(SkidlBaseObject):
     def insert(self, index, *objects):
         """
         Insert objects into the bus starting at the given index.
-        
+
         Objects can be integers (to create N new nets), existing nets, pins, or buses.
         New nets will be given names based on the bus name and their position.
-        
+
         Args:
             index (int): Position to insert objects.
             *objects: Objects to insert - integers, nets, pins, or buses.
-            
+
         Raises:
             ValueError: If an unsupported object type is inserted.
         """
@@ -384,13 +384,13 @@ class Bus(SkidlBaseObject):
                 # Net names are the bus name with the index appended.
                 net.name = self.name + sep + str(i)
 
-        # Add the net class of the bus to each net it contains. 
+        # Add the net class of the bus to each net it contains.
         self.propagate_netclasses()
 
     def extend(self, *objects):
         """
         Extend the bus by adding nets to the end (MSB).
-        
+
         Args:
             *objects: Objects to add - integers, nets, pins, or buses.
         """
@@ -399,20 +399,20 @@ class Bus(SkidlBaseObject):
     def copy(self, num_copies=None, circuit=None, **attribs):
         """
         Create one or more copies of this bus.
-        
+
         Args:
             num_copies (int, optional): Number of copies to create.
                 If None, a single copy will be made.
             circuit (Circuit, optional): The circuit the copies will be added to.
             **attribs: Attributes for the copies. If values are lists/tuples,
                 each copy gets the corresponding value.
-                
+
         Returns:
             Bus or list[Bus]: A single Bus copy or list of copies.
-            
+
         Raises:
             ValueError: If num_copies is not a non-negative integer.
-            
+
         Examples:
             >>> b = Bus('A', 8)
             >>> b_copy = b(2)  # Get two copies
@@ -459,7 +459,7 @@ class Bus(SkidlBaseObject):
             cpy = Bus(name=name, circuit=circuit)
 
             # Copy stuff from the original bus to the copy.
-            for k,v in self.__dict__.items():
+            for k, v in self.__dict__.items():
                 if k in skip_attrs:
                     continue
                 if isinstance(v, Iterable) and not isinstance(v, str):
@@ -482,7 +482,7 @@ class Bus(SkidlBaseObject):
     def get_nets(self):
         """
         Return the list of nets contained in this bus.
-        
+
         Returns:
             list[Net]: Nets in this bus.
         """
@@ -491,7 +491,7 @@ class Bus(SkidlBaseObject):
     def get_pins(self):
         """
         Raise an error since accessing all pins across a bus is not supported.
-        
+
         Raises:
             Exception: Always raises an error.
         """
@@ -500,9 +500,9 @@ class Bus(SkidlBaseObject):
     def is_movable(self):
         """
         Check if the bus can be moved to another circuit.
-        
+
         A bus is movable if all of its nets are movable.
-        
+
         Returns:
             bool: True if all nets in the bus are movable.
         """
@@ -511,9 +511,9 @@ class Bus(SkidlBaseObject):
     def is_implicit(self):
         """
         Check if the bus name is implicitly generated.
-        
+
         Implicit bus names start with the BUS_PREFIX or NET_PREFIX.
-        
+
         Returns:
             bool: True if the bus has an implicitly generated name.
         """
@@ -523,13 +523,13 @@ class Bus(SkidlBaseObject):
     def connect(self, *pins_nets_buses):
         """
         Connect pins, nets, or buses to this bus.
-        
+
         Args:
             *pins_nets_buses: Pins, nets, buses or lists/tuples of them to connect.
-            
+
         Returns:
             Bus: The updated bus with the new connections.
-            
+
         Examples:
             >>> b = Bus('B', 2)
             >>> p = Pin()
@@ -546,7 +546,7 @@ class Bus(SkidlBaseObject):
                 pnb.propagate_netclasses()
 
         return self
-    
+
     def propagate_netclasses(self):
 
         # Nothing to do if bus has no nets.
@@ -561,7 +561,6 @@ class Bus(SkidlBaseObject):
         # Don't call self.netclasses or you'll get infinite recursion!
         self._netclasses.add(set.intersection(*(set(n.netclasses) for n in self.nets)))
 
-
     @property
     def netclasses(self):
         # Add all the net classes for all the hierarchical nodes surrounding this bus.
@@ -571,7 +570,7 @@ class Bus(SkidlBaseObject):
         total_netclasses.add(self._netclasses)
 
         return total_netclasses
-    
+
     @netclasses.setter
     def netclasses(self, *netclasses):
         # Add the passed-in net classes.
@@ -590,10 +589,10 @@ class Bus(SkidlBaseObject):
     def name(self):
         """
         Get the name of the bus.
-        
+
         When setting the name, if another bus with the same name exists in the
         circuit, the name will be adjusted to make it unique.
-        
+
         Returns:
             str: The bus name.
         """
@@ -603,7 +602,7 @@ class Bus(SkidlBaseObject):
     def name(self, name):
         """
         Set the bus name.
-        
+
         Args:
             name (str): The new name for the bus.
         """
@@ -621,7 +620,7 @@ class Bus(SkidlBaseObject):
     def name(self):
         """
         Delete the bus name.
-        
+
         This reverts the bus to having no name.
         """
         super(Bus, type(self)).name.fdel(self)
@@ -630,7 +629,7 @@ class Bus(SkidlBaseObject):
     def width(self):
         """
         Get the width of the bus (number of nets).
-        
+
         Returns:
             int: The number of nets in the bus.
         """
@@ -640,10 +639,10 @@ class Bus(SkidlBaseObject):
     def pins(self):
         """
         Get all pins connected to the bus.
-        
+
         Returns:
             list: List of pins connected to the bus nets.
-            
+
         Raises:
             Exception: Always raises an error since accessing all pins across a bus is not supported.
         """

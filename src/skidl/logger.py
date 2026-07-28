@@ -20,18 +20,17 @@ from .scriptinfo import get_script_name, get_skidl_trace
 from .skidlbaseobj import WARNING
 from .utilities import export_to_all
 
-
 __all__ = ["rt_logger", "erc_logger", "active_logger"]
 
 
 class CountCalls(object):
     """
     Decorator for counting the number of times a function is called.
-    
+
     This decorator tracks calls to logging functions, making it easy
     to determine if and how many errors/warnings were issued during
     circuit processing or ERC.
-    
+
     Args:
         func (function): The function to be wrapped and counted.
     """
@@ -43,11 +42,11 @@ class CountCalls(object):
     def __call__(self, *args, **kwargs):
         """
         Call the wrapped function and increment the call counter.
-        
+
         Args:
             *args: Arguments to pass to the wrapped function.
             **kwargs: Keyword arguments to pass to the wrapped function.
-            
+
         Returns:
             The return value from the wrapped function.
         """
@@ -62,10 +61,10 @@ class CountCalls(object):
 class SkidlLogFileHandler(logging.FileHandler):
     """
     Logger handler that outputs messages to a file with enhanced file handling.
-    
+
     This extends the standard FileHandler with functionality to track
     filenames and remove log files when the handler is closed or removed.
-    
+
     Args:
         *args: Arguments to pass to FileHandler.
         **kwargs: Keyword arguments to pass to FileHandler.
@@ -86,7 +85,7 @@ class SkidlLogFileHandler(logging.FileHandler):
     def remove_log_file(self):
         """
         Close and remove the log file associated with this handler.
-        
+
         If the file doesn't exist or can't be removed, the filename is set to None.
         """
         if self.filename:
@@ -100,10 +99,10 @@ class SkidlLogFileHandler(logging.FileHandler):
 class SkidlLogger(logging.getLoggerClass()):
     """
     SKiDL logger with enhanced functionality for managing file output and context.
-    
+
     This extends the standard Logger class with methods to manage file output handlers,
     control stack trace depth in messages, and provide better formatted error/warning messages.
-    
+
     Args:
         *args: Arguments to pass to Logger.
         **kwargs: Keyword arguments to pass to Logger.
@@ -117,7 +116,7 @@ class SkidlLogger(logging.getLoggerClass()):
     def addHandler(self, handler):
         """
         Add a handler to the logger and track file handlers separately.
-        
+
         Args:
             handler (logging.Handler): The handler to add.
         """
@@ -129,7 +128,7 @@ class SkidlLogger(logging.getLoggerClass()):
     def removeHandler(self, handler):
         """
         Remove a handler from the logger and clean up any associated log file.
-        
+
         Args:
             handler (logging.Handler): The handler to remove.
         """
@@ -143,7 +142,7 @@ class SkidlLogger(logging.getLoggerClass()):
     def stop_file_output(self):
         """
         Stop file output for all log handlers of this logger.
-        
+
         This removes all file handlers, which in turn removes their log files.
         """
         for handler in self.log_file_handlers[:]:
@@ -152,7 +151,7 @@ class SkidlLogger(logging.getLoggerClass()):
     def set_trace_depth(self, depth):
         """
         Set the depth of stack trace to include in log messages.
-        
+
         Args:
             depth (int): Number of stack frames to include in the trace.
                          0 means no trace information will be included.
@@ -162,7 +161,7 @@ class SkidlLogger(logging.getLoggerClass()):
     def get_trace(self):
         """
         Get a string containing the current trace information.
-        
+
         Returns:
             str: A string with the call stack trace or empty string if trace_depth <= 0.
         """
@@ -175,7 +174,7 @@ class SkidlLogger(logging.getLoggerClass()):
     def debug(self, msg, *args, **kwargs):
         """
         Log a debug message with trace information.
-        
+
         Args:
             msg (str): The message to log.
             *args: Arguments to pass to the logger.
@@ -186,7 +185,7 @@ class SkidlLogger(logging.getLoggerClass()):
     def summary(self, msg, *args, **kwargs):
         """
         Log a summary message without location information.
-        
+
         Args:
             msg (str): The message to log.
             *args: Arguments to pass to the logger.
@@ -197,7 +196,7 @@ class SkidlLogger(logging.getLoggerClass()):
     def info(self, msg, *args, **kwargs):
         """
         Log an info message with trace information.
-        
+
         Args:
             msg (str): The message to log.
             *args: Arguments to pass to the logger.
@@ -208,7 +207,7 @@ class SkidlLogger(logging.getLoggerClass()):
     def bare_info(self, msg, *args, **kwargs):
         """
         Log an info message without trace information.
-        
+
         Args:
             msg (str): The message to log.
             *args: Arguments to pass to the logger.
@@ -219,7 +218,7 @@ class SkidlLogger(logging.getLoggerClass()):
     def warning(self, msg, *args, **kwargs):
         """
         Log a warning message with trace information.
-        
+
         Args:
             msg (str): The message to log.
             *args: Arguments to pass to the logger.
@@ -230,7 +229,7 @@ class SkidlLogger(logging.getLoggerClass()):
     def bare_warning(self, msg, *args, **kwargs):
         """
         Log a warning message without trace information.
-        
+
         Args:
             msg (str): The message to log.
             *args: Arguments to pass to the logger.
@@ -241,7 +240,7 @@ class SkidlLogger(logging.getLoggerClass()):
     def error(self, msg, *args, **kwargs):
         """
         Log an error message with trace information.
-        
+
         Args:
             msg (str): The message to log.
             *args: Arguments to pass to the logger.
@@ -252,7 +251,7 @@ class SkidlLogger(logging.getLoggerClass()):
     def bare_error(self, msg, *args, **kwargs):
         """
         Log an error message without trace information.
-        
+
         Args:
             msg (str): The message to log.
             *args: Arguments to pass to the logger.
@@ -263,7 +262,7 @@ class SkidlLogger(logging.getLoggerClass()):
     def critical(self, msg, *args, **kwargs):
         """
         Log a critical message with trace information.
-        
+
         Args:
             msg (str): The message to log.
             *args: Arguments to pass to the logger.
@@ -274,14 +273,14 @@ class SkidlLogger(logging.getLoggerClass()):
     def raise_(self, exc_class, msg):
         """
         Log an error message and then raise an exception.
-        
+
         This method combines logging an error and raising an exception
         to simplify error handling code.
-        
+
         Args:
             exc_class (Exception): The exception class to raise.
             msg (str): The error message to log and include in the exception.
-            
+
         Raises:
             exc_class: The specified exception with the given message.
         """
@@ -291,11 +290,16 @@ class SkidlLogger(logging.getLoggerClass()):
     def report_summary(self, phase_desc):
         """
         Report a summary of logged errors and warnings.
-        
+
         Args:
             phase_desc (str): Description of the phase being summarized (e.g., "generating netlist").
         """
-        if (self.error.count, self.warning.count, self.bare_error.count, self.bare_warning.count) == (0, 0, 0, 0):
+        if (
+            self.error.count,
+            self.warning.count,
+            self.bare_error.count,
+            self.bare_warning.count,
+        ) == (0, 0, 0, 0):
             self.summary(f"No errors or warnings found while {phase_desc}.\n")
         else:
             self.summary(
@@ -309,11 +313,11 @@ class SkidlLogger(logging.getLoggerClass()):
 class ActiveLogger(SkidlLogger):
     """
     Logger that manages the currently active logging context.
-    
+
     This class encapsulates a stack of loggers and enables temporary
     switching between different logging contexts, with clean restoration
     of the previous context when done.
-    
+
     Args:
         logger (SkidlLogger): The initial logger to activate.
     """
@@ -321,7 +325,7 @@ class ActiveLogger(SkidlLogger):
     def __init__(self, logger):
         """
         Initialize the active logger with an initial logger.
-        
+
         Args:
             logger (SkidlLogger): The logger that will be active initially.
         """
@@ -331,7 +335,7 @@ class ActiveLogger(SkidlLogger):
     def set(self, logger):
         """
         Set the active logger.
-        
+
         Args:
             logger (SkidlLogger): Logger to make active.
         """
@@ -341,10 +345,10 @@ class ActiveLogger(SkidlLogger):
     def push(self, logger):
         """
         Save the currently active logger and activate a new one.
-        
+
         This method puts the current logger on a stack and activates
         the provided logger in its place.
-        
+
         Args:
             logger (SkidlLogger): New logger to activate.
         """
@@ -354,7 +358,7 @@ class ActiveLogger(SkidlLogger):
     def pop(self):
         """
         Restore the previously active logger.
-        
+
         This method deactivates the current logger and restores
         the logger that was active before the most recent push().
         """
@@ -364,15 +368,15 @@ class ActiveLogger(SkidlLogger):
 def _create_logger(title, log_msg_id="", log_file_suffix=".log"):
     """
     Create a customized logger for SKiDL.
-    
+
     This function creates a logger with handlers for outputting to both
     the console and a log file, with proper formatting for SKiDL messages.
-    
+
     Args:
         title (str): Name/title for the logger.
         log_msg_id (str, optional): Prefix for log messages.
         log_file_suffix (str, optional): Suffix for the log filename.
-        
+
     Returns:
         SkidlLogger: Configured logger instance.
     """
@@ -412,7 +416,7 @@ def _create_logger(title, log_msg_id="", log_file_suffix=".log"):
 def stop_log_file_output(stop=True):
     """
     Stop or restart log file output for all loggers.
-    
+
     Args:
         stop (bool, optional): True to stop file output, False to allow it.
             Defaults to True.

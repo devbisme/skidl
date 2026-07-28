@@ -7,7 +7,7 @@ Interface management in SKiDL.
 
 This module provides the Interface class, which bundles nets, buses, and pins into
 a single entity that can be used for connecting subsystems with complex I/O.
-Interfaces make it easier to handle groups of related signals and enable 
+Interfaces make it easier to handle groups of related signals and enable
 connecting subsystems with matching interfaces using simple operators.
 """
 
@@ -28,25 +28,24 @@ from .utilities import (
 )
 
 
-
 @export_to_all
 class Interface(dict):
     """
     A bundle of nets, buses, and pins that can be accessed as attributes or dict entries.
-    
+
     An Interface groups related nets, buses, and pins into a single entity where each
     item can be accessed either as an attribute (obj.item) or as a dictionary key (obj['item']).
     This makes Interfaces useful for standardizing connections between subsystems or
     for creating reusable connection patterns.
-    
+
     Args:
         *args: Positional arguments passed to dict constructor.
         **kwargs: Keyword arguments defining nets/buses to include in the interface.
-        
+
     Keyword Args:
         unbundle (bool, optional): Whether to automatically unbundle buses into individual
             nets that can be accessed directly. Defaults to True.
-            
+
     Examples:
         >>> power = Interface(vcc=Net('VCC'), gnd=Net('GND'))
         >>> power.vcc += part1['VCC']  # Connect using attribute access
@@ -79,11 +78,11 @@ class Interface(dict):
     def __setattr__(self, key, value, unbundle=True):
         """
         Set an attribute and corresponding dict entry in the interface.
-        
+
         This method handles creating net-like objects for pin-like inputs,
         setting up aliases for the keys, and optionally unbundling buses
         into individual nets.
-        
+
         Args:
             key (str): Name for the attribute/dict entry.
             value: The value to associate with the key.
@@ -124,19 +123,19 @@ class Interface(dict):
     def __getitem__(self, *io_ids, **criteria):
         """
         Get interface items by name, regex, or other criteria.
-        
+
         This method allows retrieving individual items or groups of items
         from the interface based on names, regular expressions, or other
         attribute criteria.
-        
+
         Args:
             io_ids: Names or patterns of interface items to retrieve.
                 If empty, all items may be retrieved.
-                
+
         Keyword Args:
             match_regex (bool, optional): Whether to use regex matching. Default is False.
             criteria: Attribute values that items must match to be retrieved.
-            
+
         Returns:
             Net, Pin, Bus, NetPinList, or None: The selected item(s) or None if no match.
         """
@@ -198,10 +197,10 @@ class Interface(dict):
     def __setitem__(self, key, value):
         """
         Set a dictionary entry and attribute with the same name.
-        
+
         This method handles assignments to dictionary keys, ensuring that
         attribute access and dictionary access remain synchronized.
-        
+
         Args:
             key (str): The key to assign to.
             value: The value to assign.
@@ -216,12 +215,12 @@ class Interface(dict):
     def __iadd__(self, other_intfc):
         """
         Connect this interface to another interface using the += operator.
-        
+
         This connects matching nets and buses between the two interfaces.
-        
+
         Args:
             other_intfc (Interface): The interface to connect to this one.
-            
+
         Returns:
             Interface: This interface with connections to the other interface.
         """
@@ -230,16 +229,16 @@ class Interface(dict):
     def connect(self, other_intfc):
         """
         Connect this interface to another interface.
-        
+
         This method connects nets and buses in this interface to those
         with matching names in another interface.
-        
+
         Args:
             other_intfc (Interface): The interface to connect to this one.
-            
+
         Returns:
             Interface: This interface with connections to the other interface.
-            
+
         Examples:
             >>> intf1 = Interface(a=Net('a'), b=Net('b'))
             >>> intf2 = Interface(a=Net('a2'), b=Net('b2'))
@@ -248,7 +247,7 @@ class Interface(dict):
         """
 
         # Connect the nets/buses of this interface to the nets/buses of the other interface.
-        for k,v in self.unexpio.items():
+        for k, v in self.unexpio.items():
             if isinstance(v, (Net, Bus, Pin)):
                 if k in other_intfc:
                     self[k] += other_intfc[k]

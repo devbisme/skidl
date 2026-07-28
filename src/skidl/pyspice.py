@@ -15,6 +15,8 @@ This module configures SKiDL to work with SPICE simulations by:
 import sys
 
 from skidl.logger import active_logger
+
+
 def abort_if_spice_unavailable():
     if "InSpice" not in sys.modules:
         msg = "InSpice package is not available. SPICE simulation is not possible."
@@ -25,6 +27,7 @@ def abort_if_spice_unavailable():
             # InSpice is not installed, so raise an ImportError.
             msg += " Install InSpice to enable SPICE simulation."
         active_logger.raise_(ImportError, msg)
+
 
 # InSpice may not be installed because of Python version.
 try:
@@ -37,7 +40,6 @@ except ImportError:
 from skidl import *
 from .tools.spice import *
 from .tools.skidl.libs.pyspice_sklib import pyspice_lib
-
 
 set_default_tool(SPICE)  # Set the library format for reading SKiDL libraries.
 

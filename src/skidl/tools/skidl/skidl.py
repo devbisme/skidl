@@ -10,7 +10,6 @@ import os.path
 
 from skidl.utilities import export_to_all
 
-
 # These aren't used here, but they are used in modules
 # that include this module.
 lib_suffix = "_sklib.py"

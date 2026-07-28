@@ -18,7 +18,7 @@ from .utilities import export_to_all
 class Note(list):
     """
     Stores one or more strings as notes.
-    
+
     The Note class extends the Python list to store textual annotations.
     Notes can be attached to SKiDL objects to provide additional information
     or documentation about the design.
@@ -34,7 +34,7 @@ class Note(list):
 
         Returns:
             A Note object containing note strings.
-            
+
         Examples:
             note1 = Note("This is a note")
             note2 = Note("First line", "Second line")
@@ -49,7 +49,7 @@ class Note(list):
 
         Returns:
             A string made up of the concatenated notes in the object joined by newlines.
-            
+
         Examples:
             >>> print(Note("Line 1", "Line 2"))
             Line 1
@@ -67,7 +67,7 @@ class Note(list):
 
         Returns:
             A Note object containing the original and new note strings.
-            
+
         Examples:
             >>> n = Note("Original note")
             >>> n += "Additional note"

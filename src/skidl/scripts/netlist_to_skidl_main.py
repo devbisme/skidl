@@ -13,10 +13,10 @@ import sys
 from skidl.netlist_to_skidl import netlist_to_skidl
 from skidl.pckg_info import __version__
 
-
 ###############################################################################
 # Command-line interface.
 ###############################################################################
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -42,7 +42,10 @@ def main():
         help="Output directory for SKiDL code.",
     )
     parser.add_argument(
-        "--overwrite", "-w", action="store_true", help="Overwrite existing files and directories."
+        "--overwrite",
+        "-w",
+        action="store_true",
+        help="Overwrite existing files and directories.",
     )
     parser.add_argument(
         "--nobackup",
@@ -103,7 +106,7 @@ def main():
                         shutil.copytree(output_dir, backup_dir)
                     break
                 index += 1
-            
+
             if args.overwrite:
                 shutil.rmtree(output_dir)
 

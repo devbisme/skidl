@@ -6,7 +6,7 @@
 Electrical Rule Checking (ERC) in SKiDL.
 
 This module provides functions for verifying the electrical correctness of SKiDL circuits.
-It includes default ERC functions for circuits, parts, pins, and nets that check for 
+It includes default ERC functions for circuits, parts, pins, and nets that check for
 common issues such as unconnected pins, pin conflicts, and insufficient drive strength.
 These functions can be customized or extended to implement domain-specific design rules.
 """
@@ -19,11 +19,11 @@ from .utilities import export_to_all
 def dflt_circuit_erc(circuit):
     """
     Perform electrical rules check on an entire circuit.
-    
+
     This function checks all nets, parts, and interfaces in the circuit
     for electrical rule violations. It first merges multi-segment nets, then
     runs ERC checks on each unique net once to prevent duplicate error messages.
-    
+
     Args:
         circuit (Circuit): The circuit to check for rule violations.
     """
@@ -50,11 +50,11 @@ def dflt_circuit_erc(circuit):
 def dflt_part_erc(part):
     """
     Perform electrical rules check on a specific part.
-    
+
     This function checks each pin of the part for rule violations such as
     unconnected pins that should be connected or connected pins that should
     not be connected (NOCONNECT).
-    
+
     Args:
         part (Part): The part to check for rule violations.
     """
@@ -89,11 +89,11 @@ def dflt_part_erc(part):
 def dflt_net_erc(net):
     """
     Perform electrical rules check on a specific net.
-    
+
     This function verifies that the net has pins connected to it, checks for
     pin conflicts between connected pins, and ensures the net has sufficient
     drive strength for all pins that require it.
-    
+
     Args:
         net (Net): The net to check for rule violations.
     """
@@ -133,4 +133,4 @@ def dflt_net_erc(net):
         if pin_info[p.func]["min_rcv"] > net_drive:
             active_logger.warning(
                 f"Insufficient drive current on net {net.name} for pin {p.erc_desc()}."
-                )
+            )

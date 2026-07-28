@@ -10,7 +10,6 @@ import os
 import os.path
 import sys
 
-
 # List of all supported ECAD tools.
 ALL_TOOLS = []
 
@@ -56,4 +55,3 @@ for module_name in os.listdir(directory):
 
     # Store library file suffix for this tool.
     lib_suffixes[tool_name] = lib_suffix
-

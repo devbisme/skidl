@@ -6,7 +6,7 @@
 Routines for getting information about a running script.
 
 This module provides functions to determine information about the currently
-executing Python script, such as its name, directory, and call stack. These 
+executing Python script, such as its name, directory, and call stack. These
 functions are useful for generating file names based on the script name and
 for debugging purposes.
 """
@@ -24,16 +24,16 @@ import __main__
 def scriptinfo():
     """
     Get information about the running top-level Python script.
-    
+
     This function identifies the top-level script that is currently running,
     whether it's an interpreted Python script or a compiled executable.
-    
+
     Returns:
         dict: A dictionary with the following keys:
             - 'dir': Directory containing the script or compiled executable
             - 'name': Name of script or executable
             - 'source': Name of source code file
-            
+
     Notes:
         'name' and 'source' are identical if and only if running interpreted code.
         When running code compiled by `py2exe` or `cx_freeze`, `source` contains
@@ -45,10 +45,10 @@ def scriptinfo():
     # scan through call stack for caller information
     # ---------------------------------------------------------------------------
     # Check if we're in interactive mode (like IPython, REPL, etc.)
-    if not hasattr(__main__, '__file__'):
+    if not hasattr(__main__, "__file__"):
         # In interactive mode, return current working directory
         return {"dir": os.getcwd(), "name": "skidl_REPL", "source": "<interactive>"}
-    
+
     trc = "skidl"  # Make sure this gets set to something when in interactive mode.
     for teil in inspect.stack():
         # skip system calls
@@ -73,26 +73,28 @@ def scriptinfo():
     scr_dict = {"name": trc, "source": trc, "dir": scriptdir}
     return scr_dict
 
+
 @export_to_all
 def get_script_dir():
     """
     Return the directory of the top-level script.
-    
+
     This function retrieves the directory where the top-level script is located.
-    
+
     Returns:
         str: The directory of the top-level script.
     """
     return scriptinfo()["dir"]
 
+
 @export_to_all
 def get_script_name():
     """
     Return the name of the top-level script without the file extension.
-    
+
     This function gets the name of the top-level script that is currently running
     and removes any file extension.
-    
+
     Returns:
         str: The name of the top-level script without file extension.
     """
@@ -103,12 +105,12 @@ def get_script_name():
 def get_skidl_trace():
     """
     Get a trace of function calls excluding internal SKiDL functions.
-    
+
     This function examines the current call stack and creates a trace that
     excludes calls to internal SKiDL library functions. The resulting trace
     is useful for debugging and for identifying where SKiDL objects were created
     in user code.
-    
+
     Returns:
         list: A list of tuples containing (file_path, line_number) for each relevant
               call in the stack, ordered from the oldest call to the most recent.

@@ -21,7 +21,6 @@ from .alias import Alias
 from .note import Note
 from .utilities import export_to_all
 
-
 __all__ = ["OK", "WARNING", "ERROR"]
 
 OK, WARNING, ERROR = list(range(3))
@@ -266,7 +265,7 @@ class SkidlBaseObject(object):
                 # Create a random tag if it is missing.
                 chars = string.ascii_letters + string.digits + "_"
                 length = 10
-                self.tag = ''.join(random.choices(chars, k=length))
+                self.tag = "".join(random.choices(chars, k=length))
                 active_logger.bare_warning(
                     f"Random tag {self.tag} generated for {self.name}."
                 )
@@ -345,7 +344,7 @@ class SkidlBaseObject(object):
         Args:
             track_abs_path (bool): If True, use the absolute path of the file.
                                    If False, use the relative path from the script directory.
-        
+
         Returns:
             str: File name and line number separated by colon.
         """
@@ -357,4 +356,3 @@ class SkidlBaseObject(object):
         if not track_abs_path:
             file_path = os.path.relpath(file_path, self.circuit.script_dir)
         return file_path + ":" + file_line
-

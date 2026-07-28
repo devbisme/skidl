@@ -24,7 +24,6 @@ from skidl.utilities import (
     add_unique_attr,
 )
 
-
 __all__ = ["lib_suffix"]
 
 
@@ -34,7 +33,7 @@ lib_suffix = [".kicad_sym"]
 @export_to_all
 def default_lib_paths():
     """Return default list of directories to search for part libraries."""
-    kicad_version = __name__.split(".")[-2][len("kicad"):]
+    kicad_version = __name__.split(".")[-2][len("kicad") :]
 
     # Start search for part libraries in the current directory.
     paths = ["."]
@@ -53,7 +52,7 @@ def default_lib_paths():
 @export_to_all
 def get_fp_lib_tbl_dir():
     """Get the path where the global fp-lib-table file is found."""
-    kicad_version = __name__.split(".")[-2][len("kicad"):]
+    kicad_version = __name__.split(".")[-2][len("kicad") :]
 
     paths = (
         f"$HOME/.config/kicad/{kicad_version}.0",
@@ -67,9 +66,13 @@ def get_fp_lib_tbl_dir():
         "$HOME/Library/Preferences/kicad",
         "~/Library/Preferences/kicad",
     )
-    path = get_abs_filename("fp-lib-table", paths=paths, ext=None, allow_failure=True, descend=0)
+    path = get_abs_filename(
+        "fp-lib-table", paths=paths, ext=None, allow_failure=True, descend=0
+    )
     if not path:
-        active_logger.bare_warning("fp-lib-table file was not found. Component footprints are not available.")
+        active_logger.bare_warning(
+            "fp-lib-table file was not found. Component footprints are not available."
+        )
         return ""
     return os.path.dirname(path)
 
@@ -126,7 +129,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
             f"The file {filename} is not a KiCad Schematic Library File.\n",
         )
 
-    # Extract symbols into a dictionary with symbol names as keys. 
+    # Extract symbols into a dictionary with symbol names as keys.
     # Use an ordered dictionary to keep parts in the same order as
     # they appeared in the library file because in KiCad V6+ library symbols can "extend"
     # previous symbols which should be processed before those that extend them.
@@ -205,7 +208,7 @@ def parse_lib_part(part, partial_parse):
     # If a part def already exists, the name has already been set, so exit.
     if partial_parse:
         return
-    
+
     part_defn = part.part_defn
 
     part.aliases = Alias()  # Part aliases.
@@ -296,12 +299,16 @@ def parse_lib_part(part, partial_parse):
             pin_number = pin.search("/pin/number", ignore_case=True)
             pin_number = pin_number[0][1] if pin_number else None
             pin_length = pin.search("/pin/length", ignore_case=True)
-            pin_length = pin_length[0][1] if pin_length else 1000  # Default length is 1mm.
+            pin_length = (
+                pin_length[0][1] if pin_length else 1000
+            )  # Default length is 1mm.
             at = pin.search("/pin/at", ignore_case=True)
             if at:
                 pin_x, pin_y = at[0][1:3]
                 pin_angle = at[0][3] if len(at[0]) > 3 else 0
-                pin_orientation = {0: "R", 90: "U", 180: "L", 270: "D"}.get(pin_angle, "R")
+                pin_orientation = {0: "R", 90: "U", 180: "L", 270: "D"}.get(
+                    pin_angle, "R"
+                )
             else:
                 pin_x, pin_y, pin_angle, pin_orientation = 0, 0, 0, "R"
             alternate_names = pin.search("/pin/alternate", ignore_case=True)
@@ -341,8 +348,7 @@ def parse_lib_part(part, partial_parse):
 
     # Make dict of all the units within a symbol, keyed by unit id.
     units = {
-        unit[1]: unit
-        for unit in part_defn.search("/symbol/symbol", ignore_case=True)
+        unit[1]: unit for unit in part_defn.search("/symbol/symbol", ignore_case=True)
     }
 
     # I'm assuming a part will not have both pins at the top level and units with pins.

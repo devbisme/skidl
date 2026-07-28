@@ -22,7 +22,6 @@ import time
 from .logger import active_logger
 from .utilities import export_to_all, fullmatch, rmv_quotes, to_list, expand_path
 
-
 __all__ = ["search", "show", "PartSearchDB"]
 
 
@@ -148,16 +147,13 @@ class PartSearchDB:
 
         with self._lock:
             # Create core tables.
-            self._cur.execute(
-                """
+            self._cur.execute("""
                 CREATE TABLE IF NOT EXISTS libraries (
                     lib_file TEXT PRIMARY KEY,
                     mtime REAL
                 )
-                """
-            )
-            self._cur.execute(
-                """
+                """)
+            self._cur.execute("""
                 CREATE TABLE IF NOT EXISTS parts (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     part_name TEXT,
@@ -168,17 +164,14 @@ class PartSearchDB:
                     keywords TEXT,
                     FOREIGN KEY(lib_file) REFERENCES libraries(lib_file)
                 )
-                """
-            )
+                """)
             # Try to ensure uniqueness on (part_name, lib_file) so we can use
             # INSERT OR REPLACE to update parts based on those columns.
             try:
-                self._cur.execute(
-                    """
+                self._cur.execute("""
                     CREATE UNIQUE INDEX IF NOT EXISTS parts_part_lib_unique
                     ON parts(part_name, lib_file)
-                    """
-                )
+                    """)
             except sqlite3.OperationalError as e:
                 # If creating the unique index fails (e.g., due to existing duplicates),
                 # warn the user but continue – INSERT OR REPLACE will not be available.
@@ -283,7 +276,9 @@ class PartSearchDB:
             keywords = getattr(part, "keywords", "") or ""
             # Build search text: name, aliases, description, keywords.
             search_text = " ".join(filter(None, [part.name, aliases, descr, keywords]))
-            parts_to_insert.append((part.name, abs_fn, search_text, aliases, descr, keywords))
+            parts_to_insert.append(
+                (part.name, abs_fn, search_text, aliases, descr, keywords)
+            )
 
         with self._lock:
             # Insert/update library record.
@@ -350,14 +345,14 @@ class PartSearchDB:
         Parse query into a list of OR-groups, each group is list of terms (phrases kept).
         '|' separates OR groups. Quoted phrases are preserved.
         Parentheses group terms and are expanded recursively.
-        
+
         Examples:
         - "a b" -> [["a", "b"]] (AND)
         - "a | b" -> [["a"], ["b"]] (OR)
         - "(a b) | c" -> [["a", "b"], ["c"]] (OR with grouped AND)
         - "x (a | b)" -> [["x", "a"], ["x", "b"]] (expansion)
         """
-        
+
         def _expand_parentheses(tokens):
             """
             Recursively expand parentheses in a list of tokens.
@@ -365,45 +360,45 @@ class PartSearchDB:
             """
             result = []
             i = 0
-            
+
             while i < len(tokens):
-                if tokens[i] == '(':
+                if tokens[i] == "(":
                     # Find matching closing parenthesis
                     paren_count = 1
                     j = i + 1
                     while j < len(tokens) and paren_count > 0:
-                        if tokens[j] == '(':
+                        if tokens[j] == "(":
                             paren_count += 1
-                        elif tokens[j] == ')':
+                        elif tokens[j] == ")":
                             paren_count -= 1
                         j += 1
-                    
+
                     if paren_count > 0:
                         # Unmatched parenthesis, treat as regular token
                         result.append(tokens[i])
                         i += 1
                     else:
                         # Extract content within parentheses and recursively expand
-                        inner_tokens = tokens[i + 1:j - 1]
+                        inner_tokens = tokens[i + 1 : j - 1]
                         inner_expanded = _expand_parentheses(inner_tokens)
                         result.append(inner_expanded)
                         i = j
                 else:
                     result.append(tokens[i])
                     i += 1
-            
+
             return result
-        
+
         def _tokenize_simple(text):
             """Tokenize text handling quotes, pipes, and parentheses."""
             tokens = []
             i = 0
             while i < len(text):
                 char = text[i]
-                
+
                 if char.isspace():
                     i += 1
-                elif char in '"\'':
+                elif char in "\"'":
                     # Handle quoted strings
                     quote_char = char
                     start = i + 1
@@ -415,23 +410,25 @@ class PartSearchDB:
                         i += 1
                     else:
                         # Unclosed quote, include the quote
-                        tokens.append(text[start - 1:])
+                        tokens.append(text[start - 1 :])
                         break
-                elif char == '|':
-                    tokens.append('|')
+                elif char == "|":
+                    tokens.append("|")
                     i += 1
-                elif char in '()':
+                elif char in "()":
                     tokens.append(char)
                     i += 1
                 else:
                     # Regular word
                     start = i
-                    while i < len(text) and not text[i].isspace() and text[i] not in '|()':
+                    while (
+                        i < len(text) and not text[i].isspace() and text[i] not in "|()"
+                    ):
                         i += 1
                     tokens.append(text[start:i])
-            
+
             return tokens
-        
+
         def _distribute_terms(expanded_tokens):
             """
             Convert expanded token structure into OR groups.
@@ -439,20 +436,20 @@ class PartSearchDB:
             """
             if not expanded_tokens:
                 return []
-            
+
             # Convert single tokens or nested lists to OR groups
             or_groups = []
             current_and_group = []
-            
+
             for token in expanded_tokens:
-                if token == '|':
+                if token == "|":
                     if current_and_group:
                         or_groups.append(current_and_group)
                         current_and_group = []
                 elif isinstance(token, list):
                     # This is a nested structure from parentheses
                     nested_or_groups = _distribute_terms(token)
-                    
+
                     if not current_and_group:
                         # No preceding terms, just add the nested groups
                         or_groups.extend(nested_or_groups)
@@ -465,26 +462,26 @@ class PartSearchDB:
                 else:
                     # Regular term
                     current_and_group.append(token)
-            
+
             # Add any remaining AND group
             if current_and_group:
                 or_groups.append(current_and_group)
-            
+
             return or_groups
-        
+
         # Main tokenization logic
         if not query or not query.strip():
             return []
-        
+
         # First pass: tokenize handling quotes, pipes, and parentheses
         tokens = _tokenize_simple(query.strip())
-        
+
         # Second pass: expand parentheses recursively
         expanded = _expand_parentheses(tokens)
-        
+
         # Third pass: convert to OR groups with AND terms
         or_groups = _distribute_terms(expanded)
-        
+
         # Filter out empty groups
         return [group for group in or_groups if group]
 
@@ -500,8 +497,19 @@ class PartSearchDB:
         # The lib_path element will actually be the contents of the lib_file field.
         # The lib_file element will be the library file name (path without the preceding path).
         # The lib_name element will be the library file name without the suffix.
-        PartResult = namedtuple('PartResult', ['part_name', 'lib_path', 'lib_file', 'lib_name', 'aliases', 'description', 'keywords'])
-        
+        PartResult = namedtuple(
+            "PartResult",
+            [
+                "part_name",
+                "lib_path",
+                "lib_file",
+                "lib_name",
+                "aliases",
+                "description",
+                "keywords",
+            ],
+        )
+
         if not query or not query.strip():
             return []
 
@@ -523,10 +531,18 @@ class PartSearchDB:
             self._cur.execute(sql, params)
             rows = self._cur.fetchall()
 
-        return [PartResult(r["part_name"], r["lib_file"], 
-                           os.path.basename(r["lib_file"]), 
-                           os.path.splitext(os.path.basename(r["lib_file"]))[0],
-                           r["aliases"], r["description"], r["keywords"]) for r in rows]
+        return [
+            PartResult(
+                r["part_name"],
+                r["lib_file"],
+                os.path.basename(r["lib_file"]),
+                os.path.splitext(os.path.basename(r["lib_file"]))[0],
+                r["aliases"],
+                r["description"],
+                r["keywords"],
+            )
+            for r in rows
+        ]
 
     def close(self):
         """
@@ -576,7 +592,7 @@ def search_parts(terms, tool=None, fmt=None, file=None):
     if tool not in part_search_dbs:
         # Initialize and store the DB object for this tool.
         part_search_dbs[tool] = PartSearchDB(tool=tool)
-    
+
     # Load the database from the current library search paths for the given tool.
     part_search_dbs[tool].load_from_lib_search_paths()
 

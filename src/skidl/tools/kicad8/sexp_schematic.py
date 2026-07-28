@@ -63,7 +63,7 @@ def init_power_symbol_data():
         pwr_lib_text = f.read()
     pwr_lib_sexp = Sexp(pwr_lib_text)
     pwr_symbol_sexps = pwr_lib_sexp.search("/kicad_symbol_lib/symbol")
-    pwr_symbol_sexp_dict = {sym[1]:sym for sym in pwr_symbol_sexps}
+    pwr_symbol_sexp_dict = {sym[1]: sym for sym in pwr_symbol_sexps}
     pwr_symbol_names = set([p.name for p in pwr_lib])
 
 
@@ -80,6 +80,7 @@ def _extract_power_lib_symbol(name):
         Sexp: Parsed symbol definition, or None if not found.
     """
     from copy import deepcopy
+
     pwr_sym_sexp = deepcopy(pwr_symbol_sexp_dict.get(name, None))
     # Change the symbol name from "NAME" to "power:NAME" for lib_id matching.
     pwr_sym_sexp[1] = f"power:{name}"
@@ -469,7 +470,7 @@ def part_to_sexp(part, uuid_path, tx=Tx()):
                     "SKiDL-Generated",
                     [
                         "path",
-                        f'{uuid_path}',
+                        f"{uuid_path}",
                         ["reference", base_ref],
                         ["unit", unit_num],
                     ],
@@ -1109,7 +1110,9 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
         child.uuid = _gen_uuid(f"{child.name}_{i}")
         child_uuid_path = f"{uuid_path}/{child.uuid}"
         # Get elements for child sheet (or for inclusion in this sheet if child is flattened).
-        sexp_list, part_dict, pwr_dict, _ = node_to_sexp_schematic(child, child_uuid_path, sheet_tx=tx, version=version)
+        sexp_list, part_dict, pwr_dict, _ = node_to_sexp_schematic(
+            child, child_uuid_path, sheet_tx=tx, version=version
+        )
         elements.extend(sexp_list)
         lib_symbols.update(part_dict)
         pwr_symbols.update(pwr_dict)
@@ -1225,6 +1228,7 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
     from skidl.schematics import decisions as _decisions
     from skidl.schematics.backend import RenderContext
     from .backend import Kicad9Backend
+
     _backend = RenderContext(Kicad9Backend())
 
     # Suppress labels for snap-overlapping pins (one label per connected cluster).
@@ -1235,7 +1239,10 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
     for x1, y1, x2, y2, net_name in bus_segments:
         elements.append(
             _backend.emit_wire(
-                x1, y1, x2, y2,
+                x1,
+                y1,
+                x2,
+                y2,
                 net_name=net_name,
                 uuid_seed=f"pbus:{net_name}:{x1}:{y1}:{x2}:{y2}",
             )
@@ -1337,10 +1344,13 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
                     elements.append(label)
 
     # No-connect flags for NCNet pins.
-    for nc_x, nc_y, part_ref, pin_num in _decisions.find_no_connect_pins(node, _backend, tx):
+    for nc_x, nc_y, part_ref, pin_num in _decisions.find_no_connect_pins(
+        node, _backend, tx
+    ):
         elements.append(
             _backend.emit_no_connect(
-                nc_x, nc_y,
+                nc_x,
+                nc_y,
                 uuid_seed=f"nc:{part_ref}:{pin_num}:{nc_x}:{nc_y}",
             )
         )
@@ -1361,8 +1371,10 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
             _w = _pp * _ptx * tx
             _anchor_pts.add((_round_mm(_w.x), _round_mm(_w.y)))
     for _el in elements:
-        if isinstance(_el, (list, Sexp)) and len(_el) and _el[0] in (
-            "global_label", "label", "junction", "no_connect"
+        if (
+            isinstance(_el, (list, Sexp))
+            and len(_el)
+            and _el[0] in ("global_label", "label", "junction", "no_connect")
         ):
             for _s in _el:
                 if isinstance(_s, (list, Sexp)) and len(_s) >= 3 and _s[0] == "at":
@@ -1375,7 +1387,9 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
                 return [
                     (_xy[1], _xy[2])
                     for _xy in _s[1:]
-                    if isinstance(_xy, (list, Sexp)) and len(_xy) >= 3 and _xy[0] == "xy"
+                    if isinstance(_xy, (list, Sexp))
+                    and len(_xy) >= 3
+                    and _xy[0] == "xy"
                 ]
         return []
 
@@ -1415,7 +1429,7 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
 
     # Add title block to schematic sheet.
     schematic.append(Sexp(create_title_block_sexp(node.title)))
-    
+
     # Build lib_symbols section for this sheet.
     lib_symbols_sexp = Sexp(["lib_symbols"])
     for part in lib_symbols.values():
@@ -1466,8 +1480,15 @@ def node_to_sexp_schematic(node, uuid_path, sheet_tx=Tx(), version=20230409):
     _write_sexp_schematic(schematic, filepath)
 
     # Return a hierarchical sheet reference for this node to be included in the parent sheet.
-    sheet_uuid = uuid_path.split("/")[-1] # Use the last UUID in the path for the sheet UUID.
-    return [create_hierarchical_sheet_sexp(node, sheet_uuid, sheet_tx)], {}, {}, filepath
+    sheet_uuid = uuid_path.split("/")[
+        -1
+    ]  # Use the last UUID in the path for the sheet UUID.
+    return (
+        [create_hierarchical_sheet_sexp(node, sheet_uuid, sheet_tx)],
+        {},
+        {},
+        filepath,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -1506,7 +1527,9 @@ def write_top_schematic(circuit, node, filepath, top_name, title, version=202304
     uuid_path = f"/{node.uuid}"
 
     # Write root schematic. Ignore returned items except name of top-level sheet file.
-    _, _, _, output_file = node_to_sexp_schematic(node, uuid_path=uuid_path, version=version)
+    _, _, _, output_file = node_to_sexp_schematic(
+        node, uuid_path=uuid_path, version=version
+    )
 
     # Optional: validate with kicad-cli if available.
     _validate_with_kicad_cli(output_file)
@@ -1547,7 +1570,6 @@ def _validate_with_kicad_cli(filepath):
 # ---------------------------------------------------------------------------
 # File writer
 # ---------------------------------------------------------------------------
-
 
 
 def _write_sexp_schematic(schematic, filepath):

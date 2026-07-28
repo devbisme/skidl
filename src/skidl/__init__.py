@@ -57,7 +57,14 @@ from .design_class import PartClass  # Class for assigning properties to groups 
 from .design_class import NetClass  # Class for assigning properties to groups of nets
 from .netlist_to_skidl import netlist_to_skidl  # Function to import netlists
 from .network import Network, tee  # Network management and connection splitting
-from .part import LIBRARY, NETLIST, TEMPLATE, Part, PartTmplt, SkidlPart  # Component handling
+from .part import (
+    LIBRARY,
+    NETLIST,
+    TEMPLATE,
+    Part,
+    PartTmplt,
+    SkidlPart,
+)  # Component handling
 from .part_query import (  # Component search and visualization functions
     search,
     search_footprints,

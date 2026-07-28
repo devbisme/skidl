@@ -12,7 +12,6 @@ from random import randint
 from skidl.utilities import export_to_all
 from skidl.geometry import BBox, Point, Segment, Tx, Vector
 
-
 # Dictionary for storing colors to visually distinguish routed nets.
 net_colors = defaultdict(lambda: (randint(0, 200), randint(0, 200), randint(0, 200)))
 

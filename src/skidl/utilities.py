@@ -33,10 +33,10 @@ INDEX_SEPARATOR = re.compile("[, \t]+")
 def export_to_all(fn):
     """
     Add a function to the __all__ list of this module.
-    
+
     This decorator adds the decorated function's name to the module's __all__ list,
     making it available when using "from module import *".
-    
+
     Args:
         fn (function): The function to be added to the __all__ list of this module.
 
@@ -55,10 +55,10 @@ def export_to_all(fn):
 def detect_os():
     """
     Detect the operating system.
-    
+
     Returns:
         str: The name of the operating system ('Windows', 'Linux', or 'MacOS').
-        
+
     Raises:
         Exception: If the operating system cannot be identified.
     """
@@ -77,7 +77,7 @@ def detect_os():
 class Rgx(str):
     """
     String subclass that represents a regular expression.
-    
+
     This class is used to distinguish regular expressions from normal strings
     in functions that need to process both types differently.
     """
@@ -90,10 +90,10 @@ class Rgx(str):
 def sgn(x):
     """
     Return the sign of a number.
-    
+
     Args:
         x (numeric): The number to check.
-        
+
     Returns:
         int: -1 if x<0, 1 if x>0, 0 if x==0.
     """
@@ -104,15 +104,15 @@ def sgn(x):
 def debug_trace(fn, *args, **kwargs):
     """
     Decorator to print tracing info when debugging execution.
-    
+
     When the decorated function is called with debug_trace=True,
     it will print the function name before execution.
-    
+
     Args:
         fn (function): The function to be decorated.
         *args: Variable length argument list.
         **kwargs: Arbitrary keyword arguments.
-        
+
     Returns:
         function: The decorated function.
     """
@@ -129,23 +129,23 @@ def debug_trace(fn, *args, **kwargs):
 def consistent_hash(text):
     """
     Return a hash value for a text string.
-    
+
     This function generates a deterministic, consistent hash value for a given string
     using SHA-256 algorithm.
-    
+
     Args:
         text (str): The input string to hash.
-        
+
     Returns:
         str: A 16-character hexadecimal hash string.
     """
 
     # Create a SHA-256 hash object
     hash_object = hashlib.sha256()
-    
+
     # Update the hash object with the bytes of the text
-    hash_object.update(text.encode('utf-8'))
-    
+    hash_object.update(text.encode("utf-8"))
+
     # Get the hexadecimal representation of the hash
     return hash_object.hexdigest()[:16]
 
@@ -154,10 +154,10 @@ def consistent_hash(text):
 def num_to_chars(num):
     """
     Convert a number to a spreadsheet-style column identifier.
-    
+
     Args:
         num (int): A positive integer.
-        
+
     Returns:
         str: A string like 'A' for 1, 'B' for 2, 'Z' for 26, 'AA' for 27, etc.
     """
@@ -173,10 +173,10 @@ def num_to_chars(num):
 def rmv_quotes(s):
     """
     Remove starting and ending quotes from a string.
-    
+
     Args:
         s (str or other): Input string or non-string object.
-        
+
     Returns:
         str or other: String with quotes removed, or the original object if not a string.
     """
@@ -198,17 +198,17 @@ def rmv_quotes(s):
 def add_quotes(s):
     """
     Return string with added quotes using JSON formatting.
-    
+
     Args:
         s (str or other): Input string or non-string object.
-        
+
     Returns:
         str or other: String with quotes added, or the original object if not a string.
     """
 
     if not isinstance(s, str):
         return s
-    
+
     return json.dumps(s, ensure_ascii=False)
 
 
@@ -216,12 +216,12 @@ def add_quotes(s):
 def cnvt_to_var_name(s):
     """
     Convert a string to a legal Python variable name.
-    
+
     Replaces illegal characters with underscores to create a valid Python identifier.
-    
+
     Args:
         s (str): The string to convert.
-        
+
     Returns:
         str: A valid Python variable name.
     """
@@ -232,10 +232,10 @@ def cnvt_to_var_name(s):
 def to_list(x):
     """
     Convert a scalar value to a list or return x if it is already a list-like object.
-    
+
     Args:
         x: Input value (scalar or list-like).
-        
+
     Returns:
         list, tuple, or set: The original list-like input or a new list containing the scalar value.
     """
@@ -248,10 +248,10 @@ def to_list(x):
 def list_or_scalar(lst):
     """
     Return a list or scalar depending on the input.
-    
+
     Args:
         lst: Either a list/tuple or a scalar value.
-        
+
     Returns:
         * A list if passed a multi-element list.
         * The list element if passed a single-element list.
@@ -272,10 +272,10 @@ def list_or_scalar(lst):
 def flatten(nested_list):
     """
     Recursively flatten a nested list structure.
-    
+
     Args:
         nested_list: A list that may contain other lists, tuples, or sets as items.
-        
+
     Returns:
         list: A flat list containing all items from the nested structure.
     """
@@ -292,7 +292,7 @@ def flatten(nested_list):
 def set_attr(objs, attr, value):
     """
     Set an attribute to a value in one or more objects.
-    
+
     Args:
         objs: A single object or list of objects.
         attr (str): Name of the attribute to set.
@@ -306,7 +306,7 @@ def set_attr(objs, attr, value):
 def rmv_attr(objs, attrs):
     """
     Remove one or more attributes from one or more objects.
-    
+
     Args:
         objs: A single object or list of objects.
         attrs: A string or list of strings naming attributes to remove.
@@ -323,7 +323,7 @@ def rmv_attr(objs, attrs):
 def add_unique_attr(obj, name, value, check_dup=False):
     """
     Create an attribute if the attribute name isn't already used.
-    
+
     Args:
         obj: Object to which the attribute will be added.
         name (str): Name of the attribute to add.
@@ -355,10 +355,10 @@ def add_unique_attr(obj, name, value, check_dup=False):
 def from_iadd(objs):
     """
     Check if one or more objects have the iadd_flag attribute set to True.
-    
+
     Args:
         objs: A single object or list of objects to check.
-        
+
     Returns:
         bool: True if any object has iadd_flag set to True, False otherwise.
     """
@@ -375,7 +375,7 @@ def from_iadd(objs):
 def set_iadd(objs, value):
     """
     Set the iadd_flag attribute in one or more objects.
-    
+
     Args:
         objs: A single object or list of objects.
         value (bool): Value to assign to the iadd_flag attribute.
@@ -387,7 +387,7 @@ def set_iadd(objs, value):
 def rmv_iadd(objs):
     """
     Remove the iadd_flag attribute from one or more objects.
-    
+
     Args:
         objs: A single object or list of objects.
     """
@@ -398,11 +398,11 @@ def rmv_iadd(objs):
 def merge_dicts(dct, merge_dct):
     """
     Recursively merge two dictionaries, updating keys in the first with values from the second.
-    
+
     This function modifies the first dictionary in-place to include keys from the second.
     If a key exists in both dictionaries and both values are dictionaries, it recursively
     merges those nested dictionaries.
-    
+
     Args:
         dct (dict): The target dictionary that will be updated.
         merge_dct (dict): The dictionary whose values will be merged into dct.
@@ -431,7 +431,7 @@ prefix_counts = collections.Counter()
 def reset_get_unique_name():
     """
     Reset the heaps that store previously-assigned names.
-    
+
     This function clears the internal storage used by get_unique_name() to track
     previously generated names.
     """
@@ -444,10 +444,10 @@ def reset_get_unique_name():
 def get_unique_name(lst, attrib, prefix, initial=None):
     """
     Generate a unique name within a list of objects.
-    
+
     This function is used to generate unique part references (e.g., "R12")
     or unique net names (e.g., "N$5") that don't collide with existing names.
-    
+
     Args:
         lst: The list of objects containing names.
         attrib (str): The attribute in each object containing the name.
@@ -495,16 +495,23 @@ def get_unique_name(lst, attrib, prefix, initial=None):
         # Get every name in the list that starts with the prefix.
         prefix_names = {n for n in unique_names if str(n).startswith(prefix)}
         # Find the next available number that's greater than the largest used number.
-        next_avail_num = max(
-            [int(n[len(prefix) :]) for n in prefix_names if n[len(prefix) :].isdigit()],
-            default=0,
-        ) + 1
+        next_avail_num = (
+            max(
+                [
+                    int(n[len(prefix) :])
+                    for n in prefix_names
+                    if n[len(prefix) :].isdigit()
+                ],
+                default=0,
+            )
+            + 1
+        )
         # Now form the name from the prefix appended with the next available number.
         name = prefix + str(next_avail_num)
         name_heap.add(lst_id + name)
         prefix_counts[lst_id + prefix] = next_avail_num
         return name
-    
+
     # If the initial name is just a number, then prepend the prefix to it.
     elif isinstance(name, int):
         name = prefix + str(name)
@@ -520,12 +527,15 @@ def get_unique_name(lst, attrib, prefix, initial=None):
     if name[-1].isdigit():
         # If the name ends with a digit, append an underscore to separate it from any
         # disambiguating number that will be appended below.
-        name = name + '_'
+        name = name + "_"
     name_conflicts = {n for n in unique_names if n.startswith(name)}
-    next_avail_num = max(
+    next_avail_num = (
+        max(
             [int(n[len(name) :]) for n in name_conflicts if n[len(name) :].isdigit()],
             default=0,
-    ) + 1
+        )
+        + 1
+    )
     name = name + str(next_avail_num)
     name_heap.add(lst_id + name)
     prefix_counts[lst_id + prefix] = next_avail_num
@@ -536,10 +546,10 @@ def get_unique_name(lst, attrib, prefix, initial=None):
 def rmv_unique_name(lst, attrib, name):
     """
     Remove a unique name from the heap.
-    
+
     This function is used to remove a name that was previously generated
     by get_unique_name() when it is no longer needed.
-    
+
     Args:
         lst: The list of objects containing names.
         attrib (str): The attribute in each object containing the name.
@@ -556,19 +566,19 @@ def rmv_unique_name(lst, attrib, name):
 def split_unquoted(pattern, string, maxsplit=0, flags=0):
     """
     Split a string by a regex pattern, but ignore matches within quoted substrings.
-    
+
     This function works like re.split() but does not split on delimiters that appear
     within single-quoted or double-quoted strings. Quotes can be escaped with backslash.
-    
+
     Args:
         pattern (str): Regular expression pattern to split on.
         string (str): The string to split.
         maxsplit (int, optional): Maximum number of splits to perform. 0 means no limit. Defaults to 0.
         flags (int, optional): Regex flags to pass to re.split. Defaults to 0.
-        
+
     Returns:
         list: List of substrings split by the pattern, with quoted sections preserved.
-        
+
     Example:
         >>> split_unquoted(',', 'a,b,"c,d",e')
         ['a', 'b', '"c,d"', 'e']
@@ -580,24 +590,24 @@ def split_unquoted(pattern, string, maxsplit=0, flags=0):
     in_quote = None  # None, '"', or "'"
     escaped = False
     splits_done = 0
-    
+
     i = 0
     while i < len(string):
         char = string[i]
-        
+
         # Handle escape sequences
         if escaped:
             current.append(char)
             escaped = False
             i += 1
             continue
-            
-        if char == '\\':
+
+        if char == "\\":
             current.append(char)
             escaped = True
             i += 1
             continue
-        
+
         # Handle quotes
         if char in ('"', "'"):
             if in_quote is None:
@@ -608,13 +618,13 @@ def split_unquoted(pattern, string, maxsplit=0, flags=0):
             # current.append(char)
             i += 1
             continue
-        
+
         # If we're inside quotes, just append the character
         if in_quote is not None:
             current.append(char)
             i += 1
             continue
-        
+
         # We're outside quotes, so check if we match the pattern.
         if maxsplit == 0 or splits_done < maxsplit:
             # Look for the delimiter at the start of the remainder of the string.
@@ -622,20 +632,20 @@ def split_unquoted(pattern, string, maxsplit=0, flags=0):
             if match:
                 # Found a delimiter outside quotes and at the start of the remaining string.
                 if current or result:  # Don't add empty strings at the start
-                    result.append(''.join(current))
+                    result.append("".join(current))
                     current = []
                 splits_done += 1
                 i += len(match.group(0))
                 continue
-        
+
         # No match, just append the character
         current.append(char)
         i += 1
-    
+
     # Add any remaining content
     if current or result:
-        result.append(''.join(current))
-    
+        result.append("".join(current))
+
     return result
 
 
@@ -643,12 +653,12 @@ def split_unquoted(pattern, string, maxsplit=0, flags=0):
 def fullmatch(regex, string, flags=0):
     """
     Emulate python-3.4 re.fullmatch() function.
-    
+
     Args:
         regex (str): Regular expression pattern.
         string (str): String to match against the pattern.
         flags (int, optional): Flags to pass to the regex engine. Defaults to 0.
-        
+
     Returns:
         Match object or None: Match object if the string matches the pattern fully, None otherwise.
     """
@@ -659,13 +669,13 @@ def fullmatch(regex, string, flags=0):
 def filter_list(lst, **criteria):
     """
     Return a list of objects whose attributes match a set of criteria.
-    
+
     This function filters a list based on attribute values using regular expressions.
-    
+
     Example: filter_list(pins, name='io[0-9]+', direction='bidir') will
     return all the bidirectional pins of the component that have pin names
     starting with 'io' followed by a number (e.g., 'IO45').
-    
+
     If an attribute of the lst object is a list or tuple, each entry in the
     list/tuple will be checked for a match. Only one entry needs to match to
     consider the entire attribute a match. This feature is useful when
@@ -681,7 +691,7 @@ def filter_list(lst, **criteria):
             it was a string. The argument can also be a regular expression that
             must match the entire string created from the attribute of the list
             object.
-            
+
             Special keyword 'do_str_match': If True, use string matching instead of regex.
 
     Returns:
@@ -776,13 +786,13 @@ def filter_list(lst, **criteria):
 def expand_indices(slice_min, slice_max, match_regex, *indices):
     """
     Expand a list of indices into a list of integers and strings.
-    
+
     This function takes the indices used to select pins of parts and
     lines of buses and returns a flat list of numbers and strings.
     String and integer indices are put in the list unchanged, but
     slices are expanded into a list of integers before entering the
     final list. It also handles bus notation expressions.
-    
+
     Args:
         slice_min (int): The minimum possible index.
         slice_max (int): The maximum possible index (used for slice indices).
@@ -791,7 +801,7 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
 
     Returns:
         list: A linear list of all the indices made up only of numbers and strings.
-        
+
     Raises:
         IndexError: If a slice index is out of valid range.
     """
@@ -811,7 +821,7 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
             if slc.start and slc.start > slice_max:
                 active_logger.raise_(
                     IndexError,
-                    f"Index current_level of range ({slc.start} > {slice_max})!"
+                    f"Index current_level of range ({slc.start} > {slice_max})!",
                 )
             # Count down from start to stop.
             stop = stop - step
@@ -822,7 +832,7 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
             if slc.stop and slc.stop > slice_max:
                 active_logger.raise_(
                     IndexError,
-                    f"Index current_level of range ({slc.stop} > {slice_max})!"
+                    f"Index current_level of range ({slc.stop} > {slice_max})!",
                 )
             # Count up from start to stop
             stop += step
@@ -907,9 +917,7 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
                 # added to the list.
                 ids.extend(explode(id.strip()))
         else:
-            active_logger.raise_(
-                TypeError, f"Unknown type in index: {type(indx)}."
-            )
+            active_logger.raise_(TypeError, f"Unknown type in index: {type(indx)}.")
 
     # Return the completely expanded list of indices.
     return ids
@@ -919,13 +927,13 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
 def expand_buses(pins_nets_buses):
     """
     Take list of pins, nets, and buses and return a list of only pins and nets.
-    
+
     This function flattens a list containing both buses and their nets/pins
     into a flat list of just nets/pins.
-    
+
     Args:
         pins_nets_buses (list): List containing pins, nets, and buses.
-        
+
     Returns:
         list: A flattened list containing only pins and nets.
     """
@@ -942,12 +950,12 @@ def expand_buses(pins_nets_buses):
 def find_num_copies(**attribs):
     """
     Return the number of copies to make based on the number of attribute values.
-    
+
     This function examines keyword arguments to determine how many copies of an object
     should be created. If all values are scalar or lists/tuples of length 1, only one
     copy is needed. If there are lists/tuples of greater length, the maximum length
     determines the number of copies.
-    
+
     Keyword Args:
         attribs: Dict of Keyword/Value pairs for setting object attributes.
             If the value is a scalar, then the number of copies is one.
@@ -994,13 +1002,13 @@ def find_num_copies(**attribs):
 def norecurse(f):
     """
     Decorator that keeps a function from recursively calling itself.
-    
+
     This decorator checks the call stack to prevent recursive calls
     to the decorated function.
-    
+
     Args:
         f (function): The function to decorate.
-        
+
     Returns:
         function: A wrapper function that checks for recursion.
     """
@@ -1021,7 +1029,7 @@ def norecurse(f):
 class TriggerDict(dict):
     """
     Dictionary that triggers a function when one of its entries changes.
-    
+
     This dictionary subclass allows custom functions to be executed when
     specific keys are modified.
     """
@@ -1029,7 +1037,7 @@ class TriggerDict(dict):
     def __init__(self, *args, **kwargs):
         """
         Initialize a TriggerDict.
-        
+
         Args:
             *args, **kwargs: Arguments passed to the parent dict constructor.
         """
@@ -1043,7 +1051,7 @@ class TriggerDict(dict):
     def __setitem__(self, k, v):
         """
         Set a key's value and trigger any associated function if the value changed.
-        
+
         Args:
             k: The dictionary key.
             v: The value to set.
@@ -1058,10 +1066,10 @@ class TriggerDict(dict):
 def is_binary_file(filename):
     """
     Return true if a file contains binary (non-text) characters.
-    
+
     Args:
         filename (str): Path to the file to check.
-        
+
     Returns:
         bool: True if the file contains binary data, False otherwise.
     """
@@ -1072,18 +1080,20 @@ def is_binary_file(filename):
     except (IOError, FileNotFoundError, TypeError):
         return False
 
+
 @export_to_all
 def expand_path(path):
     return abspath(normpath(expandvars(expanduser(path))))
+
 
 @export_to_all
 def is_url(s):
     """
     Check if a string is a valid HTTP/HTTPS URL.
-    
+
     Args:
         s (str): String to check.
-        
+
     Returns:
         bool: True if the string is a valid HTTP/HTTPS URL, False otherwise.
     """
@@ -1096,10 +1106,10 @@ def find_and_open_file(
 ):
     """
     Search for a file in list of paths, open it and return file pointer and full file name.
-    
+
     This function searches for a file in various locations, including URLs, and returns
     an open file pointer and the complete path to the file.
-    
+
     Args:
         filename (str): Base file name (e.g., "my_file").
         paths (list, optional): List of paths to search for the file. Defaults to current directory.
@@ -1112,7 +1122,7 @@ def find_and_open_file(
 
     Returns:
         tuple: (file_pointer, file_name) or (None, None) if file could not be opened and allow_failure is True.
-        
+
     Raises:
         FileNotFoundError: If the file couldn't be found and allow_failure is False.
     """
@@ -1169,7 +1179,9 @@ def find_and_open_file(
                     if not exclude_binary or not is_binary_file(abs_filename):
                         try:
                             # Return the first file that matches the criteria.
-                            return open(abs_filename, encoding="latin_1"), expand_path(abs_filename)
+                            return open(abs_filename, encoding="latin_1"), expand_path(
+                                abs_filename
+                            )
                         except (IOError, FileNotFoundError, TypeError):
                             # File failed, so keep searching.
                             pass
@@ -1182,9 +1194,7 @@ def find_and_open_file(
     if allow_failure:
         return None, None
     else:
-        active_logger.raise_(
-            FileNotFoundError, f"Can't open file: {filename}.\n"
-        )
+        active_logger.raise_(FileNotFoundError, f"Can't open file: {filename}.\n")
 
 
 @export_to_all
@@ -1193,7 +1203,7 @@ def find_and_read_file(
 ):
     """
     Search for a file in list of paths, open it and return its contents.
-    
+
     Args:
         filename (str): Base file name (e.g., "my_file").
         paths (list, optional): List of paths to search for the file. Defaults to current directory.
@@ -1206,7 +1216,7 @@ def find_and_read_file(
 
     Returns:
         tuple: (file_contents, file_name) or (None, None) if file could not be opened and allow_failure is True.
-        
+
     Raises:
         FileNotFoundError: If the file couldn't be found and allow_failure is False.
     """
@@ -1230,7 +1240,7 @@ def find_and_read_file(
 def get_abs_filename(filename, paths=None, ext=None, allow_failure=False, descend=0):
     """
     Search for a file in list of paths, and return its absolute file name.
-    
+
     Args:
         filename (str): Base file name (e.g., "my_file").
         paths (list, optional): List of paths to search for the file. Defaults to current directory.
@@ -1242,7 +1252,7 @@ def get_abs_filename(filename, paths=None, ext=None, allow_failure=False, descen
 
     Returns:
         str: Absolute file name if file exists, otherwise None.
-        
+
     Raises:
         FileNotFoundError: If the file couldn't be found and allow_failure is False.
     """
@@ -1263,17 +1273,17 @@ def get_abs_filename(filename, paths=None, ext=None, allow_failure=False, descen
 def opened(f_or_fn, mode):
     """
     Context manager that yields an opened file or file-like object.
-    
+
     This context manager handles both filenames and file objects, ensuring
     proper opening and closing of files.
-    
+
     Args:
        f_or_fn: Either an already opened file or file-like object, or a filename to open.
        mode (str): The mode to open the file in.
-       
+
     Yields:
        file: An opened file object.
-       
+
     Raises:
        TypeError: If f_or_fn is neither a string nor a file-like object.
     """
@@ -1287,4 +1297,3 @@ def opened(f_or_fn, mode):
         raise TypeError(
             f"argument must be a filename or a file-like object (is: {type(f_or_fn)})"
         )
-

@@ -22,23 +22,24 @@ from .utilities import (
     Rgx,
 )
 
-class PinMixin():
+
+class PinMixin:
     """
     Mixin class that adds pin-related methods and functionality to a class.
-    
+
     This mixin provides comprehensive pin management capabilities including:
     - Adding, removing, and manipulating pins
     - Pin selection using various criteria (names, numbers, regex patterns)
     - Pin connection and disconnection operations
     - Pin aliasing and naming utilities
-    
+
     The mixin maintains a list of pins and provides multiple ways to access them,
     including bracket notation, attribute access, and iteration.
-    
+
     Attributes:
         pins (list): List of Pin objects belonging to the part.
         _match_pin_regex (bool): Enable/disable regex matching for pin names and aliases.
-    
+
     Examples:
         >>> class MyPart(PinMixin):
         ...     def __init__(self):
@@ -54,31 +55,32 @@ class PinMixin():
     def __init__(self):
         """
         Initialize the PinMixin.
-        
+
         Sets up the pin list and configures default settings for pin matching.
         """
         self.pins = []  # List of pins in the part.
-        self._match_pin_regex = False  # Disable regex matching of pin names/aliases by default.
+        self._match_pin_regex = (
+            False  # Disable regex matching of pin names/aliases by default.
+        )
 
     def __iadd__(self, *pins):
         """
         Add one or more pins to the part using the += operator.
-        
+
         This method allows pins to be added using the += operator syntax,
         which is more intuitive than calling add_pins() directly.
-        
+
         Args:
             *pins: Variable number of Pin objects to add to the part.
-            
+
         Returns:
             Self: The part object with added pins, allowing for method chaining.
-            
+
         Examples:
             >>> part += Pin(num=1, name='VCC')
             >>> part += [Pin(num=2, name='GND'), Pin(num=3, name='DATA')]
         """
         return self.add_pins(*pins)
-    
 
     # Get pins from a part using brackets, e.g. [1,5:9,'A[0-9]+'].
     def __getitem__(self, *pin_ids, **criteria):
@@ -104,9 +106,9 @@ class PinMixin():
                 unit number, etc.
 
         Returns:
-            Pin, NetPinList, or None: 
+            Pin, NetPinList, or None:
                 - Single Pin if exactly one match found
-                - NetPinList if multiple matches found  
+                - NetPinList if multiple matches found
                 - None if no matches found
 
         Examples:
@@ -136,14 +138,14 @@ class PinMixin():
                as part of processing the += operator. If there is no
                iadd_flag attribute, then __setitem__ was entered as a result
                of using a direct assignment, which is not allowed.
-               
+
         Args:
             ids: Pin identifiers being assigned to.
             pins_nets_buses: Object being assigned to the pins.
-            
+
         Raises:
             TypeError: If direct assignment is attempted (no iadd_flag present).
-            
+
         Note:
             This is part of Python's mechanism for handling augmented assignment
             operators. The += operator first calls __getitem__, then __iadd__
@@ -162,23 +164,23 @@ class PinMixin():
     def __getattr__(self, attr):
         """
         Enable attribute-style access to pins using their aliases.
-        
+
         When a normal attribute lookup fails, this method searches for pins
         that have the requested attribute name as an alias. This allows
         pins to be accessed as attributes of the part.
-        
+
         Args:
             attr (str): The attribute name being requested.
-            
+
         Returns:
-            Pin or NetPinList: 
+            Pin or NetPinList:
                 - Single Pin if exactly one pin has this alias
                 - NetPinList if multiple pins have this alias
-            
+
         Raises:
             AttributeError: If no pins have the requested alias and the
                 attribute doesn't exist in the base class.
-                
+
         Examples:
             >>> part.RESET  # Access pin with 'RESET' alias
             >>> part.p1     # Access pin 1 using 'p1' alias
@@ -204,13 +206,13 @@ class PinMixin():
     def __iter__(self):
         """
         Enable iteration over the part's pins.
-        
+
         This method makes the part object iterable, allowing direct iteration
         over its pins using for loops and other iteration constructs.
-        
+
         Returns:
             generator: Generator expression yielding Pin objects.
-            
+
         Examples:
             >>> for pin in part:
             ...     print(f"Pin {pin.num}: {pin.name}")
@@ -227,7 +229,7 @@ class PinMixin():
     def associate_pins(self):
         """
         Ensure all pins have proper back-references to this part.
-        
+
         This method updates each pin's 'part' attribute to point back to
         this part object, maintaining bidirectional relationships between
         parts and their pins. This is typically called after pins are
@@ -239,23 +241,23 @@ class PinMixin():
     def add_pins(self, *pins):
         """
         Add one or more pins to the part.
-        
+
         This method adds pins to the part and sets up proper relationships
-        and aliases. Each pin gets a back-reference to the part, and 
+        and aliases. Each pin gets a back-reference to the part, and
         automatic aliases are created for pin names and numbers.
-        
+
         Args:
             *pins: Variable number of Pin objects or iterables of Pin objects
                 to add to the part.
-            
+
         Returns:
             Self: The part object with pins added, enabling method chaining.
-            
+
         Note:
             Automatic aliases are created:
             - Pin name becomes an alias
             - "p" + pin number becomes an alias (e.g., "p1" for pin 1)
-            
+
         Examples:
             >>> part.add_pins(Pin(num=1, name='VCC'))
             >>> part.add_pins([Pin(num=2, name='GND'), Pin(num=3, name='DATA')])
@@ -268,11 +270,11 @@ class PinMixin():
     def create_pins(self, base_name, pin_count=None, connections=None):
         """
         Create one or more pins with systematic naming and numbering.
-        
+
         This method creates multiple pins with names based on a common prefix
         and systematic numbering. Pins can optionally be connected to provided
         nets, buses, or other pins during creation.
-        
+
         Args:
             base_name (str): Base name for the pins. Pin indices will be appended
                 to this name (e.g., "DATA" becomes "DATA1", "DATA2", etc.).
@@ -285,13 +287,13 @@ class PinMixin():
             connections (list or scalar, optional): List of nets, buses, or pins to connect
                 to each created pin. Must match the number of pins created.
                 A scalar Net, Pin, or Bus will will be converted to a list of one item.
-        
+
         Returns:
             Self: The part object with pins created, enabling method chaining.
-            
+
         Raises:
             ValueError: If connections list length doesn't match number of pins created.
-            
+
         Examples:
             >>> part.create_pins("DATA", 8)  # Creates DATA1, DATA2, ..., DATA8
             >>> part.create_pins("ADDR", range(0, 16))  # Creates ADDR0 to ADDR15
@@ -309,7 +311,7 @@ class PinMixin():
 
         # Determine pin indices based on pin_count parameter
         if pin_count is None:
-            if connections is None or len(connections)==1:
+            if connections is None or len(connections) == 1:
                 # Single pin without index
                 indices = [None]
             else:
@@ -329,9 +331,11 @@ class PinMixin():
             else:
                 indices = pin_count
         else:
-            active_logger.error(f"pin_count must be int, range, slice, or None, got {type(pin_count)}")
+            active_logger.error(
+                f"pin_count must be int, range, slice, or None, got {type(pin_count)}"
+            )
             return self
-        
+
         # Validate connections list length if provided
         if connections is not None:
             if len(connections) != len(indices):
@@ -340,7 +344,7 @@ class PinMixin():
                     f"number of pins created ({len(indices)})"
                 )
                 return self
-        
+
         # Determine the class of pins to create.
         if isinstance(self, Part):
             pin_class = Pin  # Create regular pins for Parts.
@@ -356,7 +360,7 @@ class PinMixin():
                 pin_name = base_name
             else:
                 pin_name = f"{base_name}{index}"
-            
+
             # Create the pin.
             pin = pin_class(num=pin_num, name=pin_name, part=self)
 
@@ -364,7 +368,7 @@ class PinMixin():
             self.add_pins(pin)
 
             created_pins.append(pin)
-        
+
         # Connect created pins if connections provided
         if connections:
             connections += created_pins
@@ -374,13 +378,13 @@ class PinMixin():
     def rmv_pins(self, *pin_ids):
         """
         Remove one or more pins from the part.
-        
+
         Removes pins that match the given identifiers (names or numbers).
         The pins are permanently removed from the part's pin list.
-        
+
         Args:
             *pin_ids: Pin identifiers (names or numbers) of pins to remove.
-            
+
         Examples:
             >>> part.rmv_pins(1, 'RESET')  # Remove pin 1 and RESET pin
             >>> part.rmv_pins('VCC', 'GND')  # Remove power pins
@@ -402,15 +406,15 @@ class PinMixin():
     def swap_pins(self, pin_id1, pin_id2):
         """
         Swap the names and numbers between two pins.
-        
+
         This method exchanges the name and number attributes between two pins,
         effectively swapping their identities while maintaining their physical
         connections and other properties.
-        
+
         Args:
             pin_id1: Identifier (name or number) of the first pin.
             pin_id2: Identifier (name or number) of the second pin.
-            
+
         Examples:
             >>> part.swap_pins(1, 2)  # Swap pins 1 and 2
             >>> part.swap_pins('RESET', 'ENABLE')  # Swap named pins
@@ -428,7 +432,7 @@ class PinMixin():
                 i1 = i
             elif pin_id2 in pin_num_name:
                 i2 = i
-            if i1!=None and i2!=None:
+            if i1 != None and i2 != None:
                 # Found both pins, so swap pin numbers and names
                 pins[i1].num, pins[i1].name, pins[i2].num, pins[i2].name = (
                     pins[i2].num,
@@ -442,14 +446,14 @@ class PinMixin():
     def rename_pin(self, pin_id, new_pin_name):
         """
         Change the name of a pin.
-        
+
         Finds the pin matching the given identifier and updates its name
         to the new value.
-        
+
         Args:
             pin_id: Current identifier (name or number) of the pin to rename.
             new_pin_name (str): New name to assign to the pin.
-            
+
         Examples:
             >>> part.rename_pin(1, 'POWER')  # Rename pin 1 to 'POWER'
             >>> part.rename_pin('RESET', 'RST')  # Rename RESET pin to RST
@@ -466,14 +470,14 @@ class PinMixin():
     def renumber_pin(self, pin_id, new_pin_num):
         """
         Change the number of a pin.
-        
+
         Finds the pin matching the given identifier and updates its number
         to the new value.
-        
+
         Args:
             pin_id: Current identifier (name or number) of the pin to renumber.
             new_pin_num: New number to assign to the pin.
-            
+
         Examples:
             >>> part.renumber_pin('RESET', 100)  # Change RESET pin to number 100
             >>> part.renumber_pin(1, 5)  # Change pin 1 to pin 5
@@ -499,7 +503,7 @@ class PinMixin():
         Args:
             *pin_ids: Pin identifiers for selection:
                 - Integers or strings for exact pin number matches
-                - Strings for exact pin name/alias matches  
+                - Strings for exact pin name/alias matches
                 - Regex patterns (when regex matching enabled)
                 - Slices for pin number ranges
                 - Lists/tuples of any combination above
@@ -508,7 +512,7 @@ class PinMixin():
         Keyword Args:
             criteria: Attribute-based filtering criteria as key=value pairs.
             silent (bool, optional): Suppress error messages if True. Defaults to False.
-            only_search_numbers (bool, optional): Restrict search to pin numbers only. 
+            only_search_numbers (bool, optional): Restrict search to pin numbers only.
                 Defaults to False.
             only_search_names (bool, optional): Restrict search to pin names/aliases only.
                 Defaults to False.
@@ -520,10 +524,10 @@ class PinMixin():
                 - Single Pin object if exactly one match found
                 - List of Pin objects if multiple matches found
                 - None if no matches found and silent=True
-                
+
         Raises:
             ValueError: If no pins found and silent=False.
-            
+
         Examples:
             >>> pins = part.get_pins(1, 2, 3)  # Get pins 1, 2, 3
             >>> analog_pins = part.get_pins(func='analog')  # Pins with analog function
@@ -619,11 +623,11 @@ class PinMixin():
     def disconnect(self):
         """
         Disconnect all pins from their connected nets.
-        
+
         This method breaks all electrical connections to the part by
         disconnecting each pin from any nets it may be connected to.
         The part becomes electrically isolated after this operation.
-        
+
         Examples:
             >>> part.disconnect()  # Disconnect all pins from nets
         """
@@ -633,15 +637,15 @@ class PinMixin():
     def split_pin_names(self, delimiters):
         """
         Split pin names using delimiters and add subnames as aliases.
-        
+
         This method takes pin names that contain delimiter characters and
         splits them into component parts, adding each part as an alias
         to the pin. This enables more flexible pin access patterns.
-        
+
         Args:
             delimiters (str): String containing characters to use as delimiters
                 for splitting pin names.
-                
+
         Examples:
             >>> part.split_pin_names('_-/')  # Split on underscore, dash, slash
             >>> # Pin named "DATA_IN" would get aliases "DATA" and "IN"
@@ -654,11 +658,11 @@ class PinMixin():
     def _find_min_max_pins(self):
         """
         Find the minimum and maximum numeric pin numbers.
-        
+
         This internal method scans all pins to find the lowest and highest
         numbered pins (considering only pins with integer numbers). These
         values are used for pin range operations and indexing.
-        
+
         Returns:
             tuple: A tuple of (min_pin_number, max_pin_number) as integers.
                 Returns (0, 0) if no numeric pins are found.
@@ -683,13 +687,13 @@ class PinMixin():
     def ordered_pins(self):
         """
         Get the pins sorted in a consistent order.
-        
+
         Returns the part's pins in sorted order, typically by pin number
         where possible, falling back to name-based sorting for non-numeric pins.
-        
+
         Returns:
             list: Sorted list of the part's Pin objects.
-            
+
         Examples:
             >>> sorted_pins = part.ordered_pins
             >>> for pin in part.ordered_pins:
@@ -701,7 +705,7 @@ class PinMixin():
     def match_pin_regex(self):
         """
         Get the enable/disable flag for pin regular-expression matching.
-        
+
         Returns:
             bool: Current state of regex matching flag.
         """
@@ -711,10 +715,10 @@ class PinMixin():
     def match_pin_regex(self, flag):
         """
         Set the regex matching flag.
-        
+
         Args:
             flag (bool): True to enable regex matching for pins, False to disable.
-            
+
         Notes:
             This also sets the flag for all units of the part.
         """

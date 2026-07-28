@@ -119,29 +119,31 @@ def gen_netlist_sheet(hierarchy, number, src_file, **kwargs):
         # If track_abs_path is False, use the path of the source filename relative to the script.
         src_file = os.path.relpath(src_file, get_script_dir())
 
-    sheet = Sexp([
-        "sheet",
-        ["number", number],
-        ["name", sheetpath],
-        ["tstamps", sheetpath_tstamp],
+    sheet = Sexp(
         [
-            "title_block",
-            ["title"],
-            ["company"],
-            ["rev"],
-            ["date"],
-            ["source", src_file],
-            ["comment", ["number", "1"], ["value", ""]],
-            ["comment", ["number", "2"], ["value", ""]],
-            ["comment", ["number", "3"], ["value", ""]],
-            ["comment", ["number", "4"], ["value", ""]],
-            ["comment", ["number", "5"], ["value", ""]],
-            ["comment", ["number", "6"], ["value", ""]],
-            ["comment", ["number", "7"], ["value", ""]],
-            ["comment", ["number", "8"], ["value", ""]],
-            ["comment", ["number", "9"], ["value", ""]],
-        ],
-    ])
+            "sheet",
+            ["number", number],
+            ["name", sheetpath],
+            ["tstamps", sheetpath_tstamp],
+            [
+                "title_block",
+                ["title"],
+                ["company"],
+                ["rev"],
+                ["date"],
+                ["source", src_file],
+                ["comment", ["number", "1"], ["value", ""]],
+                ["comment", ["number", "2"], ["value", ""]],
+                ["comment", ["number", "3"], ["value", ""]],
+                ["comment", ["number", "4"], ["value", ""]],
+                ["comment", ["number", "5"], ["value", ""]],
+                ["comment", ["number", "6"], ["value", ""]],
+                ["comment", ["number", "7"], ["value", ""]],
+                ["comment", ["number", "8"], ["value", ""]],
+                ["comment", ["number", "9"], ["value", ""]],
+            ],
+        ]
+    )
 
     return sheet
 
@@ -199,23 +201,25 @@ def gen_netlist_comp(part, **kwargs):
             field = Sexp(["field", ["name", fld_name]])
         fields.append(field)
 
-    comp = Sexp([
-        "comp",
-        ["ref", ref],
-        ["value", value],
-        ["description", description],
-        ["footprint", footprint],
-        # ["datasheet", datasheet],
-        fields,
-        ["libsource", ["lib", lib_filename], ["part", part_name]],
-        ["sheetpath", ["names", sheetpath], ["tstamps", sheetpath_tstamp]],
-        ["tstamps", part_tstamp],
-    ])
+    comp = Sexp(
+        [
+            "comp",
+            ["ref", ref],
+            ["value", value],
+            ["description", description],
+            ["footprint", footprint],
+            # ["datasheet", datasheet],
+            fields,
+            ["libsource", ["lib", lib_filename], ["part", part_name]],
+            ["sheetpath", ["names", sheetpath], ["tstamps", sheetpath_tstamp]],
+            ["tstamps", part_tstamp],
+        ]
+    )
 
     # If part has a 'dnp' attribute set to True, add the dnp property
     if getattr(part, "dnp", False):
         comp.append(Sexp(["property", ["name", "dnp"]]))
-    
+
     # If part has an 'exclude_from_bom' attribute set to True, add the exclude_from_bom property
     if getattr(part, "exclude_from_bom", False):
         comp.append(Sexp(["property", ["name", "exclude_from_bom"]]))
@@ -313,19 +317,21 @@ def gen_netlist(circuit, **kwargs):
         net.code = code
         nets.append(gen_netlist_net(net, **kwargs))
 
-    netlist = Sexp([
-        "export",
-        ["version", "D"],
+    netlist = Sexp(
         [
-            "design",
-            ["source", src_file],
-            ["date", date],
-            ["tool", tool],
-            *sheets,
-        ],
-        ["components", *components],
-        ["nets", *nets],
-    ])
+            "export",
+            ["version", "D"],
+            [
+                "design",
+                ["source", src_file],
+                ["date", date],
+                ["tool", tool],
+                *sheets,
+            ],
+            ["components", *components],
+            ["nets", *nets],
+        ]
+    )
 
     # Add quotes to all strings following the initial keyword in each S-expression of the netlist.
     netlist.add_quotes(lambda s: True)
