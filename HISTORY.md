@@ -1,5 +1,25 @@
 # History
 
+## 2.3.0 (2026-07-28)
+
+- Added support for KiCad 10 (`KICAD10` tool identifier) along with KiCad 10 part libraries for testing.
+- Fixed crashes when parsing KiCad 10 netlist properties that have no value (value-less boolean properties).
+- Schematic generation improvements developed for KiCad 9 were propagated to KiCad 6, 7, and 8.
+- Fixed orientation of vertical net labels so they always extend away from their pin (KiCad 6, 7, 8, and 9).
+- Fixed missing power symbols (shown as `??`) in generated schematics.
+- Corrected hierarchical UUIDs in part and sheet S-expressions so EESCHEMA displays the assigned part references without question marks.
+- Fixed multi-unit part reference handling so all units share a single base reference rather than compound references.
+- Added anchor-preserving net-label deconfliction that spreads overlapping labels and wires them back to their pins.
+- Added a tool-agnostic `SchematicBackend` interface and moved placement/routing decisions into the shared `schematics` module.
+- Added an opt-in `grid_blocks` placement option for laying out a bank of like-units in a grid floorplan.
+- Added "snap" schematic layout features (decoupling-cap and IC-pin fan-out routing) to the refactored backend.
+- Fixed the KiCad 8 library symbol grammar so exported symbols are compatible.
+- `netlist_to_skidl` now synthesizes missing ancestor sheets (fixes `KeyError '/'`) and guards value-less KiCad 10 boolean properties.
+- Corrected SPICE netlist generation so the order of pins is correct for parts and subcircuits.
+- Added support for Python 3.14.
+- Added a dedicated SPICE test environment/marker in tox.
+- Expanded documentation (CLAUDE.md circuit design API, README KiCad library troubleshooting, list of SKiDL-related third-party tools).
+
 ## 2.2.3 (2026-04-08)
 
 - Fixed #287 to remove circular import error that occurs under Windows.
