@@ -5,7 +5,7 @@ import sys
 
 import setuptools
 
-__version__ = "2.2.3"
+__version__ = "2.3.0"
 __author__ = "Dave Vandenbout"
 __email__ = "dave@vdb.name"
 
@@ -72,10 +72,14 @@ setup(
     keywords="skidl kicad electronic circuit schematics",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
-        "Intended Audience :: Manufacturing",
+        "Environment :: Console",
+        "Intended Audience :: Developers",
+        "Intended Audience :: Science/Research",
         "License :: OSI Approved :: MIT License",
         "Natural Language :: English",
         "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3 :: Only",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
@@ -84,8 +88,10 @@ setup(
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
         "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
         "Programming Language :: Python :: Implementation :: CPython",
         "Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)",
+        "Topic :: Software Development :: Libraries :: Python Modules",
     ],
     test_suite="tests",
     tests_require=test_requirements,
