@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>SKiDL</title><link href="/skidl/" rel="alternate"/><link href="/skidl/feeds/all.atom.xml" rel="self"/><id>/skidl/</id><updated>2026-04-08T00:00:00-04:00</updated><entry><title>SKiDL 2.2.3 Release</title><link href="/skidl/skidl-two-dot-two-dot-three-release-2026-04-08.html" rel="alternate"/><published>2026-04-08T00:00:00-04:00</published><updated>2026-04-08T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2026-04-08:/skidl/skidl-two-dot-two-dot-three-release-2026-04-08.html</id><content type="html">&lt;p&gt;Today marks the release of SKiDL version &lt;strong&gt;2.2.3&lt;/strong&gt; because
+<feed xmlns="http://www.w3.org/2005/Atom"><title>SKiDL</title><link href="/skidl/" rel="alternate"/><link href="/skidl/feeds/all.atom.xml" rel="self"/><id>/skidl/</id><updated>2026-07-28T00:00:00-04:00</updated><entry><title>SKiDL 2.3.0 Release</title><link href="/skidl/skidl-two-dot-three-dot-zero-release-2026-07-28.html" rel="alternate"/><published>2026-07-28T00:00:00-04:00</published><updated>2026-07-28T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2026-07-28:/skidl/skidl-two-dot-three-dot-zero-release-2026-07-28.html</id><summary type="html">&lt;p&gt;Today marks the release of SKiDL version &lt;strong&gt;2.3.0&lt;/strong&gt;. The headline changes are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;KiCad 10 support.&lt;/strong&gt; A &lt;code&gt;KICAD10&lt;/code&gt; tool identifier and part libraries were added,
+  and the generic &lt;code&gt;KICAD&lt;/code&gt; identifier now points to it as the latest version.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Better schematics.&lt;/strong&gt; The schematic generator gained an auto-stubbing mode
+  (&lt;code&gt;generate_schematic(auto_stub …&lt;/code&gt;&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;Today marks the release of SKiDL version &lt;strong&gt;2.3.0&lt;/strong&gt;. The headline changes are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;KiCad 10 support.&lt;/strong&gt; A &lt;code&gt;KICAD10&lt;/code&gt; tool identifier and part libraries were added,
+  and the generic &lt;code&gt;KICAD&lt;/code&gt; identifier now points to it as the latest version.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Better schematics.&lt;/strong&gt; The schematic generator gained an auto-stubbing mode
+  (&lt;code&gt;generate_schematic(auto_stub=True)&lt;/code&gt;) that turns hard-to-route nets into labels,
+  emits power symbols for power nets, and runs an ERC-correction loop to clean things up.
+  Net-label orientation, power symbols, and multi-unit part references were all fixed,
+  and the improvements were propagated across KiCad 6 through 10.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Python 3.14 support.&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SPICE fixes.&lt;/strong&gt; Netlist generation now keeps pin order correct for parts and subcircuits.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;netlist_to_skidl&lt;/strong&gt; now synthesizes missing ancestor sheets and tolerates the
+  value-less boolean properties found in KiCad 10 netlists.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Thanks to GitHub users &lt;a href="https://github.com/lachlanfysh"&gt;lachlanfysh&lt;/a&gt;,
+&lt;a href="https://github.com/freudenthal"&gt;freudenthal&lt;/a&gt;,
+&lt;a href="https://github.com/giri256"&gt;giri256&lt;/a&gt;, and
+&lt;a href="https://github.com/Javaispythonsb"&gt;Javaispythonsb&lt;/a&gt; for their contributions to this release.&lt;/p&gt;
+&lt;p&gt;See &lt;a href="https://github.com/devbisme/skidl/blob/master/HISTORY.md"&gt;SKiDL's complete history&lt;/a&gt; for all the changes
+made in each release.&lt;/p&gt;</content><category term="posts"/></entry><entry><title>SKiDL 2.2.3 Release</title><link href="/skidl/skidl-two-dot-two-dot-three-release-2026-04-08.html" rel="alternate"/><published>2026-04-08T00:00:00-04:00</published><updated>2026-04-08T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2026-04-08:/skidl/skidl-two-dot-two-dot-three-release-2026-04-08.html</id><content type="html">&lt;p&gt;Today marks the release of SKiDL version &lt;strong&gt;2.2.3&lt;/strong&gt; because
 2.2.2 had a problem with circular imports that showed up under Windows.
 Thanks to &lt;a href="https://github.com/ashergarland"&gt;ashergarland&lt;/a&gt; for reporting this and providing a fix!&lt;/p&gt;
 &lt;p&gt;See &lt;a href="https://github.com/devbisme/skidl/blob/master/HISTORY.md"&gt;SKiDL's complete history&lt;/a&gt; for all the changes
