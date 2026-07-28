@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.tools.spice.spice &#8212; SKiDL 2.2.3 documentation</title>
+    <title>skidl.tools.spice.spice &#8212; SKiDL 2.3.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../../../_static/documentation_options.js?v=85e56e6b"></script>
+    <script src="../../../../_static/documentation_options.js?v=c3c8ae58"></script>
     <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.spice.spice</a></li> 
       </ul>
@@ -483,13 +483,13 @@
 
 <span class="k">def</span> <span class="nf">_get_spice_ref</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a SPICE reference ID for the part.&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">ref_prefix</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">ref_prefix</span><span class="p">)</span> <span class="p">:]</span>
-    <span class="k">return</span> <span class="n">part</span><span class="o">.</span><span class="n">ref</span>
+    <span class="k">return</span> <span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="o">.</span><span class="n">removeprefix</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">ref_prefix</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_get_kwargs</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">kw</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a dict of keyword arguments to PySpice element constructor.&quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">skidl.part</span> <span class="kn">import</span> <span class="n">PinNumberSearch</span><span class="p">,</span> <span class="n">PinNameSearch</span>
+
     <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="n">kw</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -510,18 +510,38 @@
             <span class="c1"># If the keyword argument is a Pin, skip it. It gets handled below.</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">part_attr</span><span class="p">,</span> <span class="n">Pin</span><span class="p">):</span>
                 <span class="k">continue</span>
+            <span class="c1"># These methods that search for pins in a part have attribute names &quot;p&quot; and &quot;n&quot;</span>
+            <span class="c1"># which can be confused with the &quot;p&quot; and &quot;n&quot; pins of a SPICE element, so skip them.</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">part_attr</span><span class="p">,</span> <span class="p">(</span><span class="n">PinNumberSearch</span><span class="p">,</span> <span class="n">PinNameSearch</span><span class="p">)):</span>
+                <span class="k">continue</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">param_name</span><span class="p">:</span> <span class="n">part_attr</span><span class="p">})</span>
 
-    <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
+    <span class="c1"># If this part was converted to a SPICE part, then use the SPICE part pins and</span>
+    <span class="c1"># the reordered part pins that match the order of the SPICE part pins.</span>
+    <span class="c1"># Otherwise, this part is probably a native SPICE part and doesn&#39;t have these</span>
+    <span class="c1"># attributes so use its pins directly.</span>
+    <span class="n">spice_pins</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;spice_pins&quot;</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span>
+    <span class="n">reordered_part_pins</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;reordered_part_pins&quot;</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span>
+
+    <span class="c1"># Associate the SPICE pin names with the corresponding reordered part pin numbers.</span>
+    <span class="c1"># These will be used to fetch the names of the nets attached to the part pins</span>
+    <span class="c1"># and assign them to the SPICE part pin names. We can&#39;t use the reordered part pin</span>
+    <span class="c1"># directly because it may no longer be the same as the actual part pin due to</span>
+    <span class="c1"># part copying using templates and thus wouldn&#39;t have a valid net assigned.</span>
+    <span class="c1"># So use the pin name to fetch the active part pin and get the net from that.</span>
+    <span class="n">reordered_part_pin_nums</span> <span class="o">=</span> <span class="p">[</span><span class="n">pin</span><span class="o">.</span><span class="n">num</span> <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">reordered_part_pins</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">spice_pin</span><span class="p">,</span> <span class="n">part_pin_num</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">spice_pins</span><span class="p">,</span> <span class="n">reordered_part_pin_nums</span><span class="p">)):</span>
+        <span class="n">part_pin</span> <span class="o">=</span> <span class="n">part</span><span class="p">[</span><span class="n">part_pin_num</span><span class="p">]</span> <span class="c1"># Actual part pin with attached net.</span>
+        <span class="k">if</span> <span class="n">part_pin</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">param_name</span> <span class="o">=</span> <span class="n">kw</span><span class="p">[</span><span class="n">pin</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
-                <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">param_name</span><span class="p">:</span> <span class="n">node</span><span class="p">(</span><span class="n">pin</span><span class="p">)})</span>
+                <span class="n">param_name</span> <span class="o">=</span> <span class="n">kw</span><span class="p">[</span><span class="n">spice_pin</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
             <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
                 <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Part </span><span class="si">{</span><span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> has no </span><span class="si">{</span><span class="n">pin</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> pin: </span><span class="si">{</span><span class="n">part</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;Part </span><span class="si">{</span><span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> has no </span><span class="si">{</span><span class="n">spice_pin_name</span><span class="si">}</span><span class="s2"> pin: </span><span class="si">{</span><span class="n">part</span><span class="si">}</span><span class="s2">&quot;</span>
                     <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">param_name</span><span class="p">:</span> <span class="n">node</span><span class="p">(</span><span class="n">part_pin</span><span class="p">)})</span>
 
     <span class="k">return</span> <span class="n">kwargs</span>
 
@@ -559,17 +579,11 @@
     <span class="k">try</span><span class="p">:</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">name</span>
     <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span>
-        <span class="c1"># Don&#39;t change model kw param if it doesn&#39;t exist or is a string.</span>
         <span class="k">pass</span>
 
     <span class="c1"># Add the part to the PySpice circuit.</span>
     <span class="nb">getattr</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">pyspice</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-
-
-<span class="k">def</span> <span class="nf">_get_net_names</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a list of net names attached to the pins of a part.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">node</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span> <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">pins</span> <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()]</span>
 
 
 <div class="viewcode-block" id="Parameters">
@@ -590,7 +604,7 @@
 <span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">add_subcircuit_to_circuit</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">circuit</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Add a .SUBCKT part to a PySpice Circuit object.</span>
+<span class="sd">    Add a part defined by a .SUBCKT to a PySpice Circuit object.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        part: SKiDL Part object.</span>
@@ -598,23 +612,28 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># The device reference is always the first positional argument.</span>
-    <span class="c1"># sometimes we convert part from a U to X. In this case, we need to use the part name as the reference</span>
-    <span class="c1"># to avoid conflict with the subcircuit name</span>
+    <span class="c1"># sometimes we convert part from a U to X. In this case, we need to</span>
+    <span class="c1"># use the part name as the reference to avoid conflict with the subcircuit name</span>
     <span class="k">if</span> <span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">pyspice</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]):</span>
         <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">_get_spice_ref</span><span class="p">(</span><span class="n">part</span><span class="p">)]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="p">]</span>
 
+    <span class="c1"># Create the list of arguments for the subcircuit starting with the subcircuit name</span>
+    <span class="c1"># followed by the pins in the order they were defined in the SPICE part.</span>
+    <span class="c1"># If the part was converted for use by SPICE, then use the reordered pins that match the order of the</span>
+    <span class="c1"># SPICE part pins. Otherwise, the part is an actual SPICE part so its pins in their original order.</span>
     <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-    <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_get_net_names</span><span class="p">(</span><span class="n">part</span><span class="p">))</span>
+    <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">node</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span> <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;reordered_part_pins&quot;</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span> <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()])</span>
+
+    <span class="c1"># Create the list of keyword arguments for the subcircuit. These are the parameters that are </span>
+    <span class="c1"># defined in the part and that match the parameter names in the SPICE subcircuit definition.</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="n">part</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">Parameters</span><span class="p">):</span>
+            <span class="n">params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 
     <span class="c1"># Add the part to the PySpice circuit.</span>
-    <span class="kn">from</span> <span class="nn">skidl.pyspice</span> <span class="kn">import</span> <span class="n">Parameters</span>
-
-    <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">Parameters</span><span class="p">):</span>
-            <span class="n">params</span> <span class="o">=</span> <span class="n">v</span>
     <span class="nb">getattr</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">pyspice</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
 
 
@@ -696,27 +715,22 @@
 <span class="sd">    Args:</span>
 <span class="sd">        part: SKiDL Part object that will be converted for use as a SPICE component.</span>
 <span class="sd">        spice_part (Part): The type of SPICE Part to be converted to.</span>
-<span class="sd">        pin_map (dict): Dict with pin numbers/names of part as keys and num/names of spice_part pins as replacement values.</span>
+<span class="sd">        pin_map (dict): Dict with pin IDs of part as keys and pin IDs of spice_part pins as values.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c1"># Give the part access to the PySpice information from the SPICE part.</span>
+    <span class="c1"># Give the part access to the PySpice information and pins from the SPICE part.</span>
     <span class="n">part</span><span class="o">.</span><span class="n">pyspice</span> <span class="o">=</span> <span class="n">spice_part</span><span class="o">.</span><span class="n">pyspice</span>
+    <span class="n">part</span><span class="o">.</span><span class="n">spice_pins</span> <span class="o">=</span> <span class="n">spice_part</span><span class="o">.</span><span class="n">pins</span>
 
-    <span class="c1"># Give the part the additional aliases from the SPICE part.</span>
-    <span class="n">part</span><span class="o">.</span><span class="n">aliases</span> <span class="o">+=</span> <span class="n">spice_part</span><span class="o">.</span><span class="n">aliases</span>
+    <span class="c1"># Create a mapping between the SPICE part pins and the part pins.</span>
+    <span class="nb">map</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">part_pin</span><span class="p">,</span> <span class="n">spice_part_pin</span> <span class="ow">in</span> <span class="n">pin_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">map</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">spice_part</span><span class="p">[</span><span class="n">spice_part_pin</span><span class="p">])]</span> <span class="o">=</span> <span class="n">part</span><span class="p">[</span><span class="n">part_pin</span><span class="p">]</span>
 
-    <span class="c1"># Look-up pin names/numbers to create a mapping between actual Pin objects.</span>
-    <span class="n">pin_map</span> <span class="o">=</span> <span class="p">[[</span><span class="n">part</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">dst</span><span class="p">)],</span> <span class="n">spice_part</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">src</span><span class="p">)]]</span> <span class="k">for</span> <span class="n">dst</span><span class="p">,</span> <span class="n">src</span> <span class="ow">in</span> <span class="n">pin_map</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
-
-    <span class="c1"># Pull some info from the SPICE part pins into the part pins.</span>
-    <span class="k">for</span> <span class="n">dst_pin</span><span class="p">,</span> <span class="n">src_pin</span> <span class="ow">in</span> <span class="n">pin_map</span><span class="p">:</span>
-        <span class="n">dst_pin</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">src_pin</span><span class="o">.</span><span class="n">num</span>
-        <span class="n">dst_pin</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">src_pin</span><span class="o">.</span><span class="n">name</span>
-        <span class="n">dst_pin</span><span class="o">.</span><span class="n">aliases</span> <span class="o">+=</span> <span class="n">src_pin</span><span class="o">.</span><span class="n">aliases</span>
-    
-    <span class="c1"># reorder the part pins based on spice part pins orders</span>
-    <span class="c1"># active_logger.info(&quot;Reordering pins for part {part.ref}&quot;)</span>
-    <span class="n">part</span><span class="o">.</span><span class="n">pins</span> <span class="o">=</span> <span class="p">[</span><span class="nb">next</span><span class="p">(</span><span class="n">pin</span> <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">pins</span> <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">num</span> <span class="o">==</span> <span class="n">src</span><span class="o">.</span><span class="n">num</span> <span class="ow">or</span> <span class="n">pin</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">src</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">src</span> <span class="ow">in</span> <span class="n">spice_part</span><span class="o">.</span><span class="n">pins</span><span class="p">]</span></div>
+    <span class="c1"># Create a reordered set of part pins to match the order of the SPICE part pins.</span>
+    <span class="c1"># That way we can just iterate through the part pins when generating a SPICE netlist</span>
+    <span class="c1"># and they will be in the right order for the SPICE part.</span>
+    <span class="n">part</span><span class="o">.</span><span class="n">reordered_part_pins</span> <span class="o">=</span> <span class="p">[</span><span class="nb">map</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">pin</span><span class="p">)]</span> <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">spice_part</span><span class="o">.</span><span class="n">pins</span><span class="p">]</span></div>
 
 
 
@@ -824,7 +838,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.spice.spice</a></li> 
       </ul>

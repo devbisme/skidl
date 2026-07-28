@@ -73,6 +73,39 @@
 <p><strong>Website:</strong> <a href="https://galvano.ai/">galvano.ai</a><br>
 <strong>Discussion:</strong> <a href="https://github.com/devbisme/skidl/discussions/267">#267</a></p>
 <p>An AI-powered schematic review service that analyzes electronic circuit schematics and netlists before PCB manufacturing. Upload KiCad schematics or SPICE netlists along with relevant datasheets, and Galvano checks each node for common design errors, assigns risk scores, and provides an interactive chat interface for design recommendations.</p>
+<hr>
+<h2 id="pcbflow">pcbflow</h2>
+<p><strong>Repository:</strong> <a href="https://github.com/michaelgale/pcbflow">michaelgale/pcbflow</a></p>
+<p>A Python package for PCB layout and design that lets you script circuits with SKiDL definitions and render them onto physical boards. It integrates CuFlow functionality to go from a scripted description to a manufacturable layout.</p>
+<hr>
+<h2 id="wirestudio">WireStudio</h2>
+<p><strong>Repository:</strong> <a href="https://github.com/moellere/WireStudio">moellere/WireStudio</a></p>
+<p>An agent-driven design studio for ESPHome and LoRaWAN devices. It generates YAML configuration, KiCad schematics and PCBs, and enclosures, using SKiDL to describe the underlying circuitry.</p>
+<hr>
+<h2 id="solder">Solder</h2>
+<p><strong>Repository:</strong> <a href="https://github.com/solderable/solder">solderable/solder</a></p>
+<p>A command-line application with an AI agent that helps create, modify, and compile electronic projects described as SKiDL files.</p>
+<hr>
+<h2 id="skimibowi">Skimibowi</h2>
+<p><strong>Repository:</strong> <a href="https://github.com/jvestman/skimibowi">jvestman/skimibowi</a></p>
+<p>A wizard that uses SKiDL to define components and generate KiCad netlists for microcontroller boards, guiding you through part selection and wiring.</p>
+<hr>
+<h2 id="kle2netlist">kle2netlist</h2>
+<p><strong>Repository:</strong> <a href="https://github.com/adamws/kle2netlist">adamws/kle2netlist</a></p>
+<p>Converts mechanical keyboard layout JSON (KLE) into KiCad netlists, using SKiDL to describe the resulting circuit for PCB design.</p>
+<hr>
+<h2 id="skidl-codegen-skidl-layout-and-skidl-eda">skidl-codegen, skidl-layout, and skidl-eda</h2>
+<p><strong>Repositories:</strong> <a href="https://github.com/freudenthal/skidl-codegen">freudenthal/skidl-codegen</a> · <a href="https://github.com/freudenthal/skidl-layout">freudenthal/skidl-layout</a> · <a href="https://github.com/freudenthal/skidl-eda">freudenthal/skidl-eda</a></p>
+<p>A set of peer packages that extend SKiDL across the design flow:</p>
+<ul>
+<li><strong>skidl-codegen</strong> regenerates runnable SKiDL source from KiCad schematics, with cleanup and round-trip verification.</li>
+<li><strong>skidl-layout</strong> is a standalone PCB placement and layout engine that classifies parts, plans board placement from congestion metrics, and generates <code>.kicad_pcb</code> files.</li>
+<li><strong>skidl-eda</strong> is an AI circuit-design loop harness that turns a SKiDL description into KiCad projects with verification gates, simulation entry points, and human-in-the-loop regeneration.</li>
+</ul>
+<hr>
+<h2 id="skidl-tools">skidl-tools</h2>
+<p><strong>Repository:</strong> <a href="https://github.com/sylefeb/skidl-tools">sylefeb/skidl-tools</a></p>
+<p>A set of tools for interacting with SKiDL code and KiCad to support iterative electronic system design and PCB generation.</p>
 		</div> <!-- /#entry-content -->
 	</div> <!-- /#main -->
 </div> <!-- /#post -->

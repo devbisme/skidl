@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.schematics.sch_node &#8212; SKiDL 2.2.3 documentation</title>
+    <title>skidl.schematics.sch_node &#8212; SKiDL 2.3.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../../_static/documentation_options.js?v=85e56e6b"></script>
+    <script src="../../../_static/documentation_options.js?v=c3c8ae58"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 2.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.schematics.sch_node</a></li> 
       </ul>
@@ -449,13 +449,18 @@
         <span class="p">)</span>
 
         <span class="c1"># Flatten each instance in a group until the slack is used up.</span>
+        <span class="c1"># Start from the smallest group so that small, simple children are more likely to be flattened </span>
+        <span class="c1"># while large, complicated children are included using hierarchical sheets.</span>
         <span class="k">for</span> <span class="n">child_type</span><span class="p">,</span> <span class="n">child_type_size</span> <span class="ow">in</span> <span class="n">sorted_child_type_sizes</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">child_type_size</span> <span class="o">&lt;=</span> <span class="n">slack</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">slack</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">child_type_size</span> <span class="o">&lt;=</span> <span class="n">slack</span><span class="p">:</span>
                 <span class="c1"># Include the circuitry of each child instance directly in the sheet.</span>
                 <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">child_types</span><span class="p">[</span><span class="n">child_type</span><span class="p">]:</span>
                     <span class="n">child</span><span class="o">.</span><span class="n">flattened</span> <span class="o">=</span> <span class="kc">True</span>
                 <span class="c1"># Reduce the slack by the sum of the child sizes.</span>
                 <span class="n">slack</span> <span class="o">-=</span> <span class="n">child_type_size</span>
+                <span class="c1"># Increase the complexity of this node by the sum of the child sizes</span>
+                <span class="c1"># since they are now included in this sheet.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">complexity</span> <span class="o">+=</span> <span class="n">child_type_size</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># Not enough slack left. Add these children as hierarchical sheets.</span>
                 <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">child_types</span><span class="p">[</span><span class="n">child_type</span><span class="p">]:</span>
@@ -519,7 +524,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 2.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.schematics.sch_node</a></li> 
       </ul>

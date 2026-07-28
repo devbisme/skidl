@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl package &#8212; SKiDL 2.2.3 documentation</title>
+    <title>skidl package &#8212; SKiDL 2.3.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=85e56e6b"></script>
+    <script src="../_static/documentation_options.js?v=c3c8ae58"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl package</a></li> 
       </ul>
     </div>  
@@ -84,6 +84,14 @@ generate_netlist()</p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="skidl.schematics.html">skidl.schematics package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="skidl.schematics.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="skidl.schematics.backend.html">skidl.schematics.backend module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="skidl.schematics.backend.html#skidl.schematics.backend.Element"><code class="docutils literal notranslate"><span class="pre">Element</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.schematics.backend.html#skidl.schematics.backend.LabelPlacement"><code class="docutils literal notranslate"><span class="pre">LabelPlacement</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.schematics.backend.html#skidl.schematics.backend.PinDir"><code class="docutils literal notranslate"><span class="pre">PinDir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.schematics.backend.html#skidl.schematics.backend.RenderContext"><code class="docutils literal notranslate"><span class="pre">RenderContext</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.schematics.backend.html#skidl.schematics.backend.SchematicBackend"><code class="docutils literal notranslate"><span class="pre">SchematicBackend</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.schematics.debug_draw.html">skidl.schematics.debug_draw module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_box"><code class="docutils literal notranslate"><span class="pre">draw_box()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_clear"><code class="docutils literal notranslate"><span class="pre">draw_clear()</span></code></a></li>
@@ -99,6 +107,13 @@ generate_netlist()</p>
 <li class="toctree-l4"><a class="reference internal" href="skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_seg"><code class="docutils literal notranslate"><span class="pre">draw_seg()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_start"><code class="docutils literal notranslate"><span class="pre">draw_start()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_text"><code class="docutils literal notranslate"><span class="pre">draw_text()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.schematics.decisions.html">skidl.schematics.decisions module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="skidl.schematics.decisions.html#skidl.schematics.decisions.deconflict_labels"><code class="docutils literal notranslate"><span class="pre">deconflict_labels()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.schematics.decisions.html#skidl.schematics.decisions.find_no_connect_pins"><code class="docutils literal notranslate"><span class="pre">find_no_connect_pins()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.schematics.decisions.html#skidl.schematics.decisions.find_overlapping_pins"><code class="docutils literal notranslate"><span class="pre">find_overlapping_pins()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.schematics.decisions.html#skidl.schematics.decisions.find_power_bus_runs"><code class="docutils literal notranslate"><span class="pre">find_power_bus_runs()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.schematics.net_terminal.html">skidl.schematics.net_terminal module</a><ul>
@@ -122,6 +137,10 @@ generate_netlist()</p>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.schematics.sch_node.html">skidl.schematics.sch_node module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="skidl.schematics.sch_node.html#skidl.schematics.sch_node.SchNode"><code class="docutils literal notranslate"><span class="pre">SchNode</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.schematics.snap.html">skidl.schematics.snap module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="skidl.schematics.snap.html#skidl.schematics.snap.snap_two_pin_parts"><code class="docutils literal notranslate"><span class="pre">snap_two_pin_parts()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -148,6 +167,10 @@ generate_netlist()</p>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="skidl.tools.html">skidl.tools package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="skidl.tools.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="skidl.tools.kicad10.html">skidl.tools.kicad10 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="skidl.tools.kicad10.html#submodules">Submodules</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.tools.kicad5.html">skidl.tools.kicad5 package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="skidl.tools.kicad5.html#submodules">Submodules</a></li>
 </ul>
@@ -786,7 +809,7 @@ generate_netlist()</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl package</a></li> 
       </ul>
     </div>

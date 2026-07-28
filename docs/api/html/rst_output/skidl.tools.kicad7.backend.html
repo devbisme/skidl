@@ -1,0 +1,236 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>skidl.tools.kicad7.backend module &#8212; SKiDL 2.3.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../_static/documentation_options.js?v=c3c8ae58"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../"><img src="../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad7.backend module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-skidl.tools.kicad7.backend">
+<span id="skidl-tools-kicad7-backend-module"></span><h1>skidl.tools.kicad7.backend module<a class="headerlink" href="#module-skidl.tools.kicad7.backend" title="Link to this heading">¶</a></h1>
+<p>Concrete KiCad-9 implementation of the tool-agnostic SchematicBackend.</p>
+<p>Every method here delegates VERBATIM to the existing functions in
+<code class="docutils literal notranslate"><span class="pre">sexp_schematic.py</span></code> — this is a thin adapter so the agnostic decision layer
+(<code class="docutils literal notranslate"><span class="pre">schematics/decisions.py</span></code>) can reach the KiCad render geometry and emission
+primitives through the interface in <code class="docutils literal notranslate"><span class="pre">schematics/backend.py</span></code> without importing
+<code class="docutils literal notranslate"><span class="pre">skidl.tools.kicad9</span></code> directly. The KiCad coordinate math and S-expression
+syntax stay in <code class="docutils literal notranslate"><span class="pre">sexp_schematic.py</span></code>; nothing here changes output.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="skidl.tools.kicad7.backend.Kicad9Backend">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad7.backend.</span></span><span class="sig-name descname"><span class="pre">Kicad9Backend</span></span><a class="reference internal" href="../_modules/skidl/tools/kicad7/backend.html#Kicad9Backend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad7.backend.Kicad9Backend" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Adapter exposing kicad9 geometry + emission as a SchematicBackend.</p>
+<p>Interface status (honest): geometry queries (pin_render_pos, pin_render_dir,
+is_power_net_name, render_xy, label_bbox) are LIVE — consumed by
+schematics.decisions. Among emission primitives, emit_wire and
+emit_no_connect ARE on the live path; emit_label/emit_part/
+emit_power_symbol/emit_junction are defined for completeness but the renderer
+still uses the module-level functions for those. solve_snap_tx is DEFERRED
+(raises; see doc P1b).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.tools.kicad7.backend.Kicad9Backend.apply_label_deconfliction">
+<span class="sig-name descname"><span class="pre">apply_label_deconfliction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elements</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet_tx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad7/backend.html#Kicad9Backend.apply_label_deconfliction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad7.backend.Kicad9Backend.apply_label_deconfliction" title="Link to this definition">¶</a></dt>
+<dd><p>Read global_label/wire Sexps, run the agnostic deconfliction
+decision, then mutate label <code class="docutils literal notranslate"><span class="pre">at</span></code> coords + append connecting wires.</p>
+<p>The Sexp reading and mutation (tool-specific) stay here; the overlap
+detection + nudge-target decision lives in
+<code class="docutils literal notranslate"><span class="pre">schematics.decisions.deconflict_labels</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.tools.kicad7.backend.Kicad9Backend.emit_junction">
+<span class="sig-name descname"><span class="pre">emit_junction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad7/backend.html#Kicad9Backend.emit_junction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad7.backend.Kicad9Backend.emit_junction" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.tools.kicad7.backend.Kicad9Backend.emit_label">
+<span class="sig-name descname"><span class="pre">emit_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet_tx</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">at</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad7/backend.html#Kicad9Backend.emit_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad7.backend.Kicad9Backend.emit_label" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.tools.kicad7.backend.Kicad9Backend.emit_no_connect">
+<span class="sig-name descname"><span class="pre">emit_no_connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid_seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad7/backend.html#Kicad9Backend.emit_no_connect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad7.backend.Kicad9Backend.emit_no_connect" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.tools.kicad7.backend.Kicad9Backend.emit_part">
+<span class="sig-name descname"><span class="pre">emit_part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet_tx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad7/backend.html#Kicad9Backend.emit_part"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad7.backend.Kicad9Backend.emit_part" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.tools.kicad7.backend.Kicad9Backend.emit_power_symbol">
+<span class="sig-name descname"><span class="pre">emit_power_symbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet_tx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad7/backend.html#Kicad9Backend.emit_power_symbol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad7.backend.Kicad9Backend.emit_power_symbol" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.tools.kicad7.backend.Kicad9Backend.emit_wire">
+<span class="sig-name descname"><span class="pre">emit_wire</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid_seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad7/backend.html#Kicad9Backend.emit_wire"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad7.backend.Kicad9Backend.emit_wire" title="Link to this definition">¶</a></dt>
+<dd><p>Build a bare wire Sexp at render-mm coords.</p>
+<p>Mirrors the inline wire construction in the decision functions; the
+caller supplies the UUID seed so emitted UUIDs match the originals.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.tools.kicad7.backend.Kicad9Backend.is_power_net_name">
+<span class="sig-name descname"><span class="pre">is_power_net_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad7/backend.html#Kicad9Backend.is_power_net_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad7.backend.Kicad9Backend.is_power_net_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.tools.kicad7.backend.Kicad9Backend.label_bbox">
+<span class="sig-name descname"><span class="pre">label_bbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad7/backend.html#Kicad9Backend.label_bbox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad7.backend.Kicad9Backend.label_bbox" title="Link to this definition">¶</a></dt>
+<dd><p>Rendered net-label box size in mm.</p>
+<p>Matches the fixed box that <code class="docutils literal notranslate"><span class="pre">_deconflict_labels</span></code> uses today
+(LABEL_W x LABEL_H), so the relocated deconfliction is byte-identical.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.tools.kicad7.backend.Kicad9Backend.pin_render_dir">
+<span class="sig-name descname"><span class="pre">pin_render_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet_tx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad7/backend.html#Kicad9Backend.pin_render_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad7.backend.Kicad9Backend.pin_render_dir" title="Link to this definition">¶</a></dt>
+<dd><p>Render-space pin direction == <code class="docutils literal notranslate"><span class="pre">calc_pin_dir</span></code>.</p>
+<p>Note: the present <code class="docutils literal notranslate"><span class="pre">calc_pin_dir</span></code> ignores <code class="docutils literal notranslate"><span class="pre">sheet_tx</span></code> (see the
+architecture doc, section 3 / section 6). Folding <code class="docutils literal notranslate"><span class="pre">sheet_tx</span></code> in would
+change output, so this adapter preserves the current behavior exactly.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.tools.kicad7.backend.Kicad9Backend.pin_render_pos">
+<span class="sig-name descname"><span class="pre">pin_render_pos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet_tx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad7/backend.html#Kicad9Backend.pin_render_pos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad7.backend.Kicad9Backend.pin_render_pos" title="Link to this definition">¶</a></dt>
+<dd><p>KiCad render-mm position of a pin == <code class="docutils literal notranslate"><span class="pre">_kicad_pin_pos</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.tools.kicad7.backend.Kicad9Backend.render_xy">
+<span class="sig-name descname"><span class="pre">render_xy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ly</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">part</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet_tx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad7/backend.html#Kicad9Backend.render_xy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad7.backend.Kicad9Backend.render_xy" title="Link to this definition">¶</a></dt>
+<dd><p>Render-mm of an arbitrary part-local point == <code class="docutils literal notranslate"><span class="pre">_render_xy</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.tools.kicad7.backend.Kicad9Backend.round_mm">
+<span class="sig-name descname"><span class="pre">round_mm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad7/backend.html#Kicad9Backend.round_mm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad7.backend.Kicad9Backend.round_mm" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.tools.kicad7.backend.Kicad9Backend.solve_snap_tx">
+<span class="sig-name descname"><span class="pre">solve_snap_tx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">my_pin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_render_xy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extend_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet_tx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad7/backend.html#Kicad9Backend.solve_snap_tx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad7.backend.Kicad9Backend.solve_snap_tx" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="skidl.tools.kicad7.backend.Kicad9Backend.supports_snap">
+<span class="sig-name descname"><span class="pre">supports_snap</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#skidl.tools.kicad7.backend.Kicad9Backend.supports_snap" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">skidl.tools.kicad7.backend module</a><ul>
+<li><a class="reference internal" href="#skidl.tools.kicad7.backend.Kicad9Backend"><code class="docutils literal notranslate"><span class="pre">Kicad9Backend</span></code></a><ul>
+<li><a class="reference internal" href="#skidl.tools.kicad7.backend.Kicad9Backend.apply_label_deconfliction"><code class="docutils literal notranslate"><span class="pre">Kicad9Backend.apply_label_deconfliction()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.tools.kicad7.backend.Kicad9Backend.emit_junction"><code class="docutils literal notranslate"><span class="pre">Kicad9Backend.emit_junction()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.tools.kicad7.backend.Kicad9Backend.emit_label"><code class="docutils literal notranslate"><span class="pre">Kicad9Backend.emit_label()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.tools.kicad7.backend.Kicad9Backend.emit_no_connect"><code class="docutils literal notranslate"><span class="pre">Kicad9Backend.emit_no_connect()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.tools.kicad7.backend.Kicad9Backend.emit_part"><code class="docutils literal notranslate"><span class="pre">Kicad9Backend.emit_part()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.tools.kicad7.backend.Kicad9Backend.emit_power_symbol"><code class="docutils literal notranslate"><span class="pre">Kicad9Backend.emit_power_symbol()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.tools.kicad7.backend.Kicad9Backend.emit_wire"><code class="docutils literal notranslate"><span class="pre">Kicad9Backend.emit_wire()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.tools.kicad7.backend.Kicad9Backend.is_power_net_name"><code class="docutils literal notranslate"><span class="pre">Kicad9Backend.is_power_net_name()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.tools.kicad7.backend.Kicad9Backend.label_bbox"><code class="docutils literal notranslate"><span class="pre">Kicad9Backend.label_bbox()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.tools.kicad7.backend.Kicad9Backend.pin_render_dir"><code class="docutils literal notranslate"><span class="pre">Kicad9Backend.pin_render_dir()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.tools.kicad7.backend.Kicad9Backend.pin_render_pos"><code class="docutils literal notranslate"><span class="pre">Kicad9Backend.pin_render_pos()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.tools.kicad7.backend.Kicad9Backend.render_xy"><code class="docutils literal notranslate"><span class="pre">Kicad9Backend.render_xy()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.tools.kicad7.backend.Kicad9Backend.round_mm"><code class="docutils literal notranslate"><span class="pre">Kicad9Backend.round_mm()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.tools.kicad7.backend.Kicad9Backend.solve_snap_tx"><code class="docutils literal notranslate"><span class="pre">Kicad9Backend.solve_snap_tx()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.tools.kicad7.backend.Kicad9Backend.supports_snap"><code class="docutils literal notranslate"><span class="pre">Kicad9Backend.supports_snap</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rst_output/skidl.tools.kicad7.backend.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad7.backend module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2026, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>

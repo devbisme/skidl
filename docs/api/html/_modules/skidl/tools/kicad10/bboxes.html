@@ -1,0 +1,469 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.tools.kicad10.bboxes &#8212; SKiDL 2.3.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../../../../_static/documentation_options.js?v=c3c8ae58"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../../../../"><img src="../../../../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad10.bboxes</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skidl.tools.kicad10.bboxes</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Calculate bounding boxes for part symbols and hierarchical sheets.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">skidl.geometry</span> <span class="kn">import</span> <span class="n">BBox</span><span class="p">,</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Tx</span><span class="p">,</span> <span class="n">tx_rot_0</span><span class="p">,</span> <span class="n">tx_rot_90</span><span class="p">,</span> <span class="n">tx_rot_180</span><span class="p">,</span> <span class="n">tx_rot_270</span>
+<span class="kn">from</span> <span class="nn">skidl.utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span>
+
+<span class="kn">from</span> <span class="nn">.constants</span> <span class="kn">import</span> <span class="n">HIER_TERM_SIZE</span><span class="p">,</span> <span class="n">PIN_LABEL_FONT_SIZE</span>
+
+<span class="c1"># Character size fudge factor used in draw_cmd_to_svg.</span>
+<span class="n">CHAR_SIZE_FUDGE</span> <span class="o">=</span> <span class="mf">0.6</span>
+
+
+<span class="k">def</span> <span class="nf">_calc_draw_cmd_bbox</span><span class="p">(</span><span class="n">draw_cmd</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate bounding box for a symbol drawing command.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        draw_cmd: A drawing command from part.draw_cmds (list format</span>
+<span class="sd">            from KiCad s-expression).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        BBox: Bounding box for the drawing command, or empty BBox</span>
+<span class="sd">            if unrecognized type.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">draw_cmd</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">draw_cmd</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">BBox</span><span class="p">()</span>
+
+    <span class="n">shape_type</span> <span class="o">=</span> <span class="n">draw_cmd</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+    <span class="c1"># Convert draw_cmd to dict for easier access (similar to</span>
+    <span class="c1"># draw_cmd_to_dict in gen_svg.py). _draw_cmd_to_dict returns</span>
+    <span class="c1"># (name, dict) tuple, we need the dict.</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">shape</span> <span class="o">=</span> <span class="n">_draw_cmd_to_dict</span><span class="p">(</span><span class="n">draw_cmd</span><span class="p">)</span>
+
+    <span class="c1"># Identity transformation for local coordinates.</span>
+    <span class="n">tx</span> <span class="o">=</span> <span class="n">Tx</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">shape_type</span> <span class="o">==</span> <span class="s2">&quot;polyline&quot;</span><span class="p">:</span>
+        <span class="c1"># Polyline: list of points.</span>
+        <span class="n">pts</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;pts&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;xy&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="k">if</span> <span class="n">pts</span><span class="p">:</span>
+            <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="o">*</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="n">tx</span> <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="n">pts</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">BBox</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">BBox</span><span class="p">()</span>
+
+    <span class="k">elif</span> <span class="n">shape_type</span> <span class="o">==</span> <span class="s2">&quot;bezier&quot;</span><span class="p">:</span>
+        <span class="c1"># Bezier curve: exactly 4 control points.</span>
+        <span class="n">pts</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;pts&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;xy&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="k">if</span> <span class="n">pts</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="o">*</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="n">tx</span> <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="n">pts</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">BBox</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">BBox</span><span class="p">()</span>
+
+    <span class="k">elif</span> <span class="n">shape_type</span> <span class="o">==</span> <span class="s2">&quot;circle&quot;</span><span class="p">:</span>
+        <span class="c1"># Circle: center point and radius.</span>
+        <span class="n">center</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">radius</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;radius&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">ctr</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">*</span><span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="n">tx</span>
+        <span class="n">rad_pt</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">radius</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">BBox</span><span class="p">(</span><span class="n">ctr</span> <span class="o">+</span> <span class="n">rad_pt</span><span class="p">,</span> <span class="n">ctr</span> <span class="o">-</span> <span class="n">rad_pt</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">shape_type</span> <span class="o">==</span> <span class="s2">&quot;rectangle&quot;</span><span class="p">:</span>
+        <span class="c1"># Rectangle: start and end corners.</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">start_pt</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">*</span><span class="n">start</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="n">tx</span>
+        <span class="n">end_pt</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">*</span><span class="n">end</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="n">tx</span>
+        <span class="k">return</span> <span class="n">BBox</span><span class="p">(</span><span class="n">start_pt</span><span class="p">,</span> <span class="n">end_pt</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">shape_type</span> <span class="o">==</span> <span class="s2">&quot;arc&quot;</span><span class="p">:</span>
+        <span class="c1"># Arc: start, mid, and end points.</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">mid</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;mid&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">*</span><span class="n">start</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="n">tx</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">*</span><span class="n">end</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="n">tx</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">*</span><span class="n">mid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="n">tx</span>
+        <span class="k">return</span> <span class="n">BBox</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">shape_type</span> <span class="o">==</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span>
+        <span class="c1"># Text: position and font size.</span>
+        <span class="n">at</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;at&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">effects</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;effects&quot;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="k">if</span> <span class="n">effects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;hide&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">BBox</span><span class="p">()</span>  <span class="c1"># Hidden text has no bbox.</span>
+        <span class="n">font</span> <span class="o">=</span> <span class="n">effects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;font&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]})</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;size&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">misc</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;misc&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="n">start</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">*</span><span class="n">at</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">rotation</span> <span class="o">=</span> <span class="n">at</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">at</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="n">justify</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;justify&quot;</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+        <span class="c1"># Direction based on justification and rotation.</span>
+        <span class="n">dir_dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;right&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="s2">&quot;left&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">}</span>
+        <span class="nb">dir</span> <span class="o">=</span> <span class="n">dir_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">justify</span><span class="p">,</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">*</span> <span class="n">Tx</span><span class="p">()</span><span class="o">.</span><span class="n">rot</span><span class="p">(</span><span class="n">rotation</span><span class="p">)</span>
+
+        <span class="n">char_wid</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">CHAR_SIZE_FUDGE</span>
+        <span class="n">char_hgt</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">CHAR_SIZE_FUDGE</span>
+
+        <span class="k">return</span> <span class="n">_text_bbox</span><span class="p">(</span><span class="n">misc</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="nb">dir</span><span class="p">,</span> <span class="n">char_wid</span><span class="p">,</span> <span class="n">char_hgt</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">shape_type</span> <span class="o">==</span> <span class="s2">&quot;property&quot;</span><span class="p">:</span>
+        <span class="c1"># Property (reference/value): similar to text but with</span>
+        <span class="c1"># different default direction.</span>
+        <span class="n">effects</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;effects&quot;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="k">if</span> <span class="n">effects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;hide&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">BBox</span><span class="p">()</span>  <span class="c1"># Hidden properties have no bbox.</span>
+
+        <span class="n">at</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;at&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">font</span> <span class="o">=</span> <span class="n">effects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;font&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]})</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;size&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">misc</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;misc&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Handle misc as either a string or a list.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">misc</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">misc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">misc</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">misc</span>
+
+        <span class="n">start</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">*</span><span class="n">at</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">rotation</span> <span class="o">=</span> <span class="n">at</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">at</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="n">justify</span> <span class="o">=</span> <span class="n">effects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;justify&quot;</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">justify</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">justify</span> <span class="o">=</span> <span class="n">justify</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">justify</span> <span class="o">=</span> <span class="n">justify</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">justify</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;center&quot;</span>
+
+        <span class="c1"># Direction: right justify extends left, left extends right.</span>
+        <span class="n">dir_dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;right&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="s2">&quot;left&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">}</span>
+        <span class="nb">dir</span> <span class="o">=</span> <span class="n">dir_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">justify</span><span class="p">,</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">*</span> <span class="n">Tx</span><span class="p">()</span><span class="o">.</span><span class="n">rot</span><span class="p">(</span><span class="n">rotation</span><span class="p">)</span>
+
+        <span class="n">char_wid</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">CHAR_SIZE_FUDGE</span>
+        <span class="n">char_hgt</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">CHAR_SIZE_FUDGE</span>
+
+        <span class="k">return</span> <span class="n">_text_bbox</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="nb">dir</span><span class="p">,</span> <span class="n">char_wid</span><span class="p">,</span> <span class="n">char_hgt</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">shape_type</span> <span class="o">==</span> <span class="s2">&quot;pin&quot;</span><span class="p">:</span>
+        <span class="c1"># Pins: include position, length, and pin name/number text.</span>
+        <span class="n">at</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;at&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;length&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">rotation</span> <span class="o">=</span> <span class="n">at</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">at</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="k">else</span> <span class="mi">0</span>
+
+        <span class="c1"># Calculate start and end points of the pin.</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">*</span><span class="n">at</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">dir_vec</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">Tx</span><span class="p">()</span><span class="o">.</span><span class="n">rot</span><span class="p">(</span><span class="n">rotation</span><span class="p">)</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">dir_vec</span> <span class="o">*</span> <span class="n">length</span>
+
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+
+        <span class="n">account_for_pin_text</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">account_for_pin_text</span><span class="p">:</span>
+            <span class="c1"># Add bounding box for pin name text.</span>
+            <span class="n">name_effects</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;effects&quot;</span><span class="p">,</span> <span class="p">{})</span>
+            <span class="n">name_font</span> <span class="o">=</span> <span class="n">name_effects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;font&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]})</span>
+            <span class="n">name_size</span> <span class="o">=</span> <span class="n">name_font</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;size&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+            <span class="n">name_text</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;misc&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">name_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">name_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">name_text</span><span class="p">:</span>
+                <span class="n">name_char_wid</span> <span class="o">=</span> <span class="n">name_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">CHAR_SIZE_FUDGE</span>
+                <span class="n">name_char_hgt</span> <span class="o">=</span> <span class="n">name_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">CHAR_SIZE_FUDGE</span>
+                <span class="n">bbox</span> <span class="o">+=</span> <span class="n">_text_bbox</span><span class="p">(</span>
+                    <span class="n">name_text</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">dir_vec</span><span class="p">,</span> <span class="n">name_char_wid</span><span class="p">,</span> <span class="n">name_char_hgt</span>
+                <span class="p">)</span>
+
+            <span class="c1"># Add bounding box for pin number text.</span>
+            <span class="n">num_effects</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;effects&quot;</span><span class="p">,</span> <span class="p">{})</span>
+            <span class="n">num_font</span> <span class="o">=</span> <span class="n">num_effects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;font&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]})</span>
+            <span class="n">num_size</span> <span class="o">=</span> <span class="n">num_font</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;size&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+            <span class="n">num_text</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;misc&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">num_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">num_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">num_text</span><span class="p">:</span>
+                <span class="n">num_char_wid</span> <span class="o">=</span> <span class="n">num_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">CHAR_SIZE_FUDGE</span>
+                <span class="n">num_char_hgt</span> <span class="o">=</span> <span class="n">num_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">CHAR_SIZE_FUDGE</span>
+                <span class="n">bbox</span> <span class="o">+=</span> <span class="n">_text_bbox</span><span class="p">(</span><span class="n">num_text</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">dir_vec</span><span class="p">,</span> <span class="n">num_char_wid</span><span class="p">,</span> <span class="n">num_char_hgt</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">bbox</span>
+
+    <span class="c1"># Unknown shape type - return empty bbox.</span>
+    <span class="k">return</span> <span class="n">BBox</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">_text_bbox</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="nb">dir</span><span class="p">,</span> <span class="n">char_wid</span><span class="p">,</span> <span class="n">char_hgt</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate bounding box for text.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        text: String text.</span>
+<span class="sd">        start: Point where text starts.</span>
+<span class="sd">        dir: Direction vector for text orientation.</span>
+<span class="sd">        char_wid: Width of a single character.</span>
+<span class="sd">        char_hgt: Height of a single character.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        BBox: Bounding box for the text.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">BBox</span><span class="p">()</span>
+
+    <span class="n">char_wid</span> <span class="o">*=</span> <span class="n">CHAR_SIZE_FUDGE</span>
+    <span class="n">char_hgt</span> <span class="o">*=</span> <span class="n">CHAR_SIZE_FUDGE</span>
+    <span class="n">ortho_dir</span> <span class="o">=</span> <span class="nb">dir</span> <span class="o">*</span> <span class="n">Tx</span><span class="p">()</span><span class="o">.</span><span class="n">rot</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">start</span> <span class="o">-</span> <span class="n">ortho_dir</span> <span class="o">*</span> <span class="n">char_hgt</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">ortho_dir</span> <span class="o">*</span> <span class="n">char_hgt</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">p3</span> <span class="o">=</span> <span class="n">p1</span> <span class="o">+</span> <span class="nb">dir</span> <span class="o">*</span> <span class="n">char_wid</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">p4</span> <span class="o">=</span> <span class="n">p2</span> <span class="o">+</span> <span class="nb">dir</span> <span class="o">*</span> <span class="n">char_wid</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">BBox</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p4</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_draw_cmd_to_dict</span><span class="p">(</span><span class="n">symbol</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a symbol drawing command list into a dictionary for easier access.</span>
+
+<span class="sd">    This is a simplified version of draw_cmd_to_dict from gen_svg.py.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        symbol: A drawing command list from KiCad s-expression.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: Dictionary representation of the drawing command.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">symbol</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="n">symbol</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+    <span class="n">is_named_present</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">item_names</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">_draw_cmd_to_dict</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                <span class="c1"># Result is a (name, dict) tuple from a nested command</span>
+                <span class="n">item_name</span><span class="p">,</span> <span class="n">item_dict</span> <span class="o">=</span> <span class="n">result</span>
+                <span class="n">is_named_present</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Result is just a value (no nested commands)</span>
+                <span class="n">item_name</span> <span class="o">=</span> <span class="s2">&quot;misc&quot;</span>
+                <span class="n">item_dict</span> <span class="o">=</span> <span class="n">result</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">item_name</span> <span class="o">=</span> <span class="s2">&quot;misc&quot;</span>
+            <span class="n">item_dict</span> <span class="o">=</span> <span class="n">item</span>
+
+        <span class="k">if</span> <span class="n">item_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">item_names</span><span class="p">:</span>
+            <span class="n">item_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">item_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+            <span class="n">d</span><span class="p">[</span><span class="n">item_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">item_dict</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">d</span><span class="p">[</span><span class="n">item_name</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item_dict</span><span class="p">)</span>
+
+    <span class="c1"># If a list has only one item, remove it from the list.</span>
+    <span class="k">for</span> <span class="n">item_name</span> <span class="ow">in</span> <span class="n">item_names</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">item_name</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">d</span><span class="p">[</span><span class="n">item_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">item_name</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_named_present</span><span class="p">:</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;misc&quot;</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">name</span><span class="p">,</span> <span class="n">d</span>
+
+
+<span class="c1"># KiCad 9 symbol libraries use mm, but the placement engine uses mils.</span>
+<span class="c1"># Scale factor to convert mm → mils at the input boundary.</span>
+<span class="n">_MM_TO_MILS</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mf">0.0254</span>
+<span class="n">_mm_to_mils_tx</span> <span class="o">=</span> <span class="n">Tx</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">_MM_TO_MILS</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="n">_MM_TO_MILS</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="calc_symbol_bbox">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad10.bboxes.html#skidl.tools.kicad10.bboxes.calc_symbol_bbox">[docs]</a>
+<span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">calc_symbol_bbox</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the bounding box of the part symbol.</span>
+
+<span class="sd">    Calculates bounding box from the symbol&#39;s draw_cmds including pins,</span>
+<span class="sd">    graphical objects (polyline, circle, rectangle, arc), and text.</span>
+<span class="sd">    Coordinates are converted from library mm to placement-engine mils.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        part: Part object for which a bounding box will be created.</span>
+<span class="sd">        options (dict): Various options to control bounding box calculation.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of BBoxes: [overall_bbox, unit1_bbox, unit2_bbox, ...] in mils.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">bboxes</span> <span class="o">=</span> <span class="p">[</span><span class="n">BBox</span><span class="p">()]</span>  <span class="c1"># Overall bbox at index 0</span>
+
+    <span class="c1"># Get draw_cmds if available (contains graphical objects like rectangles, circles, text, etc.).</span>
+    <span class="n">draw_cmds</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;draw_cmds&quot;</span><span class="p">,</span> <span class="p">{})</span>
+
+    <span class="k">for</span> <span class="n">unit_key</span><span class="p">,</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">unit</span><span class="o">.</span><span class="n">bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">()</span>
+
+        <span class="c1"># Use unit.num (integer) to index into draw_cmds, since unit dict</span>
+        <span class="c1"># keys may be strings like &#39;uA&#39; while draw_cmds uses integers.</span>
+        <span class="n">unit_num</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="s2">&quot;num&quot;</span><span class="p">,</span> <span class="n">unit_key</span><span class="p">)</span>
+
+        <span class="c1"># Add bounding boxes for pins from draw_cmds.</span>
+        <span class="c1"># Also check global draw_cmds (unit 0) which may contain pins.</span>
+        <span class="k">for</span> <span class="n">cmd_key</span> <span class="ow">in</span> <span class="p">[</span><span class="n">unit_num</span><span class="p">,</span> <span class="mi">0</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="n">draw_cmds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cmd_key</span><span class="p">,</span> <span class="p">[]):</span>
+                <span class="k">if</span> <span class="n">cmd</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">cmd</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;pin&quot;</span><span class="p">:</span>
+                    <span class="n">pin_bbox</span> <span class="o">=</span> <span class="n">_calc_draw_cmd_bbox</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+                    <span class="n">unit</span><span class="o">.</span><span class="n">bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pin_bbox</span><span class="p">)</span>
+
+        <span class="c1"># Add bounding boxes for graphical/text objects in this unit.</span>
+        <span class="k">for</span> <span class="n">cmd_key</span> <span class="ow">in</span> <span class="p">[</span><span class="n">unit_num</span><span class="p">,</span> <span class="mi">0</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="n">draw_cmds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cmd_key</span><span class="p">,</span> <span class="p">[]):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">cmd</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">cmd_type</span> <span class="o">=</span> <span class="n">cmd</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">cmd_type</span> <span class="o">!=</span> <span class="s2">&quot;pin&quot;</span><span class="p">:</span>
+                    <span class="n">cmd_bbox</span> <span class="o">=</span> <span class="n">_calc_draw_cmd_bbox</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+                    <span class="n">unit</span><span class="o">.</span><span class="n">bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">cmd_bbox</span><span class="p">)</span>
+
+        <span class="c1"># Convert from library mm to placement-engine mils.</span>
+        <span class="n">unit</span><span class="o">.</span><span class="n">bbox</span> <span class="o">=</span> <span class="n">unit</span><span class="o">.</span><span class="n">bbox</span> <span class="o">*</span> <span class="n">_mm_to_mils_tx</span>
+        <span class="n">bboxes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">bbox</span><span class="p">)</span>
+        <span class="n">bboxes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">bbox</span><span class="p">)</span>
+
+    <span class="c1"># If no units, create a default bbox from part pins and draw_cmds.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">part</span><span class="o">.</span><span class="n">unit</span><span class="p">:</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">()</span>
+
+        <span class="c1"># Add bounding boxes for all draw commands (pins, graphics, text).</span>
+        <span class="c1"># Check both unit 1 and unit 0 draw_cmds.</span>
+        <span class="k">for</span> <span class="n">unit_key</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="n">draw_cmds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">unit_key</span><span class="p">,</span> <span class="p">[]):</span>
+                <span class="n">cmd_bbox</span> <span class="o">=</span> <span class="n">_calc_draw_cmd_bbox</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+                <span class="n">bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">cmd_bbox</span><span class="p">)</span>
+
+        <span class="c1"># Convert from library mm to placement-engine mils.</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">bbox</span> <span class="o">*</span> <span class="n">_mm_to_mils_tx</span>
+        <span class="n">part</span><span class="o">.</span><span class="n">bbox</span> <span class="o">=</span> <span class="n">bbox</span>
+        <span class="n">bboxes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">bbox</span>
+        <span class="n">bboxes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bbox</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">bboxes</span></div>
+
+
+
+<div class="viewcode-block" id="calc_hier_label_bbox">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad10.bboxes.html#skidl.tools.kicad10.bboxes.calc_hier_label_bbox">[docs]</a>
+<span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">calc_hier_label_bbox</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="nb">dir</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the bounding box for a hierarchical label.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        label (str): String for the label.</span>
+<span class="sd">        dir (str): Orientation (&quot;U&quot;, &quot;D&quot;, &quot;L&quot;, &quot;R&quot;).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        BBox: Bounding box for the label and hierarchical terminal.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">lbl_tx</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="n">tx_rot_90</span><span class="p">,</span>
+        <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="n">tx_rot_270</span><span class="p">,</span>
+        <span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="n">tx_rot_180</span><span class="p">,</span>
+        <span class="s2">&quot;R&quot;</span><span class="p">:</span> <span class="n">tx_rot_0</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">lbl_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="o">*</span> <span class="n">PIN_LABEL_FONT_SIZE</span> <span class="o">+</span> <span class="n">HIER_TERM_SIZE</span>
+    <span class="n">lbl_hgt</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">PIN_LABEL_FONT_SIZE</span><span class="p">,</span> <span class="n">HIER_TERM_SIZE</span><span class="p">)</span>
+
+    <span class="n">bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">lbl_hgt</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="n">lbl_len</span><span class="p">,</span> <span class="o">-</span><span class="n">lbl_hgt</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">bbox</span> <span class="o">*=</span> <span class="n">lbl_tx</span><span class="p">[</span><span class="nb">dir</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">bbox</span></div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad10.bboxes</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2026, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>

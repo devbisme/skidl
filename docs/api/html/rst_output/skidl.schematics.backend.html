@@ -1,0 +1,308 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>skidl.schematics.backend module &#8212; SKiDL 2.3.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../_static/documentation_options.js?v=c3c8ae58"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../"><img src="../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.schematics.backend module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-skidl.schematics.backend">
+<span id="skidl-schematics-backend-module"></span><h1>skidl.schematics.backend module<a class="headerlink" href="#module-skidl.schematics.backend" title="Link to this heading">¶</a></h1>
+<p>Tool-agnostic schematic backend interface.</p>
+<p>This module defines the dependency surface that the tool-agnostic decision
+layer (<code class="docutils literal notranslate"><span class="pre">schematics/decisions.py</span></code>, <code class="docutils literal notranslate"><span class="pre">schematics/snap.py</span></code>) needs from a
+concrete schematic backend (e.g. <code class="docutils literal notranslate"><span class="pre">tools/kicad9</span></code>). It is deliberately
+tool-agnostic: it imports nothing from any <code class="docutils literal notranslate"><span class="pre">skidl.tools.*</span></code> package, and the
+KiCad coordinate convention / S-expression syntax never leaks across this
+boundary.</p>
+<p>The split is: the agnostic layer <em>decides</em> (which pins overlap, which power
+pins form a bus, how labels deconflict), expressed entirely in <strong>render-mm</strong>
+coordinates as returned by <code class="docutils literal notranslate"><span class="pre">backend.pin_render_pos</span></code>; the backend <em>measures</em>
+(geometry queries) and <em>writes</em> (emission primitives).</p>
+<p>See <code class="docutils literal notranslate"><span class="pre">ARCHITECTURE-snap-backend-split.md</span></code> (branch <code class="docutils literal notranslate"><span class="pre">docs/snap-backend-split</span></code>)
+for the full design, especially sections 2, 3, 5 and 7.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="skidl.schematics.backend.Element">
+<span class="sig-prename descclassname"><span class="pre">skidl.schematics.backend.</span></span><span class="sig-name descname"><span class="pre">Element</span></span><a class="headerlink" href="#skidl.schematics.backend.Element" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="skidl.schematics.backend.LabelPlacement">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.schematics.backend.</span></span><span class="sig-name descname"><span class="pre">LabelPlacement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">anchor_xy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/typing.html#typing.Tuple" title="(in Python v3.13)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_xy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/typing.html#typing.Tuple" title="(in Python v3.13)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deconflictable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/backend.html#LabelPlacement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.backend.LabelPlacement" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A resolved net-label / power-symbol placement (render-mm).</p>
+<p><code class="docutils literal notranslate"><span class="pre">anchor_xy</span></code> is the electrical connection point and is FIXED on the pin
+(in KiCad the label/power-symbol <code class="docutils literal notranslate"><span class="pre">at</span></code> <em>is</em> the connection point).
+<code class="docutils literal notranslate"><span class="pre">text_xy</span></code> is where the label text renders and may be nudged by
+deconfliction. <code class="docutils literal notranslate"><span class="pre">deconflictable</span></code> is False for power symbols, whose anchor
+must not move (moving it disconnects the net).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="skidl.schematics.backend.LabelPlacement.anchor_xy">
+<span class="sig-name descname"><span class="pre">anchor_xy</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/library/typing.html#typing.Tuple" title="(in Python v3.13)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#skidl.schematics.backend.LabelPlacement.anchor_xy" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="skidl.schematics.backend.LabelPlacement.deconflictable">
+<span class="sig-name descname"><span class="pre">deconflictable</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></em><a class="headerlink" href="#skidl.schematics.backend.LabelPlacement.deconflictable" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="skidl.schematics.backend.LabelPlacement.text_xy">
+<span class="sig-name descname"><span class="pre">text_xy</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/library/typing.html#typing.Tuple" title="(in Python v3.13)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#skidl.schematics.backend.LabelPlacement.text_xy" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="skidl.schematics.backend.PinDir">
+<span class="sig-prename descclassname"><span class="pre">skidl.schematics.backend.</span></span><span class="sig-name descname"><span class="pre">PinDir</span></span><a class="headerlink" href="#skidl.schematics.backend.PinDir" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="skidl.schematics.backend.RenderContext">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.schematics.backend.</span></span><span class="sig-name descname"><span class="pre">RenderContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#skidl.schematics.backend.SchematicBackend" title="skidl.schematics.backend.SchematicBackend"><span class="pre">SchematicBackend</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/backend.html#RenderContext"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.backend.RenderContext" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Memoizes <code class="docutils literal notranslate"><span class="pre">pin_render_pos</span></code> / <code class="docutils literal notranslate"><span class="pre">pin_render_dir</span></code> for a backend.</p>
+<p>Per architecture doc section 7, item 6: the cache key cannot be just
+<code class="docutils literal notranslate"><span class="pre">(pin,</span> <span class="pre">sheet_tx)</span></code> because snap mutates <code class="docutils literal notranslate"><span class="pre">part.tx</span></code> mid-pipeline. The
+simplest safe discipline (adopted here) is to only use the cache once snap
+has finalized all <code class="docutils literal notranslate"><span class="pre">part.tx</span></code> values; snap’s own pre-finalization
+measurements go straight to the backend and are not cached.</p>
+<p>The key folds in the part’s transform coefficients so that any <code class="docutils literal notranslate"><span class="pre">part.tx</span></code>
+mutation invalidates a stale entry automatically.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.backend.RenderContext.invalidate">
+<span class="sig-name descname"><span class="pre">invalidate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/backend.html#RenderContext.invalidate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.backend.RenderContext.invalidate" title="Link to this definition">¶</a></dt>
+<dd><p>Drop all cached geometry (call after any phase that moves parts).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.backend.RenderContext.pin_render_dir">
+<span class="sig-name descname"><span class="pre">pin_render_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet_tx</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/skidl/schematics/backend.html#RenderContext.pin_render_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.backend.RenderContext.pin_render_dir" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.backend.RenderContext.pin_render_pos">
+<span class="sig-name descname"><span class="pre">pin_render_pos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet_tx</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/typing.html#typing.Tuple" title="(in Python v3.13)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/skidl/schematics/backend.html#RenderContext.pin_render_pos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.backend.RenderContext.pin_render_pos" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="skidl.schematics.backend.SchematicBackend">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.schematics.backend.</span></span><span class="sig-name descname"><span class="pre">SchematicBackend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/backend.html#SchematicBackend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.backend.SchematicBackend" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/typing.html#typing.Protocol" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code></a></p>
+<p>The geometry + emission surface a backend exposes to the agnostic layer.</p>
+<p>Geometry queries answer “where/which-way does the tool draw this?” in the
+tool’s own flip/mirror/rotate convention. Emission primitives write the
+tool’s native elements. See the architecture doc, section 3.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.backend.SchematicBackend.emit_junction">
+<span class="sig-name descname"><span class="pre">emit_junction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><span class="pre">object</span></a></span></span><a class="reference internal" href="../_modules/skidl/schematics/backend.html#SchematicBackend.emit_junction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.backend.SchematicBackend.emit_junction" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.backend.SchematicBackend.emit_label">
+<span class="sig-name descname"><span class="pre">emit_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet_tx</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">at</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><span class="pre">object</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/skidl/schematics/backend.html#SchematicBackend.emit_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.backend.SchematicBackend.emit_label" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.backend.SchematicBackend.emit_no_connect">
+<span class="sig-name descname"><span class="pre">emit_no_connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><span class="pre">object</span></a></span></span><a class="reference internal" href="../_modules/skidl/schematics/backend.html#SchematicBackend.emit_no_connect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.backend.SchematicBackend.emit_no_connect" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.backend.SchematicBackend.emit_part">
+<span class="sig-name descname"><span class="pre">emit_part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet_tx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid_path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><span class="pre">object</span></a></span></span><a class="reference internal" href="../_modules/skidl/schematics/backend.html#SchematicBackend.emit_part"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.backend.SchematicBackend.emit_part" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.backend.SchematicBackend.emit_power_symbol">
+<span class="sig-name descname"><span class="pre">emit_power_symbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet_tx</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><span class="pre">object</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/skidl/schematics/backend.html#SchematicBackend.emit_power_symbol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.backend.SchematicBackend.emit_power_symbol" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.backend.SchematicBackend.emit_wire">
+<span class="sig-name descname"><span class="pre">emit_wire</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><span class="pre">object</span></a></span></span><a class="reference internal" href="../_modules/skidl/schematics/backend.html#SchematicBackend.emit_wire"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.backend.SchematicBackend.emit_wire" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.backend.SchematicBackend.is_power_net_name">
+<span class="sig-name descname"><span class="pre">is_power_net_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/skidl/schematics/backend.html#SchematicBackend.is_power_net_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.backend.SchematicBackend.is_power_net_name" title="Link to this definition">¶</a></dt>
+<dd><p>True if <code class="docutils literal notranslate"><span class="pre">name</span></code> matches a tool power-symbol.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.backend.SchematicBackend.label_bbox">
+<span class="sig-name descname"><span class="pre">label_bbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/typing.html#typing.Tuple" title="(in Python v3.13)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/skidl/schematics/backend.html#SchematicBackend.label_bbox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.backend.SchematicBackend.label_bbox" title="Link to this definition">¶</a></dt>
+<dd><p>(width, height) in mm of a rendered net-label box for <code class="docutils literal notranslate"><span class="pre">text</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.backend.SchematicBackend.pin_render_dir">
+<span class="sig-name descname"><span class="pre">pin_render_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet_tx</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/skidl/schematics/backend.html#SchematicBackend.pin_render_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.backend.SchematicBackend.pin_render_dir" title="Link to this definition">¶</a></dt>
+<dd><p>Which way the pin points AFTER the tool’s transform.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.backend.SchematicBackend.pin_render_pos">
+<span class="sig-name descname"><span class="pre">pin_render_pos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet_tx</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/typing.html#typing.Tuple" title="(in Python v3.13)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/skidl/schematics/backend.html#SchematicBackend.pin_render_pos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.backend.SchematicBackend.pin_render_pos" title="Link to this definition">¶</a></dt>
+<dd><p>(x, y) in mm where the tool will actually DRAW this pin.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.backend.SchematicBackend.render_xy">
+<span class="sig-name descname"><span class="pre">render_xy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ly</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">part</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet_tx</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/typing.html#typing.Tuple" title="(in Python v3.13)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/skidl/schematics/backend.html#SchematicBackend.render_xy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.backend.SchematicBackend.render_xy" title="Link to this definition">¶</a></dt>
+<dd><p>Render-mm position of an arbitrary part-local point (e.g. a body
+bbox corner) under the tool’s transform convention. Same convention as
+<code class="docutils literal notranslate"><span class="pre">pin_render_pos</span></code> but for non-pin points; needed by power-bus
+body-crossing checks.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.backend.SchematicBackend.round_mm">
+<span class="sig-name descname"><span class="pre">round_mm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../_modules/skidl/schematics/backend.html#SchematicBackend.round_mm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.backend.SchematicBackend.round_mm" title="Link to this definition">¶</a></dt>
+<dd><p>Round a coordinate to the tool’s grid precision (KiCad: 2 dp).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.backend.SchematicBackend.solve_snap_tx">
+<span class="sig-name descname"><span class="pre">solve_snap_tx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">my_pin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_render_xy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extend_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet_tx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/backend.html#SchematicBackend.solve_snap_tx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.backend.SchematicBackend.solve_snap_tx" title="Link to this definition">¶</a></dt>
+<dd><p>Return a new <code class="docutils literal notranslate"><span class="pre">part.tx</span></code> so <code class="docutils literal notranslate"><span class="pre">my_pin</span></code> renders at the target.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="skidl.schematics.backend.SchematicBackend.supports_snap">
+<span class="sig-name descname"><span class="pre">supports_snap</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></em><a class="headerlink" href="#skidl.schematics.backend.SchematicBackend.supports_snap" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">skidl.schematics.backend module</a><ul>
+<li><a class="reference internal" href="#skidl.schematics.backend.Element"><code class="docutils literal notranslate"><span class="pre">Element</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.backend.LabelPlacement"><code class="docutils literal notranslate"><span class="pre">LabelPlacement</span></code></a><ul>
+<li><a class="reference internal" href="#skidl.schematics.backend.LabelPlacement.anchor_xy"><code class="docutils literal notranslate"><span class="pre">LabelPlacement.anchor_xy</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.backend.LabelPlacement.deconflictable"><code class="docutils literal notranslate"><span class="pre">LabelPlacement.deconflictable</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.backend.LabelPlacement.text_xy"><code class="docutils literal notranslate"><span class="pre">LabelPlacement.text_xy</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#skidl.schematics.backend.PinDir"><code class="docutils literal notranslate"><span class="pre">PinDir</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.backend.RenderContext"><code class="docutils literal notranslate"><span class="pre">RenderContext</span></code></a><ul>
+<li><a class="reference internal" href="#skidl.schematics.backend.RenderContext.invalidate"><code class="docutils literal notranslate"><span class="pre">RenderContext.invalidate()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.backend.RenderContext.pin_render_dir"><code class="docutils literal notranslate"><span class="pre">RenderContext.pin_render_dir()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.backend.RenderContext.pin_render_pos"><code class="docutils literal notranslate"><span class="pre">RenderContext.pin_render_pos()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#skidl.schematics.backend.SchematicBackend"><code class="docutils literal notranslate"><span class="pre">SchematicBackend</span></code></a><ul>
+<li><a class="reference internal" href="#skidl.schematics.backend.SchematicBackend.emit_junction"><code class="docutils literal notranslate"><span class="pre">SchematicBackend.emit_junction()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.backend.SchematicBackend.emit_label"><code class="docutils literal notranslate"><span class="pre">SchematicBackend.emit_label()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.backend.SchematicBackend.emit_no_connect"><code class="docutils literal notranslate"><span class="pre">SchematicBackend.emit_no_connect()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.backend.SchematicBackend.emit_part"><code class="docutils literal notranslate"><span class="pre">SchematicBackend.emit_part()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.backend.SchematicBackend.emit_power_symbol"><code class="docutils literal notranslate"><span class="pre">SchematicBackend.emit_power_symbol()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.backend.SchematicBackend.emit_wire"><code class="docutils literal notranslate"><span class="pre">SchematicBackend.emit_wire()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.backend.SchematicBackend.is_power_net_name"><code class="docutils literal notranslate"><span class="pre">SchematicBackend.is_power_net_name()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.backend.SchematicBackend.label_bbox"><code class="docutils literal notranslate"><span class="pre">SchematicBackend.label_bbox()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.backend.SchematicBackend.pin_render_dir"><code class="docutils literal notranslate"><span class="pre">SchematicBackend.pin_render_dir()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.backend.SchematicBackend.pin_render_pos"><code class="docutils literal notranslate"><span class="pre">SchematicBackend.pin_render_pos()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.backend.SchematicBackend.render_xy"><code class="docutils literal notranslate"><span class="pre">SchematicBackend.render_xy()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.backend.SchematicBackend.round_mm"><code class="docutils literal notranslate"><span class="pre">SchematicBackend.round_mm()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.backend.SchematicBackend.solve_snap_tx"><code class="docutils literal notranslate"><span class="pre">SchematicBackend.solve_snap_tx()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.schematics.backend.SchematicBackend.supports_snap"><code class="docutils literal notranslate"><span class="pre">SchematicBackend.supports_snap</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rst_output/skidl.schematics.backend.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.schematics.backend module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2026, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>

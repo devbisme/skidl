@@ -1,0 +1,354 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.tools.kicad6.backend &#8212; SKiDL 2.3.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../../../../_static/documentation_options.js?v=c3c8ae58"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../../../../"><img src="../../../../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad6.backend</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skidl.tools.kicad6.backend</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
+
+<span class="sd">&quot;&quot;&quot;Concrete KiCad-9 implementation of the tool-agnostic SchematicBackend.</span>
+
+<span class="sd">Every method here delegates VERBATIM to the existing functions in</span>
+<span class="sd">``sexp_schematic.py`` — this is a thin adapter so the agnostic decision layer</span>
+<span class="sd">(``schematics/decisions.py``) can reach the KiCad render geometry and emission</span>
+<span class="sd">primitives through the interface in ``schematics/backend.py`` without importing</span>
+<span class="sd">``skidl.tools.kicad9`` directly. The KiCad coordinate math and S-expression</span>
+<span class="sd">syntax stay in ``sexp_schematic.py``; nothing here changes output.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">skidl.geometry</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Tx</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">sexp_schematic</span> <span class="k">as</span> <span class="n">_ksch</span>
+
+
+<div class="viewcode-block" id="Kicad9Backend">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad6.backend.html#skidl.tools.kicad6.backend.Kicad9Backend">[docs]</a>
+<span class="k">class</span> <span class="nc">Kicad9Backend</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Adapter exposing kicad9 geometry + emission as a SchematicBackend.</span>
+
+<span class="sd">    Interface status (honest): geometry queries (pin_render_pos, pin_render_dir,</span>
+<span class="sd">    is_power_net_name, render_xy, label_bbox) are LIVE — consumed by</span>
+<span class="sd">    schematics.decisions. Among emission primitives, emit_wire and</span>
+<span class="sd">    emit_no_connect ARE on the live path; emit_label/emit_part/</span>
+<span class="sd">    emit_power_symbol/emit_junction are defined for completeness but the renderer</span>
+<span class="sd">    still uses the module-level functions for those. solve_snap_tx is DEFERRED</span>
+<span class="sd">    (raises; see doc P1b).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">supports_snap</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1"># ---- GEOMETRY ----</span>
+
+<div class="viewcode-block" id="Kicad9Backend.pin_render_pos">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad6.backend.html#skidl.tools.kicad6.backend.Kicad9Backend.pin_render_pos">[docs]</a>
+    <span class="k">def</span> <span class="nf">pin_render_pos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;KiCad render-mm position of a pin == ``_kicad_pin_pos``.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">_ksch</span><span class="o">.</span><span class="n">_kicad_pin_pos</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;tx&quot;</span><span class="p">,</span> <span class="n">Tx</span><span class="p">()),</span> <span class="n">sheet_tx</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Kicad9Backend.pin_render_dir">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad6.backend.html#skidl.tools.kicad6.backend.Kicad9Backend.pin_render_dir">[docs]</a>
+    <span class="k">def</span> <span class="nf">pin_render_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Render-space pin direction == ``calc_pin_dir``.</span>
+
+<span class="sd">        Note: the present ``calc_pin_dir`` ignores ``sheet_tx`` (see the</span>
+<span class="sd">        architecture doc, section 3 / section 6). Folding ``sheet_tx`` in would</span>
+<span class="sd">        change output, so this adapter preserves the current behavior exactly.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">_ksch</span><span class="o">.</span><span class="n">calc_pin_dir</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Kicad9Backend.is_power_net_name">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad6.backend.html#skidl.tools.kicad6.backend.Kicad9Backend.is_power_net_name">[docs]</a>
+    <span class="k">def</span> <span class="nf">is_power_net_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">_ksch</span><span class="o">.</span><span class="n">pwr_symbol_names</span></div>
+
+
+<div class="viewcode-block" id="Kicad9Backend.render_xy">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad6.backend.html#skidl.tools.kicad6.backend.Kicad9Backend.render_xy">[docs]</a>
+    <span class="k">def</span> <span class="nf">render_xy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lx</span><span class="p">,</span> <span class="n">ly</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Render-mm of an arbitrary part-local point == ``_render_xy``.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">_ksch</span><span class="o">.</span><span class="n">_render_xy</span><span class="p">(</span><span class="n">lx</span><span class="p">,</span> <span class="n">ly</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;tx&quot;</span><span class="p">,</span> <span class="n">Tx</span><span class="p">()),</span> <span class="n">sheet_tx</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Kicad9Backend.round_mm">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad6.backend.html#skidl.tools.kicad6.backend.Kicad9Backend.round_mm">[docs]</a>
+    <span class="k">def</span> <span class="nf">round_mm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_ksch</span><span class="o">.</span><span class="n">_round_mm</span><span class="p">(</span><span class="n">val</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Kicad9Backend.solve_snap_tx">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad6.backend.html#skidl.tools.kicad6.backend.Kicad9Backend.solve_snap_tx">[docs]</a>
+    <span class="k">def</span> <span class="nf">solve_snap_tx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="n">my_pin</span><span class="p">,</span> <span class="n">target_render_xy</span><span class="p">,</span> <span class="n">extend_dir</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">):</span>
+        <span class="c1"># DEFERRED (doc P1b) and NOT wired into the snap pipeline, which solves</span>
+        <span class="c1"># part.tx in PLACEMENT space via schematics.snap._compute_snap_tx called</span>
+        <span class="c1"># directly from snap.py. This interface method can&#39;t delegate correctly</span>
+        <span class="c1"># anyway (it lacks `other_pin`, which _compute_snap_tx requires), and a</span>
+        <span class="c1"># render-space solver here would change output. Raise rather than</span>
+        <span class="c1"># silently mis-solve.</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+            <span class="s2">&quot;solve_snap_tx is deferred (doc P1b); snap solves in placement space &quot;</span>
+            <span class="s2">&quot;via schematics.snap._compute_snap_tx, not through this interface.&quot;</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Kicad9Backend.label_bbox">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad6.backend.html#skidl.tools.kicad6.backend.Kicad9Backend.label_bbox">[docs]</a>
+    <span class="k">def</span> <span class="nf">label_bbox</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Rendered net-label box size in mm.</span>
+
+<span class="sd">        Matches the fixed box that ``_deconflict_labels`` uses today</span>
+<span class="sd">        (LABEL_W x LABEL_H), so the relocated deconfliction is byte-identical.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span></div>
+
+
+    <span class="c1"># ---- EMISSION ----</span>
+
+<div class="viewcode-block" id="Kicad9Backend.emit_wire">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad6.backend.html#skidl.tools.kicad6.backend.Kicad9Backend.emit_wire">[docs]</a>
+    <span class="k">def</span> <span class="nf">emit_wire</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">net_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">uuid_seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Build a bare wire Sexp at render-mm coords.</span>
+
+<span class="sd">        Mirrors the inline wire construction in the decision functions; the</span>
+<span class="sd">        caller supplies the UUID seed so emitted UUIDs match the originals.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">simp_sexp</span> <span class="kn">import</span> <span class="n">Sexp</span>
+
+        <span class="k">if</span> <span class="n">uuid_seed</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">uuid_seed</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;wire:</span><span class="si">{</span><span class="n">x1</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">y1</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">x2</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">y2</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="n">Sexp</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="s2">&quot;wire&quot;</span><span class="p">,</span>
+                <span class="p">[</span><span class="s2">&quot;pts&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;xy&quot;</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;xy&quot;</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">]],</span>
+                <span class="p">[</span><span class="s2">&quot;stroke&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="s2">&quot;default&quot;</span><span class="p">]],</span>
+                <span class="p">[</span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span> <span class="n">_ksch</span><span class="o">.</span><span class="n">_gen_uuid</span><span class="p">(</span><span class="n">uuid_seed</span><span class="p">)],</span>
+            <span class="p">]</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Kicad9Backend.emit_label">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad6.backend.html#skidl.tools.kicad6.backend.Kicad9Backend.emit_label">[docs]</a>
+    <span class="k">def</span> <span class="nf">emit_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="c1"># `at`/`angle` override placement is part of the interface contract but</span>
+        <span class="c1"># not implemented here (the renderer positions labels at the pin via</span>
+        <span class="c1"># net_label_to_sexp). Reject explicitly so callers can&#39;t assume override</span>
+        <span class="c1"># support that isn&#39;t present.</span>
+        <span class="k">if</span> <span class="n">at</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">angle</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                <span class="s2">&quot;emit_label override placement (at/angle) is not yet supported.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">_ksch</span><span class="o">.</span><span class="n">net_label_to_sexp</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="n">sheet_tx</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Kicad9Backend.emit_no_connect">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad6.backend.html#skidl.tools.kicad6.backend.Kicad9Backend.emit_no_connect">[docs]</a>
+    <span class="k">def</span> <span class="nf">emit_no_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">uuid_seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">simp_sexp</span> <span class="kn">import</span> <span class="n">Sexp</span>
+
+        <span class="k">if</span> <span class="n">uuid_seed</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">uuid_seed</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;nc:</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="n">Sexp</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="s2">&quot;no_connect&quot;</span><span class="p">,</span>
+                <span class="p">[</span><span class="s2">&quot;at&quot;</span><span class="p">,</span> <span class="n">_ksch</span><span class="o">.</span><span class="n">_round_mm</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">_ksch</span><span class="o">.</span><span class="n">_round_mm</span><span class="p">(</span><span class="n">y</span><span class="p">)],</span>
+                <span class="p">[</span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span> <span class="n">_ksch</span><span class="o">.</span><span class="n">_gen_uuid</span><span class="p">(</span><span class="n">uuid_seed</span><span class="p">)],</span>
+            <span class="p">]</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Kicad9Backend.emit_power_symbol">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad6.backend.html#skidl.tools.kicad6.backend.Kicad9Backend.emit_power_symbol">[docs]</a>
+    <span class="k">def</span> <span class="nf">emit_power_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="p">,</span> <span class="n">net_name</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_ksch</span><span class="o">.</span><span class="n">_power_symbol_to_sexp</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">net_name</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Kicad9Backend.emit_part">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad6.backend.html#skidl.tools.kicad6.backend.Kicad9Backend.emit_part">[docs]</a>
+    <span class="k">def</span> <span class="nf">emit_part</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">,</span> <span class="n">uuid_path</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_ksch</span><span class="o">.</span><span class="n">part_to_sexp</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">uuid_path</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="n">sheet_tx</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Kicad9Backend.apply_label_deconfliction">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad6.backend.html#skidl.tools.kicad6.backend.Kicad9Backend.apply_label_deconfliction">[docs]</a>
+    <span class="k">def</span> <span class="nf">apply_label_deconfliction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elements</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read global_label/wire Sexps, run the agnostic deconfliction</span>
+<span class="sd">        decision, then mutate label ``at`` coords + append connecting wires.</span>
+
+<span class="sd">        The Sexp reading and mutation (tool-specific) stay here; the overlap</span>
+<span class="sd">        detection + nudge-target decision lives in</span>
+<span class="sd">        ``schematics.decisions.deconflict_labels``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">skidl.schematics</span> <span class="kn">import</span> <span class="n">decisions</span> <span class="k">as</span> <span class="n">_decisions</span>
+
+        <span class="n">GRID</span> <span class="o">=</span> <span class="mf">1.27</span>
+
+        <span class="k">def</span> <span class="nf">_cell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="n">GRID</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">y</span> <span class="o">/</span> <span class="n">GRID</span><span class="p">))</span>
+
+        <span class="c1"># Build the occupancy seed in element order (label anchors keyed by</span>
+        <span class="c1"># net, wire endpoints keyed None) — one pass, matching the original.</span>
+        <span class="n">occupied_seed</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="s2">&quot;__getitem__&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">elem</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;global_label&quot;</span><span class="p">:</span>
+                <span class="n">at</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">elem</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&quot;__getitem__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">and</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;at&quot;</span><span class="p">),</span>
+                    <span class="kc">None</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">at</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">at</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+                    <span class="n">occupied_seed</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">_cell</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">at</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">at</span><span class="p">[</span><span class="mi">2</span><span class="p">])),</span> <span class="n">elem</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="k">elif</span> <span class="n">elem</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;wire&quot;</span><span class="p">:</span>
+                <span class="n">pts</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">elem</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&quot;__getitem__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">and</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;pts&quot;</span><span class="p">),</span>
+                    <span class="kc">None</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">pts</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">xy</span> <span class="ow">in</span> <span class="n">pts</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">xy</span><span class="p">,</span> <span class="s2">&quot;__getitem__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">xy</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;xy&quot;</span><span class="p">:</span>
+                            <span class="n">occupied_seed</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">_cell</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">xy</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">xy</span><span class="p">[</span><span class="mi">2</span><span class="p">])),</span> <span class="kc">None</span><span class="p">))</span>
+
+        <span class="c1"># Extract label records to move (in element order), with their `at` sexp.</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">at_by_idx</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">elem</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">elements</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="s2">&quot;__getitem__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">elem</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;global_label&quot;</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">at</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">elem</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&quot;__getitem__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;at&quot;</span><span class="p">),</span>
+                <span class="kc">None</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">at</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">at</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">elem</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">float</span><span class="p">(</span><span class="n">at</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">at</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">at</span><span class="p">[</span><span class="mi">3</span><span class="p">])))</span>
+            <span class="n">at_by_idx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">at</span>
+
+        <span class="n">moves</span><span class="p">,</span> <span class="n">new_wires</span> <span class="o">=</span> <span class="n">_decisions</span><span class="o">.</span><span class="n">deconflict_labels</span><span class="p">(</span>
+            <span class="n">labels</span><span class="p">,</span> <span class="n">occupied_seed</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">sheet_tx</span>
+        <span class="p">)</span>
+        <span class="c1"># Apply moves.</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="ow">in</span> <span class="n">moves</span><span class="p">:</span>
+            <span class="n">at</span> <span class="o">=</span> <span class="n">at_by_idx</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+            <span class="n">at</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">at</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span>
+        <span class="c1"># Append connecting wires.</span>
+        <span class="kn">from</span> <span class="nn">simp_sexp</span> <span class="kn">import</span> <span class="n">Sexp</span>
+
+        <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">ay</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="ow">in</span> <span class="n">new_wires</span><span class="p">:</span>
+            <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">Sexp</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;wire&quot;</span><span class="p">,</span>
+                        <span class="p">[</span><span class="s2">&quot;pts&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;xy&quot;</span><span class="p">,</span> <span class="n">_ksch</span><span class="o">.</span><span class="n">_round_mm</span><span class="p">(</span><span class="n">ax</span><span class="p">),</span> <span class="n">_ksch</span><span class="o">.</span><span class="n">_round_mm</span><span class="p">(</span><span class="n">ay</span><span class="p">)],</span> <span class="p">[</span><span class="s2">&quot;xy&quot;</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">]],</span>
+                        <span class="p">[</span><span class="s2">&quot;stroke&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="s2">&quot;default&quot;</span><span class="p">]],</span>
+                        <span class="p">[</span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span> <span class="n">_ksch</span><span class="o">.</span><span class="n">_gen_uuid</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;dcwire:</span><span class="si">{</span><span class="n">ax</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">ay</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">nx</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">ny</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)],</span>
+                    <span class="p">]</span>
+                <span class="p">)</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Kicad9Backend.emit_junction">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad6.backend.html#skidl.tools.kicad6.backend.Kicad9Backend.emit_junction">[docs]</a>
+    <span class="k">def</span> <span class="nf">emit_junction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="c1"># Junctions are emitted per-net via junction_to_sexp today; this</span>
+        <span class="c1"># primitive is provided for interface completeness.</span>
+        <span class="kn">from</span> <span class="nn">simp_sexp</span> <span class="kn">import</span> <span class="n">Sexp</span>
+
+        <span class="k">return</span> <span class="n">Sexp</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="s2">&quot;junction&quot;</span><span class="p">,</span>
+                <span class="p">[</span><span class="s2">&quot;at&quot;</span><span class="p">,</span> <span class="n">_ksch</span><span class="o">.</span><span class="n">_round_mm</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">_ksch</span><span class="o">.</span><span class="n">_round_mm</span><span class="p">(</span><span class="n">y</span><span class="p">)],</span>
+                <span class="p">[</span><span class="s2">&quot;diameter&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                <span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                <span class="p">[</span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span> <span class="n">_ksch</span><span class="o">.</span><span class="n">_gen_uuid</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;junction:</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)],</span>
+            <span class="p">]</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Kicad9Backend&quot;</span><span class="p">]</span>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad6.backend</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2026, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>

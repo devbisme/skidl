@@ -1,0 +1,7 @@
+skidl.schematics.snap module
+============================
+
+.. automodule:: skidl.schematics.snap
+   :members:
+   :show-inheritance:
+   :undoc-members:

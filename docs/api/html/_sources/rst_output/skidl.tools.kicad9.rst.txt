@@ -12,6 +12,7 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
+   skidl.tools.kicad9.backend
    skidl.tools.kicad9.bboxes
    skidl.tools.kicad9.constants
    skidl.tools.kicad9.gen_netlist

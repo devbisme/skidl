@@ -1,0 +1,330 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.schematics.backend &#8212; SKiDL 2.3.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../../../_static/documentation_options.js?v=c3c8ae58"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../../../"><img src="../../../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.schematics.backend</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skidl.schematics.backend</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
+
+<span class="sd">&quot;&quot;&quot;Tool-agnostic schematic backend interface.</span>
+
+<span class="sd">This module defines the dependency surface that the tool-agnostic decision</span>
+<span class="sd">layer (``schematics/decisions.py``, ``schematics/snap.py``) needs from a</span>
+<span class="sd">concrete schematic backend (e.g. ``tools/kicad9``). It is deliberately</span>
+<span class="sd">tool-agnostic: it imports nothing from any ``skidl.tools.*`` package, and the</span>
+<span class="sd">KiCad coordinate convention / S-expression syntax never leaks across this</span>
+<span class="sd">boundary.</span>
+
+<span class="sd">The split is: the agnostic layer *decides* (which pins overlap, which power</span>
+<span class="sd">pins form a bus, how labels deconflict), expressed entirely in **render-mm**</span>
+<span class="sd">coordinates as returned by ``backend.pin_render_pos``; the backend *measures*</span>
+<span class="sd">(geometry queries) and *writes* (emission primitives).</span>
+
+<span class="sd">See ``ARCHITECTURE-snap-backend-split.md`` (branch ``docs/snap-backend-split``)</span>
+<span class="sd">for the full design, especially sections 2, 3, 5 and 7.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="k">try</span><span class="p">:</span>  <span class="c1"># pragma: no cover - typing.Protocol is stdlib on 3.8+</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">runtime_checkable</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+    <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">runtime_checkable</span>  <span class="c1"># type: ignore</span>
+
+<span class="c1"># A pin direction in RENDER space: one of &quot;U&quot; | &quot;D&quot; | &quot;L&quot; | &quot;R&quot;.</span>
+<span class="n">PinDir</span> <span class="o">=</span> <span class="nb">str</span>
+
+<span class="c1"># An opaque backend element (KiCad: an Sexp). The agnostic layer never</span>
+<span class="c1"># inspects this; it only collects elements the backend produced.</span>
+<span class="n">Element</span> <span class="o">=</span> <span class="nb">object</span>
+
+
+<div class="viewcode-block" id="LabelPlacement">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.backend.html#skidl.schematics.backend.LabelPlacement">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">LabelPlacement</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A resolved net-label / power-symbol placement (render-mm).</span>
+
+<span class="sd">    ``anchor_xy`` is the electrical connection point and is FIXED on the pin</span>
+<span class="sd">    (in KiCad the label/power-symbol ``at`` *is* the connection point).</span>
+<span class="sd">    ``text_xy`` is where the label text renders and may be nudged by</span>
+<span class="sd">    deconfliction. ``deconflictable`` is False for power symbols, whose anchor</span>
+<span class="sd">    must not move (moving it disconnects the net).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">anchor_xy</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+    <span class="n">text_xy</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+    <span class="n">deconflictable</span><span class="p">:</span> <span class="nb">bool</span></div>
+
+
+
+<div class="viewcode-block" id="SchematicBackend">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.backend.html#skidl.schematics.backend.SchematicBackend">[docs]</a>
+<span class="nd">@runtime_checkable</span>
+<span class="k">class</span> <span class="nc">SchematicBackend</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The geometry + emission surface a backend exposes to the agnostic layer.</span>
+
+<span class="sd">    Geometry queries answer &quot;where/which-way does the tool draw this?&quot; in the</span>
+<span class="sd">    tool&#39;s own flip/mirror/rotate convention. Emission primitives write the</span>
+<span class="sd">    tool&#39;s native elements. See the architecture doc, section 3.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># capability gate — backends that do not implement the geometry interface</span>
+    <span class="c1"># report supports_snap=False so the snap phase is skipped explicitly.</span>
+    <span class="n">supports_snap</span><span class="p">:</span> <span class="nb">bool</span>
+
+    <span class="c1"># ---- GEOMETRY (tool-specific) ----</span>
+
+<div class="viewcode-block" id="SchematicBackend.pin_render_pos">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.backend.html#skidl.schematics.backend.SchematicBackend.pin_render_pos">[docs]</a>
+    <span class="k">def</span> <span class="nf">pin_render_pos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;(x, y) in mm where the tool will actually DRAW this pin.&quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="SchematicBackend.pin_render_dir">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.backend.html#skidl.schematics.backend.SchematicBackend.pin_render_dir">[docs]</a>
+    <span class="k">def</span> <span class="nf">pin_render_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PinDir</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Which way the pin points AFTER the tool&#39;s transform.&quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="SchematicBackend.is_power_net_name">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.backend.html#skidl.schematics.backend.SchematicBackend.is_power_net_name">[docs]</a>
+    <span class="k">def</span> <span class="nf">is_power_net_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;True if ``name`` matches a tool power-symbol.&quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="SchematicBackend.render_xy">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.backend.html#skidl.schematics.backend.SchematicBackend.render_xy">[docs]</a>
+    <span class="k">def</span> <span class="nf">render_xy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lx</span><span class="p">,</span> <span class="n">ly</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Render-mm position of an arbitrary part-local point (e.g. a body</span>
+<span class="sd">        bbox corner) under the tool&#39;s transform convention. Same convention as</span>
+<span class="sd">        ``pin_render_pos`` but for non-pin points; needed by power-bus</span>
+<span class="sd">        body-crossing checks.&quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="SchematicBackend.round_mm">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.backend.html#skidl.schematics.backend.SchematicBackend.round_mm">[docs]</a>
+    <span class="k">def</span> <span class="nf">round_mm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Round a coordinate to the tool&#39;s grid precision (KiCad: 2 dp).&quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="SchematicBackend.solve_snap_tx">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.backend.html#skidl.schematics.backend.SchematicBackend.solve_snap_tx">[docs]</a>
+    <span class="k">def</span> <span class="nf">solve_snap_tx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="n">my_pin</span><span class="p">,</span> <span class="n">target_render_xy</span><span class="p">,</span> <span class="n">extend_dir</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a new ``part.tx`` so ``my_pin`` renders at the target.&quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="SchematicBackend.label_bbox">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.backend.html#skidl.schematics.backend.SchematicBackend.label_bbox">[docs]</a>
+    <span class="k">def</span> <span class="nf">label_bbox</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;(width, height) in mm of a rendered net-label box for ``text``.&quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+
+
+    <span class="c1"># ---- EMISSION (tool-specific) ----</span>
+
+<div class="viewcode-block" id="SchematicBackend.emit_wire">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.backend.html#skidl.schematics.backend.SchematicBackend.emit_wire">[docs]</a>
+    <span class="k">def</span> <span class="nf">emit_wire</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">net_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Element</span><span class="p">:</span>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="SchematicBackend.emit_label">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.backend.html#skidl.schematics.backend.SchematicBackend.emit_label">[docs]</a>
+    <span class="k">def</span> <span class="nf">emit_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">]:</span>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="SchematicBackend.emit_no_connect">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.backend.html#skidl.schematics.backend.SchematicBackend.emit_no_connect">[docs]</a>
+    <span class="k">def</span> <span class="nf">emit_no_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Element</span><span class="p">:</span>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="SchematicBackend.emit_power_symbol">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.backend.html#skidl.schematics.backend.SchematicBackend.emit_power_symbol">[docs]</a>
+    <span class="k">def</span> <span class="nf">emit_power_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="p">,</span> <span class="n">net_name</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">]:</span>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="SchematicBackend.emit_part">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.backend.html#skidl.schematics.backend.SchematicBackend.emit_part">[docs]</a>
+    <span class="k">def</span> <span class="nf">emit_part</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">,</span> <span class="n">uuid_path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Element</span><span class="p">:</span>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="SchematicBackend.emit_junction">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.backend.html#skidl.schematics.backend.SchematicBackend.emit_junction">[docs]</a>
+    <span class="k">def</span> <span class="nf">emit_junction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Element</span><span class="p">:</span>
+        <span class="o">...</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="RenderContext">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.backend.html#skidl.schematics.backend.RenderContext">[docs]</a>
+<span class="k">class</span> <span class="nc">RenderContext</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Memoizes ``pin_render_pos`` / ``pin_render_dir`` for a backend.</span>
+
+<span class="sd">    Per architecture doc section 7, item 6: the cache key cannot be just</span>
+<span class="sd">    ``(pin, sheet_tx)`` because snap mutates ``part.tx`` mid-pipeline. The</span>
+<span class="sd">    simplest safe discipline (adopted here) is to only use the cache once snap</span>
+<span class="sd">    has finalized all ``part.tx`` values; snap&#39;s own pre-finalization</span>
+<span class="sd">    measurements go straight to the backend and are not cached.</span>
+
+<span class="sd">    The key folds in the part&#39;s transform coefficients so that any ``part.tx``</span>
+<span class="sd">    mutation invalidates a stale entry automatically.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">backend</span><span class="p">:</span> <span class="n">SchematicBackend</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backend</span> <span class="o">=</span> <span class="n">backend</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pos_cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">tuple</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dir_cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">tuple</span><span class="p">,</span> <span class="n">PinDir</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_tx_key</span><span class="p">(</span><span class="n">tx</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">tx</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">tx</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="n">tx</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">tx</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="n">tx</span><span class="o">.</span><span class="n">dx</span><span class="p">,</span> <span class="n">tx</span><span class="o">.</span><span class="n">dy</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">):</span>
+        <span class="n">part_tx</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="s2">&quot;part&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="s2">&quot;tx&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">pin</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tx_key</span><span class="p">(</span><span class="n">part_tx</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tx_key</span><span class="p">(</span><span class="n">sheet_tx</span><span class="p">))</span>
+
+<div class="viewcode-block" id="RenderContext.pin_render_pos">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.backend.html#skidl.schematics.backend.RenderContext.pin_render_pos">[docs]</a>
+    <span class="k">def</span> <span class="nf">pin_render_pos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">)</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pos_cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backend</span><span class="o">.</span><span class="n">pin_render_pos</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pos_cache</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">return</span> <span class="n">v</span></div>
+
+
+<div class="viewcode-block" id="RenderContext.pin_render_dir">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.backend.html#skidl.schematics.backend.RenderContext.pin_render_dir">[docs]</a>
+    <span class="k">def</span> <span class="nf">pin_render_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PinDir</span><span class="p">:</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">)</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dir_cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backend</span><span class="o">.</span><span class="n">pin_render_dir</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dir_cache</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">return</span> <span class="n">v</span></div>
+
+
+<div class="viewcode-block" id="RenderContext.invalidate">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.backend.html#skidl.schematics.backend.RenderContext.invalidate">[docs]</a>
+    <span class="k">def</span> <span class="nf">invalidate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Drop all cached geometry (call after any phase that moves parts).&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pos_cache</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dir_cache</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="c1"># Transparent pass-through for every non-cached backend member</span>
+        <span class="c1"># (is_power_net_name, render_xy, round_mm, label_bbox, emit_*, ...),</span>
+        <span class="c1"># so a RenderContext can stand in for the backend wherever the</span>
+        <span class="c1"># decision layer expects one.</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_backend</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
+
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;PinDir&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Element&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;LabelPlacement&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SchematicBackend&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RenderContext&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.schematics.backend</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2026, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>

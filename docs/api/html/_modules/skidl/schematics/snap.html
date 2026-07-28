@@ -1,0 +1,732 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.schematics.snap &#8212; SKiDL 2.3.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../../../_static/documentation_options.js?v=c3c8ae58"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../../../"><img src="../../../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.schematics.snap</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skidl.schematics.snap</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Backend-agnostic snap geometry for schematic generation.</span>
+
+<span class="sd">After placement+routing, two-pin parts (resistors, caps, LEDs, ...) are</span>
+<span class="sd">&quot;snapped&quot; so one of their pins lands exactly on the pin of a connected</span>
+<span class="sd">multi-pin part (an IC) or on the free pin of an already-snapped two-pin</span>
+<span class="sd">part.  This turns a sea of labelled stubs into directly-touching pins and</span>
+<span class="sd">short wires, which the KiCad emitter then renders without redundant labels.</span>
+
+<span class="sd">The geometry here is independent of any particular EDA tool: it operates on</span>
+<span class="sd">SKiDL Part/Pin/Net objects and SchNode trees, mutating ``part.tx`` and</span>
+<span class="sd">recording wire/suppression hints on the node:</span>
+
+<span class="sd">    node._tjunction_wires            list[(x1,y1,x2,y2)]  (mils, pre-sheet-tx)</span>
+<span class="sd">    node._tjunction_suppressed_pins  set[id(pin)]</span>
+<span class="sd">    node._power_cap_wires            list[(x1,y1,x2,y2)]  (mils, pre-sheet-tx)</span>
+<span class="sd">    node._power_cap_junctions        list[Point]          (mils, pre-sheet-tx)</span>
+<span class="sd">    node._power_cap_suppressed_pins  set[id(pin)]</span>
+
+<span class="sd">The tool-specific emitter (e.g. kicad9/sexp_schematic.py) reads these</span>
+<span class="sd">attributes to draw wires and suppress the corresponding pin labels.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="kn">from</span> <span class="nn">skidl.geometry</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Tx</span>
+<span class="kn">from</span> <span class="nn">skidl.schematics.net_terminal</span> <span class="kn">import</span> <span class="n">NetTerminal</span>
+
+
+<span class="c1"># PROPOSAL FLAG (default OFF): when True, _stagger_tjunctions drops a junction</span>
+<span class="c1"># dot at each fan&#39;s shared point and suppresses the IC-pin net label, relying on</span>
+<span class="c1"># pure pin-to-pin/wire connectivity for the fan net.  This removes the redundant</span>
+<span class="c1"># SW_n label but MUST be validated with real IC-fan ERC (kicad-cli sch erc) on a</span>
+<span class="c1"># board that actually triggers staggered T-junction fans before being enabled,</span>
+<span class="c1"># because the IC-pin label is currently load-bearing (see finding #7).</span>
+<span class="n">_ENABLE_IC_FAN_PIN_REWIRE</span> <span class="o">=</span> <span class="kc">False</span>
+
+
+<span class="c1"># Pattern matching common power net names (kept in sync with the gen wrapper).</span>
+<span class="n">_POWER_NET_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+    <span class="sa">r</span><span class="s2">&quot;^(\+\d[\d.]*V[\d]*|GND|AGND|DGND|PGND|VCC|VDD|VSS|VEE|VBUS|VBAT|AVCC|AVDD|DVCC|DVDD)$&quot;</span><span class="p">,</span>
+    <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_is_two_pin_part</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return True if part is a simple 2-pin component (LED, R, C, etc.).&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+
+
+<span class="k">def</span> <span class="nf">_stub_snapped_part</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mark a snapped part&#39;s pins (and their nets) as stubbed.</span>
+
+<span class="sd">    Snapping moves a part AFTER routing, so any wire the router drew to it is</span>
+<span class="sd">    now stale. Converting its connections to labels (stubs) makes them</span>
+<span class="sd">    re-emit at the part&#39;s new position; the emitter then suppresses the</span>
+<span class="sd">    redundant ones where pins physically overlap. Explicit user stubs are</span>
+<span class="sd">    left untouched.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
+        <span class="n">net</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="s2">&quot;net&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">net</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;_stub_explicit&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="n">pin</span><span class="o">.</span><span class="n">stub</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">net</span><span class="o">.</span><span class="n">_stub</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">get_pins</span><span class="p">():</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">stub</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">_is_power_net</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return True if net is a power rail (GND, VCC, +3.3V, etc.).&quot;&quot;&quot;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;+&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">bool</span><span class="p">(</span><span class="n">_POWER_NET_RE</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+
+
+<span class="n">_GND_NET_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^(A|D|P)?GND$|^(VSS|VEE|GROUND)$&quot;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_is_gnd_net</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return True if net is a ground rail (GND, AGND, VSS, etc.).&quot;&quot;&quot;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">_GND_NET_RE</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">_pin_world_orient</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the world-space outward direction from a pin after part rotation.</span>
+
+<span class="sd">    Transforms the pin&#39;s stub direction vector through the part&#39;s full</span>
+<span class="sd">    transform (including mirrors/flips), then returns the opposite direction.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">orient_to_vec</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;R&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)}</span>
+    <span class="n">outward</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">:</span> <span class="s2">&quot;L&quot;</span><span class="p">,</span> <span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="s2">&quot;U&quot;</span><span class="p">}</span>
+
+    <span class="n">raw_orient</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="s2">&quot;orientation&quot;</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">)</span>
+    <span class="n">vx</span><span class="p">,</span> <span class="n">vy</span> <span class="o">=</span> <span class="n">orient_to_vec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">raw_orient</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">tx</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">tx</span>
+    <span class="n">wx</span> <span class="o">=</span> <span class="n">tx</span><span class="o">.</span><span class="n">a</span> <span class="o">*</span> <span class="n">vx</span> <span class="o">+</span> <span class="n">tx</span><span class="o">.</span><span class="n">b</span> <span class="o">*</span> <span class="n">vy</span>
+    <span class="n">wy</span> <span class="o">=</span> <span class="n">tx</span><span class="o">.</span><span class="n">c</span> <span class="o">*</span> <span class="n">vx</span> <span class="o">+</span> <span class="n">tx</span><span class="o">.</span><span class="n">d</span> <span class="o">*</span> <span class="n">vy</span>
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">wx</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">wy</span><span class="p">):</span>
+        <span class="n">world_orient</span> <span class="o">=</span> <span class="s2">&quot;R&quot;</span> <span class="k">if</span> <span class="n">wx</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;L&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">world_orient</span> <span class="o">=</span> <span class="s2">&quot;D&quot;</span> <span class="k">if</span> <span class="n">wy</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;U&quot;</span>
+    <span class="k">return</span> <span class="n">outward</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">world_orient</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_compute_snap_tx</span><span class="p">(</span><span class="n">my_pin</span><span class="p">,</span> <span class="n">other_pin</span><span class="p">,</span> <span class="n">target_world</span><span class="p">,</span> <span class="n">extend_dir</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the transform to snap a 2-pin part onto a target pin position.</span>
+
+<span class="sd">    Orients the part so `other_pin` extends in `extend_dir` from the target,</span>
+<span class="sd">    and places `my_pin` exactly at `target_world`.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tx: The new transform for the 2-pin part.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dx_local</span> <span class="o">=</span> <span class="n">other_pin</span><span class="o">.</span><span class="n">pt</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">my_pin</span><span class="o">.</span><span class="n">pt</span><span class="o">.</span><span class="n">x</span>
+    <span class="n">dy_local</span> <span class="o">=</span> <span class="n">other_pin</span><span class="o">.</span><span class="n">pt</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">my_pin</span><span class="o">.</span><span class="n">pt</span><span class="o">.</span><span class="n">y</span>
+
+    <span class="k">if</span> <span class="n">extend_dir</span> <span class="o">==</span> <span class="s2">&quot;R&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dx_local</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dy_local</span><span class="p">):</span>
+            <span class="n">symtx</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="n">dx_local</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;H&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">symtx</span> <span class="o">=</span> <span class="s2">&quot;R&quot;</span> <span class="k">if</span> <span class="n">dy_local</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;L&quot;</span>
+    <span class="k">elif</span> <span class="n">extend_dir</span> <span class="o">==</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dx_local</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dy_local</span><span class="p">):</span>
+            <span class="n">symtx</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="n">dx_local</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;H&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">symtx</span> <span class="o">=</span> <span class="s2">&quot;L&quot;</span> <span class="k">if</span> <span class="n">dy_local</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;R&quot;</span>
+    <span class="k">elif</span> <span class="n">extend_dir</span> <span class="o">==</span> <span class="s2">&quot;U&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dy_local</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dx_local</span><span class="p">):</span>
+            <span class="n">symtx</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="n">dy_local</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;V&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">symtx</span> <span class="o">=</span> <span class="s2">&quot;L&quot;</span> <span class="k">if</span> <span class="n">dx_local</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;R&quot;</span>
+    <span class="k">elif</span> <span class="n">extend_dir</span> <span class="o">==</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dy_local</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dx_local</span><span class="p">):</span>
+            <span class="n">symtx</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="n">dy_local</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;V&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">symtx</span> <span class="o">=</span> <span class="s2">&quot;R&quot;</span> <span class="k">if</span> <span class="n">dx_local</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;L&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">symtx</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="n">new_tx</span> <span class="o">=</span> <span class="n">Tx</span><span class="o">.</span><span class="n">from_symtx</span><span class="p">(</span><span class="n">symtx</span><span class="p">)</span>
+    <span class="n">my_pin_placed</span> <span class="o">=</span> <span class="n">my_pin</span><span class="o">.</span><span class="n">pt</span> <span class="o">*</span> <span class="n">new_tx</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span>
+        <span class="n">target_world</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">my_pin_placed</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
+        <span class="n">target_world</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">my_pin_placed</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">new_tx</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="snap_two_pin_parts">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.snap.html#skidl.schematics.snap.snap_two_pin_parts">[docs]</a>
+<span class="k">def</span> <span class="nf">snap_two_pin_parts</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Snap 2-pin parts onto their connected IC or already-snapped part pins.</span>
+
+<span class="sd">    Pass 1: Snap onto IC pins (parts with &gt;2 pins). Each IC pin only accepts</span>
+<span class="sd">    one snapped part; extras keep their labels.</span>
+
+<span class="sd">    Pass 2+: Iteratively snap remaining 2-pin parts onto the free pins of</span>
+<span class="sd">    already-snapped 2-pin parts, building chains (e.g. IC &lt;- R &lt;- LED).</span>
+
+<span class="sd">    Pass 3: Stack remaining 2-pin parts onto already-occupied IC pins,</span>
+<span class="sd">    extending perpendicular to the first snapped part. Handles nets shared</span>
+<span class="sd">    between multiple 2-pin parts (e.g. switch + pull-down on the same IC input).</span>
+
+<span class="sd">    Recurses into child nodes first.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">snap_two_pin_parts</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+
+    <span class="n">node_part_ids</span> <span class="o">=</span> <span class="p">{</span><span class="nb">id</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">}</span>
+    <span class="n">snapped</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">occupied_pins</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="c1"># How many decoupling caps have already snapped onto each +supply pin, so</span>
+    <span class="c1"># additional caps on the same pin fan out instead of stacking.</span>
+    <span class="n">power_pin_cap_idx</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="c1"># Per +supply pin: the snapped cap +ve pin positions, so the fan can be</span>
+    <span class="c1"># routed as a single right-angle bus instead of a star of diagonals.</span>
+    <span class="n">power_cap_groups</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_two_pin_part</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+            <span class="k">continue</span>
+
+        <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">net1</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="s2">&quot;net&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">net2</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span> <span class="s2">&quot;net&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">net1</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">net2</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">target_pin</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">target_part</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">my_pin</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">both_power</span> <span class="o">=</span> <span class="n">_is_power_net</span><span class="p">(</span><span class="n">net1</span><span class="p">)</span> <span class="ow">and</span> <span class="n">_is_power_net</span><span class="p">(</span><span class="n">net2</span><span class="p">)</span>
+        <span class="n">min_target_pins</span> <span class="o">=</span> <span class="mi">8</span> <span class="k">if</span> <span class="n">both_power</span> <span class="k">else</span> <span class="mi">2</span>
+
+        <span class="k">for</span> <span class="n">my_p</span><span class="p">,</span> <span class="n">other_net</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">p1</span><span class="p">,</span> <span class="n">net1</span><span class="p">),</span> <span class="p">(</span><span class="n">p2</span><span class="p">,</span> <span class="n">net2</span><span class="p">)]:</span>
+            <span class="k">if</span> <span class="n">_is_power_net</span><span class="p">(</span><span class="n">other_net</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">both_power</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="c1"># Decoupling caps (both pins on power) anchor only to the +supply</span>
+            <span class="c1"># pin, never GND — this clusters them at the IC&#39;s VIN/VDD pin.</span>
+            <span class="k">if</span> <span class="n">both_power</span> <span class="ow">and</span> <span class="n">_is_gnd_net</span><span class="p">(</span><span class="n">other_net</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">net_pin</span> <span class="ow">in</span> <span class="n">other_net</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
+                <span class="n">other_part</span> <span class="o">=</span> <span class="n">net_pin</span><span class="o">.</span><span class="n">part</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="n">other_part</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">part</span>
+                    <span class="ow">and</span> <span class="nb">id</span><span class="p">(</span><span class="n">other_part</span><span class="p">)</span> <span class="ow">in</span> <span class="n">node_part_ids</span>
+                    <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other_part</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">)</span>
+                    <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">other_part</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">min_target_pins</span>
+                    <span class="ow">and</span> <span class="nb">id</span><span class="p">(</span><span class="n">net_pin</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">occupied_pins</span>
+                <span class="p">):</span>
+                    <span class="n">target_pin</span> <span class="o">=</span> <span class="n">net_pin</span>
+                    <span class="n">target_part</span> <span class="o">=</span> <span class="n">other_part</span>
+                    <span class="n">my_pin</span> <span class="o">=</span> <span class="n">my_p</span>
+                    <span class="k">break</span>
+            <span class="k">if</span> <span class="n">target_pin</span><span class="p">:</span>
+                <span class="k">break</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">target_pin</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">target_world</span> <span class="o">=</span> <span class="n">target_pin</span><span class="o">.</span><span class="n">pt</span> <span class="o">*</span> <span class="n">target_part</span><span class="o">.</span><span class="n">tx</span>
+        <span class="n">extend_dir</span> <span class="o">=</span> <span class="n">_pin_world_orient</span><span class="p">(</span><span class="n">target_pin</span><span class="p">,</span> <span class="n">target_part</span><span class="p">)</span>
+        <span class="n">other_pin</span> <span class="o">=</span> <span class="n">p2</span> <span class="k">if</span> <span class="n">my_pin</span> <span class="ow">is</span> <span class="n">p1</span> <span class="k">else</span> <span class="n">p1</span>
+
+        <span class="n">part</span><span class="o">.</span><span class="n">tx</span> <span class="o">=</span> <span class="n">_compute_snap_tx</span><span class="p">(</span><span class="n">my_pin</span><span class="p">,</span> <span class="n">other_pin</span><span class="p">,</span> <span class="n">target_world</span><span class="p">,</span> <span class="n">extend_dir</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">both_power</span><span class="p">:</span>
+            <span class="c1"># Multiple decoupling caps share one +supply pin: push each out by a</span>
+            <span class="c1"># base offset along the pin, then fan successive caps perpendicular</span>
+            <span class="c1"># so they sit in a readable row instead of stacking on top of</span>
+            <span class="c1"># each other.</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="n">power_pin_cap_idx</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">target_pin</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">power_pin_cap_idx</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">target_pin</span><span class="p">)]</span> <span class="o">=</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">_offset_dir</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;R&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">200</span><span class="p">)}</span>
+            <span class="n">ax</span><span class="p">,</span> <span class="n">ay</span> <span class="o">=</span> <span class="n">_offset_dir</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">extend_dir</span><span class="p">,</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+            <span class="c1"># Unit perpendicular to the outward pin direction (rotate 90°).</span>
+            <span class="n">perp_x</span><span class="p">,</span> <span class="n">perp_y</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">ay</span> <span class="o">//</span> <span class="mi">200</span><span class="p">,</span> <span class="n">ax</span> <span class="o">//</span> <span class="mi">200</span><span class="p">)</span>
+            <span class="n">FAN_STEP</span> <span class="o">=</span> <span class="mi">300</span>
+            <span class="n">dx</span> <span class="o">=</span> <span class="n">ax</span> <span class="o">+</span> <span class="n">perp_x</span> <span class="o">*</span> <span class="n">FAN_STEP</span> <span class="o">*</span> <span class="n">n</span>
+            <span class="n">dy</span> <span class="o">=</span> <span class="n">ay</span> <span class="o">+</span> <span class="n">perp_y</span> <span class="o">*</span> <span class="n">FAN_STEP</span> <span class="o">*</span> <span class="n">n</span>
+            <span class="n">part</span><span class="o">.</span><span class="n">tx</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">tx</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">))</span>
+            <span class="c1"># Emit a wire from the IC&#39;s power pin back to the now-offset cap +ve pin</span>
+            <span class="c1"># so the connection is visually drawn rather than relying on two power</span>
+            <span class="c1"># labels. Suppress the cap +ve pin&#39;s label since the wire makes it</span>
+            <span class="c1"># redundant.</span>
+            <span class="n">cap_pin_world</span> <span class="o">=</span> <span class="n">my_pin</span><span class="o">.</span><span class="n">pt</span> <span class="o">*</span> <span class="n">part</span><span class="o">.</span><span class="n">tx</span>
+            <span class="n">grp</span> <span class="o">=</span> <span class="n">power_cap_groups</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span>
+                <span class="nb">id</span><span class="p">(</span><span class="n">target_pin</span><span class="p">),</span> <span class="p">{</span><span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="n">target_world</span><span class="p">,</span> <span class="s2">&quot;caps&quot;</span><span class="p">:</span> <span class="p">[]}</span>
+            <span class="p">)</span>
+            <span class="n">grp</span><span class="p">[</span><span class="s2">&quot;caps&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cap_pin_world</span><span class="p">)</span>
+            <span class="n">power_cap_suppressed</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;_power_cap_suppressed_pins&quot;</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span>
+            <span class="n">power_cap_suppressed</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">my_pin</span><span class="p">))</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">_power_cap_suppressed_pins</span> <span class="o">=</span> <span class="n">power_cap_suppressed</span>
+        <span class="n">_stub_snapped_part</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+        <span class="n">snapped</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">part</span><span class="p">))</span>
+        <span class="c1"># Decoupling caps fan out off a shared +supply pin, so don&#39;t mark it</span>
+        <span class="c1"># occupied — let later caps cluster on the same pin. Single-target snaps</span>
+        <span class="c1"># still claim their pin so the next part finds a fresh one.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">both_power</span><span class="p">:</span>
+            <span class="n">occupied_pins</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">target_pin</span><span class="p">))</span>
+
+    <span class="c1"># Route each +supply pin&#39;s decoupling caps as a right-angle bus rather than</span>
+    <span class="c1"># a star of diagonals: a single trunk along the (collinear) cap +ve pins,</span>
+    <span class="c1"># plus a short orthogonal connector from the IC pin onto the trunk, with a</span>
+    <span class="c1"># junction dot at every tap. The caps were placed at</span>
+    <span class="c1"># target + base*along + n*FAN_STEP*perp, so trunk and connector are</span>
+    <span class="c1"># axis-aligned by construction.</span>
+    <span class="k">if</span> <span class="n">power_cap_groups</span><span class="p">:</span>
+        <span class="n">power_cap_wires</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;_power_cap_wires&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="n">power_cap_junctions</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;_power_cap_junctions&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="k">for</span> <span class="n">grp</span> <span class="ow">in</span> <span class="n">power_cap_groups</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">grp</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span>
+            <span class="n">caps</span> <span class="o">=</span> <span class="n">grp</span><span class="p">[</span><span class="s2">&quot;caps&quot;</span><span class="p">]</span>
+            <span class="c1"># connector: IC pin -&gt; first cap pin, along the pin&#39;s outward axis</span>
+            <span class="n">power_cap_wires</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">t</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">caps</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">caps</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
+            <span class="c1"># trunk: consecutive cap +ve pins (the perpendicular fan row)</span>
+            <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">caps</span><span class="p">,</span> <span class="n">caps</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+                <span class="n">power_cap_wires</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">a</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
+            <span class="c1"># junction at every tap where 3 segments/pins meet (all taps except</span>
+            <span class="c1"># the trunk&#39;s far endpoint, which is a plain wire-end-on-pin)</span>
+            <span class="k">for</span> <span class="n">cap</span> <span class="ow">in</span> <span class="n">caps</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">power_cap_junctions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cap</span><span class="p">)</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">_power_cap_wires</span> <span class="o">=</span> <span class="n">power_cap_wires</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">_power_cap_junctions</span> <span class="o">=</span> <span class="n">power_cap_junctions</span>
+
+    <span class="k">for</span> <span class="n">_iteration</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+        <span class="n">newly_snapped</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">id</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="ow">in</span> <span class="n">snapped</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">_is_two_pin_part</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+                <span class="k">continue</span>
+
+            <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">net1</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="s2">&quot;net&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">net2</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span> <span class="s2">&quot;net&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">net1</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">net2</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">target_pin</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">target_part</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">my_pin</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="n">both_power</span> <span class="o">=</span> <span class="n">_is_power_net</span><span class="p">(</span><span class="n">net1</span><span class="p">)</span> <span class="ow">and</span> <span class="n">_is_power_net</span><span class="p">(</span><span class="n">net2</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">my_p</span><span class="p">,</span> <span class="n">other_net</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">p1</span><span class="p">,</span> <span class="n">net1</span><span class="p">),</span> <span class="p">(</span><span class="n">p2</span><span class="p">,</span> <span class="n">net2</span><span class="p">)]:</span>
+                <span class="k">if</span> <span class="n">_is_power_net</span><span class="p">(</span><span class="n">other_net</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">both_power</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">for</span> <span class="n">net_pin</span> <span class="ow">in</span> <span class="n">other_net</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
+                    <span class="n">other_part</span> <span class="o">=</span> <span class="n">net_pin</span><span class="o">.</span><span class="n">part</span>
+                    <span class="k">if</span> <span class="p">(</span>
+                        <span class="n">other_part</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">part</span>
+                        <span class="ow">and</span> <span class="nb">id</span><span class="p">(</span><span class="n">other_part</span><span class="p">)</span> <span class="ow">in</span> <span class="n">snapped</span>
+                        <span class="ow">and</span> <span class="nb">id</span><span class="p">(</span><span class="n">net_pin</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">occupied_pins</span>
+                    <span class="p">):</span>
+                        <span class="n">target_pin</span> <span class="o">=</span> <span class="n">net_pin</span>
+                        <span class="n">target_part</span> <span class="o">=</span> <span class="n">other_part</span>
+                        <span class="n">my_pin</span> <span class="o">=</span> <span class="n">my_p</span>
+                        <span class="k">break</span>
+                <span class="k">if</span> <span class="n">target_pin</span><span class="p">:</span>
+                    <span class="k">break</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">target_pin</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">target_world</span> <span class="o">=</span> <span class="n">target_pin</span><span class="o">.</span><span class="n">pt</span> <span class="o">*</span> <span class="n">target_part</span><span class="o">.</span><span class="n">tx</span>
+            <span class="n">extend_dir</span> <span class="o">=</span> <span class="n">_pin_world_orient</span><span class="p">(</span><span class="n">target_pin</span><span class="p">,</span> <span class="n">target_part</span><span class="p">)</span>
+            <span class="n">other_pin</span> <span class="o">=</span> <span class="n">p2</span> <span class="k">if</span> <span class="n">my_pin</span> <span class="ow">is</span> <span class="n">p1</span> <span class="k">else</span> <span class="n">p1</span>
+
+            <span class="n">part</span><span class="o">.</span><span class="n">tx</span> <span class="o">=</span> <span class="n">_compute_snap_tx</span><span class="p">(</span><span class="n">my_pin</span><span class="p">,</span> <span class="n">other_pin</span><span class="p">,</span> <span class="n">target_world</span><span class="p">,</span> <span class="n">extend_dir</span><span class="p">)</span>
+            <span class="n">_stub_snapped_part</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+            <span class="n">newly_snapped</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">part</span><span class="p">))</span>
+            <span class="n">occupied_pins</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">target_pin</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">newly_snapped</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">snapped</span> <span class="o">|=</span> <span class="n">newly_snapped</span>
+
+    <span class="n">perp_map</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;R&quot;</span><span class="p">:</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="s2">&quot;U&quot;</span><span class="p">,</span> <span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="s2">&quot;L&quot;</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">id</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="ow">in</span> <span class="n">snapped</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">_is_two_pin_part</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+            <span class="k">continue</span>
+
+        <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">net1</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="s2">&quot;net&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">net2</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span> <span class="s2">&quot;net&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">net1</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">net2</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">target_pin</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">target_part</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">my_pin</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">for</span> <span class="n">my_p</span><span class="p">,</span> <span class="n">other_net</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">p1</span><span class="p">,</span> <span class="n">net1</span><span class="p">),</span> <span class="p">(</span><span class="n">p2</span><span class="p">,</span> <span class="n">net2</span><span class="p">)]:</span>
+            <span class="k">for</span> <span class="n">net_pin</span> <span class="ow">in</span> <span class="n">other_net</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
+                <span class="n">other_part</span> <span class="o">=</span> <span class="n">net_pin</span><span class="o">.</span><span class="n">part</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="n">other_part</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">part</span>
+                    <span class="ow">and</span> <span class="nb">id</span><span class="p">(</span><span class="n">other_part</span><span class="p">)</span> <span class="ow">in</span> <span class="n">node_part_ids</span>
+                    <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other_part</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">)</span>
+                    <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">other_part</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span>
+                    <span class="ow">and</span> <span class="nb">id</span><span class="p">(</span><span class="n">net_pin</span><span class="p">)</span> <span class="ow">in</span> <span class="n">occupied_pins</span>
+                <span class="p">):</span>
+                    <span class="n">target_pin</span> <span class="o">=</span> <span class="n">net_pin</span>
+                    <span class="n">target_part</span> <span class="o">=</span> <span class="n">other_part</span>
+                    <span class="n">my_pin</span> <span class="o">=</span> <span class="n">my_p</span>
+                    <span class="k">break</span>
+            <span class="k">if</span> <span class="n">target_pin</span><span class="p">:</span>
+                <span class="k">break</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">target_pin</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">target_world</span> <span class="o">=</span> <span class="n">target_pin</span><span class="o">.</span><span class="n">pt</span> <span class="o">*</span> <span class="n">target_part</span><span class="o">.</span><span class="n">tx</span>
+        <span class="n">ic_dir</span> <span class="o">=</span> <span class="n">_pin_world_orient</span><span class="p">(</span><span class="n">target_pin</span><span class="p">,</span> <span class="n">target_part</span><span class="p">)</span>
+        <span class="n">extend_dir</span> <span class="o">=</span> <span class="n">perp_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ic_dir</span><span class="p">,</span> <span class="n">ic_dir</span><span class="p">)</span>
+        <span class="n">other_pin</span> <span class="o">=</span> <span class="n">p2</span> <span class="k">if</span> <span class="n">my_pin</span> <span class="ow">is</span> <span class="n">p1</span> <span class="k">else</span> <span class="n">p1</span>
+
+        <span class="n">part</span><span class="o">.</span><span class="n">tx</span> <span class="o">=</span> <span class="n">_compute_snap_tx</span><span class="p">(</span><span class="n">my_pin</span><span class="p">,</span> <span class="n">other_pin</span><span class="p">,</span> <span class="n">target_world</span><span class="p">,</span> <span class="n">extend_dir</span><span class="p">)</span>
+        <span class="n">_stub_snapped_part</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+        <span class="n">snapped</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">part</span><span class="p">))</span>
+
+    <span class="n">_stagger_tjunctions</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">node_part_ids</span><span class="p">,</span> <span class="n">snapped</span><span class="p">,</span> <span class="n">occupied_pins</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">_stagger_tjunctions</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">node_part_ids</span><span class="p">,</span> <span class="n">snapped</span><span class="p">,</span> <span class="n">occupied_pins</span><span class="p">,</span> <span class="n">min_group</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Detect repeating T-junction patterns and stagger parts outward from IC.</span>
+
+<span class="sd">    Phase 1: identify stagger groups, compute how much space each needs,</span>
+<span class="sd">    and shift ICs apart vertically so fans won&#39;t overlap.</span>
+<span class="sd">    Phase 2: place the staggered parts at the (now separated) IC positions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">perp_map</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;R&quot;</span><span class="p">:</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="s2">&quot;U&quot;</span><span class="p">,</span> <span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="s2">&quot;L&quot;</span><span class="p">}</span>
+    <span class="n">anti_perp</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="s2">&quot;U&quot;</span><span class="p">,</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">:</span> <span class="s2">&quot;L&quot;</span><span class="p">}</span>
+    <span class="n">_dir_vec</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;R&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)}</span>
+
+    <span class="n">ic_pin_to_parts</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_two_pin_part</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+            <span class="k">continue</span>
+
+        <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">net1</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="s2">&quot;net&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">net2</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span> <span class="s2">&quot;net&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">net1</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">net2</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="k">for</span> <span class="n">my_p</span><span class="p">,</span> <span class="n">other_net</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">p1</span><span class="p">,</span> <span class="n">net1</span><span class="p">),</span> <span class="p">(</span><span class="n">p2</span><span class="p">,</span> <span class="n">net2</span><span class="p">)]:</span>
+            <span class="k">if</span> <span class="n">_is_power_net</span><span class="p">(</span><span class="n">other_net</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">net_pin</span> <span class="ow">in</span> <span class="n">other_net</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
+                <span class="n">ic</span> <span class="o">=</span> <span class="n">net_pin</span><span class="o">.</span><span class="n">part</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="n">ic</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">part</span>
+                    <span class="ow">and</span> <span class="nb">id</span><span class="p">(</span><span class="n">ic</span><span class="p">)</span> <span class="ow">in</span> <span class="n">node_part_ids</span>
+                    <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ic</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">)</span>
+                    <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">ic</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span>
+                    <span class="ow">and</span> <span class="nb">id</span><span class="p">(</span><span class="n">net_pin</span><span class="p">)</span> <span class="ow">in</span> <span class="n">occupied_pins</span>
+                <span class="p">):</span>
+                    <span class="n">other_pin</span> <span class="o">=</span> <span class="n">p2</span> <span class="k">if</span> <span class="n">my_p</span> <span class="ow">is</span> <span class="n">p1</span> <span class="k">else</span> <span class="n">p1</span>
+                    <span class="n">ic_pin_to_parts</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">net_pin</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">my_p</span><span class="p">,</span> <span class="n">other_pin</span><span class="p">,</span> <span class="n">net_pin</span><span class="p">,</span> <span class="n">ic</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">break</span>
+
+    <span class="n">ic_groups</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">ic_pin_id</span><span class="p">,</span> <span class="n">parts_list</span> <span class="ow">in</span> <span class="n">ic_pin_to_parts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">parts_list</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">ic</span> <span class="o">=</span> <span class="n">parts_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span>
+        <span class="n">ic_groups</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">ic</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">parts_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">],</span> <span class="n">parts_list</span><span class="p">))</span>
+
+    <span class="c1"># Phase 1: identify qualifying groups and pre-shift ICs.</span>
+    <span class="n">MM_TO_MILS</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mf">0.0254</span>
+    <span class="n">stagger_plans</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">ic_id</span><span class="p">,</span> <span class="n">pin_entries</span> <span class="ow">in</span> <span class="n">ic_groups</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">fanout_counts</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">pl</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">pl</span> <span class="ow">in</span> <span class="n">pin_entries</span><span class="p">]</span>
+        <span class="n">dominant</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">fanout_counts</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">fanout_counts</span><span class="o">.</span><span class="n">count</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">dominant</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">matching</span> <span class="o">=</span> <span class="p">[(</span><span class="n">ip</span><span class="p">,</span> <span class="n">pl</span><span class="p">)</span> <span class="k">for</span> <span class="n">ip</span><span class="p">,</span> <span class="n">pl</span> <span class="ow">in</span> <span class="n">pin_entries</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pl</span><span class="p">)</span> <span class="o">==</span> <span class="n">dominant</span><span class="p">]</span>
+
+        <span class="c1"># Stagger a fan when EITHER the pattern repeats across &gt;= min_group IC</span>
+        <span class="c1"># pins (e.g. a row of 74HC165 inputs, each switch + pull-down), OR a</span>
+        <span class="c1"># single IC pin carries &gt;= 2 two-pin parts (e.g. an MCU EN pin with a</span>
+        <span class="c1"># pull-up to VCC + a filter cap to GND). The single-pin case is the</span>
+        <span class="c1"># body-overlap bug: without staggering, the first part tees off the pin</span>
+        <span class="c1"># but the second chains colinearly back across the IC body.</span>
+        <span class="n">single_pin_fan</span> <span class="o">=</span> <span class="n">dominant</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">matching</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matching</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">min_group</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">single_pin_fan</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">ic_part</span> <span class="o">=</span> <span class="n">matching</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span>
+        <span class="n">ic_dir</span> <span class="o">=</span> <span class="n">_pin_world_orient</span><span class="p">(</span><span class="n">matching</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">ic_part</span><span class="p">)</span>
+        <span class="n">step_dx</span><span class="p">,</span> <span class="n">step_dy</span> <span class="o">=</span> <span class="n">_dir_vec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ic_dir</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+        <span class="n">max_span</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">parts_list_scan</span> <span class="ow">in</span> <span class="n">matching</span><span class="p">:</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">scan_part</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="n">parts_list_scan</span><span class="p">:</span>
+                <span class="n">pts</span> <span class="o">=</span> <span class="p">[</span><span class="nb">getattr</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s2">&quot;pt&quot;</span><span class="p">,</span> <span class="n">Point</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">MM_TO_MILS</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">MM_TO_MILS</span><span class="p">))</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">scan_part</span><span class="o">.</span><span class="n">pins</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">pts</span><span class="p">:</span>
+                    <span class="n">span</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span>
+                        <span class="nb">max</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">x</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pts</span><span class="p">)</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">x</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pts</span><span class="p">),</span>
+                        <span class="nb">max</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">y</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pts</span><span class="p">)</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">y</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pts</span><span class="p">),</span>
+                    <span class="p">)</span>
+                    <span class="n">max_span</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_span</span><span class="p">,</span> <span class="n">span</span><span class="p">)</span>
+        <span class="n">step_size</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">max_span</span><span class="p">)</span> <span class="o">+</span> <span class="mi">50</span><span class="p">)</span>
+
+        <span class="n">n_pins</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">matching</span><span class="p">)</span>
+        <span class="n">stagger_extent</span> <span class="o">=</span> <span class="n">step_size</span> <span class="o">*</span> <span class="n">n_pins</span> <span class="o">+</span> <span class="n">max_span</span>
+
+        <span class="n">stagger_plans</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;ic_part&quot;</span><span class="p">:</span> <span class="n">ic_part</span><span class="p">,</span>
+            <span class="s2">&quot;matching&quot;</span><span class="p">:</span> <span class="n">matching</span><span class="p">,</span>
+            <span class="s2">&quot;ic_dir&quot;</span><span class="p">:</span> <span class="n">ic_dir</span><span class="p">,</span>
+            <span class="s2">&quot;step_dx&quot;</span><span class="p">:</span> <span class="n">step_dx</span><span class="p">,</span>
+            <span class="s2">&quot;step_dy&quot;</span><span class="p">:</span> <span class="n">step_dy</span><span class="p">,</span>
+            <span class="s2">&quot;step_size&quot;</span><span class="p">:</span> <span class="n">step_size</span><span class="p">,</span>
+            <span class="s2">&quot;stagger_extent&quot;</span><span class="p">:</span> <span class="n">stagger_extent</span><span class="p">,</span>
+            <span class="s2">&quot;dominant&quot;</span><span class="p">:</span> <span class="n">dominant</span><span class="p">,</span>
+        <span class="p">})</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">stagger_plans</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">_pre_shift_ics</span><span class="p">(</span><span class="n">stagger_plans</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">snapped</span><span class="p">)</span>
+
+    <span class="c1"># Phase 2: place staggered parts at final IC positions.</span>
+    <span class="n">junction_wires</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;_tjunction_wires&quot;</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="n">junction_dots</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;_tjunction_junctions&quot;</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="n">suppressed_pins</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">plan</span> <span class="ow">in</span> <span class="n">stagger_plans</span><span class="p">:</span>
+        <span class="n">ic_part</span> <span class="o">=</span> <span class="n">plan</span><span class="p">[</span><span class="s2">&quot;ic_part&quot;</span><span class="p">]</span>
+        <span class="n">matching</span> <span class="o">=</span> <span class="n">plan</span><span class="p">[</span><span class="s2">&quot;matching&quot;</span><span class="p">]</span>
+        <span class="n">ic_dir</span> <span class="o">=</span> <span class="n">plan</span><span class="p">[</span><span class="s2">&quot;ic_dir&quot;</span><span class="p">]</span>
+        <span class="n">step_dx</span> <span class="o">=</span> <span class="n">plan</span><span class="p">[</span><span class="s2">&quot;step_dx&quot;</span><span class="p">]</span>
+        <span class="n">step_dy</span> <span class="o">=</span> <span class="n">plan</span><span class="p">[</span><span class="s2">&quot;step_dy&quot;</span><span class="p">]</span>
+        <span class="n">step_size</span> <span class="o">=</span> <span class="n">plan</span><span class="p">[</span><span class="s2">&quot;step_size&quot;</span><span class="p">]</span>
+        <span class="n">perp_dir</span> <span class="o">=</span> <span class="n">perp_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ic_dir</span><span class="p">,</span> <span class="n">ic_dir</span><span class="p">)</span>
+
+        <span class="c1"># Net labels sit on the IC&#39;s stubbed pins and extend outward along the</span>
+        <span class="c1"># same direction the fan staggers. Shift the whole fan out past the</span>
+        <span class="c1"># widest label so the first staggered part clears it instead of landing</span>
+        <span class="c1"># on top of it. Label width ~= (len(name)+1) * label-font (~50 mils).</span>
+        <span class="c1"># Capped so a long net name can&#39;t push the fan absurdly far.</span>
+        <span class="n">_LABEL_CHAR_W</span> <span class="o">=</span> <span class="mi">50</span>  <span class="c1"># mils, ~KiCad PIN_LABEL_FONT_SIZE</span>
+        <span class="n">label_clearance</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">_ic_pin</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">matching</span><span class="p">:</span>
+            <span class="n">_net</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">_ic_pin</span><span class="p">,</span> <span class="s2">&quot;net&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">_net</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">_ic_pin</span><span class="p">,</span> <span class="s2">&quot;stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                <span class="n">label_clearance</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span>
+                    <span class="n">label_clearance</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">_net</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">_LABEL_CHAR_W</span>
+                <span class="p">)</span>
+        <span class="n">label_clearance</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">label_clearance</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_pin_sort_key</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="n">_ic_part</span><span class="o">=</span><span class="n">ic_part</span><span class="p">,</span> <span class="n">_ic_dir</span><span class="o">=</span><span class="n">ic_dir</span><span class="p">):</span>
+            <span class="n">ic_pin</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">w</span> <span class="o">=</span> <span class="n">ic_pin</span><span class="o">.</span><span class="n">pt</span> <span class="o">*</span> <span class="n">_ic_part</span><span class="o">.</span><span class="n">tx</span>
+            <span class="k">if</span> <span class="n">_ic_dir</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;L&quot;</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">w</span><span class="o">.</span><span class="n">y</span>
+            <span class="k">return</span> <span class="n">w</span><span class="o">.</span><span class="n">x</span>
+
+        <span class="n">matching</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">_pin_sort_key</span><span class="p">)</span>
+
+        <span class="n">parts_per_pin</span> <span class="o">=</span> <span class="n">plan</span><span class="p">[</span><span class="s2">&quot;dominant&quot;</span><span class="p">]</span>
+        <span class="n">anti</span> <span class="o">=</span> <span class="n">anti_perp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">perp_dir</span><span class="p">,</span> <span class="n">perp_dir</span><span class="p">)</span>
+        <span class="n">extend_dirs</span> <span class="o">=</span> <span class="p">[</span><span class="n">perp_dir</span><span class="p">,</span> <span class="n">anti</span><span class="p">]</span> <span class="k">if</span> <span class="n">parts_per_pin</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="k">else</span> <span class="p">[</span><span class="n">perp_dir</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">pin_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">ic_pin</span><span class="p">,</span> <span class="n">parts_list</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">matching</span><span class="p">):</span>
+            <span class="n">ic_pin_world</span> <span class="o">=</span> <span class="n">ic_pin</span><span class="o">.</span><span class="n">pt</span> <span class="o">*</span> <span class="n">ic_part</span><span class="o">.</span><span class="n">tx</span>
+
+            <span class="n">parts_list</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;ref&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+
+            <span class="n">offset_n</span> <span class="o">=</span> <span class="n">pin_idx</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">ox</span> <span class="o">=</span> <span class="n">ic_pin_world</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">step_dx</span> <span class="o">*</span> <span class="p">(</span><span class="n">label_clearance</span> <span class="o">+</span> <span class="n">step_size</span> <span class="o">*</span> <span class="n">offset_n</span><span class="p">)</span>
+            <span class="n">oy</span> <span class="o">=</span> <span class="n">ic_pin_world</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">step_dy</span> <span class="o">*</span> <span class="p">(</span><span class="n">label_clearance</span> <span class="o">+</span> <span class="n">step_size</span> <span class="o">*</span> <span class="n">offset_n</span><span class="p">)</span>
+            <span class="n">junction_pt</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">ox</span><span class="p">,</span> <span class="n">oy</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">part_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">my_pin</span><span class="p">,</span> <span class="n">other_pin</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">parts_list</span><span class="p">):</span>
+                <span class="n">ext_dir</span> <span class="o">=</span> <span class="n">extend_dirs</span><span class="p">[</span><span class="n">part_idx</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">extend_dirs</span><span class="p">)]</span>
+                <span class="n">part</span><span class="o">.</span><span class="n">tx</span> <span class="o">=</span> <span class="n">_compute_snap_tx</span><span class="p">(</span>
+                    <span class="n">my_pin</span><span class="p">,</span> <span class="n">other_pin</span><span class="p">,</span> <span class="n">junction_pt</span><span class="p">,</span> <span class="n">ext_dir</span>
+                <span class="p">)</span>
+                <span class="n">_stub_snapped_part</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+                <span class="n">snapped</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">part</span><span class="p">))</span>
+                <span class="n">suppressed_pins</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">my_pin</span><span class="p">))</span>
+            <span class="n">junction_wires</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">ic_pin_world</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">ic_pin_world</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">ox</span><span class="p">,</span> <span class="n">oy</span><span class="p">)</span>
+            <span class="p">)</span>
+
+            <span class="c1"># PROPOSAL (needs real IC-fan ERC before enabling — see note below):</span>
+            <span class="c1"># The fan&#39;s pin-to-pin geometry is already a fully-connected chain:</span>
+            <span class="c1"># a wire IC-pin -&gt; junction_pt and &gt;= 2 fan `my_pin`s coincident at</span>
+            <span class="c1"># junction_pt.  With a junction dot dropped at the shared point the</span>
+            <span class="c1"># net is resolvable by connectivity alone, so the SW_n label that</span>
+            <span class="c1"># currently sits on the IC pin (load-bearing today, finding #7) can</span>
+            <span class="c1"># be suppressed without dangling the wire.  Three or more pins meet</span>
+            <span class="c1"># at junction_pt (&gt;=2 fan pins + 1 wire end) so a dot is required.</span>
+            <span class="k">if</span> <span class="n">_ENABLE_IC_FAN_PIN_REWIRE</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts_list</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">junction_dots</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="n">ox</span><span class="p">,</span> <span class="n">oy</span><span class="p">))</span>
+                <span class="n">suppressed_pins</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">ic_pin</span><span class="p">))</span>
+
+    <span class="n">node</span><span class="o">.</span><span class="n">_tjunction_wires</span> <span class="o">=</span> <span class="n">junction_wires</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">_tjunction_junctions</span> <span class="o">=</span> <span class="n">junction_dots</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">_tjunction_suppressed_pins</span> <span class="o">=</span> <span class="n">suppressed_pins</span>
+
+
+<span class="k">def</span> <span class="nf">_pre_shift_ics</span><span class="p">(</span><span class="n">plans</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">snapped</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Shift ICs vertically BEFORE stagger placement so fans won&#39;t overlap.</span>
+
+<span class="sd">    Collects all parts already snapped to each IC and moves them together.</span>
+<span class="sd">    The stagger parts haven&#39;t been placed yet, so they&#39;ll naturally land</span>
+<span class="sd">    at the shifted IC positions in phase 2.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">plan</span> <span class="ow">in</span> <span class="n">plans</span><span class="p">:</span>
+        <span class="n">ic</span> <span class="o">=</span> <span class="n">plan</span><span class="p">[</span><span class="s2">&quot;ic_part&quot;</span><span class="p">]</span>
+        <span class="n">ic_deps</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">ic_id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="n">ic</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">id</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="o">==</span> <span class="n">ic_id</span> <span class="ow">or</span> <span class="nb">id</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">snapped</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_two_pin_part</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
+                <span class="n">net</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="s2">&quot;net&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">net</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">for</span> <span class="n">net_pin</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">net_pin</span><span class="o">.</span><span class="n">part</span> <span class="ow">is</span> <span class="n">ic</span><span class="p">:</span>
+                        <span class="n">ic_deps</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">part</span><span class="p">))</span>
+                        <span class="k">break</span>
+                <span class="k">if</span> <span class="nb">id</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="ow">in</span> <span class="n">ic_deps</span><span class="p">:</span>
+                    <span class="k">break</span>
+
+        <span class="n">plan</span><span class="p">[</span><span class="s2">&quot;_deps&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span> <span class="k">if</span> <span class="nb">id</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="ow">in</span> <span class="n">ic_deps</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_ic_bbox</span><span class="p">(</span><span class="n">plan</span><span class="p">):</span>
+        <span class="n">ic</span> <span class="o">=</span> <span class="n">plan</span><span class="p">[</span><span class="s2">&quot;ic_part&quot;</span><span class="p">]</span>
+        <span class="n">all_parts</span> <span class="o">=</span> <span class="p">[</span><span class="n">ic</span><span class="p">]</span> <span class="o">+</span> <span class="n">plan</span><span class="p">[</span><span class="s2">&quot;_deps&quot;</span><span class="p">]</span>
+        <span class="n">min_y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span>
+        <span class="n">max_y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">all_parts</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
+                <span class="n">w</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">pt</span> <span class="o">*</span> <span class="n">part</span><span class="o">.</span><span class="n">tx</span>
+                <span class="n">min_y</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">min_y</span><span class="p">,</span> <span class="n">w</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+                <span class="n">max_y</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_y</span><span class="p">,</span> <span class="n">w</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">min_y</span><span class="p">,</span> <span class="n">max_y</span>
+
+    <span class="n">plans</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">_ic_bbox</span><span class="p">(</span><span class="n">p</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">margin</span> <span class="o">=</span> <span class="mi">200</span>
+    <span class="n">prev_max_y</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">for</span> <span class="n">plan</span> <span class="ow">in</span> <span class="n">plans</span><span class="p">:</span>
+        <span class="n">ic_min_y</span><span class="p">,</span> <span class="n">ic_max_y</span> <span class="o">=</span> <span class="n">_ic_bbox</span><span class="p">(</span><span class="n">plan</span><span class="p">)</span>
+        <span class="n">needed_height</span> <span class="o">=</span> <span class="n">plan</span><span class="p">[</span><span class="s2">&quot;stagger_extent&quot;</span><span class="p">]</span>
+        <span class="n">group_max_y</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">ic_max_y</span><span class="p">,</span> <span class="n">ic_min_y</span> <span class="o">+</span> <span class="n">needed_height</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">prev_max_y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">ic_min_y</span> <span class="o">&lt;</span> <span class="n">prev_max_y</span> <span class="o">+</span> <span class="n">margin</span><span class="p">:</span>
+            <span class="n">shift</span> <span class="o">=</span> <span class="p">(</span><span class="n">prev_max_y</span> <span class="o">+</span> <span class="n">margin</span><span class="p">)</span> <span class="o">-</span> <span class="n">ic_min_y</span>
+            <span class="n">vec</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">shift</span><span class="p">)</span>
+            <span class="n">shifted</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="p">[</span><span class="n">plan</span><span class="p">[</span><span class="s2">&quot;ic_part&quot;</span><span class="p">]]</span> <span class="o">+</span> <span class="n">plan</span><span class="p">[</span><span class="s2">&quot;_deps&quot;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="nb">id</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">shifted</span><span class="p">:</span>
+                    <span class="n">part</span><span class="o">.</span><span class="n">tx</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">tx</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span>
+                    <span class="n">shifted</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">part</span><span class="p">))</span>
+            <span class="n">ic_min_y</span> <span class="o">+=</span> <span class="n">shift</span>
+            <span class="n">group_max_y</span> <span class="o">+=</span> <span class="n">shift</span>
+
+        <span class="n">prev_max_y</span> <span class="o">=</span> <span class="n">group_max_y</span>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.schematics.snap</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2026, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>

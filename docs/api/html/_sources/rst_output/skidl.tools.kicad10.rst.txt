@@ -1,0 +1,24 @@
+skidl.tools.kicad10 package
+===========================
+
+.. automodule:: skidl.tools.kicad10
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   skidl.tools.kicad10.backend
+   skidl.tools.kicad10.bboxes
+   skidl.tools.kicad10.constants
+   skidl.tools.kicad10.gen_netlist
+   skidl.tools.kicad10.gen_pcb
+   skidl.tools.kicad10.gen_schematic
+   skidl.tools.kicad10.gen_svg
+   skidl.tools.kicad10.gen_xml
+   skidl.tools.kicad10.lib
+   skidl.tools.kicad10.sexp_schematic

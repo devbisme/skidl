@@ -1,0 +1,565 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.schematics.decisions &#8212; SKiDL 2.3.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../../../_static/documentation_options.js?v=c3c8ae58"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../../../"><img src="../../../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.schematics.decisions</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skidl.schematics.decisions</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
+
+<span class="sd">&quot;&quot;&quot;Tool-agnostic schematic decision logic.</span>
+
+<span class="sd">These functions decide *what* to draw — which overlapping-pin labels are</span>
+<span class="sd">redundant, which co-linear power pins form a bus, where no-connect flags go,</span>
+<span class="sd">how net labels deconflict from component bodies — and return ABSTRACT data</span>
+<span class="sd">(sets of ``id(pin)``, lists of ``(x1, y1, x2, y2)`` segments in render-mm,</span>
+<span class="sd">``LabelPlacement`` data). The concrete backend (``tools/kicad9``) measures</span>
+<span class="sd">geometry and emits elements; this module never imports ``skidl.tools.*`` and</span>
+<span class="sd">never constructs a tool-native element.</span>
+
+<span class="sd">All coordinates here are **render-mm** as returned by</span>
+<span class="sd">``backend.pin_render_pos`` — the single coordinate source of truth (see the</span>
+<span class="sd">architecture doc, sections 2, 3, 6).</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="kn">from</span> <span class="nn">skidl.geometry</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Tx</span>
+<span class="kn">from</span> <span class="nn">skidl.net</span> <span class="kn">import</span> <span class="n">NCNet</span>
+<span class="kn">from</span> <span class="nn">skidl.schematics.net_terminal</span> <span class="kn">import</span> <span class="n">NetTerminal</span>
+
+
+<div class="viewcode-block" id="find_overlapping_pins">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.decisions.html#skidl.schematics.decisions.find_overlapping_pins">[docs]</a>
+<span class="k">def</span> <span class="nf">find_overlapping_pins</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">backend</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">,</span> <span class="n">max_dist_mm</span><span class="o">=</span><span class="mf">80.0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Pins whose labels are redundant because snap made them coincide.</span>
+
+<span class="sd">    Builds connected clusters of overlapping pins per net (distance &lt; 0.01mm</span>
+<span class="sd">    in RENDER space). Within each cluster only one label is needed for</span>
+<span class="sd">    cross-sheet connectivity; the rest are suppressed. Returns a ``set`` of</span>
+<span class="sd">    ``id(pin)`` to suppress.</span>
+
+<span class="sd">    Relocated from the decision body of ``_find_wireable_nets`` (which emitted</span>
+<span class="sd">    nothing). Uses ``backend.pin_render_pos`` / ``backend.is_power_net_name``</span>
+<span class="sd">    instead of the module-level kicad helpers; the math is identical.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">node_part_ids</span> <span class="o">=</span> <span class="p">{</span><span class="nb">id</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">}</span>
+    <span class="n">wired_pin_ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="n">seen_nets</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">pin</span><span class="o">.</span><span class="n">stub</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">pin</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
+                <span class="k">continue</span>
+            <span class="n">net</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">net</span>
+            <span class="k">if</span> <span class="nb">id</span><span class="p">(</span><span class="n">net</span><span class="p">)</span> <span class="ow">in</span> <span class="n">seen_nets</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">seen_nets</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">net</span><span class="p">))</span>
+
+            <span class="n">is_power</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">is_power_net_name</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+            <span class="c1"># For non-power nets, only consider stubbed pins (these get labels).</span>
+            <span class="c1"># For power nets, consider ALL pins on this sheet.</span>
+            <span class="k">if</span> <span class="n">is_power</span><span class="p">:</span>
+                <span class="n">pins_in_node</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span>
+                    <span class="k">if</span> <span class="nb">id</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">part</span><span class="p">)</span> <span class="ow">in</span> <span class="n">node_part_ids</span>
+                    <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">part</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">)</span>
+                <span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">pins_in_node</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span>
+                    <span class="k">if</span> <span class="nb">id</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">part</span><span class="p">)</span> <span class="ow">in</span> <span class="n">node_part_ids</span>
+                    <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">part</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">)</span>
+                    <span class="ow">and</span> <span class="n">p</span><span class="o">.</span><span class="n">stub</span>
+                <span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pins_in_node</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">positions</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pins_in_node</span><span class="p">:</span>
+                <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">pin_render_pos</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">)</span>
+                <span class="n">positions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span>
+
+            <span class="c1"># Union-find to cluster overlapping pins (dist &lt; 0.01mm).</span>
+            <span class="n">parent</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">positions</span><span class="p">)))</span>
+
+            <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+                <span class="k">while</span> <span class="n">parent</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">i</span><span class="p">:</span>
+                    <span class="n">parent</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent</span><span class="p">[</span><span class="n">parent</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+                    <span class="n">i</span> <span class="o">=</span> <span class="n">parent</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">return</span> <span class="n">i</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">positions</span><span class="p">)):</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">positions</span><span class="p">)):</span>
+                    <span class="n">dist</span> <span class="o">=</span> <span class="p">((</span><span class="n">positions</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">positions</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span>
+                            <span class="p">(</span><span class="n">positions</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">positions</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span>
+                    <span class="k">if</span> <span class="n">dist</span> <span class="o">&lt;</span> <span class="mf">0.01</span><span class="p">:</span>
+                        <span class="n">ri</span><span class="p">,</span> <span class="n">rj</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">find</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">ri</span> <span class="o">!=</span> <span class="n">rj</span><span class="p">:</span>
+                            <span class="n">parent</span><span class="p">[</span><span class="n">ri</span><span class="p">]</span> <span class="o">=</span> <span class="n">rj</span>
+
+            <span class="c1"># Group pins by cluster.</span>
+            <span class="n">clusters</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">positions</span><span class="p">)):</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="n">clusters</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+            <span class="c1"># Check if the net has pins outside this sheet.</span>
+            <span class="n">all_real_pins</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">part</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">)</span>
+            <span class="p">]</span>
+            <span class="n">has_pins_outside</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_real_pins</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">pins_in_node</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">members</span> <span class="ow">in</span> <span class="n">clusters</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">members</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="n">pins_outside_cluster</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pins_in_node</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">members</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">has_pins_outside</span> <span class="ow">and</span> <span class="n">pins_outside_cluster</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="c1"># All net pins are in this cluster — fully connected by</span>
+                    <span class="c1"># overlap, no labels needed at all.</span>
+                    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">members</span><span class="p">:</span>
+                        <span class="n">wired_pin_ids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">positions</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="mi">2</span><span class="p">]))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Net has pins elsewhere — keep one label for cross-sheet</span>
+                    <span class="c1"># connectivity, suppress the rest.</span>
+                    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">members</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                        <span class="n">wired_pin_ids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">positions</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="mi">2</span><span class="p">]))</span>
+
+    <span class="k">return</span> <span class="n">wired_pin_ids</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">_seg_crosses_box</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">bmin</span><span class="p">,</span> <span class="n">bmax</span><span class="p">,</span> <span class="n">inset</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;True if segment a-&gt;b passes through the interior of box [bmin,bmax]</span>
+<span class="sd">    shrunk by ``inset`` mm. Liang-Barsky. Pure geometry — tool-agnostic.&quot;&quot;&quot;</span>
+    <span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="n">bmin</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">inset</span><span class="p">,</span> <span class="n">bmin</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">inset</span>
+    <span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">bmax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">inset</span><span class="p">,</span> <span class="n">bmax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">inset</span>
+    <span class="k">if</span> <span class="n">xmin</span> <span class="o">&gt;=</span> <span class="n">xmax</span> <span class="ow">or</span> <span class="n">ymin</span> <span class="o">&gt;=</span> <span class="n">ymax</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">a</span>
+    <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">t0</span><span class="p">,</span> <span class="n">t1</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span>
+    <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span> <span class="ow">in</span> <span class="p">((</span><span class="o">-</span><span class="n">dx</span><span class="p">,</span> <span class="n">x1</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">),</span> <span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">-</span> <span class="n">x1</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="n">dy</span><span class="p">,</span> <span class="n">y1</span> <span class="o">-</span> <span class="n">ymin</span><span class="p">),</span> <span class="p">(</span><span class="n">dy</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">-</span> <span class="n">y1</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">q</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">q</span> <span class="o">/</span> <span class="n">p</span>
+            <span class="k">if</span> <span class="n">p</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">r</span> <span class="o">&gt;</span> <span class="n">t1</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+                <span class="n">t0</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">t0</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+                <span class="n">t1</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">t0</span> <span class="o">&lt;=</span> <span class="n">t1</span>
+
+
+<span class="k">def</span> <span class="nf">_part_render_bbox</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">backend</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Axis-aligned (min, max) of a part&#39;s body in render-mm, or None.</span>
+
+<span class="sd">    Reconstructs the body box from its local-coordinate corners run through</span>
+<span class="sd">    ``backend.pin_render_pos``-equivalent geometry. Implemented via the</span>
+<span class="sd">    backend&#39;s point transform so the agnostic layer stays render-space-only.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bbox</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;place_bbox&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;lbl_bbox&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">bbox</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">corners</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">backend</span><span class="o">.</span><span class="n">render_xy</span><span class="p">(</span><span class="n">bbox</span><span class="o">.</span><span class="n">min</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">min</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">),</span>
+        <span class="n">backend</span><span class="o">.</span><span class="n">render_xy</span><span class="p">(</span><span class="n">bbox</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">min</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">),</span>
+        <span class="n">backend</span><span class="o">.</span><span class="n">render_xy</span><span class="p">(</span><span class="n">bbox</span><span class="o">.</span><span class="n">min</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">),</span>
+        <span class="n">backend</span><span class="o">.</span><span class="n">render_xy</span><span class="p">(</span><span class="n">bbox</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">),</span>
+    <span class="p">]</span>
+    <span class="n">xs</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">corners</span><span class="p">]</span>
+    <span class="n">ys</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">corners</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">xs</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="n">ys</span><span class="p">)),</span> <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">xs</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">ys</span><span class="p">))</span>
+
+
+<div class="viewcode-block" id="find_power_bus_runs">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.decisions.html#skidl.schematics.decisions.find_power_bus_runs">[docs]</a>
+<span class="k">def</span> <span class="nf">find_power_bus_runs</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">backend</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">,</span> <span class="n">max_gap_mm</span><span class="o">=</span><span class="mf">10.0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Co-linear runs of 3+ power-net pins -&gt; (wire segments, pins to skip).</span>
+
+<span class="sd">    Returns ``(segments, bus_pin_ids)`` where ``segments`` is a list of</span>
+<span class="sd">    ``(x1, y1, x2, y2, net_name)`` in render-mm (caller emits via</span>
+<span class="sd">    ``backend.emit_wire``) and ``bus_pin_ids`` is the set of ``id(pin)`` that</span>
+<span class="sd">    should NOT get individual power symbols.</span>
+
+<span class="sd">    Relocated DECISION half of ``_gen_power_bus_wires``; the wire Sexp</span>
+<span class="sd">    construction stays in the backend.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">node_part_ids</span> <span class="o">=</span> <span class="p">{</span><span class="nb">id</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">}</span>
+    <span class="n">bus_pin_ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">segments</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Part body bboxes in render-mm, so we can drop bus segments routed</span>
+    <span class="c1"># straight through a component.</span>
+    <span class="n">part_bodies</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_p</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_p</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="n">rb</span> <span class="o">=</span> <span class="n">_part_render_bbox</span><span class="p">(</span><span class="n">_p</span><span class="p">,</span> <span class="n">backend</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">rb</span><span class="p">:</span>
+            <span class="n">part_bodies</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">rb</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rb</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">_p</span><span class="p">))</span>
+
+    <span class="n">seen_nets</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">pin</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
+                <span class="k">continue</span>
+            <span class="n">net</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">net</span>
+            <span class="k">if</span> <span class="nb">id</span><span class="p">(</span><span class="n">net</span><span class="p">)</span> <span class="ow">in</span> <span class="n">seen_nets</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">seen_nets</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">net</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">backend</span><span class="o">.</span><span class="n">is_power_net_name</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
+                <span class="k">continue</span>
+
+            <span class="n">pins_in_node</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span>
+                <span class="k">if</span> <span class="nb">id</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">part</span><span class="p">)</span> <span class="ow">in</span> <span class="n">node_part_ids</span>
+                <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">part</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+                <span class="ow">and</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span>
+                    <span class="n">pp</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()</span> <span class="ow">and</span> <span class="n">backend</span><span class="o">.</span><span class="n">is_power_net_name</span><span class="p">(</span><span class="n">pp</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">pp</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">pins</span>
+                <span class="p">)</span>
+            <span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pins_in_node</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">positions</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pins_in_node</span><span class="p">:</span>
+                <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">pin_render_pos</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">)</span>
+                <span class="n">positions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">backend</span><span class="o">.</span><span class="n">round_mm</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">backend</span><span class="o">.</span><span class="n">round_mm</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">p</span><span class="p">))</span>
+
+            <span class="c1"># Group pins by shared X coordinate (vertical columns).</span>
+            <span class="n">x_groups</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">positions</span><span class="p">:</span>
+                <span class="n">x_key</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">x_groups</span><span class="p">[</span><span class="n">x_key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+
+            <span class="c1"># Group pins by shared Y coordinate (horizontal rows).</span>
+            <span class="n">y_groups</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">positions</span><span class="p">:</span>
+                <span class="n">y_key</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">y_groups</span><span class="p">[</span><span class="n">y_key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">_split_runs</span><span class="p">(</span><span class="n">sorted_group</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;Split sorted positions into contiguous runs by max_gap_mm.&quot;&quot;&quot;</span>
+                <span class="n">runs</span> <span class="o">=</span> <span class="p">[[</span><span class="n">sorted_group</span><span class="p">[</span><span class="mi">0</span><span class="p">]]]</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sorted_group</span><span class="p">)):</span>
+                    <span class="n">gap</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">sorted_group</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">axis</span><span class="p">]</span> <span class="o">-</span> <span class="n">sorted_group</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">axis</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="n">gap</span> <span class="o">&lt;=</span> <span class="n">max_gap_mm</span><span class="p">:</span>
+                        <span class="n">runs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sorted_group</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">runs</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">sorted_group</span><span class="p">[</span><span class="n">j</span><span class="p">]])</span>
+                <span class="k">return</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">runs</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">]</span>
+
+            <span class="k">def</span> <span class="nf">_seg_clear</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">):</span>
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;Allowed only if it doesn&#39;t pass through a part body other</span>
+<span class="sd">                than the two pins it connects.&quot;&quot;&quot;</span>
+                <span class="k">for</span> <span class="n">bmin</span><span class="p">,</span> <span class="n">bmax</span><span class="p">,</span> <span class="n">bp</span> <span class="ow">in</span> <span class="n">part_bodies</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">bp</span> <span class="ow">is</span> <span class="n">p1</span><span class="o">.</span><span class="n">part</span> <span class="ow">or</span> <span class="n">bp</span> <span class="ow">is</span> <span class="n">p2</span><span class="o">.</span><span class="n">part</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    <span class="k">if</span> <span class="n">_seg_crosses_box</span><span class="p">((</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">),</span> <span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">),</span> <span class="n">bmin</span><span class="p">,</span> <span class="n">bmax</span><span class="p">):</span>
+                        <span class="k">return</span> <span class="kc">False</span>
+                <span class="k">return</span> <span class="kc">True</span>
+
+            <span class="k">def</span> <span class="nf">_emit_run</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">net_name</span><span class="p">):</span>
+                <span class="c1"># Split the run at any segment that would cross a part body.</span>
+                <span class="n">subruns</span> <span class="o">=</span> <span class="p">[[</span><span class="n">run</span><span class="p">[</span><span class="mi">0</span><span class="p">]]]</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">run</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">p1</span> <span class="o">=</span> <span class="n">run</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                    <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">run</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">_seg_clear</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">):</span>
+                        <span class="n">subruns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">run</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">subruns</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">run</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]])</span>
+                <span class="k">for</span> <span class="n">sub</span> <span class="ow">in</span> <span class="n">subruns</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                        <span class="k">continue</span>  <span class="c1"># isolated pin -&gt; gets its own power symbol</span>
+                    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                        <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">sub</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                        <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">sub</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                        <span class="n">segments</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">net_name</span><span class="p">))</span>
+                    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sub</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                        <span class="n">bus_pin_ids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
+
+            <span class="c1"># Process vertical groups (same X, split by Y gap).</span>
+            <span class="k">for</span> <span class="n">x_key</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">x_groups</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">group</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">group</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">_split_runs</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="n">_emit_run</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+            <span class="c1"># Process horizontal groups (same Y, split by X gap).</span>
+            <span class="k">for</span> <span class="n">y_key</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">y_groups</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">group</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">group</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">_split_runs</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+                    <span class="n">_emit_run</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">segments</span><span class="p">,</span> <span class="n">bus_pin_ids</span></div>
+
+
+
+<div class="viewcode-block" id="deconflict_labels">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.decisions.html#skidl.schematics.decisions.deconflict_labels">[docs]</a>
+<span class="k">def</span> <span class="nf">deconflict_labels</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">occupied_seed</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">backend</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Decide which net labels to nudge off component bodies.</span>
+
+<span class="sd">    Relocated DECISION half of ``_deconflict_labels`` (the Sexp reading +</span>
+<span class="sd">    mutation stays in the backend). Inputs are abstract:</span>
+
+<span class="sd">      * ``labels``  — list of ``(idx, net_name, lx, ly, langle)`` for every</span>
+<span class="sd">        ``global_label`` element, in element order. ``idx`` is opaque to this</span>
+<span class="sd">        function (returned back so the caller can locate the element).</span>
+<span class="sd">        ``langle is None`` marks a record that only seeds occupancy.</span>
+<span class="sd">      * ``occupied_seed`` — list of ``(cell, owner)`` in element order; applied</span>
+<span class="sd">        in order so later entries overwrite earlier ones at a shared cell,</span>
+<span class="sd">        exactly as the original single-pass element scan did. ``owner`` is the</span>
+<span class="sd">        net name for a label anchor, or ``None`` for a wire endpoint.</span>
+
+<span class="sd">    Returns ``(moves, new_wires)`` where ``moves`` is a list of</span>
+<span class="sd">    ``(idx, nx, ny)`` label repositions (render-mm) and ``new_wires`` is a list</span>
+<span class="sd">    of ``(ax, ay, nx, ny)`` short connecting wires (render-mm) to preserve</span>
+<span class="sd">    connectivity. The label/box geometry comes from ``backend.label_bbox`` so</span>
+<span class="sd">    box sizing is tool-specific; the math is identical to the original.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">cos</span><span class="p">,</span> <span class="n">radians</span><span class="p">,</span> <span class="n">sin</span>
+
+    <span class="kn">from</span> <span class="nn">skidl.geometry</span> <span class="kn">import</span> <span class="n">BBox</span>
+
+    <span class="n">MARGIN_MM</span> <span class="o">=</span> <span class="mf">1.27</span>  <span class="c1"># ~50 mils clearance from the body</span>
+    <span class="n">GRID</span> <span class="o">=</span> <span class="mf">1.27</span>       <span class="c1"># KiCad 50-mil grid</span>
+
+    <span class="k">def</span> <span class="nf">_snap</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">v</span> <span class="o">/</span> <span class="n">GRID</span><span class="p">)</span> <span class="o">*</span> <span class="n">GRID</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_cell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="n">GRID</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">y</span> <span class="o">/</span> <span class="n">GRID</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_on_grid</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">v</span> <span class="o">/</span> <span class="n">GRID</span> <span class="o">-</span> <span class="nb">round</span><span class="p">(</span><span class="n">v</span> <span class="o">/</span> <span class="n">GRID</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mf">0.02</span>
+
+    <span class="c1"># Names of stubbed nets on this node. A stubbed net&#39;s label sits ON its pin</span>
+    <span class="c1"># and connectivity is carried by the net NAME, not by a wire. Nudging such a</span>
+    <span class="c1"># label off its pin (and adding a connecting wire) defeats the stub design:</span>
+    <span class="c1"># the wire it would draw runs the full width of whatever neighbouring body</span>
+    <span class="c1"># the label happens to graze, producing the long cross-sheet wires the user</span>
+    <span class="c1"># sees. So these labels must stay put — they are excluded from relocation</span>
+    <span class="c1"># below (overlap is harmless: the name still resolves connectivity).</span>
+    <span class="n">stub_net_names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part</span><span class="p">:</span>
+            <span class="n">net</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="s2">&quot;net&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">net</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="s2">&quot;stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;_stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                <span class="n">stub_net_names</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="c1"># Component body bboxes in sheet (mm) coordinates.</span>
+    <span class="n">comp_bboxes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;place_bbox&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;lbl_bbox&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">bbox</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">tb</span> <span class="o">=</span> <span class="n">bbox</span> <span class="o">*</span> <span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;tx&quot;</span><span class="p">,</span> <span class="n">Tx</span><span class="p">())</span> <span class="o">*</span> <span class="n">sheet_tx</span><span class="p">)</span>
+        <span class="n">comp_bboxes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">BBox</span><span class="p">(</span>
+                <span class="n">Point</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">tb</span><span class="o">.</span><span class="n">min</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">tb</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="n">tb</span><span class="o">.</span><span class="n">min</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">tb</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">y</span><span class="p">)),</span>
+                <span class="n">Point</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">tb</span><span class="o">.</span><span class="n">min</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">tb</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">tb</span><span class="o">.</span><span class="n">min</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">tb</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">y</span><span class="p">)),</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">comp_bboxes</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[],</span> <span class="p">[]</span>
+
+    <span class="c1"># Occupied grid cells, applied in original element order: existing label</span>
+    <span class="c1"># anchors (keyed by net) and wire endpoints (net unknown -&gt; never reuse).</span>
+    <span class="n">occupied</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">cell</span><span class="p">,</span> <span class="n">owner</span> <span class="ow">in</span> <span class="n">occupied_seed</span><span class="p">:</span>
+        <span class="n">occupied</span><span class="p">[</span><span class="n">cell</span><span class="p">]</span> <span class="o">=</span> <span class="n">owner</span>
+
+    <span class="k">def</span> <span class="nf">_label_dir</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="n">sin</span><span class="p">(</span><span class="n">r</span><span class="p">))</span>
+
+    <span class="n">LABEL_W</span><span class="p">,</span> <span class="n">LABEL_H</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">label_bbox</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">moves</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">new_wires</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">net</span><span class="p">,</span> <span class="n">lx</span><span class="p">,</span> <span class="n">ly</span><span class="p">,</span> <span class="n">langle</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">:</span>
+        <span class="c1"># Records without a resolved angle only seeded `occupied` above</span>
+        <span class="c1"># (they matched the original&#39;s len(at)&lt;4 case) and are not moved.</span>
+        <span class="k">if</span> <span class="n">langle</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="c1"># Stubbed-net labels are connected by NAME and must stay on their pin;</span>
+        <span class="c1"># relocating them would draw a long connecting wire across a neighbour.</span>
+        <span class="k">if</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">stub_net_names</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="c1"># Only spread labels whose anchor (pin) is already on-grid.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">_on_grid</span><span class="p">(</span><span class="n">lx</span><span class="p">)</span> <span class="ow">and</span> <span class="n">_on_grid</span><span class="p">(</span><span class="n">ly</span><span class="p">)):</span>
+            <span class="k">continue</span>
+        <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="n">_label_dir</span><span class="p">(</span><span class="n">langle</span><span class="p">)</span>
+        <span class="n">x_end</span><span class="p">,</span> <span class="n">y_end</span> <span class="o">=</span> <span class="n">lx</span> <span class="o">+</span> <span class="n">dx</span> <span class="o">*</span> <span class="n">LABEL_W</span><span class="p">,</span> <span class="n">ly</span> <span class="o">+</span> <span class="n">dy</span> <span class="o">*</span> <span class="n">LABEL_W</span>
+        <span class="n">lbl_bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">(</span>
+            <span class="n">Point</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">lx</span><span class="p">,</span> <span class="n">x_end</span><span class="p">)</span> <span class="o">-</span> <span class="n">LABEL_H</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">ly</span><span class="p">,</span> <span class="n">y_end</span><span class="p">)</span> <span class="o">-</span> <span class="n">LABEL_H</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+            <span class="n">Point</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">lx</span><span class="p">,</span> <span class="n">x_end</span><span class="p">)</span> <span class="o">+</span> <span class="n">LABEL_H</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">ly</span><span class="p">,</span> <span class="n">y_end</span><span class="p">)</span> <span class="o">+</span> <span class="n">LABEL_H</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">cb</span> <span class="ow">in</span> <span class="n">comp_bboxes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">lbl_bbox</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">cb</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="c1"># Skip the label&#39;s OWN component: a net label is anchored at its pin,</span>
+            <span class="c1"># which sits on that part&#39;s body-edge by construction, so an</span>
+            <span class="c1"># outward-pointing on-pin label always grazes its own bbox. That is</span>
+            <span class="c1"># correct placement, not a conflict — nudging it here is what stepped</span>
+            <span class="c1"># every label off its pin (one dcwire per label). Only relocate when</span>
+            <span class="c1"># the label projects into a DIFFERENT body it isn&#39;t anchored to.</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">cb</span><span class="o">.</span><span class="n">min</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mf">0.05</span> <span class="o">&lt;=</span> <span class="n">lx</span> <span class="o">&lt;=</span> <span class="n">cb</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mf">0.05</span>
+                <span class="ow">and</span> <span class="n">cb</span><span class="o">.</span><span class="n">min</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mf">0.05</span> <span class="o">&lt;=</span> <span class="n">ly</span> <span class="o">&lt;=</span> <span class="n">cb</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mf">0.05</span>
+            <span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">ax</span><span class="p">,</span> <span class="n">ay</span> <span class="o">=</span> <span class="n">lx</span><span class="p">,</span> <span class="n">ly</span>  <span class="c1"># original anchor (on the pin)</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dx</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dy</span><span class="p">):</span>
+                <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">cb</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">lx</span> <span class="o">+</span> <span class="n">MARGIN_MM</span><span class="p">)</span> <span class="k">if</span> <span class="n">dx</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">(</span><span class="n">cb</span><span class="o">.</span><span class="n">min</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">lx</span> <span class="o">-</span> <span class="n">MARGIN_MM</span><span class="p">)</span>
+                <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="o">=</span> <span class="n">_snap</span><span class="p">(</span><span class="n">lx</span> <span class="o">+</span> <span class="n">offset</span><span class="p">),</span> <span class="n">_snap</span><span class="p">(</span><span class="n">ly</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">cb</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">ly</span> <span class="o">+</span> <span class="n">MARGIN_MM</span><span class="p">)</span> <span class="k">if</span> <span class="n">dy</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">(</span><span class="n">cb</span><span class="o">.</span><span class="n">min</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">ly</span> <span class="o">-</span> <span class="n">MARGIN_MM</span><span class="p">)</span>
+                <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="o">=</span> <span class="n">_snap</span><span class="p">(</span><span class="n">lx</span><span class="p">),</span> <span class="n">_snap</span><span class="p">(</span><span class="n">ly</span> <span class="o">+</span> <span class="n">offset</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ay</span><span class="p">):</span>
+                <span class="k">break</span>
+            <span class="c1"># Reject moves that would collide with a different net or a wire end.</span>
+            <span class="n">owner</span> <span class="o">=</span> <span class="n">occupied</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">_cell</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">),</span> <span class="s2">&quot;__free__&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">owner</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;__free__&quot;</span><span class="p">,</span> <span class="n">net</span><span class="p">):</span>
+                <span class="k">break</span>  <span class="c1"># leave the label on its pin rather than risk a short</span>
+            <span class="n">moves</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">idx</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">))</span>
+            <span class="n">occupied</span><span class="p">[</span><span class="n">_cell</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">)]</span> <span class="o">=</span> <span class="n">net</span>
+            <span class="n">new_wires</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">ax</span><span class="p">,</span> <span class="n">ay</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">))</span>
+            <span class="k">break</span>  <span class="c1"># resolve first overlap per label</span>
+
+    <span class="k">return</span> <span class="n">moves</span><span class="p">,</span> <span class="n">new_wires</span></div>
+
+
+
+<div class="viewcode-block" id="find_no_connect_pins">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.decisions.html#skidl.schematics.decisions.find_no_connect_pins">[docs]</a>
+<span class="k">def</span> <span class="nf">find_no_connect_pins</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">backend</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;No-connect flag positions (render-mm) for pins on an NCNet.</span>
+
+<span class="sd">    Returns a list of ``(x, y, part_ref, pin_num)`` so the caller can emit a</span>
+<span class="sd">    no_connect flag per NC pin with the original UUID seed. Relocated detection</span>
+<span class="sd">    half of ``_gen_no_connect_flags``; the no_connect Sexp stays in the backend.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">flags</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="s2">&quot;net&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">NCNet</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">pin_pt</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="s2">&quot;pt&quot;</span><span class="p">,</span> <span class="n">Point</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pin</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
+            <span class="n">part_tx</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;tx&quot;</span><span class="p">,</span> <span class="n">Tx</span><span class="p">())</span>
+            <span class="n">pt</span> <span class="o">=</span> <span class="n">pin_pt</span> <span class="o">*</span> <span class="n">part_tx</span> <span class="o">*</span> <span class="n">sheet_tx</span>
+            <span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">pt</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span> <span class="n">pin</span><span class="o">.</span><span class="n">num</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">flags</span></div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.schematics.decisions</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2026, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>

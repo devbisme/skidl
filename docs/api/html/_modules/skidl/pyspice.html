@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.pyspice &#8212; SKiDL 2.2.3 documentation</title>
+    <title>skidl.pyspice &#8212; SKiDL 2.3.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=85e56e6b"></script>
+    <script src="../../_static/documentation_options.js?v=c3c8ae58"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.pyspice</a></li> 
       </ul>
@@ -85,10 +85,8 @@
 
 <span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">.tools.spice</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">.tools.skidl.libs.pyspice_sklib</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.tools.skidl.libs.pyspice_sklib</span> <span class="kn">import</span> <span class="n">pyspice_lib</span>
 
-
-<span class="n">_splib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span><span class="s2">&quot;pyspice&quot;</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="n">SKIDL</span><span class="p">)</span>  <span class="c1"># Read-in the SPICE part library.</span>
 
 <span class="n">set_default_tool</span><span class="p">(</span><span class="n">SPICE</span><span class="p">)</span>  <span class="c1"># Set the library format for reading SKiDL libraries.</span>
 
@@ -97,7 +95,7 @@
 
 <span class="c1"># Place all the PySpice parts into the namespace so they can be instantiated easily.</span>
 <span class="n">_this_module</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">_splib</span><span class="o">.</span><span class="n">get_parts</span><span class="p">():</span>
+<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pyspice_lib</span><span class="o">.</span><span class="n">get_parts</span><span class="p">():</span>
     <span class="c1"># Add the part name to the module namespace.</span>
     <span class="nb">setattr</span><span class="p">(</span><span class="n">_this_module</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
     <span class="c1"># Add all the part aliases to the module namespace.</span>
@@ -137,7 +135,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.pyspice</a></li> 
       </ul>

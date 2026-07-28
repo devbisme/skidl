@@ -1,0 +1,7 @@
+skidl.schematics.decisions module
+=================================
+
+.. automodule:: skidl.schematics.decisions
+   :members:
+   :show-inheritance:
+   :undoc-members:

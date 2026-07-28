@@ -1,0 +1,944 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.tools.kicad10.gen_schematic &#8212; SKiDL 2.3.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../../../../_static/documentation_options.js?v=c3c8ae58"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../../../../"><img src="../../../../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad10.gen_schematic</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skidl.tools.kicad10.gen_schematic</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Generate a KiCad 9 schematic from a Circuit object.</span>
+
+<span class="sd">Thin wrapper around the shared sexp_schematic module.</span>
+<span class="sd">Uses SKiDL&#39;s placement and routing infrastructure.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+
+<span class="kn">from</span> <span class="nn">skidl.geometry</span> <span class="kn">import</span> <span class="n">BBox</span><span class="p">,</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Tx</span><span class="p">,</span> <span class="n">Vector</span>
+<span class="kn">from</span> <span class="nn">skidl.schematics.net_terminal</span> <span class="kn">import</span> <span class="n">NetTerminal</span>
+<span class="kn">from</span> <span class="nn">skidl.schematics.snap</span> <span class="kn">import</span> <span class="n">snap_two_pin_parts</span> <span class="k">as</span> <span class="n">_snap_two_pin_parts</span>
+<span class="kn">from</span> <span class="nn">skidl.scriptinfo</span> <span class="kn">import</span> <span class="n">get_script_name</span>
+<span class="kn">from</span> <span class="nn">skidl.utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span><span class="p">,</span> <span class="n">rmv_attr</span>
+
+<span class="kn">from</span> <span class="nn">.sexp_schematic</span> <span class="kn">import</span> <span class="n">write_top_schematic</span>
+<span class="kn">from</span> <span class="nn">.bboxes</span> <span class="kn">import</span> <span class="n">calc_hier_label_bbox</span><span class="p">,</span> <span class="n">calc_symbol_bbox</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[]</span>
+
+
+<span class="k">def</span> <span class="nf">_setup_kicad_env</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Set KiCad footprint directory if not already set.</span>
+
+<span class="sd">    Auto-detects the standard KiCad footprint directory so that</span>
+<span class="sd">    generated schematics can reference footprints for PCB layout.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="n">get_default_tool</span>
+
+    <span class="n">kicad_version</span> <span class="o">=</span> <span class="n">get_default_tool</span><span class="p">()[</span><span class="nb">len</span><span class="p">(</span><span class="s2">&quot;kicad&quot;</span><span class="p">):]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;KICAD</span><span class="si">{</span><span class="n">kicad_version</span><span class="si">}</span><span class="s2">_FOOTPRINT_DIR&quot;</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="s2">&quot;/usr/share/kicad/footprints&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/usr/local/share/kicad/footprints&quot;</span><span class="p">,</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;~/.local/share/kicad/</span><span class="si">{</span><span class="n">kicad_version</span><span class="si">}</span><span class="s2">.0/footprints&quot;</span><span class="p">),</span>
+        <span class="p">]:</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;KICAD</span><span class="si">{</span><span class="n">kicad_version</span><span class="si">}</span><span class="s2">_FOOTPRINT_DIR&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span>
+                <span class="k">break</span>
+
+
+<span class="c1"># Suppress legacy fp-lib-table warnings from older KiCad tool modules.</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;.*fp-lib-table.*&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># Pattern matching common power net names.</span>
+<span class="n">_POWER_NET_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+    <span class="sa">r</span><span class="s2">&quot;^(\+\d[\d.]*V[\d]*|GND|AGND|DGND|PGND|VCC|VDD|VSS|VEE|VBUS|VBAT|AVCC|AVDD|DVCC|DVDD)$&quot;</span><span class="p">,</span>
+    <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># ERC error types that can be fixed by stubbing nets.</span>
+<span class="n">FIXABLE_ERROR_TYPES</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">(</span>
+    <span class="p">{</span><span class="s2">&quot;pin_not_connected&quot;</span><span class="p">,</span> <span class="s2">&quot;pin_not_driven&quot;</span><span class="p">,</span> <span class="s2">&quot;wire_not_connected&quot;</span><span class="p">}</span>
+<span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">auto_stub_nets</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Auto-stub power nets and high-fanout nets before generation.</span>
+
+<span class="sd">    Only modifies nets that haven&#39;t been explicitly set by the user.</span>
+<span class="sd">    Called when auto_stub=True is passed to gen_schematic().</span>
+
+<span class="sd">    Power nets are always stubbed immediately (they&#39;d overwhelm the placer).</span>
+<span class="sd">    Fanout-based stubbing is DEFERRED: nets are marked ``_deferred_stub`` so</span>
+<span class="sd">    the placer still uses them for connectivity-based grouping, then they get</span>
+<span class="sd">    stubbed after placement via ``_apply_deferred_stubs()``. Stubbing them up</span>
+<span class="sd">    front instead scatters connected parts and makes dense boards (e.g. the</span>
+<span class="sd">    327-part Concentric board) fail to route, which suppresses snap placement.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        circuit: The Circuit object containing nets to analyze.</span>
+<span class="sd">        options: Dict of options. Recognizes &#39;auto_stub_fanout&#39; (default 5).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+
+    <span class="n">fanout_threshold</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;auto_stub_fanout&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">stubbed_power</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">deferred_fanout</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;_stub_explicit&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">net</span><span class="o">.</span><span class="n">valid</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># Power nets: anything starting with &quot;+&quot; or matching common power names.</span>
+        <span class="k">if</span> <span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;+&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">_POWER_NET_RE</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
+            <span class="n">net</span><span class="o">.</span><span class="n">_stub</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">net</span><span class="o">.</span><span class="n">_stub_explicit</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">get_pins</span><span class="p">():</span>
+                <span class="n">pin</span><span class="o">.</span><span class="n">stub</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">stubbed_power</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># High fanout nets: defer — keep connectivity for grouping during</span>
+        <span class="c1"># placement, stub after placement (see _apply_deferred_stubs).</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">fanout_threshold</span><span class="p">:</span>
+            <span class="n">net</span><span class="o">.</span><span class="n">_deferred_stub</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">deferred_fanout</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+    <span class="kn">from</span> <span class="nn">skidl.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
+    <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;  [auto_stub] power: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">stubbed_power</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span><span class="si">}{</span><span class="s1">&#39;...&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">stubbed_power</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+    <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;  [auto_stub] deferred fanout&gt;=</span><span class="si">{</span><span class="n">fanout_threshold</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">deferred_fanout</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span><span class="si">}{</span><span class="s1">&#39;...&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">deferred_fanout</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_apply_deferred_stubs</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Apply deferred stubs per-subcircuit after placement.</span>
+
+<span class="sd">    Nets marked _deferred_stub are examined within each child node.</span>
+<span class="sd">    Simple internal connections (few pins, close together) remain as wires;</span>
+<span class="sd">    complex or distant ones get stubbed.</span>
+
+<span class="sd">    NetTerminal parts (schematic-only label placeholders) are excluded from</span>
+<span class="sd">    the pin count so they don&#39;t inflate it beyond the real circuit connectivity.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">skidl.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
+
+    <span class="c1"># Reset pin.stub for all deferred-stub nets (supports retries).</span>
+    <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;_deferred_stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="n">net</span><span class="o">.</span><span class="n">_stub</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">get_pins</span><span class="p">():</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">stub</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">child_name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;?&quot;</span><span class="p">)</span>
+        <span class="n">child_parts</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">parts</span><span class="p">)</span>
+        <span class="n">stubbed</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">seen</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">child</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">pin</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
+                    <span class="k">continue</span>
+                <span class="n">net</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">net</span>
+                <span class="k">if</span> <span class="nb">id</span><span class="p">(</span><span class="n">net</span><span class="p">)</span> <span class="ow">in</span> <span class="n">seen</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">net</span><span class="p">))</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;_deferred_stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                    <span class="k">continue</span>
+
+                <span class="n">internal_pins</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">part</span> <span class="ow">in</span> <span class="n">child_parts</span><span class="p">]</span>
+
+                <span class="c1"># Deferred nets were kept un-stubbed during placement</span>
+                <span class="c1"># for connectivity-aware grouping.  Now stub them all —</span>
+                <span class="c1"># labels at pins are cleaner than routed wires for</span>
+                <span class="c1"># cross-sheet connections.</span>
+                <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">internal_pins</span><span class="p">:</span>
+                    <span class="n">p</span><span class="o">.</span><span class="n">stub</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">stubbed</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">stubbed</span><span class="p">:</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;  [deferred_stub] </span><span class="si">{</span><span class="n">child_name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">stubbed</span><span class="si">}</span><span class="s2"> deferred nets stubbed&quot;</span>
+            <span class="p">)</span>
+
+    <span class="c1"># Set net._stub for nets where ALL pins ended up stubbed.</span>
+    <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;_deferred_stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="n">has_unstubbed</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="ow">not</span> <span class="n">p</span><span class="o">.</span><span class="n">stub</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">has_unstubbed</span><span class="p">:</span>
+                <span class="n">net</span><span class="o">.</span><span class="n">_stub</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">net</span><span class="o">.</span><span class="n">_stub_explicit</span> <span class="o">=</span> <span class="kc">False</span>
+
+
+<span class="k">def</span> <span class="nf">_run_erc</span><span class="p">(</span><span class="n">schematic_path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run kicad-cli ERC on a schematic file and return the report path.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        schematic_path: Path to the .kicad_sch file.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: Path to the ERC report file, or None if kicad-cli is unavailable.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">report_path</span> <span class="o">=</span> <span class="n">schematic_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.kicad_sch&quot;</span><span class="p">,</span> <span class="s2">&quot;-erc.rpt&quot;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="s2">&quot;kicad-cli&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;sch&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;erc&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;--output&quot;</span><span class="p">,</span>
+                <span class="n">report_path</span><span class="p">,</span>
+                <span class="s2">&quot;--severity-all&quot;</span><span class="p">,</span>
+                <span class="n">schematic_path</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">FileNotFoundError</span><span class="p">,</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">TimeoutExpired</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">report_path</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">report_path</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
+
+
+<span class="k">def</span> <span class="nf">_parse_erc_report</span><span class="p">(</span><span class="n">report_path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse kicad-cli ERC report and return list of (error_type, symbol_ref, pin_num).</span>
+
+<span class="sd">    The ERC report format has lines like:</span>
+<span class="sd">        [pin_not_connected]: Pin not connected ...</span>
+<span class="sd">        @(x,y): Symbol U1 Pin 3 ...</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        report_path: Path to the ERC .rpt file.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: List of (error_type, symbol_ref, pin_num) tuples.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">report_path</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">report_path</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">current_error_type</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># Patterns for ERC report parsing.</span>
+    <span class="n">error_type_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^\[(\w+)\]&quot;</span><span class="p">)</span>
+    <span class="n">symbol_pin_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Symbol\s+(\S+)\s+Pin\s+(\S+)&quot;</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">report_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+            <span class="c1"># Match error type header.</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">error_type_re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+                <span class="n">current_error_type</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Match symbol/pin reference in the detail line.</span>
+            <span class="k">if</span> <span class="n">current_error_type</span><span class="p">:</span>
+                <span class="n">m</span> <span class="o">=</span> <span class="n">symbol_pin_re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+                    <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">current_error_type</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span>
+                    <span class="n">current_error_type</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">errors</span>
+
+
+<span class="k">def</span> <span class="nf">_stub_nets_for_erc_errors</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert nets involved in ERC errors to stubs for regeneration.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        circuit: The Circuit object.</span>
+<span class="sd">        errors: List of (error_type, symbol_ref, pin_num) from _parse_erc_report.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bool: True if any nets were newly stubbed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">stubbed_any</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">for</span> <span class="n">error_type</span><span class="p">,</span> <span class="n">symbol_ref</span><span class="p">,</span> <span class="n">pin_num</span> <span class="ow">in</span> <span class="n">errors</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">error_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">FIXABLE_ERROR_TYPES</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">part</span><span class="o">.</span><span class="n">ref</span> <span class="o">==</span> <span class="n">symbol_ref</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">num</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">pin_num</span><span class="p">):</span>
+                        <span class="n">net</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">net</span>
+                        <span class="k">if</span> <span class="n">net</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;_stub_explicit&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                            <span class="n">net</span><span class="o">.</span><span class="n">_stub</span> <span class="o">=</span> <span class="kc">True</span>
+                            <span class="n">net</span><span class="o">.</span><span class="n">_stub_explicit</span> <span class="o">=</span> <span class="kc">False</span>
+                            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">get_pins</span><span class="p">():</span>
+                                <span class="n">p</span><span class="o">.</span><span class="n">stub</span> <span class="o">=</span> <span class="kc">True</span>
+                            <span class="n">stubbed_any</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">break</span>
+    <span class="k">return</span> <span class="n">stubbed_any</span>
+
+
+<span class="k">def</span> <span class="nf">_classify_and_stub_complex_nets</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Classify nets after placement: stub complex ones, keep simple ones as wires.</span>
+
+<span class="sd">    Called after placement succeeds, before routing. Nets with too many pins</span>
+<span class="sd">    or pins too far apart get converted to labels for reliable connectivity.</span>
+<span class="sd">    Simple 2-3 pin short-distance nets remain as wires.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        circuit: The Circuit object.</span>
+<span class="sd">        node: The placed SchNode.</span>
+<span class="sd">        options: Dict of options including:</span>
+<span class="sd">            auto_stub_max_wire_pins (int): Max pins for wire routing. Default 3.</span>
+<span class="sd">            auto_stub_max_wire_dist (int): Max manhattan distance (mils) for wires. Default 2000.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">skidl.geometry</span> <span class="kn">import</span> <span class="n">Point</span>
+
+    <span class="n">max_wire_pins</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;auto_stub_max_wire_pins&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">max_wire_dist</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;auto_stub_max_wire_dist&quot;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_classify_node</span><span class="p">(</span><span class="n">target_node</span><span class="p">):</span>
+        <span class="n">target_parts</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">target_node</span><span class="o">.</span><span class="n">parts</span><span class="p">)</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">target_node</span><span class="o">.</span><span class="n">get_internal_nets</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;_stub_explicit&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;_stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                <span class="k">continue</span>
+
+            <span class="n">pins</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">part</span> <span class="ow">in</span> <span class="n">target_parts</span>
+                    <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">part</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">)]</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pins</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">max_wire_pins</span><span class="p">:</span>
+                <span class="n">net</span><span class="o">.</span><span class="n">_stub</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">net</span><span class="o">.</span><span class="n">_stub_explicit</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">get_pins</span><span class="p">():</span>
+                    <span class="n">p</span><span class="o">.</span><span class="n">stub</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pins</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">pts</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pins</span><span class="p">:</span>
+                    <span class="n">pin_pt</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s2">&quot;place_pt&quot;</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s2">&quot;pt&quot;</span><span class="p">,</span> <span class="n">Point</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">y</span><span class="p">)))</span>
+                    <span class="n">part_tx</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;tx&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">part_tx</span><span class="p">:</span>
+                        <span class="n">pts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pin_pt</span> <span class="o">*</span> <span class="n">part_tx</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">pts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pin_pt</span><span class="p">)</span>
+
+                <span class="n">max_dist</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pts</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">pts</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]:</span>
+                        <span class="n">dist</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="nb">abs</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">dist</span> <span class="o">&gt;</span> <span class="n">max_dist</span><span class="p">:</span>
+                            <span class="n">max_dist</span> <span class="o">=</span> <span class="n">dist</span>
+
+                <span class="k">if</span> <span class="n">max_dist</span> <span class="o">&gt;</span> <span class="n">max_wire_dist</span><span class="p">:</span>
+                    <span class="n">net</span><span class="o">.</span><span class="n">_stub</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="n">net</span><span class="o">.</span><span class="n">_stub_explicit</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">get_pins</span><span class="p">():</span>
+                        <span class="n">p</span><span class="o">.</span><span class="n">stub</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="n">count</span>
+
+    <span class="n">total_stubbed</span> <span class="o">=</span> <span class="n">_classify_node</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">total_stubbed</span> <span class="o">+=</span> <span class="n">_classify_node</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+
+    <span class="c1"># Second pass on children: stub nets that can&#39;t benefit from wiring.</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">child_parts</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">parts</span><span class="p">)</span>
+        <span class="n">child_internal</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">get_internal_nets</span><span class="p">()</span>
+        <span class="n">non_stubbed</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">child_internal</span>
+                       <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="s2">&quot;_stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)]</span>
+
+        <span class="c1"># Stub single-real-pin nets (cross-sheet labels, not wireable).</span>
+        <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">non_stubbed</span><span class="p">:</span>
+            <span class="n">real_pins</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">part</span> <span class="ow">in</span> <span class="n">child_parts</span>
+                         <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">part</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">real_pins</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">net</span><span class="o">.</span><span class="n">_stub</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">net</span><span class="o">.</span><span class="n">_stub_explicit</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">get_pins</span><span class="p">():</span>
+                    <span class="n">p</span><span class="o">.</span><span class="n">stub</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">total_stubbed</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># Re-count after single-pin removal.</span>
+        <span class="n">non_stubbed</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">child_internal</span>
+                       <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="s2">&quot;_stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)]</span>
+
+        <span class="c1"># Stub all remaining nets in small subcircuits (&lt;=6 routeable nets).</span>
+        <span class="c1"># Only large chain structures (switch-&gt;R-&gt;IC grids) benefit from wiring.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">non_stubbed</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">6</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">non_stubbed</span><span class="p">:</span>
+                <span class="n">net</span><span class="o">.</span><span class="n">_stub</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">net</span><span class="o">.</span><span class="n">_stub_explicit</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">get_pins</span><span class="p">():</span>
+                    <span class="n">p</span><span class="o">.</span><span class="n">stub</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">total_stubbed</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">if</span> <span class="n">total_stubbed</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">skidl.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;  [selective_routing] Stubbed </span><span class="si">{</span><span class="n">total_stubbed</span><span class="si">}</span><span class="s2"> complex/distant nets after placement&quot;</span>
+        <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">LabelsOnlyWarning</span><span class="p">(</span><span class="ne">UserWarning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Warning raised when schematic falls back to labels-only output.&quot;&quot;&quot;</span>
+
+    <span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">_handle_fallback</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">tool_module</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">top_name</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">flatness</span><span class="p">,</span>
+                     <span class="n">options</span><span class="p">,</span> <span class="n">logger</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Handle routing failure fallback according to the auto_stub_fallback policy.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        circuit: The Circuit object.</span>
+<span class="sd">        tool_module: The KiCad tool module.</span>
+<span class="sd">        filepath, top_name, title, flatness: Schematic generation parameters.</span>
+<span class="sd">        options: Dict of options including auto_stub_fallback policy.</span>
+<span class="sd">        logger: The active logger.</span>
+<span class="sd">        reason: Human-readable explanation of why we&#39;re falling back.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">warnings</span>
+
+    <span class="kn">from</span> <span class="nn">skidl.schematics.sch_node</span> <span class="kn">import</span> <span class="n">SchNode</span>
+    <span class="kn">from</span> <span class="nn">.sexp_schematic</span> <span class="kn">import</span> <span class="n">write_top_schematic</span>
+
+    <span class="n">fallback</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;auto_stub_fallback&quot;</span><span class="p">,</span> <span class="s2">&quot;labels&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">fallback</span> <span class="o">==</span> <span class="s2">&quot;raise&quot;</span><span class="p">:</span>
+        <span class="n">finalize_parts_and_nets</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+        <span class="kn">from</span> <span class="nn">skidl.schematics.route</span> <span class="kn">import</span> <span class="n">RoutingFailure</span>
+
+        <span class="k">raise</span> <span class="n">RoutingFailure</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">reason</span><span class="si">}</span><span class="s2">. Set auto_stub_fallback=&#39;labels&#39; to produce &quot;</span>
+            <span class="s2">&quot;labels-only output instead of crashing.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Produce labels-only output.</span>
+    <span class="n">stubbed_nets</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;_stub_explicit&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">net</span><span class="o">.</span><span class="n">_stub</span><span class="p">:</span>
+            <span class="n">stubbed_nets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">_stub_all_non_explicit</span><span class="p">(</span><span class="n">circuit</span><span class="p">)</span>
+
+    <span class="n">preprocess_circuit</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="n">SchNode</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">tool_module</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">top_name</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">flatness</span><span class="p">)</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">expansion_factor</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="o">**</span><span class="n">options</span><span class="p">)</span>
+    <span class="n">_snap_two_pin_parts</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="n">output_file</span> <span class="o">=</span> <span class="n">write_top_schematic</span><span class="p">(</span>
+        <span class="n">circuit</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">top_name</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">20230409</span>
+    <span class="p">)</span>
+    <span class="n">finalize_parts_and_nets</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+
+    <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">reason</span><span class="si">}</span><span class="s2">. Produced labels-only schematic at </span><span class="si">{</span><span class="n">output_file</span><span class="si">}</span><span class="s2">. &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;Nets converted to labels: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">stubbed_nets</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;...&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">stubbed_nets</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">. &quot;</span>
+        <span class="s2">&quot;This may mask routing issues that could be fixed by improving &quot;</span>
+        <span class="s2">&quot;the circuit layout. Set auto_stub_fallback=&#39;raise&#39; to get the &quot;</span>
+        <span class="s2">&quot;original error instead.&quot;</span>
+    <span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">fallback</span> <span class="o">==</span> <span class="s2">&quot;warn&quot;</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">LabelsOnlyWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_stub_all_non_explicit</span><span class="p">(</span><span class="n">circuit</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Stub all nets that weren&#39;t explicitly set by the user (labels-only fallback).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        circuit: The Circuit object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;_stub_explicit&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="n">net</span><span class="o">.</span><span class="n">_stub</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">get_pins</span><span class="p">():</span>
+                <span class="n">pin</span><span class="o">.</span><span class="n">stub</span> <span class="o">=</span> <span class="kc">True</span>
+
+
+<span class="k">def</span> <span class="nf">preprocess_circuit</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add stuff to parts &amp; nets for doing placement and routing of schematics.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">units</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">part</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">part</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize part or its part units.&quot;&quot;&quot;</span>
+
+        <span class="n">pin_limit</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;orientation_pin_limit&quot;</span><span class="p">,</span> <span class="mi">44</span><span class="p">)</span>
+
+        <span class="c1"># KiCad 6+ stores pin orientation as integer degrees; normalize to string.</span>
+        <span class="n">deg_to_orient</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span> <span class="mi">90</span><span class="p">:</span> <span class="s2">&quot;U&quot;</span><span class="p">,</span> <span class="mi">180</span><span class="p">:</span> <span class="s2">&quot;L&quot;</span><span class="p">,</span> <span class="mi">270</span><span class="p">:</span> <span class="s2">&quot;D&quot;</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">part_unit</span> <span class="ow">in</span> <span class="n">units</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+            <span class="n">part_unit</span><span class="o">.</span><span class="n">tx</span> <span class="o">=</span> <span class="n">Tx</span><span class="o">.</span><span class="n">from_symtx</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">part_unit</span><span class="p">,</span> <span class="s2">&quot;symtx&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+
+            <span class="n">num_pins</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">part_unit</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span>
+            <span class="n">part_unit</span><span class="o">.</span><span class="n">orientation_locked</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part_unit</span><span class="p">,</span> <span class="s2">&quot;symtx&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="p">(</span>
+                <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">num_pins</span> <span class="o">&lt;=</span> <span class="n">pin_limit</span>
+            <span class="p">)</span>
+
+            <span class="n">part_unit</span><span class="o">.</span><span class="n">grab_pins</span><span class="p">()</span>
+
+            <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part_unit</span><span class="p">:</span>
+                <span class="c1"># Normalize pin orientation from integer degrees to string direction.</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">orientation</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                    <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="n">deg_to_orient</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">%</span> <span class="mi">360</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">)</span>
+                <span class="c1"># Pin coords from KiCad 9 libs are in mm; convert to mils</span>
+                <span class="c1"># so the placement/routing engine works in consistent units.</span>
+                <span class="n">MM_TO_MILS</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mf">0.0254</span>
+                <span class="n">pin</span><span class="o">.</span><span class="n">pt</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">MM_TO_MILS</span><span class="p">,</span> <span class="n">pin</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">MM_TO_MILS</span><span class="p">)</span>
+                <span class="n">pin</span><span class="o">.</span><span class="n">routed</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">rotate_power_pins</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Rotate a part based on the direction of its power pins.&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;symtx&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
+            <span class="k">return</span>
+
+        <span class="k">def</span> <span class="nf">is_pwr</span><span class="p">(</span><span class="n">net_name</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">net_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;+&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">is_gnd</span><span class="p">(</span><span class="n">net_name</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s2">&quot;gnd&quot;</span> <span class="ow">in</span> <span class="n">net_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+        <span class="n">dont_rotate_pin_cnt</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dont_rotate_pin_count&quot;</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">part_unit</span> <span class="ow">in</span> <span class="n">units</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">part_unit</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">dont_rotate_pin_cnt</span><span class="p">:</span>
+                <span class="k">return</span>
+
+            <span class="n">rotation_tally</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part_unit</span><span class="p">:</span>
+                <span class="n">net_name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">is_gnd</span><span class="p">(</span><span class="n">net_name</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;U&quot;</span><span class="p">:</span>
+                        <span class="n">rotation_tally</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span>
+                        <span class="n">rotation_tally</span><span class="p">[</span><span class="mi">180</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span>
+                        <span class="n">rotation_tally</span><span class="p">[</span><span class="mi">90</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;R&quot;</span><span class="p">:</span>
+                        <span class="n">rotation_tally</span><span class="p">[</span><span class="mi">270</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">elif</span> <span class="n">is_pwr</span><span class="p">(</span><span class="n">net_name</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span>
+                        <span class="n">rotation_tally</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;U&quot;</span><span class="p">:</span>
+                        <span class="n">rotation_tally</span><span class="p">[</span><span class="mi">180</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span>
+                        <span class="n">rotation_tally</span><span class="p">[</span><span class="mi">270</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;R&quot;</span><span class="p">:</span>
+                        <span class="n">rotation_tally</span><span class="p">[</span><span class="mi">90</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">rotation</span> <span class="o">=</span> <span class="n">rotation_tally</span><span class="o">.</span><span class="n">most_common</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tx_cw_90</span> <span class="o">=</span> <span class="n">Tx</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">rotation</span> <span class="o">/</span> <span class="mi">90</span><span class="p">))):</span>
+                    <span class="n">part_unit</span><span class="o">.</span><span class="n">tx</span> <span class="o">=</span> <span class="n">part_unit</span><span class="o">.</span><span class="n">tx</span> <span class="o">*</span> <span class="n">tx_cw_90</span>
+
+    <span class="k">def</span> <span class="nf">calc_part_bbox</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the labeled bounding boxes and store it in the part.&quot;&quot;&quot;</span>
+
+        <span class="n">bare_bboxes</span> <span class="o">=</span> <span class="n">calc_symbol_bbox</span><span class="p">(</span><span class="n">part</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
+
+        <span class="k">for</span> <span class="n">part_unit</span><span class="p">,</span> <span class="n">bare_bbox</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">units</span><span class="p">(</span><span class="n">part</span><span class="p">),</span> <span class="n">bare_bboxes</span><span class="p">):</span>
+            <span class="n">resize_wh</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">bare_bbox</span><span class="o">.</span><span class="n">w</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
+                <span class="n">resize_wh</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span> <span class="o">-</span> <span class="n">bare_bbox</span><span class="o">.</span><span class="n">w</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="k">if</span> <span class="n">bare_bbox</span><span class="o">.</span><span class="n">h</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
+                <span class="n">resize_wh</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span> <span class="o">-</span> <span class="n">bare_bbox</span><span class="o">.</span><span class="n">h</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="n">bare_bbox</span> <span class="o">=</span> <span class="n">bare_bbox</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">resize_wh</span><span class="p">)</span>
+
+            <span class="n">part_unit</span><span class="o">.</span><span class="n">lbl_bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">()</span>
+            <span class="n">part_unit</span><span class="o">.</span><span class="n">lbl_bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bare_bbox</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part_unit</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">stub</span><span class="p">:</span>
+                    <span class="n">hlbl_bbox</span> <span class="o">=</span> <span class="n">calc_hier_label_bbox</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span><span class="p">)</span>
+                    <span class="n">hlbl_bbox</span> <span class="o">*=</span> <span class="n">Tx</span><span class="p">()</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">pt</span><span class="p">)</span>
+                    <span class="n">part_unit</span><span class="o">.</span><span class="n">lbl_bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">hlbl_bbox</span><span class="p">)</span>
+
+            <span class="n">part_unit</span><span class="o">.</span><span class="n">bbox</span> <span class="o">=</span> <span class="n">part_unit</span><span class="o">.</span><span class="n">lbl_bbox</span>
+
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+        <span class="n">initialize</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+        <span class="n">rotate_power_pins</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+        <span class="n">calc_part_bbox</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">finalize_parts_and_nets</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Restore parts and nets after place &amp; route is done.&quot;&quot;&quot;</span>
+
+    <span class="n">net_terminals</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">parts</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">))</span>
+    <span class="n">circuit</span><span class="o">.</span><span class="n">rmv_parts</span><span class="p">(</span><span class="o">*</span><span class="n">net_terminals</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+        <span class="n">part</span><span class="o">.</span><span class="n">grab_pins</span><span class="p">()</span>
+
+    <span class="n">rmv_attr</span><span class="p">(</span><span class="n">circuit</span><span class="o">.</span><span class="n">parts</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;force&quot;</span><span class="p">,</span> <span class="s2">&quot;bbox&quot;</span><span class="p">,</span> <span class="s2">&quot;lbl_bbox&quot;</span><span class="p">,</span> <span class="s2">&quot;tx&quot;</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">_place_and_classify</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">circuit</span><span class="p">,</span> <span class="n">expansion_factor</span><span class="p">,</span> <span class="n">classify</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Place a node and, when auto_stub is on, run the stub classifiers.</span>
+
+<span class="sd">    Extracted so the main pass and the ERC-regeneration pass share one code</span>
+<span class="sd">    path. ``classify=False`` places without running ``_apply_deferred_stubs`` /</span>
+<span class="sd">    ``_classify_and_stub_complex_nets`` — used by the label-clearance re-place</span>
+<span class="sd">    pass, which must place against an already-frozen stub set (re-running the</span>
+<span class="sd">    classifiers would reset deferred pins and mutate the stub set after the</span>
+<span class="sd">    label-aware bboxes were computed).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">expansion_factor</span><span class="o">=</span><span class="n">expansion_factor</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">classify</span> <span class="ow">and</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;auto_stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="n">_apply_deferred_stubs</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+        <span class="n">_classify_and_stub_complex_nets</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="gen_schematic">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad10.gen_schematic.html#skidl.tools.kicad10.gen_schematic.gen_schematic">[docs]</a>
+<span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">gen_schematic</span><span class="p">(</span>
+    <span class="n">circuit</span><span class="p">,</span>
+    <span class="n">filepath</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
+    <span class="n">top_name</span><span class="o">=</span><span class="n">get_script_name</span><span class="p">(),</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;SKiDL-Generated Schematic&quot;</span><span class="p">,</span>
+    <span class="n">flatness</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">retries</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">options</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a KiCad 9 schematic file from a Circuit object.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        circuit (Circuit): The Circuit object that will have a schematic generated for it.</span>
+<span class="sd">        filepath (str, optional): The directory where the schematic files are placed. Defaults to &quot;.&quot;.</span>
+<span class="sd">        top_name (str, optional): The name for the top of the circuit hierarchy. Defaults to get_script_name().</span>
+<span class="sd">        title (str, optional): The title of the schematic. Defaults to &quot;SKiDL-Generated Schematic&quot;.</span>
+<span class="sd">        flatness (float, optional): Determines how much the hierarchy is flattened in the schematic.</span>
+<span class="sd">            Defaults to 0.0 (completely hierarchical). Use 1.0 to flatten everything into one sheet.</span>
+<span class="sd">        retries (int, optional): Number of times to re-try if routing fails. Defaults to 2.</span>
+<span class="sd">        options (dict, optional): Dict of options and values, usually for drawing/debugging.</span>
+
+<span class="sd">    Auto-stub options (pass as keyword arguments):</span>
+<span class="sd">        auto_stub (bool): Enable auto-stubbing for large/complex circuits. Converts nets that</span>
+<span class="sd">            would fail routing into global labels, and runs a KiCad ERC correction loop to</span>
+<span class="sd">            iteratively fix remaining issues. Power nets (GND, VCC, etc.) are automatically</span>
+<span class="sd">            emitted as proper KiCad power symbols. Default False.</span>
+<span class="sd">        auto_stub_fanout (int): Nets with more pins than this are stubbed pre-routing. Default 3.</span>
+<span class="sd">        auto_stub_max_wire_pins (int): Max pins on a net before selective routing stubs it</span>
+<span class="sd">            post-placement. Default 3.</span>
+<span class="sd">        auto_stub_max_wire_dist (int): Max manhattan distance (mils) between pins before</span>
+<span class="sd">            selective routing stubs the net. Default 2000.</span>
+<span class="sd">        erc_max_iterations (int): Max ERC correction loop passes. Default 8.</span>
+<span class="sd">        auto_stub_fallback (str): What to do when routing fails with auto_stub enabled.</span>
+<span class="sd">            &quot;labels&quot; (default) — fall back to labels-only schematic.</span>
+<span class="sd">            &quot;raise&quot; — raise the RoutingFailure so the caller sees it.</span>
+<span class="sd">            &quot;warn&quot; — produce labels-only but also raise a warning exception.</span>
+
+<span class="sd">    Tips for best results with auto_stub:</span>
+<span class="sd">        - Use @subcircuit to group related parts (e.g. power supply, MCU, amplifier).</span>
+<span class="sd">          Each subcircuit gets placed and routed independently, producing more wired</span>
+<span class="sd">          connections and cleaner hierarchical sheets.</span>
+<span class="sd">        - Keep subcircuits to 5-15 parts for best wire routing results.</span>
+<span class="sd">        - Power nets are automatically detected and emitted as KiCad power symbols</span>
+<span class="sd">          (e.g. power:GND, power:VCC) which display correctly in the schematic editor.</span>
+
+<span class="sd">    Example::</span>
+
+<span class="sd">        from skidl import *</span>
+
+<span class="sd">        @subcircuit</span>
+<span class="sd">        def power_supply(vin, vout, gnd):</span>
+<span class="sd">            ldo = Part(&quot;Regulator_Linear&quot;, &quot;AP2112K-3.3&quot;)</span>
+<span class="sd">            ldo[&quot;VIN&quot;] += vin</span>
+<span class="sd">            ldo[&quot;VOUT&quot;] += vout</span>
+<span class="sd">            ldo[&quot;GND&quot;] += gnd</span>
+<span class="sd">            ldo[&quot;EN&quot;] += vin</span>
+<span class="sd">            for val in [&quot;1uF&quot;, &quot;1uF&quot;]:</span>
+<span class="sd">                c = Part(&quot;Device&quot;, &quot;C&quot;, value=val)</span>
+<span class="sd">                c[1] += vout if val == &quot;1uF&quot; else vin</span>
+<span class="sd">                c[2] += gnd</span>
+
+<span class="sd">        vcc = Net(&quot;VCC&quot;); vcc.drive = POWER</span>
+<span class="sd">        gnd = Net(&quot;GND&quot;); gnd.drive = POWER</span>
+<span class="sd">        vin = Net(&quot;VIN&quot;)</span>
+
+<span class="sd">        power_supply(vin, vcc, gnd)</span>
+
+<span class="sd">        generate_schematic(auto_stub=True)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="n">get_default_tool</span>
+    <span class="kn">from</span> <span class="nn">skidl.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
+    <span class="kn">from</span> <span class="nn">skidl.schematics.place</span> <span class="kn">import</span> <span class="n">PlacementFailure</span>
+    <span class="kn">from</span> <span class="nn">skidl.schematics.route</span> <span class="kn">import</span> <span class="n">RoutingFailure</span>
+    <span class="kn">from</span> <span class="nn">skidl.schematics.sch_node</span> <span class="kn">import</span> <span class="n">SchNode</span>
+    <span class="kn">from</span> <span class="nn">skidl.tools</span> <span class="kn">import</span> <span class="n">tool_modules</span>
+
+    <span class="n">tool_module</span> <span class="o">=</span> <span class="n">tool_modules</span><span class="p">[</span><span class="n">get_default_tool</span><span class="p">()]</span>
+
+    <span class="n">_setup_kicad_env</span><span class="p">()</span>
+
+    <span class="c1"># Part placement options that should always be turned on.</span>
+    <span class="n">options</span><span class="p">[</span><span class="s2">&quot;use_push_pull&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">options</span><span class="p">[</span><span class="s2">&quot;rotate_parts&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">options</span><span class="p">[</span><span class="s2">&quot;pt_to_pt_mult&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">options</span><span class="p">[</span><span class="s2">&quot;pin_normalize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1"># Phase 1: Heuristic auto-stubbing before first generation pass.</span>
+    <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;auto_stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="n">auto_stub_nets</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+
+    <span class="n">expansion_factor</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">failure_type</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">for</span> <span class="n">attempt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">retries</span><span class="p">):</span>
+        <span class="n">preprocess_circuit</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+
+        <span class="n">node</span> <span class="o">=</span> <span class="n">SchNode</span><span class="p">(</span>
+            <span class="n">circuit</span><span class="p">,</span> <span class="n">tool_module</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">top_name</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">flatness</span>
+        <span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">_place_and_classify</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">circuit</span><span class="p">,</span> <span class="n">expansion_factor</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;auto_stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;label_clearance&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                <span class="c1"># Label-clearance Pass 2: Pass 1&#39;s classifiers just froze the</span>
+                <span class="c1"># final stub set, but the placement they ran on reserved no room</span>
+                <span class="c1"># for the resulting net labels. Re-run preprocessing (recomputes</span>
+                <span class="c1"># each part&#39;s lbl_bbox to include the now-stubbed pins&#39; label</span>
+                <span class="c1"># boxes) and rebuild the node (NetTerminals are derived from stub</span>
+                <span class="c1"># state, so the rebuild also clears stale terminals), then place</span>
+                <span class="c1"># WITHOUT reclassifying — classify=False keeps the stubs frozen.</span>
+                <span class="c1"># finalize first (as the ERC-regen path does before its rebuild):</span>
+                <span class="c1"># removes Pass-1 NetTerminals and clears force/bbox/lbl_bbox/tx so</span>
+                <span class="c1"># the rebuild starts clean. It does NOT touch pin.stub/net._stub,</span>
+                <span class="c1"># so the frozen stub set survives.</span>
+                <span class="n">finalize_parts_and_nets</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+                <span class="n">preprocess_circuit</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+                <span class="n">node</span> <span class="o">=</span> <span class="n">SchNode</span><span class="p">(</span>
+                    <span class="n">circuit</span><span class="p">,</span> <span class="n">tool_module</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">top_name</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">flatness</span>
+                <span class="p">)</span>
+                <span class="n">_place_and_classify</span><span class="p">(</span>
+                    <span class="n">node</span><span class="p">,</span> <span class="n">circuit</span><span class="p">,</span> <span class="n">expansion_factor</span><span class="p">,</span> <span class="n">classify</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span>
+                <span class="p">)</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="o">**</span><span class="n">options</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="n">PlacementFailure</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">finalize_parts_and_nets</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+            <span class="n">failure_type</span> <span class="o">=</span> <span class="n">e</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Placement failed on attempt </span><span class="si">{</span><span class="n">attempt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">retries</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="k">except</span> <span class="n">RoutingFailure</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">finalize_parts_and_nets</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+            <span class="n">expansion_factor</span> <span class="o">*=</span> <span class="mf">1.5</span>
+            <span class="n">failure_type</span> <span class="o">=</span> <span class="n">e</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Routing failed on attempt </span><span class="si">{</span><span class="n">attempt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">retries</span><span class="si">}</span><span class="s2">, expanding area by 1.5x: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;auto_stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="n">_snap_two_pin_parts</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+        <span class="c1"># Generate S-expression schematic using shared module.</span>
+        <span class="c1"># KiCad 8/9 use version 20230409.</span>
+        <span class="n">output_file</span> <span class="o">=</span> <span class="n">write_top_schematic</span><span class="p">(</span>
+            <span class="n">circuit</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">top_name</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">20230409</span>
+        <span class="p">)</span>
+
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Schematic written to </span><span class="si">{</span><span class="n">output_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">finalize_parts_and_nets</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+
+        <span class="c1"># Phase 2: ERC correction loop (only when auto_stub is enabled).</span>
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;auto_stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="s2">&quot;kicad-cli&quot;</span><span class="p">):</span>
+            <span class="n">max_erc_iterations</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;erc_max_iterations&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">erc_attempt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_erc_iterations</span><span class="p">):</span>
+                <span class="n">erc_report</span> <span class="o">=</span> <span class="n">_run_erc</span><span class="p">(</span><span class="n">output_file</span><span class="p">)</span>
+                <span class="n">errors</span> <span class="o">=</span> <span class="n">_parse_erc_report</span><span class="p">(</span><span class="n">erc_report</span><span class="p">)</span>
+                <span class="n">fixable</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">errors</span> <span class="k">if</span> <span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">FIXABLE_ERROR_TYPES</span><span class="p">]</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">fixable</span><span class="p">:</span>
+                    <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;ERC clean after </span><span class="si">{</span><span class="n">erc_attempt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> iteration(s)&quot;</span>
+                    <span class="p">)</span>
+                    <span class="k">break</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">_stub_nets_for_erc_errors</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">fixable</span><span class="p">):</span>
+                    <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;ERC: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">fixable</span><span class="p">)</span><span class="si">}</span><span class="s2"> unfixable errors remain after </span><span class="si">{</span><span class="n">erc_attempt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> iteration(s)&quot;</span>
+                    <span class="p">)</span>
+                    <span class="k">break</span>
+
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;ERC correction: stubbed nets for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">fixable</span><span class="p">)</span><span class="si">}</span><span class="s2"> errors, regenerating (iteration </span><span class="si">{</span><span class="n">erc_attempt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">)&quot;</span>
+                <span class="p">)</span>
+
+                <span class="c1"># Full regeneration — try with expansion before giving up.</span>
+                <span class="n">erc_regen_ok</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">for</span> <span class="n">erc_expansion</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.25</span><span class="p">]:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">preprocess_circuit</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+                        <span class="n">node</span> <span class="o">=</span> <span class="n">SchNode</span><span class="p">(</span>
+                            <span class="n">circuit</span><span class="p">,</span>
+                            <span class="n">tool_module</span><span class="p">,</span>
+                            <span class="n">filepath</span><span class="p">,</span>
+                            <span class="n">top_name</span><span class="p">,</span>
+                            <span class="n">title</span><span class="p">,</span>
+                            <span class="n">flatness</span><span class="p">,</span>
+                        <span class="p">)</span>
+                        <span class="n">_place_and_classify</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">circuit</span><span class="p">,</span> <span class="n">erc_expansion</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+                        <span class="n">node</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="o">**</span><span class="n">options</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;auto_stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                            <span class="n">_snap_two_pin_parts</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                        <span class="n">output_file</span> <span class="o">=</span> <span class="n">write_top_schematic</span><span class="p">(</span>
+                            <span class="n">circuit</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">top_name</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">20230409</span>
+                        <span class="p">)</span>
+                        <span class="n">finalize_parts_and_nets</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+                        <span class="n">erc_regen_ok</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="k">break</span>
+                    <span class="k">except</span> <span class="p">(</span><span class="n">RoutingFailure</span><span class="p">,</span> <span class="n">PlacementFailure</span><span class="p">)</span> <span class="k">as</span> <span class="n">inner_e</span><span class="p">:</span>
+                        <span class="n">finalize_parts_and_nets</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">erc_expansion</span> <span class="o">&lt;</span> <span class="mf">2.25</span><span class="p">:</span>
+                            <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                                <span class="sa">f</span><span class="s2">&quot;ERC regeneration routing failed at </span><span class="si">{</span><span class="n">erc_expansion</span><span class="si">}</span><span class="s2">x, &quot;</span>
+                                <span class="sa">f</span><span class="s2">&quot;trying </span><span class="si">{</span><span class="n">erc_expansion</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1.5</span><span class="si">}</span><span class="s2">x expansion&quot;</span>
+                            <span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                                <span class="sa">f</span><span class="s2">&quot;ERC regeneration routing failed after all expansion attempts: </span><span class="si">{</span><span class="n">inner_e</span><span class="si">}</span><span class="s2">&quot;</span>
+                            <span class="p">)</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">erc_regen_ok</span><span class="p">:</span>
+                    <span class="c1"># Routing failed even with expansion — handle per fallback policy.</span>
+                    <span class="n">_handle_fallback</span><span class="p">(</span>
+                        <span class="n">circuit</span><span class="p">,</span> <span class="n">tool_module</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">top_name</span><span class="p">,</span>
+                        <span class="n">title</span><span class="p">,</span> <span class="n">flatness</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">active_logger</span><span class="p">,</span>
+                        <span class="n">reason</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;ERC correction regeneration failed after expansion attempts&quot;</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="k">break</span>
+
+        <span class="k">return</span>
+
+    <span class="c1"># All retries exhausted.</span>
+    <span class="k">if</span> <span class="n">failure_type</span> <span class="ow">and</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;auto_stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="n">_handle_fallback</span><span class="p">(</span>
+            <span class="n">circuit</span><span class="p">,</span> <span class="n">tool_module</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">top_name</span><span class="p">,</span>
+            <span class="n">title</span><span class="p">,</span> <span class="n">flatness</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">active_logger</span><span class="p">,</span>
+            <span class="n">reason</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Routing failed after all </span><span class="si">{</span><span class="n">retries</span><span class="si">}</span><span class="s2"> retries&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">finalize_parts_and_nets</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">failure_type</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">failure_type</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Schematic generation failed for unknown reasons&quot;</span><span class="p">)</span></div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad10.gen_schematic</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2026, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>

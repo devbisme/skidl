@@ -12,8 +12,11 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
+   skidl.schematics.backend
    skidl.schematics.debug_draw
+   skidl.schematics.decisions
    skidl.schematics.net_terminal
    skidl.schematics.place
    skidl.schematics.route
    skidl.schematics.sch_node
+   skidl.schematics.snap

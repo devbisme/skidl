@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.schematics.place &#8212; SKiDL 2.2.3 documentation</title>
+    <title>skidl.schematics.place &#8212; SKiDL 2.3.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../../_static/documentation_options.js?v=85e56e6b"></script>
+    <script src="../../../_static/documentation_options.js?v=c3c8ae58"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 2.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.schematics.place</a></li> 
       </ul>
@@ -322,6 +322,31 @@
 <span class="sd">        bool: True if one or more part orientations were changed. Otherwise, False.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="c1"># Label-overlap-aware orientation: combine the existing net_tension with a</span>
+    <span class="c1"># term that penalizes orientations whose net labels would pile onto symbol</span>
+    <span class="c1"># bodies / other labels.  Opt-in (default on) and purely additive so it can</span>
+    <span class="c1"># be offered upstream without changing net_tension itself.</span>
+    <span class="c1">#</span>
+    <span class="c1"># Scope: by default this is applied to FLOATING parts (all pins on labeled</span>
+    <span class="c1"># stub nets), where label piling is worst and net_tension is ~0 so it does</span>
+    <span class="c1"># no electrical harm.  For wire-connected groups the label term is left OFF</span>
+    <span class="c1"># by default (`label_aware_connected`) because nudging a connected part&#39;s</span>
+    <span class="c1"># orientation purely for label readability can push a stub label onto an</span>
+    <span class="c1"># adjacent power node and merge nets.  Callers can flip either gate.</span>
+    <span class="n">label_aware</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;label_aware_orientation&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span> <span class="ow">and</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="s2">&quot;_label_aware_scope&quot;</span><span class="p">,</span> <span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="c1"># Weight so a single label overlap (cost 1.0) outweighs small net_tension</span>
+    <span class="c1"># differences (net_tension is a distance sum in mils).</span>
+    <span class="n">label_weight</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;label_overlap_weight&quot;</span><span class="p">,</span> <span class="mf">75.0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">orientation_cost</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Combined orientation cost: net tension plus optional label overlap.&quot;&quot;&quot;</span>
+        <span class="n">cost</span> <span class="o">=</span> <span class="n">net_tension</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">label_aware</span><span class="p">:</span>
+            <span class="n">cost</span> <span class="o">+=</span> <span class="n">label_weight</span> <span class="o">*</span> <span class="n">label_overlap_cost</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cost</span>
+
     <span class="k">def</span> <span class="nf">find_best_orientation</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Each part has 8 possible orientations. Find the best of the 7 alternatives from the starting one.&quot;&quot;&quot;</span>
 
@@ -340,12 +365,12 @@
 
                 <span class="k">if</span> <span class="n">calc_starting_cost</span><span class="p">:</span>
                     <span class="c1"># Calculate the cost of the starting orientation before any changes in orientation.</span>
-                    <span class="n">starting_cost</span> <span class="o">=</span> <span class="n">net_tension</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+                    <span class="n">starting_cost</span> <span class="o">=</span> <span class="n">orientation_cost</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
                     <span class="c1"># Skip the starting orientation but set flag to process the others.</span>
                     <span class="n">calc_starting_cost</span> <span class="o">=</span> <span class="kc">False</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="c1"># Calculate the cost of the current orientation.</span>
-                    <span class="n">delta_cost</span> <span class="o">=</span> <span class="n">net_tension</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span> <span class="o">-</span> <span class="n">starting_cost</span>
+                    <span class="n">delta_cost</span> <span class="o">=</span> <span class="n">orientation_cost</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="o">-</span> <span class="n">starting_cost</span>
                     <span class="k">if</span> <span class="n">delta_cost</span> <span class="o">&lt;</span> <span class="n">best_delta_cost</span><span class="p">:</span>
                         <span class="c1"># Save the largest decrease in cost and the associated orientation.</span>
                         <span class="n">best_delta_cost</span> <span class="o">=</span> <span class="n">delta_cost</span>
@@ -370,6 +395,12 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">movable_parts</span><span class="p">:</span>
         <span class="c1"># No movable parts, so exit without doing anything.</span>
         <span class="k">return</span>
+
+    <span class="c1"># Provide neighbor parts to the label-overlap cost so it can penalize a</span>
+    <span class="c1"># part&#39;s labels piling onto other parts&#39; bodies.  Use all parts in scope.</span>
+    <span class="k">if</span> <span class="n">label_aware</span><span class="p">:</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+        <span class="n">options</span><span class="p">[</span><span class="s2">&quot;_label_neighbors&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span>
 
     <span class="c1"># Kernighan-Lin algorithm for finding near-optimal part orientations.</span>
     <span class="c1"># Because of the way the tension for part alignment is computed based on</span>
@@ -458,6 +489,168 @@
             <span class="n">tension</span> <span class="o">+=</span> <span class="nb">min</span><span class="p">(</span><span class="n">dists</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">tension</span>
+
+
+<span class="c1"># Geometry constants for estimating where a stubbed pin&#39;s net label will render.</span>
+<span class="c1"># Units are the same as pin.pt / part.tx (KiCad mils at place time; GRID == 50).</span>
+<span class="c1"># A net label is drawn as a flag starting at the pin and extending OUTWARD</span>
+<span class="c1"># (in the pin&#39;s transformed direction) by roughly the text length.  These</span>
+<span class="c1"># constants describe that flag box used purely for overlap scoring; they do</span>
+<span class="c1"># not have to match the renderer exactly, only correlate with visible piling.</span>
+<span class="n">LABEL_REACH</span> <span class="o">=</span> <span class="mf">250.0</span>  <span class="c1"># outward length of a net-label flag box (~text length).</span>
+<span class="n">LABEL_HALF_H</span> <span class="o">=</span> <span class="mf">30.0</span>  <span class="c1"># perpendicular half-height of a net-label flag box.</span>
+<span class="c1"># Body margin added around the bare pin-span so the body box also covers the</span>
+<span class="c1"># pin-name letters that crowd a rotated symbol.</span>
+<span class="n">LABEL_BODY_MARGIN</span> <span class="o">=</span> <span class="mf">40.0</span>
+<span class="c1"># The reference/value text renders HORIZONTALLY in sheet space, centered on the</span>
+<span class="c1"># part body, regardless of part rotation.  A net label pointing up/down crosses</span>
+<span class="c1"># this horizontal text band (vertical, hard-to-read labels piling onto the</span>
+<span class="c1"># value text); a label pointing left/right clears it.  Penalizing overlap with</span>
+<span class="c1"># this axis-aligned band is what makes the cost prefer readable, splayed-out</span>
+<span class="c1"># horizontal labels over vertical ones.  These are the band&#39;s half-extents.</span>
+<span class="n">LABEL_TEXT_BAND_HALF_W</span> <span class="o">=</span> <span class="mf">300.0</span>  <span class="c1"># horizontal half-width of the value/ref text band.</span>
+<span class="n">LABEL_TEXT_BAND_HALF_H</span> <span class="o">=</span> <span class="mf">70.0</span>   <span class="c1"># vertical half-height of the value/ref text band.</span>
+
+
+<span class="k">def</span> <span class="nf">_pin_out_dir</span><span class="p">(</span><span class="n">pin</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the outward unit Point for a pin under its part&#39;s current tx.</span>
+
+<span class="sd">    Mirrors the direction logic in calc_pin_dir / add_place_pt: take the pin&#39;s</span>
+<span class="sd">    base orientation unit vector and rotate it by the part&#39;s rotation/flip</span>
+<span class="sd">    (translation stripped from part.tx).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tx</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">tx</span>
+    <span class="n">rot</span> <span class="o">=</span> <span class="n">Tx</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">tx</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">tx</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">tx</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="n">tx</span><span class="o">.</span><span class="n">d</span><span class="p">)</span>  <span class="c1"># strip translation, keep rot/flip.</span>
+    <span class="n">base</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+        <span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="s2">&quot;R&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+    <span class="p">}[</span><span class="n">pin</span><span class="o">.</span><span class="n">orientation</span><span class="p">]</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">base</span> <span class="o">*</span> <span class="n">rot</span>
+    <span class="c1"># Snap to a clean axis-aligned unit vector.</span>
+    <span class="k">return</span> <span class="n">Point</span><span class="p">(</span>
+        <span class="mi">1</span> <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mf">0.5</span> <span class="k">else</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">0.5</span> <span class="k">else</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="mi">1</span> <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mf">0.5</span> <span class="k">else</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">0.5</span> <span class="k">else</span> <span class="mi">0</span><span class="p">),</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_label_box</span><span class="p">(</span><span class="n">anchor</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build the flag bbox for a net label anchored at `anchor` extending</span>
+<span class="sd">    `LABEL_REACH` outward along `out_dir`, with `LABEL_HALF_H` to each side.&quot;&quot;&quot;</span>
+    <span class="n">far</span> <span class="o">=</span> <span class="n">anchor</span> <span class="o">+</span> <span class="n">out_dir</span> <span class="o">*</span> <span class="n">LABEL_REACH</span>
+    <span class="n">box</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">(</span><span class="n">anchor</span><span class="p">,</span> <span class="n">far</span><span class="p">)</span>
+    <span class="c1"># Widen perpendicular to the reach direction.</span>
+    <span class="k">if</span> <span class="n">out_dir</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># Horizontal label: pad in y.</span>
+        <span class="k">return</span> <span class="n">box</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">LABEL_HALF_H</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="n">out_dir</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># Vertical label: pad in x.</span>
+        <span class="k">return</span> <span class="n">box</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="n">LABEL_HALF_H</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">box</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="n">LABEL_HALF_H</span><span class="p">,</span> <span class="n">LABEL_HALF_H</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">_body_box</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Estimate the part&#39;s own body box (graphics + pin-name letters) under its</span>
+<span class="sd">    current tx, derived from the span of its pin points so it stays</span>
+<span class="sd">    backend-agnostic.  A margin covers the pin-name letters.&quot;&quot;&quot;</span>
+    <span class="n">pts</span> <span class="o">=</span> <span class="p">[</span><span class="n">pin</span><span class="o">.</span><span class="n">pt</span> <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part</span> <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="s2">&quot;pt&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">pts</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">(</span><span class="o">*</span><span class="n">pts</span><span class="p">)</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="n">LABEL_BODY_MARGIN</span><span class="p">,</span> <span class="n">LABEL_BODY_MARGIN</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">body</span> <span class="o">*</span> <span class="n">part</span><span class="o">.</span><span class="n">tx</span>
+
+
+<span class="k">def</span> <span class="nf">_text_band_box</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Axis-aligned box approximating the part&#39;s reference/value text, which</span>
+<span class="sd">    renders HORIZONTALLY in sheet space centered on the body regardless of part</span>
+<span class="sd">    rotation.  Net labels pointing up/down cross this band (and pile onto the</span>
+<span class="sd">    value text); labels pointing left/right clear it.  Returns the band in</span>
+<span class="sd">    sheet coordinates (only its CENTER is transformed, not its orientation).&quot;&quot;&quot;</span>
+    <span class="n">pts</span> <span class="o">=</span> <span class="p">[</span><span class="n">pin</span><span class="o">.</span><span class="n">pt</span> <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part</span> <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="s2">&quot;pt&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">pts</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">ctr</span> <span class="o">=</span> <span class="p">(</span><span class="n">BBox</span><span class="p">(</span><span class="o">*</span><span class="n">pts</span><span class="p">)</span> <span class="o">*</span> <span class="n">part</span><span class="o">.</span><span class="n">tx</span><span class="p">)</span><span class="o">.</span><span class="n">ctr</span>
+    <span class="k">return</span> <span class="n">BBox</span><span class="p">(</span>
+        <span class="n">Point</span><span class="p">(</span><span class="n">ctr</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">LABEL_TEXT_BAND_HALF_W</span><span class="p">,</span> <span class="n">ctr</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">LABEL_TEXT_BAND_HALF_H</span><span class="p">),</span>
+        <span class="n">Point</span><span class="p">(</span><span class="n">ctr</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">LABEL_TEXT_BAND_HALF_W</span><span class="p">,</span> <span class="n">ctr</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">LABEL_TEXT_BAND_HALF_H</span><span class="p">),</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">label_overlap_cost</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Estimate how badly this part&#39;s net labels will pile onto things.</span>
+
+<span class="sd">    For the part&#39;s CURRENT orientation (part.tx), each stubbed, connected pin</span>
+<span class="sd">    gets a net label that renders as a flag extending outward from the pin.</span>
+<span class="sd">    This returns a weighted count of overlaps where those flag boxes collide</span>
+<span class="sd">    with: (a) any OTHER part&#39;s place_bbox, (b) this part&#39;s own body box, or</span>
+<span class="sd">    (c) another of this part&#39;s own net-label flags.  Higher == worse/messier.</span>
+
+<span class="sd">    Backend-agnostic: uses only geometry already on parts/pins (pin.pt,</span>
+<span class="sd">    pin.orientation, pin.stub, pin.is_connected(), part.tx, part.place_bbox).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Collect the stubbed, connected, label-bearing pins.</span>
+    <span class="n">lbl_pins</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">pin</span>
+        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part</span>
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="s2">&quot;stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="s2">&quot;pt&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="ow">and</span> <span class="n">pin</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()</span>
+    <span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">lbl_pins</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
+
+    <span class="c1"># Build a flag box for each labeled pin under the current orientation.</span>
+    <span class="n">boxes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">lbl_pins</span><span class="p">:</span>
+        <span class="n">anchor</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">pt</span> <span class="o">*</span> <span class="n">part</span><span class="o">.</span><span class="n">tx</span>
+        <span class="n">out_dir</span> <span class="o">=</span> <span class="n">_pin_out_dir</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
+        <span class="n">boxes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_label_box</span><span class="p">(</span><span class="n">anchor</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">))</span>
+
+    <span class="n">cost</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="c1"># (b) Label flag over this part&#39;s OWN body.</span>
+    <span class="n">own_body</span> <span class="o">=</span> <span class="n">_body_box</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">own_body</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">box</span> <span class="ow">in</span> <span class="n">boxes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">box</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">own_body</span><span class="p">):</span>
+                <span class="n">cost</span> <span class="o">+=</span> <span class="mf">1.0</span>
+
+    <span class="c1"># (b2) Label flag crossing the part&#39;s horizontal reference/value text band.</span>
+    <span class="c1"># This is what discriminates between rotations: a label pointing up/down</span>
+    <span class="c1"># cuts across the always-horizontal value text; a left/right label clears</span>
+    <span class="c1"># it.  Without this term the own-body/own-label geometry is rotation</span>
+    <span class="c1"># invariant (labels rotate with the part) and gives no preference.</span>
+    <span class="n">text_band</span> <span class="o">=</span> <span class="n">_text_band_box</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">text_band</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">pin</span><span class="p">,</span> <span class="n">box</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">lbl_pins</span><span class="p">,</span> <span class="n">boxes</span><span class="p">):</span>
+            <span class="n">out_dir</span> <span class="o">=</span> <span class="n">_pin_out_dir</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
+            <span class="c1"># Only vertical labels (no horizontal component) cross the band.</span>
+            <span class="k">if</span> <span class="n">out_dir</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">box</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">text_band</span><span class="p">):</span>
+                <span class="n">cost</span> <span class="o">+=</span> <span class="mf">1.0</span>
+
+    <span class="c1"># (a) Label flag over a NEIGHBOR part&#39;s placement bbox.</span>
+    <span class="n">neighbors</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;_label_neighbors&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">neighbors</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">other</span> <span class="ow">in</span> <span class="n">neighbors</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">other</span> <span class="ow">is</span> <span class="n">part</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">other_bbox</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">place_bbox</span> <span class="o">*</span> <span class="n">other</span><span class="o">.</span><span class="n">tx</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">box</span> <span class="ow">in</span> <span class="n">boxes</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">box</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">other_bbox</span><span class="p">):</span>
+                    <span class="n">cost</span> <span class="o">+=</span> <span class="mf">1.0</span>
+
+    <span class="c1"># (c) Two of this part&#39;s own labels overlapping each other.</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">boxes</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">boxes</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">boxes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">boxes</span><span class="p">[</span><span class="n">j</span><span class="p">]):</span>
+                <span class="n">cost</span> <span class="o">+=</span> <span class="mf">1.0</span>
+
+    <span class="k">return</span> <span class="n">cost</span>
 
 
 <span class="k">def</span> <span class="nf">net_torque_dist</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
@@ -1351,7 +1544,14 @@
 
         <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;rotate_parts&quot;</span><span class="p">):</span>
             <span class="c1"># Adjust part orientations after first trial placement is done.</span>
-            <span class="k">if</span> <span class="n">adjust_orientations</span><span class="p">(</span><span class="n">real_parts</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+            <span class="c1"># Label-aware term is OFF here by default (connected parts) to avoid</span>
+            <span class="c1"># pushing a stub label onto an adjacent power node; opt in via</span>
+            <span class="c1"># label_aware_connected.</span>
+            <span class="n">conn_opts</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+            <span class="n">conn_opts</span><span class="p">[</span><span class="s2">&quot;_label_aware_scope&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="s2">&quot;label_aware_connected&quot;</span><span class="p">,</span> <span class="kc">False</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">adjust_orientations</span><span class="p">(</span><span class="n">real_parts</span><span class="p">,</span> <span class="o">**</span><span class="n">conn_opts</span><span class="p">):</span>
                 <span class="c1"># Some part orientations were changed, so re-do placement.</span>
                 <span class="n">evolve_placement</span><span class="p">([],</span> <span class="n">real_parts</span><span class="p">,</span> <span class="n">nets</span><span class="p">,</span> <span class="n">total_part_force</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
 
@@ -1440,6 +1640,20 @@
         <span class="c1"># Do force-directed placement of the parts in the group.</span>
         <span class="n">evolve_placement</span><span class="p">([],</span> <span class="n">parts</span><span class="p">,</span> <span class="p">[],</span> <span class="n">force_func</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
 
+        <span class="c1"># Floating parts have all their pins on labeled stub nets, so they get</span>
+        <span class="c1"># no orientation adjustment from the connected-parts path.  When the</span>
+        <span class="c1"># label-aware orientation term is enabled, run an orientation pass here</span>
+        <span class="c1"># so their net labels don&#39;t pile onto their own bodies / each other.</span>
+        <span class="c1"># net_tension is ~0 for floating parts (no real nets), so the label</span>
+        <span class="c1"># overlap cost is the dominant signal -- which is exactly what we want.</span>
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;rotate_parts&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="s2">&quot;label_aware_orientation&quot;</span><span class="p">,</span> <span class="kc">True</span>
+        <span class="p">):</span>
+            <span class="n">float_opts</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+            <span class="n">float_opts</span><span class="p">[</span><span class="s2">&quot;_label_aware_scope&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># always on for floating parts.</span>
+            <span class="k">if</span> <span class="n">adjust_orientations</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="o">**</span><span class="n">float_opts</span><span class="p">):</span>
+                <span class="n">evolve_placement</span><span class="p">([],</span> <span class="n">parts</span><span class="p">,</span> <span class="p">[],</span> <span class="n">force_func</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;draw_placement&quot;</span><span class="p">):</span>
             <span class="c1"># Pause to look at placement for debugging purposes.</span>
             <span class="n">draw_pause</span><span class="p">()</span></div>
@@ -1490,9 +1704,23 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="s2">&quot;REF&quot;</span>  <span class="c1"># Name for block in debug drawing.</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="n">tag</span>  <span class="c1"># FIXME: what is this for?</span>
 
-        <span class="c1"># Create a list of blocks from the groups of interconnected parts and the group of floating parts.</span>
+        <span class="c1"># Create a list of blocks from the groups of interconnected parts and the</span>
+        <span class="c1"># group of floating parts. Each connected group is one block; the floating</span>
+        <span class="c1"># (unconnected) parts are normally lumped into a single block.</span>
+        <span class="c1">#</span>
+        <span class="c1"># EXCEPTION: when grid_blocks is requested, the whole point is to arrange</span>
+        <span class="c1"># the individual units (a bank of pots, LEDs, jacks) in a grid — so each</span>
+        <span class="c1"># floating part becomes its OWN block. Lumping them into one block would</span>
+        <span class="c1"># leave their internal layout to the force-directed floating-parts placer,</span>
+        <span class="c1"># and the grid would only ever shuffle that one blob around.</span>
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;grid_blocks&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="n">block_lists</span> <span class="o">=</span> <span class="p">[(</span><span class="n">g</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">connected_parts</span><span class="p">]</span> <span class="o">+</span> \
+                          <span class="p">[([</span><span class="n">p</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">floating_parts</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">block_lists</span> <span class="o">=</span> <span class="p">[(</span><span class="n">g</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">connected_parts</span><span class="p">]</span> <span class="o">+</span> <span class="p">[(</span><span class="n">floating_parts</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>
+
         <span class="n">part_blocks</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">part_list</span> <span class="ow">in</span> <span class="n">connected_parts</span> <span class="o">+</span> <span class="p">[</span><span class="n">floating_parts</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">part_list</span><span class="p">,</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">block_lists</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">part_list</span><span class="p">:</span>
                 <span class="c1"># No parts in this list for some reason...</span>
                 <span class="k">continue</span>
@@ -1505,9 +1733,6 @@
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">snap_pt</span><span class="p">:</span>
                     <span class="c1"># Use the first snapping point of a part you can find.</span>
                     <span class="n">snap_pt</span> <span class="o">=</span> <span class="n">get_snap_pt</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
-
-            <span class="c1"># Tag indicates the type of part block.</span>
-            <span class="n">tag</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="p">(</span><span class="n">part_list</span> <span class="ow">is</span> <span class="n">floating_parts</span><span class="p">)</span> <span class="k">else</span> <span class="mi">1</span>
 
             <span class="c1"># pad the bounding box so part blocks don&#39;t butt-up against each other.</span>
             <span class="n">pad</span> <span class="o">=</span> <span class="n">BLK_EXT_PAD</span>
@@ -1572,6 +1797,87 @@
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">part_blocks</span><span class="p">:</span>
             <span class="c1"># Abort if nothing to place.</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Opt-in floorplan: pack the wire-connected units into an orderly,</span>
+        <span class="c1"># size-aware grid (shelf packing) instead of force-directed block</span>
+        <span class="c1"># placement, so groups don&#39;t land scattered / overlapping (&quot;dropped</span>
+        <span class="c1"># on&quot;). Board-agnostic — it just packs whatever groups exist by their</span>
+        <span class="c1"># bounding-box sizes. Each `part_block` already carries its padded</span>
+        <span class="c1"># group bbox; we translate the block so its bbox lands on a shelf slot.</span>
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;grid_blocks&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="n">pad</span> <span class="o">=</span> <span class="n">BLK_EXT_PAD</span>
+            <span class="c1"># Uniform-cell grid floorplan: lay the blocks out in an orderly array</span>
+            <span class="c1"># with aligned rows AND columns, so related groups stay together</span>
+            <span class="c1"># instead of being flung to opposite corners by force-directed</span>
+            <span class="c1"># placement.</span>
+            <span class="c1">#</span>
+            <span class="c1"># The cell size is taken from the MEDIAN block, not the max: a board</span>
+            <span class="c1"># is usually a bank of same-size units (pots, LEDs, jacks) plus a few</span>
+            <span class="c1"># big outliers (ICs, a floating lump). Sizing on the max would make</span>
+            <span class="c1"># every cell as wide as the biggest block — the uniform units would</span>
+            <span class="c1"># then float in 6x-too-wide cells and read as scatter, not a grid.</span>
+            <span class="c1"># Outliers (&gt; 1.8x the median in either axis) are parked in their own</span>
+            <span class="c1"># row above the grid rather than inflating every cell.</span>
+            <span class="k">def</span> <span class="nf">_median</span><span class="p">(</span><span class="n">vals</span><span class="p">):</span>
+                <span class="n">s</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">s</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="n">s</span> <span class="k">else</span> <span class="mf">0.0</span>
+
+            <span class="n">med_w</span> <span class="o">=</span> <span class="n">_median</span><span class="p">([</span><span class="n">b</span><span class="o">.</span><span class="n">place_bbox</span><span class="o">.</span><span class="n">w</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">part_blocks</span><span class="p">])</span>
+            <span class="n">med_h</span> <span class="o">=</span> <span class="n">_median</span><span class="p">([</span><span class="n">b</span><span class="o">.</span><span class="n">place_bbox</span><span class="o">.</span><span class="n">h</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">part_blocks</span><span class="p">])</span>
+
+            <span class="k">def</span> <span class="nf">_is_outlier</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
+                <span class="k">return</span> <span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">place_bbox</span><span class="o">.</span><span class="n">w</span> <span class="o">&gt;</span> <span class="mf">1.8</span> <span class="o">*</span> <span class="n">med_w</span> <span class="ow">or</span>
+                        <span class="n">b</span><span class="o">.</span><span class="n">place_bbox</span><span class="o">.</span><span class="n">h</span> <span class="o">&gt;</span> <span class="mf">1.8</span> <span class="o">*</span> <span class="n">med_h</span><span class="p">)</span>
+
+            <span class="n">grid_set</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">part_blocks</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_outlier</span><span class="p">(</span><span class="n">b</span><span class="p">)]</span>
+            <span class="n">outliers</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">part_blocks</span> <span class="k">if</span> <span class="n">_is_outlier</span><span class="p">(</span><span class="n">b</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">grid_set</span><span class="p">:</span>  <span class="c1"># everything is &quot;outlier&quot; (all same-ish) -&gt; grid all</span>
+                <span class="n">grid_set</span><span class="p">,</span> <span class="n">outliers</span> <span class="o">=</span> <span class="n">part_blocks</span><span class="p">,</span> <span class="p">[]</span>
+
+            <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid_set</span><span class="p">)</span>
+            <span class="c1"># Column count from the ITEM COUNT (landscape-biased), not the cell</span>
+            <span class="c1"># aspect: tall units (a pot+cap+label stack is ~3:1) would otherwise</span>
+            <span class="c1"># blow the column count up to fill a 1.6:1 sheet, leaving a near-empty</span>
+            <span class="c1"># last row. round((n*1.6)**0.5) gives a tidy, near-full grid: 24-&gt;6</span>
+            <span class="c1"># (a full 6x4), 12-&gt;4 (4x3).</span>
+            <span class="n">cols</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">round</span><span class="p">((</span><span class="n">n</span> <span class="o">*</span> <span class="mf">1.6</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span><span class="p">))</span> <span class="k">if</span> <span class="n">n</span> <span class="k">else</span> <span class="mi">1</span>
+            <span class="c1"># Fixed column pitch (= widest unit) so columns line up; per-row</span>
+            <span class="c1"># height (below) so rows pack tight instead of one uniform tall cell.</span>
+            <span class="n">col_pitch</span> <span class="o">=</span> <span class="nb">max</span><span class="p">((</span><span class="n">b</span><span class="o">.</span><span class="n">place_bbox</span><span class="o">.</span><span class="n">w</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">grid_set</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="n">med_w</span><span class="p">)</span> <span class="o">+</span> <span class="n">pad</span>
+
+            <span class="c1"># Park outliers in a row just above the grid (negative y), L-to-R.</span>
+            <span class="n">ox</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">outliers</span><span class="p">:</span>
+                <span class="n">cy</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">place_bbox</span><span class="o">.</span><span class="n">h</span> <span class="o">+</span> <span class="n">pad</span><span class="p">)</span>
+                <span class="n">b</span><span class="o">.</span><span class="n">tx</span> <span class="o">=</span> <span class="n">Tx</span><span class="p">()</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="n">ox</span><span class="p">,</span> <span class="n">cy</span><span class="p">)</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">place_bbox</span><span class="o">.</span><span class="n">min</span><span class="p">)</span>
+                <span class="n">snap_to_grid</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+                <span class="n">ox</span> <span class="o">+=</span> <span class="n">b</span><span class="o">.</span><span class="n">place_bbox</span><span class="o">.</span><span class="n">w</span> <span class="o">+</span> <span class="n">pad</span>
+
+            <span class="c1"># Largest-first so big units fill the top rows and it visually steps</span>
+            <span class="c1"># down to smaller ones; each row gets its own height.</span>
+            <span class="n">order</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+                <span class="n">grid_set</span><span class="p">,</span>
+                <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">b</span><span class="p">:</span> <span class="n">b</span><span class="o">.</span><span class="n">place_bbox</span><span class="o">.</span><span class="n">w</span> <span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">place_bbox</span><span class="o">.</span><span class="n">h</span><span class="p">,</span>
+                <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="k">for</span> <span class="n">r0</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
+                <span class="n">row_blocks</span> <span class="o">=</span> <span class="n">order</span><span class="p">[</span><span class="n">r0</span><span class="p">:</span><span class="n">r0</span> <span class="o">+</span> <span class="n">cols</span><span class="p">]</span>
+                <span class="n">row_h</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">place_bbox</span><span class="o">.</span><span class="n">h</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">row_blocks</span><span class="p">)</span> <span class="o">+</span> <span class="n">pad</span>
+                <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">row_blocks</span><span class="p">):</span>
+                    <span class="n">cx</span> <span class="o">=</span> <span class="n">col</span> <span class="o">*</span> <span class="n">col_pitch</span> <span class="o">+</span> <span class="p">(</span><span class="n">col_pitch</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">place_bbox</span><span class="o">.</span><span class="n">w</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+                    <span class="n">cy</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="p">(</span><span class="n">row_h</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">place_bbox</span><span class="o">.</span><span class="n">h</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+                    <span class="n">b</span><span class="o">.</span><span class="n">tx</span> <span class="o">=</span> <span class="n">Tx</span><span class="p">()</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">)</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">place_bbox</span><span class="o">.</span><span class="n">min</span><span class="p">)</span>
+                    <span class="n">snap_to_grid</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+                <span class="n">y</span> <span class="o">+=</span> <span class="n">row_h</span>
+
+            <span class="k">for</span> <span class="n">blk</span> <span class="ow">in</span> <span class="n">part_blocks</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">blk</span><span class="o">.</span><span class="n">src</span><span class="o">.</span><span class="n">tx</span> <span class="o">=</span> <span class="n">blk</span><span class="o">.</span><span class="n">tx</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">blk</span><span class="o">.</span><span class="n">src</span><span class="p">:</span>
+                        <span class="n">part</span><span class="o">.</span><span class="n">tx</span> <span class="o">*=</span> <span class="n">blk</span><span class="o">.</span><span class="n">tx</span>
             <span class="k">return</span>
 
         <span class="c1"># For large block counts, use a simple grid layout instead of</span>
@@ -1908,7 +2214,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 2.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.schematics.place</a></li> 
       </ul>

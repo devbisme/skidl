@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.netlist_to_skidl &#8212; SKiDL 2.2.3 documentation</title>
+    <title>skidl.netlist_to_skidl &#8212; SKiDL 2.3.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=85e56e6b"></script>
+    <script src="../../_static/documentation_options.js?v=c3c8ae58"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.netlist_to_skidl</a></li> 
       </ul>
@@ -190,12 +190,30 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sexp</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sheetpath</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/comp/sheetpath/names&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/comp/ref&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/comp/value&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">footprint</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/comp/footprint&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/comp/libsource/part&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lib</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/comp/libsource/lib&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sheetpath</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/comp/sheetpath/names&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sheetpath</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/comp/ref&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/comp/value&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">footprint</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/comp/footprint&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">footprint</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/comp/libsource/part&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lib</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/comp/libsource/lib&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lib</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">properties</span> <span class="o">=</span> <span class="p">[</span><span class="n">PropertySexp</span><span class="p">(</span><span class="n">prop</span><span class="p">)</span> <span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/comp/property&quot;</span><span class="p">)]</span></div>
 
 
@@ -209,7 +227,10 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sexp</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/property/name&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/property/value&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span></div>
+        <span class="c1"># KiCad can export boolean properties (e.g. exclude_from_bom) without</span>
+        <span class="c1"># a value, so treat a missing value as an empty string.</span>
+        <span class="n">found</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/property/value&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">found</span><span class="o">.</span><span class="n">value</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">found</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span></div>
 
 
 
@@ -289,7 +310,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tab</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">4</span>
 
-
 <div class="viewcode-block" id="HierarchicalConverter.find_lowest_common_ancestor">
 <a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.find_lowest_common_ancestor">[docs]</a>
     <span class="k">def</span> <span class="nf">find_lowest_common_ancestor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sheet1</span><span class="p">,</span> <span class="n">sheet2</span><span class="p">):</span>
@@ -357,6 +377,46 @@
             <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;  Found sheet: original_name=&#39;</span><span class="si">{</span><span class="n">sheet</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">&#39;, final=&#39;</span><span class="si">{</span><span class="n">sheet</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;, parent=&#39;</span><span class="si">{</span><span class="n">sheet</span><span class="o">.</span><span class="n">parent</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
             <span class="p">)</span>
+
+        <span class="c1"># Register any ancestor sheet that was referenced as a parent but never</span>
+        <span class="c1"># enumerated in the netlist (typically the root &#39;/&#39;). Some exporters --</span>
+        <span class="c1"># notably cs-native netlists -- list only the leaf sheets, so a net whose</span>
+        <span class="c1"># lowest-common-ancestor is an unlisted sheet would otherwise raise</span>
+        <span class="c1"># KeyError in analyze_nets (self.sheets[origin_sheet]). Walk parent chains</span>
+        <span class="c1"># up to the root and synthesize the missing intermediate sheets.</span>
+        <span class="n">auto_index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">pending</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">parent</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sheets</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">parent</span><span class="p">]</span>
+        <span class="k">while</span> <span class="n">pending</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">pending</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span> <span class="ow">or</span> <span class="n">path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">stripped</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+            <span class="n">gp</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">stripped</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">gp</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">gp</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">):</span>
+                    <span class="n">gp</span> <span class="o">+=</span> <span class="s2">&quot;/&quot;</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">stripped</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">auto_index</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">anc</span> <span class="o">=</span> <span class="n">Sheet</span><span class="p">(</span>
+                <span class="n">number</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;auto</span><span class="si">{</span><span class="n">auto_index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                <span class="n">parent</span><span class="o">=</span><span class="n">gp</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="p">[],</span>
+                <span class="n">local_nets</span><span class="o">=</span><span class="nb">set</span><span class="p">(),</span>
+                <span class="n">imported_nets</span><span class="o">=</span><span class="nb">set</span><span class="p">(),</span>
+                <span class="n">children</span><span class="o">=</span><span class="p">[],</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">gp</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">top_sheet</span> <span class="o">=</span> <span class="n">anc</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span><span class="p">[</span><span class="n">path</span><span class="p">]</span> <span class="o">=</span> <span class="n">anc</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;  Synthesized missing ancestor sheet: path=&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&#39;, parent=&#39;</span><span class="si">{</span><span class="n">gp</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">gp</span><span class="p">:</span>
+                <span class="n">pending</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gp</span><span class="p">)</span>
 
         <span class="c1"># Set up parent-child relationships</span>
         <span class="k">for</span> <span class="n">sheet</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
@@ -805,7 +865,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.netlist_to_skidl</a></li> 
       </ul>

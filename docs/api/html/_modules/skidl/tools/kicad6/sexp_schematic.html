@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.tools.kicad6.sexp_schematic &#8212; SKiDL 2.2.3 documentation</title>
+    <title>skidl.tools.kicad6.sexp_schematic &#8212; SKiDL 2.3.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../../../_static/documentation_options.js?v=85e56e6b"></script>
+    <script src="../../../../_static/documentation_options.js?v=c3c8ae58"></script>
     <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad6.sexp_schematic</a></li> 
       </ul>
@@ -71,186 +71,46 @@
 <span class="kn">from</span> <span class="nn">simp_sexp</span> <span class="kn">import</span> <span class="n">Sexp</span>
 
 <span class="kn">from</span> <span class="nn">skidl.geometry</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Tx</span>
+<span class="kn">from</span> <span class="nn">skidl.net</span> <span class="kn">import</span> <span class="n">NCNet</span>
 <span class="kn">from</span> <span class="nn">skidl.pckg_info</span> <span class="kn">import</span> <span class="n">__version__</span>
 <span class="kn">from</span> <span class="nn">skidl.schematics.net_terminal</span> <span class="kn">import</span> <span class="n">NetTerminal</span>
+<span class="kn">from</span> <span class="nn">skidl.schlib</span> <span class="kn">import</span> <span class="n">SchLib</span>
 <span class="kn">from</span> <span class="nn">skidl.utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span>
 
 <span class="c1"># UUID namespace — same as gen_netlist.py so UUIDs are cross-referenceable.</span>
 <span class="n">_NAMESPACE_UUID</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">(</span><span class="s2">&quot;7026fcc6-e1a0-409e-aaf4-6a17ea82654f&quot;</span><span class="p">)</span>
 
+<span class="c1"># Shared label/symbol orientation table, keyed on calc_pin_dir(). The angle is</span>
+<span class="c1"># chosen so a net label&#39;s text — and a power symbol&#39;s body — always extends</span>
+<span class="c1"># AWAY from the pin (clear of the part body) for every pin direction, including</span>
+<span class="c1"># mirrored parts. Both net_label_to_sexp and _power_symbol_to_sexp derive their</span>
+<span class="c1"># angle from this single table so they can never drift apart again. The vertical</span>
+<span class="c1"># values (U:270, D:90) are the corrected ones; an earlier table had them swapped,</span>
+<span class="c1"># which overprinted vertical net labels and mis-oriented vertical GND/rail</span>
+<span class="c1"># symbols. Do not change these without re-rendering the vertical + mirrored cases.</span>
+<span class="n">_PIN_LABEL_ANGLE</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;R&quot;</span><span class="p">:</span> <span class="mi">180</span><span class="p">,</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="mi">270</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="mi">90</span><span class="p">}</span>
+
 <span class="c1"># ---------------------------------------------------------------------------</span>
 <span class="c1"># Power symbol support</span>
 <span class="c1"># ---------------------------------------------------------------------------</span>
 
-<span class="c1"># Cached set of power symbol names from the KiCad library.</span>
-<span class="n">_power_symbol_names_cache</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="c1"># Cached raw S-expression text for power lib symbols.</span>
-<span class="n">_power_lib_text_cache</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="c1"># Track which power symbols are used in the current schematic.</span>
-<span class="n">_used_power_symbols</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-<span class="c1"># Counter for #PWR references.</span>
-<span class="n">_pwr_counter</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
+<span class="k">def</span> <span class="nf">init_power_symbol_data</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize power symbol state at the start of schematic generation.&quot;&quot;&quot;</span>
 
-<span class="k">def</span> <span class="nf">_get_power_lib_text</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load the raw text of the power symbol library. Cached.&quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="n">get_default_tool</span>
+    <span class="k">global</span> <span class="n">pwr_symbol_sexp_dict</span><span class="p">,</span> <span class="n">pwr_symbol_names</span><span class="p">,</span> <span class="n">_used_power_symbols</span><span class="p">,</span> <span class="n">_pwr_counter</span>
 
-    <span class="n">kicad_version</span> <span class="o">=</span> <span class="n">get_default_tool</span><span class="p">()[</span><span class="nb">len</span><span class="p">(</span><span class="s2">&quot;kicad&quot;</span><span class="p">):]</span>
+    <span class="n">_used_power_symbols</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">_pwr_counter</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="k">global</span> <span class="n">_power_lib_text_cache</span>
-    <span class="k">if</span> <span class="n">_power_lib_text_cache</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">_power_lib_text_cache</span>
-
-    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="p">[</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;KICAD</span><span class="si">{</span><span class="n">kicad_version</span><span class="si">}</span><span class="s2">_SYMBOL_DIR&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-        <span class="s2">&quot;/usr/share/kicad/symbols&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;/usr/local/share/kicad/symbols&quot;</span><span class="p">,</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;~/.local/share/kicad/</span><span class="si">{</span><span class="n">kicad_version</span><span class="si">}</span><span class="s2">.0/symbols&quot;</span><span class="p">),</span>
-    <span class="p">]:</span>
-        <span class="n">lib_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;power.kicad_sym&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">path</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">lib_path</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">lib_path</span><span class="p">):</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">lib_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                <span class="n">_power_lib_text_cache</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-            <span class="k">return</span> <span class="n">_power_lib_text_cache</span>
-
-    <span class="n">_power_lib_text_cache</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">_power_lib_text_cache</span>
-
-
-<span class="k">def</span> <span class="nf">_get_power_symbol_names</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return set of available power symbol names from the KiCad library.&quot;&quot;&quot;</span>
-    <span class="k">global</span> <span class="n">_power_symbol_names_cache</span>
-    <span class="k">if</span> <span class="n">_power_symbol_names_cache</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">_power_symbol_names_cache</span>
-
-    <span class="kn">import</span> <span class="nn">re</span>
-
-    <span class="n">text</span> <span class="o">=</span> <span class="n">_get_power_lib_text</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">text</span><span class="p">:</span>
-        <span class="c1"># Match top-level symbol definitions: (symbol &quot;NAME&quot; at indent level 1.</span>
-        <span class="n">_power_symbol_names_cache</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span>
-            <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^\t\(symbol &quot;([^&quot;]+)&quot;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span><span class="p">)</span>
-        <span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="c1"># Fallback: hardcoded common power names.</span>
-        <span class="n">_power_symbol_names_cache</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;GND&quot;</span><span class="p">,</span> <span class="s2">&quot;AGND&quot;</span><span class="p">,</span> <span class="s2">&quot;DGND&quot;</span><span class="p">,</span> <span class="s2">&quot;PGND&quot;</span><span class="p">,</span> <span class="s2">&quot;GNDA&quot;</span><span class="p">,</span> <span class="s2">&quot;GNDD&quot;</span><span class="p">,</span> <span class="s2">&quot;GNDREF&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;VCC&quot;</span><span class="p">,</span> <span class="s2">&quot;VDD&quot;</span><span class="p">,</span> <span class="s2">&quot;VSS&quot;</span><span class="p">,</span> <span class="s2">&quot;VEE&quot;</span><span class="p">,</span> <span class="s2">&quot;VBUS&quot;</span><span class="p">,</span> <span class="s2">&quot;VBAT&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;+3V3&quot;</span><span class="p">,</span> <span class="s2">&quot;+3.3V&quot;</span><span class="p">,</span> <span class="s2">&quot;+5V&quot;</span><span class="p">,</span> <span class="s2">&quot;+12V&quot;</span><span class="p">,</span> <span class="s2">&quot;+1V8&quot;</span><span class="p">,</span> <span class="s2">&quot;+2V5&quot;</span><span class="p">,</span> <span class="s2">&quot;+1V5&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;+3.3VA&quot;</span><span class="p">,</span> <span class="s2">&quot;+3.3VADC&quot;</span><span class="p">,</span> <span class="s2">&quot;+3.3VDAC&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;AVCC&quot;</span><span class="p">,</span> <span class="s2">&quot;AVDD&quot;</span><span class="p">,</span> <span class="s2">&quot;DVCC&quot;</span><span class="p">,</span> <span class="s2">&quot;DVDD&quot;</span><span class="p">,</span>
-        <span class="p">}</span>
-
-    <span class="k">return</span> <span class="n">_power_symbol_names_cache</span>
-
-
-<span class="k">def</span> <span class="nf">_extract_power_lib_symbol_raw</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract the raw S-expression text for a power symbol.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        name: Power symbol name (e.g., &quot;GND&quot;, &quot;+3V3&quot;).</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        str: Raw S-expression text for the symbol, or None if not found.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">re</span>
-
-    <span class="n">text</span> <span class="o">=</span> <span class="n">_get_power_lib_text</span><span class="p">()</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">None</span>
-
-    <span class="c1"># Find the symbol definition start.</span>
-    <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^\t\(symbol &quot;&#39;</span> <span class="o">+</span> <span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="sa">r</span><span class="s1">&#39;&quot;&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span><span class="p">)</span>
-    <span class="n">match</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">None</span>
-
-    <span class="c1"># Extract from opening paren to matching closing paren.</span>
-    <span class="n">start</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># Skip the leading tab.</span>
-    <span class="n">depth</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="n">start</span>
-    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">text</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;(&quot;</span><span class="p">:</span>
-            <span class="n">depth</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">elif</span> <span class="n">text</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;)&quot;</span><span class="p">:</span>
-            <span class="n">depth</span> <span class="o">-=</span> <span class="mi">1</span>
-            <span class="k">if</span> <span class="n">depth</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">text</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
-        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-
-    <span class="k">return</span> <span class="kc">None</span>
-
-
-<span class="k">def</span> <span class="nf">_parse_sexp_text</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse an S-expression string into a nested list structure.</span>
-
-<span class="sd">    Handles escaped quotes inside quoted strings (e.g. ``&quot;name \\&quot;GND\\&quot;&quot;``)</span>
-<span class="sd">    which are common in KiCad power symbol Description fields.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        text: S-expression string like &#39;(symbol &quot;GND&quot; (pin ...))&#39;.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        list: Nested list suitable for Sexp().</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Tokenize: handle escaped quotes inside quoted strings.</span>
-    <span class="n">tokens</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-        <span class="n">c</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="s2">&quot; </span><span class="se">\t\n\r</span><span class="s2">&quot;</span><span class="p">:</span>
-            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">elif</span> <span class="n">c</span> <span class="o">==</span> <span class="s2">&quot;(&quot;</span><span class="p">:</span>
-            <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">)</span>
-            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">elif</span> <span class="n">c</span> <span class="o">==</span> <span class="s2">&quot;)&quot;</span><span class="p">:</span>
-            <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">)</span>
-            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">elif</span> <span class="n">c</span> <span class="o">==</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">:</span>
-            <span class="c1"># Quoted string — collect until unescaped closing quote.</span>
-            <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
-            <span class="n">chars</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-                <span class="k">if</span> <span class="n">text</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-                    <span class="n">chars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
-                    <span class="n">j</span> <span class="o">+=</span> <span class="mi">2</span>
-                <span class="k">elif</span> <span class="n">text</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">:</span>
-                    <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
-                    <span class="k">break</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">chars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
-                    <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chars</span><span class="p">)))</span>  <span class="c1"># Tagged as quoted.</span>
-            <span class="n">i</span> <span class="o">=</span> <span class="n">j</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Unquoted token.</span>
-            <span class="n">j</span> <span class="o">=</span> <span class="n">i</span>
-            <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="ow">and</span> <span class="n">text</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="s2">&quot; </span><span class="se">\t\n\r</span><span class="s2">()</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">:</span>
-                <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">j</span><span class="p">])</span>
-            <span class="n">i</span> <span class="o">=</span> <span class="n">j</span>
-
-    <span class="n">stack</span> <span class="o">=</span> <span class="p">[[]]</span>
-    <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">token</span> <span class="o">==</span> <span class="s2">&quot;(&quot;</span><span class="p">:</span>
-            <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
-        <span class="k">elif</span> <span class="n">token</span> <span class="o">==</span> <span class="s2">&quot;)&quot;</span><span class="p">:</span>
-            <span class="n">completed</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-            <span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">completed</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Q&quot;</span><span class="p">:</span>
-            <span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># Quoted string value.</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Try numeric conversion for unquoted tokens.</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">token</span><span class="p">))</span>
-            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">token</span><span class="p">))</span>
-                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-                    <span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
-    <span class="c1"># Return the single top-level expression.</span>
-    <span class="k">return</span> <span class="n">stack</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">stack</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">else</span> <span class="p">[]</span>
+    <span class="c1"># Just read in the power symbols at the start.</span>
+    <span class="n">pwr_lib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span><span class="s2">&quot;power&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pwr_lib</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">pwr_lib_text</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">pwr_lib_sexp</span> <span class="o">=</span> <span class="n">Sexp</span><span class="p">(</span><span class="n">pwr_lib_text</span><span class="p">)</span>
+    <span class="n">pwr_symbol_sexps</span> <span class="o">=</span> <span class="n">pwr_lib_sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/kicad_symbol_lib/symbol&quot;</span><span class="p">)</span>
+    <span class="n">pwr_symbol_sexp_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">sym</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">sym</span> <span class="k">for</span> <span class="n">sym</span> <span class="ow">in</span> <span class="n">pwr_symbol_sexps</span><span class="p">}</span>
+    <span class="n">pwr_symbol_names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pwr_lib</span><span class="p">])</span>
 
 
 <span class="k">def</span> <span class="nf">_extract_power_lib_symbol</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
@@ -265,16 +125,36 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        Sexp: Parsed symbol definition, or None if not found.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">raw</span> <span class="o">=</span> <span class="n">_extract_power_lib_symbol_raw</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">raw</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">None</span>
+    <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+    <span class="n">pwr_sym_sexp</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">pwr_symbol_sexp_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+    <span class="c1"># Change the symbol name from &quot;NAME&quot; to &quot;power:NAME&quot; for lib_id matching.</span>
+    <span class="n">pwr_sym_sexp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;power:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">return</span> <span class="n">pwr_sym_sexp</span>
 
-    <span class="n">parsed</span> <span class="o">=</span> <span class="n">_parse_sexp_text</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">parsed</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">parsed</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="c1"># Change the symbol name from &quot;NAME&quot; to &quot;power:NAME&quot; for lib_id matching.</span>
-        <span class="n">parsed</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;power:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
 
-    <span class="k">return</span> <span class="n">Sexp</span><span class="p">(</span><span class="n">parsed</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">_power_symbol_pin_angle</span><span class="p">(</span><span class="n">net_name</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the intrinsic pin angle (deg) of a power symbol&#39;s connection pin.</span>
+
+<span class="sd">    KiCad power symbols carry a single pin whose ``(at x y ANGLE)`` describes</span>
+<span class="sd">    the direction the symbol&#39;s body extends at instance-angle 0 (ground</span>
+<span class="sd">    symbols point down -&gt; 270, voltage rails point up -&gt; 90).  We need this so</span>
+<span class="sd">    we can rotate the *instance* to align the symbol body with the schematic</span>
+<span class="sd">    pin&#39;s outward stub direction.  Returns 270 (ground-style) if the symbol or</span>
+<span class="sd">    its pin can&#39;t be found, which leaves the historical angle=0 behaviour for</span>
+<span class="sd">    the common ground case.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">sym</span> <span class="o">=</span> <span class="n">pwr_symbol_sexp_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">net_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sym</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">270</span>
+        <span class="n">pins</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/symbol/symbol/pin&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">sym</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/symbol/pin&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pins</span><span class="p">:</span>
+            <span class="n">at</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/pin/at&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">at</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">at</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">])</span> <span class="o">%</span> <span class="mi">360</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">return</span> <span class="mi">270</span>
 
 
 <span class="k">def</span> <span class="nf">_power_symbol_to_sexp</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">net_name</span><span class="p">,</span> <span class="n">tx</span><span class="p">):</span>
@@ -302,12 +182,15 @@
     <span class="n">x</span> <span class="o">=</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
 
-    <span class="c1"># Power symbol angle: the symbol&#39;s pin orientation determines how</span>
-    <span class="c1"># it should be rotated.  For most power symbols, the connection pin</span>
-    <span class="c1"># is at (0, 0) and the graphical part extends in one direction.</span>
-    <span class="c1"># We don&#39;t rotate — KiCad power symbols are designed to display correctly</span>
-    <span class="c1"># at angle 0 (voltage symbols point up, GND symbols point down).</span>
-    <span class="n">angle</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># Power symbol angle: align the symbol body with the schematic pin&#39;s</span>
+    <span class="c1"># outward stub direction.  ``calc_pin_dir`` gives the world-space</span>
+    <span class="c1"># direction the pin&#39;s stub extends (where the symbol sits); _PIN_LABEL_ANGLE</span>
+    <span class="c1"># is the same label-orientation table used by net_label_to_sexp.  The</span>
+    <span class="c1"># symbol&#39;s intrinsic pin angle (270 for GND, 90 for voltage rails) is</span>
+    <span class="c1"># subtracted so e.g. a GND on a pin that exits to the right gets rotated</span>
+    <span class="c1"># to face left into the pin instead of always hanging straight down.</span>
+    <span class="n">intrinsic</span> <span class="o">=</span> <span class="n">_power_symbol_pin_angle</span><span class="p">(</span><span class="n">net_name</span><span class="p">)</span>
+    <span class="n">angle</span> <span class="o">=</span> <span class="p">(</span><span class="n">_PIN_LABEL_ANGLE</span><span class="p">[</span><span class="n">calc_pin_dir</span><span class="p">(</span><span class="n">pin</span><span class="p">)]</span> <span class="o">-</span> <span class="n">intrinsic</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span>
 
     <span class="n">lib_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;power:</span><span class="si">{</span><span class="n">net_name</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="n">inst_uuid</span> <span class="o">=</span> <span class="n">_gen_uuid</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pwr:</span><span class="si">{</span><span class="n">net_name</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">_pwr_counter</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -405,13 +288,6 @@
     <span class="k">return</span> <span class="n">symbol</span>
 
 
-<span class="k">def</span> <span class="nf">_reset_power_symbol_state</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reset power symbol state between schematic generations.&quot;&quot;&quot;</span>
-    <span class="k">global</span> <span class="n">_used_power_symbols</span>
-    <span class="n">_used_power_symbols</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-    <span class="n">_pwr_counter</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-
-
 <span class="k">def</span> <span class="nf">_gen_uuid</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a deterministic UUID from *name*, or a random one if empty.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="p">:</span>
@@ -466,7 +342,7 @@
 <span class="c1"># ---------------------------------------------------------------------------</span>
 
 
-<span class="k">def</span> <span class="nf">part_to_sexp</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="n">Tx</span><span class="p">()):</span>
+<span class="k">def</span> <span class="nf">part_to_sexp</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">uuid_path</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="n">Tx</span><span class="p">()):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create S-expression for a symbol instance.</span>
 
 <span class="sd">    Applies part transform and sheet transform (Y-flip is in sheet_tx).</span>
@@ -475,6 +351,7 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        part: SKiDL Part object (placed).</span>
+<span class="sd">        uuid_path: Hierarchical UUID path to node containing this part.</span>
 <span class="sd">        tx: Sheet-level transformation matrix.</span>
 
 <span class="sd">    Returns:</span>
@@ -500,6 +377,16 @@
     <span class="n">part_name</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">name</span> <span class="ow">or</span> <span class="s2">&quot;Unknown&quot;</span>
     <span class="n">lib_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">lib_name</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">part_name</span><span class="si">}</span><span class="s2">&quot;</span>
 
+    <span class="c1"># KiCad reference for the symbol instance. All units of a multi-unit part share</span>
+    <span class="c1"># ONE reference (&quot;U1&quot;) and are distinguished only by (unit N); skidl&#39;s PartUnit</span>
+    <span class="c1"># ref is the compound &quot;U1.uA&quot;, which KiCad reads as a DISTINCT component -- so</span>
+    <span class="c1"># each amp unit lost its shared power unit&#39;s pins (missing_power_pin), the</span>
+    <span class="c1"># netlist-from-schematic diverged from the logical netlist, and the compound ref</span>
+    <span class="c1"># tripped downstream reference validators (devbisme/skidl #318). Emit the</span>
+    <span class="c1"># parent&#39;s base ref instead; single-unit parts (node entry is the Part itself)</span>
+    <span class="c1"># are unaffected.</span>
+    <span class="n">base_ref</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;parent&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="s2">&quot;ref&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="n">part</span><span class="o">.</span><span class="n">ref</span>
+
     <span class="n">symbol_list</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s2">&quot;symbol&quot;</span><span class="p">,</span>
         <span class="p">[</span><span class="s2">&quot;lib_id&quot;</span><span class="p">,</span> <span class="n">lib_id</span><span class="p">],</span>
@@ -523,7 +410,7 @@
             <span class="p">[</span>
                 <span class="s2">&quot;property&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;Reference&quot;</span><span class="p">,</span>
-                <span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span>
+                <span class="n">base_ref</span><span class="p">,</span>
                 <span class="p">[</span><span class="s2">&quot;at&quot;</span><span class="p">,</span> <span class="n">origin</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">origin</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mf">2.54</span><span class="p">,</span> <span class="n">angle</span><span class="p">],</span>
                 <span class="p">[</span><span class="s2">&quot;effects&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;font&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;size&quot;</span><span class="p">,</span> <span class="mf">1.27</span><span class="p">,</span> <span class="mf">1.27</span><span class="p">]],</span> <span class="p">[</span><span class="s2">&quot;justify&quot;</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">]],</span>
             <span class="p">]</span>
@@ -628,8 +515,8 @@
                     <span class="s2">&quot;SKiDL-Generated&quot;</span><span class="p">,</span>
                     <span class="p">[</span>
                         <span class="s2">&quot;path&quot;</span><span class="p">,</span>
-                        <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">_gen_uuid</span><span class="p">(</span><span class="s1">&#39;root_schematic&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-                        <span class="p">[</span><span class="s2">&quot;reference&quot;</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="p">],</span>
+                        <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">uuid_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                        <span class="p">[</span><span class="s2">&quot;reference&quot;</span><span class="p">,</span> <span class="n">base_ref</span><span class="p">],</span>
                         <span class="p">[</span><span class="s2">&quot;unit&quot;</span><span class="p">,</span> <span class="n">unit_num</span><span class="p">],</span>
                     <span class="p">],</span>
                 <span class="p">],</span>
@@ -901,11 +788,14 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">force</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">pin</span><span class="o">.</span><span class="n">stub</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">pin</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()):</span>
         <span class="k">return</span> <span class="kc">None</span>
-    
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="s2">&quot;net&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">NCNet</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
     <span class="c1"># Check if this net matches a known KiCad power symbol.</span>
     <span class="c1"># If so, emit a power symbol instance instead of a global_label.</span>
     <span class="c1"># This eliminates power_pin_not_driven ERC errors.</span>
-    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()</span> <span class="ow">and</span> <span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">_get_power_symbol_names</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()</span> <span class="ow">and</span> <span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">pwr_symbol_names</span><span class="p">:</span>
         <span class="n">pwr</span> <span class="o">=</span> <span class="n">_power_symbol_to_sexp</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">tx</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">pwr</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">pwr</span>
@@ -922,11 +812,18 @@
     <span class="n">part_tx</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;tx&quot;</span><span class="p">,</span> <span class="n">Tx</span><span class="p">())</span>
     <span class="n">pt</span> <span class="o">=</span> <span class="n">pin_pt</span> <span class="o">*</span> <span class="n">part_tx</span> <span class="o">*</span> <span class="n">tx</span>
 
-    <span class="c1"># Map pin orientation to angle (degrees).</span>
-    <span class="n">orient_map</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;R&quot;</span><span class="p">:</span> <span class="mi">180</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="mi">270</span><span class="p">}</span>
-    <span class="n">angle</span> <span class="o">=</span> <span class="n">orient_map</span><span class="p">[</span><span class="n">calc_pin_dir</span><span class="p">(</span><span class="n">pin</span><span class="p">)]</span>
-
-    <span class="c1"># Justify depends on label direction.</span>
+    <span class="c1"># Angle + justification chosen so the label text always extends AWAY from</span>
+    <span class="c1"># the pin (and therefore clear of the part body), for every pin direction</span>
+    <span class="c1"># including mirrored parts -- calc_pin_dir() already folds the part&#39;s full</span>
+    <span class="c1"># transform (rotation + mirror) into the reported direction.</span>
+    <span class="c1">#</span>
+    <span class="c1"># Verified by rendering a resistor rotated/mirrored into all four</span>
+    <span class="c1"># orientations: horizontal labels reach out to the side, vertical labels</span>
+    <span class="c1"># run clear above/below the body. The angle comes from the shared</span>
+    <span class="c1"># _PIN_LABEL_ANGLE table (so it can&#39;t drift from the power-symbol emitter);</span>
+    <span class="c1"># justify is &quot;left&quot; for the 0/90 angles and &quot;right&quot; otherwise, which exactly</span>
+    <span class="c1"># reproduces R:(180,right) L:(0,left) U:(270,right) D:(90,left).</span>
+    <span class="n">angle</span> <span class="o">=</span> <span class="n">_PIN_LABEL_ANGLE</span><span class="p">[</span><span class="n">calc_pin_dir</span><span class="p">(</span><span class="n">pin</span><span class="p">)]</span>
     <span class="n">justify</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span> <span class="k">if</span> <span class="n">angle</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;right&quot;</span>
 
     <span class="n">label</span> <span class="o">=</span> <span class="n">Sexp</span><span class="p">(</span>
@@ -941,6 +838,59 @@
     <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">label</span>
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Snap-aware emitters: label suppression, power buses, no-connect flags</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+
+<span class="k">def</span> <span class="nf">_kicad_pin_pos</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">part_tx</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute pin position as KiCad renders it from symbol placement.</span>
+
+<span class="sd">    KiCad&#39;s pin transform order: Y-flip, rotate(-angle), then mirror.</span>
+<span class="sd">    The angle from analyze_transform() is the visual angle in SKiDL&#39;s Y-up</span>
+<span class="sd">    space; KiCad uses its negative because the sheet Y-flip reverses rotation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">math</span>
+
+    <span class="n">angle_deg</span><span class="p">,</span> <span class="n">mx</span><span class="p">,</span> <span class="n">my</span> <span class="o">=</span> <span class="n">part_tx</span><span class="o">.</span><span class="n">analyze_transform</span><span class="p">()</span>
+    <span class="n">composed</span> <span class="o">=</span> <span class="n">part_tx</span> <span class="o">*</span> <span class="n">sheet_tx</span>
+    <span class="n">ox</span> <span class="o">=</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">composed</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">oy</span> <span class="o">=</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">composed</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="n">px</span><span class="p">,</span> <span class="n">py</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="n">pin</span><span class="o">.</span><span class="n">y</span>
+
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="o">-</span><span class="n">angle_deg</span><span class="p">)</span>
+    <span class="n">cos_t</span><span class="p">,</span> <span class="n">sin_t</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+    <span class="n">rx</span> <span class="o">=</span> <span class="n">px</span> <span class="o">*</span> <span class="n">cos_t</span> <span class="o">-</span> <span class="n">py</span> <span class="o">*</span> <span class="n">sin_t</span>
+    <span class="n">ry</span> <span class="o">=</span> <span class="n">px</span> <span class="o">*</span> <span class="n">sin_t</span> <span class="o">+</span> <span class="n">py</span> <span class="o">*</span> <span class="n">cos_t</span>
+
+    <span class="k">if</span> <span class="n">mx</span><span class="p">:</span>
+        <span class="n">ry</span> <span class="o">=</span> <span class="o">-</span><span class="n">ry</span>
+    <span class="k">if</span> <span class="n">my</span><span class="p">:</span>
+        <span class="n">rx</span> <span class="o">=</span> <span class="o">-</span><span class="n">rx</span>
+
+    <span class="k">return</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">ox</span> <span class="o">+</span> <span class="n">rx</span><span class="p">),</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">oy</span> <span class="o">+</span> <span class="n">ry</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_render_xy</span><span class="p">(</span><span class="n">lx</span><span class="p">,</span> <span class="n">ly</span><span class="p">,</span> <span class="n">part_tx</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Transform a part-local point to KiCad render-mm (same convention as</span>
+<span class="sd">    _kicad_pin_pos, but for arbitrary points like bbox corners).&quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">math</span>
+
+    <span class="n">angle_deg</span><span class="p">,</span> <span class="n">mx</span><span class="p">,</span> <span class="n">my</span> <span class="o">=</span> <span class="n">part_tx</span><span class="o">.</span><span class="n">analyze_transform</span><span class="p">()</span>
+    <span class="n">composed</span> <span class="o">=</span> <span class="n">part_tx</span> <span class="o">*</span> <span class="n">sheet_tx</span>
+    <span class="n">ox</span><span class="p">,</span> <span class="n">oy</span> <span class="o">=</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">composed</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">composed</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">px</span><span class="p">,</span> <span class="n">py</span> <span class="o">=</span> <span class="n">lx</span><span class="p">,</span> <span class="o">-</span><span class="n">ly</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="o">-</span><span class="n">angle_deg</span><span class="p">)</span>
+    <span class="n">c</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+    <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span> <span class="o">=</span> <span class="n">px</span> <span class="o">*</span> <span class="n">c</span> <span class="o">-</span> <span class="n">py</span> <span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="n">px</span> <span class="o">*</span> <span class="n">s</span> <span class="o">+</span> <span class="n">py</span> <span class="o">*</span> <span class="n">c</span>
+    <span class="k">if</span> <span class="n">mx</span><span class="p">:</span>
+        <span class="n">ry</span> <span class="o">=</span> <span class="o">-</span><span class="n">ry</span>
+    <span class="k">if</span> <span class="n">my</span><span class="p">:</span>
+        <span class="n">rx</span> <span class="o">=</span> <span class="o">-</span><span class="n">rx</span>
+    <span class="k">return</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">ox</span> <span class="o">+</span> <span class="n">rx</span><span class="p">),</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">oy</span> <span class="o">+</span> <span class="n">ry</span><span class="p">)</span>
 
 
 <span class="c1"># ---------------------------------------------------------------------------</span>
@@ -967,7 +917,7 @@
 <span class="c1"># ---------------------------------------------------------------------------</span>
 
 
-<span class="k">def</span> <span class="nf">create_hierarchical_sheet_sexp</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">create_hierarchical_sheet_sexp</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">sheet_uuid</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a hierarchical sheet S-expression for insertion into a parent sheet.</span>
 
 <span class="sd">    Includes sheet pins for boundary nets (nets connecting the child&#39;s</span>
@@ -975,6 +925,7 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        node: SchNode for the child sheet.</span>
+<span class="sd">        sheet_uuid: UUID of this sheet (for the &quot;uuid&quot; property).</span>
 <span class="sd">        sheet_tx: Transformation matrix of the parent sheet.</span>
 
 <span class="sd">    Returns:</span>
@@ -985,7 +936,6 @@
     <span class="n">by</span> <span class="o">=</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">bbox</span><span class="o">.</span><span class="n">ll</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
     <span class="n">bw</span> <span class="o">=</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">bbox</span><span class="o">.</span><span class="n">w</span><span class="p">)</span>
     <span class="n">bh</span> <span class="o">=</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">bbox</span><span class="o">.</span><span class="n">h</span><span class="p">)</span>
-    <span class="n">sheet_uuid</span> <span class="o">=</span> <span class="n">_gen_uuid</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sheet:</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">sheet_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="n">sheet</span> <span class="o">=</span> <span class="n">Sexp</span><span class="p">(</span>
         <span class="p">[</span>
@@ -1028,7 +978,7 @@
         <span class="n">pin_y</span> <span class="o">=</span> <span class="n">by</span> <span class="o">+</span> <span class="n">pin_spacing</span>
         <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">boundary_nets</span><span class="p">:</span>
             <span class="c1"># Skip power nets that become power symbols (they don&#39;t need sheet pins).</span>
-            <span class="k">if</span> <span class="n">net</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">_get_power_symbol_names</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">net</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">pwr_symbol_names</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="c1"># Skip stubbed nets (they use global labels).</span>
             <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;_stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
@@ -1129,16 +1079,30 @@
 <span class="c1"># ---------------------------------------------------------------------------</span>
 
 
-<span class="k">def</span> <span class="nf">_fix_sheet_filename</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Ensure node.sheet_filename uses .kicad_sch extension (SchNode defaults to .sch).&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">sheet_filename</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">sheet_filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.sch&quot;</span><span class="p">):</span>
-        <span class="n">node</span><span class="o">.</span><span class="n">sheet_filename</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">sheet_filename</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.kicad_sch&quot;</span>
+<span class="k">def</span> <span class="nf">_power_lib_ids_in_elements</span><span class="p">(</span><span class="n">elements</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the set of ``power:*`` lib_ids referenced by symbol instances in</span>
+<span class="sd">    ``elements``. Used to emit exactly the power-symbol definitions a sheet needs,</span>
+<span class="sd">    so every emitted power instance has a matching lib_symbols definition.&quot;&quot;&quot;</span>
+    <span class="n">found</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="s2">&quot;__getitem__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">el</span><span class="p">)</span> <span class="ow">and</span> <span class="n">el</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;symbol&quot;</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="k">for</span> <span class="n">sub</span> <span class="ow">in</span> <span class="n">el</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="nb">hasattr</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="s2">&quot;__getitem__&quot;</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span>
+                <span class="ow">and</span> <span class="n">sub</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;lib_id&quot;</span>
+                <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sub</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">str</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="n">sub</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;power:&quot;</span><span class="p">)</span>
+            <span class="p">):</span>
+                <span class="n">found</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sub</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">found</span>
 
 
 <div class="viewcode-block" id="node_to_sexp_schematic">
 <a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad6.sexp_schematic.html#skidl.tools.kicad6.sexp_schematic.node_to_sexp_schematic">[docs]</a>
 <span class="nd">@export_to_all</span>
-<span class="k">def</span> <span class="nf">node_to_sexp_schematic</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="o">=</span><span class="n">Tx</span><span class="p">(),</span> <span class="n">version</span><span class="o">=</span><span class="mi">20230409</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">node_to_sexp_schematic</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">uuid_path</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="o">=</span><span class="n">Tx</span><span class="p">(),</span> <span class="n">version</span><span class="o">=</span><span class="mi">20230409</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a SchNode tree to S-expression schematic(s).</span>
 
 <span class="sd">    Follows the same recursive pattern as kicad5&#39;s node_to_eeschema():</span>
@@ -1148,77 +1112,388 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        node: SchNode to convert.</span>
+<span class="sd">        uuid_path: Hierarchical UUID path to this node.</span>
 <span class="sd">        sheet_tx: Parent sheet transformation matrix.</span>
 <span class="sd">        version: S-expression version number (20240108 for kicad6, 20230409 for kicad8/9).</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        list[Sexp]: S-expression elements (parts, wires, labels, or a sheet ref).</span>
+<span class="sd">        list[Sexp]: S-expression for elements in this node (parts, wires, labels, sheet refs).</span>
+<span class="sd">        dict: Dict of symbols in this node including in any flattened children.</span>
+<span class="sd">        dict: Dict of power symbols used in this node including in any flattened children.</span>
+<span class="sd">        str: For unflattened nodes, the filename of the .kicad_sch file written for this sheet.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Fix filename extension for KiCad 6+ S-expression format.</span>
-    <span class="n">_fix_sheet_filename</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
 
-    <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Ensure node.sheet_filename uses .kicad_sch extension (SchNode defaults to .sch).&quot;&quot;&quot;</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">sheet_filename</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">sheet_filename</span> <span class="ow">or</span> <span class="s2">&quot;no_sheet_filename&quot;</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">sheet_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">sheet_filename</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.kicad_sch&quot;</span>
 
     <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">flattened</span><span class="p">:</span>
+        <span class="c1"># Flattened node doesn&#39;t get its own sheet, so remove its UUID.</span>
+        <span class="n">uuid_path</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">uuid_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="c1"># Flattened node shares the parent sheet, so apply the parent&#39;s sheet_tx.</span>
         <span class="n">tx</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">tx</span> <span class="o">*</span> <span class="n">sheet_tx</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="c1"># Unflattened node gets its own sheet.</span>
-        <span class="n">flattened_bbox</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">internal_bbox</span><span class="p">()</span>
-        <span class="n">tx</span><span class="p">,</span> <span class="n">paper</span> <span class="o">=</span> <span class="n">_calc_sheet_tx</span><span class="p">(</span><span class="n">flattened_bbox</span><span class="p">)</span>
+        <span class="c1"># Compute the transform and sheet paper size for this node&#39;s sheet.</span>
+        <span class="n">tx</span><span class="p">,</span> <span class="n">paper</span> <span class="o">=</span> <span class="n">_calc_sheet_tx</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">internal_bbox</span><span class="p">())</span>
 
-    <span class="c1"># Recurse into children.</span>
-    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-        <span class="n">elements</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">node_to_sexp_schematic</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">))</span>
+    <span class="c1"># Storage for S-expression elements of schematic.</span>
+    <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="c1"># Collect lib_symbols needed for this node&#39;s parts.</span>
     <span class="n">lib_symbols</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">):</span>
             <span class="n">lib_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">part</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="k">if</span> <span class="n">lib_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">lib_symbols</span><span class="p">:</span>
-                <span class="n">lib_symbols</span><span class="p">[</span><span class="n">lib_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">part</span>
+            <span class="n">lib_symbols</span><span class="p">[</span><span class="n">lib_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">part</span>
+
+    <span class="c1"># Power-symbol definitions are emitted later from the instances actually</span>
+    <span class="c1"># placed on this sheet (see `_power_lib_ids_in_elements`), so no wire-based</span>
+    <span class="c1"># pre-scan is needed here. `pwr_symbols` is kept only to satisfy the</span>
+    <span class="c1"># flattened-node return contract.</span>
+    <span class="n">pwr_symbols</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># Recurse into children.</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">child</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+        <span class="c1"># Give each child a unique UUID path based on its name and index.</span>
+        <span class="n">child</span><span class="o">.</span><span class="n">uuid</span> <span class="o">=</span> <span class="n">_gen_uuid</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">child</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">child_uuid_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">uuid_path</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">child</span><span class="o">.</span><span class="n">uuid</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="c1"># Get elements for child sheet (or for inclusion in this sheet if child is flattened).</span>
+        <span class="n">sexp_list</span><span class="p">,</span> <span class="n">part_dict</span><span class="p">,</span> <span class="n">pwr_dict</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">node_to_sexp_schematic</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">child_uuid_path</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="o">=</span><span class="n">tx</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">)</span>
+        <span class="n">elements</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">sexp_list</span><span class="p">)</span>
+        <span class="n">lib_symbols</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">part_dict</span><span class="p">)</span>
+        <span class="n">pwr_symbols</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">pwr_dict</span><span class="p">)</span>
+
+    <span class="c1"># Collect net names that have real (non-NetTerminal) stubbed pins on this</span>
+    <span class="c1"># sheet.  NetTerminal labels are redundant for these nets since the pins</span>
+    <span class="c1"># will generate their own labels.</span>
+    <span class="n">nets_with_real_pins</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">stub</span> <span class="ow">and</span> <span class="n">pin</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
+                <span class="n">nets_with_real_pins</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="c1"># ON-PIN LABELS (single-real-pin routed nets, incl. cross-sheet):</span>
+    <span class="c1"># A routed net with exactly ONE real component pin ON THIS SHEET gets its</span>
+    <span class="c1"># net label emitted AT that pin instead of at the NetTerminal pin (which</span>
+    <span class="c1"># sits at the routing-channel edge, off the component body — the off-pin</span>
+    <span class="c1"># step-out the user is chasing). Cross-sheet connectivity is preserved</span>
+    <span class="c1"># because the relocated label keeps the same global_label NAME, which KiCad</span>
+    <span class="c1"># resolves across all sheets regardless of position; the NetTerminal was</span>
+    <span class="c1"># only ever the carrier for that name. Done purely at emit time: the net is</span>
+    <span class="c1"># NOT marked stubbed and no place/route state is mutated.</span>
+    <span class="c1"># The route wire (pin -&gt; channel-edge NetTerminal pin) is suppressed for</span>
+    <span class="c1"># this net: it can&#39;t be left in, because the dangling-wire purge below</span>
+    <span class="c1"># treats the NetTerminal pin as an anchor (it iterates node.parts, which</span>
+    <span class="c1"># includes NetTerminals), so the wire would survive with its far end on the</span>
+    <span class="c1"># now-unlabelled terminal -&gt; wire_dangling. With exactly one real pin there</span>
+    <span class="c1"># is nothing else on-sheet for that wire to connect, so the on-pin label is</span>
+    <span class="c1"># the net&#39;s sole connectivity marker — the stubbed-single-pin shape KiCad</span>
+    <span class="c1"># accepts. Nets with &gt;=2 real pins on-sheet keep the NetTerminal + their</span>
+    <span class="c1"># wires (the wire carries real intra-sheet connectivity).</span>
+    <span class="n">node_part_ids</span> <span class="o">=</span> <span class="p">{</span><span class="nb">id</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">}</span>
+    <span class="n">_onpin_enabled</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SKIDL_ONPIN_LABELS&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">&quot;0&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_onpin_real_pin</span><span class="p">(</span><span class="n">nt_net</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the lone on-sheet real pin for an on-pin-eligible net, else None.</span>
+
+<span class="sd">        Eligible iff exactly one of the net&#39;s pins is a non-NetTerminal part on</span>
+<span class="sd">        THIS node (off-sheet pins are ignored — they reconnect by label name),</span>
+<span class="sd">        and that pin is routed (not already self-labelling via a stub).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_onpin_enabled</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">real_pins</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">np</span>
+            <span class="k">for</span> <span class="n">np</span> <span class="ow">in</span> <span class="n">nt_net</span><span class="o">.</span><span class="n">pins</span>
+            <span class="k">if</span> <span class="nb">id</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">part</span><span class="p">)</span> <span class="ow">in</span> <span class="n">node_part_ids</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">part</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">real_pins</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">rp</span> <span class="o">=</span> <span class="n">real_pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">rp</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">rp</span><span class="p">,</span> <span class="s2">&quot;stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>  <span class="c1"># stubbed pins already self-label; only handle routed pins</span>
+        <span class="k">return</span> <span class="n">rp</span>
+
+    <span class="n">onpin_net_ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>  <span class="c1"># id(net) of nets relocated on-pin (wire/junction suppressed)</span>
 
     <span class="c1"># Generate part S-expressions.</span>
     <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">):</span>
-            <span class="c1"># NetTerminals become net labels.</span>
-            <span class="n">label</span> <span class="o">=</span> <span class="n">net_label_to_sexp</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">tx</span><span class="o">=</span><span class="n">tx</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="c1"># NetTerminals become net labels (unless a real pin already labels the net).</span>
+            <span class="n">pin</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">pin</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">nets_with_real_pins</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">real_pin</span> <span class="o">=</span> <span class="n">_onpin_real_pin</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">real_pin</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># Emit the label at the real component pin, suppress the</span>
+                <span class="c1"># NetTerminal (channel-edge) label + route wire for this net.</span>
+                <span class="n">label</span> <span class="o">=</span> <span class="n">net_label_to_sexp</span><span class="p">(</span><span class="n">real_pin</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="n">tx</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">label</span><span class="p">:</span>
+                    <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+                    <span class="n">onpin_net_ids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="p">))</span>
+                <span class="k">continue</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">net_label_to_sexp</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="n">tx</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">label</span><span class="p">:</span>
                 <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part_to_sexp</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="n">tx</span><span class="p">))</span>
+            <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part_to_sexp</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">uuid_path</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="n">tx</span><span class="p">))</span>
 
     <span class="c1"># Generate wire S-expressions (split at junction points).</span>
+    <span class="c1"># Skip nets that snap converted to stubs after routing — their routed</span>
+    <span class="c1"># geometry is stale now that the parts moved, so they use labels instead.</span>
+    <span class="c1"># Also skip nets relocated to an on-pin label above: their only route wire</span>
+    <span class="c1"># ran to the now-unlabelled NetTerminal (channel-edge) pin, which the</span>
+    <span class="c1"># dangling-wire purge cannot remove (that pin is itself an anchor). The</span>
+    <span class="c1"># on-pin label is the net&#39;s sole connectivity marker. Keyed by id(net) so a</span>
+    <span class="c1"># name-collision can&#39;t suppress a different net&#39;s wires.</span>
     <span class="k">for</span> <span class="n">net</span><span class="p">,</span> <span class="n">wire</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">wires</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;_stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="nb">id</span><span class="p">(</span><span class="n">net</span><span class="p">)</span> <span class="ow">in</span> <span class="n">onpin_net_ids</span><span class="p">:</span>
+            <span class="k">continue</span>
         <span class="n">net_junctions</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">junctions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="p">[])</span>
         <span class="n">elements</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">wire_to_sexp</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">wire</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="n">tx</span><span class="p">,</span> <span class="n">junctions</span><span class="o">=</span><span class="n">net_junctions</span><span class="p">))</span>
 
     <span class="c1"># Generate junction S-expressions.</span>
     <span class="k">for</span> <span class="n">net</span><span class="p">,</span> <span class="n">junctions</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">junctions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;_stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="nb">id</span><span class="p">(</span><span class="n">net</span><span class="p">)</span> <span class="ow">in</span> <span class="n">onpin_net_ids</span><span class="p">:</span>
+            <span class="k">continue</span>
         <span class="n">elements</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">junction_to_sexp</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">junctions</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="n">tx</span><span class="p">))</span>
 
-    <span class="c1"># Generate net labels for stubbed pins.</span>
+    <span class="c1"># Tool-agnostic decision layer reaches kicad geometry/emission through the</span>
+    <span class="c1"># backend adapter (see schematics/decisions.py + tools/kicad9/backend.py).</span>
+    <span class="c1"># Wrap in a RenderContext so repeated pin_render_pos/dir queries within this</span>
+    <span class="c1"># sheet are memoized. Created here, AFTER snap has finalized all part.tx in</span>
+    <span class="c1"># gen_schematic, so no pre-snap stale positions can be cached (doc S7.6).</span>
+    <span class="kn">from</span> <span class="nn">skidl.schematics</span> <span class="kn">import</span> <span class="n">decisions</span> <span class="k">as</span> <span class="n">_decisions</span>
+    <span class="kn">from</span> <span class="nn">skidl.schematics.backend</span> <span class="kn">import</span> <span class="n">RenderContext</span>
+    <span class="kn">from</span> <span class="nn">.backend</span> <span class="kn">import</span> <span class="n">Kicad9Backend</span>
+    <span class="n">_backend</span> <span class="o">=</span> <span class="n">RenderContext</span><span class="p">(</span><span class="n">Kicad9Backend</span><span class="p">())</span>
+
+    <span class="c1"># Suppress labels for snap-overlapping pins (one label per connected cluster).</span>
+    <span class="n">wired_pin_ids</span> <span class="o">=</span> <span class="n">_decisions</span><span class="o">.</span><span class="n">find_overlapping_pins</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">_backend</span><span class="p">,</span> <span class="n">tx</span><span class="p">)</span>
+
+    <span class="c1"># Connect co-linear power net pins with bus wires.</span>
+    <span class="n">bus_segments</span><span class="p">,</span> <span class="n">bus_pin_ids</span> <span class="o">=</span> <span class="n">_decisions</span><span class="o">.</span><span class="n">find_power_bus_runs</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">_backend</span><span class="p">,</span> <span class="n">tx</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">net_name</span> <span class="ow">in</span> <span class="n">bus_segments</span><span class="p">:</span>
+        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">_backend</span><span class="o">.</span><span class="n">emit_wire</span><span class="p">(</span>
+                <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span>
+                <span class="n">net_name</span><span class="o">=</span><span class="n">net_name</span><span class="p">,</span>
+                <span class="n">uuid_seed</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;pbus:</span><span class="si">{</span><span class="n">net_name</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">x1</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">y1</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">x2</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">y2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="n">wired_pin_ids</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">bus_pin_ids</span><span class="p">)</span>
+
+    <span class="c1"># Generate T-junction wires from staggered snap placement.</span>
+    <span class="k">for</span> <span class="n">tjw</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;_tjunction_wires&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="n">x1_mil</span><span class="p">,</span> <span class="n">y1_mil</span><span class="p">,</span> <span class="n">x2_mil</span><span class="p">,</span> <span class="n">y2_mil</span> <span class="o">=</span> <span class="n">tjw</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">x1_mil</span><span class="p">,</span> <span class="n">y1_mil</span><span class="p">)</span> <span class="o">*</span> <span class="n">tx</span>
+        <span class="n">p2</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">x2_mil</span><span class="p">,</span> <span class="n">y2_mil</span><span class="p">)</span> <span class="o">*</span> <span class="n">tx</span>
+        <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">p1</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">p1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">p2</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">p2</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">Sexp</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="s2">&quot;wire&quot;</span><span class="p">,</span>
+                    <span class="p">[</span><span class="s2">&quot;pts&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;xy&quot;</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;xy&quot;</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">]],</span>
+                    <span class="p">[</span><span class="s2">&quot;stroke&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="s2">&quot;default&quot;</span><span class="p">]],</span>
+                    <span class="p">[</span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span> <span class="n">_gen_uuid</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;tjwire:</span><span class="si">{</span><span class="n">x1</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">y1</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">x2</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">y2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)],</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="c1"># PROPOSAL (off unless snap._ENABLE_IC_FAN_PIN_REWIRE): drop a junction dot</span>
+    <span class="c1"># at each fan&#39;s shared point so the IC pin, its wire, and the &gt;=2 coincident</span>
+    <span class="c1"># fan pins resolve as one net by connectivity, letting the redundant IC-pin</span>
+    <span class="c1"># SW_n label be suppressed without dangling the wire.</span>
+    <span class="k">for</span> <span class="n">jpt</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;_tjunction_junctions&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="n">jp</span> <span class="o">=</span> <span class="n">jpt</span> <span class="o">*</span> <span class="n">tx</span>
+        <span class="n">jx</span><span class="p">,</span> <span class="n">jy</span> <span class="o">=</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">jp</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">jp</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">Sexp</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="s2">&quot;junction&quot;</span><span class="p">,</span>
+                    <span class="p">[</span><span class="s2">&quot;at&quot;</span><span class="p">,</span> <span class="n">jx</span><span class="p">,</span> <span class="n">jy</span><span class="p">],</span>
+                    <span class="p">[</span><span class="s2">&quot;diameter&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                    <span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                    <span class="p">[</span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span> <span class="n">_gen_uuid</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;tjjunction:</span><span class="si">{</span><span class="n">jx</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">jy</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)],</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="c1"># Suppress labels for staggered T-junction signal pins (connected by wire).</span>
+    <span class="n">wired_pin_ids</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;_tjunction_suppressed_pins&quot;</span><span class="p">,</span> <span class="nb">set</span><span class="p">()))</span>
+
+    <span class="c1"># Emit wires for decoupling caps offset-snapped to IC power pins, and</span>
+    <span class="c1"># suppress their pin labels (the wire makes the redundant label noise).</span>
+    <span class="k">for</span> <span class="n">pcw</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;_power_cap_wires&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="n">x1_mil</span><span class="p">,</span> <span class="n">y1_mil</span><span class="p">,</span> <span class="n">x2_mil</span><span class="p">,</span> <span class="n">y2_mil</span> <span class="o">=</span> <span class="n">pcw</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">x1_mil</span><span class="p">,</span> <span class="n">y1_mil</span><span class="p">)</span> <span class="o">*</span> <span class="n">tx</span>
+        <span class="n">p2</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">x2_mil</span><span class="p">,</span> <span class="n">y2_mil</span><span class="p">)</span> <span class="o">*</span> <span class="n">tx</span>
+        <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">p1</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">p1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">p2</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">p2</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">Sexp</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="s2">&quot;wire&quot;</span><span class="p">,</span>
+                    <span class="p">[</span><span class="s2">&quot;pts&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;xy&quot;</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;xy&quot;</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">]],</span>
+                    <span class="p">[</span><span class="s2">&quot;stroke&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="s2">&quot;default&quot;</span><span class="p">]],</span>
+                    <span class="p">[</span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span> <span class="n">_gen_uuid</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pcwire:</span><span class="si">{</span><span class="n">x1</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">y1</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">x2</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">y2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)],</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="c1"># Junction dots where the power-cap trunk taps each cap +ve pin / the IC</span>
+    <span class="c1"># connector, so the right-angle bus resolves as one connected net.</span>
+    <span class="k">for</span> <span class="n">jpt</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;_power_cap_junctions&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="n">jp</span> <span class="o">=</span> <span class="n">jpt</span> <span class="o">*</span> <span class="n">tx</span>
+        <span class="n">jx</span><span class="p">,</span> <span class="n">jy</span> <span class="o">=</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">jp</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">jp</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">Sexp</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="s2">&quot;junction&quot;</span><span class="p">,</span>
+                    <span class="p">[</span><span class="s2">&quot;at&quot;</span><span class="p">,</span> <span class="n">jx</span><span class="p">,</span> <span class="n">jy</span><span class="p">],</span>
+                    <span class="p">[</span><span class="s2">&quot;diameter&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                    <span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                    <span class="p">[</span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span> <span class="n">_gen_uuid</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pcjunction:</span><span class="si">{</span><span class="n">jx</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">jy</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)],</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="n">wired_pin_ids</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;_power_cap_suppressed_pins&quot;</span><span class="p">,</span> <span class="nb">set</span><span class="p">()))</span>
+
+    <span class="c1"># Generate net labels for stubbed pins (skip pins that got direct wires).</span>
     <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">):</span>
             <span class="k">continue</span>
         <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">id</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span> <span class="ow">in</span> <span class="n">wired_pin_ids</span><span class="p">:</span>
+                <span class="k">continue</span>
             <span class="n">label</span> <span class="o">=</span> <span class="n">net_label_to_sexp</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="n">tx</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">label</span><span class="p">:</span>
                 <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="p">(</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+                <span class="ow">and</span> <span class="ow">not</span> <span class="n">pin</span><span class="o">.</span><span class="n">stub</span>
+                <span class="ow">and</span> <span class="n">pin</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()</span>
+                <span class="ow">and</span> <span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">pwr_symbol_names</span>
+            <span class="p">):</span>
+                <span class="n">label</span> <span class="o">=</span> <span class="n">net_label_to_sexp</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="n">tx</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">label</span><span class="p">:</span>
+                    <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+
+    <span class="c1"># No-connect flags for NCNet pins.</span>
+    <span class="k">for</span> <span class="n">nc_x</span><span class="p">,</span> <span class="n">nc_y</span><span class="p">,</span> <span class="n">part_ref</span><span class="p">,</span> <span class="n">pin_num</span> <span class="ow">in</span> <span class="n">_decisions</span><span class="o">.</span><span class="n">find_no_connect_pins</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">_backend</span><span class="p">,</span> <span class="n">tx</span><span class="p">):</span>
+        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">_backend</span><span class="o">.</span><span class="n">emit_no_connect</span><span class="p">(</span>
+                <span class="n">nc_x</span><span class="p">,</span> <span class="n">nc_y</span><span class="p">,</span>
+                <span class="n">uuid_seed</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;nc:</span><span class="si">{</span><span class="n">part_ref</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">pin_num</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">nc_x</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">nc_y</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Purge dangling wire remnants. Snap moves parts by reassigning part.tx,</span>
+    <span class="c1"># but a router wire to the old position can survive as a short stub whose</span>
+    <span class="c1"># far end touches nothing (KiCad flags these as wire_dangling). Drop any</span>
+    <span class="c1"># wire segment with an endpoint anchored to nothing — not a pin, label,</span>
+    <span class="c1"># junction, no-connect, or another wire endpoint. Iterate, since removing</span>
+    <span class="c1"># one stub can expose the next.</span>
+    <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span> <span class="k">as</span> <span class="n">_Counter</span>
+
+    <span class="n">_anchor_pts</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">_part</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">_pin</span> <span class="ow">in</span> <span class="n">_part</span><span class="p">:</span>
+            <span class="n">_pp</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">_pin</span><span class="p">,</span> <span class="s2">&quot;pt&quot;</span><span class="p">,</span> <span class="n">Point</span><span class="p">(</span><span class="n">_pin</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">_pin</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
+            <span class="n">_ptx</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">_pin</span><span class="o">.</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;tx&quot;</span><span class="p">,</span> <span class="n">Tx</span><span class="p">())</span>
+            <span class="n">_w</span> <span class="o">=</span> <span class="n">_pp</span> <span class="o">*</span> <span class="n">_ptx</span> <span class="o">*</span> <span class="n">tx</span>
+            <span class="n">_anchor_pts</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="n">_round_mm</span><span class="p">(</span><span class="n">_w</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="n">_round_mm</span><span class="p">(</span><span class="n">_w</span><span class="o">.</span><span class="n">y</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">_el</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_el</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">Sexp</span><span class="p">))</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">_el</span><span class="p">)</span> <span class="ow">and</span> <span class="n">_el</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span>
+            <span class="s2">&quot;global_label&quot;</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;junction&quot;</span><span class="p">,</span> <span class="s2">&quot;no_connect&quot;</span>
+        <span class="p">):</span>
+            <span class="k">for</span> <span class="n">_s</span> <span class="ow">in</span> <span class="n">_el</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_s</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">Sexp</span><span class="p">))</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">_s</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">_s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;at&quot;</span><span class="p">:</span>
+                    <span class="n">_anchor_pts</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="n">_s</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">_s</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+                    <span class="k">break</span>
+
+    <span class="k">def</span> <span class="nf">_wire_endpoints_of</span><span class="p">(</span><span class="n">_el</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">_s</span> <span class="ow">in</span> <span class="n">_el</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_s</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">Sexp</span><span class="p">))</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">_s</span><span class="p">)</span> <span class="ow">and</span> <span class="n">_s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;pts&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">[</span>
+                    <span class="p">(</span><span class="n">_xy</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">_xy</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                    <span class="k">for</span> <span class="n">_xy</span> <span class="ow">in</span> <span class="n">_s</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_xy</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">Sexp</span><span class="p">))</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">_xy</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">_xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;xy&quot;</span>
+                <span class="p">]</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>  <span class="c1"># iterate; cap as a safety backstop</span>
+        <span class="n">_counts</span> <span class="o">=</span> <span class="n">_Counter</span><span class="p">()</span>
+        <span class="n">_wires</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">_i</span><span class="p">,</span> <span class="n">_el</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">elements</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_el</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">Sexp</span><span class="p">))</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">_el</span><span class="p">)</span> <span class="ow">and</span> <span class="n">_el</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;wire&quot;</span><span class="p">:</span>
+                <span class="n">_pts</span> <span class="o">=</span> <span class="n">_wire_endpoints_of</span><span class="p">(</span><span class="n">_el</span><span class="p">)</span>
+                <span class="n">_wires</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">_i</span><span class="p">,</span> <span class="n">_pts</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">_p</span> <span class="ow">in</span> <span class="n">_pts</span><span class="p">:</span>
+                    <span class="n">_counts</span><span class="p">[</span><span class="n">_p</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">_drop</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">_i</span><span class="p">,</span> <span class="n">_pts</span> <span class="ow">in</span> <span class="n">_wires</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">_p</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_anchor_pts</span> <span class="ow">and</span> <span class="n">_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">_p</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">_p</span> <span class="ow">in</span> <span class="n">_pts</span><span class="p">):</span>
+                <span class="n">_drop</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">_i</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_drop</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">elements</span> <span class="o">=</span> <span class="p">[</span><span class="n">_el</span> <span class="k">for</span> <span class="n">_i</span><span class="p">,</span> <span class="n">_el</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span> <span class="k">if</span> <span class="n">_i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_drop</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">flattened</span><span class="p">:</span>
-        <span class="c1"># Return elements for inclusion in the parent sheet.</span>
-        <span class="k">return</span> <span class="n">elements</span>
+        <span class="c1"># This node is flattened, so return elements for inclusion in the parent sheet.</span>
+        <span class="k">return</span> <span class="n">elements</span><span class="p">,</span> <span class="n">lib_symbols</span><span class="p">,</span> <span class="n">pwr_symbols</span><span class="p">,</span> <span class="s2">&quot;&quot;</span>
 
-    <span class="c1"># --- Unflattened node: write a separate .kicad_sch file. ---</span>
+    <span class="c1"># --- Unflattened node: write a separate .kicad_sch file for this sheet. ---</span>
 
-    <span class="c1"># Add hierarchical labels for boundary nets (nets that cross the sheet boundary).</span>
+    <span class="n">schematic</span> <span class="o">=</span> <span class="n">Sexp</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="s2">&quot;kicad_sch&quot;</span><span class="p">,</span>
+            <span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="n">version</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;generator&quot;</span><span class="p">,</span> <span class="s2">&quot;skidl&quot;</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;generator_version&quot;</span><span class="p">,</span> <span class="n">__version__</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">uuid</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;paper&quot;</span><span class="p">,</span> <span class="n">paper</span><span class="p">],</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Add title block to schematic sheet.</span>
+    <span class="n">schematic</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Sexp</span><span class="p">(</span><span class="n">create_title_block_sexp</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">title</span><span class="p">)))</span>
+    
+    <span class="c1"># Build lib_symbols section for this sheet.</span>
+    <span class="n">lib_symbols_sexp</span> <span class="o">=</span> <span class="n">Sexp</span><span class="p">([</span><span class="s2">&quot;lib_symbols&quot;</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">lib_symbols</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">lib_symbols_sexp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Sexp</span><span class="p">(</span><span class="n">part_to_lib_symbol_definition</span><span class="p">(</span><span class="n">part</span><span class="p">)))</span>
+
+    <span class="c1"># Add power-symbol definitions. Derive these from the power-symbol INSTANCES</span>
+    <span class="c1"># actually emitted on this sheet (`elements`), NOT from `node.wires`: with</span>
+    <span class="c1"># auto_stub, power nets are stubbed (labels, not wires), so a wire-based scan</span>
+    <span class="c1"># misses them and the emitted instance has no definition -&gt; KiCad reports an</span>
+    <span class="c1"># &quot;unknown component&quot;. Scanning emitted instances guarantees every instance</span>
+    <span class="c1"># has a matching definition, and also covers power symbols contributed by</span>
+    <span class="c1"># flattened children (whose instances are already in `elements`).</span>
+    <span class="k">for</span> <span class="n">pwr_lib_id</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">_power_lib_ids_in_elements</span><span class="p">(</span><span class="n">elements</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">pwr_lib_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">lib_symbols</span><span class="p">:</span>
+            <span class="n">pwr_sexp</span> <span class="o">=</span> <span class="n">_extract_power_lib_symbol</span><span class="p">(</span><span class="n">pwr_lib_id</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">pwr_sexp</span><span class="p">:</span>
+                <span class="n">lib_symbols_sexp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pwr_sexp</span><span class="p">)</span>
+
+    <span class="c1"># Add lib_symbols section to schematic.</span>
+    <span class="n">schematic</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lib_symbols_sexp</span><span class="p">)</span>
+
+    <span class="c1"># Collect hierarchical labels for boundary nets (nets that cross the sheet boundary).</span>
     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;get_boundary_nets&quot;</span><span class="p">):</span>
         <span class="n">boundary_nets</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get_boundary_nets</span><span class="p">()</span>
         <span class="n">hlabel_y</span> <span class="o">=</span> <span class="mf">10.0</span>  <span class="c1"># Starting Y position in mm for labels along the left edge.</span>
         <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">boundary_nets</span><span class="p">:</span>
             <span class="c1"># Skip power nets and stubbed nets.</span>
-            <span class="k">if</span> <span class="n">net</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">_get_power_symbol_names</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">net</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">pwr_symbol_names</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;_stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
                 <span class="k">continue</span>
@@ -1227,32 +1502,12 @@
             <span class="p">)</span>
             <span class="n">hlabel_y</span> <span class="o">+=</span> <span class="mf">2.54</span>
 
-    <span class="c1"># Build lib_symbols section for this sheet.</span>
-    <span class="n">lib_symbols_sexp</span> <span class="o">=</span> <span class="n">Sexp</span><span class="p">([</span><span class="s2">&quot;lib_symbols&quot;</span><span class="p">])</span>
-    <span class="k">for</span> <span class="n">lib_id</span><span class="p">,</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">lib_symbols</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">lib_symbols_sexp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Sexp</span><span class="p">(</span><span class="n">part_to_lib_symbol_definition</span><span class="p">(</span><span class="n">part</span><span class="p">)))</span>
+    <span class="c1"># Spread net labels off component bodies (connectivity-preserving).</span>
+    <span class="c1"># Decision (overlap + nudge target) lives in schematics/decisions.py; the</span>
+    <span class="c1"># backend reads/mutates the label Sexps and appends connecting wires.</span>
+    <span class="n">_backend</span><span class="o">.</span><span class="n">apply_label_deconfliction</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">tx</span><span class="p">)</span>
 
-    <span class="c1"># Add power lib_symbols for any power symbols used in this sheet.</span>
-    <span class="k">for</span> <span class="n">pwr_name</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">_used_power_symbols</span><span class="p">):</span>
-        <span class="n">pwr_lib_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;power:</span><span class="si">{</span><span class="n">pwr_name</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="k">if</span> <span class="n">pwr_lib_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">lib_symbols</span><span class="p">:</span>
-            <span class="n">pwr_sexp</span> <span class="o">=</span> <span class="n">_extract_power_lib_symbol</span><span class="p">(</span><span class="n">pwr_name</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">pwr_sexp</span><span class="p">:</span>
-                <span class="n">lib_symbols_sexp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pwr_sexp</span><span class="p">)</span>
-
-    <span class="n">schematic</span> <span class="o">=</span> <span class="n">Sexp</span><span class="p">(</span>
-        <span class="p">[</span>
-            <span class="s2">&quot;kicad_sch&quot;</span><span class="p">,</span>
-            <span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="n">version</span><span class="p">],</span>
-            <span class="p">[</span><span class="s2">&quot;generator&quot;</span><span class="p">,</span> <span class="s2">&quot;skidl&quot;</span><span class="p">],</span>
-            <span class="p">[</span><span class="s2">&quot;generator_version&quot;</span><span class="p">,</span> <span class="n">__version__</span><span class="p">],</span>
-            <span class="p">[</span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span> <span class="n">_gen_uuid</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sheet:</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">sheet_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)],</span>
-            <span class="p">[</span><span class="s2">&quot;paper&quot;</span><span class="p">,</span> <span class="n">paper</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="o">.</span><span class="n">flattened</span> <span class="k">else</span> <span class="s2">&quot;A3&quot;</span><span class="p">],</span>
-        <span class="p">]</span>
-    <span class="p">)</span>
-    <span class="n">schematic</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Sexp</span><span class="p">(</span><span class="n">create_title_block_sexp</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">title</span><span class="p">)))</span>
-    <span class="n">schematic</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lib_symbols_sexp</span><span class="p">)</span>
-
+    <span class="c1"># Add all the collected elements of the schematic.</span>
     <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
         <span class="n">schematic</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
 
@@ -1260,8 +1515,9 @@
     <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">sheet_filename</span><span class="p">)</span>
     <span class="n">_write_sexp_schematic</span><span class="p">(</span><span class="n">schematic</span><span class="p">,</span> <span class="n">filepath</span><span class="p">)</span>
 
-    <span class="c1"># Return a hierarchical sheet reference for the parent.</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">create_hierarchical_sheet_sexp</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">)]</span></div>
+    <span class="c1"># Return a hierarchical sheet reference for this node to be included in the parent sheet.</span>
+    <span class="n">sheet_uuid</span> <span class="o">=</span> <span class="n">uuid_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># Use the last UUID in the path for the sheet UUID.</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">create_hierarchical_sheet_sexp</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">sheet_uuid</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">)],</span> <span class="p">{},</span> <span class="p">{},</span> <span class="n">filepath</span></div>
 
 
 
@@ -1286,90 +1542,24 @@
 <span class="sd">        title: Schematic title.</span>
 <span class="sd">        version: S-expression version number.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">top_name</span> <span class="o">=</span> <span class="n">top_name</span> <span class="ow">or</span> <span class="s2">&quot;schematic&quot;</span>
-    <span class="n">_fix_sheet_filename</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-    <span class="n">_reset_power_symbol_state</span><span class="p">()</span>
 
-    <span class="c1"># Calculate root sheet transform.</span>
-    <span class="n">root_bbox</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">internal_bbox</span><span class="p">()</span>
-    <span class="n">sheet_tx</span><span class="p">,</span> <span class="n">paper</span> <span class="o">=</span> <span class="n">_calc_sheet_tx</span><span class="p">(</span><span class="n">root_bbox</span><span class="p">)</span>
+    <span class="n">init_power_symbol_data</span><span class="p">()</span>
 
-    <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">sheet_filename</span> <span class="o">=</span> <span class="n">top_name</span> <span class="ow">or</span> <span class="s2">&quot;schematic&quot;</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">filepath</span> <span class="o">=</span> <span class="n">filepath</span>
 
-    <span class="c1"># Recurse into children — they write their own files if unflattened.</span>
-    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-        <span class="n">elements</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">node_to_sexp_schematic</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">sheet_tx</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">))</span>
+    <span class="c1"># Top node is never flattened because it has no parent to accept its contents, so it must always generate a sheet.</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">flattened</span> <span class="o">=</span> <span class="kc">False</span>
 
-    <span class="c1"># Collect lib_symbols for ALL parts in the circuit.</span>
-    <span class="n">lib_symbols</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">):</span>
-            <span class="n">lib_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">part</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="k">if</span> <span class="n">lib_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">lib_symbols</span><span class="p">:</span>
-                <span class="n">lib_symbols</span><span class="p">[</span><span class="n">lib_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">part</span>
+    <span class="c1"># Generate a deterministic UUID for the top node based on its name.</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">uuid</span> <span class="o">=</span> <span class="n">_gen_uuid</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
-    <span class="c1"># Generate part S-expressions for root-level parts.</span>
-    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">):</span>
-            <span class="n">label</span> <span class="o">=</span> <span class="n">net_label_to_sexp</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">tx</span><span class="o">=</span><span class="n">sheet_tx</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">label</span><span class="p">:</span>
-                <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part_to_sexp</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="n">sheet_tx</span><span class="p">))</span>
+    <span class="c1"># UUID paths start from this root node. Used for hierarchical sheet references.</span>
+    <span class="n">uuid_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">uuid</span><span class="si">}</span><span class="s2">&quot;</span>
 
-    <span class="c1"># Generate wire S-expressions (split at junction points).</span>
-    <span class="k">for</span> <span class="n">net</span><span class="p">,</span> <span class="n">wire</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">wires</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">net_junctions</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">junctions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="p">[])</span>
-        <span class="n">elements</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">wire_to_sexp</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">wire</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="n">sheet_tx</span><span class="p">,</span> <span class="n">junctions</span><span class="o">=</span><span class="n">net_junctions</span><span class="p">))</span>
-
-    <span class="c1"># Generate junction S-expressions.</span>
-    <span class="k">for</span> <span class="n">net</span><span class="p">,</span> <span class="n">junctions</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">junctions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">elements</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">junction_to_sexp</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">junctions</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="n">sheet_tx</span><span class="p">))</span>
-
-    <span class="c1"># Generate net labels for stubbed pins.</span>
-    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">):</span>
-            <span class="k">continue</span>
-        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part</span><span class="p">:</span>
-            <span class="n">label</span> <span class="o">=</span> <span class="n">net_label_to_sexp</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="n">sheet_tx</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">label</span><span class="p">:</span>
-                <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
-
-    <span class="c1"># Build lib_symbols section.</span>
-    <span class="n">lib_symbols_sexp</span> <span class="o">=</span> <span class="n">Sexp</span><span class="p">([</span><span class="s2">&quot;lib_symbols&quot;</span><span class="p">])</span>
-    <span class="k">for</span> <span class="n">lib_id</span><span class="p">,</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">lib_symbols</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">lib_symbols_sexp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Sexp</span><span class="p">(</span><span class="n">part_to_lib_symbol_definition</span><span class="p">(</span><span class="n">part</span><span class="p">)))</span>
-
-    <span class="c1"># Add power lib_symbols for any power symbols used in this schematic.</span>
-    <span class="k">for</span> <span class="n">pwr_name</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">_used_power_symbols</span><span class="p">):</span>
-        <span class="n">pwr_lib_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;power:</span><span class="si">{</span><span class="n">pwr_name</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="k">if</span> <span class="n">pwr_lib_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">lib_symbols</span><span class="p">:</span>
-            <span class="n">pwr_sexp</span> <span class="o">=</span> <span class="n">_extract_power_lib_symbol</span><span class="p">(</span><span class="n">pwr_name</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">pwr_sexp</span><span class="p">:</span>
-                <span class="n">lib_symbols_sexp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pwr_sexp</span><span class="p">)</span>
-
-    <span class="n">root_uuid</span> <span class="o">=</span> <span class="n">_gen_uuid</span><span class="p">(</span><span class="s2">&quot;root_schematic&quot;</span><span class="p">)</span>
-
-    <span class="n">schematic</span> <span class="o">=</span> <span class="n">Sexp</span><span class="p">(</span>
-        <span class="p">[</span>
-            <span class="s2">&quot;kicad_sch&quot;</span><span class="p">,</span>
-            <span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="n">version</span><span class="p">],</span>
-            <span class="p">[</span><span class="s2">&quot;generator&quot;</span><span class="p">,</span> <span class="s2">&quot;skidl&quot;</span><span class="p">],</span>
-            <span class="p">[</span><span class="s2">&quot;generator_version&quot;</span><span class="p">,</span> <span class="n">__version__</span><span class="p">],</span>
-            <span class="p">[</span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span> <span class="n">root_uuid</span><span class="p">],</span>
-            <span class="p">[</span><span class="s2">&quot;paper&quot;</span><span class="p">,</span> <span class="n">paper</span><span class="p">],</span>
-        <span class="p">]</span>
-    <span class="p">)</span>
-    <span class="n">schematic</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Sexp</span><span class="p">(</span><span class="n">create_title_block_sexp</span><span class="p">(</span><span class="n">title</span><span class="p">)))</span>
-    <span class="n">schematic</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lib_symbols_sexp</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
-        <span class="n">schematic</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
-
-    <span class="c1"># Write root schematic.</span>
-    <span class="n">output_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">top_name</span><span class="si">}</span><span class="s2">.kicad_sch&quot;</span><span class="p">)</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">_write_sexp_schematic</span><span class="p">(</span><span class="n">schematic</span><span class="p">,</span> <span class="n">output_file</span><span class="p">)</span>
+    <span class="c1"># Write root schematic. Ignore returned items except name of top-level sheet file.</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">output_file</span> <span class="o">=</span> <span class="n">node_to_sexp_schematic</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">uuid_path</span><span class="o">=</span><span class="n">uuid_path</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">)</span>
 
     <span class="c1"># Optional: validate with kicad-cli if available.</span>
     <span class="n">_validate_with_kicad_cli</span><span class="p">(</span><span class="n">output_file</span><span class="p">)</span>
@@ -1411,6 +1601,7 @@
 <span class="c1"># ---------------------------------------------------------------------------</span>
 <span class="c1"># File writer</span>
 <span class="c1"># ---------------------------------------------------------------------------</span>
+
 
 
 <span class="k">def</span> <span class="nf">_write_sexp_schematic</span><span class="p">(</span><span class="n">schematic</span><span class="p">,</span> <span class="n">filepath</span><span class="p">):</span>
@@ -1485,7 +1676,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad6.sexp_schematic</a></li> 
       </ul>

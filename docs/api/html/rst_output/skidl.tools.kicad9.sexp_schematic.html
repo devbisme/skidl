@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.tools.kicad9.sexp_schematic module &#8212; SKiDL 2.2.3 documentation</title>
+    <title>skidl.tools.kicad9.sexp_schematic module &#8212; SKiDL 2.3.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=85e56e6b"></script>
+    <script src="../_static/documentation_options.js?v=c3c8ae58"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad9.sexp_schematic module</a></li> 
       </ul>
     </div>  
@@ -60,7 +60,7 @@ Used by kicad6, kicad8, and kicad9 gen_schematic thin wrappers.</p>
 </dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.tools.kicad9.sexp_schematic.node_to_sexp_schematic">
-<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad9.sexp_schematic.</span></span><span class="sig-name descname"><span class="pre">node_to_sexp_schematic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet_tx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Tx()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20230409</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad9/sexp_schematic.html#node_to_sexp_schematic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad9.sexp_schematic.node_to_sexp_schematic" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad9.sexp_schematic.</span></span><span class="sig-name descname"><span class="pre">node_to_sexp_schematic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet_tx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Tx()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20230409</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad9/sexp_schematic.html#node_to_sexp_schematic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad9.sexp_schematic.node_to_sexp_schematic" title="Link to this definition">¶</a></dt>
 <dd><p>Convert a SchNode tree to S-expression schematic(s).</p>
 <p>Follows the same recursive pattern as kicad5’s node_to_eeschema():
 - Flattened nodes: return elements for inclusion in the parent sheet.
@@ -72,12 +72,16 @@ Used by kicad6, kicad8, and kicad9 gen_schematic thin wrappers.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>node</strong> – SchNode to convert.</p></li>
+<li><p><strong>uuid_path</strong> – Hierarchical UUID path to this node.</p></li>
 <li><p><strong>sheet_tx</strong> – Parent sheet transformation matrix.</p></li>
 <li><p><strong>version</strong> – S-expression version number (20240108 for kicad6, 20230409 for kicad8/9).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>S-expression elements (parts, wires, labels, or a sheet ref).</p>
+<dd class="field-even"><p>S-expression for elements in this node (parts, wires, labels, sheet refs).
+dict: Dict of symbols in this node including in any flattened children.
+dict: Dict of power symbols used in this node including in any flattened children.
+str: For unflattened nodes, the filename of the .kicad_sch file written for this sheet.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[Sexp]</p>
@@ -154,7 +158,7 @@ Used by kicad6, kicad8, and kicad9 gen_schematic thin wrappers.</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad9.sexp_schematic module</a></li> 
       </ul>
     </div>

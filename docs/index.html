@@ -170,6 +170,8 @@ Here are some of the features SKiDL brings to electronic design:</p>
   <code>diff</code> and <a href="https://en.wikipedia.org/wiki/Git">git</a> for circuits).</li>
 <li>Performs electrical rules checking (ERC) for common mistakes (e.g., unconnected device I/O pins).</li>
 <li>Supports linear / hierarchical / mixed descriptions of electronic designs.</li>
+<li>Can generate an editable, hierarchical KiCad schematic (KiCad 6–10) from your circuit description,
+  with automatic part placement and wire routing.</li>
 <li>Fosters design reuse (think about using <a href="pypi.org">PyPi</a> and <a href="github.com">Github</a>
   to distribute electronic designs).</li>
 <li>Makes possible the creation of <em>smart circuit modules</em> whose behavior / structure are changed parametrically
@@ -202,7 +204,7 @@ takes an input voltage, divides it by three, and outputs it:</p>
 <span class="c1"># vin &amp;&amp; r1 &amp;&amp; vout &amp;&amp; r2 &amp;&amp; gnd</span>
 
 <span class="c1"># Output the netlist to a file.</span>
-<span class="n">generate_netlist</span><span class="p">(</span><span class="n">tool</span><span class="o">=</span><span class="n">KICAD9</span><span class="p">)</span>
+<span class="n">generate_netlist</span><span class="p">(</span><span class="n">tool</span><span class="o">=</span><span class="n">KICAD10</span><span class="p">)</span>
 </code></pre></div>
 
 <p>And this is the netlist output that is passed to <code>PCBNEW</code> to
@@ -1577,7 +1579,8 @@ environment variable), so if that's all you need then you're all set.</p>
 <li><code>KICAD7</code>: Schematic part libraries for KiCad version 7.</li>
 <li><code>KICAD8</code>: Schematic part libraries for KiCad version 8.</li>
 <li><code>KICAD9</code>: Schematic part libraries for KiCad version 9.</li>
-<li><code>KICAD</code>: Generic KiCad schematic part libraries that currently mirrors <code>KICAD9</code>.</li>
+<li><code>KICAD10</code>: Schematic part libraries for KiCad version 10.</li>
+<li><code>KICAD</code>: Generic KiCad schematic part libraries that currently mirrors <code>KICAD10</code>.</li>
 <li><code>SKIDL</code>: Schematic parts stored as SKiDL/Python modules.</li>
 </ul>
 <p>You may set the default library format you want to use in your SKiDL script like so:</p>
@@ -2438,16 +2441,43 @@ a named <em>stub</em> at each connection point:</p>
 
 <p>This will drop an Eeschema file called <code>and_gate.kicad_sch</code> into the same directory as the <code>and_gate.py</code> file.</p>
 <p><img alt="KiCad Eeschema AND_GATE schematic." src="images/and_gate_4.png"></p>
+<p>SKiDL doesn't just dump the parts in a grid: it runs a force-directed <em>placement</em>
+step to spread the parts out and a <em>routing</em> step to draw the wires, junctions, and
+net labels between them. A hierarchical circuit (one built from <code>@subcircuit</code> blocks)
+is emitted as a set of linked sheets — a root schematic plus one sub-sheet per level —
+so the drawing mirrors the structure of your code. Schematic generation is supported
+for KiCad 6 through 10; the version is chosen by the current default tool (see
+<a href="#libraries">Libraries</a>) or with the <code>tool</code> argument, e.g. <code>generate_schematic(tool=KICAD9)</code>.</p>
 <p>The <code>generate_schematic()</code> function accepts these parameters:</p>
 <ul>
 <li><code>filepath</code> (<code>str</code>, optional): The directory where the schematic files are placed. Defaults to ".".</li>
 <li><code>top_name</code> (<code>str</code>, optional): The name for the top of the circuit hierarchy. Defaults to the script name.</li>
 <li><code>title</code> (<code>str</code>, optional): The title in the title box of the schematic. Defaults to "SKiDL-Generated Schematic".</li>
-<li><code>flatness</code> (<code>float</code>, optional): Determines how much the hierarchy is flattened in the schematic. Defaults to 0.0 (completely hierarchical).</li>
+<li><code>flatness</code> (<code>float</code>, optional): How much the hierarchy is flattened, from <code>0.0</code> (fully hierarchical, one sheet per subcircuit) to <code>1.0</code> (everything collapsed onto a single sheet). Defaults to <code>0.0</code>.</li>
 <li><code>retries</code> (<code>int</code>, optional): Number of times to re-try if placement and routing fails. Defaults to 2.</li>
+<li><code>tool</code> (optional): The KiCad version to target (e.g. <code>KICAD9</code>). Defaults to the current default tool.</li>
 </ul>
 <p>In addition, the <code>generate_schematic()</code> function supports the <code>symtx</code> and <code>netio</code> attributes discussed 
 in the <a href="#svg-schematics">section on generating SVG schematics</a>.</p>
+<h3 id="auto-stubbing-large-circuits">Auto-Stubbing Large Circuits</h3>
+<p>Point-to-point routing can fail or produce a rat's-nest on large or densely-connected
+circuits. Passing <code>auto_stub=True</code> converts the nets that would be hardest to route into
+labels instead of wires, emits power nets (<code>GND</code>, <code>VCC</code>, etc.) as proper KiCad power
+symbols, and runs an ERC-correction loop to clean up what's left:</p>
+<div class="highlight"><pre><span></span><code><span class="n">generate_schematic</span><span class="p">(</span><span class="n">auto_stub</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Auto-stubbing is tuned with these keyword options:</p>
+<ul>
+<li><code>auto_stub_fanout</code> (<code>int</code>, default <code>3</code>): Nets with more pins than this are turned into labels before routing.</li>
+<li><code>auto_stub_max_wire_pins</code> (<code>int</code>, default <code>3</code>): Max pins on a net before selective routing stubs it after placement.</li>
+<li><code>auto_stub_max_wire_dist</code> (<code>int</code>, default <code>2000</code>): Max Manhattan distance (mils) between pins before the net is stubbed.</li>
+<li><code>erc_max_iterations</code> (<code>int</code>, default <code>8</code>): Max passes of the ERC-correction loop.</li>
+<li><code>auto_stub_fallback</code> (<code>str</code>, default <code>"labels"</code>): What to do if routing still fails — <code>"labels"</code> falls back to a labels-only schematic, <code>"raise"</code> re-raises the failure, and <code>"warn"</code> produces the labels-only schematic but also warns.</li>
+</ul>
+<p>You'll get the best results by grouping related parts (power supply, MCU, amplifier, etc.)
+into <code>@subcircuit</code> blocks of roughly 5–15 parts each. Each block is placed and routed on its
+own sheet, which yields more wired connections and cleaner hierarchy than one flat circuit.</p>
 <h2 id="dot-graphs">DOT Graphs</h2>
 <p><strong>Note: Viewing DOT files requires that you install
 <a href="https://www.graphviz.org/download/">graphviz</a> on your system.</strong></p>

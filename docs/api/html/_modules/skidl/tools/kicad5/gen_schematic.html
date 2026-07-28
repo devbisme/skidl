@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.tools.kicad5.gen_schematic &#8212; SKiDL 2.2.3 documentation</title>
+    <title>skidl.tools.kicad5.gen_schematic &#8212; SKiDL 2.3.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../../../_static/documentation_options.js?v=85e56e6b"></script>
+    <script src="../../../../_static/documentation_options.js?v=c3c8ae58"></script>
     <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad5.gen_schematic</a></li> 
       </ul>
@@ -143,10 +143,20 @@
     <span class="n">time_hex</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()))[</span><span class="mi">2</span><span class="p">:]</span>
     <span class="n">unit_num</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;num&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
+    <span class="c1"># KiCad reference for the symbol instance. All units of a multi-unit part share</span>
+    <span class="c1"># ONE reference (&quot;U1&quot;) and are distinguished only by the unit number in the &quot;U&quot;</span>
+    <span class="c1"># line below; skidl&#39;s PartUnit ref is the compound &quot;U1.uA&quot;, which KiCad reads as</span>
+    <span class="c1"># a DISTINCT component -- so each amp unit lost its shared power unit&#39;s pins, the</span>
+    <span class="c1"># netlist-from-schematic diverged from the logical netlist, and the compound ref</span>
+    <span class="c1"># tripped downstream reference validators (devbisme/skidl #318). Emit the</span>
+    <span class="c1"># parent&#39;s base ref instead; single-unit parts (node entry is the Part itself)</span>
+    <span class="c1"># are unaffected.</span>
+    <span class="n">base_ref</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;parent&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="s2">&quot;ref&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="n">part</span><span class="o">.</span><span class="n">ref</span>
+
     <span class="n">eeschema</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">eeschema</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;$Comp&quot;</span><span class="p">)</span>
     <span class="n">lib</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">filename</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">eeschema</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;L </span><span class="si">{}</span><span class="s2">:</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="p">))</span>
+    <span class="n">eeschema</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;L </span><span class="si">{}</span><span class="s2">:</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">base_ref</span><span class="p">))</span>
     <span class="n">eeschema</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;U </span><span class="si">{}</span><span class="s2"> 1 </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit_num</span><span class="p">,</span> <span class="n">time_hex</span><span class="p">))</span>
     <span class="n">eeschema</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;P </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">y</span><span class="p">)))</span>
 
@@ -158,7 +168,7 @@
             <span class="k">break</span>
     <span class="n">eeschema</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
         <span class="s1">&#39;F 0 &quot;</span><span class="si">{}</span><span class="s1">&quot; </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span>
+            <span class="n">base_ref</span><span class="p">,</span>
             <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">n_F0</span><span class="p">]</span><span class="o">.</span><span class="n">orientation</span><span class="p">,</span>
             <span class="nb">str</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">n_F0</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">),</span>
             <span class="nb">str</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">[</span><span class="n">n_F0</span><span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">),</span>
@@ -859,7 +869,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad5.gen_schematic</a></li> 
       </ul>

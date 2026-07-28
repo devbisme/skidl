@@ -12,6 +12,7 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
+   skidl.tools.kicad10
    skidl.tools.kicad5
    skidl.tools.kicad6
    skidl.tools.kicad7
