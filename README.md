@@ -61,7 +61,7 @@ vin & r1 & vout & r2 & gnd
 
 # Check for errors and generate netlist
 ERC()
-generate_netlist(tool=KICAD9)
+generate_netlist(tool=KICAD10)
 ```
 
 For a more complex example, here's a two-input AND gate built from discrete transistors:
@@ -72,7 +72,7 @@ For a more complex example, here's a two-input AND gate built from discrete tran
 from skidl import *
 
 # Create part templates
-q = Part("Device", "Q_PNP_CBE", dest=TEMPLATE)
+q = Part("Transistor_BJT", "Q_PNP_CBE", dest=TEMPLATE)
 r = Part("Device", "R", dest=TEMPLATE)
 
 # Create nets
@@ -92,7 +92,7 @@ q1["C"] & r3 & gnd
 vcc += q1["E"], q2["E"], vcct
 gnd += gndt
 
-generate_netlist(tool=KICAD9)
+generate_netlist(tool=KICAD10)
 ```
 
 ## Advanced Features
