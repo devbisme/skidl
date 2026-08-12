@@ -28,7 +28,6 @@ except ImportError:
 from .bus import Bus
 from .design_class import NetClasses, PartClasses
 from .erc import dflt_circuit_erc
-from .errors import PlacementFailure, RoutingFailure
 from .logger import active_logger, erc_logger, stop_log_file_output
 from .net import NCNet, Net
 from .node import Node
@@ -1291,10 +1290,25 @@ class Circuit(SkidlBaseObject):
         """
 
         import skidl
+        from .tools import tool_modules
 
         # Reset the counters to clear any warnings/errors from previous run.
         active_logger.error.reset()
         active_logger.warning.reset()
+
+        tool = kwargs.pop("tool", skidl.config.tool)
+
+        # Each tool supplies its own gen_sch() that knows how to draw a
+        # schematic for that tool. The KiCad ones build a generic, tool-neutral
+        # netlist and hand it to the separate 'schematizer' package, which does
+        # the graphical work (placement, routing, file writing). Look it up
+        # before altering any state so an unsupported tool changes nothing.
+        try:
+            gen_sch = tool_modules[tool].gen_sch
+        except AttributeError as e:
+            raise ValueError(
+                f"Schematic generation isn't supported for tool '{tool}'."
+            ) from e
 
         # Supply a schematic-specific empty footprint handler.
         save_empty_footprint_handler = skidl.empty_footprint_handler
@@ -1315,41 +1329,8 @@ class Circuit(SkidlBaseObject):
         self.merge_net_names()
         self.merge_nets()  # Merge nets or schematic routing will fail.
 
-        tool = kwargs.pop("tool", skidl.config.tool)
-
-        # Schematic generation lives in the separate 'schematizer' package.
-        # SKiDL's job is interconnection: it emits a generic, tool-neutral
-        # netlist and hands it to schematizer, which does the graphical work
-        # (placement, routing, KiCad file writing). This is transparent to the
-        # SKiDL user -- same signature, same output files.
-        from .schematic_netlist import build_generic_netlist
-
         try:
-            from schematizer import (
-                render,
-                PlacementFailure as _SchzPlacementFailure,
-                RoutingFailure as _SchzRoutingFailure,
-            )
-        except ImportError as e:
-            raise ImportError(
-                "Generating a schematic requires the 'schematizer' package. "
-                "Install it with:  pip install schematizer"
-            ) from e
-
-        netlist = build_generic_netlist(
-            self,
-            title=kwargs.get("title", ""),
-            top_name=kwargs.get("top_name", ""),
-        )
-
-        try:
-            render(netlist, tool=tool, **kwargs)
-        except _SchzPlacementFailure as e:
-            # Re-raise as SKiDL's own exception types so callers never have to
-            # catch (or import) the other package's exceptions.
-            raise PlacementFailure(str(e)) from e
-        except _SchzRoutingFailure as e:
-            raise RoutingFailure(str(e)) from e
+            gen_sch(self, **kwargs)
         finally:
             skidl.empty_footprint_handler = save_empty_footprint_handler
 

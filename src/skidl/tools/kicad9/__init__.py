@@ -5,6 +5,7 @@
 from .gen_svg import *
 from .gen_netlist import gen_netlist
 from .gen_pcb import gen_pcb
+from .gen_sch import gen_sch
 from .gen_xml import gen_xml
 from .lib import (
     get_fp_lib_tbl_dir,

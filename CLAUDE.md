@@ -135,7 +135,7 @@ SKiDL converts Python circuit descriptions into netlists and schematics for EDA 
   - `node.py` — hierarchy tree, `@subcircuit` decorator
   - `schematic_netlist.py` — `build_generic_netlist()`, the JSON handed to `schematizer`
   - `errors.py` — SKiDL's exception types (`PlacementFailure`, `RoutingFailure`)
-  - `tools/` — backend interfaces for KiCad 5-10 (netlist, PCB, SVG, XML, libs)
+  - `tools/` — backend interfaces for KiCad 5-10 (netlist, PCB, schematic, SVG, XML, libs)
 - `tests/` — test suite:
   - `unit_tests/` — unit tests (manually written and AI-generated)
   - `test_data/` — part libraries for testing
@@ -150,14 +150,21 @@ belongs to the separate `schematizer` package.
 `Circuit.generate_schematic()` is unchanged from the user's point of view — same
 signature, same output files — but internally it:
 1. merges nets, then
-2. builds a generic, tool-neutral JSON netlist via
-   `skidl.schematic_netlist.build_generic_netlist()` (embedded symbol
-   definitions + layout hints like `symtx` and net `stub`/`netio`), then
-3. calls `schematizer.render(netlist, tool=..., ...)`.
+2. dispatches to the tool's own `gen_sch()` — `tool_modules[tool].gen_sch`, the
+   same pattern `generate_netlist`/`generate_pcb`/`generate_xml` use.
 
-`schematizer`'s `PlacementFailure`/`RoutingFailure` are translated into SKiDL's
-own types from `skidl.errors` (also importable as `from skidl import
-PlacementFailure`), so callers never have to import the other package.
+Each `tools/kicadN/gen_sch.py` is that version's interface to `schematizer`: it
+builds a generic, tool-neutral JSON netlist via
+`skidl.schematic_netlist.build_generic_netlist()` (embedded symbol definitions +
+layout hints like `symtx` and net `stub`/`netio`), calls
+`schematizer.render(netlist, tool=TOOL_NAME, ...)`, and translates `schematizer`'s
+`PlacementFailure`/`RoutingFailure` into SKiDL's own types from `skidl.errors`
+(also importable as `from skidl import PlacementFailure`) — so callers never have
+to import the other package. Put any per-KiCad-version handling in that file.
+
+`tools/kicad5/gen_sch.py` exists only to raise a `ValueError` explaining that
+KiCad 5 needs the legacy EESCHEMA `.sch` format. A tool with no `gen_sch` at all
+(`spice`, `skidl`) gets a `ValueError` from `generate_schematic()` itself.
 
 To change anything about placement, routing, or the KiCad file format, work in
 the `schematizer` repo — not here. Its engine (and the engine-internals tests
