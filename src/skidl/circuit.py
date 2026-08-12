@@ -28,6 +28,7 @@ except ImportError:
 from .bus import Bus
 from .design_class import NetClasses, PartClasses
 from .erc import dflt_circuit_erc
+from .errors import PlacementFailure, RoutingFailure
 from .logger import active_logger, erc_logger, stop_log_file_output
 from .net import NCNet, Net
 from .node import Node
@@ -1283,11 +1284,13 @@ class Circuit(SkidlBaseObject):
             **kwargs: Arguments for the schematic generator including:
                 empty_footprint_handler (function, optional): Custom handler for parts without footprints.
                 tool (str, optional): The EDA tool to generate the schematic for.
+                    KiCad 6 through 10 are supported. KiCad 5 is not: it needs
+                    the legacy EESCHEMA ``.sch`` format, so passing ``KICAD5``
+                    raises a ``ValueError``. Its other outputs (netlist, PCB,
+                    XML, SVG) are unaffected.
         """
 
         import skidl
-
-        from .tools import tool_modules
 
         # Reset the counters to clear any warnings/errors from previous run.
         active_logger.error.reset()
@@ -1314,8 +1317,39 @@ class Circuit(SkidlBaseObject):
 
         tool = kwargs.pop("tool", skidl.config.tool)
 
+        # Schematic generation lives in the separate 'schematizer' package.
+        # SKiDL's job is interconnection: it emits a generic, tool-neutral
+        # netlist and hands it to schematizer, which does the graphical work
+        # (placement, routing, KiCad file writing). This is transparent to the
+        # SKiDL user -- same signature, same output files.
+        from .schematic_netlist import build_generic_netlist
+
         try:
-            tool_modules[tool].gen_schematic(self, **kwargs)
+            from schematizer import (
+                render,
+                PlacementFailure as _SchzPlacementFailure,
+                RoutingFailure as _SchzRoutingFailure,
+            )
+        except ImportError as e:
+            raise ImportError(
+                "Generating a schematic requires the 'schematizer' package. "
+                "Install it with:  pip install schematizer"
+            ) from e
+
+        netlist = build_generic_netlist(
+            self,
+            title=kwargs.get("title", ""),
+            top_name=kwargs.get("top_name", ""),
+        )
+
+        try:
+            render(netlist, tool=tool, **kwargs)
+        except _SchzPlacementFailure as e:
+            # Re-raise as SKiDL's own exception types so callers never have to
+            # catch (or import) the other package's exceptions.
+            raise PlacementFailure(str(e)) from e
+        except _SchzRoutingFailure as e:
+            raise RoutingFailure(str(e)) from e
         finally:
             skidl.empty_footprint_handler = save_empty_footprint_handler
 

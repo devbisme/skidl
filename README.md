@@ -173,7 +173,11 @@ python -c "from skidl import Part; r = Part('Device', 'R'); print(f'Found: {r.na
 
 ### KiCad version compatibility
 
-SKiDL supports KiCad 5 through 10. If you see parsing errors with newer KiCad library
+SKiDL supports KiCad 5 through 10. The one exception is schematic generation, which
+requires KiCad 6 or later — KiCad 5 uses the legacy EESCHEMA `.sch` format, which is
+no longer written. KiCad 5 netlists, PCBs, XML BOMs, and SVG output are unaffected.
+
+If you see parsing errors with newer KiCad library
 files, make sure you're running the latest version of SKiDL:
 
 ```bash

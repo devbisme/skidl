@@ -2,9 +2,6 @@
 
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
-from . import constants
-from .bboxes import calc_symbol_bbox, calc_hier_label_bbox
-from .gen_schematic import *
 from .gen_svg import *
 from .gen_netlist import gen_netlist
 from .gen_pcb import gen_pcb

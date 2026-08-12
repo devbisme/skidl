@@ -25,8 +25,7 @@ from skidl import (
     subcircuit,
     config,
 )
-from skidl.schematics.place import PlacementFailure
-from skidl.schematics.route import RoutingFailure
+from skidl.errors import PlacementFailure, RoutingFailure
 
 # Skip entire module unless default tool is KICAD5.
 # if os.getenv("SKIDL_TOOL") not in ('KICAD5','KICAD9'):

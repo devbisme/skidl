@@ -27,6 +27,7 @@ with open("HISTORY.md") as history_file:
     history = history_file.read()
 
 requirements = [
+    "schematizer @ file:///home/devb/projects/KiCad/tools/schematizer",
     "kinet2pcb >= 1.1.4",
     "simp_sexp >= 0.3.1",
     "inspice; python_version>='3.11'",

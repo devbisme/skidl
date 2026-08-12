@@ -133,31 +133,33 @@ SKiDL converts Python circuit descriptions into netlists and schematics for EDA 
   - `circuit.py` — `Circuit` class (container, generation methods)
   - `bus.py` — `Bus` class (grouped nets)
   - `node.py` — hierarchy tree, `@subcircuit` decorator
-  - `schematics/` — schematic generation (placement, routing)
-  - `tools/` — backend interfaces for KiCad 6/7/8/9
-  - `tools/kicad9/sexp_schematic.py` — KiCad 9 schematic S-expression writer
-  - `tools/kicad9/gen_schematic.py` — KiCad 9 schematic generation entry point
+  - `schematic_netlist.py` — `build_generic_netlist()`, the JSON handed to `schematizer`
+  - `errors.py` — SKiDL's exception types (`PlacementFailure`, `RoutingFailure`)
+  - `tools/` — backend interfaces for KiCad 5-10 (netlist, PCB, SVG, XML, libs)
 - `tests/` — test suite:
   - `unit_tests/` — unit tests (manually written and AI-generated)
   - `test_data/` — part libraries for testing
   - `examples/` — example circuits
 
-### Schematic Generation Internals
+### Schematic Generation Lives in `schematizer`
 
-For KiCad integration (KiCad 6-9):
-- Symbol definition extraction from draw commands
-- Hierarchical UUID generation using `uuid.uuid5` with namespace `7026fcc6-e1a0-409e-aaf4-6a17ea82654f`
-- Multi-file schematic output (root + sub-sheets for each subcircuit)
-- Force-directed placement and routing for component positioning
-- Coordinate system: KiCad uses Y-down, requiring transformations
-- S-expression output via `simp_sexp.Sexp` (list subclass for KiCad file formats)
+Schematic generation is **not** in this repo. SKiDL's job is electrical
+interconnection; the graphical work (placement, routing, writing KiCad files)
+belongs to the separate `schematizer` package.
 
-### UUID Scheme (Schematic ↔ PCB Cross-Reference)
+`Circuit.generate_schematic()` is unchanged from the user's point of view — same
+signature, same output files — but internally it:
+1. merges nets, then
+2. builds a generic, tool-neutral JSON netlist via
+   `skidl.schematic_netlist.build_generic_netlist()` (embedded symbol
+   definitions + layout hints like `symtx` and net `stub`/`netio`), then
+3. calls `schematizer.render(netlist, tool=..., ...)`.
 
-SKiDL generates deterministic UUIDs so schematics and PCBs can cross-reference:
-```python
-namespace_uuid = uuid.UUID("7026fcc6-e1a0-409e-aaf4-6a17ea82654f")
-part_uuid = uuid.uuid5(namespace_uuid, part.hiername)
-sheet_uuid = uuid.uuid5(namespace_uuid, level_name)
-kiid_path = "/{sheet_uuid_1}/{sheet_uuid_2}/.../{part_uuid}"
-```
+`schematizer`'s `PlacementFailure`/`RoutingFailure` are translated into SKiDL's
+own types from `skidl.errors` (also importable as `from skidl import
+PlacementFailure`), so callers never have to import the other package.
+
+To change anything about placement, routing, or the KiCad file format, work in
+the `schematizer` repo — not here. Its engine (and the engine-internals tests
+that used to live in `tests/unit_tests/ai_tests/`) is at
+`schematizer/src/schematizer/engine/`.

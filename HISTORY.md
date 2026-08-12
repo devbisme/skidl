@@ -1,5 +1,11 @@
 # History
 
+## Unreleased
+
+- Schematic generation moved into the separate `schematizer` package. `generate_schematic()` is unchanged for users: it emits a generic netlist and hands it to `schematizer`, which does placement, routing, and file writing.
+- Dropped schematic generation for KiCad 5. It required the legacy EESCHEMA `.sch` writer, which was retired along with the move; passing `KICAD5` now raises a `ValueError`. All other KiCad 5 outputs (netlist, PCB, XML, SVG) still work.
+- `PlacementFailure` and `RoutingFailure` moved to `skidl.errors` and are importable from the top level (`from skidl import PlacementFailure`). The old `skidl.schematics.{place,route}` paths are gone.
+
 ## 2.3.0 (2026-07-28)
 
 - Added support for KiCad 10 (`KICAD10` tool identifier) along with KiCad 10 part libraries for testing.
