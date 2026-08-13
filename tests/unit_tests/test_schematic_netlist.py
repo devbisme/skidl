@@ -12,8 +12,8 @@ embedded symbol geometry, and layout hints (mirror/rotate + net stubbing).
 They are deliberately *structural*: they reconstruct the connectivity graph
 from the JSON and compare it to the original circuit, rather than generating
 a schematic and diffing files. Schematic placement is nondeterministic
-(unseeded force-directed placer), so byte-level comparison is not meaningful;
-the structure, however, must round-trip exactly.
+(randomized force-directed placer), so byte-level comparison is not
+meaningful; the structure, however, must round-trip exactly.
 """
 
 import json

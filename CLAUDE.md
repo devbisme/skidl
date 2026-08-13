@@ -59,6 +59,10 @@ with Circuit() as ckt:
     ckt.generate_schematic(auto_stub=True)    # .kicad_sch for KiCad Eeschema
 ```
 
+Placement is random, so `generate_schematic()`/`generate_svg()` draw the same
+circuit differently on each run. There is no way to pin a layout down; if you
+get one worth keeping, keep the generated files.
+
 ### Hierarchy with @subcircuit
 
 Use `@subcircuit` to group related parts. This creates hierarchy in schematics and enables grouped placement in layout.
@@ -141,17 +145,26 @@ SKiDL converts Python circuit descriptions into netlists and schematics for EDA 
   - `test_data/` — part libraries for testing
   - `examples/` — example circuits
 
-### Schematic Generation Lives in `schematizer`
+### Schematic and SVG Generation Live in `schematizer`
 
-Schematic generation is **not** in this repo. SKiDL's job is electrical
-interconnection; the graphical work (placement, routing, writing KiCad files)
-belongs to the separate `schematizer` package.
+Neither schematic nor SVG generation is in this repo. SKiDL's job is electrical
+interconnection; the graphical work (placement, routing, writing KiCad files,
+drawing SVG) belongs to the separate `schematizer` package.
 
 `Circuit.generate_schematic()` is unchanged from the user's point of view — same
 signature, same output files — but internally it:
 1. merges nets, then
 2. dispatches to the tool's own `gen_sch()` — `tool_modules[tool].gen_sch`, the
    same pattern `generate_netlist`/`generate_pcb`/`generate_xml` use.
+
+`Circuit.generate_svg()` works the same way, dispatching to
+`tool_modules[tool].gen_svg` in `tools/kicadN/gen_svg.py`. It is the *same*
+pipeline — place, route, then serialize — differing only in the final step, so
+an SVG page has the layout of the `.kicad_sch` for the same circuit. It defaults
+`auto_stub=True` so a dense circuit yields a readable labelled drawing instead
+of a `RoutingFailure`. Hierarchy: one SVG per unflattened sheet, each child
+drawn in its parent as a hyperlinked rectangle, with links back up; `flatness`
+controls it just as for KiCad.
 
 Each `tools/kicadN/gen_sch.py` is that version's interface to `schematizer`: it
 builds a generic, tool-neutral JSON netlist via
@@ -162,11 +175,26 @@ layout hints like `symtx` and net `stub`/`netio`), calls
 (also importable as `from skidl import PlacementFailure`) — so callers never have
 to import the other package. Put any per-KiCad-version handling in that file.
 
-`tools/kicad5/gen_sch.py` exists only to raise a `ValueError` explaining that
-KiCad 5 needs the legacy EESCHEMA `.sch` format. A tool with no `gen_sch` at all
-(`spice`, `skidl`) gets a `ValueError` from `generate_schematic()` itself.
+`tools/kicad5/gen_sch.py` and `tools/kicad5/gen_svg.py` exist only to raise a
+`ValueError`: KiCad 5 needs the legacy EESCHEMA `.sch` format, and its libraries
+carry `part.draw` objects rather than the s-expression graphics the SVG renderer
+draws from. A tool with no `gen_sch`/`gen_svg` at all (`spice`, `skidl`) gets a
+`ValueError` from the `Circuit` method itself.
+
+Removing the netlistsvg path left `part.draw` (the KiCad 5 symbol graphics
+built by `tools/kicad5/lib.py` out of `draw_objs.py`) with **no consumer** — it
+was the last thing that read it. Both files stay because the `.lib` parser that
+populates `part.draw` is the same one that supplies pins for KiCad 5 netlist,
+PCB, and XML output; only the graphics half is now dead weight.
 
 To change anything about placement, routing, or the KiCad file format, work in
 the `schematizer` repo — not here. Its engine (and the engine-internals tests
 that used to live in `tests/unit_tests/ai_tests/`) is at
 `schematizer/src/schematizer/engine/`.
+
+### Randomized output
+
+Placement and routing are randomized, so the same circuit draws differently on
+every run and there is no option to make a run reproducible. Tests must not
+compare two generated drawings for equality — assert on structure (files
+written, element counts, parseability) instead.

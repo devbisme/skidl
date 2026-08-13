@@ -934,27 +934,6 @@ class Part(PinMixin, SkidlBaseObject):
         ntwk = Network(self[:])  # An error will occur if part has more than 2 pins.
         return ntwk
 
-    def generate_svg_component(self, symtx="", tool=None, net_stubs=None):
-        """
-        Generate the SVG for displaying a part in an SVG schematic.
-
-        Args:
-            symtx (str, optional): Transform for the SVG symbol. Defaults to "".
-            tool (str, optional): Tool format to use for SVG generation. Defaults to config.tool.
-            net_stubs (list, optional): List of net stubs to include in the SVG.
-
-        Returns:
-            str: SVG representation of the component.
-        """
-
-        import skidl
-
-        from .tools import tool_modules
-
-        tool = tool or skidl.config.tool
-
-        return tool_modules[tool].gen_svg_comp(self, symtx=symtx, net_stubs=net_stubs)
-
     def erc_desc(self):
         """
         Create description of part for ERC and other error reporting.

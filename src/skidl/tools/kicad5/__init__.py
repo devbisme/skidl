@@ -2,7 +2,7 @@
 
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
-from .gen_svg import *
+from .gen_svg import gen_svg
 from .gen_netlist import gen_netlist
 from .gen_pcb import gen_pcb
 from .gen_sch import gen_sch

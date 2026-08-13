@@ -7,6 +7,7 @@ functionality is tested.
 """
 
 import pytest
+import shutil
 import tempfile
 import os
 import sys
@@ -942,31 +943,17 @@ class TestGenerateSVG:
         q1["C"] & r3 & gnd
         vcc += q1["E"], q2["E"]
 
-        # Test SVG generation
-        with tempfile.NamedTemporaryFile(mode="w+", suffix=".svg", delete=False) as f:
-            try:
-                # Note: SVG generation requires netlistsvg which might
-                # not be installed
-                # This test mainly verifies the function can be called
-                # without error
-                generate_svg(file_=f.name)
-
-                # If we get here without exception, basic test passes
-                assert True
-
-            except Exception as e:
-                # If netlistsvg is not installed, we expect a specific error
-                # The test should not fail for missing external dependencies
-                if "netlistsvg" in str(e) or "not found" in str(e).lower():
-                    pytest.skip(
-                        "netlistsvg not installed - skipping " "SVG generation test"
-                    )
-                else:
-                    # Re-raise unexpected errors
-                    raise
-            finally:
-                if os.path.exists(f.name):
-                    os.unlink(f.name)
+        # Test SVG generation. This used to shell out to netlistsvg and was
+        # skipped when it wasn't installed; the drawing is now produced
+        # in-process, so it must simply work.
+        out_dir = tempfile.mkdtemp()
+        try:
+            generate_svg(filepath=out_dir, top_name="and_gate")
+            top = os.path.join(out_dir, "and_gate.svg")
+            assert os.path.exists(top)
+            assert open(top).read().startswith("<svg")
+        finally:
+            shutil.rmtree(out_dir, ignore_errors=True)
 
 
 if __name__ == "__main__":

@@ -33,7 +33,7 @@ SKiDL is a Python package that lets you describe electronic circuits using code 
 
 **Electrical Rules Checking**: Catch common mistakes like unconnected pins, drive conflicts, and power connection errors.
 
-**One Description, Many Outputs** Generate netlists, XML BOMs, SVG or DOT diagrams, or editable KiCad schematics (KiCad 6–10) from the same source. KiCad today; other backends can be added.
+**One Description, Many Outputs** Generate netlists, XML BOMs, DOT graphs, or a placed-and-routed schematic — as editable KiCad files or as static, hyperlinked SVG (KiCad 6–10) — from the same source. KiCad today; other backends can be added.
 
 **Python Ecosystem**: Leverage Python's vast ecosystem for simulation, analysis, documentation, and automation.
 
@@ -105,7 +105,7 @@ generate_netlist(tool=KICAD10)
 
 **Multiple Output Formats**: Generate netlists for KiCad, XML for BOMs, or go directly to PCB layout.
 
-**Visual Output**: Create SVG schematics, editable KiCad schematic files (KiCad 6–10), or DOT graphs for documentation.
+**Visual Output**: Create editable KiCad schematic files or static SVG drawings of them (KiCad 6–10), or DOT graphs for documentation. Hierarchical designs become linked SVG pages you can click through.
 
 **SPICE Integration**: Run simulations directly on your SKiDL circuits.
 
@@ -173,9 +173,11 @@ python -c "from skidl import Part; r = Part('Device', 'R'); print(f'Found: {r.na
 
 ### KiCad version compatibility
 
-SKiDL supports KiCad 5 through 10. The one exception is schematic generation, which
-requires KiCad 6 or later — KiCad 5 uses the legacy EESCHEMA `.sch` format, which is
-no longer written. KiCad 5 netlists, PCBs, XML BOMs, and SVG output are unaffected.
+SKiDL supports KiCad 5 through 10. The exceptions are the two drawing outputs —
+`generate_schematic()` and `generate_svg()` — which require KiCad 6 or later.
+KiCad 5 uses the legacy EESCHEMA `.sch` format, which is no longer written, and its
+libraries don't carry the symbol graphics the SVG renderer draws from. KiCad 5
+netlists, PCBs, and XML BOMs are unaffected.
 
 If you see parsing errors with newer KiCad library
 files, make sure you're running the latest version of SKiDL:
