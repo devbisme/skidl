@@ -11,7 +11,7 @@ This file provides guidance to Claude Code (claude.ai/code) and other AI coding 
 - **Run all tests (default environment)**: `pytest tests`
 - **Run tests across all supported test environments**: `tox`
 - **Run a specific test**: `pytest tests/unit_tests/test_something.py`
-- **Build the package**: `python setup.py sdist`
+- **Build the package**: `python -m build` (or `tox -e build`)
 - **Clean build artifacts**: `rm dist/*`
 - **Install in development mode**: `pip install -e .`
 

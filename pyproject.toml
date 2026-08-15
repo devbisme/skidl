@@ -1,3 +1,258 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+
+# ---------------------------------------------------------------------------
+# Package metadata (was setup.py)
+# ---------------------------------------------------------------------------
+
+[project]
+name = "skidl"
+version = "2.3.0"
+description = "A Python package for textually describing electronic circuit schematics."
+authors = [{ name = "Dave Vandenbout", email = "dave@vdb.name" }]
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["skidl", "kicad", "electronic", "circuit", "schematics"]
+# requires-python was ">=3.6", but skidl.pckg_info now reads the version from
+# importlib.metadata, which is stdlib only from 3.8 onward.
+requires-python = ">=3.8"
+# long_description was README.md + HISTORY.md concatenated; setuptools joins a
+# list of files, so that stays a single source of truth instead of a copy.
+dynamic = ["readme"]
+
+dependencies = [
+    # FIXME: absolute local path. Unbuildable off this machine, unpublishable
+    # to PyPI. Needs a version specifier once schematizer is released.
+    "schematizer @ file:///home/devb/projects/KiCad/tools/schematizer",
+    "kinet2pcb >= 1.1.4",
+    "simp_sexp >= 0.3.1",
+    "inspice; python_version>='3.11'",
+    "ply",
+    "rich",
+    "graphviz",
+    "deprecation",
+]
+
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[project.optional-dependencies]
+# Backs `extras = ["testing"]` in the spice tox env, which previously named an
+# extra that did not exist.
+testing = ["pytest", "matplotlib"]
+
+[project.urls]
+Homepage = "https://github.com/devbisme/skidl"
+Documentation = "https://devbisme.github.io/skidl"
+Source = "https://github.com/devbisme/skidl"
+Changelog = "https://github.com/devbisme/skidl/blob/master/HISTORY.md"
+Tracker = "https://github.com/devbisme/skidl/issues"
+
+[project.scripts]
+netlist_to_skidl = "skidl.scripts.netlist_to_skidl_main:main"
+skidl-part-search = "skidl.scripts.part_search_cli:main"
+
+[tool.setuptools]
+include-package-data = false
+
+[tool.setuptools.dynamic]
+readme = { file = ["README.md", "HISTORY.md"], content-type = "text/markdown" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+
+# ---------------------------------------------------------------------------
+# pytest (was the [pytest] section of tox.ini)
+# ---------------------------------------------------------------------------
+
+[tool.pytest.ini_options]
+addopts = "--tb=short --color=yes --ignore=examples"
+markers = ["spice: mark test as a SPICE test"]
+filterwarnings = ["ignore::DeprecationWarning"]
+
+
+# ---------------------------------------------------------------------------
+# coverage (was the [coverage:*] sections of tox.ini)
+# ---------------------------------------------------------------------------
+
+[tool.coverage.run]
+branch = true
+source = ["src/skidl"]
+omit = ["*_sklib.py"]
+
+[tool.coverage.report]
+sort = "-Cover"
+
+
+# ---------------------------------------------------------------------------
+# tox (was tox.ini)
+#
+# Native TOML config, so note two differences from the old .ini:
+#   - generative names ("py{38,39}") are not expanded; envs are listed out.
+#   - a child env's set_env replaces the base's rather than merging, so each
+#     override below repeats the full set.
+# ---------------------------------------------------------------------------
+
+[tool.tox]
+env_list = [
+    "py38", "py39", "py310", "py311", "py312", "py313", "py314",
+    "kicad6", "kicad7", "kicad8", "kicad9", "kicad10",
+]
+skip_missing_interpreters = true
+
+[tool.tox.env_run_base]
+description = "test everything including SKiDL SPICE functions and schematic generation"
+pass_env = ["*"]
+set_env = { SKIDL_TOOL = "KICAD10", TEST_SPICE = "0" }
+deps = ["pytest"]
+change_dir = "{tox_root}/tests"
+commands = [
+    ["pip", "install", "-e", "{tox_root}"],
+    ["pytest"],
+]
+
+[tool.tox.env.kicad6]
+set_env = { SKIDL_TOOL = "KICAD6", TEST_SPICE = "0" }
+
+[tool.tox.env.kicad7]
+set_env = { SKIDL_TOOL = "KICAD7", TEST_SPICE = "0" }
+
+[tool.tox.env.kicad8]
+set_env = { SKIDL_TOOL = "KICAD8", TEST_SPICE = "0" }
+
+[tool.tox.env.kicad9]
+set_env = { SKIDL_TOOL = "KICAD9", TEST_SPICE = "0" }
+
+[tool.tox.env.kicad10]
+set_env = { SKIDL_TOOL = "KICAD10", TEST_SPICE = "1" }
+
+[tool.tox.env.spice]
+description = "run only SPICE tests"
+pass_env = ["*"]
+set_env = { SKIDL_TOOL = "KICAD10", TEST_SPICE = "1" }
+extras = ["testing"]
+deps = ["pytest", "matplotlib"]
+change_dir = "{tox_root}/tests"
+commands = [
+    ["pip", "install", "-e", "{tox_root}"],
+    ["pytest", "-m", "spice"],
+]
+
+[tool.tox.env.coverage]
+description = "test code coverage"
+base_python = ["python3.12"]
+pass_env = ["*"]
+set_env = { TOXINIDIR = "{tox_root}" }
+deps = ["pytest", "pytest-coverage", "matplotlib"]
+change_dir = "{tox_root}/tests"
+commands = [
+    ["pip", "install", "-e", "{tox_root}"],
+    ["pytest", "-m", "spice", "--cov-config={tox_root}/pyproject.toml", "--cov={tox_root}/src/skidl"],
+]
+
+[tool.tox.env.clean]
+description = "remove build artifacts, logs and built docs"
+skip_install = true
+deps = []
+change_dir = "{tox_root}"
+allowlist_externals = ["make", "find"]
+commands = [
+    ["python", "-c", "from shutil import rmtree; rmtree('build', True); rmtree('dist', True)"],
+    ["find", "{tox_root}", "(", "-name", "*.erc", "-or", "-name", "*.log", ")", "-delete"],
+    ["make", "-C", "{tox_root}/docsrc/sphinx", "clean"],
+    ["make", "-C", "{tox_root}/docsrc/pelicansite", "clean"],
+]
+
+[tool.tox.env.build]
+description = "build the package in isolation with PyPA build"
+skip_install = true
+change_dir = "{tox_root}"
+deps = ["build[virtualenv]"]
+# Produces wheels by default; add --sdist / --wheel to be explicit.
+commands = [["python", "-m", "build", "."]]
+
+# To view the pelican site:
+#   tox -e docs
+#   ln -s docs skidl
+#   python -m http.server
+#   Open http://0.0.0.0:8000/skidl in a browser
+# To create llms.txt / llms-full.txt: go to llms-txt.io and drop the files in
+# the top level of the docs directory.
+# These three install skidl (docsrc/sphinx/conf.py imports skidl.pckg_info for
+# the version) but need none of the test deps, and run from the project root
+# rather than the tests directory.
+[tool.tox.env.docs]
+description = "build documentation using pelican and sphinx"
+deps = []
+change_dir = "{tox_root}"
+allowlist_externals = ["make", "sphinx-build"]
+commands = [
+    ["make", "-C", "{tox_root}/docsrc/pelicansite", "publish"],
+    ["make", "-C", "{tox_root}/docsrc/sphinx", "html"],
+]
+
+[tool.tox.env.devserver]
+description = "serve the documentation locally"
+deps = []
+change_dir = "{tox_root}"
+allowlist_externals = ["make", "sphinx-build"]
+commands = [
+    ["make", "-C", "{tox_root}/docsrc/sphinx", "html"],
+    ["make", "-C", "{tox_root}/docsrc/pelicansite", "devserver"],
+]
+
+[tool.tox.env.doctest]
+description = "run the documentation doctests"
+# NOTE: pulling in docsrc requirements here makes doctests fail. Reason unknown.
+deps = []
+change_dir = "{tox_root}"
+allowlist_externals = ["make", "sphinx-build", "find"]
+commands = [
+    ["sphinx-build", "-b", "doctest", "-d", "{tox_root}/docs/doctrees", "{tox_root}/docsrc/sphinx", "{tox_root}/docs", { replace = "posargs", extend = true }],
+    ["find", "{tox_root}", "(", "-name", "*.erc", "-or", "-name", "*.log", ")", "-delete"],
+]
+
+[tool.tox.env.publish]
+description = """
+Publish the package you have been developing to a package index server.
+By default it uses testpypi. To publish to the real PyPI, pass
+`-- --repository pypi`.
+"""
+skip_install = true
+change_dir = "{tox_root}"
+pass_env = ["TWINE_USERNAME", "TWINE_PASSWORD", "TWINE_REPOSITORY"]
+deps = ["twine"]
+commands = [
+    ["python", "-m", "twine", "check", "dist/*"],
+    ["python", "-m", "twine", "upload", { replace = "posargs", default = ["--repository", "testpypi"], extend = true }, "dist/*"],
+]
+
+
+# ---------------------------------------------------------------------------
+# Formatting / import sorting (unchanged)
+# ---------------------------------------------------------------------------
+
 [tool.black]
 exclude = '''
 (
@@ -18,11 +273,11 @@ exclude = '''
 '''
 
 [tool.isort]
-multi_line_output=3
-include_trailing_comma=true
-force_grid_wrap=0
-use_parentheses=true
-line_length=88
-known_first_party=["skidl"]
-known_future_library=["skidl.py_2_3"]
-known_third_party=["pytest", "PySpice"]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+line_length = 88
+known_first_party = ["skidl"]
+known_future_library = ["skidl.py_2_3"]
+known_third_party = ["pytest", "PySpice"]

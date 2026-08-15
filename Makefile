@@ -38,7 +38,7 @@ clean-docs:
 	tox -e clean
 
 lint:
-	flake8 skidl tests
+	flake8 src/skidl tests
 
 test:
 	pytest tests
@@ -47,22 +47,18 @@ test-all:
 	tox
 
 coverage:
-	coverage run --source skidl setup.py test
-	coverage report -m
-	coverage html
+	pytest --cov=src/skidl --cov-report=term-missing --cov-report=html tests
 	open htmlcov/index.html
 
 docs: clean-docs
 	tox -e docs
 
-release: clean, docs
-	python setup.py sdist
-	python setup.py bdist_wheel
+release: clean docs
+	python -m build
 
 dist: clean
-	python setup.py sdist
-	python setup.py bdist_wheel
+	python -m build
 	ls -l dist
 
 install: clean
-	python setup.py install
+	pip install .

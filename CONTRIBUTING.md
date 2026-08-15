@@ -87,7 +87,7 @@ Ready to contribute? Here's how to set up `skidl` for local development.
     that your changes pass the tests. Tests are run with `pytest`, and
     `tox` runs them across the supported Python/KiCad environments:
 
-        $ black skidl tests setup.py
+        $ black src/skidl tests
         $ pytest tests
         $ tox
 
