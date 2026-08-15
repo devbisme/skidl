@@ -9,7 +9,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "skidl"
-version = "2.3.0"
+version = "3.0.0"
 description = "A Python package for textually describing electronic circuit schematics."
 authors = [{ name = "Dave Vandenbout", email = "dave@vdb.name" }]
 license = "MIT"
@@ -116,7 +116,7 @@ sort = "-Cover"
 
 [tool.tox]
 env_list = [
-    "py38", "py39", "py310", "py311", "py312", "py313", "py314",
+    "py39", "py310", "py311", "py312", "py313", "py314",
     "kicad6", "kicad7", "kicad8", "kicad9", "kicad10",
 ]
 skip_missing_interpreters = true
