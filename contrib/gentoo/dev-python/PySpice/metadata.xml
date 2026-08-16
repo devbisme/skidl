@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="project">
+		<email>proxy-maint@gentoo.org</email>
+		<name>Proxy Maintainers</name>
+	</maintainer>
+	<longdescription lang="en">
+	PySpice is a Python module which interface Python to the Ngspice and Xyce circuit simulators.
+	PySpice implements simulator bindings and provides an object oriented API on top of SPICE,
+	the simulation output is converted to Numpy arrays for convenience.
+
+	It permits:
+        * Definition of a circuit, through a netlist,
+        * Simulation using Ngspice and Xyce,
+        * Analysis of the output using Numpy and Matplotlib.
+
+	Main features:
+	* an Ngspice shared library binding using CFFI which support external sources
+	* (partial) SPICE netlist parser
+	* Handle units
+	* Work with Kicad schematic editor
+	* Documentation generator
+	</longdescription>
+	<longdescription lang="ru">
+	</longdescription>
+	<upstream>
+		<changelog>https://pyspice.fabrice-salvaire.fr/releases/v1.5/news.html</changelog>
+		<doc lang="en">https://pyspice.fabrice-salvaire.fr/releases/v1.5</doc>
+		<remote-id type="github">PySpice-org/PySpice</remote-id>
+		<remote-id type="pypi">PySpice</remote-id>
+	</upstream>
+</pkgmetadata>

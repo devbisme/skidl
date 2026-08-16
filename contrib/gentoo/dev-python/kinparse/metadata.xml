@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<name>Dave Vandenbout</name>
+		<email>dave@vdb.name</email>
+	</maintainer>
+	<maintainer type="project">
+		<email>proxy-maint@gentoo.org</email>
+		<name>Proxy Maintainers</name>
+	</maintainer>
+	<longdescription lang="en">
+	This is a parser for KiCad V5 through V8 schematic netlist files that are output by EESCHEMA.
+	Just pass a file containing a netlist to the parse_netlist() function and it will deliver a pyparsing object containing all the netlist's information.
+	</longdescription>
+	<longdescription lang="ru">
+	</longdescription>
+	<upstream>
+		<maintainer status="active">
+			<name>Dave Vandenbout</name>
+			<email>dave@vdb.name</email>
+		</maintainer>
+		<changelog>https://github.com/devbisme/kinparse/blob/master/HISTORY.rst</changelog>
+		<doc lang="en">https://devbisme.github.io/kinparse/docs/_build/singlehtml/index.html</doc>
+		<bugs-to>mailto:dave@vdb.name</bugs-to>
+		<remote-id type="github">devbisme/kinparse</remote-id>
+		<remote-id type="pypi">kinparse</remote-id>
+	</upstream>
+</pkgmetadata>

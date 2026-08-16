@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<name>Dave Vandenbout</name>
+		<email>dave@vdb.name</email>
+	</maintainer>
+	<maintainer type="project">
+		<email>proxy-maint@gentoo.org</email>
+		<name>Proxy Maintainers</name>
+	</maintainer>
+	<longdescription lang="en">
+	This PCBNEW plugin arranges the parts into groups that reflect the hierarchy in the design.
+
+	Features:
+	* Creates an arrangement of the parts that reflects their level in the design hierarchy.
+	* Will arrange only the parts that have been selected or, if no parts are selected, the entire design.
+	* Will not move locked parts.
+	</longdescription>
+	<longdescription lang="ru">
+	</longdescription>
+	<upstream>
+		<maintainer status="active">
+			<name>Dave Vandenbout</name>
+			<email>dave@vdb.name</email>
+		</maintainer>
+		<changelog>https://github.com/devbisme/HierPlace/blob/master/HISTORY.rst</changelog>
+		<doc lang="en">https://github.com/devbisme/HierPlace/blob/master/README.rst</doc>
+		<bugs-to>mailto:dave@vdb.name</bugs-to>
+		<remote-id type="github">devbisme/hierplace</remote-id>
+		<remote-id type="pypi">hierplace</remote-id>
+	</upstream>
+</pkgmetadata>
