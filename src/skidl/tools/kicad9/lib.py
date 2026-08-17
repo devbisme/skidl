@@ -56,10 +56,10 @@ def get_fp_lib_tbl_dir():
 
     paths = (
         f"$HOME/.config/kicad/{kicad_version}.0",
-        "~/.config/kicad/{kicad_version}.0",
-        "%APPDATA%/kicad/{kicad_version}.0",
-        "$HOME/Library/Preferences/kicad/{kicad_version}.0",
-        "~/Library/Preferences/kicad/{kicad_version}.0",
+        f"~/.config/kicad/{kicad_version}.0",
+        f"%APPDATA%/kicad/{kicad_version}.0",
+        f"$HOME/Library/Preferences/kicad/{kicad_version}.0",
+        f"~/Library/Preferences/kicad/{kicad_version}.0",
         "$HOME/.config/kicad",
         "~/.config/kicad",
         "%APPDATA%/kicad",
