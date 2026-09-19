@@ -1183,3 +1183,42 @@ def test_gen_sch_buses():
         gnd += rama["VSSQ"]
 
     create_schematic()
+
+
+def _file_arg_circuit():
+    """Build a small circuit for testing the file arg of generate_schematic()."""
+    r = Part("Device", "R", value="10K", footprint="Resistor_SMD:R_0805_2012Metric")
+    c = Part("Device", "C", value="100nF", footprint="Capacitor_SMD:C_0805_2012Metric")
+    vcc, gnd = Net("VCC"), Net("GND")
+    r[1] += vcc
+    r[2] += c[1]
+    c[2] += gnd
+
+
+def test_gen_sch_file_arg(tmp_path):
+    _file_arg_circuit()
+    sch_file = tmp_path / "my_schematic.kicad_sch"
+    generate_schematic(file_=str(sch_file), auto_stub=True)
+    assert sch_file.exists()
+
+
+def test_gen_sch_file_arg_backward_compat(tmp_path):
+    _file_arg_circuit()
+    sch_file = tmp_path / "my_schematic.kicad_sch"
+    generate_schematic(file=str(sch_file), auto_stub=True)
+    assert sch_file.exists()
+
+
+def test_gen_sch_file_arg_conflict():
+    _file_arg_circuit()
+    with pytest.raises(ValueError):
+        generate_schematic(file_="my_schematic.kicad_sch", top_name="other_name")
+    with pytest.raises(ValueError):
+        generate_schematic(file_="my_schematic.kicad_sch", filepath="other_dir")
+
+
+def test_gen_sch_file_arg_not_a_file_object(tmp_path):
+    _file_arg_circuit()
+    with open(tmp_path / "my_schematic.kicad_sch", "w") as fp:
+        with pytest.raises(TypeError):
+            generate_schematic(file_=fp)

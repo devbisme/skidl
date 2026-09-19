@@ -13,6 +13,7 @@ and output generation (netlists, PCBs, SVGs, etc.).
 
 import builtins
 import json
+import os
 import subprocess
 from collections import Counter, deque
 
@@ -1293,6 +1294,25 @@ class Circuit(SkidlBaseObject):
         active_logger.error.reset()
         active_logger.warning.reset()
 
+        tool = kwargs.pop("tool", skidl.config.tool)
+        file_ = kwargs.pop("file_", kwargs.pop("file", None))
+
+        if file_ is not None:
+            if not isinstance(file_, (str, os.PathLike)):
+                active_logger.raise_(
+                    TypeError,
+                    "The file argument of generate_schematic() must be a file name or path, not a file object, because a schematic is written as multiple files.",
+                )
+            for arg in ("filepath", "top_name"):
+                if arg in kwargs:
+                    active_logger.raise_(
+                        ValueError,
+                        f"generate_schematic() was given both a file argument and a {arg} argument. Use one or the other.",
+                    )
+            dir_name, file_name = os.path.split(os.fspath(file_))
+            kwargs["filepath"] = dir_name or "."
+            kwargs["top_name"] = os.path.splitext(file_name)[0]
+
         # Supply a schematic-specific empty footprint handler.
         save_empty_footprint_handler = skidl.empty_footprint_handler
 
@@ -1311,8 +1331,6 @@ class Circuit(SkidlBaseObject):
 
         self.merge_net_names()
         self.merge_nets()  # Merge nets or schematic routing will fail.
-
-        tool = kwargs.pop("tool", skidl.config.tool)
 
         try:
             tool_modules[tool].gen_schematic(self, **kwargs)
