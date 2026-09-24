@@ -25,7 +25,8 @@ dynamic = ["readme"]
 dependencies = [
     # FIXME: absolute local path. Unbuildable off this machine, unpublishable
     # to PyPI. Needs a version specifier once schematizer is released.
-    "schematizer @ file:///home/devb/projects/KiCad/tools/schematizer",
+    # "schematizer @ file:///home/devb/projects/KiCad/tools/schematizer",
+    "schematizer",
     "kinet2pcb >= 1.1.4",
     "simp_sexp >= 0.3.1",
     "inspice; python_version>='3.11'",
