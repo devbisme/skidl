@@ -22,3 +22,4 @@ for _ in range(3):
         b & r2 & (q1["b"] | q2["b"])
 
 generate_schematic(filepath=".", flatness=1.0)
+generate_svg(filepath=".", flatness=1.0, title="SKiDL-Generated Schematic", top_name="schematic")

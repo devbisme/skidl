@@ -7,10 +7,7 @@ and various output generation methods.
 """
 
 import builtins
-
-# import json
-# import os
-# import tempfile
+import os
 import sys
 from collections import Counter
 from unittest.mock import Mock, patch, mock_open
@@ -442,8 +439,13 @@ class TestOutputGeneration:
         r | c
         result = circuit.generate_xml()
 
-    def test_generate_svg(self):
-        """Test SVG generation."""
+    def test_generate_svg(self, tmp_path):
+        """Test SVG generation.
+
+        generate_svg() used to build netlistsvg input and return it as a dict.
+        It now renders the placed-and-routed schematic to .svg files itself and
+        returns the directory it wrote them to.
+        """
         with Circuit(name="TestCircuit") as circuit:
 
             # Add a simple part and net for testing
@@ -451,12 +453,14 @@ class TestOutputGeneration:
             net = Net("VCC")
             net += part[1, 2]
             circuit += part, net
-            result = circuit.generate_svg()
+            result = circuit.generate_svg(filepath=str(tmp_path), top_name="tc")
 
-            # Should return JSON data structure
-            assert isinstance(result, dict)
-            assert "modules" in result
-            assert "TestCircuit" in result["modules"]
+            # Should have written a real SVG drawing of the circuit.
+            top = os.path.join(result, "tc.svg")
+            assert os.path.exists(top)
+            svg = open(top).read()
+            assert svg.startswith("<svg")
+            assert 'data-ref="R1"' in svg
 
     def test_generate_dot(self):
         """Test DOT file generation."""

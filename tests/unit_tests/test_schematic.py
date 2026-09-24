@@ -25,8 +25,7 @@ from skidl import (
     subcircuit,
     config,
 )
-from skidl.schematics.place import PlacementFailure
-from skidl.schematics.route import RoutingFailure
+from skidl.errors import PlacementFailure, RoutingFailure
 
 # Skip entire module unless default tool is KICAD5.
 # if os.getenv("SKIDL_TOOL") not in ('KICAD5','KICAD9'):
@@ -34,9 +33,6 @@ from skidl.schematics.route import RoutingFailure
 
 
 sch_options = {}
-# seed = int(time.time())
-# sch_options["seed"] = seed
-# print(f"Random seed = {seed}")
 sch_options["retries"] = 3
 # sch_options["allow_routing_failure"] = True
 # sch_options["pt_to_pt_mult"] = 1  # HACK: Ad-hoc value.

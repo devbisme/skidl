@@ -185,14 +185,12 @@ class SkidlConfig(Config):
             self.tool = tool
 
         # If no configuration files were found, set default directory for part library pickle files.
-        if "pickle_dir" not in self:
-            self.pickle_dir = os.path.join(self.skidl_storage_dir, "lib_pickle_dir")
+        self.pickle_dir = self.get("pickle_dir", os.path.join(self.skidl_storage_dir, "lib_pickle_dir"))
         # Make the directory.
         os.makedirs(self.pickle_dir, exist_ok=True)
 
         # If no configuration files were found, set default directory for part search database.
-        if "part_search_db_dir" not in self:
-            self.part_search_db_dir = self.skidl_storage_dir
+        self.part_search_db_dir = self.get("part_search_db_dir", self.skidl_storage_dir)
         # Make the directory.
         os.makedirs(self.part_search_db_dir, exist_ok=True)
 
@@ -212,14 +210,10 @@ class SkidlConfig(Config):
                     ].default_lib_paths()
 
         # If no configuration files were found, set base name of default backup part library.
-        if "backup_lib_name" not in self:
-            self.backup_lib_name = get_script_name()
-        if "backup_lib_file_name" not in self:
-            self.backup_lib_file_name = self.backup_lib_name + lib_suffixes[SKIDL]
-        if "query_backup_lib" not in self:
-            self.query_backup_lib = True
-        if "backup_lib" not in self:
-            self.backup_lib = None
+        self.backup_lib_name = self.get("backup_lib_name", get_script_name())
+        self.backup_lib_file_name = self.get("backup_lib_file_name", self.backup_lib_name + lib_suffixes[SKIDL])
+        self.query_backup_lib = self.get("query_backup_lib", True)
+        self.backup_lib = self.get("backup_lib", None)
 
         # If no configuration files were found, set some default footprint search paths.
         if "footprint_search_paths" not in self:

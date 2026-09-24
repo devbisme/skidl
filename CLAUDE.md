@@ -11,7 +11,7 @@ This file provides guidance to Claude Code (claude.ai/code) and other AI coding 
 - **Run all tests (default environment)**: `pytest tests`
 - **Run tests across all supported test environments**: `tox`
 - **Run a specific test**: `pytest tests/unit_tests/test_something.py`
-- **Build the package**: `python setup.py sdist`
+- **Build the package**: `python -m build` (or `tox -e build`)
 - **Clean build artifacts**: `rm dist/*`
 - **Install in development mode**: `pip install -e .`
 
@@ -58,6 +58,10 @@ with Circuit() as ckt:
     ckt.generate_netlist()                    # .net file for PCB tools
     ckt.generate_schematic(auto_stub=True)    # .kicad_sch for KiCad Eeschema
 ```
+
+Placement is random, so `generate_schematic()`/`generate_svg()` draw the same
+circuit differently on each run. There is no way to pin a layout down; if you
+get one worth keeping, keep the generated files.
 
 ### Hierarchy with @subcircuit
 
@@ -133,31 +137,64 @@ SKiDL converts Python circuit descriptions into netlists and schematics for EDA 
   - `circuit.py` — `Circuit` class (container, generation methods)
   - `bus.py` — `Bus` class (grouped nets)
   - `node.py` — hierarchy tree, `@subcircuit` decorator
-  - `schematics/` — schematic generation (placement, routing)
-  - `tools/` — backend interfaces for KiCad 6/7/8/9
-  - `tools/kicad9/sexp_schematic.py` — KiCad 9 schematic S-expression writer
-  - `tools/kicad9/gen_schematic.py` — KiCad 9 schematic generation entry point
+  - `schematic_netlist.py` — `build_generic_netlist()`, the JSON handed to `schematizer`
+  - `errors.py` — SKiDL's exception types (`PlacementFailure`, `RoutingFailure`)
+  - `tools/` — backend interfaces for KiCad 5-10 (netlist, PCB, schematic, SVG, XML, libs)
 - `tests/` — test suite:
   - `unit_tests/` — unit tests (manually written and AI-generated)
   - `test_data/` — part libraries for testing
   - `examples/` — example circuits
 
-### Schematic Generation Internals
+### Schematic and SVG Generation Live in `schematizer`
 
-For KiCad integration (KiCad 6-9):
-- Symbol definition extraction from draw commands
-- Hierarchical UUID generation using `uuid.uuid5` with namespace `7026fcc6-e1a0-409e-aaf4-6a17ea82654f`
-- Multi-file schematic output (root + sub-sheets for each subcircuit)
-- Force-directed placement and routing for component positioning
-- Coordinate system: KiCad uses Y-down, requiring transformations
-- S-expression output via `simp_sexp.Sexp` (list subclass for KiCad file formats)
+Neither schematic nor SVG generation is in this repo. SKiDL's job is electrical
+interconnection; the graphical work (placement, routing, writing KiCad files,
+drawing SVG) belongs to the separate `schematizer` package.
 
-### UUID Scheme (Schematic ↔ PCB Cross-Reference)
+`Circuit.generate_schematic()` is unchanged from the user's point of view — same
+signature, same output files — but internally it:
+1. merges nets, then
+2. dispatches to the tool's own `gen_sch()` — `tool_modules[tool].gen_sch`, the
+   same pattern `generate_netlist`/`generate_pcb`/`generate_xml` use.
 
-SKiDL generates deterministic UUIDs so schematics and PCBs can cross-reference:
-```python
-namespace_uuid = uuid.UUID("7026fcc6-e1a0-409e-aaf4-6a17ea82654f")
-part_uuid = uuid.uuid5(namespace_uuid, part.hiername)
-sheet_uuid = uuid.uuid5(namespace_uuid, level_name)
-kiid_path = "/{sheet_uuid_1}/{sheet_uuid_2}/.../{part_uuid}"
-```
+`Circuit.generate_svg()` works the same way, dispatching to
+`tool_modules[tool].gen_svg` in `tools/kicadN/gen_svg.py`. It is the *same*
+pipeline — place, route, then serialize — differing only in the final step, so
+an SVG page has the layout of the `.kicad_sch` for the same circuit. It defaults
+`auto_stub=True` so a dense circuit yields a readable labelled drawing instead
+of a `RoutingFailure`. Hierarchy: one SVG per unflattened sheet, each child
+drawn in its parent as a hyperlinked rectangle, with links back up; `flatness`
+controls it just as for KiCad.
+
+Each `tools/kicadN/gen_sch.py` is that version's interface to `schematizer`: it
+builds a generic, tool-neutral JSON netlist via
+`skidl.schematic_netlist.build_generic_netlist()` (embedded symbol definitions +
+layout hints like `symtx` and net `stub`/`netio`), calls
+`schematizer.render(netlist, tool=TOOL_NAME, ...)`, and translates `schematizer`'s
+`PlacementFailure`/`RoutingFailure` into SKiDL's own types from `skidl.errors`
+(also importable as `from skidl import PlacementFailure`) — so callers never have
+to import the other package. Put any per-KiCad-version handling in that file.
+
+`tools/kicad5/gen_sch.py` and `tools/kicad5/gen_svg.py` exist only to raise a
+`ValueError`: KiCad 5 needs the legacy EESCHEMA `.sch` format, and its libraries
+carry `part.draw` objects rather than the s-expression graphics the SVG renderer
+draws from. A tool with no `gen_sch`/`gen_svg` at all (`spice`, `skidl`) gets a
+`ValueError` from the `Circuit` method itself.
+
+Removing the netlistsvg path left `part.draw` (the KiCad 5 symbol graphics
+built by `tools/kicad5/lib.py` out of `draw_objs.py`) with **no consumer** — it
+was the last thing that read it. Both files stay because the `.lib` parser that
+populates `part.draw` is the same one that supplies pins for KiCad 5 netlist,
+PCB, and XML output; only the graphics half is now dead weight.
+
+To change anything about placement, routing, or the KiCad file format, work in
+the `schematizer` repo — not here. Its engine (and the engine-internals tests
+that used to live in `tests/unit_tests/ai_tests/`) is at
+`schematizer/src/schematizer/engine/`.
+
+### Randomized output
+
+Placement and routing are randomized, so the same circuit draws differently on
+every run and there is no option to make a run reproducible. Tests must not
+compare two generated drawings for equality — assert on structure (files
+written, element counts, parseability) instead.

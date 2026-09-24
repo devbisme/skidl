@@ -10,6 +10,7 @@ from skidl import *
 from skidl.tools import ALL_TOOLS
 from skidl.logger import rt_logger, erc_logger
 from skidl.config_ import SkidlConfig
+from skidl.schlib import clear_backup_lib
 
 files_at_start = set([])
 
@@ -43,6 +44,9 @@ def setup_function():
 
     # Turn on backup part library creation.
     skidl.config.query_backup_lib = True
+
+    # Clear any pre-existing backup library file from previous tests.
+    # clear_backup_lib()
 
     # Clear any logger errors and warnings.
     rt_logger.error.reset()

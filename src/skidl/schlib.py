@@ -433,3 +433,16 @@ def load_backup_lib():
             pass
 
     return skidl.config.backup_lib
+
+
+@export_to_all
+def clear_backup_lib():
+    """
+    Remove all parts from a backup library.
+    """
+
+    from . import skidl
+
+    empty_lib = SchLib(tool=skidl.config.tool)
+    empty_lib.export(skidl.config.backup_lib_name, file_=skidl.config.backup_lib_file_name)
+    skidl.config.backup_lib = empty_lib

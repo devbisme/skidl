@@ -2598,18 +2598,24 @@ gnd += gndt
 
 ## SVG Schematics
 
-**Note: Generating SVG schematics requires that you install
-[netlistsvg](https://github.com/nturley/netlistsvg) on your system:**
-
-```bash
-npm install https://github.com/nturley/netlistsvg
-```
-
 You can create a schematic as an SVG file by appending the
 following to the end of the script:
 
 ```py
 generate_svg()
+```
+
+No external tools are needed. The SVG is a drawing of the same placed and
+routed schematic `generate_schematic()` produces, so the two agree on layout.
+
+A hierarchical circuit becomes one linked page per sheet: each subcircuit is
+drawn on its parent's page as a rectangle you can click to open that sheet, and
+every child page links back to its parent and to the top. Pass `flatness=1.0`
+to collapse the whole design onto a single page instead, or a value in between
+to flatten only the smaller subcircuits:
+
+```py
+generate_svg(filepath="svg_out", flatness=0.5)
 ```
 
 The resulting `and_gate.svg` file looks like this:
