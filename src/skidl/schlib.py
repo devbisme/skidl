@@ -23,6 +23,7 @@ from .utilities import (
     list_or_scalar,
     opened,
     get_abs_filename,
+    get_mtime,
     norecurse,
 )
 
@@ -108,8 +109,9 @@ class SchLib(object):
                 ValueError,
                 f"Unsupported ECAD tool library: {tool}.",
             )
+        # include_dirs allows directory-based libraries (KiCad 10 .kicad_symdir).
         abs_filename = get_abs_filename(
-            filename, paths, exts, allow_failure=False, descend=-1
+            filename, paths, exts, allow_failure=False, descend=-1, include_dirs=True
         )
 
         # Don't pickle files stored in remote repos because it's difficult to
@@ -142,7 +144,7 @@ class SchLib(object):
         elif (
             use_pickle
             and os.path.exists(lib_pickle_abs_fn)
-            and os.path.getmtime(lib_pickle_abs_fn) >= os.path.getmtime(abs_filename)
+            and os.path.getmtime(lib_pickle_abs_fn) >= get_mtime(abs_filename)
         ):
             with open(lib_pickle_abs_fn, "rb") as f:
                 self.__dict__.update(pickle.load(f).__dict__)

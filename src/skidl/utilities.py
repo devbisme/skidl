@@ -1102,7 +1102,13 @@ def is_url(s):
 
 @export_to_all
 def find_and_open_file(
-    filename, paths=None, ext=None, allow_failure=False, exclude_binary=False, descend=0
+    filename,
+    paths=None,
+    ext=None,
+    allow_failure=False,
+    exclude_binary=False,
+    descend=0,
+    include_dirs=False,
 ):
     """
     Search for a file in list of paths, open it and return file pointer and full file name.
@@ -1119,9 +1125,13 @@ def find_and_open_file(
         descend (int, optional): If 0, don't search lower-level directories. If positive, search
                  that many levels down for the file. If negative, descend into
                  subdirectories without limit. Defaults to 0.
+        include_dirs (bool, optional): If True, a directory whose name matches is also
+                 accepted (e.g., a KiCad 10 ``.kicad_symdir`` library). Directories can't be
+                 opened, so a match returns ``(None, dir_name)``. Defaults to False.
 
     Returns:
         tuple: (file_pointer, file_name) or (None, None) if file could not be opened and allow_failure is True.
+            If include_dirs is True and a directory matched, (None, dir_name).
 
     Raises:
         FileNotFoundError: If the file couldn't be found and allow_failure is False.
@@ -1185,6 +1195,10 @@ def find_and_open_file(
                         except (IOError, FileNotFoundError, TypeError):
                             # File failed, so keep searching.
                             pass
+                # Then accept a matching directory, if allowed.
+                if include_dirs:
+                    for dn in [d for d in dirnames if re.match(match_name, d)]:
+                        return None, expand_path(os.path.join(root, dn))
                 # Keep descending on this path as long as the descent counter is non-zero.
                 if descent_ctr == 0:
                     break  # Cease search of this path if the counter is zero.
@@ -1237,7 +1251,9 @@ def find_and_read_file(
 
 
 @export_to_all
-def get_abs_filename(filename, paths=None, ext=None, allow_failure=False, descend=0):
+def get_abs_filename(
+    filename, paths=None, ext=None, allow_failure=False, descend=0, include_dirs=False
+):
     """
     Search for a file in list of paths, and return its absolute file name.
 
@@ -1249,23 +1265,53 @@ def get_abs_filename(filename, paths=None, ext=None, allow_failure=False, descen
         descend (int, optional): If 0, don't search lower-level directories. If positive, search
                  that many levels down for the file. If negative, descend into
                  subdirectories without limit. Defaults to 0.
+        include_dirs (bool, optional): If True, a directory whose name matches is also
+                 accepted. Defaults to False.
 
     Returns:
-        str: Absolute file name if file exists, otherwise None.
+        str: Absolute file (or directory) name if it exists, otherwise None.
 
     Raises:
         FileNotFoundError: If the file couldn't be found and allow_failure is False.
     """
 
-    fp, fn = find_and_open_file(filename, paths, ext, allow_failure, False, descend)
+    fp, fn = find_and_open_file(
+        filename, paths, ext, allow_failure, False, descend, include_dirs
+    )
 
     if fp:
         # Found it, so close file pointer and return file name.
         fp.close()
         return fn
+    if fn:
+        # Found a matching directory (only possible if include_dirs is True).
+        return fn
 
     # No file found, so return None.
     return None
+
+
+@export_to_all
+def get_mtime(path):
+    """
+    Return the modification time of a file, or the latest one within a directory.
+
+    A directory's own mtime only changes when entries are added or removed, so for
+    a directory (e.g., a KiCad 10 ``.kicad_symdir`` library) the latest mtime of the
+    directory and the files directly inside it is returned.
+
+    Args:
+        path (str): File or directory path.
+
+    Returns:
+        float: Modification time in seconds since the epoch.
+    """
+    mtime = os.path.getmtime(path)
+    if os.path.isdir(path):
+        for entry in os.scandir(path):
+            if entry.is_file():
+                mtime = max(mtime, entry.stat().st_mtime)
+    return mtime
 
 
 @export_to_all

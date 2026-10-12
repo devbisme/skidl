@@ -267,3 +267,61 @@ def test_emitter_is_deterministic():
     a = build_generic_netlist(_flat_circuit(), title="t", top_name="x")
     b = build_generic_netlist(_flat_circuit(), title="t", top_name="x")
     assert json.dumps(a, sort_keys=True) == json.dumps(b, sort_keys=True)
+
+
+def test_part_fields_emitted():
+    """User part fields (MPN, DNP, ...) are carried in components[].fields."""
+    ckt = Circuit()
+    with ckt:
+        r1 = Part("Device", "R", value="10k")
+        r1.fields["MPN"] = "RC0805FR-0710KL"
+        r1.fields["DNP"] = True
+        r1[1] += Net("A")
+        r1[2] += Net("B")
+    ckt.merge_net_names()
+    ckt.merge_nets()
+    doc = build_generic_netlist(ckt)
+    (comp,) = doc["components"]
+    assert comp["fields"] == {"MPN": "RC0805FR-0710KL", "DNP": True}
+    json.dumps(doc)
+
+
+def test_netclass_attrs_emitted():
+    """Net classes appear in nets[].attrs and their definitions at top level."""
+    from skidl import NetClass
+
+    ckt = Circuit()
+    with ckt:
+        power = NetClass("Power", trace_width=0.5, clearance=0.2, circuit=ckt)
+        vcc, gnd = Net("VCC"), Net("GND")
+        r1 = Part("Device", "R", value="10k")
+        r1[1] += vcc
+        r1[2] += gnd
+        vcc.netclasses = power
+    ckt.merge_net_names()
+    ckt.merge_nets()
+    doc = build_generic_netlist(ckt)
+    nets = {n["name"]: n for n in doc["nets"]}
+    assert nets["VCC"]["attrs"] == {"netclasses": ["Power"]}
+    assert nets["GND"]["attrs"] == {}
+    assert doc["netclasses"]["Power"]["trace_width"] == 0.5
+    assert doc["netclasses"]["Power"]["clearance"] == 0.2
+    json.dumps(doc)
+
+
+def test_no_connect_net_emitted():
+    """Pins on NC are emitted as a net flagged "nc" so readers can draw NC flags."""
+    ckt = Circuit()
+    with ckt:
+        q = Part("Device", "R", value="1k")
+        q[1] += Net("A")
+        q[2] += ckt.NC
+    ckt.merge_net_names()
+    ckt.merge_nets()
+    doc = build_generic_netlist(ckt)
+    nc_nets = [n for n in doc["nets"] if n.get("nc")]
+    assert len(nc_nets) == 1
+    assert [(nd["ref"], nd["pin"]) for nd in nc_nets[0]["nodes"]] == [(q.ref, "2")]
+    (comp,) = doc["components"]
+    pin_nets = {p["num"]: p["net"] for p in comp["pins"]}
+    assert pin_nets["2"] == nc_nets[0]["name"]

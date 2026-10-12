@@ -20,7 +20,14 @@ import threading
 import time
 
 from .logger import active_logger
-from .utilities import export_to_all, fullmatch, rmv_quotes, to_list, expand_path
+from .utilities import (
+    export_to_all,
+    fullmatch,
+    rmv_quotes,
+    to_list,
+    expand_path,
+    get_mtime,
+)
 
 __all__ = ["search", "show", "PartSearchDB"]
 
@@ -200,7 +207,7 @@ class PartSearchDB:
                     if not os.path.exists(lib_file):
                         missing.append(lib_file)
                         continue
-                    mtime = os.path.getmtime(lib_file)
+                    mtime = get_mtime(lib_file)
                 except OSError:
                     missing.append(lib_file)
                     continue
@@ -256,7 +263,7 @@ class PartSearchDB:
 
         # Compute mtime. If file missing, use current time as fallback.
         try:
-            mtime = os.path.getmtime(abs_fn)
+            mtime = get_mtime(abs_fn)
         except OSError:
             mtime = time.time()
 

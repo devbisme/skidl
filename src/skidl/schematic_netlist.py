@@ -75,6 +75,13 @@ def _jsonify(obj):
     return obj
 
 
+def _json_value(val):
+    """Return val if it is a JSON scalar, else its string form."""
+    if val is None or isinstance(val, (bool, int, float, str)):
+        return val
+    return str(val)
+
+
 def _pin_geometry(pin):
     """Serialize the symbol-level geometry of a single pin."""
     return {
@@ -142,6 +149,10 @@ def _component(part):
         "symtx": getattr(part, "symtx", "") or "",
         "orientation_locked": bool(getattr(part, "orientation_locked", False)),
         "pins": pins,
+        # --- additive (schema v1): user part fields (e.g. MPN, manufacturer, DNP) ---
+        "fields": {
+            str(k): _json_value(v) for k, v in (getattr(part, "fields", {}) or {}).items()
+        },
     }
 
 
@@ -172,7 +183,28 @@ def _net(net, code):
         "netio": (getattr(net, "netio", "") or "").lower(),
         "implicit": bool(net.is_implicit()),
         "nodes": nodes,
+        # --- additive (schema v1): net attributes for layout ---
+        "attrs": _net_attrs(net),
     }
+
+
+def _net_attrs(net):
+    """Net attributes used by layout tools: net classes, lowest priority first."""
+    try:
+        classes = net.netclasses.by_priority()
+    except AttributeError:
+        classes = []
+    return {"netclasses": classes} if classes else {}
+
+
+def _netclass_defs(circuit):
+    """Attributes of every net class defined in the circuit, keyed by class name."""
+    defs = {}
+    for name, nc in sorted(getattr(circuit, "netclasses", {}).items()):
+        defs[str(name)] = {
+            str(k): _json_value(v) for k, v in vars(nc).items() if k != "name"
+        }
+    return defs
 
 
 @export_to_all
@@ -212,6 +244,16 @@ def build_generic_netlist(circuit, title="", top_name=""):
     for code, net in enumerate(sorted_nets, 1):
         nets.append(_net(net, code))
 
+    # The no-connect net is excluded by get_nets(), but its pins need no-connect
+    # flags, so emit it last with the "nc" flag the reader uses to recognize it.
+    nc_net = getattr(circuit, "NC", None)
+    part_ids = {id(p) for p in parts}
+    nc_pins = [p for p in getattr(nc_net, "pins", []) if id(p.part) in part_ids]
+    if nc_pins:
+        nc_entry = _net(nc_net, len(nets) + 1)
+        nc_entry["nc"] = True
+        nets.append(nc_entry)
+
     # Hierarchy sheet names (each is a hiertuple, e.g. ("", "stage1")).
     sheets = [list(name) for name in circuit.get_node_names()]
 
@@ -224,4 +266,6 @@ def build_generic_netlist(circuit, title="", top_name=""):
         "symbols": symbols,
         "components": components,
         "nets": nets,
+        # --- additive (schema v1): net class definitions referenced by nets[].attrs ---
+        "netclasses": _netclass_defs(circuit),
     }

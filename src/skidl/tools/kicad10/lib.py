@@ -27,7 +27,9 @@ from skidl.utilities import (
 __all__ = ["lib_suffix"]
 
 
-lib_suffix = [".kicad_sym"]
+# KiCad 10 stores each stock library as a directory (.kicad_symdir) holding one
+# .kicad_sym file per symbol. Single-file .kicad_sym libraries are still allowed.
+lib_suffix = [".kicad_sym", ".kicad_symdir"]
 
 
 @export_to_all
@@ -92,50 +94,31 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
     from skidl import Part, get_default_tool
     from skidl.tools import lib_suffixes
 
-    # Try to open the file using allowable suffixes for the versions of KiCAD.
+    # Libraries can be a single .kicad_sym file or a .kicad_symdir directory.
     dflt_tool = get_default_tool()
-    suffixes = lib_suffixes[dflt_tool]
-    base, suffix = os.path.splitext(filename)
-    if suffix:
-        # If an explicit file extension was given, use it instead of tool lib default extensions.
-        suffixes = [suffix]
-    for suffix in suffixes:
-        # Allow file open failure so multiple suffixes can be tried without error messages.
-        f, _ = find_and_open_file(
-            filename, lib_search_paths_, suffix, allow_failure=True
-        )
-        if f:
-            # Break from the loop once a library file is successfully opened.
-            break
-    if not f:
-        raise FileNotFoundError(
-            f"Unable to open KiCad Schematic Library File {filename}"
-        )
-
-    # Parse the library and return a nested list of library parts.
-    lib_txt = f.read()
-    try:
-        lib_txt = lib_txt.decode("latin_1")
-    except AttributeError:
-        # File contents were already decoded.
-        pass
-
-    # Convert library text into an S-expression object.
-    try:
-        lib_sexp = Sexp(lib_txt)
-    except:
-        active_logger.raise_(
-            RuntimeError,
-            f"The file {filename} is not a KiCad Schematic Library File.\n",
-        )
+    lib_dir = _find_symdir(filename, lib_search_paths_)
+    if lib_dir:
+        lib_sexps = [
+            _parse_lib_text(_read_text(f), f)
+            for f in sorted(
+                os.path.join(lib_dir, fn)
+                for fn in os.listdir(lib_dir)
+                if fn.endswith(".kicad_sym")
+            )
+        ]
+    else:
+        lib_sexps = [_parse_lib_text(*_open_lib_file(filename, lib_search_paths_))]
 
     # Extract symbols into a dictionary with symbol names as keys.
     # Use an ordered dictionary to keep parts in the same order as
     # they appeared in the library file because in KiCad V6+ library symbols can "extend"
     # previous symbols which should be processed before those that extend them.
+    # (In a .kicad_symdir, a parent may be in any file, but lookups are by name so
+    # the order of files doesn't matter.)
     symbols = OrderedDict(
         [
             (symbol[1], symbol)
+            for lib_sexp in lib_sexps
             for symbol in lib_sexp.search("/kicad_symbol_lib/symbol", ignore_case=True)
         ]
     )
@@ -180,6 +163,78 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
                 description=description,
                 search_text=search_text,
             )
+        )
+
+
+def _find_symdir(filename, lib_search_paths_):
+    """Return the path of a .kicad_symdir library matching filename, or None."""
+    if os.path.isdir(filename):
+        return filename
+    base, suffix = os.path.splitext(filename)
+    if suffix and suffix != ".kicad_symdir":
+        # An explicit, non-directory suffix was given.
+        return None
+    from skidl.utilities import get_abs_filename
+
+    return get_abs_filename(
+        filename,
+        lib_search_paths_,
+        [".kicad_symdir"],
+        allow_failure=True,
+        include_dirs=True,
+    )
+
+
+def _read_text(path):
+    """Read a library file as text."""
+    with open(path, encoding="latin_1") as f:
+        return f.read()
+
+
+def _open_lib_file(filename, lib_search_paths_):
+    """Find and read a single-file .kicad_sym library. Returns (text, filename)."""
+    from skidl import get_default_tool
+    from skidl.tools import lib_suffixes
+
+    # Try to open the file using allowable suffixes for the versions of KiCAD.
+    suffixes = [
+        sfx for sfx in lib_suffixes[get_default_tool()] if sfx != ".kicad_symdir"
+    ]
+    base, suffix = os.path.splitext(filename)
+    if suffix:
+        # If an explicit file extension was given, use it instead of tool lib default extensions.
+        suffixes = [suffix]
+    for suffix in suffixes:
+        # Allow file open failure so multiple suffixes can be tried without error messages.
+        f, _ = find_and_open_file(
+            filename, lib_search_paths_, suffix, allow_failure=True
+        )
+        if f:
+            # Break from the loop once a library file is successfully opened.
+            break
+    if not f:
+        raise FileNotFoundError(
+            f"Unable to open KiCad Schematic Library File {filename}"
+        )
+
+    lib_txt = f.read()
+    f.close()
+    try:
+        lib_txt = lib_txt.decode("latin_1")
+    except AttributeError:
+        # File contents were already decoded.
+        pass
+    return lib_txt, filename
+
+
+def _parse_lib_text(lib_txt, filename):
+    """Convert library text into an S-expression object."""
+    try:
+        return Sexp(lib_txt)
+    except:
+        active_logger.raise_(
+            RuntimeError,
+            f"The file {filename} is not a KiCad Schematic Library File.\n",
         )
 
 
