@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>SKiDL - posts</title><link href="/skidl/" rel="alternate"/><link href="/skidl/feeds/posts.atom.xml" rel="self"/><id>/skidl/</id><updated>2026-07-28T00:00:00-04:00</updated><entry><title>SKiDL 2.3.0 Release</title><link href="/skidl/skidl-two-dot-three-dot-zero-release-2026-07-28.html" rel="alternate"/><published>2026-07-28T00:00:00-04:00</published><updated>2026-07-28T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2026-07-28:/skidl/skidl-two-dot-three-dot-zero-release-2026-07-28.html</id><summary type="html">&lt;p&gt;Today marks the release of SKiDL version &lt;strong&gt;2.3.0&lt;/strong&gt;. The headline changes are:&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>SKiDL - posts</title><link href="/skidl/" rel="alternate"/><link href="/skidl/feeds/posts.atom.xml" rel="self"/><id>/skidl/</id><updated>2026-10-16T00:00:00-04:00</updated><entry><title>SKiDL 3.0.0 Release</title><link href="/skidl/skidl-three-dot-zero-dot-zero-release-2026-10-16.html" rel="alternate"/><published>2026-10-16T00:00:00-04:00</published><updated>2026-10-16T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2026-10-16:/skidl/skidl-three-dot-zero-dot-zero-release-2026-10-16.html</id><summary type="html">&lt;p&gt;Today marks the release of SKiDL version &lt;strong&gt;3.0.0&lt;/strong&gt;. The major version bump reflects
+a structural change: schematic generation no longer lives inside SKiDL.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Schematics moved to &lt;a href="https://pypi.org/project/schematizer/"&gt;schematizer&lt;/a&gt;.&lt;/strong&gt;
+  SKiDL now builds a generic, tool-neutral netlist and hands it to the separate
+  &lt;code&gt;schematizer&lt;/code&gt; package, which does placement, routing, and file …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;Today marks the release of SKiDL version &lt;strong&gt;3.0.0&lt;/strong&gt;. The major version bump reflects
+a structural change: schematic generation no longer lives inside SKiDL.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Schematics moved to &lt;a href="https://pypi.org/project/schematizer/"&gt;schematizer&lt;/a&gt;.&lt;/strong&gt;
+  SKiDL now builds a generic, tool-neutral netlist and hands it to the separate
+  &lt;code&gt;schematizer&lt;/code&gt; package, which does placement, routing, and file writing.
+  &lt;code&gt;generate_schematic()&lt;/code&gt; has the same signature and produces the same files, so
+  existing scripts don't need to change.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;New SVG output.&lt;/strong&gt; &lt;code&gt;generate_svg()&lt;/code&gt; no longer needs &lt;code&gt;netlistsvg&lt;/code&gt;. It draws the same
+  placed-and-routed schematic that &lt;code&gt;generate_schematic()&lt;/code&gt; produces. Hierarchical designs
+  become one linked SVG page per sheet, with each subcircuit drawn as a clickable box.
+  The function now returns the output directory instead of a JSON dict.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;KiCad 5 schematic and SVG output were dropped.&lt;/strong&gt; Netlist, PCB, and XML output for
+  KiCad 5 still work.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;PlacementFailure&lt;/code&gt; and &lt;code&gt;RoutingFailure&lt;/code&gt;&lt;/strong&gt; are now importable from the top level
+  (&lt;code&gt;from skidl import PlacementFailure&lt;/code&gt;). The old &lt;code&gt;skidl.schematics&lt;/code&gt; module is gone.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;KiCad 10 &lt;code&gt;.kicad_symdir&lt;/code&gt; libraries&lt;/strong&gt; (one file per symbol) are now supported.&lt;/li&gt;
+&lt;li&gt;Fixed fp-lib-table discovery with versioned KiCad preference paths (#326).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Thanks to GitHub user &lt;a href="https://github.com/michaelamici"&gt;michaelamici&lt;/a&gt; for a contribution to this release.&lt;/p&gt;
+&lt;p&gt;See &lt;a href="https://github.com/devbisme/skidl/blob/master/HISTORY.md"&gt;SKiDL's complete history&lt;/a&gt; for all the changes
+made in each release.&lt;/p&gt;</content><category term="posts"/></entry><entry><title>SKiDL 2.3.0 Release</title><link href="/skidl/skidl-two-dot-three-dot-zero-release-2026-07-28.html" rel="alternate"/><published>2026-07-28T00:00:00-04:00</published><updated>2026-07-28T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2026-07-28:/skidl/skidl-two-dot-three-dot-zero-release-2026-07-28.html</id><summary type="html">&lt;p&gt;Today marks the release of SKiDL version &lt;strong&gt;2.3.0&lt;/strong&gt;. The headline changes are:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;KiCad 10 support.&lt;/strong&gt; A &lt;code&gt;KICAD10&lt;/code&gt; tool identifier and part libraries were added,
   and the generic &lt;code&gt;KICAD&lt;/code&gt; identifier now points to it as the latest version.&lt;/li&gt;
