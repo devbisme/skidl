@@ -7,13 +7,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.geometry module &#8212; SKiDL 2.3.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <title>skidl.geometry module &#8212; SKiDL 3.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=c3c8ae58"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/documentation_options.js?v=acc74ff5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.geometry module</a></li> 
       </ul>
     </div>  
@@ -52,8 +52,8 @@ points/vectors, transformation matrices, and unit conversions between millimeter
 and thousandths-of-inch (mils).</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.geometry.BBox">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.geometry.</span></span><span class="sig-name descname"><span class="pre">BBox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pts</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/geometry.html#BBox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.geometry.BBox" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">skidl.geometry.</span></span><span class="sig-name descname"><span class="pre">BBox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pts</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/geometry.html#BBox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.geometry.BBox" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A bounding box defined by minimum and maximum points.</p>
 <p>BBox represents a rectangular area that can contain points or other bounding boxes.
 It provides methods for combining bounding boxes, testing if points are inside,
@@ -82,21 +82,21 @@ and calculating intersections.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.geometry.BBox.area">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">area</span></span><a class="headerlink" href="#skidl.geometry.BBox.area" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">area</span></span><a class="headerlink" href="#skidl.geometry.BBox.area" title="Link to this definition">¶</a></dt>
 <dd><p>Calculate the area of the bounding box.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Area (width × height).</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)">float</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#float" title="(in Python v3.14)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.geometry.BBox.ctr">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ctr</span></span><a class="headerlink" href="#skidl.geometry.BBox.ctr" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ctr</span></span><a class="headerlink" href="#skidl.geometry.BBox.ctr" title="Link to this definition">¶</a></dt>
 <dd><p>Get the center point of the bounding box.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -110,14 +110,14 @@ and calculating intersections.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.geometry.BBox.h">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">h</span></span><a class="headerlink" href="#skidl.geometry.BBox.h" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">h</span></span><a class="headerlink" href="#skidl.geometry.BBox.h" title="Link to this definition">¶</a></dt>
 <dd><p>Get the height of the bounding box.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Height of the bounding box.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)">float</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#float" title="(in Python v3.14)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -155,7 +155,7 @@ and calculating intersections.</p>
 <dd class="field-even"><p>True if the bounding boxes intersect.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -172,14 +172,14 @@ and calculating intersections.</p>
 <dd class="field-even"><p>True if the point is inside or on the boundary.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.geometry.BBox.ll">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ll</span></span><a class="headerlink" href="#skidl.geometry.BBox.ll" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ll</span></span><a class="headerlink" href="#skidl.geometry.BBox.ll" title="Link to this definition">¶</a></dt>
 <dd><p>Get the lower-left corner of the bounding box.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -193,7 +193,7 @@ and calculating intersections.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.geometry.BBox.lr">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lr</span></span><a class="headerlink" href="#skidl.geometry.BBox.lr" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">lr</span></span><a class="headerlink" href="#skidl.geometry.BBox.lr" title="Link to this definition">¶</a></dt>
 <dd><p>Get the lower-right corner of the bounding box.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -245,7 +245,7 @@ and calculating intersections.</p>
 the given grid spacing.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>grid_spacing</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Grid spacing to align to.</p>
+<dd class="field-odd"><p><strong>grid_spacing</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Grid spacing to align to.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A new bounding box with grid-aligned corners.</p>
@@ -258,7 +258,7 @@ the given grid spacing.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.geometry.BBox.ul">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ul</span></span><a class="headerlink" href="#skidl.geometry.BBox.ul" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ul</span></span><a class="headerlink" href="#skidl.geometry.BBox.ul" title="Link to this definition">¶</a></dt>
 <dd><p>Get the upper-left corner of the bounding box.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -272,7 +272,7 @@ the given grid spacing.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.geometry.BBox.ur">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ur</span></span><a class="headerlink" href="#skidl.geometry.BBox.ur" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ur</span></span><a class="headerlink" href="#skidl.geometry.BBox.ur" title="Link to this definition">¶</a></dt>
 <dd><p>Get the upper-right corner of the bounding box.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -286,7 +286,7 @@ the given grid spacing.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.geometry.BBox.w">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">w</span></span><a class="headerlink" href="#skidl.geometry.BBox.w" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">w</span></span><a class="headerlink" href="#skidl.geometry.BBox.w" title="Link to this definition">¶</a></dt>
 <dd><p>Return the bounding box width.</p>
 </dd></dl>
 
@@ -294,8 +294,8 @@ the given grid spacing.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.geometry.Point">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.geometry.</span></span><span class="sig-name descname"><span class="pre">Point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/geometry.html#Point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.geometry.Point" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">skidl.geometry.</span></span><span class="sig-name descname"><span class="pre">Point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/geometry.html#Point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.geometry.Point" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A 2D point or vector with x and y coordinates.</p>
 <p>The Point class represents both points in space and vectors for
 geometric operations. It supports various arithmetic operations
@@ -303,8 +303,8 @@ and can be transformed using the Tx transformation matrix.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The x-coordinate.</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The y-coordinate.</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – The x-coordinate.</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – The y-coordinate.</p></li>
 </ul>
 </dd>
 </dl>
@@ -316,14 +316,14 @@ and can be transformed using the Tx transformation matrix.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.geometry.Point.magnitude">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">magnitude</span></span><a class="headerlink" href="#skidl.geometry.Point.magnitude" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">magnitude</span></span><a class="headerlink" href="#skidl.geometry.Point.magnitude" title="Link to this definition">¶</a></dt>
 <dd><p>Calculate the distance of the point from origin (vector length).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The Euclidean distance from origin.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)">float</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#float" title="(in Python v3.14)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -334,7 +334,7 @@ and can be transformed using the Tx transformation matrix.</p>
 <dd><p>Apply a binary mask to the coordinates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>msk</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a>) – A pair of values to multiply with x and y.</p>
+<dd class="field-odd"><p><strong>msk</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – A pair of values to multiply with x and y.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>New point with masked coordinates.</p>
@@ -381,7 +381,7 @@ and can be transformed using the Tx transformation matrix.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.geometry.Point.norm">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">norm</span></span><a class="headerlink" href="#skidl.geometry.Point.norm" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">norm</span></span><a class="headerlink" href="#skidl.geometry.Point.norm" title="Link to this definition">¶</a></dt>
 <dd><p>Calculate a unit vector in the same direction.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -413,7 +413,7 @@ and can be transformed using the Tx transformation matrix.</p>
 <dd><p>Snap point coordinates to a grid.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>grid_spacing</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Grid interval to snap to.</p>
+<dd class="field-odd"><p><strong>grid_spacing</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Grid interval to snap to.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>New point with coordinates snapped to the grid.</p>
@@ -438,7 +438,7 @@ the z-component of the 3D cross product.</p>
 <dd class="field-even"><p>The cross product value.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)">float</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#float" title="(in Python v3.14)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -447,8 +447,8 @@ the z-component of the 3D cross product.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.geometry.Segment">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.geometry.</span></span><span class="sig-name descname"><span class="pre">Segment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/geometry.html#Segment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.geometry.Segment" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">skidl.geometry.</span></span><span class="sig-name descname"><span class="pre">Segment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/geometry.html#Segment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.geometry.Segment" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A line segment between two points.</p>
 <p>Represents a straight line segment with endpoints p1 and p2.</p>
 <dl class="field-list simple">
@@ -475,7 +475,7 @@ the z-component of the 3D cross product.</p>
 <dd class="field-odd"><p><strong>other</strong> (<a class="reference internal" href="#skidl.geometry.Segment" title="skidl.geometry.Segment"><em>Segment</em></a>) – Another segment to check for intersection.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#NotImplementedError" title="(in Python v3.13)"><strong>NotImplementedError</strong></a> – This method is not fully implemented.</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/exceptions.html#NotImplementedError" title="(in Python v3.14)"><strong>NotImplementedError</strong></a> – This method is not fully implemented.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -508,7 +508,7 @@ even if they don’t physically intersect.</p>
 <dd class="field-even"><p>True if segments shadow (overlap) each other on x or y axis.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -517,8 +517,8 @@ even if they don’t physically intersect.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.geometry.Tx">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.geometry.</span></span><span class="sig-name descname"><span class="pre">Tx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/geometry.html#Tx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.geometry.Tx" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">skidl.geometry.</span></span><span class="sig-name descname"><span class="pre">Tx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/geometry.html#Tx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.geometry.Tx" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A 2D transformation matrix for geometric operations.</p>
 <p>This class implements a 3x3 transformation matrix for 2D operations
 like rotation, scaling, flipping, and translation. The matrix has
@@ -532,12 +532,12 @@ y’ = b*x + d*y + dy</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) – Scaling/rotation factor for x coordinate. Defaults to 1.</p></li>
-<li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) – Rotation factor for y contribution to x. Defaults to 0.</p></li>
-<li><p><strong>c</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) – Rotation factor for x contribution to y. Defaults to 0.</p></li>
-<li><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) – Scaling/rotation factor for y coordinate. Defaults to 1.</p></li>
-<li><p><strong>dx</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) – Translation in x direction. Defaults to 0.</p></li>
-<li><p><strong>dy</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) – Translation in y direction. Defaults to 0.</p></li>
+<li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Scaling/rotation factor for x coordinate. Defaults to 1.</p></li>
+<li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Rotation factor for y contribution to x. Defaults to 0.</p></li>
+<li><p><strong>c</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Rotation factor for x contribution to y. Defaults to 0.</p></li>
+<li><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Scaling/rotation factor for y coordinate. Defaults to 1.</p></li>
+<li><p><strong>dx</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Translation in x direction. Defaults to 0.</p></li>
+<li><p><strong>dy</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Translation in y direction. Defaults to 0.</p></li>
 </ul>
 </dd>
 </dl>
@@ -563,7 +563,7 @@ computes the equivalent rotation angle and identifies any mirroring in the X or 
 </p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)">tuple</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -611,11 +611,11 @@ computes the equivalent rotation angle and identifies any mirroring in the X or 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.geometry.Tx.from_symtx">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_symtx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symtx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/geometry.html#Tx.from_symtx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.geometry.Tx.from_symtx" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_symtx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symtx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/geometry.html#Tx.from_symtx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.geometry.Tx.from_symtx" title="Link to this definition">¶</a></dt>
 <dd><p>Create a transformation matrix from a string of symbolic operations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>symtx</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – A string of H, V, L, R operations that are applied in sequence left-to-right.
+<dd class="field-odd"><p><strong>symtx</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – A string of H, V, L, R operations that are applied in sequence left-to-right.
 H = horizontal flip, V = vertical flip,
 L = rotate 90° left (CCW), R = rotate 90° right (CW)</p>
 </dd>
@@ -665,7 +665,7 @@ L = rotate 90° left (CCW), R = rotate 90° right (CW)</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.geometry.Tx.origin">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">origin</span></span><a class="headerlink" href="#skidl.geometry.Tx.origin" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">origin</span></span><a class="headerlink" href="#skidl.geometry.Tx.origin" title="Link to this definition">¶</a></dt>
 <dd><p>Get the translation component of the transformation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -683,7 +683,7 @@ L = rotate 90° left (CCW), R = rotate 90° right (CW)</p>
 <dd><p>Return a new Tx with a rotation by the given angle in degrees.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>degs</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The rotation angle in degrees.</p>
+<dd class="field-odd"><p><strong>degs</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – The rotation angle in degrees.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A new transformation matrix with the rotation applied.</p>
@@ -710,7 +710,7 @@ L = rotate 90° left (CCW), R = rotate 90° right (CW)</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.geometry.Tx.scale">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">scale</span></span><a class="headerlink" href="#skidl.geometry.Tx.scale" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">scale</span></span><a class="headerlink" href="#skidl.geometry.Tx.scale" title="Link to this definition">¶</a></dt>
 <dd><p>Get the scaling factor of the transformation.</p>
 <p>This calculates the length of a unit vector after transformation.</p>
 <dl class="field-list simple">
@@ -718,7 +718,7 @@ L = rotate 90° left (CCW), R = rotate 90° right (CW)</p>
 <dd class="field-odd"><p>The scaling factor.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)">float</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#float" title="(in Python v3.14)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -737,13 +737,13 @@ L = rotate 90° left (CCW), R = rotate 90° right (CW)</p>
 <dd><p>Convert millimeters to thousandths-of-inch (mils).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>mm</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Value in millimeters.</p>
+<dd class="field-odd"><p><strong>mm</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Value in millimeters.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Equivalent value in mils.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)">float</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#float" title="(in Python v3.14)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -754,13 +754,13 @@ L = rotate 90° left (CCW), R = rotate 90° right (CW)</p>
 <dd><p>Convert thousandths-of-inch (mils) to millimeters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>mils</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – Value in mils.</p>
+<dd class="field-odd"><p><strong>mils</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Value in mils.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Equivalent value in millimeters.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#float" title="(in Python v3.13)">float</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#float" title="(in Python v3.14)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -866,13 +866,13 @@ L = rotate 90° left (CCW), R = rotate 90° right (CW)</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.geometry module</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2016-2026, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
     </div>
   </body>
 </html>

@@ -6,13 +6,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.skidl &#8212; SKiDL 2.3.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <title>skidl.skidl &#8212; SKiDL 3.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=c3c8ae58"></script>
-    <script src="../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/documentation_options.js?v=acc74ff5"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.skidl</a></li> 
       </ul>
@@ -56,16 +56,15 @@
 <span class="sd">It initializes the default circuit and provides functions that operate on it.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">builtins</span>
-<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">builtins</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
 
-<span class="kn">from</span> <span class="nn">.circuit</span> <span class="kn">import</span> <span class="n">Circuit</span>
-<span class="kn">from</span> <span class="nn">.config_</span> <span class="kn">import</span> <span class="n">SkidlConfig</span>
-<span class="kn">from</span> <span class="nn">.part</span> <span class="kn">import</span> <span class="n">default_empty_footprint_handler</span>
-<span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">pin_drives</span>
-<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span>
-<span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="n">KICAD10</span>
-
+<span class="kn">from</span><span class="w"> </span><span class="nn">.circuit</span><span class="w"> </span><span class="kn">import</span> <span class="n">Circuit</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.config_</span><span class="w"> </span><span class="kn">import</span> <span class="n">SkidlConfig</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.part</span><span class="w"> </span><span class="kn">import</span> <span class="n">default_empty_footprint_handler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.pin</span><span class="w"> </span><span class="kn">import</span> <span class="n">pin_drives</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">export_to_all</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skidl</span><span class="w"> </span><span class="kn">import</span> <span class="n">KICAD10</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;config&quot;</span><span class="p">,</span>
@@ -93,8 +92,8 @@
 <span class="c1">###############################################################################</span>
 
 <span class="c1"># Get SKiDL configuration and set global search paths.</span>
-<span class="n">KICAD</span> <span class="o">=</span> <span class="n">KICAD10</span> <span class="c1"># Reference to the latest version of KiCad.</span>
-<span class="n">config</span> <span class="o">=</span> <span class="n">SkidlConfig</span><span class="p">(</span><span class="n">KICAD</span><span class="p">)</span> <span class="c1"># Sets default tool.</span>
+<span class="n">KICAD</span> <span class="o">=</span> <span class="n">KICAD10</span>  <span class="c1"># Reference to the latest version of KiCad.</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">SkidlConfig</span><span class="p">(</span><span class="n">KICAD</span><span class="p">)</span>  <span class="c1"># Sets default tool.</span>
 <span class="n">lib_search_paths</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">lib_search_paths</span>
 <span class="n">footprint_search_paths</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">footprint_search_paths</span>
 
@@ -127,10 +126,10 @@
 <div class="viewcode-block" id="get_default_tool">
 <a class="viewcode-back" href="../../rst_output/skidl.skidl.html#skidl.skidl.get_default_tool">[docs]</a>
 <span class="nd">@export_to_all</span>
-<span class="k">def</span> <span class="nf">get_default_tool</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_default_tool</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get the ECAD tool that will be used by default.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Returns:</span>
 <span class="sd">        The currently configured default ECAD tool.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -141,10 +140,10 @@
 <div class="viewcode-block" id="set_default_tool">
 <a class="viewcode-back" href="../../rst_output/skidl.skidl.html#skidl.skidl.set_default_tool">[docs]</a>
 <span class="nd">@export_to_all</span>
-<span class="k">def</span> <span class="nf">set_default_tool</span><span class="p">(</span><span class="n">tool</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">set_default_tool</span><span class="p">(</span><span class="n">tool</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Set the ECAD tool that will be used by default.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        tool: The ECAD tool to use as the default.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -181,14 +180,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.skidl</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2016-2026, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
     </div>
   </body>
 </html>

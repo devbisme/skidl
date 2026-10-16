@@ -6,13 +6,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.tools.kicad5.lib &#8212; SKiDL 2.3.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
+    <title>skidl.tools.kicad5.lib &#8212; SKiDL 3.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../../../_static/documentation_options.js?v=c3c8ae58"></script>
-    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/documentation_options.js?v=acc74ff5"></script>
+    <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad5.lib</a></li> 
       </ul>
@@ -52,21 +52,20 @@
 <span class="sd">Parsing of Kicad 5 libraries.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
 
-<span class="kn">from</span> <span class="nn">skidl.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
-<span class="kn">from</span> <span class="nn">skidl.part</span> <span class="kn">import</span> <span class="n">LIBRARY</span>
-<span class="kn">from</span> <span class="nn">skidl.pin</span> <span class="kn">import</span> <span class="n">pin_types</span>
-<span class="kn">from</span> <span class="nn">skidl.utilities</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skidl.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">active_logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skidl.part</span><span class="w"> </span><span class="kn">import</span> <span class="n">LIBRARY</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skidl.pin</span><span class="w"> </span><span class="kn">import</span> <span class="n">pin_types</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skidl.utilities</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">export_to_all</span><span class="p">,</span>
     <span class="n">find_and_read_file</span><span class="p">,</span>
     <span class="n">find_and_open_file</span><span class="p">,</span>
     <span class="n">num_to_chars</span><span class="p">,</span>
     <span class="n">rmv_quotes</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">.draw_objs</span> <span class="kn">import</span> <span class="o">*</span>
-
+<span class="kn">from</span><span class="w"> </span><span class="nn">.draw_objs</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;lib_suffix&quot;</span><span class="p">]</span>
 
@@ -77,7 +76,7 @@
 <div class="viewcode-block" id="default_lib_paths">
 <a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad5.lib.html#skidl.tools.kicad5.lib.default_lib_paths">[docs]</a>
 <span class="nd">@export_to_all</span>
-<span class="k">def</span> <span class="nf">default_lib_paths</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">default_lib_paths</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return default list of directories to search for part libraries.&quot;&quot;&quot;</span>
 
     <span class="c1"># Start search for part libraries in the current directory.</span>
@@ -98,7 +97,7 @@
 <div class="viewcode-block" id="get_fp_lib_tbl_dir">
 <a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad5.lib.html#skidl.tools.kicad5.lib.get_fp_lib_tbl_dir">[docs]</a>
 <span class="nd">@export_to_all</span>
-<span class="k">def</span> <span class="nf">get_fp_lib_tbl_dir</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_fp_lib_tbl_dir</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the path to where the global fp-lib-table file is found.&quot;&quot;&quot;</span>
 
     <span class="n">paths</span> <span class="o">=</span> <span class="p">(</span>
@@ -120,7 +119,7 @@
 <div class="viewcode-block" id="load_sch_lib">
 <a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad5.lib.html#skidl.tools.kicad5.lib.load_sch_lib">[docs]</a>
 <span class="nd">@export_to_all</span>
-<span class="k">def</span> <span class="nf">load_sch_lib</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lib_search_paths_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lib_section</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_sch_lib</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lib_search_paths_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lib_section</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load the parts from a KiCad schematic library file.</span>
 
@@ -131,8 +130,8 @@
 <span class="sd">        lib_section: Only used for SPICE simulations.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="n">Part</span><span class="p">,</span> <span class="n">KICAD5</span>
-    <span class="kn">from</span> <span class="nn">skidl.tools</span> <span class="kn">import</span> <span class="n">lib_suffixes</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">skidl</span><span class="w"> </span><span class="kn">import</span> <span class="n">Part</span><span class="p">,</span> <span class="n">KICAD5</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">skidl.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">lib_suffixes</span>
 
     <span class="c1"># Try to open the file using allowable suffixes for the versions of KiCAD.</span>
     <span class="n">suffixes</span> <span class="o">=</span> <span class="n">lib_suffixes</span><span class="p">[</span><span class="n">KICAD5</span><span class="p">]</span>
@@ -167,7 +166,7 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">header</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;EESchema-LIBRARY&quot;</span><span class="p">):</span>
         <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
             <span class="ne">RuntimeError</span><span class="p">,</span>
-            <span class="sa">f</span><span class="s2">&quot;The file </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2"> is not a KiCad Schematic Library File.</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;The file </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2"> is not a KiCad Schematic Library File.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="c1"># Process each part.</span>
@@ -260,7 +259,7 @@
 <div class="viewcode-block" id="parse_lib_part">
 <a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad5.lib.html#skidl.tools.kicad5.lib.parse_lib_part">[docs]</a>
 <span class="nd">@export_to_all</span>
-<span class="k">def</span> <span class="nf">parse_lib_part</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">partial_parse</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_lib_part</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">partial_parse</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a Part using a part definition from a KiCad schematic library.</span>
 
@@ -274,7 +273,7 @@
 <span class="sd">            will be parsed if the part is actually used.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="n">Pin</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">skidl</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pin</span>
 
     <span class="n">_DEF_KEYS</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s2">&quot;name&quot;</span><span class="p">,</span>
@@ -391,7 +390,7 @@
         <span class="s2">&quot;X&quot;</span><span class="p">:</span> <span class="n">_PIN_KEYS</span><span class="p">,</span>
     <span class="p">}</span>
 
-    <span class="k">def</span> <span class="nf">numberize</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">numberize</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;If possible, convert a string into a number.&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
@@ -588,7 +587,9 @@
 
             <span class="c1"># Found something unknown outside the footprint list or drawing section.</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Found something strange in </span><span class="si">{</span><span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> symbol definition: </span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Found something strange in </span><span class="si">{</span><span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> symbol definition: </span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="p">)</span>
                 <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
     <span class="c1"># Define some shortcuts to part information.</span>
@@ -602,7 +603,7 @@
     <span class="n">part</span><span class="o">.</span><span class="n">_ref</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="c1"># Make a Pin object from the information in the KiCad pin data fields.</span>
-    <span class="k">def</span> <span class="nf">kicad_pin_to_pin</span><span class="p">(</span><span class="n">kicad_pin</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">kicad_pin_to_pin</span><span class="p">(</span><span class="n">kicad_pin</span><span class="p">):</span>
         <span class="n">p</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">()</span>  <span class="c1"># Create a blank pin.</span>
 
         <span class="c1"># Place the KiCad pin name, number and function fields to the Pin object.</span>
@@ -675,14 +676,14 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad5.lib</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2016-2026, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
     </div>
   </body>
 </html>

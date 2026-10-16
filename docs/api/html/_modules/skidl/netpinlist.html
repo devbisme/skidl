@@ -6,13 +6,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.netpinlist &#8212; SKiDL 2.3.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <title>skidl.netpinlist &#8212; SKiDL 3.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=c3c8ae58"></script>
-    <script src="../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/documentation_options.js?v=acc74ff5"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.netpinlist</a></li> 
       </ul>
@@ -57,118 +57,125 @@
 <span class="sd">common properties across all pins and nets in the list.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">.alias</span> <span class="kn">import</span> <span class="n">Alias</span>
-<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
-<span class="kn">from</span> <span class="nn">.net</span> <span class="kn">import</span> <span class="n">Net</span>
-<span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
-<span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">Pin</span>
-<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="n">expand_buses</span><span class="p">,</span> <span class="n">export_to_all</span><span class="p">,</span> <span class="n">flatten</span><span class="p">,</span> <span class="n">list_or_scalar</span><span class="p">,</span> <span class="n">set_iadd</span><span class="p">,</span> <span class="n">filter_list</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">active_logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.net</span><span class="w"> </span><span class="kn">import</span> <span class="n">Net</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.network</span><span class="w"> </span><span class="kn">import</span> <span class="n">Network</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.pin</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pin</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utilities</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">expand_buses</span><span class="p">,</span>
+    <span class="n">export_to_all</span><span class="p">,</span>
+    <span class="n">flatten</span><span class="p">,</span>
+    <span class="n">list_or_scalar</span><span class="p">,</span>
+    <span class="n">set_iadd</span><span class="p">,</span>
+    <span class="n">filter_list</span><span class="p">,</span>
+<span class="p">)</span>
 
 
 <div class="viewcode-block" id="NetPinList">
 <a class="viewcode-back" href="../../rst_output/skidl.netpinlist.html#skidl.netpinlist.NetPinList">[docs]</a>
 <span class="nd">@export_to_all</span>
-<span class="k">class</span> <span class="nc">NetPinList</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">NetPinList</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Specialized list for handling collections of nets and pins.</span>
-<span class="sd">    </span>
+
 <span class="sd">    NetPinList extends the Python list with additional functionality for</span>
 <span class="sd">    working with collections of pins and nets. It handles bus expansion and</span>
 <span class="sd">    provides operations to connect nets and pins in series or parallel.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the number of individual pins/nets in this interface.</span>
-<span class="sd">        </span>
+
 <span class="sd">        This performs bus expansion to count the actual number of pins or nets.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            An integer representing the total count of pins/nets after bus expansion.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">expand_buses</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="fm">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Attach a NetPinList and another part/pin/net in series.</span>
-<span class="sd">        </span>
+
 <span class="sd">        The &amp; operator creates a serial connection between this NetPinList and</span>
 <span class="sd">        another object.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            obj: The part, pin, net, or bus to connect in series.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            A Network object representing the series connection.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Examples:</span>
 <span class="sd">            net_list &amp; resistor  # Connect nets in series with a resistor</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">obj</span>
 
-    <span class="k">def</span> <span class="fm">__rand__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__rand__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Attach a NetPinList and another part/pin/net in series.</span>
-<span class="sd">        </span>
+
 <span class="sd">        This is called when the &amp; operator is used with the NetPinList on the right side.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            obj: The part, pin, net, or bus to connect in series.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            A Network object representing the series connection.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">obj</span> <span class="o">&amp;</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Attach a NetPinList and another part/pin/net in parallel.</span>
-<span class="sd">        </span>
+
 <span class="sd">        The | operator creates a parallel connection between this NetPinList and</span>
 <span class="sd">        another object.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            obj: The part, pin, net, or bus to connect in parallel.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            A Network object representing the parallel connection.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Examples:</span>
 <span class="sd">            net_list | resistor  # Connect nets in parallel with a resistor</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">|</span> <span class="n">obj</span>
 
-    <span class="k">def</span> <span class="fm">__ror__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__ror__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Attach a NetPinList and another part/pin/net in parallel.</span>
-<span class="sd">        </span>
+
 <span class="sd">        This is called when the | operator is used with the NetPinList on the right side.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            obj: The part, pin, net, or bus to connect in parallel.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            A Network object representing the parallel connection.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">obj</span> <span class="o">|</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">nets_pins_buses</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">nets_pins_buses</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Connect pins/nets with another pin/net/bus.</span>
-<span class="sd">        </span>
+
 <span class="sd">        The += operator connects pins or nets in this list with pins or nets</span>
 <span class="sd">        in other lists or objects.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            *nets_pins_buses: One or more pins, nets, or buses to connect.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The updated NetPinList after making the connections.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Raises:</span>
 <span class="sd">            ValueError: If trying to connect to an illegal type or if connection</span>
 <span class="sd">                        counts don&#39;t match.</span>
-<span class="sd">                        </span>
+
 <span class="sd">        Examples:</span>
 <span class="sd">            bus1 += bus2  # Connect all pins in bus1 to corresponding pins in bus2</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -182,7 +189,7 @@
         <span class="k">for</span> <span class="n">np</span> <span class="ow">in</span> <span class="n">illegal</span><span class="p">:</span>
             <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                 <span class="ne">ValueError</span><span class="p">,</span>
-                <span class="sa">f</span><span class="s2">&quot;Can&#39;t make connections to a </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">np</span><span class="p">)</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="nb">getattr</span><span class="p">(</span><span class="n">np</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;__name__&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">).&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Can&#39;t make connections to a </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">np</span><span class="p">)</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="nb">getattr</span><span class="p">(</span><span class="n">np</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;__name__&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">).&quot;</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="n">len_b</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nets_pins_b</span><span class="p">)</span>
 
@@ -214,8 +221,8 @@
         <span class="n">set_iadd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span>
-    
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get item(s) from the NetPinList with bus expansion.</span>
 <span class="sd">        This method supports indexing, slicing, and filtering by pin/net number</span>
@@ -234,11 +241,11 @@
                 <span class="k">return</span> <span class="n">list_or_scalar</span><span class="p">(</span><span class="n">NetPinList</span><span class="p">(</span><span class="n">filter_list</span><span class="p">(</span><span class="n">expanded</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">key</span><span class="p">)))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">list_or_scalar</span><span class="p">(</span><span class="n">NetPinList</span><span class="p">(</span><span class="n">filter_list</span><span class="p">(</span><span class="n">expanded</span><span class="p">,</span> <span class="n">aliases</span><span class="o">=</span><span class="n">key</span><span class="p">)))</span>
-            
-    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alias</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alias</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return all pins/nets in the list with the given alias.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            alias: The name of the alias to retrieve.</span>
 <span class="sd">        Returns:</span>
@@ -248,13 +255,13 @@
 
 <div class="viewcode-block" id="NetPinList.create_network">
 <a class="viewcode-back" href="../../rst_output/skidl.netpinlist.html#skidl.netpinlist.NetPinList.create_network">[docs]</a>
-    <span class="k">def</span> <span class="nf">create_network</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_network</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a network from a list of pins and nets.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            A Network object created from the pins and nets in this list.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Raises:</span>
 <span class="sd">            ValueError: If the list has more than 2 items.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -262,13 +269,13 @@
 
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">circuit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the circuit the pins/nets are members of.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The Circuit object that the pins/nets belong to.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Raises:</span>
 <span class="sd">            ValueError: If pins/nets belong to different circuits.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -283,10 +290,10 @@
         <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the width (number of pins/nets) in this list.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            An integer representing the number of pins/nets after bus expansion.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -294,20 +301,20 @@
 
     <span class="c1"># Setting/clearing the do_erc flag for the list sets/clears the do_erc flags of the pins/nets in the list.</span>
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">do_erc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">do_erc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the electrical rule checking status for pins/nets in the list.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Raises:</span>
 <span class="sd">            NotImplementedError: This property can only be set or deleted, not read.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
     <span class="nd">@do_erc</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">do_erc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">on_off</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">do_erc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">on_off</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the electrical rule checking status for all pins/nets in the list.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            on_off: Boolean indicating whether to perform ERC on the pins/nets.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -315,7 +322,7 @@
             <span class="n">pn</span><span class="o">.</span><span class="n">do_erc</span> <span class="o">=</span> <span class="n">on_off</span>
 
     <span class="nd">@do_erc</span><span class="o">.</span><span class="n">deleter</span>
-    <span class="k">def</span> <span class="nf">do_erc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">do_erc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Restore the default electrical rule checking status for all pins/nets in the list.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -324,20 +331,20 @@
 
     <span class="c1"># Setting/clearing the drive strength for the list sets/clears the drive of the pins/nets in the list.</span>
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the drive strength of pins/nets in the list.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Raises:</span>
 <span class="sd">            NotImplementedError: This property can only be set or deleted, not read.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
     <span class="nd">@do_erc</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">strength</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">strength</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the drive strength for all pins/nets in the list.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            strength: The drive strength value to set for all pins/nets.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -345,7 +352,7 @@
             <span class="n">pn</span><span class="o">.</span><span class="n">drive</span> <span class="o">=</span> <span class="n">strength</span>
 
     <span class="nd">@do_erc</span><span class="o">.</span><span class="n">deleter</span>
-    <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Restore the default drive strength for all pins/nets in the list.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -356,32 +363,32 @@
     <span class="c1"># This prevents setting an alias on a list of two or more pins that</span>
     <span class="c1"># might be returned by the filter_list() utility.</span>
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the aliases for this NetPinList.</span>
-<span class="sd">        </span>
+
 <span class="sd">        For NetPinList, no aliases are allowed, so returns an empty Alias object.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            An empty Alias object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Alias</span><span class="p">([])</span>  <span class="c1"># No aliases, so just return an empty list.</span>
 
     <span class="nd">@aliases</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alias</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alias</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Setting aliases on a NetPinList is not allowed.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Raises:</span>
 <span class="sd">            NotImplementedError: Always raised since aliases cannot be set on a NetPinList.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
     <span class="nd">@aliases</span><span class="o">.</span><span class="n">deleter</span>
-    <span class="k">def</span> <span class="nf">aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Deleting aliases from a NetPinList is not allowed.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Raises:</span>
 <span class="sd">            NotImplementedError: Always raised since aliases cannot be deleted from a NetPinList.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -418,14 +425,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.netpinlist</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2016-2026, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
     </div>
   </body>
 </html>

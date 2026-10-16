@@ -1,7 +1,0 @@
-skidl.schematics.route module
-=============================
-
-.. automodule:: skidl.schematics.route
-   :members:
-   :show-inheritance:
-   :undoc-members:

@@ -6,13 +6,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.geometry &#8212; SKiDL 2.3.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <title>skidl.geometry &#8212; SKiDL 3.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=c3c8ae58"></script>
-    <script src="../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/documentation_options.js?v=acc74ff5"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.geometry</a></li> 
       </ul>
@@ -57,10 +57,10 @@
 <span class="sd">and thousandths-of-inch (mils).</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">radians</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">radians</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">copy</span>
 
-<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">export_to_all</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;mms_per_mil&quot;</span><span class="p">,</span>
@@ -83,13 +83,13 @@
 <div class="viewcode-block" id="to_mils">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.to_mils">[docs]</a>
 <span class="nd">@export_to_all</span>
-<span class="k">def</span> <span class="nf">to_mils</span><span class="p">(</span><span class="n">mm</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">to_mils</span><span class="p">(</span><span class="n">mm</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert millimeters to thousandths-of-inch (mils).</span>
-<span class="sd">    </span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        mm (float): Value in millimeters.</span>
-<span class="sd">        </span>
+
 <span class="sd">    Returns:</span>
 <span class="sd">        float: Equivalent value in mils.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -100,13 +100,13 @@
 <div class="viewcode-block" id="to_mms">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.to_mms">[docs]</a>
 <span class="nd">@export_to_all</span>
-<span class="k">def</span> <span class="nf">to_mms</span><span class="p">(</span><span class="n">mils</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">to_mms</span><span class="p">(</span><span class="n">mils</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert thousandths-of-inch (mils) to millimeters.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        mils (float): Value in mils.</span>
-<span class="sd">        </span>
+
 <span class="sd">    Returns:</span>
 <span class="sd">        float: Equivalent value in millimeters.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -117,22 +117,22 @@
 <div class="viewcode-block" id="Tx">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.Tx">[docs]</a>
 <span class="nd">@export_to_all</span>
-<span class="k">class</span> <span class="nc">Tx</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Tx</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A 2D transformation matrix for geometric operations.</span>
-<span class="sd">    </span>
+
 <span class="sd">    This class implements a 3x3 transformation matrix for 2D operations</span>
 <span class="sd">    like rotation, scaling, flipping, and translation. The matrix has</span>
 <span class="sd">    the following structure:</span>
-<span class="sd">    </span>
+
 <span class="sd">    [ a  b  0 ]</span>
 <span class="sd">    [ c  d  0 ]</span>
 <span class="sd">    [ dx dy 1 ]</span>
-<span class="sd">    </span>
+
 <span class="sd">    Where the transformed coordinates are calculated as:</span>
 <span class="sd">    x&#39; = a*x + c*y + dx</span>
 <span class="sd">    y&#39; = b*x + d*y + dy</span>
-<span class="sd">    </span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        a (float, optional): Scaling/rotation factor for x coordinate. Defaults to 1.</span>
 <span class="sd">        b (float, optional): Rotation factor for y contribution to x. Defaults to 0.</span>
@@ -141,8 +141,8 @@
 <span class="sd">        dx (float, optional): Translation in x direction. Defaults to 0.</span>
 <span class="sd">        dy (float, optional): Translation in y direction. Defaults to 0.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dy</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dy</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a transformation matrix.</span>
 <span class="sd">        tx = [</span>
@@ -163,18 +163,18 @@
 <div class="viewcode-block" id="Tx.from_symtx">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.Tx.from_symtx">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_symtx</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">symtx</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_symtx</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">symtx</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a transformation matrix from a string of symbolic operations.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            symtx (str): A string of H, V, L, R operations that are applied in sequence left-to-right.</span>
-<span class="sd">                        H = horizontal flip, V = vertical flip, </span>
+<span class="sd">                        H = horizontal flip, V = vertical flip,</span>
 <span class="sd">                        L = rotate 90° left (CCW), R = rotate 90° right (CW)</span>
-<span class="sd">                        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Tx: A transformation matrix that implements the sequence of operations.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Examples:</span>
 <span class="sd">            &gt;&gt;&gt; tx = Tx.from_symtx(&quot;RH&quot;)  # Rotate right, then flip horizontally</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -191,34 +191,34 @@
         <span class="k">return</span> <span class="n">tx</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a string representation of the transformation matrix.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            str: String showing the class name and transformation parameters.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dx</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dy</span><span class="si">}</span><span class="s2">)&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a simplified string representation of the transformation matrix.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            str: String showing the transformation parameters in a list format.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dx</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dy</span><span class="si">}</span><span class="s2">]&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Multiply this transformation matrix by another matrix or scalar.</span>
-<span class="sd">        </span>
+
 <span class="sd">        If m is another transformation matrix, the matrices are multiplied.</span>
 <span class="sd">        If m is a scalar, it scales the matrix uniformly.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            m: Another Tx object or a scalar.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Tx: The resulting transformation matrix.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -237,10 +237,10 @@
         <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">origin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">origin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the translation component of the transformation.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Point: A Point object representing the (dx, dy) translation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -253,12 +253,12 @@
     <span class="c1">#     self.dx, self.dy = pt.x, pt.y</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the scaling factor of the transformation.</span>
-<span class="sd">        </span>
+
 <span class="sd">        This calculates the length of a unit vector after transformation.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            float: The scaling factor.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -266,13 +266,13 @@
 
 <div class="viewcode-block" id="Tx.move">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.Tx.move">[docs]</a>
-    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vec</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vec</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a new Tx with an additional translation applied.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            vec (Point): The vector to translate by.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Tx: A new transformation matrix with the translation applied.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -281,10 +281,10 @@
 
 <div class="viewcode-block" id="Tx.rot_90cw">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.Tx.rot_90cw">[docs]</a>
-    <span class="k">def</span> <span class="nf">rot_90cw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rot_90cw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a new Tx with a 90-degree clockwise rotation applied.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Tx: A new transformation matrix with the rotation applied.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -293,13 +293,13 @@
 
 <div class="viewcode-block" id="Tx.rot">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.Tx.rot">[docs]</a>
-    <span class="k">def</span> <span class="nf">rot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a new Tx with a rotation by the given angle in degrees.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            degs (float): The rotation angle in degrees.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Tx: A new transformation matrix with the rotation applied.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -309,10 +309,10 @@
 
 <div class="viewcode-block" id="Tx.flip_x">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.Tx.flip_x">[docs]</a>
-    <span class="k">def</span> <span class="nf">flip_x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">flip_x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a new Tx with a horizontal flip (mirror across y-axis).</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Tx: A new transformation matrix with the flip applied.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -321,10 +321,10 @@
 
 <div class="viewcode-block" id="Tx.flip_y">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.Tx.flip_y">[docs]</a>
-    <span class="k">def</span> <span class="nf">flip_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">flip_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a new Tx with a vertical flip (mirror across x-axis).</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Tx: A new transformation matrix with the flip applied.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -333,10 +333,10 @@
 
 <div class="viewcode-block" id="Tx.no_translate">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.Tx.no_translate">[docs]</a>
-    <span class="k">def</span> <span class="nf">no_translate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">no_translate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a new Tx with the same rotation/scaling but no translation.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Tx: A new transformation matrix with translation set to (0,0).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -345,28 +345,28 @@
 
 <div class="viewcode-block" id="Tx.analyze_transform">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.Tx.analyze_transform">[docs]</a>
-    <span class="k">def</span> <span class="nf">analyze_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">analyze_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Analyze a transformation matrix to extract rotation angle and mirroring components.</span>
-<span class="sd">        </span>
+
 <span class="sd">        This function removes any translation from the transformation matrix and then</span>
 <span class="sd">        computes the equivalent rotation angle and identifies any mirroring in the X or Y axis.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            tx (Tx): A transformation matrix to analyze.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            tuple: (rotation_degrees, mirror_x, mirror_y) where:</span>
 <span class="sd">                - rotation_degrees (float): The rotation angle in degrees (0-360)</span>
 <span class="sd">                - mirror_x (bool): True if there&#39;s mirroring in the X axis</span>
 <span class="sd">                - mirror_y (bool): True if there&#39;s mirroring in the Y axis</span>
-<span class="sd">                </span>
+
 <span class="sd">        Examples:</span>
 <span class="sd">            &gt;&gt;&gt; tx = Tx.rot_90cw()  # 90° clockwise rotation</span>
 <span class="sd">            &gt;&gt;&gt; angle, mx, my = analyze_transform(tx)</span>
 <span class="sd">            &gt;&gt;&gt; angle</span>
 <span class="sd">            -90.0</span>
-<span class="sd">            </span>
+
 <span class="sd">            &gt;&gt;&gt; tx = Tx(a=-1)  # Mirror in X</span>
 <span class="sd">            &gt;&gt;&gt; angle, mx, my = analyze_transform(tx)</span>
 <span class="sd">            &gt;&gt;&gt; mx</span>
@@ -374,30 +374,31 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Remove translation by creating a new Tx with same linear components but zero translation</span>
         <span class="n">linear_tx</span> <span class="o">=</span> <span class="n">Tx</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dy</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        
+
         <span class="c1"># Calculate rotation angle from the linear transformation components</span>
         <span class="c1"># For a rotation matrix [cosθ -sinθ; sinθ cosθ]:</span>
         <span class="c1">#   a = cosθ, b = -sinθ, c = sinθ, d = cosθ</span>
         <span class="c1"># So θ = atan2(c, a) or θ = atan2(-b, a)</span>
-        <span class="kn">import</span> <span class="nn">math</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
         <span class="n">rotation_radians</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span><span class="n">linear_tx</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">linear_tx</span><span class="o">.</span><span class="n">a</span><span class="p">)</span>
         <span class="n">rotation_degrees</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">rotation_radians</span><span class="p">)</span>
-        
+
         <span class="c1"># Account for flipped Y axis and ensure angle is one of 0, 90, 180, or 270.</span>
-        <span class="n">rotation_degrees</span> <span class="o">=</span> <span class="nb">round</span><span class="p">((</span><span class="mi">360</span><span class="o">-</span><span class="n">rotation_degrees</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span> <span class="o">/</span> <span class="mi">90</span><span class="p">)</span> <span class="o">*</span> <span class="mi">90</span> <span class="o">%</span> <span class="mi">360</span>
-        
+        <span class="n">rotation_degrees</span> <span class="o">=</span> <span class="nb">round</span><span class="p">((</span><span class="mi">360</span> <span class="o">-</span> <span class="n">rotation_degrees</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span> <span class="o">/</span> <span class="mi">90</span><span class="p">)</span> <span class="o">*</span> <span class="mi">90</span> <span class="o">%</span> <span class="mi">360</span>
+
         <span class="c1"># Determine mirroring by checking determinants and axis signs</span>
         <span class="c1"># The determinant of the linear part tells us about orientation:</span>
         <span class="c1">#   det &gt; 0: preserves orientation (pure rotation)</span>
         <span class="c1">#   det &lt; 0: reverses orientation (includes reflection)</span>
         <span class="n">det</span> <span class="o">=</span> <span class="n">linear_tx</span><span class="o">.</span><span class="n">a</span> <span class="o">*</span> <span class="n">linear_tx</span><span class="o">.</span><span class="n">d</span> <span class="o">-</span> <span class="n">linear_tx</span><span class="o">.</span><span class="n">b</span> <span class="o">*</span> <span class="n">linear_tx</span><span class="o">.</span><span class="n">c</span>
-        
+
         <span class="c1"># For mirroring detection, we look at how the basis vectors are transformed</span>
         <span class="c1"># Original basis: i=(1,0), j=(0,1)</span>
         <span class="c1"># Transformed: i&#39;=(a,c), j&#39;=(b,d)</span>
         <span class="n">mirror_x</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">mirror_y</span> <span class="o">=</span> <span class="kc">False</span>
-        
+
         <span class="c1"># Check for X mirroring: i&#39; should point in negative X direction if mirrored</span>
         <span class="c1"># After accounting for rotation, we check if the X component is flipped</span>
         <span class="k">if</span> <span class="n">det</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -407,38 +408,44 @@
             <span class="n">i_prime_y</span> <span class="o">=</span> <span class="n">linear_tx</span><span class="o">.</span><span class="n">c</span>
             <span class="n">j_prime_x</span> <span class="o">=</span> <span class="n">linear_tx</span><span class="o">.</span><span class="n">b</span>  <span class="c1"># (0,1) transformed</span>
             <span class="n">j_prime_y</span> <span class="o">=</span> <span class="n">linear_tx</span><span class="o">.</span><span class="n">d</span>
-            
+
             <span class="c1"># For X mirroring, we expect the X basis vector to point left-ish</span>
             <span class="c1"># For Y mirroring, we expect the Y basis vector to point down-ish</span>
             <span class="c1"># This is simplified - in practice we&#39;d need to disentangle rotation from mirroring</span>
-            
+
             <span class="c1"># Simpler approach: check if we can decompose into rotation + mirror</span>
             <span class="c1"># A matrix with negative determinant can be written as: rotation * mirror_x or rotation * mirror_y</span>
-            
+
             <span class="c1"># Let&#39;s check by seeing if making the determinant positive gives us a pure rotation</span>
             <span class="c1"># If we flip the sign of a (mirror in X), what happens to determinant?</span>
-            <span class="n">det_after_x_mirror</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">linear_tx</span><span class="o">.</span><span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="n">linear_tx</span><span class="o">.</span><span class="n">d</span> <span class="o">-</span> <span class="n">linear_tx</span><span class="o">.</span><span class="n">b</span> <span class="o">*</span> <span class="n">linear_tx</span><span class="o">.</span><span class="n">c</span>
+            <span class="n">det_after_x_mirror</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="o">-</span><span class="n">linear_tx</span><span class="o">.</span><span class="n">a</span>
+            <span class="p">)</span> <span class="o">*</span> <span class="n">linear_tx</span><span class="o">.</span><span class="n">d</span> <span class="o">-</span> <span class="n">linear_tx</span><span class="o">.</span><span class="n">b</span> <span class="o">*</span> <span class="n">linear_tx</span><span class="o">.</span><span class="n">c</span>
             <span class="c1"># If we flip the sign of d (mirror in Y), what happens to determinant?</span>
-            <span class="n">det_after_y_mirror</span> <span class="o">=</span> <span class="n">linear_tx</span><span class="o">.</span><span class="n">a</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">linear_tx</span><span class="o">.</span><span class="n">d</span><span class="p">)</span> <span class="o">-</span> <span class="n">linear_tx</span><span class="o">.</span><span class="n">b</span> <span class="o">*</span> <span class="n">linear_tx</span><span class="o">.</span><span class="n">c</span>
-            
+            <span class="n">det_after_y_mirror</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">linear_tx</span><span class="o">.</span><span class="n">a</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">linear_tx</span><span class="o">.</span><span class="n">d</span><span class="p">)</span> <span class="o">-</span> <span class="n">linear_tx</span><span class="o">.</span><span class="n">b</span> <span class="o">*</span> <span class="n">linear_tx</span><span class="o">.</span><span class="n">c</span>
+            <span class="p">)</span>
+
             <span class="c1"># Actually, let&#39;s use a cleaner approach:</span>
             <span class="c1"># The mirroring can be detected by seeing if we need to flip basis vectors</span>
             <span class="c1"># to get a proper rotation matrix</span>
-            
+
             <span class="c1"># Create a candidate rotation matrix by taking absolute values where needed</span>
             <span class="c1"># This is a heuristic - for exact decomposition we&#39;d need more math</span>
-            
+
             <span class="c1"># For now, let&#39;s use the fact that mirroring flips the sign of one axis</span>
             <span class="c1"># We&#39;ll check which flip, when applied, gives us a matrix closer to a rotation</span>
-            
+
             <span class="c1"># Test X mirror: flip sign of a and c</span>
-            <span class="n">tx_test_x</span> <span class="o">=</span> <span class="n">Tx</span><span class="p">(</span><span class="n">a</span><span class="o">=-</span><span class="n">linear_tx</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">=-</span><span class="n">linear_tx</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="o">=-</span><span class="n">linear_tx</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="n">linear_tx</span><span class="o">.</span><span class="n">d</span><span class="p">)</span>
+            <span class="n">tx_test_x</span> <span class="o">=</span> <span class="n">Tx</span><span class="p">(</span>
+                <span class="n">a</span><span class="o">=-</span><span class="n">linear_tx</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">=-</span><span class="n">linear_tx</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="o">=-</span><span class="n">linear_tx</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="n">linear_tx</span><span class="o">.</span><span class="n">d</span>
+            <span class="p">)</span>
             <span class="n">det_x</span> <span class="o">=</span> <span class="n">tx_test_x</span><span class="o">.</span><span class="n">a</span> <span class="o">*</span> <span class="n">tx_test_x</span><span class="o">.</span><span class="n">d</span> <span class="o">-</span> <span class="n">tx_test_x</span><span class="o">.</span><span class="n">b</span> <span class="o">*</span> <span class="n">tx_test_x</span><span class="o">.</span><span class="n">c</span>
-            
-            <span class="c1"># Test Y mirror: flip sign of b and d  </span>
+
+            <span class="c1"># Test Y mirror: flip sign of b and d</span>
             <span class="n">tx_test_y</span> <span class="o">=</span> <span class="n">Tx</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">linear_tx</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">linear_tx</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">linear_tx</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="o">=-</span><span class="n">linear_tx</span><span class="o">.</span><span class="n">d</span><span class="p">)</span>
             <span class="n">det_y</span> <span class="o">=</span> <span class="n">tx_test_y</span><span class="o">.</span><span class="n">a</span> <span class="o">*</span> <span class="n">tx_test_y</span><span class="o">.</span><span class="n">d</span> <span class="o">-</span> <span class="n">tx_test_y</span><span class="o">.</span><span class="n">b</span> <span class="o">*</span> <span class="n">tx_test_y</span><span class="o">.</span><span class="n">c</span>
-            
+
             <span class="c1"># Whichever gives us a positive determinant (rotation) indicates the mirror axis</span>
             <span class="k">if</span> <span class="n">det_x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">mirror_x</span> <span class="o">=</span> <span class="kc">True</span>
@@ -449,7 +456,7 @@
                 <span class="c1"># Default to X mirror if uncertain</span>
                 <span class="n">mirror_x</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="c1"># If det &gt; 0, it&#39;s a pure rotation (no mirroring)</span>
-        
+
         <span class="k">return</span> <span class="n">rotation_degrees</span><span class="p">,</span> <span class="n">mirror_x</span><span class="p">,</span> <span class="n">mirror_y</span></div>
 </div>
 
@@ -469,76 +476,76 @@
 <div class="viewcode-block" id="Point">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.Point">[docs]</a>
 <span class="nd">@export_to_all</span>
-<span class="k">class</span> <span class="nc">Point</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Point</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A 2D point or vector with x and y coordinates.</span>
-<span class="sd">    </span>
+
 <span class="sd">    The Point class represents both points in space and vectors for</span>
 <span class="sd">    geometric operations. It supports various arithmetic operations</span>
 <span class="sd">    and can be transformed using the Tx transformation matrix.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        x (float): The x-coordinate.</span>
 <span class="sd">        y (float): The y-coordinate.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a Point with coords x,y.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
 
-    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate a hash value for the point.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            int: Hash value based on the x and y coordinates.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">hash</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if two points have the same coordinates.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other (Point): Another point to compare with.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            bool: True if both points have the same coordinates.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compare points lexicographically (first by x, then by y).</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other (Point): Another point to compare with.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            bool: True if self is less than other.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if two points have different coordinates.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other (Point): Another point to compare with.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            bool: True if points have different coordinates.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span> <span class="o">==</span> <span class="n">other</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pt</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pt</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add another point or scalar to this point.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            pt (Point or number): Point or scalar to add.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Point: A new point with the sum of coordinates.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -546,13 +553,13 @@
             <span class="n">pt</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="n">pt</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">pt</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">pt</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pt</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pt</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Subtract another point or scalar from this point.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            pt (Point or number): Point or scalar to subtract.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Point: A new point with the difference of coordinates.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -560,14 +567,14 @@
             <span class="n">pt</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="n">pt</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">pt</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">pt</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Multiply this point by a transformation, another point, or a scalar.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            m: A Tx transformation, another Point (for component-wise multiplication),</span>
 <span class="sd">               or a scalar.</span>
-<span class="sd">               </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Point: The transformed/scaled point.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -580,16 +587,16 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">m</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__rmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__rmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Right multiplication with a scalar.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            m: A scalar value.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Point: Scaled point.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Raises:</span>
 <span class="sd">            ValueError: If m is a Tx transformation matrix.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -600,16 +607,16 @@
 
 <div class="viewcode-block" id="Point.xprod">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.Point.xprod">[docs]</a>
-    <span class="k">def</span> <span class="nf">xprod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pt</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">xprod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pt</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate the cross product of this vector and another.</span>
-<span class="sd">        </span>
+
 <span class="sd">        For 2D vectors, the cross product returns a scalar representing</span>
 <span class="sd">        the z-component of the 3D cross product.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            pt (Point): Another point/vector.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            float: The cross product value.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -618,47 +625,47 @@
 
 <div class="viewcode-block" id="Point.mask">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.Point.mask">[docs]</a>
-    <span class="k">def</span> <span class="nf">mask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msk</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">mask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msk</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Apply a binary mask to the coordinates.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            msk (list or tuple): A pair of values to multiply with x and y.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Point: New point with masked coordinates.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">msk</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">msk</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Negate both coordinates.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Point: A new point with negated coordinates.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Divide coordinates by a scalar.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            d (number): Divisor.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Point: New point with divided coordinates.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">/</span> <span class="n">d</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">/</span> <span class="n">d</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__div__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__div__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Divide coordinates by a scalar (Python 2 compatibility).</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            d (number): Divisor.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Point: New point with divided coordinates.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -666,20 +673,20 @@
 
 <div class="viewcode-block" id="Point.round">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.Point.round">[docs]</a>
-    <span class="k">def</span> <span class="nf">round</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">round</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Round coordinates to nearest integers.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Point: New point with rounded coordinates.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)),</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)))</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert point to a space-separated string representation.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            str: String with x and y coordinates.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -687,13 +694,13 @@
 
 <div class="viewcode-block" id="Point.snap">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.Point.snap">[docs]</a>
-    <span class="k">def</span> <span class="nf">snap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid_spacing</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">snap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid_spacing</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Snap point coordinates to a grid.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            grid_spacing (float): Grid interval to snap to.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Point: New point with coordinates snapped to the grid.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -703,13 +710,13 @@
 
 <div class="viewcode-block" id="Point.min">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.Point.min">[docs]</a>
-    <span class="k">def</span> <span class="nf">min</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pt</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">min</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pt</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a new point using the minimum x and y from two points.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            pt (Point): Another point to compare with.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Point: New point with minimum x and y values.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -718,13 +725,13 @@
 
 <div class="viewcode-block" id="Point.max">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.Point.max">[docs]</a>
-    <span class="k">def</span> <span class="nf">max</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pt</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">max</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pt</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a new point using the maximum x and y from two points.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            pt (Point): Another point to compare with.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Point: New point with maximum x and y values.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -732,20 +739,20 @@
 
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">magnitude</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">magnitude</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate the distance of the point from origin (vector length).</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            float: The Euclidean distance from origin.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">norm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">norm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate a unit vector in the same direction.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Point: Normalized vector with length 1, or (0,0) if zero length.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -756,17 +763,17 @@
 
 <div class="viewcode-block" id="Point.flip_xy">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.Point.flip_xy">[docs]</a>
-    <span class="k">def</span> <span class="nf">flip_xy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">flip_xy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Swap the x and y coordinates in place.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a string representation for debugging.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            str: String with class name and x,y coordinates.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -780,35 +787,35 @@
 <div class="viewcode-block" id="BBox">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.BBox">[docs]</a>
 <span class="nd">@export_to_all</span>
-<span class="k">class</span> <span class="nc">BBox</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BBox</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A bounding box defined by minimum and maximum points.</span>
-<span class="sd">    </span>
+
 <span class="sd">    BBox represents a rectangular area that can contain points or other bounding boxes.</span>
 <span class="sd">    It provides methods for combining bounding boxes, testing if points are inside,</span>
 <span class="sd">    and calculating intersections.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        *pts: One or more Point objects defining the initial bounding box.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">pts</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">pts</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a bounding box surrounding the given points.&quot;&quot;&quot;</span>
         <span class="n">inf</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">inf</span><span class="p">,</span> <span class="n">inf</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="n">inf</span><span class="p">,</span> <span class="o">-</span><span class="n">inf</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="o">*</span><span class="n">pts</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Merge this bounding box with a point or another bounding box.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            obj (Point or BBox): Object to merge with.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            BBox: A new bounding box that contains both this bbox and the object.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Raises:</span>
 <span class="sd">            NotImplementedError: If obj is not a Point or BBox.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -823,13 +830,13 @@
             <span class="k">raise</span> <span class="ne">NotImplementedError</span>
         <span class="k">return</span> <span class="n">sum_</span>
 
-    <span class="k">def</span> <span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Expand this bounding box to include a point or another bounding box.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            obj (Point or BBox): Object to include in this bbox.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            BBox: The updated bounding box (self).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -840,13 +847,13 @@
 
 <div class="viewcode-block" id="BBox.add">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.BBox.add">[docs]</a>
-    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">objs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">objs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the bounding box to include multiple points and/or bounding boxes.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            *objs: Points or BBoxes to include in this bounding box.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            BBox: The updated bounding box (self).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -855,13 +862,13 @@
         <span class="k">return</span> <span class="bp">self</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Apply a transformation to this bounding box.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            m (Tx): Transformation matrix to apply.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            BBox: A new transformed bounding box.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -869,10 +876,10 @@
 
 <div class="viewcode-block" id="BBox.round">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.BBox.round">[docs]</a>
-    <span class="k">def</span> <span class="nf">round</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">round</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Round the bounding box limits to integers.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            BBox: A new bounding box with rounded coordinates.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -881,13 +888,13 @@
 
 <div class="viewcode-block" id="BBox.is_inside">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.BBox.is_inside">[docs]</a>
-    <span class="k">def</span> <span class="nf">is_inside</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pt</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_inside</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pt</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if a point is inside or on the boundary of this bounding box.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            pt (Point): The point to check.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            bool: True if the point is inside or on the boundary.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -896,13 +903,13 @@
 
 <div class="viewcode-block" id="BBox.intersects">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.BBox.intersects">[docs]</a>
-    <span class="k">def</span> <span class="nf">intersects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bbox</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">intersects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bbox</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if this bounding box intersects with another.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            bbox (BBox): Another bounding box to check for intersection.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            bool: True if the bounding boxes intersect.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -916,13 +923,13 @@
 
 <div class="viewcode-block" id="BBox.intersection">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.BBox.intersection">[docs]</a>
-    <span class="k">def</span> <span class="nf">intersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bbox</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">intersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bbox</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate the intersection of this bounding box with another.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            bbox (BBox): Another bounding box.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            BBox or None: A new bounding box representing the intersection,</span>
 <span class="sd">                         or None if there is no intersection.</span>
@@ -936,14 +943,14 @@
 
 <div class="viewcode-block" id="BBox.resize">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.BBox.resize">[docs]</a>
-    <span class="k">def</span> <span class="nf">resize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">resize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Expand or contract the bounding box by a given amount in all directions.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
-<span class="sd">            vector (Point): Amount to expand by (positive values) or contract by </span>
+<span class="sd">            vector (Point): Amount to expand by (positive values) or contract by</span>
 <span class="sd">                          (negative values) in x and y directions.</span>
-<span class="sd">                          </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            BBox: A new resized bounding box.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -952,16 +959,16 @@
 
 <div class="viewcode-block" id="BBox.snap_resize">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.BBox.snap_resize">[docs]</a>
-    <span class="k">def</span> <span class="nf">snap_resize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid_spacing</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">snap_resize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid_spacing</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Resize the bounding box to align min and max points to a grid.</span>
-<span class="sd">        </span>
+
 <span class="sd">        This expands the bounding box outward so that its corners align with</span>
 <span class="sd">        the given grid spacing.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            grid_spacing (float): Grid spacing to align to.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            BBox: A new bounding box with grid-aligned corners.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -972,93 +979,93 @@
 
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate the area of the bounding box.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            float: Area (width × height).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">h</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">w</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">w</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the bounding box width.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">min</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">h</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">h</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the height of the bounding box.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            float: Height of the bounding box.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">min</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">ctr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ctr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the center point of the bounding box.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Point: Center point.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">min</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">ll</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ll</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the lower-left corner of the bounding box.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Point: Lower-left corner point.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">min</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">lr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">lr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the lower-right corner of the bounding box.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Point: Lower-right corner point.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">min</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">ul</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ul</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the upper-left corner of the bounding box.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Point: Upper-left corner point.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">ur</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ur</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the upper-right corner of the bounding box.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Point: Upper-right corner point.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a string representation for debugging.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            str: String showing the class name and min/max points.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2">(Point(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">min</span><span class="si">}</span><span class="s2">), Point(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">max</span><span class="si">}</span><span class="s2">))&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a simplified string representation.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            str: String representation of the min/max points.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1069,29 +1076,29 @@
 <div class="viewcode-block" id="Segment">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.Segment">[docs]</a>
 <span class="nd">@export_to_all</span>
-<span class="k">class</span> <span class="nc">Segment</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Segment</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A line segment between two points.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Represents a straight line segment with endpoints p1 and p2.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        p1 (Point): First endpoint.</span>
 <span class="sd">        p2 (Point): Second endpoint.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a line segment between two points.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">p1</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">p2</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Apply a transformation to the segment.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            m (Tx): Transformation matrix to apply.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Segment: A new transformed segment.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1099,20 +1106,20 @@
 
 <div class="viewcode-block" id="Segment.round">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.Segment.round">[docs]</a>
-    <span class="k">def</span> <span class="nf">round</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">round</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Round the segment endpoints to integers.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Segment: A new segment with rounded endpoint coordinates.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Segment</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p1</span><span class="o">.</span><span class="n">round</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">p2</span><span class="o">.</span><span class="n">round</span><span class="p">())</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a string representation of the segment.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            str: String with the segment endpoints.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1120,7 +1127,7 @@
 
 <div class="viewcode-block" id="Segment.flip_xy">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.Segment.flip_xy">[docs]</a>
-    <span class="k">def</span> <span class="nf">flip_xy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">flip_xy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Swap the x and y coordinates of both endpoints.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1130,15 +1137,15 @@
 
 <div class="viewcode-block" id="Segment.intersects">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.Segment.intersects">[docs]</a>
-    <span class="k">def</span> <span class="nf">intersects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">intersects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if this segment intersects with another segment.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Note: This method is not fully implemented and will raise an error.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other (Segment): Another segment to check for intersection.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Raises:</span>
 <span class="sd">            NotImplementedError: This method is not fully implemented.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1174,16 +1181,16 @@
 
 <div class="viewcode-block" id="Segment.shadows">
 <a class="viewcode-back" href="../../rst_output/skidl.geometry.html#skidl.geometry.Segment.shadows">[docs]</a>
-    <span class="k">def</span> <span class="nf">shadows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">shadows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if two segments overlap when projected onto axes.</span>
-<span class="sd">        </span>
+
 <span class="sd">        This tests if the segments would overlap when viewed from above or the side,</span>
 <span class="sd">        even if they don&#39;t physically intersect.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other (Segment): Another segment to check.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            bool: True if segments shadow (overlap) each other on x or y axis.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1239,14 +1246,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.geometry</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2016-2026, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
     </div>
   </body>
 </html>

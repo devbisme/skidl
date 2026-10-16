@@ -12,7 +12,6 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   skidl.schematics
    skidl.scripts
    skidl.tools
 
@@ -28,6 +27,7 @@ Submodules
    skidl.config_
    skidl.design_class
    skidl.erc
+   skidl.errors
    skidl.geometry
    skidl.interface
    skidl.logger
@@ -43,6 +43,7 @@ Submodules
    skidl.pckg_info
    skidl.pin
    skidl.pyspice
+   skidl.schematic_netlist
    skidl.schlib
    skidl.scriptinfo
    skidl.skidl

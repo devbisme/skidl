@@ -185,7 +185,7 @@ Here are some of the features SKiDL brings to electronic design:</p>
 </ul>
 <p>As a very simple example, the SKiDL program below describes a circuit that
 takes an input voltage, divides it by three, and outputs it:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">skidl</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 
 <span class="c1"># Create input &amp; output voltages and ground reference.</span>
 <span class="n">vin</span><span class="p">,</span> <span class="n">vout</span><span class="p">,</span> <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VI&#39;</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VO&#39;</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
@@ -277,11 +277,11 @@ but normally the statements that are shown would be entered into a file and
 executed as a Python script.</p>
 <h2 id="accessing-skidl">Accessing SKiDL</h2>
 <p>To use skidl in a project, just place the following at the top of your file:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">skidl</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">skidl</span>
 </code></pre></div>
 
 <p>But for this tutorial, I'll just import everything:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">skidl</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 </code></pre></div>
 
 <h2 id="finding-parts">Finding Parts</h2>
@@ -1259,7 +1259,7 @@ structure.</p>
 <p>You can assign classes directly to individual parts and nets to specify design attributes like
 manufacturing requirements or electrical characteristics. Multiple classes can be assigned
 with higher priority classes taking precedence over those with lower priority.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">skidl</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 
 <span class="c1"># Create part classes for different component categories.</span>
 <span class="n">passive_parts</span> <span class="o">=</span> <span class="n">PartClass</span><span class="p">(</span><span class="s2">&quot;passive_parts&quot;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="s2">&quot;5%&quot;</span><span class="p">)</span>
@@ -1287,7 +1287,7 @@ with higher priority classes taking precedence over those with lower priority.</
 <h3 id="hierarchical-part-and-net-class-inheritance">Hierarchical Part and Net Class Inheritance</h3>
 <p>Classes can be assigned at different levels of circuit hierarchy,
 with parts and nets at lower levels inheriting classes from higher levels:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">skidl</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 
 <span class="c1"># Assign global part class to root level (applies to entire circuit)</span>
 <span class="n">default_circuit</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">partclasses</span> <span class="o">=</span> <span class="n">PartClass</span><span class="p">(</span><span class="s2">&quot;global&quot;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vendor</span><span class="o">=</span><span class="s2">&quot;TI&quot;</span><span class="p">)</span>
@@ -1353,10 +1353,10 @@ subclassed modules with I/O attributes, and context-based hierarchy.
 You can combine and nest these approaches as needed. For example, use subclassed modules for complex reusable blocks like motor drivers, decorated functions for parameterizable filters, and context-based hierarchy for organizing collections of parts like bypass capacitors.</p>
 <h3 id="method-1-subcircuit-decorator-with-interface-return">Method 1: SubCircuit Decorator with Interface Return</h3>
 <p>This approach uses the <code>@SubCircuit</code> decorator on functions that return an <code>Interface</code> object containing the subcircuit's I/O connections.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">skidl</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 
 <span class="nd">@SubCircuit</span>
-<span class="k">def</span> <span class="nf">voltage_regulator</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">voltage_regulator</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;3.3V linear voltage regulator module.&quot;&quot;&quot;</span>
 
     <span class="c1"># Create voltage regulator and filter capacitors</span>
@@ -1376,7 +1376,7 @@ You can combine and nest these approaches as needed. For example, use subclassed
         <span class="p">)</span>
 
 <span class="nd">@subcircuit</span>
-<span class="k">def</span> <span class="nf">motor_driver</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">motor_driver</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;H-bridge motor driver module.&quot;&quot;&quot;</span>
 
     <span class="c1"># Create MOSFETs for H-bridge</span>
@@ -1432,12 +1432,12 @@ You can combine and nest these approaches as needed. For example, use subclassed
 
 <h3 id="method-2-subcircuit-subclassing-with-io-attributes">Method 2: SubCircuit Subclassing with I/O Attributes</h3>
 <p>The object-oriented approach involves subclassing <code>SubCircuit</code> to create modules with I/O attributes.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">skidl</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 
-<span class="k">class</span> <span class="nc">VoltageRegulator</span><span class="p">(</span><span class="n">SubCircuit</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">VoltageRegulator</span><span class="p">(</span><span class="n">SubCircuit</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;3.3V linear voltage regulator module.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># Initialize this subcircuit. DO NOT USE super().__init__()!</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
 
@@ -1458,10 +1458,10 @@ You can combine and nest these approaches as needed. For example, use subclassed
         <span class="c1"># Finalize the creation of the subcircuit</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">finalize</span><span class="p">()</span>
 
-<span class="k">class</span> <span class="nc">MotorDriver</span><span class="p">(</span><span class="n">SubCircuit</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MotorDriver</span><span class="p">(</span><span class="n">SubCircuit</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;H-bridge motor driver module.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># Initialize this subcircuit. DO NOT USE super().__init__()!</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
 
@@ -1516,7 +1516,7 @@ You can combine and nest these approaches as needed. For example, use subclassed
 <h3 id="method-3-subcircuit-context-manager">Method 3: SubCircuit Context Manager</h3>
 <p>The final approach uses <code>SubCircuit</code> as a context manager to create hierarchical groupings without defining functions or classes.
 This allows grouping of components into logical sections, but unlike the other approaches, re-using a group is not possible.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">skidl</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 
 <span class="c1"># Create nets for power distribution</span>
 <span class="n">power_12v</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;12V_IN&#39;</span><span class="p">)</span>
@@ -1822,8 +1822,8 @@ that name will return a list:</p>
 <h3 id="part-like-access-of-subcircuit-modules">Part-Like Access of Subcircuit Modules</h3>
 <p>Modules created as <a href="#method-2-subcircuit-subclassing-with-io-attributes">subclasses of <code>SubCircuit</code></a> can be
 used like parts with named pins as shown below:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">VoltageDivider</span><span class="p">(</span><span class="n">SubCircuit</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">VoltageDivider</span><span class="p">(</span><span class="n">SubCircuit</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="c1"># Create local nets</span>
@@ -1866,11 +1866,11 @@ and parts like so:</p>
 <p>SKiDL's default ERC will find commonplace design errors, but sometimes
 you'll have special requirements.
 The <code>erc_assert</code> function is used to check these.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">sys</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">skidl</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
 
 <span class="c1"># Function to check the number of inputs on a net.</span>
-<span class="k">def</span> <span class="nf">get_fanout</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_fanout</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
     <span class="n">fanout</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">get_pins</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">func</span> <span class="ow">in</span> <span class="p">(</span><span class="n">Pin</span><span class="o">.</span><span class="n">INPUT</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">BIDIR</span><span class="p">):</span>
@@ -1922,7 +1922,7 @@ This can be done using the <code>empty_footprint_handler</code> function that ge
 component found missing its footprint.
 For example, the following function assigns an 0805 footprint to any two-pin RLC component lacking
 a footprint:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">my_empty_footprint_handler</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">my_empty_footprint_handler</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Function for handling parts with no footprint.</span>
 
 <span class="sd">    Args:</span>
@@ -1942,7 +1942,7 @@ a footprint:</p>
 <p>Then, install the custom footprint handler anywhere before the <code>generate_netlist</code> function is called,
 like so:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Install the footprint handler for these tests.</span>
-<span class="kn">import</span> <span class="nn">skidl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">skidl</span>
 <span class="n">skidl</span><span class="o">.</span><span class="n">empty_footprint_handler</span> <span class="o">=</span> <span class="n">my_empty_footprint_handler</span>
 </code></pre></div>
 
@@ -1955,7 +1955,7 @@ using the old references, then the PCB wiring may no longer be consistent with t
 <p>To avoid this problem, <em>tags</em>
 can be assigned to parts and subcircuits:</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@subcircuit</span>
-<span class="k">def</span> <span class="nf">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Divide inp voltage by 3 and place it on outp net.&quot;&quot;&quot;</span>
     <span class="c1"># Assign a different tag to each resistor.</span>
     <span class="n">inp</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;r_upper&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">outp</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;500&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;r_lower&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">gnd</span>
@@ -1974,8 +1974,8 @@ wiring traces.</p>
 <h3 id="configuration-file">Configuration File</h3>
 <p>SKiDL's configuration file lets you override the default settings.
 You can store the current settings by running the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="kn">from</span><span class="w"> </span><span class="nn">skidl</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="o">*</span>
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span><span class="w"> </span><span class="nn">skidl</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
 </code></pre></div>
 
 <p>The <code>.skidlcfg</code> JSON file with the SKiDL settings will be created in the current directory:</p>
@@ -2209,12 +2209,12 @@ becomes the <code>default_circuit</code>:</p>
 
 <p>Hierarchical circuits such as this cascaded voltage divider also work with <code>Circuit</code> objects:</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@subcircuit</span>
-<span class="k">def</span> <span class="nf">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
     <span class="n">inp</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;r_upper&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">outp</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;500&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;r_lower&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">gnd</span>
 
 <span class="nd">@subcircuit</span>
-<span class="k">def</span> <span class="nf">casc_vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">casc_vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
     <span class="n">outp_middle</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
     <span class="n">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp_middle</span><span class="p">)</span>
     <span class="n">vdiv</span><span class="p">(</span><span class="n">outp_middle</span><span class="p">,</span> <span class="n">outp</span><span class="p">)</span>
@@ -2235,12 +2235,12 @@ It's extracted and any elements created in the subcircuit are sent there instead
 to the <code>default_circuit</code>.</p>
 <p>Hierarchy is also supported when using a context manager:</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@subcircuit</span>
-<span class="k">def</span> <span class="nf">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
     <span class="n">inp</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;r_upper&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">outp</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;500&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s1">&#39;r_lower&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">gnd</span>
 
 <span class="nd">@subcircuit</span>
-<span class="k">def</span> <span class="nf">casc_vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">casc_vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
     <span class="n">outp_middle</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
     <span class="n">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp_middle</span><span class="p">)</span>
     <span class="n">vdiv</span><span class="p">(</span><span class="n">outp_middle</span><span class="p">,</span> <span class="n">outp</span><span class="p">)</span>
@@ -2306,7 +2306,7 @@ To support this, SKiDL can show the interconnection of parts as:</p>
 <p>The following circuit for a transistor-based AND gate will be used to illustrate each alternative:</p>
 <p><img alt="TTL AND Gate" src="https://raw.githubusercontent.com/nturley/netlistsvg/master/doc/and.svg?sanitize=true"></p>
 <p>The <code>and_gate.py</code> SKiDL script for this circuit is:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">skidl</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 
 <span class="c1"># Create part templates.</span>
 <span class="n">q</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">lib</span><span class="o">=</span><span class="s2">&quot;Transistor_BJT&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Q_PNP_CBE&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">,</span> <span class="n">symtx</span><span class="o">=</span><span class="s2">&quot;V&quot;</span><span class="p">)</span>
@@ -2331,14 +2331,19 @@ To support this, SKiDL can show the interconnection of parts as:</p>
 </code></pre></div>
 
 <h2 id="svg-schematics">SVG Schematics</h2>
-<p><strong>Note: Generating SVG schematics requires that you install
-<a href="https://github.com/nturley/netlistsvg">netlistsvg</a> on your system:</strong></p>
-<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>install<span class="w"> </span>https://github.com/nturley/netlistsvg
-</code></pre></div>
-
 <p>You can create a schematic as an SVG file by appending the
 following to the end of the script:</p>
 <div class="highlight"><pre><span></span><code><span class="n">generate_svg</span><span class="p">()</span>
+</code></pre></div>
+
+<p>No external tools are needed. The SVG is a drawing of the same placed and
+routed schematic <code>generate_schematic()</code> produces, so the two agree on layout.</p>
+<p>A hierarchical circuit becomes one linked page per sheet: each subcircuit is
+drawn on its parent's page as a rectangle you can click to open that sheet, and
+every child page links back to its parent and to the top. Pass <code>flatness=1.0</code>
+to collapse the whole design onto a single page instead, or a value in between
+to flatten only the smaller subcircuits:</p>
+<div class="highlight"><pre><span></span><code><span class="n">generate_svg</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="s2">&quot;svg_out&quot;</span><span class="p">,</span> <span class="n">flatness</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 </code></pre></div>
 
 <p>The resulting <code>and_gate.svg</code> file looks like this:</p>
@@ -2414,7 +2419,7 @@ a named <em>stub</em> at each connection point:</p>
 </code></pre></div>
 
 <p>The effects of setting these attributes are illustrated using the following code:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">skidl</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 
 <span class="c1"># Create net stubs.</span>
 <span class="n">e</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s2">&quot;ENET&quot;</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s2">&quot;BNET&quot;</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s2">&quot;CNET&quot;</span><span class="p">)</span>

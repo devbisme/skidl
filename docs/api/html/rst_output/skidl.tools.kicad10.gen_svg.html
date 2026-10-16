@@ -7,13 +7,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.tools.kicad10.gen_svg module &#8212; SKiDL 2.3.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <title>skidl.tools.kicad10.gen_svg module &#8212; SKiDL 3.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=c3c8ae58"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/documentation_options.js?v=acc74ff5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad10.gen_svg module</a></li> 
       </ul>
     </div>  
@@ -45,22 +45,39 @@
             
   <section id="module-skidl.tools.kicad10.gen_svg">
 <span id="skidl-tools-kicad10-gen-svg-module"></span><h1>skidl.tools.kicad10.gen_svg module<a class="headerlink" href="#module-skidl.tools.kicad10.gen_svg" title="Link to this heading">¶</a></h1>
-<p>Functions for generating SVG.</p>
+<p>Generate a static SVG drawing of a KiCad 10 schematic.</p>
+<p>Like <code class="docutils literal notranslate"><span class="pre">gen_sch</span></code>, the work is done by the separate <code class="docutils literal notranslate"><span class="pre">schematizer</span></code> package:
+this module builds the generic, tool-neutral netlist and asks schematizer to
+render it as SVG instead of <code class="docutils literal notranslate"><span class="pre">.kicad_sch</span></code>. Both formats come off the same
+placement and routing pass, so the drawing matches the editable schematic.</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="skidl.tools.kicad10.gen_svg.gen_svg_comp">
-<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad10.gen_svg.</span></span><span class="sig-name descname"><span class="pre">gen_svg_comp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symtx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_stubs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad10/gen_svg.html#gen_svg_comp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad10.gen_svg.gen_svg_comp" title="Link to this definition">¶</a></dt>
-<dd><p>Generate SVG for this component.</p>
+<dt class="sig sig-object py" id="skidl.tools.kicad10.gen_svg.gen_svg">
+<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad10.gen_svg.</span></span><span class="sig-name descname"><span class="pre">gen_svg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad10/gen_svg.html#gen_svg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad10.gen_svg.gen_svg" title="Link to this definition">¶</a></dt>
+<dd><p>Generate SVG schematic pages for a circuit.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>part</strong> – Part object for which an SVG symbol will be created.</p></li>
-<li><p><strong>net_stubs</strong> – List of Net objects whose names will be connected to
-part symbol pins as connection stubs.</p></li>
-<li><p><strong>symtx</strong> – String such as “HR” that indicates symbol mirroring/rotation.</p></li>
+<li><p><strong>circuit</strong> (<a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit" title="skidl.circuit.Circuit"><em>Circuit</em></a>) – The circuit to draw. Its nets should already be
+merged, as <code class="docutils literal notranslate"><span class="pre">Circuit.generate_svg()</span></code> does before calling.</p></li>
+<li><p><strong>**kwargs</strong> – Passed on to schematizer: <code class="docutils literal notranslate"><span class="pre">filepath</span></code>, <code class="docutils literal notranslate"><span class="pre">top_name</span></code>,
+<code class="docutils literal notranslate"><span class="pre">title</span></code>, and <code class="docutils literal notranslate"><span class="pre">flatness</span></code> (0.0 for a page per subcircuit,
+1.0 for a single page).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The directory the SVG files were written to.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3.14/builtins/exceptions.html#ImportError" title="(in Python v3.14)"><strong>ImportError</strong></a> – The <code class="docutils literal notranslate"><span class="pre">schematizer</span></code> package isn’t installed.</p></li>
+<li><p><a class="reference internal" href="skidl.errors.html#skidl.errors.PlacementFailure" title="skidl.errors.PlacementFailure"><strong>PlacementFailure</strong></a> – The parts of the schematic couldn’t be placed.</p></li>
+<li><p><a class="reference internal" href="skidl.errors.html#skidl.errors.RoutingFailure" title="skidl.errors.RoutingFailure"><strong>RoutingFailure</strong></a> – The nets of the schematic couldn’t be routed.</p></li>
 </ul>
 </dd>
 </dl>
-<p>Returns: SVG for the part symbol.</p>
 </dd></dl>
 
 </section>
@@ -76,7 +93,7 @@ part symbol pins as connection stubs.</p></li>
     <h3><a href="../index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">skidl.tools.kicad10.gen_svg module</a><ul>
-<li><a class="reference internal" href="#skidl.tools.kicad10.gen_svg.gen_svg_comp"><code class="docutils literal notranslate"><span class="pre">gen_svg_comp()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.tools.kicad10.gen_svg.gen_svg"><code class="docutils literal notranslate"><span class="pre">gen_svg()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -112,13 +129,13 @@ part symbol pins as connection stubs.</p></li>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad10.gen_svg module</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2016-2026, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
     </div>
   </body>
 </html>

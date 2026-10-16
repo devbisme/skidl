@@ -7,13 +7,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.skidlbaseobj module &#8212; SKiDL 2.3.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <title>skidl.skidlbaseobj module &#8212; SKiDL 3.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=c3c8ae58"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/documentation_options.js?v=acc74ff5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.skidlbaseobj module</a></li> 
       </ul>
     </div>  
@@ -51,8 +51,8 @@ inherit from. It implements common functionality such as ERC checking, attribute
 and object copying.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.skidlbaseobj.SkidlBaseObject">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.skidlbaseobj.</span></span><span class="sig-name descname"><span class="pre">SkidlBaseObject</span></span><a class="reference internal" href="../_modules/skidl/skidlbaseobj.html#SkidlBaseObject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.skidlbaseobj.SkidlBaseObject" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">skidl.skidlbaseobj.</span></span><span class="sig-name descname"><span class="pre">SkidlBaseObject</span></span><a class="reference internal" href="../_modules/skidl/skidlbaseobj.html#SkidlBaseObject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.skidlbaseobj.SkidlBaseObject" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Base class for all SKiDL objects.</p>
 <p>This class provides common functionality for all SKiDL objects such as
 attribute handling, ERC checking, and object copying. It also manages
@@ -75,7 +75,7 @@ assigned to the object.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.skidlbaseobj.SkidlBaseObject.add_erc_assertion">
-<span class="sig-name descname"><span class="pre">add_erc_assertion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fail_msg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'FAILED'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">severity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ERROR</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/skidlbaseobj.html#SkidlBaseObject.add_erc_assertion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.skidlbaseobj.SkidlBaseObject.add_erc_assertion" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_erc_assertion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/skidlbaseobj.html#SkidlBaseObject.add_erc_assertion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.skidlbaseobj.SkidlBaseObject.add_erc_assertion" title="Link to this definition">¶</a></dt>
 <dd><p>Add an ERC assertion to this object or its class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -101,7 +101,7 @@ assigned to the object.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.skidlbaseobj.SkidlBaseObject.aliases">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">aliases</span></span><a class="headerlink" href="#skidl.skidlbaseobj.SkidlBaseObject.aliases" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">aliases</span></span><a class="headerlink" href="#skidl.skidlbaseobj.SkidlBaseObject.aliases" title="Link to this definition">¶</a></dt>
 <dd><p>Get the aliases for this object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -135,17 +135,17 @@ Warn if the tag is not set.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.skidlbaseobj.SkidlBaseObject.erc_assertion_list">
-<span class="sig-name descname"><span class="pre">erc_assertion_list</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#skidl.skidlbaseobj.SkidlBaseObject.erc_assertion_list" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">erc_assertion_list</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="headerlink" href="#skidl.skidlbaseobj.SkidlBaseObject.erc_assertion_list" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.skidlbaseobj.SkidlBaseObject.erc_list">
-<span class="sig-name descname"><span class="pre">erc_list</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#skidl.skidlbaseobj.SkidlBaseObject.erc_list" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">erc_list</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="headerlink" href="#skidl.skidlbaseobj.SkidlBaseObject.erc_list" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.skidlbaseobj.SkidlBaseObject.name">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#skidl.skidlbaseobj.SkidlBaseObject.name" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#skidl.skidlbaseobj.SkidlBaseObject.name" title="Link to this definition">¶</a></dt>
 <dd><p>Get the primary name of this object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -156,7 +156,7 @@ Warn if the tag is not set.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.skidlbaseobj.SkidlBaseObject.notes">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">notes</span></span><a class="headerlink" href="#skidl.skidlbaseobj.SkidlBaseObject.notes" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">notes</span></span><a class="headerlink" href="#skidl.skidlbaseobj.SkidlBaseObject.notes" title="Link to this definition">¶</a></dt>
 <dd><p>Get the notes for this object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -171,21 +171,21 @@ Warn if the tag is not set.</p>
 <dd><p>Return the file name and line number where the object was instantiated.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>track_abs_path</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – If True, use the absolute path of the file.
+<dd class="field-odd"><p><strong>track_abs_path</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If True, use the absolute path of the file.
 If False, use the relative path from the script directory.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>File name and line number separated by colon.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.skidlbaseobj.SkidlBaseObject.tag">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tag</span></span><a class="headerlink" href="#skidl.skidlbaseobj.SkidlBaseObject.tag" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">tag</span></span><a class="headerlink" href="#skidl.skidlbaseobj.SkidlBaseObject.tag" title="Link to this definition">¶</a></dt>
 <dd><p>Get the tag of this object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -259,13 +259,13 @@ If False, use the relative path from the script directory.</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.skidlbaseobj module</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2016-2026, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
     </div>
   </body>
 </html>

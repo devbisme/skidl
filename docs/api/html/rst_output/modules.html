@@ -7,13 +7,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl &#8212; SKiDL 2.3.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <title>skidl &#8212; SKiDL 3.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=c3c8ae58"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/documentation_options.js?v=acc74ff5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl</a></li> 
       </ul>
     </div>  
@@ -49,10 +49,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="skidl.html">skidl package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="skidl.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="skidl.schematics.html">skidl.schematics package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="skidl.schematics.html#submodules">Submodules</a></li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.scripts.html">skidl.scripts package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="skidl.scripts.html#submodules">Submodules</a></li>
 </ul>
@@ -91,6 +87,11 @@
 <li class="toctree-l4"><a class="reference internal" href="skidl.erc.html#skidl.erc.dflt_circuit_erc"><code class="docutils literal notranslate"><span class="pre">dflt_circuit_erc()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.erc.html#skidl.erc.dflt_net_erc"><code class="docutils literal notranslate"><span class="pre">dflt_net_erc()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.erc.html#skidl.erc.dflt_part_erc"><code class="docutils literal notranslate"><span class="pre">dflt_part_erc()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.errors.html">skidl.errors module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="skidl.errors.html#skidl.errors.PlacementFailure"><code class="docutils literal notranslate"><span class="pre">PlacementFailure</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.errors.html#skidl.errors.RoutingFailure"><code class="docutils literal notranslate"><span class="pre">RoutingFailure</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.geometry.html">skidl.geometry module</a><ul>
@@ -181,8 +182,13 @@
 <li class="toctree-l4"><a class="reference internal" href="skidl.pyspice.html#skidl.pyspice.abort_if_spice_unavailable"><code class="docutils literal notranslate"><span class="pre">abort_if_spice_unavailable()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.schematic_netlist.html">skidl.schematic_netlist module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="skidl.schematic_netlist.html#skidl.schematic_netlist.build_generic_netlist"><code class="docutils literal notranslate"><span class="pre">build_generic_netlist()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.schlib.html">skidl.schlib module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="skidl.schlib.html#skidl.schlib.SchLib"><code class="docutils literal notranslate"><span class="pre">SchLib</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.schlib.html#skidl.schlib.clear_backup_lib"><code class="docutils literal notranslate"><span class="pre">clear_backup_lib()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="skidl.scriptinfo.html">skidl.scriptinfo module</a><ul>
@@ -234,6 +240,7 @@
 <li class="toctree-l4"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.from_iadd"><code class="docutils literal notranslate"><span class="pre">from_iadd()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.fullmatch"><code class="docutils literal notranslate"><span class="pre">fullmatch()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.get_abs_filename"><code class="docutils literal notranslate"><span class="pre">get_abs_filename()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.get_mtime"><code class="docutils literal notranslate"><span class="pre">get_mtime()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.get_unique_name"><code class="docutils literal notranslate"><span class="pre">get_unique_name()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.is_binary_file"><code class="docutils literal notranslate"><span class="pre">is_binary_file()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="skidl.utilities.html#skidl.utilities.is_url"><code class="docutils literal notranslate"><span class="pre">is_url()</span></code></a></li>
@@ -299,13 +306,13 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2016-2026, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
     </div>
   </body>
 </html>

@@ -1,0 +1,7 @@
+skidl.schematic\_netlist module
+===============================
+
+.. automodule:: skidl.schematic_netlist
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -12,13 +12,9 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
-   skidl.tools.kicad7.backend
-   skidl.tools.kicad7.bboxes
-   skidl.tools.kicad7.constants
    skidl.tools.kicad7.gen_netlist
    skidl.tools.kicad7.gen_pcb
-   skidl.tools.kicad7.gen_schematic
+   skidl.tools.kicad7.gen_sch
    skidl.tools.kicad7.gen_svg
    skidl.tools.kicad7.gen_xml
    skidl.tools.kicad7.lib
-   skidl.tools.kicad7.sexp_schematic

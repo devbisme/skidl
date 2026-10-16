@@ -1,0 +1,161 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.tools.kicad7.gen_sch &#8212; SKiDL 3.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../../../../_static/documentation_options.js?v=acc74ff5"></script>
+    <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../../../../"><img src="../../../../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad7.gen_sch</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skidl.tools.kicad7.gen_sch</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Generate KiCad 7 schematic.</span>
+
+<span class="sd">The graphical work -- placement, routing, writing the .kicad_sch files -- is</span>
+<span class="sd">done by the separate ``schematizer`` package. This module is the KiCad 7</span>
+<span class="sd">interface to it: it builds the generic, tool-neutral netlist from the circuit,</span>
+<span class="sd">hands it to schematizer with this KiCad version as the target, and translates</span>
+<span class="sd">schematizer&#39;s failures into SKiDL&#39;s own exception types.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">skidl.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">PlacementFailure</span><span class="p">,</span> <span class="n">RoutingFailure</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skidl.schematic_netlist</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_generic_netlist</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skidl.utilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">export_to_all</span>
+
+<span class="c1"># The KiCad version this module targets. schematizer uses it to select the</span>
+<span class="c1"># output format details for this version.</span>
+<span class="n">TOOL_NAME</span> <span class="o">=</span> <span class="s2">&quot;kicad7&quot;</span>
+
+
+<div class="viewcode-block" id="gen_sch">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad7.gen_sch.html#skidl.tools.kicad7.gen_sch.gen_sch">[docs]</a>
+<span class="nd">@export_to_all</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">gen_sch</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate KiCad 7 schematic files for a circuit.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        circuit (Circuit): The circuit to draw. Its nets should already be</span>
+<span class="sd">            merged, as ``Circuit.generate_schematic()`` does before calling.</span>
+<span class="sd">        **kwargs: Passed on to schematizer: ``filepath``, ``top_name``,</span>
+<span class="sd">            ``title``, plus engine options such as ``flatness``, ``retries``</span>
+<span class="sd">            and ``auto_stub``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The directory the schematic files were written to.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ImportError: The ``schematizer`` package isn&#39;t installed.</span>
+<span class="sd">        PlacementFailure: The parts of the schematic couldn&#39;t be placed.</span>
+<span class="sd">        RoutingFailure: The nets of the schematic couldn&#39;t be routed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">schematizer</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+            <span class="n">render</span><span class="p">,</span>
+            <span class="n">PlacementFailure</span> <span class="k">as</span> <span class="n">SchzPlacementFailure</span><span class="p">,</span>
+            <span class="n">RoutingFailure</span> <span class="k">as</span> <span class="n">SchzRoutingFailure</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+            <span class="s2">&quot;Generating a schematic requires the &#39;schematizer&#39; package. &quot;</span>
+            <span class="s2">&quot;Install it with:  pip install schematizer&quot;</span>
+        <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+
+    <span class="n">netlist</span> <span class="o">=</span> <span class="n">build_generic_netlist</span><span class="p">(</span>
+        <span class="n">circuit</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+        <span class="n">top_name</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;top_name&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="n">TOOL_NAME</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">SchzPlacementFailure</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="c1"># Re-raise as SKiDL&#39;s own exception types so callers never have to</span>
+        <span class="c1"># catch (or import) the other package&#39;s exceptions.</span>
+        <span class="k">raise</span> <span class="n">PlacementFailure</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+    <span class="k">except</span> <span class="n">SchzRoutingFailure</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">RoutingFailure</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad7.gen_sch</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2026, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

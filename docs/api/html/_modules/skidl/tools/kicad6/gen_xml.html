@@ -6,13 +6,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.tools.kicad6.gen_xml &#8212; SKiDL 2.3.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
+    <title>skidl.tools.kicad6.gen_xml &#8212; SKiDL 3.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../../../_static/documentation_options.js?v=c3c8ae58"></script>
-    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/documentation_options.js?v=acc74ff5"></script>
+    <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad6.gen_xml</a></li> 
       </ul>
@@ -52,18 +52,18 @@
 <span class="sd">Generate KiCad XML.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">os.path</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os.path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
-<span class="kn">from</span> <span class="nn">skidl.pckg_info</span> <span class="kn">import</span> <span class="n">__version__</span>
-<span class="kn">from</span> <span class="nn">skidl.scriptinfo</span> <span class="kn">import</span> <span class="n">scriptinfo</span>
-<span class="kn">from</span> <span class="nn">skidl.utilities</span> <span class="kn">import</span> <span class="n">add_quotes</span><span class="p">,</span> <span class="n">export_to_all</span>
-<span class="kn">from</span> <span class="nn">skidl.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
-<span class="kn">from</span> <span class="nn">skidl.part</span> <span class="kn">import</span> <span class="n">LIBRARY</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skidl.pckg_info</span><span class="w"> </span><span class="kn">import</span> <span class="n">__version__</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skidl.scriptinfo</span><span class="w"> </span><span class="kn">import</span> <span class="n">scriptinfo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skidl.utilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_quotes</span><span class="p">,</span> <span class="n">export_to_all</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skidl.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">active_logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skidl.part</span><span class="w"> </span><span class="kn">import</span> <span class="n">LIBRARY</span>
 
 
-<span class="k">def</span> <span class="nf">gen_xml_comp</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">gen_xml_comp</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate the XML describing a component.</span>
 
 <span class="sd">    Args:</span>
@@ -78,9 +78,7 @@
     <span class="k">try</span><span class="p">:</span>
         <span class="n">footprint</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">footprint</span>
     <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-        <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;No footprint for </span><span class="si">{</span><span class="n">part</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">ref</span><span class="si">}</span><span class="s2">.&quot;</span>
-        <span class="p">)</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No footprint for </span><span class="si">{</span><span class="n">part</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">ref</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
         <span class="n">footprint</span> <span class="o">=</span> <span class="s2">&quot;No Footprint&quot;</span>
 
     <span class="n">lib_filename</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="s2">&quot;filename&quot;</span><span class="p">,</span> <span class="s2">&quot;NO_LIB&quot;</span><span class="p">)</span>
@@ -108,7 +106,7 @@
     <span class="k">return</span> <span class="n">txt</span>
 
 
-<span class="k">def</span> <span class="nf">gen_xml_net</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">gen_xml_net</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
     <span class="n">code</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">code</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">name</span>
     <span class="n">txt</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;    &lt;net code=&quot;</span><span class="si">{</span><span class="n">code</span><span class="si">}</span><span class="s1">&quot; name=&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&quot;&gt;&#39;</span>
@@ -123,7 +121,7 @@
 <div class="viewcode-block" id="gen_xml">
 <a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad6.gen_xml.html#skidl.tools.kicad6.gen_xml.gen_xml">[docs]</a>
 <span class="nd">@export_to_all</span>
-<span class="k">def</span> <span class="nf">gen_xml</span><span class="p">(</span><span class="n">circuit</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">gen_xml</span><span class="p">(</span><span class="n">circuit</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate the XML describing a circuit.</span>
 
 <span class="sd">    Args:</span>
@@ -190,14 +188,14 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad6.gen_xml</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2016-2026, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
     </div>
   </body>
 </html>

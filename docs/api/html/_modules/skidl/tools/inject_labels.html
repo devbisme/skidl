@@ -6,13 +6,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.tools.inject_labels &#8212; SKiDL 2.3.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <title>skidl.tools.inject_labels &#8212; SKiDL 3.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../../_static/documentation_options.js?v=c3c8ae58"></script>
-    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/documentation_options.js?v=acc74ff5"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.inject_labels</a></li> 
       </ul>
@@ -75,21 +75,21 @@
 <span class="sd">    inject_labels(&quot;power1.kicad_sch&quot;, &quot;circuit.net&quot;, &quot;power1_labeled.kicad_sch&quot;)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">uuid</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
-
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
 
 <span class="c1"># ---------------------------------------------------------------------------</span>
 <span class="c1"># S-expression parser  (recursive descent, no external deps)</span>
 <span class="c1"># ---------------------------------------------------------------------------</span>
 
+
 <div class="viewcode-block" id="parse_sexp">
 <a class="viewcode-back" href="../../../rst_output/skidl.tools.inject_labels.html#skidl.tools.inject_labels.parse_sexp">[docs]</a>
-<span class="k">def</span> <span class="nf">parse_sexp</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_sexp</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse a KiCad S-expression string into nested Python lists.</span>
 
 <span class="sd">    Atoms are kept as strings.  Quoted strings have their quotes stripped.</span>
@@ -102,7 +102,7 @@
 
 
 
-<span class="k">def</span> <span class="nf">_tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Split *text* into a flat list of tokens: ``(``, ``)``, quoted strings,</span>
 <span class="sd">    and bare atoms.&quot;&quot;&quot;</span>
     <span class="n">tokens</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
@@ -133,14 +133,14 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Bare atom (number, keyword, etc.)</span>
             <span class="n">j</span> <span class="o">=</span> <span class="n">i</span>
-            <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="ow">and</span> <span class="n">text</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="s2">&quot; </span><span class="se">\t\n\r</span><span class="s2">()</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">:</span>
+            <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="ow">and</span> <span class="n">text</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="s1">&#39; </span><span class="se">\t\n\r</span><span class="s1">()&quot;&#39;</span><span class="p">:</span>
                 <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">j</span><span class="p">])</span>
             <span class="n">i</span> <span class="o">=</span> <span class="n">j</span>
     <span class="k">return</span> <span class="n">tokens</span>
 
 
-<span class="k">def</span> <span class="nf">_parse_tokens</span><span class="p">(</span><span class="n">tokens</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_parse_tokens</span><span class="p">(</span><span class="n">tokens</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Recursively parse tokens starting at *pos*.</span>
 <span class="sd">    Returns ``(parsed_value, next_pos)``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -160,9 +160,10 @@
 <span class="c1"># Netlist (.net) parser</span>
 <span class="c1"># ---------------------------------------------------------------------------</span>
 
+
 <div class="viewcode-block" id="parse_netlist">
 <a class="viewcode-back" href="../../../rst_output/skidl.tools.inject_labels.html#skidl.tools.inject_labels.parse_netlist">[docs]</a>
-<span class="k">def</span> <span class="nf">parse_netlist</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_netlist</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a mapping of ``(component_ref, pin_number) -&gt; net_name``</span>
 <span class="sd">    from a KiCad .net netlist file.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -194,7 +195,8 @@
 <span class="c1"># Schematic parser helpers</span>
 <span class="c1"># ---------------------------------------------------------------------------</span>
 
-<span class="k">def</span> <span class="nf">_find</span><span class="p">(</span><span class="n">sexp</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_find</span><span class="p">(</span><span class="n">sexp</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the first child list whose first element equals *tag*.&quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sexp</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="n">item</span> <span class="ow">and</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">tag</span><span class="p">:</span>
@@ -202,13 +204,12 @@
     <span class="k">return</span> <span class="kc">None</span>
 
 
-<span class="k">def</span> <span class="nf">_find_all</span><span class="p">(</span><span class="n">sexp</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_find_all</span><span class="p">(</span><span class="n">sexp</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return all child lists whose first element equals *tag*.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sexp</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="n">item</span> <span class="ow">and</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">tag</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sexp</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="n">item</span> <span class="ow">and</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">tag</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">_get_value</span><span class="p">(</span><span class="n">sexp</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_value</span><span class="p">(</span><span class="n">sexp</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the string value of a ``(tag value)`` child, or ``None``.&quot;&quot;&quot;</span>
     <span class="n">node</span> <span class="o">=</span> <span class="n">_find</span><span class="p">(</span><span class="n">sexp</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">node</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
@@ -220,9 +221,10 @@
 <span class="c1"># Extract lib_symbol pin definitions</span>
 <span class="c1"># ---------------------------------------------------------------------------</span>
 
+
 <div class="viewcode-block" id="extract_lib_pins">
 <a class="viewcode-back" href="../../../rst_output/skidl.tools.inject_labels.html#skidl.tools.inject_labels.extract_lib_pins">[docs]</a>
-<span class="k">def</span> <span class="nf">extract_lib_pins</span><span class="p">(</span><span class="n">tree</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_lib_pins</span><span class="p">(</span><span class="n">tree</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse the ``lib_symbols`` section of the schematic.</span>
 
 <span class="sd">    Returns ``{lib_id: [pin_dict, ...]}`` where each *pin_dict* has keys:</span>
@@ -246,7 +248,7 @@
 
 
 
-<span class="k">def</span> <span class="nf">_collect_pins</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">pins</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_collect_pins</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">pins</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Recursively collect pin defs from a lib_symbol or its sub-symbols.&quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">child</span><span class="p">:</span>
@@ -259,7 +261,7 @@
             <span class="n">_collect_pins</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">pins</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_parse_pin</span><span class="p">(</span><span class="n">pin_sexp</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_parse_pin</span><span class="p">(</span><span class="n">pin_sexp</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse a ``(pin TYPE STYLE (at X Y ANGLE) ... (name ...) (number ...))``.&quot;&quot;&quot;</span>
     <span class="n">at_node</span> <span class="o">=</span> <span class="n">_find</span><span class="p">(</span><span class="n">pin_sexp</span><span class="p">,</span> <span class="s2">&quot;at&quot;</span><span class="p">)</span>
     <span class="n">num_node</span> <span class="o">=</span> <span class="n">_find</span><span class="p">(</span><span class="n">pin_sexp</span><span class="p">,</span> <span class="s2">&quot;number&quot;</span><span class="p">)</span>
@@ -281,9 +283,10 @@
 <span class="c1"># Extract symbol instances from the schematic</span>
 <span class="c1"># ---------------------------------------------------------------------------</span>
 
+
 <div class="viewcode-block" id="extract_instances">
 <a class="viewcode-back" href="../../../rst_output/skidl.tools.inject_labels.html#skidl.tools.inject_labels.extract_instances">[docs]</a>
-<span class="k">def</span> <span class="nf">extract_instances</span><span class="p">(</span><span class="n">tree</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_instances</span><span class="p">(</span><span class="n">tree</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract all ``(symbol (lib_id ...) (at SX SY SROT) ...)`` instances.</span>
 
 <span class="sd">    Returns a list of dicts with keys: ``lib_id``, ``ref``, ``sx``, ``sy``,</span>
@@ -322,13 +325,17 @@
         <span class="k">if</span> <span class="n">ref</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">continue</span>
 
-        <span class="n">instances</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-            <span class="s2">&quot;lib_id&quot;</span><span class="p">:</span> <span class="n">lib_id</span><span class="p">,</span>
-            <span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="n">ref</span><span class="p">,</span>
-            <span class="s2">&quot;sx&quot;</span><span class="p">:</span> <span class="n">sx</span><span class="p">,</span> <span class="s2">&quot;sy&quot;</span><span class="p">:</span> <span class="n">sy</span><span class="p">,</span>
-            <span class="s2">&quot;rotation&quot;</span><span class="p">:</span> <span class="n">rotation</span><span class="p">,</span>
-            <span class="s2">&quot;mirror_x&quot;</span><span class="p">:</span> <span class="n">mirror_x</span><span class="p">,</span> <span class="s2">&quot;mirror_y&quot;</span><span class="p">:</span> <span class="n">mirror_y</span><span class="p">,</span>
-        <span class="p">})</span>
+        <span class="n">instances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;lib_id&quot;</span><span class="p">:</span> <span class="n">lib_id</span><span class="p">,</span>
+                <span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="n">ref</span><span class="p">,</span>
+                <span class="s2">&quot;sx&quot;</span><span class="p">:</span> <span class="n">sx</span><span class="p">,</span>
+                <span class="s2">&quot;sy&quot;</span><span class="p">:</span> <span class="n">sy</span><span class="p">,</span>
+                <span class="s2">&quot;rotation&quot;</span><span class="p">:</span> <span class="n">rotation</span><span class="p">,</span>
+                <span class="s2">&quot;mirror_x&quot;</span><span class="p">:</span> <span class="n">mirror_x</span><span class="p">,</span>
+                <span class="s2">&quot;mirror_y&quot;</span><span class="p">:</span> <span class="n">mirror_y</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">instances</span></div>
 
@@ -338,12 +345,17 @@
 <span class="c1"># Coordinate transform: pin local -&gt; world</span>
 <span class="c1"># ---------------------------------------------------------------------------</span>
 
+
 <div class="viewcode-block" id="pin_world_pos">
 <a class="viewcode-back" href="../../../rst_output/skidl.tools.inject_labels.html#skidl.tools.inject_labels.pin_world_pos">[docs]</a>
-<span class="k">def</span> <span class="nf">pin_world_pos</span><span class="p">(</span>
-    <span class="n">sx</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sy</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">rotation</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">mirror_x</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">mirror_y</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-    <span class="n">px</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">py</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pin_world_pos</span><span class="p">(</span>
+    <span class="n">sx</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">sy</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">rotation</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">mirror_x</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">mirror_y</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">px</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">py</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Transform a pin&#39;s local offset to world coordinates.</span>
 
@@ -368,8 +380,11 @@
 
 <div class="viewcode-block" id="label_angle_from_position">
 <a class="viewcode-back" href="../../../rst_output/skidl.tools.inject_labels.html#skidl.tools.inject_labels.label_angle_from_position">[docs]</a>
-<span class="k">def</span> <span class="nf">label_angle_from_position</span><span class="p">(</span>
-    <span class="n">sx</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sy</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">wx</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">wy</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">label_angle_from_position</span><span class="p">(</span>
+    <span class="n">sx</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">sy</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">wx</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">wy</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute label angle so it extends AWAY from the symbol body.</span>
 
@@ -391,9 +406,10 @@
 <span class="c1"># Net name utilities</span>
 <span class="c1"># ---------------------------------------------------------------------------</span>
 
+
 <div class="viewcode-block" id="is_unnamed_net">
 <a class="viewcode-back" href="../../../rst_output/skidl.tools.inject_labels.html#skidl.tools.inject_labels.is_unnamed_net">[docs]</a>
-<span class="k">def</span> <span class="nf">is_unnamed_net</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_unnamed_net</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return True if the net name looks auto-generated / unnamed.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;N$&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;Net-&quot;</span><span class="p">)</span></div>
 
@@ -401,7 +417,7 @@
 
 <div class="viewcode-block" id="readable_net_name">
 <a class="viewcode-back" href="../../../rst_output/skidl.tools.inject_labels.html#skidl.tools.inject_labels.readable_net_name">[docs]</a>
-<span class="k">def</span> <span class="nf">readable_net_name</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">readable_net_name</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert an auto-generated net name to something readable.</span>
 
 <span class="sd">    ``N$1`` → ``net1``, ``Net-(R1-1)`` → ``R1_1``.</span>
@@ -419,7 +435,8 @@
 <span class="c1"># Label S-expression generation</span>
 <span class="c1"># ---------------------------------------------------------------------------</span>
 
-<span class="k">def</span> <span class="nf">_fmt</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_fmt</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Format a float, dropping unnecessary trailing zeros.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">val</span> <span class="o">==</span> <span class="nb">int</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
@@ -428,8 +445,11 @@
 
 <div class="viewcode-block" id="make_global_label_sexp">
 <a class="viewcode-back" href="../../../rst_output/skidl.tools.inject_labels.html#skidl.tools.inject_labels.make_global_label_sexp">[docs]</a>
-<span class="k">def</span> <span class="nf">make_global_label_sexp</span><span class="p">(</span>
-    <span class="n">net_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_global_label_sexp</span><span class="p">(</span>
+    <span class="n">net_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a KiCad 8/9 ``(global_label ...)`` S-expression string.&quot;&quot;&quot;</span>
     <span class="n">uid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
@@ -449,9 +469,10 @@
 <span class="c1"># Main pipeline</span>
 <span class="c1"># ---------------------------------------------------------------------------</span>
 
+
 <div class="viewcode-block" id="inject_labels">
 <a class="viewcode-back" href="../../../rst_output/skidl.tools.inject_labels.html#skidl.tools.inject_labels.inject_labels">[docs]</a>
-<span class="k">def</span> <span class="nf">inject_labels</span><span class="p">(</span><span class="n">sch_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">net_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">out_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">inject_labels</span><span class="p">(</span><span class="n">sch_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">net_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">out_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Read schematic + netlist, inject global labels at pin positions.</span>
 
 <span class="sd">    Args:</span>
@@ -483,9 +504,13 @@
                 <span class="n">net_name</span> <span class="o">=</span> <span class="n">readable_net_name</span><span class="p">(</span><span class="n">net_name</span><span class="p">)</span>
 
             <span class="n">wx</span><span class="p">,</span> <span class="n">wy</span> <span class="o">=</span> <span class="n">pin_world_pos</span><span class="p">(</span>
-                <span class="n">inst</span><span class="p">[</span><span class="s2">&quot;sx&quot;</span><span class="p">],</span> <span class="n">inst</span><span class="p">[</span><span class="s2">&quot;sy&quot;</span><span class="p">],</span> <span class="n">inst</span><span class="p">[</span><span class="s2">&quot;rotation&quot;</span><span class="p">],</span>
-                <span class="n">inst</span><span class="p">[</span><span class="s2">&quot;mirror_x&quot;</span><span class="p">],</span> <span class="n">inst</span><span class="p">[</span><span class="s2">&quot;mirror_y&quot;</span><span class="p">],</span>
-                <span class="n">pin</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">],</span> <span class="n">pin</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">],</span>
+                <span class="n">inst</span><span class="p">[</span><span class="s2">&quot;sx&quot;</span><span class="p">],</span>
+                <span class="n">inst</span><span class="p">[</span><span class="s2">&quot;sy&quot;</span><span class="p">],</span>
+                <span class="n">inst</span><span class="p">[</span><span class="s2">&quot;rotation&quot;</span><span class="p">],</span>
+                <span class="n">inst</span><span class="p">[</span><span class="s2">&quot;mirror_x&quot;</span><span class="p">],</span>
+                <span class="n">inst</span><span class="p">[</span><span class="s2">&quot;mirror_y&quot;</span><span class="p">],</span>
+                <span class="n">pin</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">],</span>
+                <span class="n">pin</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">],</span>
             <span class="p">)</span>
             <span class="n">la</span> <span class="o">=</span> <span class="n">label_angle_from_position</span><span class="p">(</span><span class="n">inst</span><span class="p">[</span><span class="s2">&quot;sx&quot;</span><span class="p">],</span> <span class="n">inst</span><span class="p">[</span><span class="s2">&quot;sy&quot;</span><span class="p">],</span> <span class="n">wx</span><span class="p">,</span> <span class="n">wy</span><span class="p">)</span>
 
@@ -515,9 +540,10 @@
 <span class="c1"># CLI entry point</span>
 <span class="c1"># ---------------------------------------------------------------------------</span>
 
+
 <div class="viewcode-block" id="main">
 <a class="viewcode-back" href="../../../rst_output/skidl.tools.inject_labels.html#skidl.tools.inject_labels.main">[docs]</a>
-<span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span>
             <span class="s2">&quot;Usage: python -m skidl.tools.inject_labels &quot;</span>
@@ -563,14 +589,14 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.inject_labels</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2016-2026, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
     </div>
   </body>
 </html>

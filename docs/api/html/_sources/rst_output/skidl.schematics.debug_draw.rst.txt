@@ -1,7 +1,0 @@
-skidl.schematics.debug\_draw module
-===================================
-
-.. automodule:: skidl.schematics.debug_draw
-   :members:
-   :show-inheritance:
-   :undoc-members:

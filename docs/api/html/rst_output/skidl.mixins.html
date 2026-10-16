@@ -7,13 +7,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.mixins module &#8212; SKiDL 2.3.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <title>skidl.mixins module &#8212; SKiDL 3.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=c3c8ae58"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/documentation_options.js?v=acc74ff5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.mixins module</a></li> 
       </ul>
     </div>  
@@ -55,8 +55,8 @@ capabilities without requiring deep inheritance hierarchies.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.mixins.PinMixin">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.mixins.</span></span><span class="sig-name descname"><span class="pre">PinMixin</span></span><a class="reference internal" href="../_modules/skidl/mixins.html#PinMixin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.mixins.PinMixin" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">skidl.mixins.</span></span><span class="sig-name descname"><span class="pre">PinMixin</span></span><a class="reference internal" href="../_modules/skidl/mixins.html#PinMixin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.mixins.PinMixin" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Mixin class that adds pin-related methods and functionality to a class.</p>
 <p>This mixin provides comprehensive pin management capabilities including:
 - Adding, removing, and manipulating pins
@@ -71,7 +71,7 @@ including bracket notation, attribute access, and iteration.</p>
 <dd><p>List of Pin objects belonging to the part.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -82,14 +82,14 @@ including bracket notation, attribute access, and iteration.</p>
 <dd><p>Enable/disable regex matching for pin names and aliases.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">MyPart</span><span class="p">(</span><span class="n">PinMixin</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span><span class="w"> </span><span class="nc">MyPart</span><span class="p">(</span><span class="n">PinMixin</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 <span class="gp">... </span>        <span class="c1"># Add pins to the part</span>
 <span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">add_pins</span><span class="p">(</span><span class="n">Pin</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;VCC&#39;</span><span class="p">),</span> <span class="n">Pin</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;GND&#39;</span><span class="p">))</span>
@@ -151,15 +151,15 @@ nets, buses, or other pins during creation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>base_name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Base name for the pins. Pin indices will be appended
+<li><p><strong>base_name</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Base name for the pins. Pin indices will be appended
 to this name (e.g., “DATA” becomes “DATA1”, “DATA2”, etc.).</p></li>
-<li><p><strong>pin_count</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#range" title="(in Python v3.13)"><em>range</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#slice" title="(in Python v3.13)"><em>slice</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>, or </em><em>None</em>) – Specification of
+<li><p><strong>pin_count</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#range" title="(in Python v3.14)"><em>range</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#slice" title="(in Python v3.14)"><em>slice</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>, or </em><em>None</em>) – Specification of
 how many pins to create and their numbering:
 - int N: Creates N pins numbered 1 to N
 - range or slice: Uses the range values for pin numbers
 - tuple or list: Uses the provided list of pin numbers
 - None: Creates single pin without index appended to name</p></li>
-<li><p><strong>connections</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em> or </em><em>scalar</em><em>, </em><em>optional</em>) – List of nets, buses, or pins to connect
+<li><p><strong>connections</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em> or </em><em>scalar</em><em>, </em><em>optional</em>) – List of nets, buses, or pins to connect
 to each created pin. Must match the number of pins created.
 A scalar Net, Pin, or Bus will will be converted to a list of one item.</p></li>
 </ul>
@@ -171,7 +171,7 @@ A scalar Net, Pin, or Bus will will be converted to a list of one item.</p></li>
 <dd class="field-odd"><p>Self</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If connections list length doesn’t match number of pins created.</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If connections list length doesn’t match number of pins created.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -217,12 +217,12 @@ If empty, selects all pins.</p>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><strong>criteria</strong> – Attribute-based filtering criteria as key=value pairs.</p></li>
-<li><p><strong>silent</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Suppress error messages if True. Defaults to False.</p></li>
-<li><p><strong>only_search_numbers</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Restrict search to pin numbers only.
+<li><p><strong>silent</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Suppress error messages if True. Defaults to False.</p></li>
+<li><p><strong>only_search_numbers</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Restrict search to pin numbers only.
 Defaults to False.</p></li>
-<li><p><strong>only_search_names</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Restrict search to pin names/aliases only.
+<li><p><strong>only_search_names</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Restrict search to pin names/aliases only.
 Defaults to False.</p></li>
-<li><p><strong>match_regex</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Enable regex pattern matching for names.
+<li><p><strong>match_regex</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Enable regex pattern matching for names.
 Defaults to False, or uses part’s match_pin_regex setting.</p></li>
 </ul>
 </dd>
@@ -235,10 +235,10 @@ Defaults to False, or uses part’s match_pin_regex setting.</p></li>
 </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin" title="skidl.pin.Pin">Pin</a>, <a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a>, or None</p>
+<dd class="field-even"><p><a class="reference internal" href="skidl.pin.html#skidl.pin.Pin" title="skidl.pin.Pin">Pin</a>, <a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a>, or None</p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If no pins found and silent=False.</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If no pins found and silent=False.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -252,21 +252,21 @@ Defaults to False, or uses part’s match_pin_regex setting.</p></li>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.mixins.PinMixin.match_pin_regex">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">match_pin_regex</span></span><a class="headerlink" href="#skidl.mixins.PinMixin.match_pin_regex" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">match_pin_regex</span></span><a class="headerlink" href="#skidl.mixins.PinMixin.match_pin_regex" title="Link to this definition">¶</a></dt>
 <dd><p>Get the enable/disable flag for pin regular-expression matching.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Current state of regex matching flag.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.mixins.PinMixin.ordered_pins">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ordered_pins</span></span><a class="headerlink" href="#skidl.mixins.PinMixin.ordered_pins" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ordered_pins</span></span><a class="headerlink" href="#skidl.mixins.PinMixin.ordered_pins" title="Link to this definition">¶</a></dt>
 <dd><p>Get the pins sorted in a consistent order.</p>
 <p>Returns the part’s pins in sorted order, typically by pin number
 where possible, falling back to name-based sorting for non-numeric pins.</p>
@@ -275,7 +275,7 @@ where possible, falling back to name-based sorting for non-numeric pins.</p>
 <dd class="field-odd"><p>Sorted list of the part’s Pin objects.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -296,7 +296,7 @@ to the new value.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pin_id</strong> – Current identifier (name or number) of the pin to rename.</p></li>
-<li><p><strong>new_pin_name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – New name to assign to the pin.</p></li>
+<li><p><strong>new_pin_name</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – New name to assign to the pin.</p></li>
 </ul>
 </dd>
 </dl>
@@ -355,7 +355,7 @@ splits them into component parts, adding each part as an alias
 to the pin. This enables more flexible pin access patterns.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>delimiters</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – String containing characters to use as delimiters
+<dd class="field-odd"><p><strong>delimiters</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – String containing characters to use as delimiters
 for splitting pin names.</p>
 </dd>
 </dl>
@@ -455,13 +455,13 @@ connections and other properties.</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.mixins module</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2016-2026, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
     </div>
   </body>
 </html>

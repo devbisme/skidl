@@ -1,0 +1,7 @@
+skidl.tools.kicad7.gen\_sch module
+==================================
+
+.. automodule:: skidl.tools.kicad7.gen_sch
+   :members:
+   :show-inheritance:
+   :undoc-members:

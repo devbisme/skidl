@@ -7,13 +7,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.net module &#8212; SKiDL 2.3.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <title>skidl.net module &#8212; SKiDL 3.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=c3c8ae58"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/documentation_options.js?v=acc74ff5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.net module</a></li> 
       </ul>
     </div>  
@@ -128,7 +128,7 @@ that share properties like drive strength and net classes.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.net.NCNet">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.net.</span></span><span class="sig-name descname"><span class="pre">NCNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pins_nets_buses</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#NCNet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.NCNet" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">skidl.net.</span></span><span class="sig-name descname"><span class="pre">NCNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pins_nets_buses</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#NCNet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.NCNet" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#skidl.net.Net" title="skidl.net.Net"><code class="xref py py-class docutils literal notranslate"><span class="pre">Net</span></code></a></p>
 <p>A specialized Net subclass for explicitly marking pins as not connected.</p>
 <p>NCNet (No Connect Net) is used to explicitly mark component pins as
@@ -166,7 +166,7 @@ than actual net connections.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Name for the no-connect net. If None, an
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Name for the no-connect net. If None, an
 automatically generated name will be assigned. Multiple pins
 can share the same NCNet or use separate NCNet instances.</p></li>
 <li><p><strong>circuit</strong> (<a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit" title="skidl.circuit.Circuit"><em>Circuit</em></a><em>, </em><em>optional</em>) – The circuit this no-connect net belongs to.
@@ -227,7 +227,7 @@ still be verified for design intent:
 </dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.net.NCNet.drive">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">drive</span></span><a class="headerlink" href="#skidl.net.NCNet.drive" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">drive</span></span><a class="headerlink" href="#skidl.net.NCNet.drive" title="Link to this definition">¶</a></dt>
 <dd><p>Get the drive strength of this no-connect net.</p>
 <p>No-connect nets have a fixed drive strength of NOCONNECT that cannot
 be modified. This special drive value indicates that the net represents
@@ -247,11 +247,11 @@ characteristic as no-connect nets.</p>
 </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#int" title="(in Python v3.14)">int</a></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">skidl.pin</span> <span class="kn">import</span> <span class="n">pin_drives</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">skidl.pin</span><span class="w"> </span><span class="kn">import</span> <span class="n">pin_drives</span>
 <span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">nc_net</span> <span class="o">=</span> <span class="n">NCNet</span><span class="p">(</span><span class="s1">&#39;UNUSED_PINS&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">nc_net</span><span class="o">.</span><span class="n">drive</span> <span class="o">==</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">)</span>  <span class="c1"># True</span>
@@ -296,7 +296,7 @@ than actual circuit connections. This method always returns an empty
 string to exclude NCNet objects from netlist output.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The target netlist generation tool (e.g., ‘kicad’,
+<dd class="field-odd"><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – The target netlist generation tool (e.g., ‘kicad’,
 ‘altium’, ‘eagle’). Parameter is accepted for compatibility but
 ignored since NC nets are excluded from all netlist formats.</p>
 </dd>
@@ -309,7 +309,7 @@ rather than actual electrical connections.</p>
 </p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -347,7 +347,7 @@ rather than actual electrical connections.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.net.Net">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.net.</span></span><span class="sig-name descname"><span class="pre">Net</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pins_nets_buses</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">skidl.net.</span></span><span class="sig-name descname"><span class="pre">Net</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pins_nets_buses</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject" title="skidl.skidlbaseobj.SkidlBaseObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">SkidlBaseObject</span></code></a></p>
 <p>Represents an electrical connection between component pins in a circuit.</p>
 <p>The Net class is the fundamental building block for electrical connectivity
@@ -381,7 +381,7 @@ ERC functions can be added for specific design requirements.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Explicit name for the net. If None or empty,
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Explicit name for the net. If None or empty,
 an automatically generated unique name will be assigned using
 the NET_PREFIX pattern (e.g., “N$1”, “N$2”, etc.).</p></li>
 <li><p><strong>circuit</strong> (<a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit" title="skidl.circuit.Circuit"><em>Circuit</em></a><em>, </em><em>optional</em>) – The circuit this net belongs to.
@@ -472,11 +472,11 @@ strength propagation, and net class inheritance across connected segments.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If attempting to connect nets from different circuits.
+<li><p><a class="reference external" href="https://docs.python.org/3.14/builtins/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If attempting to connect nets from different circuits.
     All connected objects must belong to the same circuit context.</p></li>
-<li><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If attempting to connect parts from different circuits.
+<li><p><a class="reference external" href="https://docs.python.org/3.14/builtins/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If attempting to connect parts from different circuits.
     Component pins must be from parts in the same circuit.</p></li>
-<li><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#TypeError" title="(in Python v3.13)"><strong>TypeError</strong></a> – If attempting to connect unsupported object types.
+<li><p><a class="reference external" href="https://docs.python.org/3.14/builtins/exceptions.html#TypeError" title="(in Python v3.14)"><strong>TypeError</strong></a> – If attempting to connect unsupported object types.
     Only Pin, Net, and Bus objects can be connected to nets.</p></li>
 </ul>
 </dd>
@@ -534,7 +534,7 @@ This maintains circuit encapsulation and prevents invalid topologies.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>num_copies</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – Number of copies to create.
+<li><p><strong>num_copies</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Number of copies to create.
 If None, a single copy will be made.</p></li>
 <li><p><strong>circuit</strong> (<a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit" title="skidl.circuit.Circuit"><em>Circuit</em></a><em>, </em><em>optional</em>) – The circuit the copies will be added to.</p></li>
 <li><p><strong>**attribs</strong> – Attributes to apply to the copies.</p></li>
@@ -544,12 +544,12 @@ If None, a single copy will be made.</p></li>
 <dd class="field-even"><p>A single Net copy or list of copies.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#skidl.net.Net" title="skidl.net.Net">Net</a> or <a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference internal" href="#skidl.net.Net" title="skidl.net.Net">Net</a>]</p>
+<dd class="field-odd"><p><a class="reference internal" href="#skidl.net.Net" title="skidl.net.Net">Net</a> or <a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#skidl.net.Net" title="skidl.net.Net">Net</a>]</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If num_copies is not a non-negative integer.</p></li>
-<li><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If trying to copy a net that already has pins attached.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3.14/builtins/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If num_copies is not a non-negative integer.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3.14/builtins/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If trying to copy a net that already has pins attached.</p></li>
 </ul>
 </dd>
 </dl>
@@ -588,7 +588,7 @@ If None, a single copy will be made.</p></li>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.net.Net.drive">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">drive</span></span><a class="headerlink" href="#skidl.net.Net.drive" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">drive</span></span><a class="headerlink" href="#skidl.net.Net.drive" title="Link to this definition">¶</a></dt>
 <dd><p>Get, set or delete the drive strength of this net.</p>
 <p>The drive strength represents the electrical driving capability of the net.
 It is automatically set to the maximum drive value of any pin connected to
@@ -598,19 +598,19 @@ the net, and cannot be set to a lower value than the current maximum.</p>
 <dd class="field-odd"><p>The drive strength value.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#int" title="(in Python v3.14)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.net.Net.erc_list">
-<span class="sig-name descname"><span class="pre">erc_list</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;function</span> <span class="pre">dflt_net_erc&gt;]</span></em><a class="headerlink" href="#skidl.net.Net.erc_list" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">erc_list</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;function</span> <span class="pre">dflt_net_erc&gt;]</span></span><a class="headerlink" href="#skidl.net.Net.erc_list" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.net.Net.fetch">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net.fetch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net.fetch" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net.fetch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net.fetch" title="Link to this definition">¶</a></dt>
 <dd><p>Get an existing net by name, or create it if not found.</p>
 <p>This convenience method combines the functionality of get() and __init__()
 to provide a “get-or-create” pattern. It first attempts to find an existing
@@ -622,7 +622,7 @@ such as when importing from netlists or building circuits procedurally.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Name of the net to fetch or create. Used for both
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Name of the net to fetch or create. Used for both
 the search (if net exists) and the name parameter (if creating).</p></li>
 <li><p><strong>*args</strong> – Additional positional arguments passed to Net() constructor
 if creation is needed. Ignored if net already exists.</p></li>
@@ -656,7 +656,7 @@ is guaranteed to have the requested name (or a unique variant).</p>
 <span class="gp">... </span>                  <span class="n">circuit</span><span class="o">=</span><span class="n">main_circuit</span><span class="p">)</span>          <span class="c1"># Specific circuit</span>
 <span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Use in circuit building</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">connect_power</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">connect_power</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">vcc</span> <span class="o">=</span> <span class="n">Net</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;VCC&#39;</span><span class="p">)</span>              <span class="c1"># Always get VCC net</span>
 <span class="gp">... </span>    <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>              <span class="c1"># Always get GND net</span>
 <span class="gp">... </span>    <span class="n">vcc</span> <span class="o">+=</span> <span class="n">part</span><span class="p">[</span><span class="s1">&#39;VCC&#39;</span><span class="p">]</span>                  <span class="c1"># Connect power</span>
@@ -706,13 +706,13 @@ exceptions.</p>
 <dd><p>Generate the net information for inclusion in a netlist.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The format for the netlist file (e.g., KICAD).</p>
+<dd class="field-odd"><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – The format for the netlist file (e.g., KICAD).</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The net information formatted for the specified tool.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -723,20 +723,20 @@ exceptions.</p>
 <dd><p>Generate the net information for inclusion in an XML file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The format for the XML file (e.g., KICAD).</p>
+<dd class="field-odd"><p><strong>tool</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – The format for the XML file (e.g., KICAD).</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The net information formatted as XML for the specified tool.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.net.Net.get">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net.get" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net.get" title="Link to this definition">¶</a></dt>
 <dd><p>Retrieve an existing net by name from a circuit.</p>
 <p>Searches the specified circuit (or default circuit) for a net with the
 given name or alias. This provides a convenient way to access existing
@@ -748,7 +748,7 @@ matching is performed for reliable net identification.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Name or alias of the net to find. Must match exactly
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Name or alias of the net to find. Must match exactly
 (case-sensitive) either the net’s primary name or one of its
 assigned aliases.</p></li>
 <li><p><strong>circuit</strong> (<a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit" title="skidl.circuit.Circuit"><em>Circuit</em></a><em>, </em><em>optional</em>) – Circuit to search for the net.
@@ -819,7 +819,7 @@ applications.</p>
 <dd class="field-odd"><p>List of all net segments connected to this net, including this net.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -837,7 +837,7 @@ applications.</p>
 </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -854,10 +854,10 @@ applications.</p>
 <dd class="field-even"><p>True if the object is electrically connected to this net.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#TypeError" title="(in Python v3.13)"><strong>TypeError</strong></a> – If the given object is not a Pin, Net, or Bus.</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/exceptions.html#TypeError" title="(in Python v3.14)"><strong>TypeError</strong></a> – If the given object is not a Pin, Net, or Bus.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -872,7 +872,7 @@ applications.</p>
 <dd class="field-odd"><p>True if the net name is implicitly generated.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -888,7 +888,7 @@ attached to it.</p>
 <dd class="field-odd"><p>True if the net is movable.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -904,7 +904,7 @@ it to all of them.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.net.Net.name">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#skidl.net.Net.name" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#skidl.net.Net.name" title="Link to this definition">¶</a></dt>
 <dd><p>Get or set the name of this net.</p>
 <p>When setting the net name, if another net with the same name
 exists in the circuit, the name for this net will be adjusted
@@ -914,14 +914,14 @@ to make it unique.</p>
 <dd class="field-odd"><p>Net name.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.net.Net.netclasses">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">netclasses</span></span><a class="headerlink" href="#skidl.net.Net.netclasses" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">netclasses</span></span><a class="headerlink" href="#skidl.net.Net.netclasses" title="Link to this definition">¶</a></dt>
 <dd><p>Get or set the net class(es) assigned to this net and connected segments.</p>
 <p>Net classes define PCB routing rules including trace widths, clearances,
 via sizes, and electrical properties. They control how nets are routed
@@ -1016,35 +1016,35 @@ rules generate errors that must be resolved before manufacturing.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.net.Net.nets">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nets</span></span><a class="headerlink" href="#skidl.net.Net.nets" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">nets</span></span><a class="headerlink" href="#skidl.net.Net.nets" title="Link to this definition">¶</a></dt>
 <dd><p>Get all net segments connected to this net.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>List of all net segments electrically connected to this net.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.net.Net.pins">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pins</span></span><a class="headerlink" href="#skidl.net.Net.pins" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">pins</span></span><a class="headerlink" href="#skidl.net.Net.pins" title="Link to this definition">¶</a></dt>
 <dd><p>Get the pins attached to this net.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>List of pins attached to this net.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.net.Net.stub">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stub</span></span><a class="headerlink" href="#skidl.net.Net.stub" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">stub</span></span><a class="headerlink" href="#skidl.net.Net.stub" title="Link to this definition">¶</a></dt>
 <dd><p>Get or set the stub status of this net.</p>
 <p>A stub net is not routed in schematic generation, but
 is represented as a short stub connected to the pin.</p>
@@ -1053,7 +1053,7 @@ is represented as a short stub connected to the pin.</p>
 <dd class="field-odd"><p>True if this is a stub net.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1064,35 +1064,35 @@ is represented as a short stub connected to the pin.</p>
 <dd><p>Test if the net is valid for use.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If the net is no longer valid.</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If the net is no longer valid.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.net.Net.valid">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">valid</span></span><a class="headerlink" href="#skidl.net.Net.valid" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">valid</span></span><a class="headerlink" href="#skidl.net.Net.valid" title="Link to this definition">¶</a></dt>
 <dd><p>Check if this net is still valid.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>True if the net is valid, False if it has been invalidated.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.net.Net.width">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">width</span></span><a class="headerlink" href="#skidl.net.Net.width" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">width</span></span><a class="headerlink" href="#skidl.net.Net.width" title="Link to this definition">¶</a></dt>
 <dd><p>Get the width of the net.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Always 1 for a Net object.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#int" title="(in Python v3.14)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1179,13 +1179,13 @@ is represented as a short stub connected to the pin.</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.net module</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2016-2026, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
     </div>
   </body>
 </html>

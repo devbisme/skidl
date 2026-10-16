@@ -60,7 +60,7 @@ I'll demonstrate the evolution from a specific to a general SKiDL design using a
 <h3 id="four-leds">Four LEDs</h3>
 <p>Here's a simple SKiDL module that instantiates four common-cathode LEDs with
 current limiting resistors:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">leds</span><span class="p">(</span><span class="n">inp0</span><span class="p">,</span> <span class="n">inp1</span><span class="p">,</span> <span class="n">inp2</span><span class="p">,</span> <span class="n">inp3</span><span class="p">,</span> <span class="n">gnd</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">leds</span><span class="p">(</span><span class="n">inp0</span><span class="p">,</span> <span class="n">inp1</span><span class="p">,</span> <span class="n">inp2</span><span class="p">,</span> <span class="n">inp3</span><span class="p">,</span> <span class="n">gnd</span><span class="p">):</span>
 
     <span class="c1"># Create four LEDs and resistors.</span>
     <span class="n">leds</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;LED&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;KiCad/LEDs.pretty:LED_0603&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
@@ -85,7 +85,7 @@ The next module adds that flexibility.</p>
 <h3 id="pick-a-size-leds">Pick-A-Size LEDs</h3>
 <p>The module below supports any number of common-cathode LEDs by querying the
 number of lines in the input bus and instantiating the required number of components:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">leds</span><span class="p">(</span><span class="n">inps</span><span class="p">,</span> <span class="n">gnd</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">leds</span><span class="p">(</span><span class="n">inps</span><span class="p">,</span> <span class="n">gnd</span><span class="p">):</span>
 
     <span class="c1"># Use the width of the input bus to set the number of LEDs and resistors.</span>
     <span class="n">leds</span> <span class="o">=</span> <span class="n">inps</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;LED&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;KiCad/LEDs.pretty:LED_0603&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
@@ -108,7 +108,7 @@ The next module adds that capability.</p>
 <p>The code below supports both common-cathode and common-anode LED configurations
 by allowing either the anode or the cathode inputs to be a bus controlling the
 individual LEDs while the other input is the common terminal: </p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">leds</span><span class="p">(</span><span class="n">anodes</span><span class="p">,</span> <span class="n">cathodes</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">leds</span><span class="p">(</span><span class="n">anodes</span><span class="p">,</span> <span class="n">cathodes</span><span class="p">):</span>
 
     <span class="c1"># Either the anode will be connected to VCC or the cathode will be connected</span>
     <span class="c1"># to ground and will have a width of 1. The width of the other input bus will</span>
@@ -163,7 +163,7 @@ the number of components and reduce assembly costs.</p>
 <p><img alt="Resistor pinouts." src="images/reuse-leds/resistor-pinouts.png"></p>
 <p>The following code iteratively packs the resistors into one or more arrays
 until all the inputs are connected:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">leds</span><span class="p">(</span><span class="n">anodes</span><span class="p">,</span> <span class="n">cathodes</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">leds</span><span class="p">(</span><span class="n">anodes</span><span class="p">,</span> <span class="n">cathodes</span><span class="p">):</span>
 
     <span class="n">width</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">anodes</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">cathodes</span><span class="o">.</span><span class="n">width</span><span class="p">)</span>
 
@@ -255,7 +255,7 @@ This is the last limitation I'll address in this post.</p>
 <p>The module shown below uses Python's default argument feature so you can pass
 your own choices for components, but it will use the hard-coded components by
 default if you don't:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">leds</span><span class="p">(</span><span class="n">anodes</span><span class="p">,</span> <span class="n">cathodes</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">leds</span><span class="p">(</span><span class="n">anodes</span><span class="p">,</span> <span class="n">cathodes</span><span class="p">,</span>
         <span class="n">led_type</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;LED&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;KiCad/LEDs.pretty:LED_0603&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">),</span>
         <span class="n">r_types</span> <span class="o">=</span> <span class="p">[</span>
             <span class="kc">None</span><span class="p">,</span>

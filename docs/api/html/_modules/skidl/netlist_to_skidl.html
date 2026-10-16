@@ -6,13 +6,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.netlist_to_skidl &#8212; SKiDL 2.3.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <title>skidl.netlist_to_skidl &#8212; SKiDL 3.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=c3c8ae58"></script>
-    <script src="../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/documentation_options.js?v=acc74ff5"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.netlist_to_skidl</a></li> 
       </ul>
@@ -54,19 +54,19 @@
 <span class="sd">to regenerate the circuit or as a starting point for circuit modifications.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">random</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
-<span class="kn">from</span> <span class="nn">simp_sexp</span> <span class="kn">import</span> <span class="n">Sexp</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Set</span>
-<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>  <span class="c1"># Import the active_logger</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">simp_sexp</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sexp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Set</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">active_logger</span>  <span class="c1"># Import the active_logger</span>
 
 
 <div class="viewcode-block" id="Sheet">
 <a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.Sheet">[docs]</a>
-<span class="k">class</span> <span class="nc">Sheet</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Sheet</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents a hierarchical sheet from a KiCad schematic.</span>
 
@@ -84,7 +84,7 @@
 <span class="sd">        children (List[str]): Paths to the child sheets of this sheet</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize a Sheet object with the given attributes.</span>
 
@@ -97,7 +97,7 @@
 
 <div class="viewcode-block" id="legalize_name">
 <a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.legalize_name">[docs]</a>
-<span class="k">def</span> <span class="nf">legalize_name</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">is_filename</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">legalize_name</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">is_filename</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return a version of name that is a legal Python identifier.</span>
 
@@ -137,7 +137,7 @@
 
 <div class="viewcode-block" id="find_common_path_prefix">
 <a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.find_common_path_prefix">[docs]</a>
-<span class="k">def</span> <span class="nf">find_common_path_prefix</span><span class="p">(</span><span class="n">path1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">path2</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">find_common_path_prefix</span><span class="p">(</span><span class="n">path1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">path2</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return the common path prefix of two paths.</span>
 
@@ -171,12 +171,12 @@
 
 <div class="viewcode-block" id="SheetSexp">
 <a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.SheetSexp">[docs]</a>
-<span class="k">class</span> <span class="nc">SheetSexp</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SheetSexp</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class delivers attributes from a sheet S-expression.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sexp</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sexp</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/sheet/number&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/sheet/name&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span></div>
 
@@ -184,12 +184,12 @@
 
 <div class="viewcode-block" id="PartSexp">
 <a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.PartSexp">[docs]</a>
-<span class="k">class</span> <span class="nc">PartSexp</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PartSexp</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class delivers attributes from a component S-expression.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sexp</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sexp</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">sheetpath</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/comp/sheetpath/names&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
         <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
@@ -220,12 +220,12 @@
 
 <div class="viewcode-block" id="PropertySexp">
 <a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.PropertySexp">[docs]</a>
-<span class="k">class</span> <span class="nc">PropertySexp</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PropertySexp</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class delivers attributes from a property S-expression.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sexp</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sexp</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/property/name&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
         <span class="c1"># KiCad can export boolean properties (e.g. exclude_from_bom) without</span>
         <span class="c1"># a value, so treat a missing value as an empty string.</span>
@@ -236,12 +236,12 @@
 
 <div class="viewcode-block" id="PinSexp">
 <a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.PinSexp">[docs]</a>
-<span class="k">class</span> <span class="nc">PinSexp</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PinSexp</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class delivers attributes from a pin S-expression.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sexp</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sexp</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/node/ref&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/node/pin&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span></div>
 
@@ -249,12 +249,12 @@
 
 <div class="viewcode-block" id="NetSexp">
 <a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.NetSexp">[docs]</a>
-<span class="k">class</span> <span class="nc">NetSexp</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">NetSexp</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class delivers attributes from a net S-expression.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sexp</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sexp</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/net/name&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pins</span> <span class="o">=</span> <span class="p">[</span><span class="n">PinSexp</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;/net/node&quot;</span><span class="p">)]</span></div>
 
@@ -262,7 +262,7 @@
 
 <div class="viewcode-block" id="NetlistSexp">
 <a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.NetlistSexp">[docs]</a>
-<span class="k">class</span> <span class="nc">NetlistSexp</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">NetlistSexp</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents a KiCad netlist.</span>
 
@@ -275,7 +275,7 @@
 <span class="sd">        sheets (List): List of hierarchical sheets in the netlist</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sexp</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sexp</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sheets</span> <span class="o">=</span> <span class="p">[</span><span class="n">SheetSexp</span><span class="p">(</span><span class="n">sht</span><span class="p">)</span> <span class="k">for</span> <span class="n">sht</span> <span class="ow">in</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;design/sheet&quot;</span><span class="p">)]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parts</span> <span class="o">=</span> <span class="p">[</span><span class="n">PartSexp</span><span class="p">(</span><span class="n">comp</span><span class="p">)</span> <span class="k">for</span> <span class="n">comp</span> <span class="ow">in</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;components/comp&quot;</span><span class="p">)]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nets</span> <span class="o">=</span> <span class="p">[</span><span class="n">NetSexp</span><span class="p">(</span><span class="n">net</span><span class="p">)</span> <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">sexp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;nets/net&quot;</span><span class="p">)]</span></div>
@@ -284,7 +284,7 @@
 
 <div class="viewcode-block" id="HierarchicalConverter">
 <a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter">[docs]</a>
-<span class="k">class</span> <span class="nc">HierarchicalConverter</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HierarchicalConverter</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Converts a KiCad netlist into hierarchical SKiDL Python scripts.</span>
 
@@ -292,7 +292,7 @@
 <span class="sd">    that preserve the hierarchical structure of the original schematic.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the converter with a KiCad netlist.</span>
 
@@ -312,7 +312,7 @@
 
 <div class="viewcode-block" id="HierarchicalConverter.find_lowest_common_ancestor">
 <a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.find_lowest_common_ancestor">[docs]</a>
-    <span class="k">def</span> <span class="nf">find_lowest_common_ancestor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sheet1</span><span class="p">,</span> <span class="n">sheet2</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">find_lowest_common_ancestor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sheet1</span><span class="p">,</span> <span class="n">sheet2</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the lowest common ancestor (LCA) of two sheets.</span>
 
@@ -333,7 +333,7 @@
 
 <div class="viewcode-block" id="HierarchicalConverter.extract_sheet_info">
 <a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.extract_sheet_info">[docs]</a>
-    <span class="k">def</span> <span class="nf">extract_sheet_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">extract_sheet_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Populate self.sheets with Sheet objects built from the netlist.</span>
 
@@ -434,7 +434,7 @@
 
 <div class="viewcode-block" id="HierarchicalConverter.assign_components_to_sheets">
 <a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.assign_components_to_sheets">[docs]</a>
-    <span class="k">def</span> <span class="nf">assign_components_to_sheets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">assign_components_to_sheets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Assign each component from the netlist to its appropriate sheet.</span>
 
@@ -460,7 +460,7 @@
 
 <div class="viewcode-block" id="HierarchicalConverter.analyze_nets">
 <a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.analyze_nets">[docs]</a>
-    <span class="k">def</span> <span class="nf">analyze_nets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">analyze_nets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Analyze net usage to determine origins and required connections.</span>
 
@@ -469,7 +469,7 @@
 <span class="sd">        which are imported.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">def</span> <span class="nf">find_net_src_dests</span><span class="p">(</span><span class="n">net_sheets</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">find_net_src_dests</span><span class="p">(</span><span class="n">net_sheets</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Return the top-most sheet where the net is used and a list of all</span>
 <span class="sd">            sheets that the net passes through to its stopping points.</span>
@@ -558,7 +558,7 @@
 
 <div class="viewcode-block" id="HierarchicalConverter.cull_from_top">
 <a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.cull_from_top">[docs]</a>
-    <span class="k">def</span> <span class="nf">cull_from_top</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cull_from_top</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Remove top-level sheets that are not needed.</span>
 
@@ -586,7 +586,7 @@
 
 <div class="viewcode-block" id="HierarchicalConverter.component_to_skidl">
 <a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.component_to_skidl">[docs]</a>
-    <span class="k">def</span> <span class="nf">component_to_skidl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">comp</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">component_to_skidl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">comp</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a SKiDL instantiation string for a component.</span>
 
@@ -629,7 +629,7 @@
 
 <div class="viewcode-block" id="HierarchicalConverter.net_to_skidl">
 <a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.net_to_skidl">[docs]</a>
-    <span class="k">def</span> <span class="nf">net_to_skidl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">net</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">sheet</span><span class="p">:</span> <span class="n">Sheet</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">net_to_skidl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">net</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">sheet</span><span class="p">:</span> <span class="n">Sheet</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a SKiDL connection string for a net within a given sheet.</span>
 
@@ -658,7 +658,7 @@
 
 <div class="viewcode-block" id="HierarchicalConverter.generate_sheet_code">
 <a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.generate_sheet_code">[docs]</a>
-    <span class="k">def</span> <span class="nf">generate_sheet_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sheet</span><span class="p">:</span> <span class="n">Sheet</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_sheet_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sheet</span><span class="p">:</span> <span class="n">Sheet</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate the SKiDL code for a given sheet.</span>
 
@@ -750,7 +750,7 @@
 
 <div class="viewcode-block" id="HierarchicalConverter.generate_main_code">
 <a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.generate_main_code">[docs]</a>
-    <span class="k">def</span> <span class="nf">generate_main_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_main_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate the code for the main.py file that creates nets and calls subcircuits.</span>
 
@@ -773,7 +773,7 @@
 
 <div class="viewcode-block" id="HierarchicalConverter.convert">
 <a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.HierarchicalConverter.convert">[docs]</a>
-    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Run the complete conversion and write files if output_dir is provided.</span>
 
@@ -815,7 +815,7 @@
 
 <div class="viewcode-block" id="netlist_to_skidl">
 <a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.netlist_to_skidl">[docs]</a>
-<span class="k">def</span> <span class="nf">netlist_to_skidl</span><span class="p">(</span><span class="n">netlist_src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">netlist_to_skidl</span><span class="p">(</span><span class="n">netlist_src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert a KiCad netlist to hierarchical SKiDL Python files.</span>
 
@@ -865,14 +865,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.netlist_to_skidl</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2016-2026, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
     </div>
   </body>
 </html>

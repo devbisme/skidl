@@ -7,13 +7,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.bus module &#8212; SKiDL 2.3.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <title>skidl.bus module &#8212; SKiDL 3.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=c3c8ae58"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/documentation_options.js?v=acc74ff5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.bus module</a></li> 
       </ul>
     </div>  
@@ -52,7 +52,7 @@ interconnected with pins and other buses, and copied to create multiple instance
 Buses are essential for handling multi-bit signals like data paths or address lines.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.bus.Bus">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.bus.</span></span><span class="sig-name descname"><span class="pre">Bus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/bus.html#Bus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.bus.Bus" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">skidl.bus.</span></span><span class="sig-name descname"><span class="pre">Bus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/bus.html#Bus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.bus.Bus" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject" title="skidl.skidlbaseobj.SkidlBaseObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">SkidlBaseObject</span></code></a></p>
 <p>A collection of related nets that can be indexed and connected as a group.</p>
 <p>Bus objects group nets to represent multi-bit signals like data buses, address buses,
@@ -62,7 +62,7 @@ integer indices, slices, or net names.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The name of the bus. If None, an implicit name will be generated.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – The name of the bus. If None, an implicit name will be generated.</p></li>
 <li><p><strong>*args</strong> – Various objects to create bus from - can include integers (for width),
 pins, nets, or other buses.</p></li>
 </ul>
@@ -112,7 +112,7 @@ pins, nets, or other buses.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>num_copies</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – Number of copies to create.
+<li><p><strong>num_copies</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Number of copies to create.
 If None, a single copy will be made.</p></li>
 <li><p><strong>circuit</strong> (<a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit" title="skidl.circuit.Circuit"><em>Circuit</em></a><em>, </em><em>optional</em>) – The circuit the copies will be added to.</p></li>
 <li><p><strong>**attribs</strong> – Attributes for the copies. If values are lists/tuples,
@@ -123,10 +123,10 @@ each copy gets the corresponding value.</p></li>
 <dd class="field-even"><p>A single Bus copy or list of copies.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#skidl.bus.Bus" title="skidl.bus.Bus">Bus</a> or <a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference internal" href="#skidl.bus.Bus" title="skidl.bus.Bus">Bus</a>]</p>
+<dd class="field-odd"><p><a class="reference internal" href="#skidl.bus.Bus" title="skidl.bus.Bus">Bus</a> or <a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#skidl.bus.Bus" title="skidl.bus.Bus">Bus</a>]</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If num_copies is not a non-negative integer.</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If num_copies is not a non-negative integer.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -150,14 +150,14 @@ each copy gets the corresponding value.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.bus.Bus.fetch">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/bus.html#Bus.fetch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.bus.Bus.fetch" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/bus.html#Bus.fetch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.bus.Bus.fetch" title="Link to this definition">¶</a></dt>
 <dd><p>Get a bus by name from a circuit, or create it if it doesn’t exist.</p>
 <p>This method is similar to get(), but will create a new bus if one
 with the given name is not found.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Name of the bus to fetch or create.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Name of the bus to fetch or create.</p></li>
 <li><p><strong>*args</strong> – Arguments to pass to the Bus constructor if creation is needed.</p></li>
 <li><p><strong>**attribs</strong> – Keyword arguments to pass to the Bus constructor if creation is needed.</p></li>
 </ul>
@@ -173,12 +173,12 @@ with the given name is not found.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.bus.Bus.get">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/bus.html#Bus.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.bus.Bus.get" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/bus.html#Bus.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.bus.Bus.get" title="Link to this definition">¶</a></dt>
 <dd><p>Get a bus by name from a circuit.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Name or alias of the bus to find.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Name or alias of the bus to find.</p></li>
 <li><p><strong>circuit</strong> (<a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit" title="skidl.circuit.Circuit"><em>Circuit</em></a><em>, </em><em>optional</em>) – Circuit to search in. Defaults to default_circuit.</p></li>
 </ul>
 </dd>
@@ -200,7 +200,7 @@ with the given name is not found.</p>
 <dd class="field-odd"><p>Nets in this bus.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference internal" href="skidl.net.html#skidl.net.Net" title="skidl.net.Net">Net</a>]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="skidl.net.html#skidl.net.Net" title="skidl.net.Net">Net</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -211,7 +211,7 @@ with the given name is not found.</p>
 <dd><p>Raise an error since accessing all pins across a bus is not supported.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#Exception" title="(in Python v3.13)"><strong>Exception</strong></a> – Always raises an error.</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/exceptions.html#Exception" title="(in Python v3.14)"><strong>Exception</strong></a> – Always raises an error.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -225,12 +225,12 @@ New nets will be given names based on the bus name and their position.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Position to insert objects.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Position to insert objects.</p></li>
 <li><p><strong>*objects</strong> – Objects to insert - integers, nets, pins, or buses.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If an unsupported object type is inserted.</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If an unsupported object type is inserted.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -245,7 +245,7 @@ New nets will be given names based on the bus name and their position.</p>
 <dd class="field-odd"><p>True if the bus has an implicitly generated name.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -260,14 +260,14 @@ New nets will be given names based on the bus name and their position.</p>
 <dd class="field-odd"><p>True if all nets in the bus are movable.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.bus.Bus.name">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#skidl.bus.Bus.name" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#skidl.bus.Bus.name" title="Link to this definition">¶</a></dt>
 <dd><p>Get the name of the bus.</p>
 <p>When setting the name, if another bus with the same name exists in the
 circuit, the name will be adjusted to make it unique.</p>
@@ -276,29 +276,29 @@ circuit, the name will be adjusted to make it unique.</p>
 <dd class="field-odd"><p>The bus name.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.bus.Bus.netclasses">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">netclasses</span></span><a class="headerlink" href="#skidl.bus.Bus.netclasses" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">netclasses</span></span><a class="headerlink" href="#skidl.bus.Bus.netclasses" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.bus.Bus.pins">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pins</span></span><a class="headerlink" href="#skidl.bus.Bus.pins" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">pins</span></span><a class="headerlink" href="#skidl.bus.Bus.pins" title="Link to this definition">¶</a></dt>
 <dd><p>Get all pins connected to the bus.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>List of pins connected to the bus nets.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)">list</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#Exception" title="(in Python v3.13)"><strong>Exception</strong></a> – Always raises an error since accessing all pins across a bus is not supported.</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/exceptions.html#Exception" title="(in Python v3.14)"><strong>Exception</strong></a> – Always raises an error since accessing all pins across a bus is not supported.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -310,14 +310,14 @@ circuit, the name will be adjusted to make it unique.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.bus.Bus.width">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">width</span></span><a class="headerlink" href="#skidl.bus.Bus.width" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">width</span></span><a class="headerlink" href="#skidl.bus.Bus.width" title="Link to this definition">¶</a></dt>
 <dd><p>Get the width of the bus (number of nets).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The number of nets in the bus.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/functions.html#int" title="(in Python v3.14)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -390,13 +390,13 @@ circuit, the name will be adjusted to make it unique.</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.bus module</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2016-2026, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
     </div>
   </body>
 </html>

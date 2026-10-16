@@ -1,0 +1,7 @@
+skidl.errors module
+===================
+
+.. automodule:: skidl.errors
+   :members:
+   :show-inheritance:
+   :undoc-members:

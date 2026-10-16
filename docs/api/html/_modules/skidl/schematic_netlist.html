@@ -1,0 +1,362 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.schematic_netlist &#8212; SKiDL 3.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../../_static/documentation_options.js?v=acc74ff5"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../../"><img src="../../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.schematic_netlist</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skidl.schematic_netlist</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Generic, hierarchical netlist emitter for schematic generation.</span>
+
+<span class="sd">SKiDL&#39;s job is to describe electrical interconnection. The *graphical* work of</span>
+<span class="sd">turning that interconnection into a schematic (placement, routing, KiCad file</span>
+<span class="sd">generation) is done by a separate tool. The bridge between the two is the</span>
+<span class="sd">JSON document produced here by :func:`build_generic_netlist`.</span>
+
+<span class="sd">The document is deliberately tool-neutral and easy to extend:</span>
+
+<span class="sd">- Component symbol geometry is **embedded** (one definition per unique</span>
+<span class="sd">  ``lib_id``), so the downstream tool needs no access to KiCad symbol</span>
+<span class="sd">  libraries and the result is fully reproducible.</span>
+<span class="sd">- Orientation/layout *hints* the downstream placer consumes are carried</span>
+<span class="sd">  alongside the electrical data: per-component ``symtx`` (mirror/rotate) and</span>
+<span class="sd">  per-net ``stub``/``netio``. New hints can be added as new keys without</span>
+<span class="sd">  breaking readers.</span>
+
+<span class="sd">Coordinates are emitted in native KiCad units (mm) and integer degrees; the</span>
+<span class="sd">downstream tool performs the mm-&gt;mils and degrees-&gt;direction normalization</span>
+<span class="sd">(the equivalent of ``preprocess_circuit`` in the current KiCad backends).</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os.path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">skidl.utilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">export_to_all</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;build_generic_netlist&quot;</span><span class="p">]</span>
+
+<span class="c1"># Schema identifier and version. Bump SCHEMA_VERSION on incompatible changes;</span>
+<span class="c1"># additive hints do not require a bump.</span>
+<span class="n">SCHEMA_NAME</span> <span class="o">=</span> <span class="s2">&quot;skidl-generic-netlist&quot;</span>
+<span class="n">SCHEMA_VERSION</span> <span class="o">=</span> <span class="mi">1</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_lib_name_of</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the library name (no extension/path) a part came from.&quot;&quot;&quot;</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="s2">&quot;filename&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="s2">&quot;Device&quot;</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_lib_id_of</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the ``lib:part`` identifier used to key embedded symbols.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_lib_name_of</span><span class="p">(</span><span class="n">part</span><span class="p">),</span> <span class="n">part</span><span class="o">.</span><span class="n">name</span> <span class="ow">or</span> <span class="s2">&quot;Unknown&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_units_of</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Yield ``(unit_num, unit_obj)`` for a part.</span>
+
+<span class="sd">    Mirrors ``preprocess_circuit.units``: a part with no explicit units is its</span>
+<span class="sd">    own single unit. Multi-unit parts yield each sub-unit.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;unit&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="mi">1</span><span class="p">,</span> <span class="n">part</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">yield</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="s2">&quot;num&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">unit</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_jsonify</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert Sexp/nested-list draw commands into plain JSON-safe lists.</span>
+
+<span class="sd">    ``draw_cmds`` are ``simp_sexp.Sexp`` objects (a ``list`` subclass) holding</span>
+<span class="sd">    strings and numbers. Recurse to strip the subclass so ``json`` accepts them</span>
+<span class="sd">    and so the document does not depend on Sexp for reading.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">_jsonify</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">obj</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_json_value</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return val if it is a JSON scalar, else its string form.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="p">(</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="n">val</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_pin_geometry</span><span class="p">(</span><span class="n">pin</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Serialize the symbol-level geometry of a single pin.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;num&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">num</span><span class="p">),</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">pin</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
+        <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="n">pin</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
+        <span class="c1"># Native symbol orientation. May already be a direction string</span>
+        <span class="c1"># (&quot;R&quot;/&quot;U&quot;/&quot;L&quot;/&quot;D&quot;) after library parsing, or an integer angle.</span>
+        <span class="s2">&quot;orient&quot;</span><span class="p">:</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span><span class="p">,</span>
+        <span class="s2">&quot;rotation&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="s2">&quot;rotation&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="s2">&quot;length&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="s2">&quot;length&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="s2">&quot;func&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="s2">&quot;func&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)),</span>
+    <span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_symbol_def</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build the embedded, reusable symbol definition for a part&#39;s ``lib_id``.</span>
+
+<span class="sd">    Captures both the raw draw commands (needed to emit KiCad ``lib_symbols``)</span>
+<span class="sd">    and per-unit pin geometry (needed by the placement/routing engine).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">units</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">unit_num</span><span class="p">,</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">_units_of</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+        <span class="n">units</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">unit_num</span><span class="p">)]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;pins&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">_pin_geometry</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">unit</span><span class="o">.</span><span class="n">pins</span><span class="p">],</span>
+        <span class="p">}</span>
+
+    <span class="n">draw_cmds</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">unit_num</span><span class="p">,</span> <span class="n">cmds</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;draw_cmds&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">draw_cmds</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">unit_num</span><span class="p">)]</span> <span class="o">=</span> <span class="n">_jsonify</span><span class="p">(</span><span class="n">cmds</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;ref_prefix&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;ref_prefix&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;U&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">part</span><span class="o">.</span><span class="n">name</span> <span class="ow">or</span> <span class="s2">&quot;Unknown&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;lib&quot;</span><span class="p">:</span> <span class="n">_lib_name_of</span><span class="p">(</span><span class="n">part</span><span class="p">),</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;datasheet&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;datasheet&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;draw_cmds&quot;</span><span class="p">:</span> <span class="n">draw_cmds</span><span class="p">,</span>
+        <span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="n">units</span><span class="p">,</span>
+    <span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_component</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Serialize one placeable component instance (electrical + hints).&quot;&quot;&quot;</span>
+    <span class="n">pins</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">unit_num</span><span class="p">,</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">_units_of</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">unit</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
+            <span class="n">net</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="s2">&quot;net&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">pins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;num&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">num</span><span class="p">),</span>
+                    <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">unit_num</span><span class="p">,</span>
+                    <span class="s2">&quot;net&quot;</span><span class="p">:</span> <span class="n">net</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">net</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span>
+        <span class="s2">&quot;lib_id&quot;</span><span class="p">:</span> <span class="n">_lib_id_of</span><span class="p">(</span><span class="n">part</span><span class="p">),</span>
+        <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">part</span><span class="o">.</span><span class="n">value_to_str</span><span class="p">(),</span>
+        <span class="s2">&quot;footprint&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;footprint&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hiertuple&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">hiertuple</span><span class="p">),</span>
+        <span class="c1"># --- layout hints ---</span>
+        <span class="s2">&quot;symtx&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;symtx&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;orientation_locked&quot;</span><span class="p">:</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;orientation_locked&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)),</span>
+        <span class="s2">&quot;pins&quot;</span><span class="p">:</span> <span class="n">pins</span><span class="p">,</span>
+        <span class="c1"># --- additive (schema v1): user part fields (e.g. MPN, manufacturer, DNP) ---</span>
+        <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">):</span> <span class="n">_json_value</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;fields&quot;</span><span class="p">,</span> <span class="p">{})</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">},</span>
+    <span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_net</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">code</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Serialize one net: connectivity plus stub/io hints.&quot;&quot;&quot;</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">str</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">pin_type</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">get_pin_info</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">pin_type</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;ref&quot;</span><span class="p">:</span> <span class="n">pin</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span>
+                <span class="s2">&quot;pin&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">num</span><span class="p">),</span>
+                <span class="s2">&quot;pintype&quot;</span><span class="p">:</span> <span class="n">pin_type</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+        <span class="s2">&quot;code&quot;</span><span class="p">:</span> <span class="n">code</span><span class="p">,</span>
+        <span class="c1"># --- layout hints ---</span>
+        <span class="c1"># ``stub`` is the effective value; ``stub_explicit`` records whether the</span>
+        <span class="c1"># user set it (vs. an automatic heuristic the downstream tool may apply).</span>
+        <span class="s2">&quot;stub&quot;</span><span class="p">:</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)),</span>
+        <span class="s2">&quot;stub_explicit&quot;</span><span class="p">:</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;_stub_explicit&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)),</span>
+        <span class="s2">&quot;netio&quot;</span><span class="p">:</span> <span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;netio&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
+        <span class="s2">&quot;implicit&quot;</span><span class="p">:</span> <span class="nb">bool</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">is_implicit</span><span class="p">()),</span>
+        <span class="s2">&quot;nodes&quot;</span><span class="p">:</span> <span class="n">nodes</span><span class="p">,</span>
+        <span class="c1"># --- additive (schema v1): net attributes for layout ---</span>
+        <span class="s2">&quot;attrs&quot;</span><span class="p">:</span> <span class="n">_net_attrs</span><span class="p">(</span><span class="n">net</span><span class="p">),</span>
+    <span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_net_attrs</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Net attributes used by layout tools: net classes, lowest priority first.&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">classes</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">netclasses</span><span class="o">.</span><span class="n">by_priority</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="n">classes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;netclasses&quot;</span><span class="p">:</span> <span class="n">classes</span><span class="p">}</span> <span class="k">if</span> <span class="n">classes</span> <span class="k">else</span> <span class="p">{}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_netclass_defs</span><span class="p">(</span><span class="n">circuit</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Attributes of every net class defined in the circuit, keyed by class name.&quot;&quot;&quot;</span>
+    <span class="n">defs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">nc</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="s2">&quot;netclasses&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+        <span class="n">defs</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">)]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">):</span> <span class="n">_json_value</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="n">nc</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s2">&quot;name&quot;</span>
+        <span class="p">}</span>
+    <span class="k">return</span> <span class="n">defs</span>
+
+
+<div class="viewcode-block" id="build_generic_netlist">
+<a class="viewcode-back" href="../../rst_output/skidl.schematic_netlist.html#skidl.schematic_netlist.build_generic_netlist">[docs]</a>
+<span class="nd">@export_to_all</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">build_generic_netlist</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">top_name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build a generic, hierarchical netlist document from a circuit.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        circuit (Circuit): The circuit to serialize. It should already be</span>
+<span class="sd">            merged (``merge_net_names``/``merge_nets``) as ``generate_schematic``</span>
+<span class="sd">            does before calling this.</span>
+<span class="sd">        title (str): Optional schematic title carried through to the tool.</span>
+<span class="sd">        top_name (str): Optional top-of-hierarchy name for output filenames.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: A JSON-serializable document with ``symbols``, ``components``,</span>
+<span class="sd">        ``nets`` and ``sheets`` sections. The structure is stable and additive;</span>
+<span class="sd">        readers should ignore unknown keys.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Real parts only. NetTerminals are a placement-time construct created by</span>
+    <span class="c1"># the downstream tool, so they never appear here.</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">parts</span> <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">&quot;NT&quot;</span><span class="p">]</span>
+
+    <span class="c1"># Embedded symbol definitions, one per unique lib_id (deduplicated).</span>
+    <span class="n">symbols</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">:</span>
+        <span class="n">lib_id</span> <span class="o">=</span> <span class="n">_lib_id_of</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">lib_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">:</span>
+            <span class="n">symbols</span><span class="p">[</span><span class="n">lib_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">_symbol_def</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+
+    <span class="c1"># Components, sorted by reference for deterministic output.</span>
+    <span class="n">components</span> <span class="o">=</span> <span class="p">[</span><span class="n">_component</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">ref</span><span class="p">))]</span>
+
+    <span class="c1"># Nets, sorted by name; assign sequential codes (matches gen_netlist).</span>
+    <span class="n">nets</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">sorted_nets</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">circuit</span><span class="o">.</span><span class="n">get_nets</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">code</span><span class="p">,</span> <span class="n">net</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sorted_nets</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">nets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_net</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">code</span><span class="p">))</span>
+
+    <span class="c1"># The no-connect net is excluded by get_nets(), but its pins need no-connect</span>
+    <span class="c1"># flags, so emit it last with the &quot;nc&quot; flag the reader uses to recognize it.</span>
+    <span class="n">nc_net</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="s2">&quot;NC&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">part_ids</span> <span class="o">=</span> <span class="p">{</span><span class="nb">id</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">}</span>
+    <span class="n">nc_pins</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">nc_net</span><span class="p">,</span> <span class="s2">&quot;pins&quot;</span><span class="p">,</span> <span class="p">[])</span> <span class="k">if</span> <span class="nb">id</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">part</span><span class="p">)</span> <span class="ow">in</span> <span class="n">part_ids</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">nc_pins</span><span class="p">:</span>
+        <span class="n">nc_entry</span> <span class="o">=</span> <span class="n">_net</span><span class="p">(</span><span class="n">nc_net</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">nets</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">nc_entry</span><span class="p">[</span><span class="s2">&quot;nc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">nets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nc_entry</span><span class="p">)</span>
+
+    <span class="c1"># Hierarchy sheet names (each is a hiertuple, e.g. (&quot;&quot;, &quot;stage1&quot;)).</span>
+    <span class="n">sheets</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">get_node_names</span><span class="p">()]</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="n">SCHEMA_NAME</span><span class="p">,</span>
+        <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="n">SCHEMA_VERSION</span><span class="p">,</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span>
+        <span class="s2">&quot;top_name&quot;</span><span class="p">:</span> <span class="n">top_name</span><span class="p">,</span>
+        <span class="s2">&quot;sheets&quot;</span><span class="p">:</span> <span class="n">sheets</span><span class="p">,</span>
+        <span class="s2">&quot;symbols&quot;</span><span class="p">:</span> <span class="n">symbols</span><span class="p">,</span>
+        <span class="s2">&quot;components&quot;</span><span class="p">:</span> <span class="n">components</span><span class="p">,</span>
+        <span class="s2">&quot;nets&quot;</span><span class="p">:</span> <span class="n">nets</span><span class="p">,</span>
+        <span class="c1"># --- additive (schema v1): net class definitions referenced by nets[].attrs ---</span>
+        <span class="s2">&quot;netclasses&quot;</span><span class="p">:</span> <span class="n">_netclass_defs</span><span class="p">(</span><span class="n">circuit</span><span class="p">),</span>
+    <span class="p">}</span></div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.schematic_netlist</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2026, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

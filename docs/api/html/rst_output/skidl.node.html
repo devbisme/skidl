@@ -7,13 +7,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.node module &#8212; SKiDL 2.3.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <title>skidl.node module &#8212; SKiDL 3.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=c3c8ae58"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/documentation_options.js?v=acc74ff5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.node module</a></li> 
       </ul>
     </div>  
@@ -57,7 +57,7 @@ and contain parts, allowing for structured circuit design and organization.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.node.Node">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.node.</span></span><span class="sig-name descname"><span class="pre">Node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attrs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/node.html#Node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.node.Node" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">skidl.node.</span></span><span class="sig-name descname"><span class="pre">Node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attrs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/node.html#Node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.node.Node" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="skidl.mixins.html#skidl.mixins.PinMixin" title="skidl.mixins.PinMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">PinMixin</span></code></a>, <a class="reference internal" href="skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject" title="skidl.skidlbaseobj.SkidlBaseObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">SkidlBaseObject</span></code></a></p>
 <p>Data structure for holding information about a node in the circuit hierarchy.</p>
 <p>A Node represents a hierarchical container that can hold circuit parts and
@@ -85,7 +85,7 @@ child node. Ensures the child has a unique name among siblings.</p>
 <dd class="field-odd"><p>A string description in the form “name”</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -98,7 +98,7 @@ child node. Ensures the child has a unique name among siblings.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.node.Node.hiernodes">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">hiernodes</span></span><a class="headerlink" href="#skidl.node.Node.hiernodes" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">hiernodes</span></span><a class="headerlink" href="#skidl.node.Node.hiernodes" title="Link to this definition">¶</a></dt>
 <dd><p>Return a tuple of the chain of nodes from the top-most node to this one (self).</p>
 <p>This property traverses up the hierarchy from the current node to the root,
 then reverses the order to provide a path from root to current node.</p>
@@ -111,14 +111,14 @@ then reverses the order to provide a path from root to current node.</p>
 </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)">tuple</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.node.Node.hiertuple">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">hiertuple</span></span><a class="headerlink" href="#skidl.node.Node.hiertuple" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">hiertuple</span></span><a class="headerlink" href="#skidl.node.Node.hiertuple" title="Link to this definition">¶</a></dt>
 <dd><p>Return a tuple of the node’s hierarchy path names from top-most node to this one (self).</p>
 <p>This provides a string representation of the hierarchical path by extracting
 the names from each node in the hierarchy chain.</p>
@@ -131,7 +131,7 @@ the names from each node in the hierarchy chain.</p>
 </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)">tuple</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -154,7 +154,7 @@ allowing for custom initialization or deserialization scenarios.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.node.Node.netclasses">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">netclasses</span></span><a class="headerlink" href="#skidl.node.Node.netclasses" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">netclasses</span></span><a class="headerlink" href="#skidl.node.Node.netclasses" title="Link to this definition">¶</a></dt>
 <dd><p>Return a list of net classes assigned to this node and its ancestors.</p>
 <p>Aggregates net classes from this node and all ancestor nodes in the hierarchy.</p>
 <dl class="field-list simple">
@@ -169,7 +169,7 @@ allowing for custom initialization or deserialization scenarios.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.node.Node.partclasses">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">partclasses</span></span><a class="headerlink" href="#skidl.node.Node.partclasses" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">partclasses</span></span><a class="headerlink" href="#skidl.node.Node.partclasses" title="Link to this definition">¶</a></dt>
 <dd><p>Return a list of part classes assigned to this node and its ancestors.</p>
 <p>Aggregates part classes from this node and all ancestor nodes in the hierarchy.</p>
 <dl class="field-list simple">
@@ -203,7 +203,7 @@ typically used when creating instances of a node template.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.node.Node.tag_or_name">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tag_or_name</span></span><a class="headerlink" href="#skidl.node.Node.tag_or_name" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">tag_or_name</span></span><a class="headerlink" href="#skidl.node.Node.tag_or_name" title="Link to this definition">¶</a></dt>
 <dd><p>Return the tag of the node if it exists, otherwise return the name.</p>
 <p>This property provides a way to access the node’s identifier, preferring
 the tag over the name if both are present.</p>
@@ -212,7 +212,7 @@ the tag over the name if both are present.</p>
 <dd class="field-odd"><p>The tag or name of the node.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -228,7 +228,7 @@ children, including their names, tags, parts, and hierarchical structure.</p>
 <dd class="field-odd"><p>A tuple containing (name, tag, parts_refs, children_tuples).</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)">tuple</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -312,13 +312,13 @@ children, including their names, tags, parts, and hierarchical structure.</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.node module</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2016-2026, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
     </div>
   </body>
 </html>

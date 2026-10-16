@@ -1,11 +1,15 @@
 # History
 
-## Unreleased
+## 3.0.0 (2026-10-16)
 
 - Schematic generation moved into the separate `schematizer` package. `generate_schematic()` is unchanged for users: it emits a generic netlist and hands it to `schematizer`, which does placement, routing, and file writing.
 - Dropped schematic generation for KiCad 5. It required the legacy EESCHEMA `.sch` writer, which was retired along with the move; passing `KICAD5` now raises a `ValueError`. All other KiCad 5 outputs (netlist, PCB, XML) still work.
 - `generate_svg()` no longer shells out to `netlistsvg` (which is no longer a dependency). It now draws the same placed-and-routed schematic that `generate_schematic()` produces, using the symbol graphics carried in the generic netlist. Hierarchical designs become one linked SVG page per sheet: a subcircuit is drawn in its parent as a clickable rectangle, and every child page links back to its parent and to the top sheet. `flatness` controls this exactly as it does for KiCad output. Consequences: the function now returns the output directory rather than a netlistsvg JSON dict, `layout_options` (an ELK setting) is ignored with a warning, and KiCad 5 SVG output is no longer available.
 - `PlacementFailure` and `RoutingFailure` moved to `skidl.errors` and are importable from the top level (`from skidl import PlacementFailure`). The old `skidl.schematics.{place,route}` paths are gone.
+- KiCad 10 `.kicad_symdir` symbol libraries (one `.kicad_sym` file per symbol) are now found and loaded, including `extends` and multi-unit symbols.
+- The generic netlist passed to `schematizer` now carries part fields, net classes, and the no-connect net so NC flags are drawn.
+- Fixed #326: fp-lib-table discovery now works with versioned KiCad preference paths on macOS and other platforms.
+- Package configuration (setup and tox) moved into `pyproject.toml`. Testing for Python 3.6, 3.7 and 3.8 was dropped.
 
 ## 2.3.0 (2026-07-28)
 

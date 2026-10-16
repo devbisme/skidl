@@ -6,13 +6,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.skidlbaseobj &#8212; SKiDL 2.3.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <title>skidl.skidlbaseobj &#8212; SKiDL 3.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=c3c8ae58"></script>
-    <script src="../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/documentation_options.js?v=acc74ff5"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.skidlbaseobj</a></li> 
       </ul>
@@ -56,17 +56,16 @@
 <span class="sd">and object copying.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">inspect</span>
-<span class="kn">import</span> <span class="nn">random</span>
-<span class="kn">import</span> <span class="nn">string</span>
-<span class="kn">import</span> <span class="nn">os.path</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">inspect</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">string</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os.path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
 
-<span class="kn">from</span> <span class="nn">.alias</span> <span class="kn">import</span> <span class="n">Alias</span>
-<span class="kn">from</span> <span class="nn">.note</span> <span class="kn">import</span> <span class="n">Note</span>
-<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span>
-
+<span class="kn">from</span><span class="w"> </span><span class="nn">.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.note</span><span class="w"> </span><span class="kn">import</span> <span class="n">Note</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">export_to_all</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;OK&quot;</span><span class="p">,</span> <span class="s2">&quot;WARNING&quot;</span><span class="p">,</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">]</span>
 
@@ -76,7 +75,7 @@
 <div class="viewcode-block" id="SkidlBaseObject">
 <a class="viewcode-back" href="../../rst_output/skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject">[docs]</a>
 <span class="nd">@export_to_all</span>
-<span class="k">class</span> <span class="nc">SkidlBaseObject</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SkidlBaseObject</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class for all SKiDL objects.</span>
 
@@ -89,11 +88,11 @@
     <span class="n">erc_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
     <span class="n">erc_assertion_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a new SkidlBaseObject with empty fields dictionary.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fields</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve an attribute from the fields dictionary.</span>
 
@@ -112,7 +111,7 @@
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">AttributeError</span>
 
-    <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set an attribute either directly or in the fields dictionary.</span>
 
@@ -130,7 +129,7 @@
 
 <div class="viewcode-block" id="SkidlBaseObject.copy">
 <a class="viewcode-back" href="../../rst_output/skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject.copy">[docs]</a>
-    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a deep copy of this object.</span>
 
@@ -152,7 +151,7 @@
 
 <div class="viewcode-block" id="SkidlBaseObject.ERC">
 <a class="viewcode-back" href="../../rst_output/skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject.ERC">[docs]</a>
-    <span class="k">def</span> <span class="nf">ERC</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ERC</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Run Electrical Rules Check on this object.</span>
 
@@ -172,7 +171,7 @@
 
 <div class="viewcode-block" id="SkidlBaseObject.add_erc_function">
 <a class="viewcode-back" href="../../rst_output/skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject.add_erc_function">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_erc_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_erc_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add an ERC function to this object or its class.</span>
 
@@ -184,7 +183,7 @@
 
 <div class="viewcode-block" id="SkidlBaseObject.add_erc_assertion">
 <a class="viewcode-back" href="../../rst_output/skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject.add_erc_assertion">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_erc_assertion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">assertion</span><span class="p">,</span> <span class="n">fail_msg</span><span class="o">=</span><span class="s2">&quot;FAILED&quot;</span><span class="p">,</span> <span class="n">severity</span><span class="o">=</span><span class="n">ERROR</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_erc_assertion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">assertion</span><span class="p">,</span> <span class="n">fail_msg</span><span class="o">=</span><span class="s2">&quot;FAILED&quot;</span><span class="p">,</span> <span class="n">severity</span><span class="o">=</span><span class="n">ERROR</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add an ERC assertion to this object or its class.</span>
 
@@ -214,16 +213,16 @@
         <span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_eval_erc_assertions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_eval_erc_assertions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Evaluate all ERC assertions for this object.</span>
 
 <span class="sd">        This method evaluates all assertions and logs failures with appropriate</span>
 <span class="sd">        severity levels.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">active_logger</span>
 
-        <span class="k">def</span> <span class="nf">erc_report</span><span class="p">(</span><span class="n">evtpl</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">erc_report</span><span class="p">(</span><span class="n">evtpl</span><span class="p">):</span>
             <span class="n">log_msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">evtpl</span><span class="o">.</span><span class="n">stmnt</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">evtpl</span><span class="o">.</span><span class="n">fail_msg</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="n">evtpl</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">evtpl</span><span class="o">.</span><span class="n">lineno</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">evtpl</span><span class="o">.</span><span class="n">function</span><span class="si">}</span><span class="s2">.&quot;</span>
             <span class="k">if</span> <span class="n">evtpl</span><span class="o">.</span><span class="n">severity</span> <span class="o">==</span> <span class="n">ERROR</span><span class="p">:</span>
                 <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">log_msg</span><span class="p">)</span>
@@ -234,7 +233,7 @@
             <span class="k">if</span> <span class="nb">eval</span><span class="p">(</span><span class="n">evtpl</span><span class="o">.</span><span class="n">stmnt</span><span class="p">,</span> <span class="n">evtpl</span><span class="o">.</span><span class="n">globals</span><span class="p">,</span> <span class="n">evtpl</span><span class="o">.</span><span class="n">locals</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
                 <span class="n">erc_report</span><span class="p">(</span><span class="n">evtpl</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_exec_erc_functions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_exec_erc_functions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Execute ERC functions on this object.</span>
 
@@ -247,7 +246,7 @@
             <span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the primary name of this object.</span>
 
@@ -257,7 +256,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
 
     <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nm</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nm</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the primary name of this object and add it to aliases.</span>
 
@@ -269,7 +268,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">nm</span>
 
     <span class="nd">@name</span><span class="o">.</span><span class="n">deleter</span>
-    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove the primary name from this object and its aliases.&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">aliases</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">)</span>
@@ -278,7 +277,7 @@
             <span class="k">pass</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">tag</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">tag</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the tag of this object.</span>
 
@@ -288,7 +287,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tag</span>
 
     <span class="nd">@tag</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">tag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag_</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">tag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag_</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the tag of this object.</span>
 
@@ -299,7 +298,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_tag</span> <span class="o">=</span> <span class="n">tag_</span>
 
     <span class="nd">@tag</span><span class="o">.</span><span class="n">deleter</span>
-    <span class="k">def</span> <span class="nf">tag</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">tag</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove the tag from this object.&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tag</span>
@@ -308,7 +307,7 @@
 
 <div class="viewcode-block" id="SkidlBaseObject.check_tag">
 <a class="viewcode-back" href="../../rst_output/skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject.check_tag">[docs]</a>
-    <span class="k">def</span> <span class="nf">check_tag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">create_if_missing</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check_tag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">create_if_missing</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if the tag is set for this object.</span>
 <span class="sd">        Warn if the tag is not set.</span>
@@ -316,7 +315,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            True if the tag is set, False otherwise.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">skidl.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">skidl.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">active_logger</span>
 
         <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;tag&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">True</span>
@@ -328,7 +327,7 @@
                 <span class="c1"># Create a random tag if it is missing.</span>
                 <span class="n">chars</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">digits</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span>
                 <span class="n">length</span> <span class="o">=</span> <span class="mi">10</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">chars</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">length</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">chars</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">length</span><span class="p">))</span>
                 <span class="n">active_logger</span><span class="o">.</span><span class="n">bare_warning</span><span class="p">(</span>
                     <span class="sa">f</span><span class="s2">&quot;Random tag </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tag</span><span class="si">}</span><span class="s2"> generated for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.&quot;</span>
                 <span class="p">)</span>
@@ -336,7 +335,7 @@
 
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the aliases for this object.</span>
 
@@ -349,7 +348,7 @@
             <span class="k">return</span> <span class="n">Alias</span><span class="p">([])</span>  <span class="c1"># No aliases, so just return an empty list.</span>
 
     <span class="nd">@aliases</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_or_list</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_or_list</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set aliases for this object.</span>
 
@@ -361,7 +360,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_aliases</span> <span class="o">=</span> <span class="n">Alias</span><span class="p">(</span><span class="n">name_or_list</span><span class="p">)</span>
 
     <span class="nd">@aliases</span><span class="o">.</span><span class="n">deleter</span>
-    <span class="k">def</span> <span class="nf">aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove all aliases from this object.&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aliases</span>
@@ -369,7 +368,7 @@
             <span class="k">pass</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">notes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">notes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the notes for this object.</span>
 
@@ -382,7 +381,7 @@
             <span class="k">return</span> <span class="n">Note</span><span class="p">([])</span>  <span class="c1"># No notes, so just return empty list.</span>
 
     <span class="nd">@notes</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">notes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_or_notes</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">notes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_or_notes</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set notes for this object.</span>
 
@@ -394,7 +393,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_notes</span> <span class="o">=</span> <span class="n">Note</span><span class="p">(</span><span class="n">text_or_notes</span><span class="p">)</span>
 
     <span class="nd">@notes</span><span class="o">.</span><span class="n">deleter</span>
-    <span class="k">def</span> <span class="nf">notes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">notes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove all notes from this object.&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_notes</span>
@@ -403,14 +402,14 @@
 
 <div class="viewcode-block" id="SkidlBaseObject.src_line">
 <a class="viewcode-back" href="../../rst_output/skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject.src_line">[docs]</a>
-    <span class="k">def</span> <span class="nf">src_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track_abs_path</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">src_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track_abs_path</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the file name and line number where the object was instantiated.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            track_abs_path (bool): If True, use the absolute path of the file.</span>
 <span class="sd">                                   If False, use the relative path from the script directory.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            str: File name and line number separated by colon.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -423,7 +422,6 @@
             <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">script_dir</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">file_path</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="n">file_line</span></div>
 </div>
-
 
 </pre></div>
 
@@ -456,14 +454,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.skidlbaseobj</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2016-2026, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
     </div>
   </body>
 </html>

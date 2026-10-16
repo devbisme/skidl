@@ -1,0 +1,149 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>skidl.schematic_netlist module &#8212; SKiDL 3.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../_static/documentation_options.js?v=acc74ff5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../"><img src="../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.schematic_netlist module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-skidl.schematic_netlist">
+<span id="skidl-schematic-netlist-module"></span><h1>skidl.schematic_netlist module<a class="headerlink" href="#module-skidl.schematic_netlist" title="Link to this heading">¶</a></h1>
+<p>Generic, hierarchical netlist emitter for schematic generation.</p>
+<p>SKiDL’s job is to describe electrical interconnection. The <em>graphical</em> work of
+turning that interconnection into a schematic (placement, routing, KiCad file
+generation) is done by a separate tool. The bridge between the two is the
+JSON document produced here by <a class="reference internal" href="#skidl.schematic_netlist.build_generic_netlist" title="skidl.schematic_netlist.build_generic_netlist"><code class="xref py py-func docutils literal notranslate"><span class="pre">build_generic_netlist()</span></code></a>.</p>
+<p>The document is deliberately tool-neutral and easy to extend:</p>
+<ul class="simple">
+<li><p>Component symbol geometry is <strong>embedded</strong> (one definition per unique
+<code class="docutils literal notranslate"><span class="pre">lib_id</span></code>), so the downstream tool needs no access to KiCad symbol
+libraries and the result is fully reproducible.</p></li>
+<li><p>Orientation/layout <em>hints</em> the downstream placer consumes are carried
+alongside the electrical data: per-component <code class="docutils literal notranslate"><span class="pre">symtx</span></code> (mirror/rotate) and
+per-net <code class="docutils literal notranslate"><span class="pre">stub</span></code>/<code class="docutils literal notranslate"><span class="pre">netio</span></code>. New hints can be added as new keys without
+breaking readers.</p></li>
+</ul>
+<p>Coordinates are emitted in native KiCad units (mm) and integer degrees; the
+downstream tool performs the mm-&gt;mils and degrees-&gt;direction normalization
+(the equivalent of <code class="docutils literal notranslate"><span class="pre">preprocess_circuit</span></code> in the current KiCad backends).</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.schematic_netlist.build_generic_netlist">
+<span class="sig-prename descclassname"><span class="pre">skidl.schematic_netlist.</span></span><span class="sig-name descname"><span class="pre">build_generic_netlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematic_netlist.html#build_generic_netlist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematic_netlist.build_generic_netlist" title="Link to this definition">¶</a></dt>
+<dd><p>Build a generic, hierarchical netlist document from a circuit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>circuit</strong> (<a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit" title="skidl.circuit.Circuit"><em>Circuit</em></a>) – The circuit to serialize. It should already be
+merged (<code class="docutils literal notranslate"><span class="pre">merge_net_names</span></code>/<code class="docutils literal notranslate"><span class="pre">merge_nets</span></code>) as <code class="docutils literal notranslate"><span class="pre">generate_schematic</span></code>
+does before calling this.</p></li>
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Optional schematic title carried through to the tool.</p></li>
+<li><p><strong>top_name</strong> (<a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Optional top-of-hierarchy name for output filenames.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A JSON-serializable document with <code class="docutils literal notranslate"><span class="pre">symbols</span></code>, <code class="docutils literal notranslate"><span class="pre">components</span></code>,
+<code class="docutils literal notranslate"><span class="pre">nets</span></code> and <code class="docutils literal notranslate"><span class="pre">sheets</span></code> sections. The structure is stable and additive;
+readers should ignore unknown keys.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">skidl.schematic_netlist module</a><ul>
+<li><a class="reference internal" href="#skidl.schematic_netlist.build_generic_netlist"><code class="docutils literal notranslate"><span class="pre">build_generic_netlist()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rst_output/skidl.schematic_netlist.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.schematic_netlist module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2026, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

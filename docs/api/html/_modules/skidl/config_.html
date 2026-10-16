@@ -6,13 +6,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.config_ &#8212; SKiDL 2.3.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <title>skidl.config_ &#8212; SKiDL 3.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=c3c8ae58"></script>
-    <script src="../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/documentation_options.js?v=acc74ff5"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.config_</a></li> 
       </ul>
@@ -54,23 +54,24 @@
 <span class="sd">This module provides classes for loading, storing, and accessing SKiDL configuration</span>
 <span class="sd">parameters. Configuration data is stored in JSON files and includes settings for</span>
 <span class="sd">default tools, library search paths, footprint search paths, and backup library options.</span>
-<span class="sd">The module supports configuration hierarchies with system, user, and project-specific </span>
+<span class="sd">The module supports configuration hierarchies with system, user, and project-specific</span>
 <span class="sd">settings that are merged according to priority.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">collections</span>
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">os.path</span>
-<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">collections</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os.path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
 
-<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
-<span class="kn">from</span> <span class="nn">.part_query</span> <span class="kn">import</span> <span class="n">footprint_cache</span>
-<span class="kn">from</span> <span class="nn">.scriptinfo</span> <span class="kn">import</span> <span class="n">get_script_name</span>
-<span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="n">ALL_TOOLS</span><span class="p">,</span> <span class="n">lib_suffixes</span><span class="p">,</span> <span class="n">tool_modules</span>
-<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="n">TriggerDict</span><span class="p">,</span> <span class="n">export_to_all</span><span class="p">,</span> <span class="n">merge_dicts</span><span class="p">,</span> <span class="n">expand_path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">active_logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.part_query</span><span class="w"> </span><span class="kn">import</span> <span class="n">footprint_cache</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.scriptinfo</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_script_name</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">ALL_TOOLS</span><span class="p">,</span> <span class="n">lib_suffixes</span><span class="p">,</span> <span class="n">tool_modules</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">TriggerDict</span><span class="p">,</span> <span class="n">export_to_all</span><span class="p">,</span> <span class="n">merge_dicts</span><span class="p">,</span> <span class="n">expand_path</span>
 
-<span class="k">def</span> <span class="nf">_get_default_skidl_storage_dir</span><span class="p">():</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_default_skidl_storage_dir</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return path to a platform-appropriate per-user directory for persistent SKiDL data.</span>
 
@@ -90,44 +91,47 @@
         <span class="k">if</span> <span class="n">xdg</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">xdg</span><span class="p">,</span> <span class="s2">&quot;skidl&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;darwin&quot;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">),</span> <span class="s2">&quot;Library&quot;</span><span class="p">,</span> <span class="s2">&quot;Application Support&quot;</span><span class="p">,</span> <span class="s2">&quot;skidl&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">),</span> <span class="s2">&quot;Library&quot;</span><span class="p">,</span> <span class="s2">&quot;Application Support&quot;</span><span class="p">,</span> <span class="s2">&quot;skidl&quot;</span>
+            <span class="p">)</span>
         <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">),</span> <span class="s2">&quot;.local&quot;</span><span class="p">,</span> <span class="s2">&quot;share&quot;</span><span class="p">,</span> <span class="s2">&quot;skidl&quot;</span><span class="p">)</span>
+
 
 <div class="viewcode-block" id="Config">
 <a class="viewcode-back" href="../../rst_output/skidl.config_.html#skidl.config_.Config">[docs]</a>
 <span class="nd">@export_to_all</span>
-<span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Config</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class for managing configuration parameters.</span>
-<span class="sd">    </span>
+
 <span class="sd">    This class extends the dictionary to store configuration parameters and provides</span>
 <span class="sd">    methods to load configuration from JSON files and save it back to disk.</span>
 <span class="sd">    Configuration from multiple sources can be merged with intelligent handling</span>
 <span class="sd">    of nested dictionaries.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        cfg_file_name (str): Name of the configuration file.</span>
 <span class="sd">        *dirs: Directories to search for configuration files.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cfg_file_name</span><span class="p">,</span> <span class="o">*</span><span class="n">dirs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cfg_file_name</span><span class="p">,</span> <span class="o">*</span><span class="n">dirs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cfg_file_name</span> <span class="o">=</span> <span class="n">cfg_file_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="o">*</span><span class="n">dirs</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Access configuration values as attributes.</span>
-<span class="sd">        </span>
+
 <span class="sd">        This enables dot notation access to configuration parameters in addition</span>
 <span class="sd">        to dictionary-style access.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            key (str): The configuration parameter name.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The value of the configuration parameter.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Raises:</span>
 <span class="sd">            AttributeError: If the key doesn&#39;t exist in the configuration.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -136,13 +140,13 @@
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">AttributeError</span>
 
-    <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set configuration values as attributes and dictionary entries.</span>
-<span class="sd">        </span>
+
 <span class="sd">        This ensures that attribute-style and dictionary-style access and</span>
 <span class="sd">        modification are synchronized.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            key (str): The configuration parameter name.</span>
 <span class="sd">            value: The value to assign to the parameter.</span>
@@ -152,13 +156,13 @@
 
 <div class="viewcode-block" id="Config.merge">
 <a class="viewcode-back" href="../../rst_output/skidl.config_.html#skidl.config_.Config.merge">[docs]</a>
-    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">merge_dct</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">merge_dct</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Merge another dictionary into this configuration.</span>
-<span class="sd">        </span>
+
 <span class="sd">        This method recursively merges dictionaries, preserving nested structures</span>
 <span class="sd">        where possible.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            merge_dct (dict): Dictionary to merge into this configuration.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -175,13 +179,13 @@
 
 <div class="viewcode-block" id="Config.load">
 <a class="viewcode-back" href="../../rst_output/skidl.config_.html#skidl.config_.Config.load">[docs]</a>
-    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">dirs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">dirs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Load configuration from JSON files in the specified directories.</span>
-<span class="sd">        </span>
+
 <span class="sd">        This method looks for the configuration file in each directory and merges</span>
 <span class="sd">        the settings found in each file, with later directories taking precedence.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            *dirs: Directories to search for configuration files.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -196,10 +200,10 @@
 
 <div class="viewcode-block" id="Config.store">
 <a class="viewcode-back" href="../../rst_output/skidl.config_.html#skidl.config_.Config.store">[docs]</a>
-    <span class="k">def</span> <span class="nf">store</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">store</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Store the current configuration as a JSON file.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            dir (str, optional): Directory to store the configuration file in.</span>
 <span class="sd">                Defaults to the current directory.</span>
@@ -214,19 +218,19 @@
 <div class="viewcode-block" id="SkidlConfig">
 <a class="viewcode-back" href="../../rst_output/skidl.config_.html#skidl.config_.SkidlConfig">[docs]</a>
 <span class="nd">@export_to_all</span>
-<span class="k">class</span> <span class="nc">SkidlConfig</span><span class="p">(</span><span class="n">Config</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SkidlConfig</span><span class="p">(</span><span class="n">Config</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Configuration class specialized for SKiDL.</span>
-<span class="sd">    </span>
+
 <span class="sd">    This class extends the base Config class with SKiDL-specific defaults and</span>
 <span class="sd">    behaviors, such as managing tool selection, library paths, and footprint paths.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        tool (str): Tool/backend to override the one specified in config files.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="n">SKIDL</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">skidl</span><span class="w"> </span><span class="kn">import</span> <span class="n">SKIDL</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">skidl_storage_dir</span> <span class="o">=</span> <span class="n">_get_default_skidl_storage_dir</span><span class="p">()</span>
 
@@ -241,14 +245,12 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">tool</span> <span class="o">=</span> <span class="n">tool</span>
 
         <span class="c1"># If no configuration files were found, set default directory for part library pickle files.</span>
-        <span class="k">if</span> <span class="s2">&quot;pickle_dir&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">pickle_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">skidl_storage_dir</span><span class="p">,</span> <span class="s2">&quot;lib_pickle_dir&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pickle_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;pickle_dir&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">skidl_storage_dir</span><span class="p">,</span> <span class="s2">&quot;lib_pickle_dir&quot;</span><span class="p">))</span>
         <span class="c1"># Make the directory.</span>
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pickle_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="c1"># If no configuration files were found, set default directory for part search database.</span>
-        <span class="k">if</span> <span class="s2">&quot;part_search_db_dir&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">part_search_db_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">skidl_storage_dir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">part_search_db_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;part_search_db_dir&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">skidl_storage_dir</span><span class="p">)</span>
         <span class="c1"># Make the directory.</span>
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">part_search_db_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -263,17 +265,15 @@
             <span class="c1"># file was written) so their libraries can still be located.</span>
             <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="n">ALL_TOOLS</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">tool</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;lib_search_paths&quot;</span><span class="p">]:</span>
-                    <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;lib_search_paths&quot;</span><span class="p">][</span><span class="n">tool</span><span class="p">]</span> <span class="o">=</span> <span class="n">tool_modules</span><span class="p">[</span><span class="n">tool</span><span class="p">]</span><span class="o">.</span><span class="n">default_lib_paths</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;lib_search_paths&quot;</span><span class="p">][</span><span class="n">tool</span><span class="p">]</span> <span class="o">=</span> <span class="n">tool_modules</span><span class="p">[</span>
+                        <span class="n">tool</span>
+                    <span class="p">]</span><span class="o">.</span><span class="n">default_lib_paths</span><span class="p">()</span>
 
         <span class="c1"># If no configuration files were found, set base name of default backup part library.</span>
-        <span class="k">if</span> <span class="s2">&quot;backup_lib_name&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">backup_lib_name</span> <span class="o">=</span> <span class="n">get_script_name</span><span class="p">()</span>
-        <span class="k">if</span> <span class="s2">&quot;backup_lib_file_name&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">backup_lib_file_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backup_lib_name</span> <span class="o">+</span> <span class="n">lib_suffixes</span><span class="p">[</span><span class="n">SKIDL</span><span class="p">]</span>
-        <span class="k">if</span> <span class="s2">&quot;query_backup_lib&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">query_backup_lib</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">if</span> <span class="s2">&quot;backup_lib&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">backup_lib</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">backup_lib_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;backup_lib_name&quot;</span><span class="p">,</span> <span class="n">get_script_name</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">backup_lib_file_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;backup_lib_file_name&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">backup_lib_name</span> <span class="o">+</span> <span class="n">lib_suffixes</span><span class="p">[</span><span class="n">SKIDL</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">query_backup_lib</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;query_backup_lib&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">backup_lib</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;backup_lib&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
         <span class="c1"># If no configuration files were found, set some default footprint search paths.</span>
         <span class="k">if</span> <span class="s2">&quot;footprint_search_paths&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
@@ -291,18 +291,20 @@
                     <span class="p">]</span>
 
         <span class="c1"># Cause the footprint cache to be invalidated if the footprint search path changes.</span>
-        <span class="k">def</span> <span class="nf">invalidate_footprint_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">invalidate_footprint_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
             <span class="n">footprint_cache</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;footprint_search_paths&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">TriggerDict</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;footprint_search_paths&quot;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;footprint_search_paths&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">trigger_funcs</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">tool</span><span class="p">]</span> <span class="o">=</span> <span class="n">invalidate_footprint_cache</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;footprint_search_paths&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">trigger_funcs</span><span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tool</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="n">invalidate_footprint_cache</span>
 
 <div class="viewcode-block" id="SkidlConfig.store">
 <a class="viewcode-back" href="../../rst_output/skidl.config_.html#skidl.config_.SkidlConfig.store">[docs]</a>
-    <span class="k">def</span> <span class="nf">store</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">store</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Store the current SKiDL configuration as a JSON file.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            dir (str, optional): Directory to store the configuration file in.</span>
 <span class="sd">                Defaults to the SKiDL storage directory.</span>
@@ -342,14 +344,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.config_</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2016-2026, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
     </div>
   </body>
 </html>

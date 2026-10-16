@@ -7,13 +7,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.netpinlist module &#8212; SKiDL 2.3.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <title>skidl.netpinlist module &#8212; SKiDL 3.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=c3c8ae58"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/documentation_options.js?v=acc74ff5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.netpinlist module</a></li> 
       </ul>
     </div>  
@@ -52,15 +52,15 @@ pins and nets in series or parallel configurations and provides access to
 common properties across all pins and nets in the list.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.netpinlist.NetPinList">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.netpinlist.</span></span><span class="sig-name descname"><span class="pre">NetPinList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/netpinlist.html#NetPinList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.netpinlist.NetPinList" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></p>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">skidl.netpinlist.</span></span><span class="sig-name descname"><span class="pre">NetPinList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/netpinlist.html#NetPinList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.netpinlist.NetPinList" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.14/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></p>
 <p>Specialized list for handling collections of nets and pins.</p>
 <p>NetPinList extends the Python list with additional functionality for
 working with collections of pins and nets. It handles bus expansion and
 provides operations to connect nets and pins in series or parallel.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.netpinlist.NetPinList.aliases">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">aliases</span></span><a class="headerlink" href="#skidl.netpinlist.NetPinList.aliases" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">aliases</span></span><a class="headerlink" href="#skidl.netpinlist.NetPinList.aliases" title="Link to this definition">¶</a></dt>
 <dd><p>Get the aliases for this NetPinList.</p>
 <p>For NetPinList, no aliases are allowed, so returns an empty Alias object.</p>
 <dl class="field-list simple">
@@ -72,14 +72,14 @@ provides operations to connect nets and pins in series or parallel.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.netpinlist.NetPinList.circuit">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">circuit</span></span><a class="headerlink" href="#skidl.netpinlist.NetPinList.circuit" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">circuit</span></span><a class="headerlink" href="#skidl.netpinlist.NetPinList.circuit" title="Link to this definition">¶</a></dt>
 <dd><p>Get the circuit the pins/nets are members of.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The Circuit object that the pins/nets belong to.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If pins/nets belong to different circuits.</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If pins/nets belong to different circuits.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -93,36 +93,36 @@ provides operations to connect nets and pins in series or parallel.</p>
 <dd class="field-odd"><p>A Network object created from the pins and nets in this list.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If the list has more than 2 items.</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If the list has more than 2 items.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.netpinlist.NetPinList.do_erc">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">do_erc</span></span><a class="headerlink" href="#skidl.netpinlist.NetPinList.do_erc" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">do_erc</span></span><a class="headerlink" href="#skidl.netpinlist.NetPinList.do_erc" title="Link to this definition">¶</a></dt>
 <dd><p>Get the electrical rule checking status for pins/nets in the list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#NotImplementedError" title="(in Python v3.13)"><strong>NotImplementedError</strong></a> – This property can only be set or deleted, not read.</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/exceptions.html#NotImplementedError" title="(in Python v3.14)"><strong>NotImplementedError</strong></a> – This property can only be set or deleted, not read.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.netpinlist.NetPinList.drive">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">drive</span></span><a class="headerlink" href="#skidl.netpinlist.NetPinList.drive" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">drive</span></span><a class="headerlink" href="#skidl.netpinlist.NetPinList.drive" title="Link to this definition">¶</a></dt>
 <dd><p>Get the electrical rule checking status for pins/nets in the list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#NotImplementedError" title="(in Python v3.13)"><strong>NotImplementedError</strong></a> – This property can only be set or deleted, not read.</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.14/builtins/exceptions.html#NotImplementedError" title="(in Python v3.14)"><strong>NotImplementedError</strong></a> – This property can only be set or deleted, not read.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.netpinlist.NetPinList.width">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">width</span></span><a class="headerlink" href="#skidl.netpinlist.NetPinList.width" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">width</span></span><a class="headerlink" href="#skidl.netpinlist.NetPinList.width" title="Link to this definition">¶</a></dt>
 <dd><p>Return the width (number of pins/nets) in this list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -190,13 +190,13 @@ provides operations to connect nets and pins in series or parallel.</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.3.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 3.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.netpinlist module</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
     &#169; Copyright 2016-2026, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
     </div>
   </body>
 </html>
