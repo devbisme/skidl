@@ -881,6 +881,48 @@ class Circuit(SkidlBaseObject):
 
         return netlist
 
+    def generate_generic_netlist(self, file_=None, title="", top_name=""):
+        """
+        Generate the generic, tool-neutral netlist that schematic generation
+        hands to the ``schematizer`` package.
+
+        The resulting JSON file can be fed to ``schematizer`` directly (e.g.
+        ``schematizer mydesign.json -t kicad9``) to draw the circuit without
+        re-running the SKiDL script.
+
+        Args:
+            file_ (str or file object, optional): File to write the JSON data to.
+                Defaults to the script name with a ``.json`` extension.
+            title (str, optional): Schematic title carried through to schematizer.
+            top_name (str, optional): Top-of-hierarchy name for output filenames.
+
+        Returns:
+            dict: The generic netlist document.
+        """
+
+        import json
+
+        from .schematic_netlist import build_generic_netlist
+
+        # Reset the counters to clear any warnings/errors from previous run.
+        active_logger.error.reset()
+        active_logger.warning.reset()
+
+        # Same net preparation generate_schematic() does, so the document
+        # matches what schematizer would receive from it.
+        self.merge_net_names()
+        self.merge_nets()
+
+        netlist = build_generic_netlist(self, title=title, top_name=top_name)
+
+        if not self.no_files:
+            with opened(file_ or (get_script_name() + ".json"), "w") as f:
+                json.dump(netlist, f, indent=2)
+
+        active_logger.report_summary("generating generic netlist")
+
+        return netlist
+
     def get_net_nc_stubs(self):
         """
         Get all nets/buses that are stubs or no-connects.

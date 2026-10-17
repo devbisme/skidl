@@ -325,3 +325,14 @@ def test_no_connect_net_emitted():
     (comp,) = doc["components"]
     pin_nets = {p["num"]: p["net"] for p in comp["pins"]}
     assert pin_nets["2"] == nc_nets[0]["name"]
+
+
+def test_generate_generic_netlist_writes_json(tmp_path):
+    """Circuit.generate_generic_netlist() writes the same document it returns."""
+    ckt = _flat_circuit()
+    out = tmp_path / "flat.json"
+    doc = ckt.generate_generic_netlist(file_=str(out), title="Flat", top_name="flat")
+    assert out.exists()
+    assert json.loads(out.read_text()) == json.loads(json.dumps(doc))
+    assert doc["format"] == SCHEMA_NAME
+    assert doc["top_name"] == "flat"

@@ -29,6 +29,7 @@ __all__ = [
     "generate_netlist",
     "generate_pcb",
     "generate_xml",
+    "generate_generic_netlist",
     "generate_schematic",
     "generate_svg",
     "generate_graph",
@@ -61,8 +62,10 @@ builtins.NC = default_circuit.NC  # pylint: disable=undefined-variable
 ERC = default_circuit.ERC
 erc_assert = default_circuit.add_erc_assertion
 generate_netlist = default_circuit.generate_netlist
+generate_generic_netlist = default_circuit.generate_generic_netlist
 generate_pcb = default_circuit.generate_pcb
 generate_xml = default_circuit.generate_xml
+generate_generic_netlist = default_circuit.generate_generic_netlist
 generate_schematic = default_circuit.generate_schematic
 generate_svg = default_circuit.generate_svg
 generate_graph = default_circuit.generate_graph
