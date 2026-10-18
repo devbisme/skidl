@@ -31,29 +31,29 @@ generate_svg()
 generate_schematic()
 generate_netlist()
 
-for part in default_circuit.parts:
-    part.validate()
+# for part in default_circuit.parts:
+#     part.validate()
 
-w, h = 5, 5
-arr = best_arr = Arranger(default_circuit, w, h)
-# best_arr.prearranged()
-best_arr.arrange_randomly()
-best_cost = best_arr.cost()
-# print(f"starting cost = {best_cost}")
-# import sys
-# sys.exit()
+# w, h = 5, 5
+# arr = best_arr = Arranger(default_circuit, w, h)
+# # best_arr.prearranged()
+# best_arr.arrange_randomly()
+# best_cost = best_arr.cost()
+# # print(f"starting cost = {best_cost}")
+# # import sys
+# # sys.exit()
 
-for _ in range(1):
-    arr.arrange_randomly()
-    arr.arrange_kl()
-    cost = arr.cost()
-    if cost < best_cost:
-        best_arr = arr
-        best_cost = cost
-        print(f"///// Best arrangement cost = {best_cost:2.2f} /////")
-        arr = Arranger(default_circuit, w, h)
+# for _ in range(1):
+#     arr.arrange_randomly()
+#     arr.arrange_kl()
+#     cost = arr.cost()
+#     if cost < best_cost:
+#         best_arr = arr
+#         best_cost = cost
+#         print(f"///// Best arrangement cost = {best_cost:2.2f} /////")
+#         arr = Arranger(default_circuit, w, h)
 
-best_arr.apply()
-for part in best_arr.parts:
-    print(f"{part.ref:5s} {part.region.x} {part.region.y}")
-print(f"cost = {best_arr.cost()}")
+# best_arr.apply()
+# for part in best_arr.parts:
+#     print(f"{part.ref:5s} {part.region.x} {part.region.y}")
+# print(f"cost = {best_arr.cost()}")
