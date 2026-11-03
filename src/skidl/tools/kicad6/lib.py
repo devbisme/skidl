@@ -16,6 +16,7 @@ from skidl.part import LIBRARY
 from skidl.pin import pin_types
 from skidl.geometry import mils_per_mm, BBox
 from skidl.utilities import (
+    parse_pin_names,
     export_to_all,
     find_and_open_file,
     get_abs_filename,
@@ -457,6 +458,7 @@ def parse_lib_part(part, partial_parse):
             for prop in part_defn.search("/symbol/property", ignore_case=True)
         }
     )
+    part.pin_names = parse_pin_names(part_defn, getattr(part, "pin_names", None))
     part.ref_prefix = props["reference"][2]
     part.value = props["value"][2]
     part.fplist.append(props["footprint"][2])

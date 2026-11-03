@@ -24,6 +24,7 @@ from skidl.schematic_netlist import (
     SCHEMA_VERSION,
     build_generic_netlist,
 )
+from skidl.utilities import parse_pin_names
 
 
 # ---------------------------------------------------------------------------
@@ -336,3 +337,21 @@ def test_generate_generic_netlist_writes_json(tmp_path):
     assert json.loads(out.read_text()) == json.loads(json.dumps(doc))
     assert doc["format"] == SCHEMA_NAME
     assert doc["top_name"] == "flat"
+
+
+def test_symbols_carry_their_pin_name_style():
+    """Pin name offset and visibility survive into the document, inherited or not."""
+    ckt = Circuit()
+    with ckt:
+        Part("RF_Module", "ESP32-S3-WROOM-1")  # Sets nothing, so gets KiCad's default.
+        Part("Device", "LED")  # Hides its names.
+        Part("Regulator_Linear", "AP2112K-3.3")  # Inherits from AP2204K-1.5.
+    symbols = build_generic_netlist(ckt)["symbols"]
+    style = {key: symbol.get("pin_names") for key, symbol in symbols.items()}
+    assert style["RF_Module:ESP32-S3-WROOM-1"] == {"offset": 0.508, "hide": False}
+    assert style["Device:LED"] == {"offset": 1.016, "hide": True}
+    assert style["Regulator_Linear:AP2112K-3.3"] == {"offset": 0.254, "hide": False}
+
+
+def test_parse_pin_names_reads_the_older_hide_spelling():
+    assert parse_pin_names([["pin_names", ["offset", 1], "hide"]]) == {"offset": 1, "hide": True}

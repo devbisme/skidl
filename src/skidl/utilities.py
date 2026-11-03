@@ -52,6 +52,36 @@ def export_to_all(fn):
 
 
 @export_to_all
+def parse_pin_names(symbol, inherited=None):
+    """Read how a KiCad symbol shows its pin names.
+
+    Args:
+        symbol (list): The symbol's S-expression.
+        inherited (dict, optional): The style of the symbol this one extends.
+
+    Returns:
+        dict: ``offset`` is the gap in mm between a pin and its name, with 0
+            meaning the name goes outside the body. ``hide`` is True if pin names
+            aren't shown.
+    """
+    for item in symbol:
+        if isinstance(item, list) and item and str(item[0]).lower() == "pin_names":
+            break
+    else:
+        return inherited or {"offset": 0.508, "hide": False}  # KiCad's defaults.
+
+    offset, hide = 0.508, False
+    for entry in item[1:]:
+        if isinstance(entry, list) and entry[0] == "offset":
+            offset = entry[1]
+        elif isinstance(entry, list) and entry[0] == "hide":
+            hide = entry[1] == "yes"
+        elif entry == "hide":  # KiCad 6-8 spelling.
+            hide = True
+    return {"offset": offset, "hide": hide}
+
+
+@export_to_all
 def detect_os():
     """
     Detect the operating system.

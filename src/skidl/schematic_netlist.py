@@ -114,7 +114,7 @@ def _symbol_def(part):
     for unit_num, cmds in getattr(part, "draw_cmds", {}).items():
         draw_cmds[str(unit_num)] = _jsonify(cmds)
 
-    return {
+    symbol = {
         "ref_prefix": getattr(part, "ref_prefix", "") or "U",
         "name": part.name or "Unknown",
         "lib": _lib_name_of(part),
@@ -123,6 +123,10 @@ def _symbol_def(part):
         "draw_cmds": draw_cmds,
         "units": units,
     }
+    pin_names = getattr(part, "pin_names", None)
+    if pin_names:
+        symbol["pin_names"] = pin_names
+    return symbol
 
 
 def _component(part):
