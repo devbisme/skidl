@@ -168,3 +168,64 @@ def test_parser_missing_root_sheet():
     # The shared net is passed from the synthesized root into both subsheets.
     assert "sub_a(" in top and "sub_b(" in top
     assert "SHARED" in top
+
+
+def test_netlist_to_skidl_colliding_net_names():
+    """Nets whose names legalize to the same identifier must stay separate (#332)."""
+    from skidl import Circuit
+
+    with Circuit() as ckt:
+        r1 = Part("Device", "R", footprint="Resistor_SMD:R_0805_2012Metric")
+        r2 = Part("Device", "R", footprint="Resistor_SMD:R_0805_2012Metric")
+        tp, tn = Net("Net-(U2-T+)"), Net("Net-(U2-T-)")
+        r1[1] += tp
+        r2[1] += tn
+        r1[2] += r2[2]
+        netlist = ckt.generate_netlist()
+
+    code = netlist_to_skidl(netlist)
+
+    # Each net gets its own identifier and keeps exactly one of the two pins.
+    import re
+
+    assigned = re.findall(r"^\s+(\w+) = Net\('(Net-\(U2-T[+-]\))'\)", code, re.M)
+    assert len(assigned) == 2
+    idents = [ident for ident, _ in assigned]
+    assert len(set(idents)) == 2
+    for ident in idents:
+        conns = re.findall(rf"^\s+{ident} \+= (.*)$", code, re.M)
+        assert len(conns) == 1
+        assert len(conns[0].split(",")) == 1
+
+
+def test_netlist_to_skidl_reserved_net_names():
+    """Net names must not reuse component refs, sheet names, or SKiDL/Python names."""
+    import re
+    from skidl import Circuit
+
+    with Circuit() as ckt:
+        fp = "Resistor_SMD:R_0805_2012Metric"
+        r1 = Part("Device", "R", footprint=fp, ref="R1")
+        r2 = Part("Device", "R", footprint=fp, ref="R2")
+        nets = [Net("R1"), Net("Part"), Net("class")]
+        r1[1] += nets[0]
+        r2[1] += nets[0]
+        r1[2] += nets[1]
+        r2[2] += nets[2]
+        netlist = ckt.generate_netlist()
+
+    code = netlist_to_skidl(netlist)
+
+    # Variables bound to nets must be distinct from parts and SKiDL/Python names.
+    net_vars = dict(
+        (name, ident)
+        for ident, name in re.findall(r"^\s+(\w+) = Net\('([^']*)'\)", code, re.M)
+    )
+    assert {"R1", "Part", "class"} <= set(net_vars)
+    assert not {"R1", "R2", "Part", "class"} & set(net_vars.values())
+    assert len(set(net_vars.values())) == len(net_vars)
+
+    # Parts keep their own names and each net keeps its own pins.
+    assert re.search(r"^\s+R1 = Part\(", code, re.M)
+    conns = re.findall(rf"^\s+{net_vars['R1']} \+= (.*)$", code, re.M)
+    assert conns == ["R1['1'], R2['1']"]

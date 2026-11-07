@@ -10,6 +10,7 @@ to regenerate the circuit or as a starting point for circuit modifications.
 
 import re
 import os
+import keyword
 import random
 from pathlib import Path
 from collections import defaultdict
@@ -234,6 +235,56 @@ class HierarchicalConverter:
         self.netlist = NetlistSexp(Sexp(text))
         self.sheets = {}
         self.tab = " " * 4
+        self.net_ids = {}  # Net name -> unique Python identifier.
+
+    def reserved_identifiers(self) -> Set[str]:
+        """
+        Return the identifiers that a net variable must not use.
+
+        Nets, components, sheet functions and everything imported by
+        ``from skidl import *`` share one namespace in the generated code, so a
+        net with any of these names would silently replace (or be replaced by)
+        the other object. The set is cached after the first call.
+
+        Returns:
+            Set[str]: Python keywords, names exported by ``from skidl import *``,
+                legalized component refs, and legalized sheet names.
+        """
+        if getattr(self, "_reserved", None) is None:
+            star = {}
+            exec("from skidl import *", star)
+            reserved = set(keyword.kwlist) | set(keyword.softkwlist)
+            reserved |= {name for name in star if name != "__builtins__"}
+            reserved |= {legalize_name(part.ref) for part in self.netlist.parts}
+            reserved |= {legalize_name(sheet.name) for sheet in self.sheets.values()}
+            self._reserved = reserved
+        return self._reserved
+
+    def net_identifier(self, net_name: str) -> str:
+        """
+        Return a Python identifier for a net that is unique among all nets.
+
+        legalize_name() can map different net names to the same identifier
+        (e.g., "Net-(U2-T+)" and "Net-(U2-T-)"), which would silently merge
+        the nets in the generated code. Names that collide with another net or
+        with a reserved identifier (see reserved_identifiers()) get a numeric
+        suffix.
+
+        Args:
+            net_name (str): The original net name.
+
+        Returns:
+            str: An identifier used for this net in every generated file.
+        """
+        if net_name not in self.net_ids:
+            base = legalize_name(net_name)
+            ident, n = base, 1
+            used = set(self.net_ids.values()) | self.reserved_identifiers()
+            while ident in used:
+                n += 1
+                ident = f"{base}_{n}"
+            self.net_ids[net_name] = ident
+        return self.net_ids[net_name]
 
     def find_lowest_common_ancestor(self, sheet1, sheet2):
         """
@@ -461,6 +512,13 @@ class HierarchicalConverter:
 
         self.net_hierarchy = net_hierarchy
         self.net_usage = net_usage
+
+        # Assign identifiers in sorted order so the result doesn't depend on
+        # the order in which code happens to be generated.
+        self.net_ids = {}
+        self._reserved = None
+        for net_name in sorted(net_usage):
+            self.net_identifier(net_name)
         active_logger.info("=== Completed net analysis ===")
 
         # Print summary for each sheet
@@ -548,7 +606,7 @@ class HierarchicalConverter:
             str: SKiDL code to connect pins to the net, or an empty string if
                  no connections are needed in this sheet
         """
-        net_name = legalize_name(net.name)
+        net_name = self.net_identifier(net.name)
         if net_name.startswith("unconnected"):
             return ""
         pins = []
@@ -594,7 +652,7 @@ class HierarchicalConverter:
             if sheet.path in self.net_usage[net_name] or any(
                 child in self.net_usage[net_name] for child in sheet.children
             ):
-                required_nets.append(legalize_name(net_name))
+                required_nets.append(self.net_identifier(net_name))
 
         func_name = legalize_name(sheet.name)
         code.append(f"def {func_name}({', '.join(required_nets)}):\n")
@@ -604,7 +662,7 @@ class HierarchicalConverter:
         if local_nets:
             code.append(f"{self.tab}# Local nets\n")
             for net in local_nets:
-                legal_name = legalize_name(net)
+                legal_name = self.net_identifier(net)
                 code.append(f"{self.tab}{legal_name} = Net('{net}')\n")
             code.append("\n")
 
@@ -629,7 +687,7 @@ class HierarchicalConverter:
                         grandchild in self.net_usage[net_name]
                         for grandchild in child.children
                     ):
-                        child_params.append(legalize_name(net_name))
+                        child_params.append(self.net_identifier(net_name))
 
                 code.append(f"{self.tab}{child_func}({', '.join(child_params)})\n")
 
