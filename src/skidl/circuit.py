@@ -735,6 +735,29 @@ class Circuit(SkidlBaseObject):
 
                 skidl.empty_footprint_handler(part)
 
+    def _check_footprints_for_drawing(self, handler=None):
+        """
+        Check for parts without footprints before drawing a schematic or SVG.
+
+        Args:
+            handler (function, optional): Called with each part lacking a
+                footprint. Defaults to a handler that warns and assigns a
+                placeholder footprint so drawing can proceed.
+        """
+        import skidl
+
+        def _default_handler(part):
+            active_logger.warning(f"No footprint for {part.name}/{part.ref}.")
+            # Placeholder so nothing downstream complains about a missing footprint.
+            part.footprint = ":"
+
+        save_handler = skidl.empty_footprint_handler
+        skidl.empty_footprint_handler = handler or _default_handler
+        try:
+            self.check_for_empty_footprints()
+        finally:
+            skidl.empty_footprint_handler = save_handler
+
     def check_tags(self):
         """
         Check for missing part or hierarchical node tags.
@@ -954,6 +977,8 @@ class Circuit(SkidlBaseObject):
 
         Args:
             **kwargs: Arguments for the SVG generator including:
+                empty_footprint_handler (function, optional): Custom handler
+                    for parts without footprints.
                 file_ (str, optional): Base name for the output files.
                     Deprecated alias for ``top_name``.
                 tool (str, optional): The EDA tool whose symbol libraries the
@@ -998,9 +1023,12 @@ class Circuit(SkidlBaseObject):
                 "'flatness' to control the hierarchy instead."
             )
 
+        handler = kwargs.pop("empty_footprint_handler", None)
+
         self.merge_net_names()
         self.merge_nets()  # Merge nets or routing will fail.
 
+        self._check_footprints_for_drawing(handler)
         output_file = gen_svg(self, **kwargs)
 
         active_logger.report_summary("generating SVG")
@@ -1046,29 +1074,14 @@ class Circuit(SkidlBaseObject):
                 f"Schematic generation isn't supported for tool '{tool}'."
             ) from e
 
-        # Supply a schematic-specific empty footprint handler.
-        save_empty_footprint_handler = skidl.empty_footprint_handler
-
-        def _empty_footprint_handler(part):
-            """Handle the situation of a Part with no footprint when generating a schematic."""
-
-            active_logger.warning(f"No footprint for {part.name}/{part.ref}.")
-
-            # Supply a nonsense footprint just so no complaints are raised when the EESCHEMA code is generated.
-            part.footprint = ":"
-
-        if kwargs.get("empty_footprint_handler]"):
-            skidl.empty_footprint_handler = kwargs["empty_footprint_handler"]
-        else:
-            skidl.empty_footprint_handler = _empty_footprint_handler
+        # Pop the handler so it isn't passed on to the tool's gen_sch().
+        handler = kwargs.pop("empty_footprint_handler", None)
 
         self.merge_net_names()
         self.merge_nets()  # Merge nets or schematic routing will fail.
 
-        try:
-            gen_sch(self, **kwargs)
-        finally:
-            skidl.empty_footprint_handler = save_empty_footprint_handler
+        self._check_footprints_for_drawing(handler)
+        gen_sch(self, **kwargs)
 
         active_logger.report_summary("generating schematic")
 
