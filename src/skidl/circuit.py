@@ -1017,7 +1017,6 @@ class Circuit(SkidlBaseObject):
 
         Args:
             **kwargs: Arguments for the schematic generator including:
-                empty_footprint_handler (function, optional): Custom handler for parts without footprints.
                 tool (str, optional): The EDA tool to generate the schematic for.
                     KiCad 6 through 10 are supported. KiCad 5 is not: it needs
                     the legacy EESCHEMA ``.sch`` format, so passing ``KICAD5``
@@ -1046,29 +1045,10 @@ class Circuit(SkidlBaseObject):
                 f"Schematic generation isn't supported for tool '{tool}'."
             ) from e
 
-        # Supply a schematic-specific empty footprint handler.
-        save_empty_footprint_handler = skidl.empty_footprint_handler
-
-        def _empty_footprint_handler(part):
-            """Handle the situation of a Part with no footprint when generating a schematic."""
-
-            active_logger.warning(f"No footprint for {part.name}/{part.ref}.")
-
-            # Supply a nonsense footprint just so no complaints are raised when the EESCHEMA code is generated.
-            part.footprint = ":"
-
-        if kwargs.get("empty_footprint_handler]"):
-            skidl.empty_footprint_handler = kwargs["empty_footprint_handler"]
-        else:
-            skidl.empty_footprint_handler = _empty_footprint_handler
-
         self.merge_net_names()
         self.merge_nets()  # Merge nets or schematic routing will fail.
 
-        try:
-            gen_sch(self, **kwargs)
-        finally:
-            skidl.empty_footprint_handler = save_empty_footprint_handler
+        gen_sch(self, **kwargs)
 
         active_logger.report_summary("generating schematic")
 
