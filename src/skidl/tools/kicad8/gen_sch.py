@@ -16,11 +16,6 @@ from skidl.errors import PlacementFailure, RoutingFailure
 from skidl.schematic_netlist import build_generic_netlist
 from skidl.utilities import export_to_all
 
-# The KiCad version this module targets. schematizer uses it to select the
-# output format details for this version (KiCad 8 differs slightly from its
-# neighbors in how symbol pin numbers and fonts are written).
-TOOL_NAME = "kicad8"
-
 
 @export_to_all
 def gen_sch(circuit, **kwargs):
@@ -30,7 +25,7 @@ def gen_sch(circuit, **kwargs):
     Args:
         circuit (Circuit): The circuit to draw. Its nets should already be
             merged, as ``Circuit.generate_schematic()`` does before calling.
-        **kwargs: Passed on to schematizer: ``filepath``, ``top_name``,
+        **kwargs: Passed on to schematizer: ``tool``, ``filepath``, ``top_name``,
             ``title``, plus engine options such as ``flatness``, ``retries``
             and ``auto_stub``.
 
@@ -62,7 +57,7 @@ def gen_sch(circuit, **kwargs):
     )
 
     try:
-        return render(netlist, tool=TOOL_NAME, **kwargs)
+        return render(netlist, **kwargs)
     except SchzPlacementFailure as e:
         # Re-raise as SKiDL's own exception types so callers never have to
         # catch (or import) the other package's exceptions.

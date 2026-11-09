@@ -15,9 +15,6 @@ from skidl.errors import PlacementFailure, RoutingFailure
 from skidl.schematic_netlist import build_generic_netlist
 from skidl.utilities import export_to_all
 
-# The KiCad version whose symbol graphics the drawing is based on.
-TOOL_NAME = "kicad8"
-
 
 @export_to_all
 def gen_svg(circuit, **kwargs):
@@ -27,7 +24,7 @@ def gen_svg(circuit, **kwargs):
     Args:
         circuit (Circuit): The circuit to draw. Its nets should already be
             merged, as ``Circuit.generate_svg()`` does before calling.
-        **kwargs: Passed on to schematizer: ``filepath``, ``top_name``,
+        **kwargs: Passed on to schematizer: ``tool``, ``filepath``, ``top_name``,
             ``title``, and ``flatness`` (0.0 for a page per subcircuit,
             1.0 for a single page).
 
@@ -65,7 +62,7 @@ def gen_svg(circuit, **kwargs):
     )
 
     try:
-        return render(netlist, tool=TOOL_NAME, format="svg", **kwargs)
+        return render(netlist, format="svg", **kwargs)
     except SchzPlacementFailure as e:
         # Re-raise as SKiDL's own exception types so callers never have to
         # catch (or import) the other package's exceptions.

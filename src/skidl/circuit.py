@@ -975,7 +975,8 @@ class Circuit(SkidlBaseObject):
         active_logger.error.reset()
         active_logger.warning.reset()
 
-        tool = kwargs.pop("tool", skidl.get_default_tool())
+        tool = kwargs.get("tool", skidl.get_default_tool())
+        kwargs["tool"] = tool  # Make sure the tool is in the kwargs for gen_svg().
 
         try:
             gen_svg = tool_modules[tool].gen_svg
@@ -1031,7 +1032,8 @@ class Circuit(SkidlBaseObject):
         active_logger.error.reset()
         active_logger.warning.reset()
 
-        tool = kwargs.pop("tool", skidl.get_default_tool())
+        tool = kwargs.get("tool", skidl.get_default_tool())
+        kwargs["tool"] = tool  # Make sure the tool is in the kwargs for gen_sch().
 
         # Each tool supplies its own gen_sch() that knows how to draw a
         # schematic for that tool. The KiCad ones build a generic, tool-neutral
