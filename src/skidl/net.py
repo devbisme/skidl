@@ -1147,7 +1147,7 @@ class Net(SkidlBaseObject):
 
         from .tools import tool_modules
 
-        tool = tool or skidl.config.tool
+        tool = tool or skidl.get_default_tool()
 
         self.test_validity()
 
@@ -1172,7 +1172,7 @@ class Net(SkidlBaseObject):
 
         from .tools import tool_modules
 
-        tool = tool or skidl.config.tool
+        tool = tool or skidl.get_default_tool()
 
         self.test_validity()
 

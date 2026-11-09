@@ -782,7 +782,7 @@ class Circuit(SkidlBaseObject):
         #     Get EDA tool the netlist will be generated for.
         #     Get file the netlist will be stored in (if any).
         #     Get flag controlling the generation of a backup library.
-        tool = kwargs.pop("tool", skidl.config.tool)
+        tool = kwargs.pop("tool", skidl.get_default_tool())
         file_ = kwargs.pop("file_", kwargs.pop("file", None))
         do_backup = kwargs.pop("do_backup", True)
 
@@ -835,7 +835,7 @@ class Circuit(SkidlBaseObject):
         #     Get file the netlist will be stored in (if any).
         #     Get flag controlling the generation of a backup library.
         #     Get list of footprint libraries.
-        tool = kwargs.pop("tool", skidl.config.tool)
+        tool = kwargs.pop("tool", skidl.get_default_tool())
         file_ = kwargs.pop("file_", None)
         do_backup = kwargs.pop("do_backup", True)
         fp_libs = kwargs.pop("fp_libs", None)
@@ -870,7 +870,7 @@ class Circuit(SkidlBaseObject):
 
         self.merge_net_names()
 
-        tool = tool or skidl.config.tool
+        tool = tool or skidl.get_default_tool()
         netlist = tool_modules[tool].gen_xml(self)
 
         if not self.no_files:
@@ -975,7 +975,7 @@ class Circuit(SkidlBaseObject):
         active_logger.error.reset()
         active_logger.warning.reset()
 
-        tool = kwargs.pop("tool", skidl.config.tool)
+        tool = kwargs.pop("tool", skidl.get_default_tool())
 
         try:
             gen_svg = tool_modules[tool].gen_svg
@@ -1031,7 +1031,7 @@ class Circuit(SkidlBaseObject):
         active_logger.error.reset()
         active_logger.warning.reset()
 
-        tool = kwargs.pop("tool", skidl.config.tool)
+        tool = kwargs.pop("tool", skidl.get_default_tool())
 
         # Each tool supplies its own gen_sch() that knows how to draw a
         # schematic for that tool. The KiCad ones build a generic, tool-neutral

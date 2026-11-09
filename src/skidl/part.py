@@ -225,7 +225,7 @@ class Part(PinMixin, SkidlBaseObject):
         SkidlBaseObject.__init__(self)
         PinMixin.__init__(self)
 
-        tool = tool or skidl.config.tool
+        tool = tool or skidl.get_default_tool()
 
         # Setup some part attributes that might be overwritten later on.
         self.do_erc = True  # Allow part to be included in ERC.

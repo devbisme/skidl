@@ -71,7 +71,7 @@ class SchLib(object):
 
         Args:
             filename (str, optional): Path to the library file.
-            tool (str, optional): Tool format (KICAD, SPICE, etc). Defaults to skidl.config.tool.
+            tool (str, optional): Tool format (KICAD, SPICE, etc). Defaults to default tool.
             lib_section (str, optional): Section of library for SPICE libs.
             use_cache (bool, optional): Use cached libraries for speed. Defaults to True.
             use_pickle (bool, optional): Pickle library for future access. Defaults to True.
@@ -86,7 +86,7 @@ class SchLib(object):
 
         from .tools import tool_modules, lib_suffixes
 
-        tool = tool or skidl.config.tool
+        tool = tool or skidl.get_default_tool()
 
         # Library starts off empty of parts.
         self.parts = []
@@ -445,6 +445,6 @@ def clear_backup_lib():
 
     from . import skidl
 
-    empty_lib = SchLib(tool=skidl.config.tool)
+    empty_lib = SchLib(tool=skidl.get_default_tool())
     empty_lib.export(skidl.config.backup_lib_name, file_=skidl.config.backup_lib_file_name)
     skidl.config.backup_lib = empty_lib

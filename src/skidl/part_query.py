@@ -641,7 +641,7 @@ def show_part(lib, part_name, tool=None):
 
     from .part import TEMPLATE, Part
 
-    tool = tool or skidl.config.tool
+    tool = tool or skidl.get_default_tool()
 
     try:
         return Part(lib, re.escape(part_name), tool=tool, dest=TEMPLATE)
@@ -809,7 +809,7 @@ def search_footprints_iter(terms, tool=None):
 
     import skidl
 
-    tool = tool or skidl.config.tool
+    tool = tool or skidl.get_default_tool()
 
     terms = _parse_search_terms(terms)
 
