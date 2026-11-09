@@ -38,3 +38,4 @@ generate_schematic(
     # allow_routing_failure=True, draw=True, draw_all_terminals=True, show_capacities=False,
     # draw_switchbox=True, draw_routing=True, draw_channels=True, draw_placement=True
 )
+generate_svg()
