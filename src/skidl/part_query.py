@@ -724,6 +724,8 @@ class FootprintCache(dict):
                 lib,
                 flags=re.IGNORECASE | re.VERBOSE,
             )[0]
+            # Remove any quotes around the type before checking it.
+            type_ = rmv_quotes(type_)
             if type_.lower() != "kicad":
                 continue
 
